@@ -1,20 +1,27 @@
 {
-	"name": "tscalehub-new-frontend",
+	"name": "rolling-logs-frontend",
 	"version": "1.0.0",
-	"description": "TScaleHub front end repo",
+	"description": "Rolling Logs front end repo",
 	"main": "index.js",
 	"scripts": {
-		"dev": "next"
+		"dev": "next",
+		"build": "next build",
+		"start": "next start"
 	},
 	"author": "Pravasith Kumar",
 	"license": "MIT",
 	"dependencies": {
 		"@zeit/next-sass": "^1.0.1",
+		"axios": "^0.18.0",
+		"gsap": "^2.0.2",
 		"next": "^7.0.0",
 		"next-redux-wrapper": "^2.0.0",
 		"node-sass": "^4.9.3",
 		"react": "^16.5.2",
-		"react-dom": "^16.5.2"
+		"react-dom": "^16.5.2",
+		"react-redux": "^5.0.7",
+		"redux": "^4.0.0",
+		"redux-thunk": "^2.3.0"
 	},
 	"devDependencies": {
 		"autoprefixer": "^9.1.5"

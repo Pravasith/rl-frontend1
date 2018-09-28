@@ -1,0 +1,40 @@
+@import "./mixins";
+@import "./vars";
+
+@include ignoreDefaultStyles;
+@include includeCommonStyles;
+
+.architectureBuildingAnimationWrapper{
+    width: 100%;
+    height: 100vh;
+    background: $white;
+    @include flexCentreRow;
+
+    .loadingArchitectureInnerWrap{
+        background: $white;
+        // @include box_shadow;
+        border-radius: 0.3em;
+        margin-bottom: 2.5em;
+
+        .rollingLogsAnimation{
+            padding: 2em 0;
+            @include flexCentreCol;
+            padding-bottom: 0;
+        }
+
+        .aestheticArchitectureBuildingAnimation{
+            h4{
+                padding: 0.8em 1em;
+                margin: 2em 0;
+                font-size: 1.1em;
+                // background: $secondaryMagenta;
+                background: $highLightBlue;
+                color: $white;
+                // background: yellow;
+            }
+        }
+    }
+
+    
+}
+

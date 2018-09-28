@@ -1,10 +1,13 @@
-import Navbar from "../src/components/navbar"
-import "../src/assets/sass/style.scss"
+
+import StartPage from "../src/components/common/startPage";
 
 const Index = () => (
-    <section>
-        <Navbar/>
-        <h1>Hello From Next JS</h1>
+    <section
+        className = "bringingTheArtInArchitectureBigWrap"
+        >
+        <div className="outerWrapperIndexPage">
+            <StartPage/>
+        </div>
     </section>
 )
 
