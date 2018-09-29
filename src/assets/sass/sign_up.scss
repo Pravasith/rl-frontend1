@@ -1,0 +1,420 @@
+@import "_mixins";
+@import "_vars";
+
+@include includeCommonStyles;
+@include ignoreDefaultStyles;
+
+.signUpWrapper{
+    @include flexCentreCol;
+    
+
+    width: 100%;
+
+    .menuLogin{
+        width: 100%;
+        // padding: 0.25em 1em;
+        border-bottom: 0.2em solid $lightGrey;
+        
+        @include flexCentreRow;
+        
+        justify-content: space-between;
+        // margin: 1em 0;
+        background: $white;
+        border-top-left-radius: 0.5em;
+        border-top-right-radius: 0.5em;
+        
+        .loginButtons{
+            @include flexCentreRow;
+            margin: 0.5em;
+        }
+
+        .logo{
+            @include flexCentreRow;
+            .iconWrap{
+                margin: 0.5em;
+                margin-top: 0.7em;
+                margin-bottom: 0.2em;
+            }
+            cursor: pointer;
+        }
+        
+    }
+
+    p{
+        font-size: 1em;
+        font-weight: 500;
+    }
+
+    
+
+    h2{
+        // @include h2Styles;
+        width: 90%;
+    }
+
+    .topHeading{
+        @include flexCentreRow;
+        background: $white;
+        width: 90%;
+        padding: 1em;
+
+        
+        .shakeHand{
+            
+            width: 22%;
+            @include flexCentreRow;
+        }
+        h2{
+            width: 55%;
+        }
+    }
+
+    span{
+        height: 1em;
+        width: 1em;
+    }
+
+    .formsX{
+        
+        width: 100%;
+        background: $white;
+        @include flexCentreRow;
+        // justify-content: space-around;
+        align-items: flex-start;
+        border-bottom-left-radius: 0.5em;
+        border-bottom-right-radius: 0.5em;
+
+        h2{
+            color: $mediumGrey;
+            text-align: center;
+            padding: 0.25em 0;
+            font-weight: 500;
+        }
+
+        .leftForm{
+            width: 50%;
+            padding: 1em 2em;
+            @include flexCentreCol;
+
+            .hide{
+                display: none;
+            }
+
+            input, select{
+                @include inputFields;
+
+                &:focus{
+                    border-color: $secondaryMagenta;
+                }
+            }
+
+            select{
+                width: 86%;
+            }
+
+            
+
+            ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+                color: $veryLightGrey;
+                opacity: 1; /* Firefox */
+            }
+
+            p{
+                width: 80%;
+                text-align: center;
+                margin: 0.1em 0em 0.2em 0;
+                font-weight: 600;
+                color: $highLightBlue;
+                // display: none;
+            }
+
+            .sendBtn{
+                @include darkGreyBtn;
+                padding: 0.8em 2em;
+
+            }
+        }
+        .orSplit{
+            width: 5%;
+            padding: 1em 2em;
+            height: 20em;
+            @include flexCentreCol;
+        }
+        .socialNetworksForm{
+            @include flexCentreCol;
+            width: 50%;
+            padding: 1em 2em;
+            .flexRowDiv{
+                justify-content: space-around;
+                @include lightGreyBtn;
+                // height: 4.5em;
+                // width: 18em;
+                border-radius: 10em;
+                padding: 0.5em 2em;
+                font-size: 1em;
+            }
+        }
+    }
+}
+
+.finalCheckWrapper{
+    width: 100%;
+    height: 40em;
+    background: rgba(255, 255, 255, 0.747);
+    // position: absolute;
+
+    .userTypeWrapper{
+        width: 100%;
+        @include flexCentreCol;
+        
+        .realWrap{
+            width: 70%;
+            background: $white;
+            
+            // @include flexCentreCol;
+            .accountCreate{
+                margin-top: 2em;
+                @include flexCentreCol;
+
+                header{
+                    
+                    position: relative;
+                    width: 95%;
+                    .theTitle{
+                        width: 100%;
+                        @include flexCentreRow;
+                    }
+                    .closeButton{
+                        position: absolute;
+                        right: 0em;
+                        top: 1em;
+                        cursor: pointer;
+                    }
+                }
+
+                .registerWrap{
+                    padding: 1em;
+                    width: 33.33%;
+                    @include flexCentreCol;
+                    cursor: pointer;
+
+                    &:hover{
+                        .mediumBtn{
+                            border-color: $secondaryMagenta;
+                            color: $white;
+                            background: $secondaryMagenta;
+                        
+                        }
+                    }
+                }
+
+                .signUpBtns{
+                    width: 100%;
+                    @include flexCentreRow;
+                }
+
+                .whoIcons{
+                    margin: 4em 0;
+                    width: 100%;
+                    @include flexCentreRow;
+                }
+            }
+            // transition: 0.5s;
+            animation-name: pullDown;
+            animation-duration: 0.5s;
+        }
+    }
+}
+
+/* The animation code */
+@keyframes pullDown {
+    from {
+        height: 0;
+        opacity: 0;
+        width: 100%;
+    }
+    to {
+        height: 70vh;
+        opacity: 1;
+        width: 70%;
+    }
+}
+
+// Media Queries
+
+//MEDIAQUERIES //MEDIAQUERIES //MEDIAQUERIES //MEDIAQUERIES //MEDIAQUERIES //MEDIAQUERIES
+//MEDIAQUERIES //MEDIAQUERIES //MEDIAQUERIES //MEDIAQUERIES //MEDIAQUERIES //MEDIAQUERIES
+//MEDIAQUERIES //MEDIAQUERIES //MEDIAQUERIES //MEDIAQUERIES //MEDIAQUERIES //MEDIAQUERIES
+
+//full hd monitor
+@media screen and (min-width: 1920px){
+
+
+}
+
+
+// ipad
+
+@media screen and (max-width: 1024px){
+    .signUpWrapper{
+        .topHeading{
+            @include flexCentreCol;
+            // .shakeHand{
+
+            //     display: none;
+            // }
+            h1{
+                width: 97%;
+                text-align: center;
+            }
+            
+        }
+        .formsX{
+            @include flexCentreCol;
+            .leftForm{
+                width: 100%;
+                padding: 1em 0;
+                order: 3;
+
+            }
+            .orSplit{
+                @include flexCentreCol;
+                width: 100%;
+                order: 2;
+
+            }
+            .socialNetworksForm{
+                width: 100%;
+                order: 1;
+            }
+        }
+    }
+}
+
+
+@media screen and (max-width: 650px){
+    .signUpWrapper{
+        .topHeading{
+            @include flexCentreCol;
+            .shakeHand{
+
+                display: none;
+            }
+            h1{
+                width: 97%;
+                text-align: center;
+                font-size: 1.2em;
+            }
+            
+        }
+        .formsX{
+            @include flexCentreCol;
+            .leftForm{
+                width: 100%;
+                padding: 1em 0;
+                order: 3;
+            }
+            .orSplit{
+                @include flexCentreCol;
+                width: 100%;
+                order: 2;
+            }
+            .socialNetworksForm{
+                width: 100%;
+                order: 1;
+            }
+        }
+    }
+}
+
+
+// mobiles
+
+@media screen and (max-width: 520px){
+
+    
+    .signUpWrapper{
+        .topHeading{
+            @include flexCentreCol;
+
+            .shakeHand{
+
+                display: none;
+            }
+
+            h1{
+                width: 97%;
+                text-align: center;
+                font-size: 1.2em;
+            }
+            
+        }
+        .formsX{
+            @include flexCentreCol;
+            .leftForm{
+                width: 100%;
+                padding: 1em 0;
+                order: 3;
+            }
+            .orSplit{
+                @include flexCentreCol;
+                width: 100%;
+                order: 2;
+            }
+            .socialNetworksForm{
+                width: 100%;
+                order: 1;
+            }
+        }
+    }
+
+
+    .finalCheckWrapper{
+
+        .userTypeWrapper{
+
+            .realWrap{
+
+                .accountCreate{
+
+                    .whoIcons{
+
+                        @include flexCentreCol;
+                        margin-top: 1em;
+
+                        .registerWrap{
+
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+
+// ipad
+@media screen and (max-width: 1024px){
+
+    // Main elements start //
+
+
+    // Main elements end //
+
+}
+
+// mobile
+@media screen  and (max-width: 520px){
+
+// Main elements start //
+
+
+
+
+// Main elements end //
+}

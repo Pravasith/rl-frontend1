@@ -1,22 +1,24 @@
 {
-	"name": "rolling-logs-frontend",
+	"name": "vendor-module",
 	"version": "1.0.0",
-	"description": "Rolling Logs front end repo",
+	"description": "Rolling Logs Vendor Module front end repo",
 	"main": "index.js",
 	"scripts": {
 		"dev": "next",
 		"build": "next build",
-		"start": "next start"
+		"start": "next start -p 8000"
 	},
 	"author": "Pravasith Kumar",
 	"license": "MIT",
 	"dependencies": {
 		"@zeit/next-sass": "^1.0.1",
 		"axios": "^0.18.0",
+		"cross-env": "^5.2.0",
 		"gsap": "^2.0.2",
 		"next": "^7.0.0",
 		"next-redux-wrapper": "^2.0.0",
 		"node-sass": "^4.9.3",
+		"now": "^11.4.6",
 		"react": "^16.5.2",
 		"react-dom": "^16.5.2",
 		"react-redux": "^5.0.7",
