@@ -10,6 +10,7 @@ import { GoogleIcon, LinkedInIcon } from "../../assets/images/socialNetworkIcons
 import { RollingLogsTextLogoSmall, FurnitureVendorIcon } from "../../assets/images";
 import LogoAnimation from "../animations/logoAnimation";
 import { encryptData, decryptData } from "../../factories/encryptDecrypt";
+import { GradientButton } from "../UX/uxComponents";
 
 
 export default class SignUp extends React.Component{
@@ -318,19 +319,19 @@ export default class SignUp extends React.Component{
                                 <FurnitureVendorIcon/>
                             </div>
 
-                            <span></span>
+                            
 
-                            <h1>Welcome to the greatest Architectural community ever!</h1>
+                            <h1>Vendor sign up</h1>
                         </div>
 
                         <div className="formsX flexRowDiv">
                             <div className="leftForm">
 
-                                <h2>Either fill this form</h2>
+                                <h2>You can either fill this form</h2>
 
                                 <span></span>
                                 
-                                <div className="first">
+                                <div className="inputWrapper">
                                     <input
                                         ref="emailAddress"
                                         type="email"
@@ -368,7 +369,7 @@ export default class SignUp extends React.Component{
 
                                 <span></span>
                                 
-                                <div className="first">
+                                <div className="inputWrapper">
                                     <input
                                         ref="pWord"
                                         type="password"
@@ -409,7 +410,7 @@ export default class SignUp extends React.Component{
                                 
                                 <span></span>
 
-                                <div className="first">
+                                <div className="inputWrapper">
                                     <input
                                         ref="confirmPassword"
                                         type="password"
@@ -450,11 +451,13 @@ export default class SignUp extends React.Component{
 
                                 <span></span>
 
-                                <div
-                                    className="sendBtn"
-                                    onClick={() => this.validateAndSubmit()}
+                                <div 
+                                    className= "letsGoButton"
+                                    onClick= { () => this.validateAndSubmit() }
                                     >
-                                    Go
+                                    <GradientButton>
+                                            Show me what you got
+                                    </GradientButton>
                                 </div>
 
                                 <div 
@@ -472,29 +475,35 @@ export default class SignUp extends React.Component{
 
                             <div className="socialNetworksForm">
 
-                                <h2>Click one of the buttons below to sign up through social networking sites</h2>
+                                <h2>Click one these</h2>
 
                                 <div 
                                     className="googleConnect flexRowDiv"
                                     onClick = {() => {
                                         localStorage.setItem("loginThrough", 'google')
-                                        window.open(api.KNOCK_GOOGLE, '_self')
+                                        window.open(api.KNOCK_GOOGLE_VENDOR, '_self')
                                     }}
                                     >
+
                                     <div className="googleIcon">
                                         <GoogleIcon/>
                                     </div>
 
                                     <span></span>
 
-                                    <div className="socialNetworkText">Connect with Google</div>
+                                    <div 
+                                        className="socialNetworkText"
+                                        >
+                                        Connect with Google
+                                    </div>
+
                                 </div>
 
                                 <div
                                     className="linkedInConnect flexRowDiv"
                                     onClick = {() => {
                                         localStorage.setItem("loginThrough", 'linkedin')
-                                        window.open(api.KNOCK_LINKEDIN , '_self')
+                                        window.open(api.KNOCK_LINKEDIN_VENDOR , '_self')
                                     }}
                                     >
 
