@@ -329,106 +329,121 @@ export default class SignUp extends React.Component{
                                 <h2>Either fill this form</h2>
 
                                 <span></span>
+                                
+                                <div className="first">
+                                    <input
+                                        ref="emailAddress"
+                                        type="email"
+                                        placeholder="Type your email address here"
+                                        onKeyPress = { (e) => {
+                                            if(e.key === "Enter"){
+                                                if(this.state.userEmailIsValid){
+                                                    this.setState({
+                                                        userEmailText: null,
+                                                        userEmailClass: 'emailText hide',
+                                                        userEmailIsValid: true
+                                                    })
+                                                    this.validateAndSubmit()
+                                                }
 
-                                <input
-                                    ref="emailAddress"
-                                    type="email"
-                                    placeholder="Type your email address here"
-                                    onKeyPress = { (e) => {
-                                        if(e.key === "Enter"){
-                                            if(this.state.userEmailIsValid){
-                                                this.setState({
-                                                    userEmailText: null,
-                                                    userEmailClass: 'emailText hide',
-                                                    userEmailIsValid: true
-                                                })
-                                                this.validateAndSubmit()
+                                                else{
+                                                    this.setState({
+                                                        userEmailText: "This is not a valid email id.",
+                                                        userEmailClass: 'emailText',
+                                                        userEmailIsValid: false
+                                                    })
+                                                }
                                             }
+                                        }}
 
-                                            else{
-                                                this.setState({
-                                                    userEmailText: "This is not a valid email id.",
-                                                    userEmailClass: 'emailText',
-                                                    userEmailIsValid: false
-                                                })
-                                            }
-                                        }
-                                    }}
-
-                                    onChange = { (e) => this.validateEmail(e) }
-                                />
+                                        onChange = { (e) => this.validateEmail(e) }
+                                    />
+                                    <div className="animationLine line">
+                                                <div className="innerLine"></div>
+                                    </div>
+                                </div>
                                 <p 
                                     className = {this.state.userEmailClass}
                                 > { this.state.userEmailText } </p>
 
                                 <span></span>
+                                
+                                <div className="first">
+                                    <input
+                                        ref="pWord"
+                                        type="password"
+                                        placeholder="Type a new password here"
+                                        onKeyPress = { (e) => {
+                                            if(e.key === "Enter"){
 
-                                <input
-                                    ref="pWord"
-                                    type="password"
-                                    placeholder="Type a new password here"
-                                    onKeyPress = { (e) => {
-                                        if(e.key === "Enter"){
+                                                if(this.state.passwordIsValid){
 
-                                            if(this.state.passwordIsValid){
+                                                    this.setState({
+                                                        passwordText: null,
+                                                        passwordClass: 'passwordText hide',
+                                                        passwordIsValid: true
+                                                    })
 
-                                                this.setState({
-                                                    passwordText: null,
-                                                    passwordClass: 'passwordText hide',
-                                                    passwordIsValid: true
-                                                })
+                                                    this.validateAndSubmit()
+                                                }
 
-                                                this.validateAndSubmit()
+                                                else{
+                                                    this.setState({
+                                                        passwordText: "The password is less than 6 characters.",
+                                                        passwordClass: 'passwordText',
+                                                        passwordIsValid: false
+                                                    })
+                                                }
                                             }
+                                        }}
 
-                                            else{
-                                                this.setState({
-                                                    passwordText: "The password is less than 6 characters.",
-                                                    passwordClass: 'passwordText',
-                                                    passwordIsValid: false
-                                                })
-                                            }
-                                        }
-                                    }}
-
-                                    onChange = { (e) => this.validatePassword(e) }
-                                />
+                                        onChange = { (e) => this.validatePassword(e) }
+                                    />
+                                    <div className="animationLine line">
+                                                <div className="innerLine"></div>
+                                    </div>
+                                </div>
                                 <p 
                                     className = {this.state.passwordClass}
                                 > { this.state.passwordText } </p>
-
+                                
                                 <span></span>
 
-                                <input
-                                    ref="confirmPassword"
-                                    type="password"
-                                    placeholder="Type the password again"
-                                    onKeyPress = { (e) => {
-                                        if(e.key === "Enter"){
+                                <div className="first">
+                                    <input
+                                        ref="confirmPassword"
+                                        type="password"
+                                        placeholder="Type the password again"
+                                        onKeyPress = { (e) => {
+                                            if(e.key === "Enter"){
 
-                                            if(this.state.confirmPasswordIsValid){
+                                                if(this.state.confirmPasswordIsValid){
 
-                                                this.setState({
-                                                    confirmPasswordText: null,
-                                                    confirmPasswordClass: 'confirmPasswordText hide',
-                                                    confirmPasswordIsValid: true
-                                                })
+                                                    this.setState({
+                                                        confirmPasswordText: null,
+                                                        confirmPasswordClass: 'confirmPasswordText hide',
+                                                        confirmPasswordIsValid: true
+                                                    })
 
-                                                this.validateAndSubmit()
+                                                    this.validateAndSubmit()
+                                                }
+
+                                                else{
+                                                    this.setState({
+                                                        confirmPasswordText: "Passwords do not match!",
+                                                        confirmPasswordClass: 'confirmPasswordText',
+                                                        confirmPasswordIsValid: false
+                                                    })
+                                                }
                                             }
+                                        }}
 
-                                            else{
-                                                this.setState({
-                                                    confirmPasswordText: "Passwords do not match!",
-                                                    confirmPasswordClass: 'confirmPasswordText',
-                                                    confirmPasswordIsValid: false
-                                                })
-                                            }
-                                        }
-                                    }}
-
-                                    onChange = { (e) => this.validateConfirmPassword(e) }
-                                />
+                                        onChange = { (e) => this.validateConfirmPassword(e) }
+                                    />
+                                    <div className="animationLine line">
+                                                <div className="innerLine"></div>
+                                    </div>
+                                </div>
                                 <p 
                                     className = {this.state.confirmPasswordClass}
                                 > { this.state.confirmPasswordText } </p>

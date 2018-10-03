@@ -1,0 +1,172 @@
+@import "_mixins";
+@import "_vars";
+
+@include includeCommonStyles;
+@include ignoreDefaultStyles;
+
+.line{
+    
+    width: 90%;
+    height: 0.2em;
+    border-radius: 0.2em;
+    background: $lightGrey;
+    margin: 0.4em 0;
+}
+
+.first{
+    @include flexCentreCol;
+    width: 100%;
+    margin-right: 0.8em;
+    &:hover{
+
+        .animationLine{
+            .innerLine{
+                width: 100%;
+                background: $darkerGrey;
+            }
+        }
+        
+    }
+
+    input{
+        border: none;
+        // border-bottom: 0.2em solid $black;
+        background: transparent;
+        color: $darkerGrey;
+        outline: none;
+        height: 1.5em;
+    }
+
+    .animationLine{
+        margin-top: 0;
+        padding-top: 0;
+        width: 83%;
+
+        .innerLine{
+            width: 100%;
+            height: 100%;
+            // background: yellow;
+            width: 0%;
+            transition: 0.2s;
+        }
+
+       
+    }
+}
+
+.bigWrapper{
+    width: 100%;
+    height: 99vh;
+    background: $white;
+    .mainClass{
+        @include flexCentreRow;
+        width: 100%;
+        .vendorProfileDetailsOuterwrapper{
+            @include flexCentreCol;
+            width: 98%;
+            padding: 0.3em;
+            .vendorHeaderClass{
+                @include flexCentreCol;
+                align-items: flex-start;
+                h3{
+                    font-size: 1.5em;
+                }
+                .line{
+                    width: 10%;
+                }
+            }
+            .vendorFormOuterSection{
+                @include flexCentreRow;
+                width: 100%;
+                .vendorInnerSection{
+                    @include flexCentreRow;
+                    width: 95%;
+                    .leftSection{
+                        @include flexCentreRow;
+                        .leftSectionInnerLayer{
+                            @include flexCentreCol;
+                            margin: 0 auto;
+                            width: 95%;
+                            .iconWrapper{}
+                            .formCompletionInfoSection{
+                                @include flexCentreRow;
+                                .outerLayer{
+                                    @include flexCentreRow;
+                                    background: $highLightBlue;
+                                    h3{
+                                        color: white;
+                                        span{
+                                            font-size: 1.5em;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+
+// Media Queries
+
+//MEDIAQUERIES //MEDIAQUERIES //MEDIAQUERIES //MEDIAQUERIES //MEDIAQUERIES //MEDIAQUERIES
+//MEDIAQUERIES //MEDIAQUERIES //MEDIAQUERIES //MEDIAQUERIES //MEDIAQUERIES //MEDIAQUERIES
+//MEDIAQUERIES //MEDIAQUERIES //MEDIAQUERIES //MEDIAQUERIES //MEDIAQUERIES //MEDIAQUERIES
+
+//full hd monitor
+@media screen and (min-width: 1920px){
+
+
+}
+
+
+// ipad
+
+@media screen and (max-width: 1024px){
+
+}
+
+
+@media screen and (max-width: 650px){
+   
+}
+
+
+// mobiles
+
+@media screen and (max-width: 520px){
+
+    
+   
+}
+
+
+
+
+
+
+// ipad
+@media screen and (max-width: 1024px){
+
+    // Main elements start //
+
+
+    // Main elements end //
+
+}
+
+// mobile
+@media screen  and (max-width: 520px){
+
+// Main elements start //
+
+
+
+
+// Main elements end //
+}
