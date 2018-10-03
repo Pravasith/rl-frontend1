@@ -9,6 +9,7 @@ import { api } from "../../actions/apiLinks"
 import { GoogleIcon, LinkedInIcon } from "../../assets/images/socialNetworkIcons";
 import { RollingLogsTextLogoSmall, FurnitureVendorIcon } from "../../assets/images";
 import LogoAnimation from "../animations/logoAnimation";
+import { encryptData, decryptData } from "../../factories/encryptDecrypt";
 
 
 export default class SignUp extends React.Component{
@@ -41,13 +42,77 @@ export default class SignUp extends React.Component{
 
     }
 
-    validateAndSubmit = () => {
-        let userdata = {
-            emailId : this.refs.emailAddress.value,
-            password : this.refs.pWord.value
+    createUserRLId = (userType) => {
+
+        function generateRandomString() {
+            var text = ""
+            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+
+            for (var i = 0; i < 5; i++)
+                text += possible.charAt(Math.floor(Math.random() * possible.length))
+
+            return text
         }
 
-        // console.log(userdata)
+        const prefixCode = generateRandomString()
+        const suffixCode = generateRandomString()
+
+        const date = new Date()
+
+        let dateAndTime = {
+            "DD": date.getDate(),
+            "MM": date.getMonth() + 1,
+            "YY": date.getFullYear(),
+
+            "HRS": date.getHours(),
+            "MINS": date.getMinutes(),
+            "SECS": date.getSeconds(),
+            "MILSECS": date.getMilliseconds(),
+
+            "TIME": date.getTime()
+        }
+
+        let rLId =  prefixCode + dateAndTime.TIME + suffixCode
+        
+
+        if(userType === "architect"){
+            rLId = "ARC-" + rLId
+        }
+
+        else if (userType === "vendor") {
+            rLId = "VEN-" + rLId
+        }
+
+        else if(userType === "student"){
+            rLId = "ARCSTU-" + rLId
+        }
+
+        else if (userType === "commonUser") {
+            rLId = "CLI-" + rLId
+        }
+
+        return rLId
+
+    }
+
+    validateAndSubmit = () => {
+
+        // console.log(this.createUserRLId("commonUser"))
+
+        let rawData = {
+            emailId : this.refs.emailAddress.value,
+            password : this.refs.pWord.value,
+            rLId: this.createUserRLId("vendor")
+        }
+
+        // 
+        // Encrypt data
+        // 
+        const encryptedData = encryptData(rawData)
+        // 
+        // Encrypt data
+        // 
+
 
         if(this.state.userEmailIsValid && this.state.passwordIsValid && this.state.confirmPasswordIsValid)
         {
@@ -62,7 +127,11 @@ export default class SignUp extends React.Component{
                     confirmPasswordIsValid : true,
                 })
 
-                Axios.post(api.CREATE_USER, userdata,
+                Axios.post(api.CREATE_USER, 
+                    {
+                        requestData: encryptedData,
+                        message: "create user data"
+                    },
                     {
                         headers: {
                         'accept': 'application/json',
@@ -91,7 +160,9 @@ export default class SignUp extends React.Component{
                         })
 
                         localStorage.setItem('loginThrough', 'form')
-                        window.open('/user/who', '_self')
+
+                        console.log(decryptData(res.data.responseData))
+                        // window.open('/user/who', '_self')
                     }
                 })
                 .catch(err => {
@@ -211,7 +282,9 @@ export default class SignUp extends React.Component{
             <div className="bigWrapper">
 
                 <div className = {this.state.loadingClass}>
-                    <LogoAnimation/>
+                    <LogoAnimation
+                        text = {"We're gonna be right there..."}
+                    />
                 </div>
 
                 <div className = {this.state.mainClass}>

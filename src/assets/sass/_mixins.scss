@@ -161,10 +161,8 @@
   &:focus{
       border-color: $black;
   }
-  
 }
    
-
 
 @mixin box_shadow{
   box-shadow: 2px 2px 13px 2px rgba(0, 0, 0, 0.1);
@@ -175,7 +173,9 @@
   box-shadow: 2px 2px 13px 2px rgba(0, 0, 0, 0.2);
 }
 
-
+@mixin box_shadow_glow{
+  box-shadow: 2px 2px 13px 2px rgba(255, 0, 106, 0.233);
+}
 
 @mixin boxShadow{
   box-shadow: 3px 2px 16px 1px #c7c7c7;
@@ -183,7 +183,7 @@
 }
 
 @mixin blueShadow {
-  box-shadow: 2px 2px 13px 2px rgba(69, 194, 247, 0.2)
+  box-shadow: 2px 2px 13px 2px rgba(0, 179, 255, 0.2)
 }
 
 @mixin  inShadow {
