@@ -30,6 +30,10 @@
     -moz-animation: Gradient 15s ease infinite;
     animation: Gradient 15s ease infinite;
     color: $white;
+
+    &:hover{
+        // @include box_shadow_glow;
+    }
 }
 
 .whiteButtonWrapper{

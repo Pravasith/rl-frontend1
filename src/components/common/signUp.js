@@ -1,14 +1,16 @@
 import React from "react"
 
-import "../../assets/sass/sign_up.scss"
+import "../../assets/sass/sign_up_log_in.scss"
 
 import Axios from "axios"
+
 import { api } from "../../actions/apiLinks"
-
-
-import { GoogleIcon, LinkedInIcon } from "../../assets/images/socialNetworkIcons";
-import { RollingLogsTextLogoSmall, FurnitureVendorIcon } from "../../assets/images";
-import LogoAnimation from "../animations/logoAnimation";
+import { GoogleIcon, LinkedInIcon } from "../../assets/images/socialNetworkIcons"
+import { RollingLogsTextLogoSmall, FurnitureVendorIcon } from "../../assets/images"
+import LogoAnimation from "../animations/logoAnimation"
+import { encryptData, decryptData } from "../../factories/encryptDecrypt"
+import { GradientButton } from "../UX/uxComponents"
+import { Footer } from "../footer/footer";
 
 
 export default class SignUp extends React.Component{
@@ -41,13 +43,82 @@ export default class SignUp extends React.Component{
 
     }
 
-    validateAndSubmit = () => {
-        let userdata = {
-            emailId : this.refs.emailAddress.value,
-            password : this.refs.pWord.value
+    createUserRLId = (userType) => {
+
+        function generateRandomString() {
+            var text = ""
+            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+
+            for (var i = 0; i < 5; i++)
+                text += possible.charAt(Math.floor(Math.random() * possible.length))
+
+            return text
         }
 
-        // console.log(userdata)
+        const prefixCode = generateRandomString()
+        const suffixCode = generateRandomString()
+
+        const date = new Date()
+
+        let dateAndTime = {
+            "DD": date.getDate(),
+            "MM": date.getMonth() + 1,
+            "YY": date.getFullYear(),
+
+            "HRS": date.getHours(),
+            "MINS": date.getMinutes(),
+            "SECS": date.getSeconds(),
+            "MILSECS": date.getMilliseconds(),
+
+            "TIME": date.getTime()
+        }
+
+        let rLId =  prefixCode + dateAndTime.TIME + suffixCode
+        
+
+        if(userType === "architect"){
+            rLId = "ARC-" + rLId
+        }
+
+        else if (userType === "vendor") {
+            rLId = "VEN-" + rLId
+        }
+
+        else if(userType === "student"){
+            rLId = "ARCSTU-" + rLId
+        }
+
+        else if (userType === "commonUser") {
+            rLId = "CLI-" + rLId
+        }
+
+        return rLId
+
+    }
+
+    validateAndSubmit = () => {
+
+        // console.log(this.createUserRLId("commonUser"))
+
+        let rawData = {
+            emailId : this.refs.emailAddress.value,
+            password : this.refs.pWord.value,
+            rLId: this.createUserRLId("vendor")
+        }
+
+        // 
+        // Encrypt data
+        // 
+        const encryptedData = encryptData(rawData)
+        // 
+        // Encrypt data
+        // 
+
+        const requestData = {
+            requestData: encryptedData,
+            message: "create user data"
+        }
+
 
         if(this.state.userEmailIsValid && this.state.passwordIsValid && this.state.confirmPasswordIsValid)
         {
@@ -62,7 +133,8 @@ export default class SignUp extends React.Component{
                     confirmPasswordIsValid : true,
                 })
 
-                Axios.post(api.CREATE_USER, userdata,
+                Axios.post(api.CREATE_USER, 
+                    requestData,
                     {
                         headers: {
                         'accept': 'application/json',
@@ -91,7 +163,9 @@ export default class SignUp extends React.Component{
                         })
 
                         localStorage.setItem('loginThrough', 'form')
-                        window.open('/user/who', '_self')
+
+                        console.log(decryptData(res.data.responseData))
+                        // window.open('/user/who', '_self')
                     }
                 })
                 .catch(err => {
@@ -211,7 +285,9 @@ export default class SignUp extends React.Component{
             <div className="bigWrapper">
 
                 <div className = {this.state.loadingClass}>
-                    <LogoAnimation/>
+                    <LogoAnimation
+                        text = {"We're gonna be right there..."}
+                    />
                 </div>
 
                 <div className = {this.state.mainClass}>
@@ -245,19 +321,19 @@ export default class SignUp extends React.Component{
                                 <FurnitureVendorIcon/>
                             </div>
 
-                            <span></span>
+                            
 
-                            <h1>Welcome to the greatest Architectural community ever!</h1>
+                            <h1>Vendor sign up</h1>
                         </div>
 
                         <div className="formsX flexRowDiv">
                             <div className="leftForm">
 
-                                <h2>Either fill this form</h2>
+                                <h2>You can either fill this form</h2>
 
                                 <span></span>
                                 
-                                <div className="first">
+                                <div className="inputWrapper">
                                     <input
                                         ref="emailAddress"
                                         type="email"
@@ -295,7 +371,7 @@ export default class SignUp extends React.Component{
 
                                 <span></span>
                                 
-                                <div className="first">
+                                <div className="inputWrapper">
                                     <input
                                         ref="pWord"
                                         type="password"
@@ -336,7 +412,7 @@ export default class SignUp extends React.Component{
                                 
                                 <span></span>
 
-                                <div className="first">
+                                <div className="inputWrapper">
                                     <input
                                         ref="confirmPassword"
                                         type="password"
@@ -377,11 +453,13 @@ export default class SignUp extends React.Component{
 
                                 <span></span>
 
-                                <div
-                                    className="sendBtn"
-                                    onClick={() => this.validateAndSubmit()}
+                                <div 
+                                    className= "letsGoButton"
+                                    onClick= { () => this.validateAndSubmit() }
                                     >
-                                    Go
+                                    <GradientButton>
+                                            Show me what you got
+                                    </GradientButton>
                                 </div>
 
                                 <div 
@@ -393,35 +471,38 @@ export default class SignUp extends React.Component{
 
                             </div>
 
-                            <div className="orSplit">
-                                <h2>OR</h2>
-                            </div>
 
                             <div className="socialNetworksForm">
 
-                                <h2>Click one of the buttons below to sign up through social networking sites</h2>
+                                <h2>Or click one of these</h2>
 
                                 <div 
                                     className="googleConnect flexRowDiv"
                                     onClick = {() => {
                                         localStorage.setItem("loginThrough", 'google')
-                                        window.open(api.KNOCK_GOOGLE, '_self')
+                                        window.open(api.KNOCK_GOOGLE_VENDOR, '_self')
                                     }}
                                     >
+
                                     <div className="googleIcon">
                                         <GoogleIcon/>
                                     </div>
 
                                     <span></span>
 
-                                    <div className="socialNetworkText">Connect with Google</div>
+                                    <div 
+                                        className="socialNetworkText"
+                                        >
+                                        Connect with Google
+                                    </div>
+
                                 </div>
 
                                 <div
                                     className="linkedInConnect flexRowDiv"
                                     onClick = {() => {
                                         localStorage.setItem("loginThrough", 'linkedin')
-                                        window.open(api.KNOCK_LINKEDIN , '_self')
+                                        window.open(api.KNOCK_LINKEDIN_VENDOR , '_self')
                                     }}
                                     >
 
@@ -436,6 +517,8 @@ export default class SignUp extends React.Component{
                             </div>
                         </div>
                     </div>
+
+                    <Footer/>
                 </div>
             </div>
         )
