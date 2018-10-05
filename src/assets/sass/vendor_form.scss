@@ -4,6 +4,9 @@
 @include includeCommonStyles;
 @include ignoreDefaultStyles;
 
+
+@include scrollStyles;
+
 .line{
     
     width: 90%;
@@ -68,6 +71,8 @@
             .vendorHeaderClass{
                 @include flexCentreCol;
                 align-items: flex-start;
+                width: 90%;
+                margin-bottom: 2em;
                 h3{
                     font-size: 1.5em;
                 }
@@ -80,6 +85,7 @@
                 width: 100%;
                 .vendorInnerSection{
                     @include flexCentreRow;
+                    align-items: flex-start;
                     width: 95%;
                     .leftSection{
                         @include flexCentreRow;
@@ -87,7 +93,10 @@
                             @include flexCentreCol;
                             margin: 0 auto;
                             width: 95%;
-                            .iconWrapper{}
+                            .iconWrapper{
+                                @include flexCentreRow;
+                                margin-bottom: 2em;
+                            }
                             .formCompletionInfoSection{
                                 @include flexCentreRow;
                                 .outerLayer{
@@ -97,6 +106,205 @@
                                         color: white;
                                         span{
                                             font-size: 1.5em;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .rightFormSection{
+                        // @include flexCentreRow;
+                        width: 70%;
+                        height: 32em;
+                        overflow-y: auto;
+                        padding: 0.5em;
+                        .formSectionInnerLayer{
+                            @include flexCentreRow;
+                            width: 90%;
+                            .vendorForm{
+                                width: 100%;
+                                .formInputContainer{
+                                    @include flexCentreRow;
+                                    width: 100%;
+                                    // height: 7em;
+                                    margin-bottom: 2em;
+                                    // background: grey;
+                                    .formInputInnerLayer{
+                                        @include flexCentreCol;
+                                        width: 85%;
+                                        .formParaSection{
+                                            @include flexCentreRow;
+                                            justify-content: flex-start;
+                                            width: 100%;
+                                            margin-bottom: 1em;
+                                            h3{
+                                                font-size: 2em;
+                                                // margin-right: 1em;
+                                                // margin: 0 auto;
+                                                width: 11%;
+                                                text-align: center;
+                                                color: $darkerGrey;
+                                            }
+                                            p{
+                                                font-size: 0.9em;
+                                                font-weight: 400;
+                                                color: $darkGrey;
+                                            }
+                                        }
+                                        .cardInstructionPara{
+                                            p{
+                                                a{
+                                                    color: $secondaryMagenta;
+                                                    border-bottom: 0.1em solid $secondaryMagenta
+                                                }
+                                            }
+                                        }
+                                        .inputCategorySection{
+                                            @include flexCentreRow;
+                                            justify-content: flex-start;
+                                            align-items: flex-start;
+                                            width: 100%;
+                                            margin-bottom: 1.5em;
+                                            .mandatorySection{
+                                                @include flexCentreRow;
+                                                background: $secondaryMagenta;
+                                                padding: 0.3em;
+                                                margin-right: 0.5em;
+                                                p{
+                                                    color: $white;
+                                                }
+                                            }
+                                            .inputColumn{
+                                                @include flexCentreCol;
+                                                align-items: flex-start;
+                                                width: 50%;
+                                                margin: 0 0.5em;
+                                                &:hover{
+
+                                                    .animationLine{
+                                                        .innerLine{
+                                                            width: 100%;
+                                                            background: $darkerGrey;
+                                                        }
+                                                    }
+                                                    
+                                                }
+                                                input{
+                                                    border: none;
+                                                    // border-bottom: 0.2em solid $black;
+                                                    background: transparent;
+                                                    color: $darkerGrey;
+                                                    outline: none;
+                                                    height: 1.5em;
+                                                    width: 95%
+                                                }
+                                                .animationLine{
+                                                    margin-top: 0;
+                                                    padding-top: 0;
+                                                    margin-bottom: 0;
+                                                    width: 95%;
+                                            
+                                                    .innerLine{
+                                                        width: 100%;
+                                                        height: 100%;
+                                                        // background: yellow;
+                                                        width: 0%;
+                                                        transition: 0.2s;
+                                                    }
+                                            
+                                                   
+                                                }
+                                                .warningSection{
+                                                    background:$highLightBlue;
+                                                    width: 88%;
+                                                    padding: 0.5em;
+                                                    text-align: center;
+                                                    p{
+                                                        color: white;
+                                                    }
+                                                }
+                                                .numberInputSection{
+                                                    @include flexCentreRow;
+                                                    justify-content: space-between;
+                                                    width: 41%;
+                                                    // margin-left: 15%;
+                                                    .numberSection{
+                                                        @include flexCentreRow;
+                                                        background: $veryLightGrey;
+                                                        padding: 0.5em;
+                                                        border-radius: 0.2em;
+                                                        p{
+                                                            font-size: 1em;
+                                                        }
+                                                    }
+                                                    .yearSelectionCategory{
+                                                        p{
+                                                            font-size: 1em;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            .companyNameSection{
+                                                width: 80%;
+                                            }
+                                            .contactSection{
+                                                width: 50%;
+                                                margin-left: 15%;
+                                            }
+                                            .addressSection{
+                                                width: 50%;
+                                                margin-left: 15%;
+                                            }
+                                            .addressSectionExtended{
+                                                width: 100%;
+                                                margin-left: 15%;
+                                            }
+                                            .numberSectionExtended{
+                                                width: 56%;
+                                                margin-left: 13%;
+                                            }
+                                            // .cardNumberSection{
+                                            //     @include flexCentreRow;
+
+                                            // }
+                                            .numberCountSection{
+                                                p{
+
+                                                }
+                                            }
+                                        }
+                                        .selectionInputCategory{
+                                            // @include flexCentreRow;
+
+                                            .cutomSelectOption{
+                                                width: 50%;
+                                                margin-left: 0.8em;
+                                                select{
+                                                    width: 100%;
+                                                    background: $darkGrey;
+                                                    color: $white;
+                                                    padding: 0.3em;
+                                                }
+                                            }
+                                        }
+                                        .cardInputSection {
+                                            width: 71%;
+                                            text-align: center;
+                                        }
+                                        .imageCategorySection{
+                                            width: 70%;
+                                            text-align: center;
+                                            .inputColumn{
+                                                .imageUploadIconSection{
+                                                    margin-left: 25%;
+                                                }
+                                                .uploadInstructionSection{
+                                                    margin-top: 1em;
+                                                    p{
+                                                        font-size: 0.8em;
+                                                    }
+                                                }
+                                            }
                                         }
                                     }
                                 }
