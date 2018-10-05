@@ -28,7 +28,7 @@ export const api = {
     UPLOAD_IMAGE : API_URL + 'common/upload-image',
     UPLOAD_REGULAR_IMAGE : API_URL + 'common/upload-image-full',
     UPDATE_PROFILE_PICTURE : API_URL + 'user/update-user-profile-pic',
-    STUDENT_LOGIN : API_URL + 'student/login',
+    USER_LOGIN : API_URL + 'user/login',
     UPLOAD_ASSIGNMENT_DATA : API_URL + 'common/post-detailed-assignment',
     POST_NEW_COMMENT : API_URL + 'project/post-new-comment',
     PUT_SKILL : API_URL + 'project/post-skills',

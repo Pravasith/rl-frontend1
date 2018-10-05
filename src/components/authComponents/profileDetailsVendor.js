@@ -17,22 +17,6 @@ export default class ProfileDetailsVendor extends React.Component{
         super(props, context)
 
         this.state = {
-            userEmailText : null,
-            userEmailClass : 'emailText hide',
-            userEmailIsValid : false,
-
-            passwordText : null,
-            passwordClass : 'passwordText hide',
-            passwordIsValid : false,
-
-            confirmPasswordText : null,
-            confirmPasswordClass : 'confirmPasswordText hide',
-            confirmPasswordIsValid : false,
-
-            finalCheckWrapperClass : 'finalCheckWrapper hide',
-
-            checkingForTheFirstTime: false,
-
             loadingClass: 'loadingAnim hide',
             mainClass: 'mainClass',
 

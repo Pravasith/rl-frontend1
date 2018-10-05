@@ -1,16 +1,16 @@
 import React from "react"
 
-import "../../assets/sass/sign_up.scss"
+import "../../assets/sass/sign_up_log_in.scss"
 
 import Axios from "axios"
+
 import { api } from "../../actions/apiLinks"
-
-
-import { GoogleIcon, LinkedInIcon } from "../../assets/images/socialNetworkIcons";
-import { RollingLogsTextLogoSmall, FurnitureVendorIcon } from "../../assets/images";
-import LogoAnimation from "../animations/logoAnimation";
-import { encryptData, decryptData } from "../../factories/encryptDecrypt";
-import { GradientButton } from "../UX/uxComponents";
+import { GoogleIcon, LinkedInIcon } from "../../assets/images/socialNetworkIcons"
+import { RollingLogsTextLogoSmall, FurnitureVendorIcon } from "../../assets/images"
+import LogoAnimation from "../animations/logoAnimation"
+import { encryptData, decryptData } from "../../factories/encryptDecrypt"
+import { GradientButton } from "../UX/uxComponents"
+import { Footer } from "../footer/footer";
 
 
 export default class SignUp extends React.Component{
@@ -114,6 +114,11 @@ export default class SignUp extends React.Component{
         // Encrypt data
         // 
 
+        const requestData = {
+            requestData: encryptedData,
+            message: "create user data"
+        }
+
 
         if(this.state.userEmailIsValid && this.state.passwordIsValid && this.state.confirmPasswordIsValid)
         {
@@ -129,10 +134,7 @@ export default class SignUp extends React.Component{
                 })
 
                 Axios.post(api.CREATE_USER, 
-                    {
-                        requestData: encryptedData,
-                        message: "create user data"
-                    },
+                    requestData,
                     {
                         headers: {
                         'accept': 'application/json',
@@ -469,13 +471,10 @@ export default class SignUp extends React.Component{
 
                             </div>
 
-                            <div className="orSplit">
-                                <h2>OR</h2>
-                            </div>
 
                             <div className="socialNetworksForm">
 
-                                <h2>Click one these</h2>
+                                <h2>Or click one of these</h2>
 
                                 <div 
                                     className="googleConnect flexRowDiv"
@@ -518,6 +517,8 @@ export default class SignUp extends React.Component{
                             </div>
                         </div>
                     </div>
+
+                    <Footer/>
                 </div>
             </div>
         )
