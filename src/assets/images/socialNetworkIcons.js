@@ -158,5 +158,54 @@ viewBox='0 0 246.962 173.626'>
     )
 }
 
+export const PlusImageIcon = () => {
+
+    return (
+        
+        <svg id='plusIcon' xmlns='http://www.w3.org/2000/svg' width='18.972' height='18.973'
+        viewBox='0 0 18.972 18.973'>
+            <path fill='#666' stroke='#666' strokeWidth='0.5' strokeMiterlimit='10'
+            d='M8.658,14.777v-3.913H4.773V9.229h3.885 V5.345h1.655v3.884h3.884v1.636h-3.884v3.913H8.658z'
+            />
+            <circle fill='none' stroke='#666' strokeWidth='2' strokeMiterlimit='10'
+            cx='9.485' cy='9.486' r='8.486' />
+        </svg>
+
+    )
+
+}
+
+export const MinusImageIcon = () => {
+
+    return (
+        
+        <svg id='minusIcon' xmlns='http://www.w3.org/2000/svg' width='18.168'
+        height='18.167' viewBox='0 0 18.168 18.167'>
+            <path fill='#666' d='M4.921,10.275V7.893h8.326v2.383H4.921z' />
+            <circle fill='none' stroke='#666' strokeWidth='2' strokeMiterlimit='10'
+            cx='9.084' cy='9.084' r='8.084' />
+        </svg>
+        
+    )
+
+}
+
+export const UploadImageIcon = () => {
+    return(
+
+        <svg xmlns='http://www.w3.org/2000/svg' width='96' height='71' viewBox='0 0 96 71'>
+            <g strokeWidth='3' strokeMiterlimit='10' id='imageicon-background'>
+                <rect x='1.5' y='1.5' fill='#FFF' stroke='#4D4D4D' width='93' height='68'
+                />
+                <polygon fill='#E6E6E6' stroke='#B3B3B3' points='10.825,34.151 30.887,19.315 50.908,39.951 63.012,29.764 84.5,50.004 84.5,61.5 10.935,61.5'
+                />
+                <circle fill='#E6E6E6' stroke='#B3B3B3' cx='50.658' cy='19.269' r='5.469'
+                />
+            </g>
+        </svg>
+
+    )
+}
+
 
 

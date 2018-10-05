@@ -10,6 +10,32 @@
 
 // flex-column -centre mixin:
 
+@mixin scrollStyles{
+  
+    ::-webkit-scrollbar-track
+    {
+    
+        // border-radius: 1em;
+        height: 0.5em;
+        background-color: $lightGrey;
+    }
+    
+    ::-webkit-scrollbar
+    {
+        // border-radius: 0.5em;
+        width: 0.5em;
+        height: 0.6em;
+        background-color: $lightGrey;
+    }
+    
+    ::-webkit-scrollbar-thumb
+    {
+        // border-radius: 0.5em;
+        height: 0.5em;
+        background-color: $mediumGrey;
+    }
+    }
+
 
 @mixin gradientAnimation {
     @-moz-keyframes Gradient {
