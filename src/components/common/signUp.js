@@ -468,7 +468,6 @@ export default class SignUp extends React.Component{
                                     >
                                     If you are already have an account, log in here
                                 </div>
-
                             </div>
 
 

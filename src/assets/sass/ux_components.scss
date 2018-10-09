@@ -40,3 +40,149 @@
     background: $white;
     transition: 0.2s;
 }
+
+.inputCommonWrapper{
+    width: 100%;
+
+    .inputCategorySection{
+        @include flexCentreRow;
+        justify-content: flex-start;
+        align-items: flex-start;
+        width: 100%;
+        margin-bottom: 1.5em;
+
+        .mandatorySection{
+            @include flexCentreRow;
+            margin-right: 0.5em;
+            min-width: 4em;
+
+            p{
+                color: $white;
+                font-size: 0.7em;
+                background: $secondaryMagenta;
+                padding: 0.2em 0.5em;
+            }
+        }
+        
+        .inputColumn{
+            @include flexCentreCol;
+            align-items: flex-start;
+            width: 100%;
+            margin: 0 0.5em;
+
+            &:hover{
+
+                .animationLine{
+                    .innerLine{
+                        width: 100%;
+                        background: $darkerGrey;
+                    }
+                }
+                
+            }
+            input{
+                border: none;
+                // border-bottom: 0.2em solid $black;
+                background: transparent;
+                color: $darkerGrey;
+                outline: none;
+                height: 1.5em;
+                width: 100%
+            }
+            .animationLine{
+                margin-top: 0;
+                padding-top: 0;
+                margin-bottom: 0;
+                width: 100%;
+        
+                .innerLine{
+                    width: 100%;
+                    height: 100%;
+                    // background: yellow;
+                    width: 0%;
+                    transition: 0.2s;
+                }
+        
+                
+            }
+            .warningSection{
+                width: 100%;
+                text-align: center;
+
+                p{
+                    color: $white;
+                    background:$primaryMagenta;
+                    padding: 0.5em;
+                }
+            }
+
+            .numberInputSection{
+                @include flexCentreRow;
+                justify-content: space-between;
+                width: 41%;
+                // margin-left: 15%;
+                .numberSection{
+                    @include flexCentreRow;
+                    background: $veryLightGrey;
+                    padding: 0.5em;
+                    border-radius: 0.2em;
+                    p{
+                        font-size: 1em;
+                    }
+                }
+
+                .yearSelectionCategory{
+                    p{
+                        font-size: 1em;
+                    }
+                }
+            }
+        }
+
+        .companyNameSection{
+            width: 80%;
+        }
+        .contactSection{
+            width: 50%;
+            margin-left: 15%;
+
+            .inputRow{
+                @include flexCentreRow;
+                width: 100%;
+
+                .inputColumn{
+                    width: 100%;
+                }
+
+                .countryCode{
+                    margin-bottom: 0.5em;
+                }
+            }
+
+            
+        }
+        .addressSection{
+            width: 50%;
+            margin-left: 15%;
+        }
+        .addressSectionExtended{
+            width: 100%;
+            margin-left: 15%;
+        }
+        .numberSectionExtended{
+            width: 56%;
+            margin-left: 15%;
+        }
+        // .cardNumberSection{
+        //     @include flexCentreRow;
+
+        // }
+        .numberCountSection{
+            p{
+
+            }
+        }
+    }
+}
+
+

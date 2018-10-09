@@ -7,6 +7,21 @@
 
 @include scrollStyles;
 
+/* For Firefox */
+input[type='number'] {
+    -moz-appearance:textfield;
+}
+/* Webkit browsers like Safari and Chrome */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.hide{
+    display: none;
+}
+
 .line{
     
     width: 90%;
@@ -128,17 +143,22 @@
                         .formSectionInnerLayer{
                             @include flexCentreRow;
                             width: 90%;
+
                             .vendorForm{
                                 width: 100%;
+
                                 .formInputContainer{
                                     @include flexCentreRow;
                                     width: 100%;
                                     // height: 7em;
                                     margin-bottom: 2em;
                                     // background: grey;
+
                                     .formInputInnerLayer{
                                         @include flexCentreCol;
+                                        align-items: flex-start;
                                         width: 85%;
+
                                         .formParaSection{
                                             @include flexCentreRow;
                                             justify-content: flex-start;
@@ -166,120 +186,143 @@
                                                 }
                                             }
                                         }
-                                        .inputCategorySection{
-                                            @include flexCentreRow;
-                                            justify-content: flex-start;
-                                            align-items: flex-start;
-                                            width: 100%;
-                                            margin-bottom: 1.5em;
-                                            .mandatorySection{
-                                                @include flexCentreRow;
-                                                background: $secondaryMagenta;
-                                                padding: 0.3em;
-                                                margin-right: 0.5em;
-                                                p{
-                                                    color: $white;
-                                                }
-                                            }
-                                            .inputColumn{
-                                                @include flexCentreCol;
-                                                align-items: flex-start;
-                                                width: 50%;
-                                                margin: 0 0.5em;
-                                                &:hover{
 
-                                                    .animationLine{
-                                                        .innerLine{
-                                                            width: 100%;
-                                                            background: $darkerGrey;
-                                                        }
-                                                    }
+                                        // .inputCategorySection{
+                                        //     @include flexCentreRow;
+                                        //     justify-content: flex-start;
+                                        //     align-items: flex-start;
+                                        //     width: 100%;
+                                        //     margin-bottom: 1.5em;
+
+                                        //     .mandatorySection{
+                                        //         @include flexCentreRow;
+                                        //         background: $secondaryMagenta;
+                                        //         padding: 0.1em 0.3em;
+                                        //         margin-right: 0.5em;
+
+                                        //         p{
+                                        //             color: $white;
+                                        //             font-size: 0.7em;
+                                        //         }
+                                        //     }
+                                        //     .inputColumn{
+                                        //         @include flexCentreCol;
+                                        //         align-items: flex-start;
+                                        //         width: 50%;
+                                        //         margin: 0 0.5em;
+                                        //         &:hover{
+
+                                        //             .animationLine{
+                                        //                 .innerLine{
+                                        //                     width: 100%;
+                                        //                     background: $darkerGrey;
+                                        //                 }
+                                        //             }
                                                     
-                                                }
-                                                input{
-                                                    border: none;
-                                                    // border-bottom: 0.2em solid $black;
-                                                    background: transparent;
-                                                    color: $darkerGrey;
-                                                    outline: none;
-                                                    height: 1.5em;
-                                                    width: 93%
-                                                }
-                                                .animationLine{
-                                                    margin-top: 0;
-                                                    padding-top: 0;
-                                                    margin-bottom: 0;
-                                                    width: 93%;
+                                        //         }
+                                        //         input{
+                                        //             border: none;
+                                        //             // border-bottom: 0.2em solid $black;
+                                        //             background: transparent;
+                                        //             color: $darkerGrey;
+                                        //             outline: none;
+                                        //             height: 1.5em;
+                                        //             width: 93%
+                                        //         }
+                                        //         .animationLine{
+                                        //             margin-top: 0;
+                                        //             padding-top: 0;
+                                        //             margin-bottom: 0;
+                                        //             width: 93%;
                                             
-                                                    .innerLine{
-                                                        width: 100%;
-                                                        height: 100%;
-                                                        // background: yellow;
-                                                        width: 0%;
-                                                        transition: 0.2s;
-                                                    }
+                                        //             .innerLine{
+                                        //                 width: 100%;
+                                        //                 height: 100%;
+                                        //                 // background: yellow;
+                                        //                 width: 0%;
+                                        //                 transition: 0.2s;
+                                        //             }
                                             
                                                    
-                                                }
-                                                .warningSection{
-                                                    background:$primaryMagenta;
-                                                    width: 88%;
-                                                    padding: 0.5em;
-                                                    text-align: center;
-                                                    p{
-                                                        color: white;
-                                                    }
-                                                }
-                                                .numberInputSection{
-                                                    @include flexCentreRow;
-                                                    justify-content: space-between;
-                                                    width: 41%;
-                                                    // margin-left: 15%;
-                                                    .numberSection{
-                                                        @include flexCentreRow;
-                                                        background: $veryLightGrey;
-                                                        padding: 0.5em;
-                                                        border-radius: 0.2em;
-                                                        p{
-                                                            font-size: 1em;
-                                                        }
-                                                    }
-                                                    .yearSelectionCategory{
-                                                        p{
-                                                            font-size: 1em;
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                            .companyNameSection{
-                                                width: 80%;
-                                            }
-                                            .contactSection{
-                                                width: 50%;
-                                                margin-left: 15%;
-                                            }
-                                            .addressSection{
-                                                width: 50%;
-                                                margin-left: 15%;
-                                            }
-                                            .addressSectionExtended{
-                                                width: 100%;
-                                                margin-left: 15%;
-                                            }
-                                            .numberSectionExtended{
-                                                width: 56%;
-                                                margin-left: 15%;
-                                            }
-                                            // .cardNumberSection{
-                                            //     @include flexCentreRow;
+                                        //         }
+                                        //         .warningSection{
+                                                    
+                                        //             width: 88%;
+                                        //             padding: 0.5em;
+                                        //             text-align: center;
 
-                                            // }
-                                            .numberCountSection{
-                                                p{
+                                        //             p{
+                                        //                 color: $white;
+                                        //                 background:$primaryMagenta;
+                                        //             }
+                                        //         }
+                                        //         .numberInputSection{
+                                        //             @include flexCentreRow;
+                                        //             justify-content: space-between;
+                                        //             width: 41%;
+                                        //             // margin-left: 15%;
+                                        //             .numberSection{
+                                        //                 @include flexCentreRow;
+                                        //                 background: $veryLightGrey;
+                                        //                 padding: 0.5em;
+                                        //                 border-radius: 0.2em;
+                                        //                 p{
+                                        //                     font-size: 1em;
+                                        //                 }
+                                        //             }
+                                        //             .yearSelectionCategory{
+                                        //                 p{
+                                        //                     font-size: 1em;
+                                        //                 }
+                                        //             }
+                                        //         }
+                                        //     }
+                                        //     .companyNameSection{
+                                        //         width: 80%;
+                                        //     }
+                                        //     .contactSection{
+                                        //         width: 50%;
+                                        //         margin-left: 15%;
 
-                                                }
-                                            }
-                                        }
+                                        //         .inputRow{
+                                        //             @include flexCentreRow;
+                                        //             width: 100%;
+
+                                        //             .inputColumn{
+                                        //                 width: 100%;
+                                        //             }
+
+                                        //             .countryCode{
+                                        //                 margin-bottom: 0.5em;
+                                        //             }
+                                        //         }
+
+                                                
+                                        //     }
+                                        //     .addressSection{
+                                        //         width: 50%;
+                                        //         margin-left: 15%;
+                                        //     }
+                                        //     .addressSectionExtended{
+                                        //         width: 100%;
+                                        //         margin-left: 15%;
+                                        //     }
+                                        //     .numberSectionExtended{
+                                        //         width: 56%;
+                                        //         margin-left: 15%;
+                                        //     }
+                                        //     // .cardNumberSection{
+                                        //     //     @include flexCentreRow;
+
+                                        //     // }
+                                        //     .numberCountSection{
+                                        //         p{
+
+                                        //         }
+                                        //     }
+                                        // }
+
+
                                         .selectionInputCategory{
                                             // @include flexCentreRow;
 

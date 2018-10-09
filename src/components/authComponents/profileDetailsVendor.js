@@ -2,15 +2,12 @@ import React from "react"
 
 import "../../assets/sass/vendor_form.scss"
 
-import Axios from "axios"
-import { api } from "../../actions/apiLinks"
-
-import { GoogleIcon, LinkedInIcon, TableIcon, MinusImageIcon, PlusImageIcon, UploadImageIcon } from "../../assets/images/socialNetworkIcons";
-import { RollingLogsTextLogoSmall, FurnitureVendorIcon } from "../../assets/images";
+import { TableIcon, MinusImageIcon, PlusImageIcon, UploadImageIcon } from "../../assets/images/socialNetworkIcons";
 import LogoAnimation from "../animations/logoAnimation";
+import { GradientButton, InputForm } from "../UX/uxComponents";
 
 
-export default class ProfileDetailsVendor extends React.Component{
+export default class ProfileDetailsVendor extends React.Component {
 
     constructor(props, context) {
         super(props, context)
@@ -19,8 +16,18 @@ export default class ProfileDetailsVendor extends React.Component{
             loadingClass: 'loadingAnim hide',
             mainClass: 'mainClass',
 
-            redirect : false
+            firstNameCharCount: 15,
+            lastNameCharCount: 15,
+            companyNameCharCount: 50,
+            phoneNoCharCount: 10,
+            whatsappNoCharCount: 10,
+
+            redirect: false
         }
+
+        // setTimeout(()=> {
+        //     console.log(this.refs.firstName.value)
+        // },4000)
 
     }
 
@@ -33,20 +40,180 @@ export default class ProfileDetailsVendor extends React.Component{
             "Rajasthan"
         ]
 
-        return array.map((item, i) =>  <option value= {i+1} >{item}</option>)
+        return array.map((item, i) => <option key={i} value={i + 1} >{item}</option>)
+    }
+
+    validatePhoneNo = (e) => {
+        const val = e.target.value
+
+        this.setState({
+            phoneNoCharCount: 10 - val.length
+        })
+
+        if (val.length !== 10) {
+            this.setState({
+                phoneNoText: "Remember, your number has to be valid",
+                phoneNoClass: 'phoneNoText',
+                phoneNoIsValid: false,
+            })
+        }
+
+        if (!/^[0-9]+$/.test(val)) {
+            this.setState({
+                phoneNoText: "Numbers only",
+                phoneNoClass: 'phoneNoText',
+                phoneNoIsValid: false,
+            })
+        }
+
+        if (val.length === 10 && /^[0-9]+$/.test(val))
+            this.setState({
+                phoneNoText: null,
+                phoneNoClass: 'phoneNoText hide',
+                phoneNoIsValid: true,
+            })
+
+    }
+
+    validateWhatsappNo = (e) => {
+        const val = e.target.value
+
+        this.setState({
+            whatsappNoCharCount: 10 - val.length
+        })
+
+
+        if (val.length !== 10) {
+            this.setState({
+                whatsappNoText: "Remember, your number has to be valid",
+                whatsappNoClass: 'whatsappNoText',
+                whatsappNoIsValid: false,
+            })
+        }
+
+        if (!/^[0-9]+$/.test(val)) {
+            this.setState({
+                whatsappNoText: "Numbers only",
+                whatsappNoClass: 'whatsappNoText',
+                whatsappNoIsValid: false,
+            })
+        }
+
+        if (val.length === 10 && /^[0-9]+$/.test(val))
+            this.setState({
+                whatsappNoText: null,
+                whatsappNoClass: 'whatsappNoText hide',
+                whatsappNoIsValid: true,
+            })
+
     }
 
 
-    render(){
 
-        return(
+    validateFirstName = (e) => {
+
+        const val = e.target.value
+
+        this.setState({
+            firstNameCharCount: 15 - val.length
+        })
+
+        if (val === "") {
+            this.setState({
+                firstNameText: "Please tell us your first name.",
+                firstNameClass: 'firstNameText',
+                firstNameIsValid: false,
+            })
+        }
+
+        if (!/^[a-zA-Z]*$/g.test(val)) {
+            this.setState({
+                firstNameText: "Please enter english alphabets only.",
+                firstNameClass: 'firstNameText',
+                firstNameIsValid: false,
+            })
+        }
+
+        if (val !== "" && /^[a-zA-Z]*$/g.test(val))
+            this.setState({
+                firstNameText: null,
+                firstNameClass: 'firstNameText hide',
+                firstNameIsValid: true,
+            })
+    }
+
+    validateLastName = (e) => {
+        const val = e.target.value
+
+        this.setState({
+            lastNameCharCount: 15 - val.length
+        })
+
+        if (val === "") {
+            this.setState({
+                lastNameText: "Please tell us your last name.",
+                lastNameClass: 'lastNameText',
+                lastNameIsValid: false,
+            })
+        }
+
+        if (!/^[a-zA-Z]*$/g.test(val)) {
+            this.setState({
+                lastNameText: "Please enter english alphabets only.",
+                lastNameClass: 'lastNameText',
+                lastNameIsValid: false,
+            })
+        }
+
+        if (val !== "" && /^[a-zA-Z]*$/g.test(val))
+            this.setState({
+                lastNameText: null,
+                lastNameClass: 'lastNameText hide',
+                lastNameIsValid: true,
+            })
+
+    }
+
+
+    validateCompanyName = (e) => {
+
+        const val = e.target.value
+
+        this.setState({
+            companyNameCharCount: 50 - val.length
+        })
+
+        if (val === "") 
+        this.setState({
+            companyNameText: "Please tell us your Company's name.",
+            companyNameClass: 'companyNameText',
+            companyNameIsValid: false,
+        })
+
+        if (val !== "")
+        this.setState({
+            companyNameText: null,
+            companyNameClass: 'companyNameText hide',
+            companyNameIsValid: true,
+        })
+    }
+
+    submitForm = () => {
+
+    }
+
+
+
+    render() {
+
+        return (
             <div className="bigWrapper">
 
-                <div className = {this.state.loadingClass}>
-                    <LogoAnimation/>
+                <div className={this.state.loadingClass}>
+                    <LogoAnimation />
                 </div>
 
-                <div className = {this.state.mainClass}>
+                <div className={this.state.mainClass}>
                     <article className="vendorProfileDetailsOuterwrapper">
 
                         <header className="vendorHeaderClass">
@@ -55,12 +222,15 @@ export default class ProfileDetailsVendor extends React.Component{
                         </header>
 
                         <section className="vendorFormOuterSection">
+
                             <div className="vendorInnerSection">
+
                                 <div className="leftSection">
                                     <div className="leftSectionInnerLayer">
                                         <div className="iconWrapper">
-                                            <TableIcon/>
+                                            <TableIcon />
                                         </div>
+
                                         <div className="formCompletionInfoSection">
                                             <div className="outerLayer">
                                                 <h3><span>4/9</span> Questions answered</h3>
@@ -71,449 +241,472 @@ export default class ProfileDetailsVendor extends React.Component{
 
                                 <div className="rightFormSection">
                                     <div className="formSectionInnerLayer">
-                                        
+
                                         <form action="" className="vendorForm">
-                                                <div className="formInputContainer">
-                                                    <div className="formInputInnerLayer">
-                                                        <div className="formParaSection">
-                                                            <h3>1</h3>
-                                                            <p>Your name as you would like your customers to call you?</p>
-                                                        </div>
-                                                        
-                                                        <div className="inputCategorySection">
-                                                            <div className="mandatorySection">
-                                                                <p>Mandatory</p>
-                                                            </div>
 
-                                                            <div className="inputColumn">
-                                                                <input type="text" placeholder="First Name"/>
-                                                                
-                                                                <div className="animationLine line">
-                                                                    <div className="innerLine"></div>
-                                                                </div>
-                                                                
-                                                                <div className="warningSection">
-                                                                    <p>Sorry! Numbers are not allowed please enter english alphabets</p>
-                                                                </div>
-                                                            </div>
-                                                            <div className="numberCountSection">
-                                                                <p>15</p>
-                                                            </div>
-                                                        </div>
+                                            <div className="formInputContainer">
+                                                <div className="formInputInnerLayer">
+                                                    <div className="formParaSection">
+                                                        <h3>1</h3>
+                                                        <p>Your name as you would like your customers to call you?</p>
+                                                    </div>
 
-                                                        <div className="inputCategorySection">
-                                                            <div className="mandatorySection">
-                                                                <p>Mandatory</p>
-                                                            </div>
-                                                            <div className="inputColumn">
-                                                                <input type="text" placeholder="Last Name"/>
-                                                                <div className="animationLine line">
-                                                                    <div className="innerLine"></div>
-                                                                </div>
-                                                                {/* <div className="warningSection">
-                                                                    <p>Sorry! Numbers are not allowed please enter english alphabets</p>
-                                                                </div> */}
-                                                            </div>
-                                                            <div className="numberCountSection">
-                                                                <p>15</p>
-                                                            </div>
-                                                        </div>
+                                                    <div className="firstNameWrap">
+                                                        <InputForm
+                                                            refName="firstName"
+                                                            placeholder="Type your first name here"
+                                                            isMandatory={true}
+                                                            validationType="alphabetsSpecialCharactersAndNumbers"
+                                                            characterCount="15"
+                                                            result={(val) => this.setState({
+                                                                firstName: val
+                                                            })}
+                                                        />
                                                     </div>
-                                                </div>
-                                                <div className="formInputContainer">
-                                                <div className="formInputInnerLayer">
-                                                        <div className="formParaSection">
-                                                            <h3>2</h3>
-                                                            <p>What should we call your company as?</p>
-                                                        </div>
-                                                        <div className="inputCategorySection">
-                                                            <div className="mandatorySection">
-                                                                <p>Mandatory</p>
-                                                            </div>
-                                                            <div className="companyNameSection inputColumn">
-                                                                <input type="text" placeholder="Company Name"/>
-                                                                <div className="animationLine line">
-                                                                    <div className="innerLine"></div>
-                                                                </div>
-                                                                <div className="warningSection">
-                                                                    <p>Sorry! Numbers are not allowed please enter english alphabets</p>
-                                                                </div>
-                                                            </div>
-                                                            <div className="numberCountSection">
-                                                                <p>50</p>
-                                                            </div>
-                                                        </div>
-                                                        
-                                                    </div>
-                                                </div>
-                                                <div className="formInputContainer">
-                                                <div className="formInputInnerLayer">
-                                                        <div className="formParaSection">
-                                                            <h3>3</h3>
-                                                            <p>Your phone number</p>
-                                                        </div>
-                                                        <div className="inputCategorySection">
-                                                            {/* <div className="mandatorySection">
-                                                                <p>Mandatory</p>
-                                                            </div> */}
-                                                            <div className="contactSection inputColumn">
-                                                                <input type="text" placeholder="Official contact number"/>
-                                                                <div className="animationLine line">
-                                                                    <div className="innerLine"></div>
-                                                                </div>
-                                                                {/* <div className="warningSection">
-                                                                    <p>Sorry! Numbers are not allowed please enter english alphabets</p>
-                                                                </div> */}
-                                                            </div>
-                                                            {/* <div className="numberCountSection">
-                                                                <p>50</p>
-                                                            </div> */}
-                                                        </div>
-                                                        <div className="inputCategorySection">
-                                                            {/* <div className="mandatorySection">
-                                                                <p>Mandatory</p>
-                                                            </div> */}
-                                                            <div className="contactSection inputColumn">
-                                                                <input type="text" placeholder="Whatsapp number"/>
-                                                                <div className="animationLine line">
-                                                                    <div className="innerLine"></div>
-                                                                </div>
-                                                                {/* <div className="warningSection">
-                                                                    <p>Sorry! Numbers are not allowed please enter english alphabets</p>
-                                                                </div> */}
-                                                            </div>
-                                                            {/* <div className="numberCountSection">
-                                                                <p>50</p>
-                                                            </div> */}
-                                                        </div>
-                                                        
-                                                    </div>
-                                                </div>
-                                                <div className="formInputContainer">
-                                                <div className="formInputInnerLayer">
-                                                        <div className="formParaSection">
-                                                            <h3>4</h3>
-                                                            <p>Tell us your company address. We’ll bill the customer with this address</p>
-                                                        </div>
-                                                        <div className="inputCategorySection">
-                                                            {/* <div className="mandatorySection">
-                                                                <p>Mandatory</p>
-                                                            </div> */}
-                                                            <div className="addressSection inputColumn">
-                                                                <input type="text" placeholder="H.No./Flat No"/>
-                                                                <div className="animationLine line">
-                                                                    <div className="innerLine"></div>
-                                                                </div>
-                                                                {/* <div className="warningSection">
-                                                                    <p>Sorry! Numbers are not allowed please enter english alphabets</p>
-                                                                </div> */}
-                                                            </div>
-                                                            {/* <div className="numberCountSection">
-                                                                <p>50</p>
-                                                            </div> */}
-                                                        </div>
-                                                        <div className="inputCategorySection">
-                                                            {/* <div className="mandatorySection">
-                                                                <p>Mandatory</p>
-                                                            </div> */}
-                                                            <div className="addressSection inputColumn">
-                                                                <input type="text" placeholder="Street No."/>
-                                                                <div className="animationLine line">
-                                                                    <div className="innerLine"></div>
-                                                                </div>
-                                                                {/* <div className="warningSection">
-                                                                    <p>Sorry! Numbers are not allowed please enter english alphabets</p>
-                                                                </div> */}
-                                                            </div>
-                                                            {/* <div className="numberCountSection">
-                                                                <p>50</p>
-                                                            </div> */}
-                                                        </div>
-                                                        <div className="inputCategorySection">
-                                                            {/* <div className="mandatorySection">
-                                                                <p>Mandatory</p>
-                                                            </div> */}
-                                                            <div className="addressSectionExtended inputColumn">
-                                                                <input type="text" placeholder="Detailed address - line 1"/>
-                                                                <div className="animationLine line">
-                                                                    <div className="innerLine"></div>
-                                                                </div>
-                                                                {/* <div className="warningSection">
-                                                                    <p>Sorry! Numbers are not allowed please enter english alphabets</p>
-                                                                </div> */}
-                                                            </div>
-                                                            {/* <div className="numberCountSection">
-                                                                <p>50</p>
-                                                            </div> */}
-                                                        </div>
-                                                        <div className="inputCategorySection">
-                                                            {/* <div className="mandatorySection">
-                                                                <p>Mandatory</p>
-                                                            </div> */}
-                                                            <div className="addressSectionExtended inputColumn">
-                                                                <input type="text" placeholder="Detailed address - line 2"/>
-                                                                <div className="animationLine line">
-                                                                    <div className="innerLine"></div>
-                                                                </div>
-                                                                {/* <div className="warningSection">
-                                                                    <p>Sorry! Numbers are not allowed please enter english alphabets</p>
-                                                                </div> */}
-                                                            </div>
-                                                            {/* <div className="numberCountSection">
-                                                                <p>50</p>
-                                                            </div> */}
-                                                        </div>
-                                                        <div className="inputCategorySection">
-                                                            {/* <div className="mandatorySection">
-                                                                <p>Mandatory</p>
-                                                            </div> */}
-                                                            <div className="addressSection inputColumn">
-                                                                <input type="text" placeholder="City"/>
-                                                                <div className="animationLine line">
-                                                                    <div className="innerLine"></div>
-                                                                </div>
-                                                                {/* <div className="warningSection">
-                                                                    <p>Sorry! Numbers are not allowed please enter english alphabets</p>
-                                                                </div> */}
-                                                            </div>
-                                                            {/* <div className="numberCountSection">
-                                                                <p>50</p>
-                                                            </div> */}
-                                                        </div>
-                                                        <div className="selectionInputCategory inputCategorySection">
-                                                             <div className="mandatorySection">
-                                                                <p>Mandatory</p>
-                                                            </div> 
-                                                            <div className="cutomSelectOption">
-                                                                <select name="" id="">
-                                                                    <option value="0">Choose state</option>
-                                                                    {this.returnCustomSelectOptions()}
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div className="inputCategorySection">
-                                                            {/* <div className="mandatorySection">
-                                                                <p>Mandatory</p>
-                                                            </div> */}
-                                                            <div className="addressSection inputColumn">
-                                                                <input type="text" placeholder="Pincode"/>
-                                                                <div className="animationLine line">
-                                                                    <div className="innerLine"></div>
-                                                                </div>
-                                                                {/* <div className="warningSection">
-                                                                    <p>Sorry! Numbers are not allowed please enter english alphabets</p>
-                                                                </div> */}
-                                                            </div>
-                                                            {/* <div className="numberCountSection">
-                                                                <p>50</p>
-                                                            </div> */}
-                                                        </div>
-                                                        
-                                                    </div>
-                                                </div>
-                                                <div className="formInputContainer">
-                                                    <div className="formInputInnerLayer">
-                                                        <div className="formParaSection">
-                                                            <h3>5</h3>
-                                                            <p>Small Description about your company</p>
-                                                        </div>
-                                                        <div className="inputCategorySection">
-                                                            {/* <div className="mandatorySection">
-                                                                <p>Mandatory</p>
-                                                            </div> */}
-                                                            <div className="addressSectionExtended inputColumn">
-                                                                <input type="text" placeholder="You can show off a little here"/>
-                                                                <div className="animationLine line">
-                                                                    <div className="innerLine"></div>
-                                                                </div>
-                                                                {/* <div className="warningSection">
-                                                                    <p>Sorry! Numbers are not allowed please enter english alphabets</p>
-                                                                </div> */}
-                                                            </div>
-                                                            {/* <div className="numberCountSection">
-                                                                <p>50</p>
-                                                            </div> */}
-                                                        </div>
-                                                        <div className="inputCategorySection">
-                                                            {/* <div className="mandatorySection">
-                                                                <p>Mandatory</p>
-                                                            </div> */}
-                                                            <div className="addressSectionExtended inputColumn">
-                                                                <input type="text" placeholder="For example - We sell the toughest and most transparent glass panels in India. "/>
-                                                                <div className="animationLine line">
-                                                                    <div className="innerLine"></div>
-                                                                </div>
-                                                                {/* <div className="warningSection">
-                                                                    <p>Sorry! Numbers are not allowed please enter english alphabets</p>
-                                                                </div> */}
-                                                            </div>
-                                                            {/* <div className="numberCountSection">
-                                                                <p>50</p>
-                                                            </div> */}
-                                                        </div>
 
-                                                        </div>           
-                                                </div>
-                                                <div className="formInputContainer">
-                                                    <div className="formInputInnerLayer">
-                                                        <div className="formParaSection">
-                                                            <h3>6</h3>
-                                                            <p>How long have you been in this industry?</p>
-                                                        </div>
-                                                        <div className="inputCategorySection">
-                                                            <div className="mandatorySection">
-                                                                <p>Mandatory</p>
-                                                            </div>
-                                                            <div className="inputColumn">
-                                                                <div className="numberInputSection inputColumnInnerLayer">
-                                                                    <div className="VolumeCategory">
-                                                                        <MinusImageIcon/>
-                                                                    </div>
-                                                                    <div className="numberSection">
-                                                                        <p>2</p>
-                                                                    </div>
-                                                                    <div className="VolumeCategory">
-                                                                        <PlusImageIcon/>
-                                                                    </div>
-                                                                    <div className="yearSelectionCategory">
-                                                                        <p>Years</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                           
-                                                        </div>
-                                                        <div className="inputCategorySection">
-                                                            
-                                                            <div className="numberSectionExtended inputColumn">
-                                                                <div className="numberInputSection inputColumnInnerLayer">
-                                                                    <div className="VolumeCategory">
-                                                                        <MinusImageIcon/>
-                                                                    </div>
-                                                                    <div className="numberSection">
-                                                                        <p>2</p>
-                                                                    </div>
-                                                                    <div className="VolumeCategory">
-                                                                        <PlusImageIcon/>
-                                                                    </div>
-                                                                    <div className="yearSelectionCategory">
-                                                                        <p>Months</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                           
-                                                        </div>
-                                                    </div>             
-                                                </div>
-                                                <div className="formInputContainer">
-                                                    <div className="formInputInnerLayer">
-                                                        <div className="cardInstructionPara formParaSection">
-                                                            <h3>7</h3>
-                                                            <p>Your company’s GST Identication number. <a href="">Click here</a>  if you want to know more about this.</p>
-                                                        </div>
-                                                        <div className="cardInputSection inputCategorySection">
-                                                            <div className="inputColumn">
-                                                                <input type="text" placeholder="22"/>
-                                                                <div className="animationLine line">
-                                                                    <div className="innerLine"></div>
-                                                
-                                                                </div>
-                                                                
-                                                            </div>
-                                                            <p>-</p>
-                                                            <div className="inputColumn">
-                                                                <input type="text" placeholder="AAAAA0000A"/>
-                                                                <div className="animationLine line">
-                                                                    <div className="innerLine"></div>
-                                                
-                                                                </div>
-                                                                
-                                                            </div>
-                                                            <p>-</p>
-                                                            <div className="inputColumn">
-                                                                <input type="text" placeholder="1"/>
-                                                                <div className="animationLine line">
-                                                                    <div className="innerLine"></div>
-                                                
-                                                                </div>
-                                                                
-                                                            </div>
-                                                            <p>-</p>
-                                                            <div className="inputColumn">
-                                                                <input type="text" placeholder="Z"/>
-                                                                <div className="animationLine line">
-                                                                    <div className="innerLine"></div>
-                                                
-                                                                </div>
-                                                                
-                                                            </div>
-                                                            <p>-</p>
-                                                            <div className="inputColumn">
-                                                                <input type="text" placeholder="5"/>
-                                                                <div className="animationLine line">
-                                                                    <div className="innerLine"></div>
-                                                
-                                                                </div>
-                                                                
-                                                            </div>
-                                                        </div>
+                                                    <div className="lastNameWrap">
+                                                        <InputForm
+                                                            refName="lastName"
+                                                            placeholder="Type your last name here"
+                                                            isMandatory={true}
+                                                            validationType="alphabetsSpecialCharactersAndNumbers"
+                                                            characterCount="15"
+                                                            result={(val) => this.setState({
+                                                                lastName: val
+                                                            })}
+                                                        />
                                                     </div>
+
                                                 </div>
-                                                <div className="formInputContainer">
+                                            </div>
+
+                                            <div className="formInputContainer">
                                                 <div className="formInputInnerLayer">
-                                                            <div className="formParaSection">
-                                                            <h3>8</h3>
-                                                            <p>PAN number</p>
-                                                        </div>
-                                                        <div className="inputCategorySection">
-                                                            {/* <div className="mandatorySection">
-                                                                <p>Mandatory</p>
-                                                            </div> */}
-                                                            <div className="addressSection inputColumn">
-                                                                <input type="text" placeholder="AAAAA0000A"/>
-                                                                <div className="animationLine line">
-                                                                    <div className="innerLine"></div>
-                                                
-                                                                </div>
-                                                                {/* <div className="warningSection">
-                                                                    <p>Sorry! Numbers are not allowed please enter english alphabets</p>
-                                                                </div> */}
-                                                            </div>
-                                                            {/* <div className="numberCountSection">
-                                                                <p>50</p>
-                                                            </div> */}
-                                                        </div>
-                                                            </div>
-                                                </div>
-                                                <div className="formInputContainer">
-                                                    <div className="formInputInnerLayer">
-                                                        <div className="formParaSection">
-                                                            <h3>9</h3>
-                                                            <p>Upload your company logo here. Max size 1mb.</p>
-                                                        </div>
-                                                        <div className="imageCategorySection inputCategorySection">
-                                                            <div className="inputColumn">
-                                                                <div className="imageUploadIconSection">
-                                                                    <UploadImageIcon/>
-                                                                </div>
-                                                                <div className="uploadInstructionSection">
-                                                                    <p>Click here to upload an image. Formats allowed are .jpeg, .jpg, .png</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                    <div className="formParaSection">
+                                                        <h3> 2 </h3>
+
+                                                        <p> What should we call your company as? </p>
+                                                    </div>
+
+                                                    <div className="companyNameWrap">
+                                                        <InputForm
+                                                            refName="companyName"
+                                                            placeholder="Type your company name here"
+                                                            isMandatory={true}
+                                                            validationType="alphabetsSpecialCharactersAndNumbers"
+                                                            characterCount="50"
+                                                            result={(val) => this.setState({
+                                                                companyName: val
+                                                            })}
+                                                        />
                                                     </div>
                                                 </div>
-                                                <div className="formInputContainer">
-                                                            <div className="formInputInnerLayer">
-                                                            <div className="formParaSection">
-                                                    <div className="gradientButtonWrapper">
-                                                            Proceed
+                                            </div>
+
+                                            <div className="formInputContainer">
+                                                <div className="formInputInnerLayer">
+
+                                                    <div className="formParaSection">
+                                                        <h3>3</h3>
+                                                        <p>Your phone number</p>
                                                     </div>
-                                                    </div>
-                                                            </div>
                                                     
-                                                   
+                                                    <div className="phoneNoWrap">
+                                                        <InputForm
+                                                            refName="phoneNo"
+                                                            placeholder="10 digit phone number here"
+                                                            isMandatory={true}
+                                                            validationType="numbers"
+                                                            characterCount="10"
+                                                            result={(val) => this.setState({
+                                                                phoneNumber: val
+                                                            })}
+                                                        />
+                                                    </div>
+
+                                                    <div className="whatsappNoWrap">
+                                                        <InputForm
+                                                            refName="whatsappNo"
+                                                            placeholder="10 digit whatsapp number here"
+                                                            isMandatory={false}
+                                                            validationType="numbers"
+                                                            characterCount="10"
+                                                            result={(val) => this.setState({
+                                                                whatsappNumber: val
+                                                            })}
+                                                        />
+                                                    </div>
+
                                                 </div>
-                                                
+                                            </div>
+
+                                            <div className="formInputContainer">
+                                                <div className="formInputInnerLayer">
+                                                    <div className="formParaSection">
+                                                        <h3>4</h3>
+                                                        <p>Tell us your company address. We’ll bill the customer with this address</p>
+                                                    </div>
+                                                    <div className="inputCategorySection">
+                                                        <div className="mandatorySection">
+                                                            <p>Mandatory</p>
+                                                        </div>
+
+                                                        <div className="addressSection inputColumn">
+                                                            <input 
+                                                                type="text" 
+                                                                placeholder="H.No./Flat No" 
+                                                                ref="hNo"
+                                                                type="text"
+                                                                maxLength="10"
+                                                                onKeyPress={(e) => {
+                                                                    if (e.key === "Enter") {
+                                                                        this.submitForm()
+                                                                    }
+                                                                }}
+
+                                                                onChange={(e) => this.validateHNo(e)}
+                                                                
+                                                            />
+
+                                                            <div className="animationLine line">
+                                                                <div className="innerLine"></div>
+                                                            </div>
+
+                                                            <div className="warningSection">
+                                                                <p
+                                                                    className={this.state.hNoClass}
+                                                                >
+                                                                    {this.state.hNoText}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+
+                                                        <div className="numberCountSection">
+                                                            <p
+                                                                ref="hNoCharCount"
+                                                            >
+                                                                {this.state.hNoCharCount}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="inputCategorySection">
+                                                        {/* <div className="mandatorySection">
+                                                            <p>Mandatory</p>
+                                                        </div> */}
+                                                        <div className="addressSection inputColumn">
+                                                            <input type="text" placeholder="Street No." />
+                                                            <div className="animationLine line">
+                                                                <div className="innerLine"></div>
+                                                            </div>
+                                                            {/* <div className="warningSection">
+                                                                <p>Sorry! Numbers are not allowed please enter english alphabets</p>
+                                                            </div> */}
+                                                        </div>
+                                                        {/* <div className="numberCountSection">
+                                                            <p>50</p>
+                                                        </div> */}
+                                                    </div>
+                                                    <div className="inputCategorySection">
+                                                        {/* <div className="mandatorySection">
+                                                            <p>Mandatory</p>
+                                                        </div> */}
+                                                        <div className="addressSectionExtended inputColumn">
+                                                            <input type="text" placeholder="Detailed address - line 1" />
+                                                            <div className="animationLine line">
+                                                                <div className="innerLine"></div>
+                                                            </div>
+                                                            {/* <div className="warningSection">
+                                                                <p>Sorry! Numbers are not allowed please enter english alphabets</p>
+                                                            </div> */}
+                                                        </div>
+                                                        {/* <div className="numberCountSection">
+                                                            <p>50</p>
+                                                        </div> */}
+                                                    </div>
+
+                                                    <div className="inputCategorySection">
+                                                        {/* <div className="mandatorySection">
+                                                            <p>Mandatory</p>
+                                                        </div> */}
+                                                        <div className="addressSectionExtended inputColumn">
+                                                            <input type="text" placeholder="Detailed address - line 2" />
+                                                            <div className="animationLine line">
+                                                                <div className="innerLine"></div>
+                                                            </div>
+                                                            {/* <div className="warningSection">
+                                                                <p>Sorry! Numbers are not allowed please enter english alphabets</p>
+                                                            </div> */}
+                                                        </div>
+                                                        {/* <div className="numberCountSection">
+                                                            <p>50</p>
+                                                        </div> */}
+                                                    </div>
+
+                                                    <div className="inputCategorySection">
+                                                        {/* <div className="mandatorySection">
+                                                            <p>Mandatory</p>
+                                                        </div> */}
+                                                        <div className="addressSection inputColumn">
+                                                            <input type="text" placeholder="City" />
+                                                            <div className="animationLine line">
+                                                                <div className="innerLine"></div>
+                                                            </div>
+                                                            {/* <div className="warningSection">
+                                                                <p>Sorry! Numbers are not allowed please enter english alphabets</p>
+                                                            </div> */}
+                                                        </div>
+                                                        {/* <div className="numberCountSection">
+                                                            <p>50</p>
+                                                        </div> */}
+                                                    </div>
+
+                                                    <div className="selectionInputCategory inputCategorySection">
+                                                        <div className="mandatorySection">
+                                                            <p>Mandatory</p>
+                                                        </div>
+
+                                                        <div className="cutomSelectOption">
+                                                            <select name="" id="">
+                                                                <option value="0">Choose state</option>
+                                                                {this.returnCustomSelectOptions()}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="inputCategorySection">
+                                                        {/* <div className="mandatorySection">
+                                                            <p>Mandatory</p>
+                                                        </div> */}
+                                                        <div className="addressSection inputColumn">
+                                                            <input type="text" placeholder="Pincode" />
+                                                            <div className="animationLine line">
+                                                                <div className="innerLine"></div>
+                                                            </div>
+                                                            {/* <div className="warningSection">
+                                                                <p>Sorry! Numbers are not allowed please enter english alphabets</p>
+                                                            </div> */}
+                                                        </div>
+                                                        {/* <div className="numberCountSection">
+                                                            <p>50</p>
+                                                        </div> */}
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div className="formInputContainer">
+                                                <div className="formInputInnerLayer">
+                                                    <div className="formParaSection">
+                                                        <h3>5</h3>
+                                                        <p>Small Description about your company</p>
+                                                    </div>
+                                                    <div className="inputCategorySection">
+                                                        {/* <div className="mandatorySection">
+                                                                <p>Mandatory</p>
+                                                            </div> */}
+                                                        <div className="addressSectionExtended inputColumn">
+                                                            <input type="text" placeholder="You can show off a little here" />
+                                                            <div className="animationLine line">
+                                                                <div className="innerLine"></div>
+                                                            </div>
+                                                            {/* <div className="warningSection">
+                                                                    <p>Sorry! Numbers are not allowed please enter english alphabets</p>
+                                                                </div> */}
+                                                        </div>
+                                                        {/* <div className="numberCountSection">
+                                                                <p>50</p>
+                                                            </div> */}
+                                                    </div>
+                                                    <div className="inputCategorySection">
+                                                        {/* <div className="mandatorySection">
+                                                                <p>Mandatory</p>
+                                                            </div> */}
+                                                        <div className="addressSectionExtended inputColumn">
+                                                            <input type="text" placeholder="For example - We sell the toughest and most transparent glass panels in India. " />
+                                                            <div className="animationLine line">
+                                                                <div className="innerLine"></div>
+                                                            </div>
+                                                            {/* <div className="warningSection">
+                                                                    <p>Sorry! Numbers are not allowed please enter english alphabets</p>
+                                                                </div> */}
+                                                        </div>
+                                                        {/* <div className="numberCountSection">
+                                                                <p>50</p>
+                                                            </div> */}
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div className="formInputContainer">
+                                                <div className="formInputInnerLayer">
+                                                    <div className="formParaSection">
+                                                        <h3>6</h3>
+                                                        <p>How long have you been in this industry?</p>
+                                                    </div>
+
+                                                    <div className="inputCategorySection">
+                                                        <div className="mandatorySection">
+                                                            <p>Mandatory</p>
+                                                        </div>
+
+                                                        <div className="inputColumn">
+                                                            <div className="numberInputSection inputColumnInnerLayer">
+                                                                <div className="VolumeCategory">
+                                                                    <MinusImageIcon />
+                                                                </div>
+                                                                <div className="numberSection">
+                                                                    <p>2</p>
+                                                                </div>
+                                                                <div className="VolumeCategory">
+                                                                    <PlusImageIcon />
+                                                                </div>
+                                                                <div className="yearSelectionCategory">
+                                                                    <p>Years</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="inputCategorySection">
+                                                        <div className="numberSectionExtended inputColumn">
+                                                            <div className="numberInputSection inputColumnInnerLayer">
+                                                                <div className="VolumeCategory">
+                                                                    <MinusImageIcon />
+                                                                </div>
+
+                                                                <div className="numberSection">
+                                                                    <p>2</p>
+                                                                </div>
+
+                                                                <div className="VolumeCategory">
+                                                                    <PlusImageIcon />
+                                                                </div>
+
+                                                                <div className="yearSelectionCategory">
+                                                                    <p>Months</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div className="formInputContainer">
+                                                <div className="formInputInnerLayer">
+                                                    <div className="cardInstructionPara formParaSection">
+                                                        <h3>7</h3>
+                                                        <p>Your company’s GST Identication number. <a href="">Click here</a>  if you want to know more about this.</p>
+                                                    </div>
+
+                                                    <div className="cardInputSection inputCategorySection">
+                                                        <div className="inputColumn">
+                                                            <input type="text" placeholder="22" />
+
+                                                            <div className="animationLine line">
+                                                                <div className="innerLine"></div>
+                                                            </div>
+                                                        </div>
+
+                                                        <p>-</p>
+
+                                                        <div className="inputColumn">
+                                                            <input type="text" placeholder="AAAAA0000A" />
+                                                            <div className="animationLine line">
+                                                                <div className="innerLine"></div>
+                                                            </div>
+                                                        </div>
+
+                                                        <p>-</p>
+
+                                                        <div className="inputColumn">
+                                                            <input type="text" placeholder="1" />
+                                                            <div className="animationLine line">
+                                                                <div className="innerLine"></div>
+                                                            </div>
+                                                        </div>
+
+                                                        <p>-</p>
+
+                                                        <div className="inputColumn">
+                                                            <input type="text" placeholder="Z" />
+                                                            <div className="animationLine line">
+                                                                <div className="innerLine"></div>
+                                                            </div>
+                                                        </div>
+
+                                                        <p>-</p>
+
+                                                        <div className="inputColumn">
+                                                            <input type="text" placeholder="5" />
+                                                            <div className="animationLine line">
+                                                                <div className="innerLine"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="formInputContainer">
+                                                <div className="formInputInnerLayer">
+                                                    <div className="formParaSection">
+                                                        <h3>8</h3>
+                                                        <p>PAN number</p>
+                                                    </div>
+
+                                                    <div className="inputCategorySection">
+                                                        {/* <div className="mandatorySection">
+                                                                <p>Mandatory</p>
+                                                            </div> */}
+                                                        <div className="addressSection inputColumn">
+                                                            <input type="text" placeholder="AAAAA0000A" />
+
+                                                            <div className="animationLine line">
+                                                                <div className="innerLine"></div>
+                                                            </div>
+                                                            {/* <div className="warningSection">
+                                                                    <p>Sorry! Numbers are not allowed please enter english alphabets</p>
+                                                                </div> */}
+                                                        </div>
+
+                                                        {/* <div className="numberCountSection">
+                                                                <p>50</p>
+                                                            </div> */}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="formInputContainer">
+                                                <div className="formInputInnerLayer">
+                                                    <div className="formParaSection">
+                                                        <h3>9</h3>
+                                                        <p>Upload your company logo here. Max size 1mb.</p>
+                                                    </div>
+
+                                                    <div className="imageCategorySection inputCategorySection">
+                                                        <div className="inputColumn">
+                                                            <div className="imageUploadIconSection">
+                                                                <UploadImageIcon />
+                                                            </div>
+                                                            <div className="uploadInstructionSection">
+                                                                <p>Click here to upload an image. Formats allowed are .jpeg, .jpg, .png</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="formInputContainer">
+                                                <div className="formInputInnerLayer">
+                                                    <div className="formParaSection">
+                                                        <GradientButton>
+                                                            Proceed
+                                                        </GradientButton>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </form>
                                     </div>
                                 </div>
@@ -527,4 +720,4 @@ export default class ProfileDetailsVendor extends React.Component{
 }
 
 
- 
+
