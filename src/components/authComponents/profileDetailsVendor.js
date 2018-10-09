@@ -5,7 +5,6 @@ import "../../assets/sass/vendor_form.scss"
 import Axios from "axios"
 import { api } from "../../actions/apiLinks"
 
-
 import { GoogleIcon, LinkedInIcon, TableIcon, MinusImageIcon, PlusImageIcon, UploadImageIcon } from "../../assets/images/socialNetworkIcons";
 import { RollingLogsTextLogoSmall, FurnitureVendorIcon } from "../../assets/images";
 import LogoAnimation from "../animations/logoAnimation";
@@ -49,10 +48,12 @@ export default class ProfileDetailsVendor extends React.Component{
 
                 <div className = {this.state.mainClass}>
                     <article className="vendorProfileDetailsOuterwrapper">
+
                         <header className="vendorHeaderClass">
                             <h3 className="vendorHeaderSection">Okay. Very quickly we'll just finish off a small profile details form.</h3>
                             <div className="line"></div>
                         </header>
+
                         <section className="vendorFormOuterSection">
                             <div className="vendorInnerSection">
                                 <div className="leftSection">
@@ -67,6 +68,7 @@ export default class ProfileDetailsVendor extends React.Component{
                                         </div>
                                     </div>
                                 </div>
+
                                 <div className="rightFormSection">
                                     <div className="formSectionInnerLayer">
                                         
@@ -77,15 +79,19 @@ export default class ProfileDetailsVendor extends React.Component{
                                                             <h3>1</h3>
                                                             <p>Your name as you would like your customers to call you?</p>
                                                         </div>
+                                                        
                                                         <div className="inputCategorySection">
                                                             <div className="mandatorySection">
                                                                 <p>Mandatory</p>
                                                             </div>
+
                                                             <div className="inputColumn">
                                                                 <input type="text" placeholder="First Name"/>
+                                                                
                                                                 <div className="animationLine line">
                                                                     <div className="innerLine"></div>
                                                                 </div>
+                                                                
                                                                 <div className="warningSection">
                                                                     <p>Sorry! Numbers are not allowed please enter english alphabets</p>
                                                                 </div>
@@ -94,6 +100,7 @@ export default class ProfileDetailsVendor extends React.Component{
                                                                 <p>15</p>
                                                             </div>
                                                         </div>
+
                                                         <div className="inputCategorySection">
                                                             <div className="mandatorySection">
                                                                 <p>Mandatory</p>
@@ -305,7 +312,7 @@ export default class ProfileDetailsVendor extends React.Component{
                                                     </div>
                                                 </div>
                                                 <div className="formInputContainer">
-                                                <div className="formInputInnerLayer">
+                                                    <div className="formInputInnerLayer">
                                                         <div className="formParaSection">
                                                             <h3>5</h3>
                                                             <p>Small Description about your company</p>
@@ -495,7 +502,17 @@ export default class ProfileDetailsVendor extends React.Component{
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="formInputContainer"></div>
+                                                <div className="formInputContainer">
+                                                            <div className="formInputInnerLayer">
+                                                            <div className="formParaSection">
+                                                    <div className="gradientButtonWrapper">
+                                                            Proceed
+                                                    </div>
+                                                    </div>
+                                                            </div>
+                                                    
+                                                   
+                                                </div>
                                                 
                                         </form>
                                     </div>

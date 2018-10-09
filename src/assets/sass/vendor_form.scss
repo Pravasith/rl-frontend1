@@ -62,7 +62,7 @@
     height: 99vh;
     background: $white;
     .mainClass{
-        @include flexCentreRow;
+        @include flexCentreCol;
         width: 100%;
         .vendorProfileDetailsOuterwrapper{
             @include flexCentreCol;
@@ -74,7 +74,8 @@
                 width: 90%;
                 margin-bottom: 2em;
                 h3{
-                    font-size: 1.5em;
+                    font-size: 2em;
+                    font-weight: 400;
                 }
                 .line{
                     width: 10%;
@@ -89,6 +90,7 @@
                     width: 95%;
                     .leftSection{
                         @include flexCentreRow;
+                        width: 26%;
                         .leftSectionInnerLayer{
                             @include flexCentreCol;
                             margin: 0 auto;
@@ -99,11 +101,16 @@
                             }
                             .formCompletionInfoSection{
                                 @include flexCentreRow;
+                                width: 90%;
                                 .outerLayer{
                                     @include flexCentreRow;
-                                    background: $highLightBlue;
+                                    background: $primaryMagenta;
+                                    width: 100%;
+                                    padding: 0 0.5em 0.5em 0.5em;
+                                    justify-content: flex-start;
                                     h3{
                                         color: white;
+                                        font-weight: 400;
                                         span{
                                             font-size: 1.5em;
                                         }
@@ -114,8 +121,8 @@
                     }
                     .rightFormSection{
                         // @include flexCentreRow;
-                        width: 70%;
-                        height: 32em;
+                        width: 60%;
+                        height: 28em;
                         overflow-y: auto;
                         padding: 0.5em;
                         .formSectionInnerLayer{
@@ -196,13 +203,13 @@
                                                     color: $darkerGrey;
                                                     outline: none;
                                                     height: 1.5em;
-                                                    width: 95%
+                                                    width: 93%
                                                 }
                                                 .animationLine{
                                                     margin-top: 0;
                                                     padding-top: 0;
                                                     margin-bottom: 0;
-                                                    width: 95%;
+                                                    width: 93%;
                                             
                                                     .innerLine{
                                                         width: 100%;
@@ -215,7 +222,7 @@
                                                    
                                                 }
                                                 .warningSection{
-                                                    background:$highLightBlue;
+                                                    background:$primaryMagenta;
                                                     width: 88%;
                                                     padding: 0.5em;
                                                     text-align: center;
@@ -261,7 +268,7 @@
                                             }
                                             .numberSectionExtended{
                                                 width: 56%;
-                                                margin-left: 13%;
+                                                margin-left: 15%;
                                             }
                                             // .cardNumberSection{
                                             //     @include flexCentreRow;
@@ -290,6 +297,11 @@
                                         .cardInputSection {
                                             width: 71%;
                                             text-align: center;
+                                            .inputColumn{
+                                                input{
+                                                    text-align: center;
+                                                }
+                                            }
                                         }
                                         .imageCategorySection{
                                             width: 70%;
