@@ -428,7 +428,7 @@ export default class ProfileDetailsVendor extends React.Component {
                                                             refName="Pincode"
                                                             placeholder="Pincode"
                                                             isMandatory={true}
-                                                            validationType="numbers"
+                                                            validationType="onlyNumbers"
                                                             characterCount="6"
                                                             result={(val) => this.setState({
                                                                 pincode : val
@@ -544,6 +544,10 @@ export default class ProfileDetailsVendor extends React.Component {
                                                     </div>
 
                                                     <div className="cardInputSection inputCategorySection">
+                                                        <div className="mandatorySection">
+                                                            <p>Mandatory</p>
+                                                        </div>
+
                                                         <div className="inputColumn">
                                                             <input type="text" placeholder="22" />
 

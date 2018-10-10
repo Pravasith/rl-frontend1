@@ -31,6 +31,12 @@ input[type=number]::-webkit-outer-spin-button {
     margin: 0.4em 0;
 }
 
+.formParaSection{
+    &:hover{
+        cursor: pointer;
+    }
+}
+
 .innerWrapper{
     @include flexCentreCol;
     width: 100%;
@@ -249,6 +255,93 @@ input[type=number]::-webkit-outer-spin-button {
                                         .cardInputSection{
                                             @include flexCentreRow;
                                             width: 100%;
+                                            .mandatorySection{
+                                                @include flexCentreRow;
+                                                margin-right: 0.5em;
+                                                min-width: 4em;
+                                    
+                                                p{
+                                                    color: $white;
+                                                    font-size: 0.7em;
+                                                    background: $secondaryMagenta;
+                                                    padding: 0.2em 0.5em;
+                                                }
+                                            }
+                                            .inputColumn{
+                                                @include flexCentreCol;
+                                                align-items: flex-start;
+                                                width: 100%;
+                                                margin: 0 0.5em;
+                                    
+                                                &:hover{
+                                    
+                                                    .animationLine{
+                                                        .innerLine{
+                                                            width: 100%;
+                                                            background: $darkerGrey;
+                                                        }
+                                                    }
+                                                    
+                                                }
+                                                input{
+                                                    border: none;
+                                                    // border-bottom: 0.2em solid $black;
+                                                    background: transparent;
+                                                    color: $darkerGrey;
+                                                    outline: none;
+                                                    height: 1.5em;
+                                                    width: 100%;
+                                                    text-align: center;
+                                                }
+                                                .animationLine{
+                                                    margin-top: 0;
+                                                    padding-top: 0;
+                                                    margin-bottom: 0;
+                                                    width: 100%;
+                                            
+                                                    .innerLine{
+                                                        width: 100%;
+                                                        height: 100%;
+                                                        // background: yellow;
+                                                        width: 0%;
+                                                        transition: 0.2s;
+                                                    }
+                                            
+                                                    
+                                                }
+                                                // .warningSection{
+                                                //     width: 100%;
+                                                //     text-align: center;
+                                    
+                                                //     p{
+                                                //         color: $white;
+                                                //         background:$primaryMagenta;
+                                                //         padding: 0.5em;
+                                                //     }
+                                                // }
+                                    
+                                                // .numberInputSection{
+                                                //     @include flexCentreRow;
+                                                //     justify-content: space-between;
+                                                //     width: 41%;
+                                                //     // margin-left: 15%;
+                                                //     .numberSection{
+                                                //         @include flexCentreRow;
+                                                //         background: $veryLightGrey;
+                                                //         padding: 0.5em;
+                                                //         border-radius: 0.2em;
+                                                //         p{
+                                                //             font-size: 1em;
+                                                //         }
+                                                //     }
+                                    
+                                                //     .yearSelectionCategory{
+                                                //         p{
+                                                //             font-size: 1em;
+                                                //         }
+                                                //     }
+                                                // }
+                                            }
                                         }
                                         // .inputCategorySection{
                                         //     @include flexCentreRow;
@@ -387,11 +480,25 @@ input[type=number]::-webkit-outer-spin-button {
 
 
                                         .selectionInputCategory{
-                                            // @include flexCentreRow;
+                                            @include flexCentreRow;
+                                            justify-content: flex-start;
+                                            width: 100%;
+                                            margin-bottom: 1.5em;
+                                            .mandatorySection{
+                                                @include flexCentreRow;
+                                                margin-right: 0.5em;
+                                                min-width: 4em;
+                                    
+                                                p{
+                                                    color: $white;
+                                                    font-size: 0.7em;
+                                                    background: $secondaryMagenta;
+                                                    padding: 0.2em 0.5em;
+                                                }
+                                            }
 
                                             .cutomSelectOption{
                                                 width: 50%;
-                                                margin-left: 0.8em;
                                                 select{
                                                     width: 100%;
                                                     background: $darkGrey;
@@ -400,15 +507,15 @@ input[type=number]::-webkit-outer-spin-button {
                                                 }
                                             }
                                         }
-                                        .cardInputSection {
-                                            width: 71%;
-                                            text-align: center;
-                                            .inputColumn{
-                                                input{
-                                                    text-align: center;
-                                                }
-                                            }
-                                        }
+                                        // .cardInputSection {
+                                        //     width: 71%;
+                                        //     text-align: center;
+                                        //     .inputColumn{
+                                        //         input{
+                                        //             text-align: center;
+                                        //         }
+                                        //     }
+                                        // }
                                         .imageCategorySection{
                                             width: 40%;
                                             text-align: center;
