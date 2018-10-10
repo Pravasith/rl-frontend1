@@ -254,7 +254,7 @@ export default class ProfileDetailsVendor extends React.Component {
                                                     <div className="firstNameWrap">
                                                         <InputForm
                                                             refName="firstName"
-                                                            placeholder="Type your first name here"
+                                                            placeholder="First Name"
                                                             isMandatory={true}
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
                                                             characterCount="15"
@@ -267,7 +267,7 @@ export default class ProfileDetailsVendor extends React.Component {
                                                     <div className="lastNameWrap">
                                                         <InputForm
                                                             refName="lastName"
-                                                            placeholder="Type your last name here"
+                                                            placeholder="Last Name"
                                                             isMandatory={true}
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
                                                             characterCount="15"
@@ -314,7 +314,7 @@ export default class ProfileDetailsVendor extends React.Component {
                                                     <div className="phoneNoWrap">
                                                         <InputForm
                                                             refName="phoneNo"
-                                                            placeholder="10 digit phone number here"
+                                                            placeholder="Official contact number"
                                                             isMandatory={true}
                                                             validationType="numbers"
                                                             characterCount="10"
@@ -327,7 +327,7 @@ export default class ProfileDetailsVendor extends React.Component {
                                                     <div className="whatsappNoWrap">
                                                         <InputForm
                                                             refName="whatsappNo"
-                                                            placeholder="10 digit whatsapp number here"
+                                                            placeholder="Whatsapp number"
                                                             isMandatory={false}
                                                             validationType="numbers"
                                                             characterCount="10"
@@ -346,119 +346,68 @@ export default class ProfileDetailsVendor extends React.Component {
                                                         <h3>4</h3>
                                                         <p>Tell us your company address. We’ll bill the customer with this address</p>
                                                     </div>
-                                                    <div className="inputCategorySection">
-                                                        <div className="mandatorySection">
-                                                            <p>Mandatory</p>
-                                                        </div>
-
-                                                        <div className="addressSection inputColumn">
-                                                            <input 
-                                                                type="text" 
-                                                                placeholder="H.No./Flat No" 
-                                                                ref="hNo"
-                                                                type="text"
-                                                                maxLength="10"
-                                                                onKeyPress={(e) => {
-                                                                    if (e.key === "Enter") {
-                                                                        this.submitForm()
-                                                                    }
-                                                                }}
-
-                                                                onChange={(e) => this.validateHNo(e)}
-                                                                
-                                                            />
-
-                                                            <div className="animationLine line">
-                                                                <div className="innerLine"></div>
-                                                            </div>
-
-                                                            <div className="warningSection">
-                                                                <p
-                                                                    className={this.state.hNoClass}
-                                                                >
-                                                                    {this.state.hNoText}
-                                                                </p>
-                                                            </div>
-                                                        </div>
-
-                                                        <div className="numberCountSection">
-                                                            <p
-                                                                ref="hNoCharCount"
-                                                            >
-                                                                {this.state.hNoCharCount}
-                                                            </p>
-                                                        </div>
+                                                    <div className="houseNoWrap">
+                                                        <InputForm
+                                                            refName="houseNo"
+                                                            placeholder="H.No/Flat no."
+                                                            isMandatory={true}
+                                                            validationType="alphabetsSpecialCharactersAndNumbers"
+                                                            characterCount="15"
+                                                            result={(val) => this.setState({
+                                                                houseNumber: val
+                                                            })}
+                                                        />
                                                     </div>
 
-                                                    <div className="inputCategorySection">
-                                                        {/* <div className="mandatorySection">
-                                                            <p>Mandatory</p>
-                                                        </div> */}
-                                                        <div className="addressSection inputColumn">
-                                                            <input type="text" placeholder="Street No." />
-                                                            <div className="animationLine line">
-                                                                <div className="innerLine"></div>
-                                                            </div>
-                                                            {/* <div className="warningSection">
-                                                                <p>Sorry! Numbers are not allowed please enter english alphabets</p>
-                                                            </div> */}
-                                                        </div>
-                                                        {/* <div className="numberCountSection">
-                                                            <p>50</p>
-                                                        </div> */}
+                                                    <div className="StreetNoWrap">
+                                                        <InputForm
+                                                            refName="streetNo"
+                                                            placeholder="Street No."
+                                                            isMandatory={true}
+                                                            validationType="alphabetsSpecialCharactersAndNumbers"
+                                                            characterCount="10"
+                                                            result={(val) => this.setState({
+                                                                streetNumber : val
+                                                            })}
+                                                        />
                                                     </div>
-                                                    <div className="inputCategorySection">
-                                                        {/* <div className="mandatorySection">
-                                                            <p>Mandatory</p>
-                                                        </div> */}
-                                                        <div className="addressSectionExtended inputColumn">
-                                                            <input type="text" placeholder="Detailed address - line 1" />
-                                                            <div className="animationLine line">
-                                                                <div className="innerLine"></div>
-                                                            </div>
-                                                            {/* <div className="warningSection">
-                                                                <p>Sorry! Numbers are not allowed please enter english alphabets</p>
-                                                            </div> */}
-                                                        </div>
-                                                        {/* <div className="numberCountSection">
-                                                            <p>50</p>
-                                                        </div> */}
+                                                    <div className="detailedAddressLineWrap">
+                                                        <InputForm
+                                                            refName="detailedAddressLineOne"
+                                                            placeholder="Detailed address - line 1"
+                                                            isMandatory={true}
+                                                            validationType="alphabetsSpecialCharactersAndNumbers"
+                                                            characterCount="100"
+                                                            result={(val) => this.setState({
+                                                                detailedAddressLineOne : val
+                                                            })}
+                                                        />
                                                     </div>
 
-                                                    <div className="inputCategorySection">
-                                                        {/* <div className="mandatorySection">
-                                                            <p>Mandatory</p>
-                                                        </div> */}
-                                                        <div className="addressSectionExtended inputColumn">
-                                                            <input type="text" placeholder="Detailed address - line 2" />
-                                                            <div className="animationLine line">
-                                                                <div className="innerLine"></div>
-                                                            </div>
-                                                            {/* <div className="warningSection">
-                                                                <p>Sorry! Numbers are not allowed please enter english alphabets</p>
-                                                            </div> */}
-                                                        </div>
-                                                        {/* <div className="numberCountSection">
-                                                            <p>50</p>
-                                                        </div> */}
+                                                    <div className="detailedAddressLineWrap">
+                                                        <InputForm
+                                                            refName="detailedAddressLineTwo"
+                                                            placeholder="Detailed address - line 2"
+                                                            isMandatory={false}
+                                                            validationType="alphabetsSpecialCharactersAndNumbers"
+                                                            characterCount="15"
+                                                            result={(val) => this.setState({
+                                                                detailedAddressLineTwo : val
+                                                            })}
+                                                        />
                                                     </div>
 
-                                                    <div className="inputCategorySection">
-                                                        {/* <div className="mandatorySection">
-                                                            <p>Mandatory</p>
-                                                        </div> */}
-                                                        <div className="addressSection inputColumn">
-                                                            <input type="text" placeholder="City" />
-                                                            <div className="animationLine line">
-                                                                <div className="innerLine"></div>
-                                                            </div>
-                                                            {/* <div className="warningSection">
-                                                                <p>Sorry! Numbers are not allowed please enter english alphabets</p>
-                                                            </div> */}
-                                                        </div>
-                                                        {/* <div className="numberCountSection">
-                                                            <p>50</p>
-                                                        </div> */}
+                                                    <div className="CityWrap">
+                                                        <InputForm
+                                                            refName="City"
+                                                            placeholder="City"
+                                                            isMandatory={true}
+                                                            validationType="alphabetsSpecialCharactersAndNumbers"
+                                                            characterCount="15"
+                                                            result={(val) => this.setState({
+                                                                City : val
+                                                            })}
+                                                        />
                                                     </div>
 
                                                     <div className="selectionInputCategory inputCategorySection">
@@ -474,22 +423,17 @@ export default class ProfileDetailsVendor extends React.Component {
                                                         </div>
                                                     </div>
 
-                                                    <div className="inputCategorySection">
-                                                        {/* <div className="mandatorySection">
-                                                            <p>Mandatory</p>
-                                                        </div> */}
-                                                        <div className="addressSection inputColumn">
-                                                            <input type="text" placeholder="Pincode" />
-                                                            <div className="animationLine line">
-                                                                <div className="innerLine"></div>
-                                                            </div>
-                                                            {/* <div className="warningSection">
-                                                                <p>Sorry! Numbers are not allowed please enter english alphabets</p>
-                                                            </div> */}
-                                                        </div>
-                                                        {/* <div className="numberCountSection">
-                                                            <p>50</p>
-                                                        </div> */}
+                                                    <div className="pinCodeWrap">
+                                                        <InputForm
+                                                            refName="Pincode"
+                                                            placeholder="Pincode"
+                                                            isMandatory={true}
+                                                            validationType="numbers"
+                                                            characterCount="6"
+                                                            result={(val) => this.setState({
+                                                                pincode : val
+                                                            })}
+                                                        />
                                                     </div>
 
                                                 </div>
@@ -501,39 +445,29 @@ export default class ProfileDetailsVendor extends React.Component {
                                                         <h3>5</h3>
                                                         <p>Small Description about your company</p>
                                                     </div>
-                                                    <div className="inputCategorySection">
-                                                        {/* <div className="mandatorySection">
-                                                                <p>Mandatory</p>
-                                                            </div> */}
-                                                        <div className="addressSectionExtended inputColumn">
-                                                            <input type="text" placeholder="You can show off a little here" />
-                                                            <div className="animationLine line">
-                                                                <div className="innerLine"></div>
-                                                            </div>
-                                                            {/* <div className="warningSection">
-                                                                    <p>Sorry! Numbers are not allowed please enter english alphabets</p>
-                                                                </div> */}
-                                                        </div>
-                                                        {/* <div className="numberCountSection">
-                                                                <p>50</p>
-                                                            </div> */}
+                                                    <div className="companyDescriptionWrap">
+                                                        <InputForm
+                                                            refName="companyDescriptionOne"
+                                                            placeholder="You can show off a little here"
+                                                            isMandatory={true}
+                                                            validationType="alphabetsSpecialCharactersAndNumbers"
+                                                            characterCount="60"
+                                                            result={(val) => this.setState({
+                                                                City : val
+                                                            })}
+                                                        />
                                                     </div>
-                                                    <div className="inputCategorySection">
-                                                        {/* <div className="mandatorySection">
-                                                                <p>Mandatory</p>
-                                                            </div> */}
-                                                        <div className="addressSectionExtended inputColumn">
-                                                            <input type="text" placeholder="For example - We sell the toughest and most transparent glass panels in India. " />
-                                                            <div className="animationLine line">
-                                                                <div className="innerLine"></div>
-                                                            </div>
-                                                            {/* <div className="warningSection">
-                                                                    <p>Sorry! Numbers are not allowed please enter english alphabets</p>
-                                                                </div> */}
-                                                        </div>
-                                                        {/* <div className="numberCountSection">
-                                                                <p>50</p>
-                                                            </div> */}
+                                                    <div className="companyDescriptionWrap">
+                                                        <InputForm
+                                                            refName="companyDescriptionTwo"
+                                                            placeholder="For example - We sell the toughest and most transparent glass panels in India"
+                                                            isMandatory={true}
+                                                            validationType="alphabetsSpecialCharactersAndNumbers"
+                                                            characterCount="100"
+                                                            result={(val) => this.setState({
+                                                                City : val
+                                                            })}
+                                                        />
                                                     </div>
 
                                                 </div>
@@ -545,50 +479,53 @@ export default class ProfileDetailsVendor extends React.Component {
                                                         <h3>6</h3>
                                                         <p>How long have you been in this industry?</p>
                                                     </div>
+                                                    
+                                                    <div className="industryTimeWrap">
+                                                        <div className="timeWrap inputCategorySection">
+                                                            <div className="mandatorySection">
+                                                                <p>Mandatory</p>
+                                                            </div>
 
-                                                    <div className="inputCategorySection">
-                                                        <div className="mandatorySection">
-                                                            <p>Mandatory</p>
-                                                        </div>
-
-                                                        <div className="inputColumn">
-                                                            <div className="numberInputSection inputColumnInnerLayer">
-                                                                <div className="VolumeCategory">
-                                                                    <MinusImageIcon />
-                                                                </div>
-                                                                <div className="numberSection">
-                                                                    <p>2</p>
-                                                                </div>
-                                                                <div className="VolumeCategory">
-                                                                    <PlusImageIcon />
-                                                                </div>
-                                                                <div className="yearSelectionCategory">
-                                                                    <p>Years</p>
+                                                            <div className="inputColumn">
+                                                                <div className="numberInputSection inputColumnInnerLayer">
+                                                                    <div className="VolumeCategory">
+                                                                        <MinusImageIcon />
+                                                                    </div>
+                                                                    <div className="numberSection">
+                                                                        <p>2</p>
+                                                                    </div>
+                                                                    <div className="VolumeCategory">
+                                                                        <PlusImageIcon />
+                                                                    </div>
+                                                                    <div className="yearSelectionCategory">
+                                                                        <p>Years</p>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
 
-                                                    <div className="inputCategorySection">
-                                                        <div className="numberSectionExtended inputColumn">
-                                                            <div className="numberInputSection inputColumnInnerLayer">
-                                                                <div className="VolumeCategory">
-                                                                    <MinusImageIcon />
-                                                                </div>
+                                                        <div className="timeWrap inputCategorySection">
+                                                            <div className="numberSectionExtended inputColumn">
+                                                                <div className="numberInputSection inputColumnInnerLayer">
+                                                                    <div className="VolumeCategory">
+                                                                        <MinusImageIcon />
+                                                                    </div>
 
-                                                                <div className="numberSection">
-                                                                    <p>2</p>
-                                                                </div>
+                                                                    <div className="numberSection">
+                                                                        <p>2</p>
+                                                                    </div>
 
-                                                                <div className="VolumeCategory">
-                                                                    <PlusImageIcon />
-                                                                </div>
+                                                                    <div className="VolumeCategory">
+                                                                        <PlusImageIcon />
+                                                                    </div>
 
-                                                                <div className="yearSelectionCategory">
-                                                                    <p>Months</p>
+                                                                    <div className="yearSelectionCategory">
+                                                                        <p>Months</p>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
+
                                                     </div>
 
                                                 </div>
@@ -656,24 +593,17 @@ export default class ProfileDetailsVendor extends React.Component {
                                                         <p>PAN number</p>
                                                     </div>
 
-                                                    <div className="inputCategorySection">
-                                                        {/* <div className="mandatorySection">
-                                                                <p>Mandatory</p>
-                                                            </div> */}
-                                                        <div className="addressSection inputColumn">
-                                                            <input type="text" placeholder="AAAAA0000A" />
-
-                                                            <div className="animationLine line">
-                                                                <div className="innerLine"></div>
-                                                            </div>
-                                                            {/* <div className="warningSection">
-                                                                    <p>Sorry! Numbers are not allowed please enter english alphabets</p>
-                                                                </div> */}
-                                                        </div>
-
-                                                        {/* <div className="numberCountSection">
-                                                                <p>50</p>
-                                                            </div> */}
+                                                    <div className="panNumber">
+                                                        <InputForm
+                                                            refName="panNumber"
+                                                            placeholder="AAAAA0000A"
+                                                            isMandatory={true}
+                                                            validationType="alphabetsSpecialCharactersAndNumbers"
+                                                            characterCount="10"
+                                                            result={(val) => this.setState({
+                                                                City : val
+                                                            })}
+                                                        />
                                                     </div>
                                                 </div>
                                             </div>
