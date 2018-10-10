@@ -365,7 +365,7 @@ export default class ProfileDetailsVendor extends React.Component {
                                                             placeholder="Street No."
                                                             isMandatory={true}
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
-                                                            characterCount="10"
+                                                            characterCount="15"
                                                             result={(val) => this.setState({
                                                                 streetNumber : val
                                                             })}
