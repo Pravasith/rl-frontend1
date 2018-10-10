@@ -5,6 +5,7 @@ import "../../assets/sass/vendor_form.scss"
 import { TableIcon, MinusImageIcon, PlusImageIcon, UploadImageIcon } from "../../assets/images/socialNetworkIcons";
 import LogoAnimation from "../animations/logoAnimation";
 import { GradientButton, InputForm } from "../UX/uxComponents";
+import StatesAndCities from "../../lib/statesAndCities"
 
 
 export default class ProfileDetailsVendor extends React.Component {
@@ -255,10 +256,10 @@ export default class ProfileDetailsVendor extends React.Component {
                                                         <InputForm
                                                             refName= "firstName"
                                                             placeholder= "First Name"
-                                                            isMandatory={true}
-                                                            validationType="alphabetsAndSpecialCharacters"
-                                                            characterCount="15"
-                                                            result={(val) => this.setState({
+                                                            isMandatory= {true}
+                                                            validationType= "alphabetsAndSpecialCharacters"
+                                                            characterCount= "15"
+                                                            result= {(val) => this.setState({
                                                                 firstName: val
                                                             })}
                                                         />
@@ -266,12 +267,12 @@ export default class ProfileDetailsVendor extends React.Component {
 
                                                     <div className="lastNameWrap">
                                                         <InputForm
-                                                            refName="lastName"
-                                                            placeholder="Last Name"
-                                                            isMandatory={true}
-                                                            validationType="alphabetsAndSpecialCharacters"
-                                                            characterCount="15"
-                                                            result={(val) => this.setState({
+                                                            refName= "lastName"
+                                                            placeholder= "Last Name"
+                                                            isMandatory= {true}
+                                                            validationType= "alphabetsAndSpecialCharacters"
+                                                            characterCount= "15"
+                                                            result= {(val) => this.setState({
                                                                 lastName: val
                                                             })}
                                                         />
@@ -295,7 +296,7 @@ export default class ProfileDetailsVendor extends React.Component {
                                                             isMandatory= {true}
                                                             validationType= "alphabetsSpecialCharactersAndNumbers"
                                                             characterCount= "50"
-                                                            result={(val) => this.setState({
+                                                            result= {(val) => this.setState({
                                                                 companyName: val
                                                             })}
                                                         />
@@ -405,7 +406,7 @@ export default class ProfileDetailsVendor extends React.Component {
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
                                                             characterCount="15"
                                                             result={(val) => this.setState({
-                                                                City : val
+                                                                city : val
                                                             })}
                                                         />
                                                     </div>
@@ -453,7 +454,7 @@ export default class ProfileDetailsVendor extends React.Component {
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
                                                             characterCount="60"
                                                             result={(val) => this.setState({
-                                                                City : val
+                                                                companyDescription : val
                                                             })}
                                                         />
                                                     </div>
@@ -465,7 +466,7 @@ export default class ProfileDetailsVendor extends React.Component {
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
                                                             characterCount="100"
                                                             result={(val) => this.setState({
-                                                                City : val
+                                                                city : val
                                                             })}
                                                         />
                                                     </div>
