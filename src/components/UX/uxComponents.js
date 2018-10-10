@@ -48,7 +48,8 @@ export class InputForm extends React.Component {
 
 
     validateForm = (e, validationType) => {
-        if (validationType === "alphabetsSpecialCharactersAndNumbers"){
+
+        if (validationType === "alphabetsAndSpecialCharacters"){
             const val = e.target.value
 
             this.setState({
@@ -78,13 +79,12 @@ export class InputForm extends React.Component {
 
                 this
                     .props
-                    .result(val)
+                    .result (val)
             }
-            
         }
 
 
-        else if (validationType === "numbers") {
+        else if (validationType === "onlyNumbers") {
             const val = e.target.value
 
             this.setState({
@@ -115,6 +115,34 @@ export class InputForm extends React.Component {
             })
 
         }
+
+        else if (validationType === "alphabetsSpecialCharactersAndNumbers"){
+            const val = e.target.value
+
+            this.setState({
+                charCount: Number(this.props.characterCount) - val.length
+            })
+
+            if (val === "")
+                this.setState({
+                    warningText: "This information is required",
+                    warningClass: "warningClass",
+                    fieldIsValid: false,
+                })
+
+
+            if (val !== "") {
+                this.setState({
+                    warningText: null,
+                    warningClass: "warningClass hide",
+                    fieldIsValid: true,
+                })
+
+                this
+                    .props
+                    .result(val)
+            }
+        }
     }
 
     returnMandatory = () => {
@@ -128,7 +156,6 @@ export class InputForm extends React.Component {
         else
         return (
             <div className="mandatorySection">
-                {/* <p>Mandatory</p> */}
             </div>
         )
     }
@@ -140,15 +167,14 @@ export class InputForm extends React.Component {
 
                 <div className="inputCategorySection" >
 
-                    {this.returnMandatory()}
-                    
+                    { this.returnMandatory() }
 
                     <div className="inputColumn">
                         <input
-                            ref= {this.props.refName}
+                            ref= { this.props.refName }
                             type= "text"
-                            placeholder= {this.props.placeholder}
-                            maxLength= {this.props.characterCount}
+                            placeholder= { this.props.placeholder }
+                            maxLength= { this.props.characterCount }
                             onKeyPress= { e => {
                                 if (e.key === "Enter") {
                                     this.submitForm(e.target.value)
