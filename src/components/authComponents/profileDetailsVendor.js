@@ -251,12 +251,12 @@ export default class ProfileDetailsVendor extends React.Component {
                                                         <p>Your name as you would like your customers to call you?</p>
                                                     </div>
 
-                                                    <div className="firstNameWrap">
+                                                    <div className= "firstNameWrap">
                                                         <InputForm
-                                                            refName="firstName"
-                                                            placeholder="First Name"
+                                                            refName= "firstName"
+                                                            placeholder= "First Name"
                                                             isMandatory={true}
-                                                            validationType="alphabetsSpecialCharactersAndNumbers"
+                                                            validationType="alphabetsAndSpecialCharacters"
                                                             characterCount="15"
                                                             result={(val) => this.setState({
                                                                 firstName: val
@@ -269,7 +269,7 @@ export default class ProfileDetailsVendor extends React.Component {
                                                             refName="lastName"
                                                             placeholder="Last Name"
                                                             isMandatory={true}
-                                                            validationType="alphabetsSpecialCharactersAndNumbers"
+                                                            validationType="alphabetsAndSpecialCharacters"
                                                             characterCount="15"
                                                             result={(val) => this.setState({
                                                                 lastName: val
@@ -288,13 +288,13 @@ export default class ProfileDetailsVendor extends React.Component {
                                                         <p> What should we call your company as? </p>
                                                     </div>
 
-                                                    <div className="companyNameWrap">
+                                                    <div className= "companyNameWrap">
                                                         <InputForm
-                                                            refName="companyName"
-                                                            placeholder="Type your company name here"
-                                                            isMandatory={true}
-                                                            validationType="alphabetsSpecialCharactersAndNumbers"
-                                                            characterCount="50"
+                                                            refName= "companyName"
+                                                            placeholder= "Type your company name here"
+                                                            isMandatory= {true}
+                                                            validationType= "alphabetsSpecialCharactersAndNumbers"
+                                                            characterCount= "50"
                                                             result={(val) => this.setState({
                                                                 companyName: val
                                                             })}
@@ -316,7 +316,7 @@ export default class ProfileDetailsVendor extends React.Component {
                                                             refName="phoneNo"
                                                             placeholder="Official contact number"
                                                             isMandatory={true}
-                                                            validationType="numbers"
+                                                            validationType="onlyNumbers"
                                                             characterCount="10"
                                                             result={(val) => this.setState({
                                                                 phoneNumber: val
@@ -329,7 +329,7 @@ export default class ProfileDetailsVendor extends React.Component {
                                                             refName="whatsappNo"
                                                             placeholder="Whatsapp number"
                                                             isMandatory={false}
-                                                            validationType="numbers"
+                                                            validationType="onlyNumbers"
                                                             characterCount="10"
                                                             result={(val) => this.setState({
                                                                 whatsappNumber: val
