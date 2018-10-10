@@ -197,12 +197,58 @@ input[type=number]::-webkit-outer-spin-button {
                                         }
                                         .industryTimeWrap{
                                             @include flexCentreCol;
+                                            align-items: flex-start;
+                                            width: 50%;
                                             .timeWrap{
                                                 @include flexCentreRow;
-                                                .numberInputSection{
-                                                    @include flexCentreRow;
-                                                }
+                                                justify-content: flex-start;
+                                                // align-items: flex-start;
+                                                width: 100%;
+                                                margin-bottom: 1em;
+                                                .mandatorySection{
+                                                        @include flexCentreRow;
+                                                        background: $secondaryMagenta;
+                                                        padding: 0.1em 0.3em;
+                                                        margin-right: 0.5em;
+        
+                                                        p{
+                                                            color: $white;
+                                                            font-size: 0.7em;
+                                                        }
+                                                    }
+                                                    .inputColumn{
+                                                        @include flexCentreRow;
+                                                        justify-content: space-between;
+                                                        width: 50%;
+                                                        .numberInputSection{
+                                                            @include flexCentreRow;
+                                                            justify-content: flex-start;
+                                                            width: 100%;
+                                                            // margin-left: 15%;
+                                                            .numberSection{
+                                                                @include flexCentreRow;
+                                                                background: $veryLightGrey;
+                                                                padding: 0.5em;
+                                                                border-radius: 0.2em;
+                                                                margin: 0 1em;
+                                                                p{
+                                                                    font-size: 1em;
+                                                                }
+                                                            }
+                                                            .yearSelectionCategory{
+                                                                margin: 0 1em;
+                                                                p{
+                                                                    font-size: 1em;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                
                                             }
+                                        }
+                                        .cardInputSection{
+                                            @include flexCentreRow;
+                                            width: 100%;
                                         }
                                         // .inputCategorySection{
                                         //     @include flexCentreRow;

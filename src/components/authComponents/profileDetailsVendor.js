@@ -390,7 +390,7 @@ export default class ProfileDetailsVendor extends React.Component {
                                                             placeholder="Detailed address - line 2"
                                                             isMandatory={false}
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
-                                                            characterCount="15"
+                                                            characterCount="100"
                                                             result={(val) => this.setState({
                                                                 detailedAddressLineTwo : val
                                                             })}
@@ -453,7 +453,7 @@ export default class ProfileDetailsVendor extends React.Component {
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
                                                             characterCount="60"
                                                             result={(val) => this.setState({
-                                                                City : val
+                                                                companyDescription : val
                                                             })}
                                                         />
                                                     </div>
@@ -465,7 +465,7 @@ export default class ProfileDetailsVendor extends React.Component {
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
                                                             characterCount="100"
                                                             result={(val) => this.setState({
-                                                                City : val
+                                                                companyDescription : val
                                                             })}
                                                         />
                                                     </div>
@@ -505,25 +505,30 @@ export default class ProfileDetailsVendor extends React.Component {
                                                         </div>
 
                                                         <div className="timeWrap inputCategorySection">
-                                                            <div className="numberSectionExtended inputColumn">
-                                                                <div className="numberInputSection inputColumnInnerLayer">
-                                                                    <div className="VolumeCategory">
-                                                                        <MinusImageIcon />
-                                                                    </div>
+                                                            <div className="mandatorySection">
+                                                                <p>Mandatory</p>
+                                                            </div>
+                                                                
+                                                                <div className="inputColumn">
+                                                                    <div className="numberInputSection inputColumnInnerLayer">
+                                                                        <div className="VolumeCategory">
+                                                                            <MinusImageIcon />
+                                                                        </div>
 
-                                                                    <div className="numberSection">
-                                                                        <p>2</p>
-                                                                    </div>
+                                                                        <div className="numberSection">
+                                                                            <p>2</p>
+                                                                        </div>
 
-                                                                    <div className="VolumeCategory">
-                                                                        <PlusImageIcon />
-                                                                    </div>
+                                                                        <div className="VolumeCategory">
+                                                                            <PlusImageIcon />
+                                                                        </div>
 
-                                                                    <div className="yearSelectionCategory">
-                                                                        <p>Months</p>
+                                                                        <div className="yearSelectionCategory">
+                                                                            <p>Months</p>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
+                                                            
                                                         </div>
 
                                                     </div>
