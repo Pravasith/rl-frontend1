@@ -157,7 +157,7 @@ input[type=number]::-webkit-outer-spin-button {
                                     .formInputInnerLayer{
                                         @include flexCentreCol;
                                         align-items: flex-start;
-                                        width: 85%;
+                                        width: 95%;
 
                                         .formParaSection{
                                             @include flexCentreRow;
@@ -186,7 +186,24 @@ input[type=number]::-webkit-outer-spin-button {
                                                 }
                                             }
                                         }
-
+                                        .companyNameWrap{
+                                            width: 70%;
+                                        }
+                                        .detailedAddressLineWrap{
+                                            width: 100%;
+                                        }
+                                        .companyDescriptionWrap{
+                                            width: 100%;
+                                        }
+                                        .industryTimeWrap{
+                                            @include flexCentreCol;
+                                            .timeWrap{
+                                                @include flexCentreRow;
+                                                .numberInputSection{
+                                                    @include flexCentreRow;
+                                                }
+                                            }
+                                        }
                                         // .inputCategorySection{
                                         //     @include flexCentreRow;
                                         //     justify-content: flex-start;
@@ -347,11 +364,11 @@ input[type=number]::-webkit-outer-spin-button {
                                             }
                                         }
                                         .imageCategorySection{
-                                            width: 70%;
+                                            width: 40%;
                                             text-align: center;
                                             .inputColumn{
                                                 .imageUploadIconSection{
-                                                    margin-left: 25%;
+                                                    // margin-left: 25%;
                                                 }
                                                 .uploadInstructionSection{
                                                     margin-top: 1em;
