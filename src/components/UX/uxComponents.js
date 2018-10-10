@@ -80,7 +80,6 @@ export class InputForm extends React.Component {
                     .props
                     .result(val)
             }
-            
         }
 
 
@@ -140,15 +139,14 @@ export class InputForm extends React.Component {
 
                 <div className="inputCategorySection" >
 
-                    {this.returnMandatory()}
-                    
+                    { this.returnMandatory() }
 
                     <div className="inputColumn">
                         <input
-                            ref= {this.props.refName}
+                            ref= { this.props.refName }
                             type= "text"
-                            placeholder= {this.props.placeholder}
-                            maxLength= {this.props.characterCount}
+                            placeholder= { this.props.placeholder }
+                            maxLength= { this.props.characterCount }
                             onKeyPress= { e => {
                                 if (e.key === "Enter") {
                                     this.submitForm(e.target.value)
