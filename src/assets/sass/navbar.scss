@@ -1,0 +1,21 @@
+@import "_mixins";
+@import "_vars";
+
+@include includeCommonStyles;
+@include ignoreDefaultStyles;
+
+nav{
+    width: 100%;
+}
+
+.navbarHeaderClass{
+    @include flexCentreRow;
+    justify-content: space-between;
+    width: 100%;
+
+    .loginAndSignUpButtons{
+        @include flexCentreRow;
+        // width: 100%;
+        
+    }
+}

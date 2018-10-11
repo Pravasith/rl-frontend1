@@ -4,9 +4,9 @@
 	"description": "Rolling Logs Vendor Module front end repo",
 	"main": "index.js",
 	"scripts": {
-		"dev": "next",
+		"dev": "node server.js",
 		"build": "next build",
-		"start": "next start -p 8000"
+		"start": "NODE_ENV=production node server.js"
 	},
 	"author": "Pravasith Kumar",
 	"license": "MIT",
@@ -15,6 +15,7 @@
 		"axios": "^0.18.0",
 		"cross-env": "^5.2.0",
 		"crypto-js": "^3.1.9-1",
+		"express": "^4.16.4",
 		"gsap": "^2.0.2",
 		"next": "^7.0.0",
 		"next-redux-wrapper": "^2.0.0",

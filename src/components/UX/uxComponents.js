@@ -28,7 +28,6 @@ export class InputForm extends React.Component {
             warningText: null,
             warningClass: "warningClass hide",
             fieldIsValid: false,
-
         }
 
     }
@@ -36,14 +35,12 @@ export class InputForm extends React.Component {
     componentDidMount = () => {
         
     }
-    
 
     submitForm = (val) => {
         this
             .props
             .result(val)
     }
-
 
     validateForm = (e, validationType) => {
 
@@ -54,12 +51,17 @@ export class InputForm extends React.Component {
                 charCount: Number(this.props.characterCount) - val.length
             })
 
-            if (val === "")
-            this.setState({
-                warningText: "This information is required",
-                warningClass: "warningClass",
-                fieldIsValid: false,
-            })
+
+            if(this.props.isMandatory){
+                if (val === "")
+                    this.setState({
+                        warningText: "This information is required",
+                        warningClass: "warningClass",
+                        fieldIsValid: false,
+                    })
+            }
+
+            
 
             if (!/^[a-zA-Z]*$/g.test(val))
             this.setState({
@@ -67,6 +69,7 @@ export class InputForm extends React.Component {
                 warningClass: "warningClass",
                 fieldIsValid: false,
             })
+            
 
             if (val !== "" && /^[a-zA-Z]*$/g.test(val)){
                 this.setState({
@@ -89,6 +92,7 @@ export class InputForm extends React.Component {
                 charCount: Number(this.props.characterCount) - val.length
             })
 
+            if (this.props.isMandatory)
             if (val.length !== 10) {
                 this.setState({
                     warningText: "Remember, your number has to be valid",
@@ -97,6 +101,7 @@ export class InputForm extends React.Component {
                 })
             }
 
+
             if (!/^[0-9]+$/.test(val)) {
                 this.setState({
                     warningText: "Numbers only",
@@ -104,6 +109,23 @@ export class InputForm extends React.Component {
                     fieldIsValid: false,
                 })
             }
+
+            if(this.props.isMandatory)
+            if(val.length === 0)
+                this.setState({
+                    warningText: "This information is required",
+                    warningClass: "warningClass",
+                    fieldIsValid: false,
+                })
+
+            if (!this.props.isMandatory)
+            if (val.length === 0)
+                this.setState({
+                    warningText: null,
+                    warningClass: "warningClass hide",
+                    fieldIsValid: true,
+                })
+
 
             if (val.length === 10 && /^[0-9]+$/.test(val))
             this.setState({
@@ -121,6 +143,7 @@ export class InputForm extends React.Component {
                 charCount: Number(this.props.characterCount) - val.length
             })
 
+            if (this.props.isMandatory)
             if (val === "")
                 this.setState({
                     warningText: "This information is required",
@@ -164,6 +187,8 @@ export class InputForm extends React.Component {
             <div className="inputCommonWrapper">
 
                 <div className="inputCategorySection" >
+
+
 
                     { this.returnMandatory() }
 

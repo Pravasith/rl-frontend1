@@ -3,6 +3,8 @@ import Link from 'next/link'
 import { RollingLogsLogo } from '../../assets/images';
 import { GradientButton, WhiteButton } from '../UX/uxComponents';
 
+import "../../assets/sass/navbar.scss"
+
 
 class Navbar extends Component {
     constructor(props){

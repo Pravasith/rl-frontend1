@@ -2,10 +2,12 @@ import React from "react"
 
 import "../../assets/sass/vendor_form.scss"
 
-import { TableIcon, MinusImageIcon, PlusImageIcon, UploadImageIcon } from "../../assets/images/socialNetworkIcons";
+import { TableIcon, MinusImageIcon, PlusImageIcon, UploadImageIcon } from "../../assets/images"
 import LogoAnimation from "../animations/logoAnimation";
 import { GradientButton, InputForm } from "../UX/uxComponents";
 import statesAndCities from "../../lib/statesAndCities"
+import { Footer } from "../footer/footer";
+import Navbar from "../navbar/navbar"
 
 
 export default class ProfileDetailsVendor extends React.Component {
@@ -22,6 +24,8 @@ export default class ProfileDetailsVendor extends React.Component {
             companyNameCharCount: 50,
             phoneNoCharCount: 10,
             whatsappNoCharCount: 10,
+            number: 0,
+            count: 0,
 
             redirect: false
         }
@@ -266,8 +270,10 @@ export default class ProfileDetailsVendor extends React.Component {
                 <div className={this.state.mainClass}>
                     <article className="vendorProfileDetailsOuterwrapper">
 
+                        <Navbar/>
+
                         <header className="vendorHeaderClass">
-                            <h3 className="vendorHeaderSection">Okay. Very quickly we'll just finish off a small profile details form.</h3>
+                            <h3 className="vendorHeaderSection">Okay. Very quickly we'll just finish off a simple details form.</h3>
                             <div className="line"></div>
                         </header>
 
@@ -547,15 +553,24 @@ export default class ProfileDetailsVendor extends React.Component {
 
                                                             <div className="inputColumn">
                                                                 <div className="numberInputSection inputColumnInnerLayer">
-                                                                    <div className="VolumeCategory">
-                                                                        <MinusImageIcon />
+                                                                    <div 
+                                                                        className="VolumeCategory" 
+                                                                        // onClick={this.decreaseValue.bind(this)}
+                                                                        >
+                                                                        <MinusImageIcon/>
                                                                     </div>
+
                                                                     <div className="numberSection">
-                                                                        <p>2</p>
+                                                                        <p>{this.state.number}</p>
                                                                     </div>
-                                                                    <div className="VolumeCategory">
-                                                                        <PlusImageIcon />
+
+                                                                    <div 
+                                                                        className="VolumeCategory" 
+                                                                        // onClick={this.increaseValue.bind(this)}
+                                                                        >
+                                                                        <PlusImageIcon/>
                                                                     </div>
+
                                                                     <div className="yearSelectionCategory">
                                                                         <p>Years</p>
                                                                     </div>
@@ -570,15 +585,21 @@ export default class ProfileDetailsVendor extends React.Component {
                                                                 
                                                                 <div className="inputColumn">
                                                                     <div className="numberInputSection inputColumnInnerLayer">
-                                                                        <div className="VolumeCategory">
+                                                                        <div 
+                                                                            className="VolumeCategory" 
+                                                                            // onClick={this.decreaseCount.bind(this)}
+                                                                            >
                                                                             <MinusImageIcon />
                                                                         </div>
 
                                                                         <div className="numberSection">
-                                                                            <p>2</p>
+                                                                            <p>{this.state.count}</p>
                                                                         </div>
 
-                                                                        <div className="VolumeCategory">
+                                                                        <div 
+                                                                            className="VolumeCategory" 
+                                                                            // onClick={this.increaseCount.bind(this)}
+                                                                            >
                                                                             <PlusImageIcon />
                                                                         </div>
 
@@ -711,6 +732,8 @@ export default class ProfileDetailsVendor extends React.Component {
                             </div>
                         </section>
                     </article>
+
+                    <Footer/>
                 </div>
             </div>
         )
