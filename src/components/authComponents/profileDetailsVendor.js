@@ -5,7 +5,7 @@ import "../../assets/sass/vendor_form.scss"
 import { TableIcon, MinusImageIcon, PlusImageIcon, UploadImageIcon } from "../../assets/images/socialNetworkIcons";
 import LogoAnimation from "../animations/logoAnimation";
 import { GradientButton, InputForm } from "../UX/uxComponents";
-import StatesAndCities from "../../lib/statesAndCities"
+import statesAndCities from "../../lib/statesAndCities"
 
 
 export default class ProfileDetailsVendor extends React.Component {
@@ -32,17 +32,66 @@ export default class ProfileDetailsVendor extends React.Component {
 
     }
 
-    returnCustomSelectOptions = () => {
+    returnStatesOfIndia = () => {
 
-        const array = [
-            "Karnataka",
-            "Delhi",
-            "TamilNadu",
-            "Rajasthan"
-        ]
+        const array = [ ...statesAndCities ]
+       
+        return array.map((item,i) => (
+                <option
+                    key= {i}
+                    value= {item.state}
+                    >
+                    {item.state} 
+                </option>
+            )
+        )
 
-        return array.map((item, i) => <option key={i} value={i + 1} >{item}</option>)
     }
+
+    handleStateSelection = (e) => {
+        const val = e.target.value
+        
+        this.changeCityList(val)
+    }
+
+    changeCityList = (theState) => {
+        let statesArray = [...statesAndCities]
+
+        let citiesArray = []
+
+        statesArray.map((item, i) => {
+            if(theState === item.state){
+                citiesArray = [...item.cities]
+            }
+        })
+
+        this.setState({
+            statesList : [ ...citiesArray ]
+        })
+ 
+    }
+
+    returnCitiesOfIndia = () => {
+        if (this.state.statesList)
+        return [...this.state.statesList].map((item, i) => (
+            <option
+                key={i}
+                value={item}
+            >
+                { item }
+            </option>
+        ))
+
+
+        else if (!this.state.statesList) {
+            return <option
+                value= {"PLEASE_SELECT_STATE"}
+                >
+                Please select a state above
+            </option>
+        }
+    }
+
 
     validatePhoneNo = (e) => {
         const val = e.target.value
@@ -315,7 +364,7 @@ export default class ProfileDetailsVendor extends React.Component {
                                                     <div className="phoneNoWrap">
                                                         <InputForm
                                                             refName="phoneNo"
-                                                            placeholder="Official contact number"
+                                                            placeholder="10 digit Official contact number"
                                                             isMandatory={true}
                                                             validationType="onlyNumbers"
                                                             characterCount="10"
@@ -328,7 +377,7 @@ export default class ProfileDetailsVendor extends React.Component {
                                                     <div className="whatsappNoWrap">
                                                         <InputForm
                                                             refName="whatsappNo"
-                                                            placeholder="Whatsapp number"
+                                                            placeholder="10 digit Whatsapp number"
                                                             isMandatory={false}
                                                             validationType="onlyNumbers"
                                                             characterCount="10"
@@ -398,17 +447,22 @@ export default class ProfileDetailsVendor extends React.Component {
                                                         />
                                                     </div>
 
-                                                    <div className="CityWrap">
-                                                        <InputForm
-                                                            refName="City"
-                                                            placeholder="City"
-                                                            isMandatory={true}
-                                                            validationType="alphabetsSpecialCharactersAndNumbers"
-                                                            characterCount="15"
-                                                            result={(val) => this.setState({
-                                                                city : val
-                                                            })}
-                                                        />
+                                                    <div className="selectionInputCategory inputCategorySection">
+                                                        <div className="mandatorySection">
+                                                            <p>Mandatory</p>
+                                                        </div>
+
+                                                        <div className="customSelectOption">
+                                                            <select
+                                                                name= "statesOfIndia" 
+                                                                id= "statesOfIndia"
+                                                                defaultValue= "548784154874648746"
+                                                                onChange={(e) => this.handleStateSelection(e)}
+                                                                >
+                                                                <option value="548784154874648746">Choose state</option>
+                                                                { this.returnStatesOfIndia() }
+                                                            </select>
+                                                        </div>
                                                     </div>
 
                                                     <div className="selectionInputCategory inputCategorySection">
@@ -416,10 +470,14 @@ export default class ProfileDetailsVendor extends React.Component {
                                                             <p>Mandatory</p>
                                                         </div>
 
-                                                        <div className="cutomSelectOption">
-                                                            <select name="" id="">
-                                                                <option value="0">Choose state</option>
-                                                                {this.returnCustomSelectOptions()}
+                                                        <div className="customSelectOption">
+                                                            <select
+                                                                name="citiesOfIndia"
+                                                                id="citiesOfIndia"
+                                                                defaultValue="548784154874648746"
+                                                                >
+                                                                <option value="548784154874648746">Choose city</option>
+                                                                {this.returnCitiesOfIndia()}
                                                             </select>
                                                         </div>
                                                     </div>

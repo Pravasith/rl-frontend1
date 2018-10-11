@@ -88,6 +88,7 @@ const statesAndCities =
       "Yerraguntla"
     ]
   },
+
   {
     "state": "Arunachal Pradesh",
     "cities": [
@@ -95,6 +96,7 @@ const statesAndCities =
       "Pasighat"
     ]
   },
+  
   {
     "state": "Assam",
     "cities": [
