@@ -100,14 +100,17 @@ export default class LogIn extends React.Component {
                     if (res.data.passwordRight && res.data.registered) {
                         localStorage.setItem('loginThrough', 'form')
 
-                        if (res.data.userType === "student")
-                            window.open('/student/profile-development', '_self')
+                        if (res.data.userType === "vendor")
+                        window.open('/vendor/profile-details', '_self')
+
+                        else
+                        window.open('/register')
 
                         // if(res.data.userType === "faculty")
                         // window.open('/faculty/profile-details', '_self')
 
-                        if (res.data.userType === "architect")
-                            window.open('/architect/profile-details', '_self')
+                        // if (res.data.userType === "architect")
+                        //     window.open('/architect/profile-details', '_self')
                     }
 
                 })
