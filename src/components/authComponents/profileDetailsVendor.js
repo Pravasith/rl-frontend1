@@ -5,6 +5,7 @@ import "../../assets/sass/vendor_form.scss"
 import { TableIcon, MinusImageIcon, PlusImageIcon, UploadImageIcon } from "../../assets/images/socialNetworkIcons";
 import LogoAnimation from "../animations/logoAnimation";
 import { GradientButton, InputForm } from "../UX/uxComponents";
+import statesAndCities from "../../lib/statesAndCities"
 
 
 export default class ProfileDetailsVendor extends React.Component {
@@ -33,41 +34,66 @@ export default class ProfileDetailsVendor extends React.Component {
 
     }
 
-    increaseValue = () => {
-        this.setState({
-            number : this.state.number + 1
+    returnStatesOfIndia = () => {
+
+        const array = [ ...statesAndCities ]
+       
+        return array.map((item,i) => (
+                <option
+                    key= {i}
+                    value= {item.state}
+                    >
+                    {item.state} 
+                </option>
+            )
+        )
+
+    }
+
+    handleStateSelection = (e) => {
+        const val = e.target.value
+        
+        this.changeCityList(val)
+    }
+
+    changeCityList = (theState) => {
+        let statesArray = [...statesAndCities]
+
+        let citiesArray = []
+
+        statesArray.map((item, i) => {
+            if(theState === item.state){
+                citiesArray = [...item.cities]
+            }
         })
-    }
 
-    decreaseValue = () => {
         this.setState({
-            number : this.state.number - 1
+            statesList : [ ...citiesArray ]
         })
+ 
     }
 
-    increaseCount = () => {
-        this.setState({
-            count : this.state.count + 1
-        })
+    returnCitiesOfIndia = () => {
+        if (this.state.statesList)
+        return [...this.state.statesList].map((item, i) => (
+            <option
+                key={i}
+                value={item}
+            >
+                { item }
+            </option>
+        ))
+
+
+        else if (!this.state.statesList) {
+            return <option
+                value= {"PLEASE_SELECT_STATE"}
+                >
+                Please select a state above
+            </option>
+        }
     }
 
-    decreaseCount = () => {
-        this.setState({
-            count : this.state.count - 1
-        })
-    }
-
-    returnCustomSelectOptions = () => {
-
-        const array = [
-            "Karnataka",
-            "Delhi",
-            "TamilNadu",
-            "Rajasthan"
-        ]
-
-        return array.map((item, i) => <option key={i} value={i + 1} >{item}</option>)
-    }
 
     validatePhoneNo = (e) => {
         const val = e.target.value
@@ -281,10 +307,10 @@ export default class ProfileDetailsVendor extends React.Component {
                                                         <InputForm
                                                             refName= "firstName"
                                                             placeholder= "First Name"
-                                                            isMandatory={true}
-                                                            validationType="alphabetsAndSpecialCharacters"
-                                                            characterCount="15"
-                                                            result={(val) => this.setState({
+                                                            isMandatory= {true}
+                                                            validationType= "alphabetsAndSpecialCharacters"
+                                                            characterCount= "15"
+                                                            result= {(val) => this.setState({
                                                                 firstName: val
                                                             })}
                                                         />
@@ -292,12 +318,12 @@ export default class ProfileDetailsVendor extends React.Component {
 
                                                     <div className="lastNameWrap">
                                                         <InputForm
-                                                            refName="lastName"
-                                                            placeholder="Last Name"
-                                                            isMandatory={true}
-                                                            validationType="alphabetsAndSpecialCharacters"
-                                                            characterCount="15"
-                                                            result={(val) => this.setState({
+                                                            refName= "lastName"
+                                                            placeholder= "Last Name"
+                                                            isMandatory= {true}
+                                                            validationType= "alphabetsAndSpecialCharacters"
+                                                            characterCount= "15"
+                                                            result= {(val) => this.setState({
                                                                 lastName: val
                                                             })}
                                                         />
@@ -321,7 +347,7 @@ export default class ProfileDetailsVendor extends React.Component {
                                                             isMandatory= {true}
                                                             validationType= "alphabetsSpecialCharactersAndNumbers"
                                                             characterCount= "50"
-                                                            result={(val) => this.setState({
+                                                            result= {(val) => this.setState({
                                                                 companyName: val
                                                             })}
                                                         />
@@ -340,7 +366,7 @@ export default class ProfileDetailsVendor extends React.Component {
                                                     <div className="phoneNoWrap">
                                                         <InputForm
                                                             refName="phoneNo"
-                                                            placeholder="Official contact number"
+                                                            placeholder="10 digit Official contact number"
                                                             isMandatory={true}
                                                             validationType="onlyNumbers"
                                                             characterCount="10"
@@ -353,7 +379,7 @@ export default class ProfileDetailsVendor extends React.Component {
                                                     <div className="whatsappNoWrap">
                                                         <InputForm
                                                             refName="whatsappNo"
-                                                            placeholder="Whatsapp number"
+                                                            placeholder="10 digit Whatsapp number"
                                                             isMandatory={false}
                                                             validationType="onlyNumbers"
                                                             characterCount="10"
@@ -423,17 +449,22 @@ export default class ProfileDetailsVendor extends React.Component {
                                                         />
                                                     </div>
 
-                                                    <div className="CityWrap">
-                                                        <InputForm
-                                                            refName="City"
-                                                            placeholder="City"
-                                                            isMandatory={true}
-                                                            validationType="alphabetsSpecialCharactersAndNumbers"
-                                                            characterCount="15"
-                                                            result={(val) => this.setState({
-                                                                City : val
-                                                            })}
-                                                        />
+                                                    <div className="selectionInputCategory inputCategorySection">
+                                                        <div className="mandatorySection">
+                                                            <p>Mandatory</p>
+                                                        </div>
+
+                                                        <div className="customSelectOption">
+                                                            <select
+                                                                name= "statesOfIndia" 
+                                                                id= "statesOfIndia"
+                                                                defaultValue= "548784154874648746"
+                                                                onChange={(e) => this.handleStateSelection(e)}
+                                                                >
+                                                                <option value="548784154874648746">Choose state</option>
+                                                                { this.returnStatesOfIndia() }
+                                                            </select>
+                                                        </div>
                                                     </div>
 
                                                     <div className="selectionInputCategory inputCategorySection">
@@ -441,10 +472,14 @@ export default class ProfileDetailsVendor extends React.Component {
                                                             <p>Mandatory</p>
                                                         </div>
 
-                                                        <div className="cutomSelectOption">
-                                                            <select name="" id="">
-                                                                <option value="0">Choose state</option>
-                                                                {this.returnCustomSelectOptions()}
+                                                        <div className="customSelectOption">
+                                                            <select
+                                                                name="citiesOfIndia"
+                                                                id="citiesOfIndia"
+                                                                defaultValue="548784154874648746"
+                                                                >
+                                                                <option value="548784154874648746">Choose city</option>
+                                                                {this.returnCitiesOfIndia()}
                                                             </select>
                                                         </div>
                                                     </div>
@@ -491,7 +526,7 @@ export default class ProfileDetailsVendor extends React.Component {
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
                                                             characterCount="100"
                                                             result={(val) => this.setState({
-                                                                companyDescription : val
+                                                                city : val
                                                             })}
                                                         />
                                                     </div>

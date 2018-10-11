@@ -1,5 +1,5 @@
 import CryptoJS from 'crypto-js'
-import { EncryptDecryptKey } from '../lib/encryptDecryptKey'
+import { EncryptDecryptKey } from '../config/encryptDecryptKey'
 
 // 
 // This is for the back-end
