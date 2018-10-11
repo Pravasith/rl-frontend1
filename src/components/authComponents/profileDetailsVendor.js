@@ -21,6 +21,8 @@ export default class ProfileDetailsVendor extends React.Component {
             companyNameCharCount: 50,
             phoneNoCharCount: 10,
             whatsappNoCharCount: 10,
+            number: 0,
+            count: 0,
 
             redirect: false
         }
@@ -29,6 +31,30 @@ export default class ProfileDetailsVendor extends React.Component {
         //     console.log(this.refs.firstName.value)
         // },4000)
 
+    }
+
+    increaseValue = () => {
+        this.setState({
+            number : this.state.number + 1
+        })
+    }
+
+    decreaseValue = () => {
+        this.setState({
+            number : this.state.number - 1
+        })
+    }
+
+    increaseCount = () => {
+        this.setState({
+            count : this.state.count + 1
+        })
+    }
+
+    decreaseCount = () => {
+        this.setState({
+            count : this.state.count - 1
+        })
     }
 
     returnCustomSelectOptions = () => {
@@ -488,14 +514,14 @@ export default class ProfileDetailsVendor extends React.Component {
 
                                                             <div className="inputColumn">
                                                                 <div className="numberInputSection inputColumnInnerLayer">
-                                                                    <div className="VolumeCategory">
-                                                                        <MinusImageIcon />
+                                                                    <div className="VolumeCategory" onClick={this.decreaseValue.bind(this)}>
+                                                                        <MinusImageIcon/>
                                                                     </div>
                                                                     <div className="numberSection">
-                                                                        <p>2</p>
+                                                                        <p>{this.state.number}</p>
                                                                     </div>
-                                                                    <div className="VolumeCategory">
-                                                                        <PlusImageIcon />
+                                                                    <div className="VolumeCategory" onClick={this.increaseValue.bind(this)}>
+                                                                        <PlusImageIcon/>
                                                                     </div>
                                                                     <div className="yearSelectionCategory">
                                                                         <p>Years</p>
@@ -511,15 +537,15 @@ export default class ProfileDetailsVendor extends React.Component {
                                                                 
                                                                 <div className="inputColumn">
                                                                     <div className="numberInputSection inputColumnInnerLayer">
-                                                                        <div className="VolumeCategory">
+                                                                        <div className="VolumeCategory" onClick={this.decreaseCount.bind(this)}>
                                                                             <MinusImageIcon />
                                                                         </div>
 
                                                                         <div className="numberSection">
-                                                                            <p>2</p>
+                                                                            <p>{this.state.count}</p>
                                                                         </div>
 
-                                                                        <div className="VolumeCategory">
+                                                                        <div className="VolumeCategory" onClick={this.increaseCount.bind(this)}>
                                                                             <PlusImageIcon />
                                                                         </div>
 
