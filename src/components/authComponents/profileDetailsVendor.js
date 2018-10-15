@@ -2,7 +2,7 @@ import React from "react"
 
 import "../../assets/sass/vendor_form.scss"
 
-import { TableIcon, MinusImageIcon, PlusImageIcon, UploadImageIcon } from "../../assets/images/socialNetworkIcons";
+import { TableIcon, MinusImageIcon, PlusImageIcon, UploadImageIcon } from "../../assets/images/index";
 import LogoAnimation from "../animations/logoAnimation";
 import { GradientButton, InputForm } from "../UX/uxComponents";
 import statesAndCities from "../../lib/statesAndCities"
@@ -549,13 +549,13 @@ export default class ProfileDetailsVendor extends React.Component {
 
                                                             <div className="inputColumn">
                                                                 <div className="numberInputSection inputColumnInnerLayer">
-                                                                    <div className="VolumeCategory" onClick={this.decreaseValue.bind(this)}>
+                                                                    <div className="VolumeCategory">
                                                                         <MinusImageIcon/>
                                                                     </div>
                                                                     <div className="numberSection">
                                                                         <p>{this.state.number}</p>
                                                                     </div>
-                                                                    <div className="VolumeCategory" onClick={this.increaseValue.bind(this)}>
+                                                                    <div className="VolumeCategory">
                                                                         <PlusImageIcon/>
                                                                     </div>
                                                                     <div className="yearSelectionCategory">
@@ -572,7 +572,7 @@ export default class ProfileDetailsVendor extends React.Component {
                                                                 
                                                                 <div className="inputColumn">
                                                                     <div className="numberInputSection inputColumnInnerLayer">
-                                                                        <div className="VolumeCategory" onClick={this.decreaseCount.bind(this)}>
+                                                                        <div className="VolumeCategory">
                                                                             <MinusImageIcon />
                                                                         </div>
 
@@ -580,7 +580,7 @@ export default class ProfileDetailsVendor extends React.Component {
                                                                             <p>{this.state.count}</p>
                                                                         </div>
 
-                                                                        <div className="VolumeCategory" onClick={this.increaseCount.bind(this)}>
+                                                                        <div className="VolumeCategory">
                                                                             <PlusImageIcon />
                                                                         </div>
 

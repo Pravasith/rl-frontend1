@@ -1,0 +1,247 @@
+@import "_mixins";
+@import "_vars";
+
+
+@include includeCommonStyles;
+@include ignoreDefaultStyles;
+
+
+.productView{
+    width:100%;
+    // height:10.5em;
+    margin-top: 1em;
+
+   .innerViewProductLayer{
+       @include flexCentreRow;
+       justify-content: flex-start;
+       width: 100%;
+       // margin: 0 auto;
+    //    height:10em;
+
+       .arrowButtonContainer{
+           width: 3em;
+           .leftArrowButton{
+               @include flexCentreRow;
+               // width:8%;
+            //    height: 10.5em;
+               cursor: pointer;
+
+               #Left_Arrow{
+                   width:3em;
+                   height:2em;
+                   #polygon{
+                       stroke:$semiDarkGrey;
+                   }
+               }
+               &:hover{
+                   #Left_Arrow{
+                       #polygon{
+                           stroke:$secondaryMagenta;
+                       }
+                   } 
+               }
+           }
+
+           .rightArrowButton{
+               @include flexCentreRow;
+               // width:8%;
+            //    height: 10.5em;
+               cursor: pointer;
+               #Right_Arrow{
+                   width:3em;
+                   height:2em;
+                   #polygon{
+                       stroke:$semiDarkGrey;
+                   }
+               }
+               &:hover{
+                   #Right_Arrow{
+                       #polygon{
+                           stroke:$secondaryMagenta;
+                       }
+                   } 
+               }
+           }
+       }
+       }
+       
+
+       .imageContainerMiddleLayer{
+           display: grid;
+           grid-template-columns: 1fr 1fr 1fr 1fr;
+           width:84%;
+        
+               .outerMostLayer{
+                   width: 95%;
+                   // background: yellow;
+                   
+
+                   .innerWrapperImage{
+                       position: relative;
+                       width: 100%;
+                       // background: red;
+                       cursor: pointer;
+
+                        &:hover{
+
+                                .tagContainer{
+                                    left: -0.3em;
+                                }
+
+                            .outerProductImageLayer{
+                                transform: scale(1.025);
+                                @include boxShadow;
+
+                                .imgOuterLayer{
+                                    
+                                    img{
+                                        // transform: scale(1.025);
+                                        filter: saturate(1.25);
+                                        // filter: contrast(2);
+                                        // width: 20%;
+                                        // height: 150%;
+                                    }
+                                }
+                            }
+                        }
+
+                        .tagContainer{
+                            position:absolute;
+                            width: 6em;
+                            height: 1em;
+                            top: 1em;
+                            left: -0.2em;
+                            background-color: $highLightBlue;
+                            transition: 0.2s;
+
+                            p{
+                                font-size: 0.6em;
+                                color: white;
+                                padding-left: 0.5em;
+                            }
+
+                            .leftTriangle{
+
+                                width: 0;
+                                height: 0;
+                                border-top: 0.3em solid rgb(168, 0, 98);
+                                border-left: 0.3em solid transparent;
+                                margin-top: 0.2em;
+                            }
+
+                            .rightTriangle{
+                                width: 1em;
+                                height: 1em;
+                                position: absolute;
+                                top: 0;
+                                right: -1em;
+                                // background: $white;
+
+                                .topTriangle{
+                                    width: 0;
+                                    height: 0;
+                                    border-top: 0.5em solid $highLightBlue;
+                                    border-right: 0.5em solid transparent;
+                                }
+
+                                .botTriangle{
+                                    width: 0;
+                                    height: 0;
+                                    border-bottom: 0.5em solid $highLightBlue;
+                                    border-right: 0.5em solid transparent;
+                                }
+                            }
+                        }
+                   
+                       .productCatalogueImage{
+                           @include flexCentreCol;
+                           width: 100%;
+                        //    height: 10.25em;
+                           
+
+                           .outerProductImageLayer{
+                               @include flexCentreCol;
+                               width: 97%;
+                               padding: 0.4em 0.1em;
+                            //    height: 10.25em;
+                               // height: 100%;
+                               background: $white;
+                               @include box_shadow;
+                               transition: 0.1s;
+                               // background: $lightGrey;
+                               .innerImageLayer{
+                                   width: 100%;
+                                //    height: 10em;
+                                   // height: 91%;
+
+                                   .imgConatiner{
+                                       @include flexCentreCol;
+                                       align-items: center;
+                                       width: 93%;
+                                    //    height: 10em;
+                                       // height: 93%;
+                                       margin: 0 auto;
+
+                                       .imgOuterLayer{
+                                           width:100%;
+                                           position: relative;
+                                           padding-bottom: 90%;
+
+                                           // height: 10em;
+
+                                           img{
+                                               width:100%;
+                                               height:100%;
+                                               object-fit: cover;
+                                               position:absolute;
+                                               animation: fadeIn 0.2s ease;
+                                            //    transition: 0.1s;
+                                           }
+
+                                           .uponHover{
+                                               width: 100%;
+                                               height: 100%;
+                                               background: #f5f4f4cc;
+                                               position: absolute;
+                                               left: 0;
+                                               top: 0;
+                                               display: none;
+
+                                               .viewProjectWrap{
+                                                   @include flexCentreCol;
+                                                   margin-top:30%;
+
+                                                   .viewButtonBlue{
+                                                       padding: 0.4em 3em;
+                                                       // border:none;
+                                                       border: 0.2em solid $darkGrey;
+
+                                                       &:hover{
+                                                           border-color: $secondaryMagenta; 
+                                                       }
+                                                   }
+                                               }
+                                           }
+
+                                           &:hover{
+                                               .uponHover{
+                                                   display: block;
+                                                   animation: fadeIn 0.2s ease;
+                                               }
+                                           }
+                                       }
+                                   }
+                               }
+                           }
+                       }  
+
+                   }
+
+                   
+               
+           }
+           
+       }
+
+       
+} 
