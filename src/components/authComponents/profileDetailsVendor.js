@@ -4,7 +4,7 @@ import "../../assets/sass/vendor_form.scss"
 
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
-import { TableIcon, MinusImageIcon, PlusImageIcon, UploadImageIcon } from "../../assets/images"
+import { TableIcon, MinusImageIcon, PlusImageIcon, UploadImageIcon } from "../../assets/images/index"
 import LogoAnimation from "../animations/logoAnimation"
 import { GradientButton, InputForm } from "../UX/uxComponents"
 import statesAndCities from "../../lib/statesAndCities"
@@ -29,6 +29,8 @@ class ProfileDetailsVendor extends React.Component {
             whatsappNoCharCount: 10,
             number: 0,
             count: 0,
+            value: '',
+           
 
             redirect: false
         }
@@ -39,13 +41,12 @@ class ProfileDetailsVendor extends React.Component {
 
     }
 
-<<<<<<< HEAD
-=======
     componentDidMount = () => {
         this.props.getUserData()
     }
 
->>>>>>> 15884b164e77f07cd904cc9064f6552f492f2c2f
+    handlechange = ({target: {value}}) => this.setState(state => value.length <= 6 && !isNaN(Number(value)) && {value} || state)
+
     returnStatesOfIndia = () => {
 
         const array = [ ...statesAndCities ]
@@ -258,6 +259,7 @@ class ProfileDetailsVendor extends React.Component {
             companyNameIsValid: true,
         })
     }
+
 
     submitForm = () => {
 
@@ -563,29 +565,21 @@ class ProfileDetailsVendor extends React.Component {
 
                                                             <div className="inputColumn">
                                                                 <div className="numberInputSection inputColumnInnerLayer">
-<<<<<<< HEAD
-                                                                    <div className="VolumeCategory">
-=======
                                                                     <div 
                                                                         className="VolumeCategory" 
                                                                         // onClick={this.decreaseValue.bind(this)}
                                                                         >
->>>>>>> 15884b164e77f07cd904cc9064f6552f492f2c2f
                                                                         <MinusImageIcon/>
                                                                     </div>
 
                                                                     <div className="numberSection">
                                                                         <p>{this.state.number}</p>
                                                                     </div>
-<<<<<<< HEAD
-                                                                    <div className="VolumeCategory">
-=======
 
                                                                     <div 
                                                                         className="VolumeCategory" 
                                                                         // onClick={this.increaseValue.bind(this)}
                                                                         >
->>>>>>> 15884b164e77f07cd904cc9064f6552f492f2c2f
                                                                         <PlusImageIcon/>
                                                                     </div>
 
@@ -603,14 +597,10 @@ class ProfileDetailsVendor extends React.Component {
                                                                 
                                                                 <div className="inputColumn">
                                                                     <div className="numberInputSection inputColumnInnerLayer">
-<<<<<<< HEAD
-                                                                        <div className="VolumeCategory">
-=======
                                                                         <div 
                                                                             className="VolumeCategory" 
                                                                             // onClick={this.decreaseCount.bind(this)}
                                                                             >
->>>>>>> 15884b164e77f07cd904cc9064f6552f492f2c2f
                                                                             <MinusImageIcon />
                                                                         </div>
 
@@ -618,14 +608,10 @@ class ProfileDetailsVendor extends React.Component {
                                                                             <p>{this.state.count}</p>
                                                                         </div>
 
-<<<<<<< HEAD
-                                                                        <div className="VolumeCategory">
-=======
                                                                         <div 
                                                                             className="VolumeCategory" 
                                                                             // onClick={this.increaseCount.bind(this)}
                                                                             >
->>>>>>> 15884b164e77f07cd904cc9064f6552f492f2c2f
                                                                             <PlusImageIcon />
                                                                         </div>
 
@@ -655,47 +641,42 @@ class ProfileDetailsVendor extends React.Component {
                                                         </div>
 
                                                         <div className="inputColumn">
-                                                            <input type="text" placeholder="22" />
-
-                                                            <div className="animationLine line">
-                                                                <div className="innerLine"></div>
-                                                            </div>
+                                                            <input type="tel" placeholder="22" 
+                                                            maxlength="2" 
+                                                            value={this.state.value} onChange={this.handlechange}
+                                                            />
+                                                            <span class="InputSeparatorLine"> </span>
                                                         </div>
 
                                                         <p>-</p>
 
                                                         <div className="inputColumn">
-                                                            <input type="text" placeholder="AAAAA0000A" />
-                                                            <div className="animationLine line">
-                                                                <div className="innerLine"></div>
-                                                            </div>
+                                                            <input type="text" placeholder="AAAAA0000A" maxLength="10"/>
+                                                            <span class="InputSeparatorLine"> </span>
                                                         </div>
 
                                                         <p>-</p>
 
                                                         <div className="inputColumn">
-                                                            <input type="text" placeholder="1" />
-                                                            <div className="animationLine line">
-                                                                <div className="innerLine"></div>
-                                                            </div>
+                                                            <input type="text" placeholder="1" maxlength="1" pattern="\d*"/>
+                                                            <span class="InputSeparatorLine"> </span>
                                                         </div>
 
                                                         <p>-</p>
 
                                                         <div className="inputColumn">
-                                                            <input type="text" placeholder="Z" />
-                                                            <div className="animationLine line">
-                                                                <div className="innerLine"></div>
-                                                            </div>
+                                                            <input type="text" placeholder="Z" pattern="[A-Z]{1}" maxLength="1"/>
+                                                            <span class="InputSeparatorLine"> </span>
                                                         </div>
 
                                                         <p>-</p>
 
                                                         <div className="inputColumn">
-                                                            <input type="text" placeholder="5" />
-                                                            <div className="animationLine line">
+                                                            <input type="text" placeholder="5" maxlength="1" pattern="\d*"/>
+                                                            <span class="InputSeparatorLine"> </span>
+                                                            {/* <div className="animationLine line">
                                                                 <div className="innerLine"></div>
-                                                            </div>
+                                                            </div> */}
                                                         </div>
                                                     </div>
                                                 </div>

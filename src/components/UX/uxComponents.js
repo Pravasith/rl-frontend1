@@ -32,11 +32,6 @@ export class InputForm extends React.Component {
 
     }
 
-<<<<<<< HEAD
-  
-
-=======
->>>>>>> 15884b164e77f07cd904cc9064f6552f492f2c2f
     componentDidMount = () => {
         
     }
@@ -211,9 +206,11 @@ export class InputForm extends React.Component {
                             onChange= { e => this.validateForm(e, this.props.validationType) }
                         />
 
-                        <div className="animationLine line">
+                        <span class="InputSeparatorLine"> </span>
+
+                        {/* <div className="animationLine line">
                             <div className="innerLine"></div>
-                        </div>
+                        </div> */}
 
                         <div className="warningSection">
                             <p

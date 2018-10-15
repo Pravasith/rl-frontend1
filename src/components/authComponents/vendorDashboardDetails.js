@@ -3,7 +3,7 @@ import React from "react"
 import "../../assets/sass/vendor_dashboard.scss"
 
 
-import { WhiteArrowLeft, WhiteArrowRight, UploadImageIcon,PlusButtonIcon } from "../../assets/images/index";
+import { WhiteArrowLeft, WhiteArrowRight, UploadImageIcon,PlusButtonIcon } from "../../assets/images";
 import LogoAnimation from "../animations/logoAnimation";
 import { GradientButton, InputForm } from "../UX/uxComponents";
 import HtmlSlider from "../UX/htmlSlider"
