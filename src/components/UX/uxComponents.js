@@ -204,6 +204,7 @@ export class InputForm extends React.Component {
                                 }
                             }}
                             onChange= { e => this.validateForm(e, this.props.validationType) }
+                            defaultValue= {this.props.value ? this.props.value : ""}
                         />
 
                         <span class="InputSeparatorLine"> </span>

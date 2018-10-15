@@ -26,7 +26,7 @@ class Navbar extends Component {
     }
 
     componentDidMount = () => {
-        this.props.navBarLoadingAnimationShowHide(true)
+        
     }
     
 
@@ -136,7 +136,7 @@ class Navbar extends Component {
                             <a >
                                 <GradientButton>
                                     Sign up
-                                    </GradientButton>
+                                </GradientButton>
                             </a>
                         </Link>
                     </section>
@@ -146,7 +146,7 @@ class Navbar extends Component {
                             <a >
                                 <WhiteButton>
                                     Log in
-                                    </WhiteButton>
+                                </WhiteButton>
                             </a>
                         </Link>
                     </section>

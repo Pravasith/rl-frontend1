@@ -399,13 +399,13 @@ export const ProfilePictureIcon = () => {
             <circle fill="#F2F2F2" cx="20.842" cy="22.625" r="20.842" />
             <path fill="#4D4D4D" d="M5.36,28.557l3.276-9.029c0,0,0.446-12.906,13.008-12.906c12.561,0,11.702,10.927,11.702,10.927	s0.201,7.467-4.347,10.932c0,0-1.314,0.752-1.314,3.352c0,2.599,0,10.396,0,10.396s-4,2.382-12,0.542v-6.802H9.421l-0.65-7.347	L5.36,28.557z"
             />
-            <path fill="#E6E6E6" d="M9.685,30.533c0,0,2.058-0.163,3.411-1.354c0,0-1.411,2.599-3.411,2.274V30.533z"
-            />
-            <line fill="none" stroke="#29ABE2" strokeWidth="3" strokeMiterlimit="10"
-                x1="4.332" y1="6.622" x2="38.117" y2="21.356" />
-            <polygon fill="#29ABE2" stroke="#29ABE2" strokeWidth="3" strokeMiterlimit="10"
-                points="11.451,9.727 18.95,1.783 35.166,8.524 34.206,19.65" />
-            <circle fill="#FFF" cx="12.913" cy="19.65" r="1.706" />
+            <g stroke="#ED1E79" strokeMiterlimit="10">
+                <line fill="none" strokeWidth="2" x1="3.332" y1="9.622" x2="37.117" y2="24.356"
+                />
+                <polygon fill="#ED1E79" strokeWidth="3" points="10.451,11.727 17.95,3.783 34.166,10.524 33.206,21.65"
+                />
+            </g>
+            <ellipse fill="#FFF" cx="11.913" cy="20.998" rx="1.706" ry="1.053" />
         </svg>
     )
 

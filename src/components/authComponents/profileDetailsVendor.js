@@ -1,5 +1,6 @@
 import React from "react"
 
+
 import "../../assets/sass/vendor_form.scss"
 
 import { connect } from "react-redux"
@@ -11,6 +12,9 @@ import statesAndCities from "../../lib/statesAndCities"
 import { Footer } from "../footer/footer"
 import Navbar from "../navbar/navbar"
 import { getUserData } from "../../actions/userActions"
+import { hitApi, navBarLoadingAnimationShowHide } from "../../actions/generalActions";
+import { api } from "../../actions/apiLinks";
+import { encryptData, decryptData } from "../../factories/encryptDecrypt";
 
 
 class ProfileDetailsVendor extends React.Component {
@@ -22,17 +26,11 @@ class ProfileDetailsVendor extends React.Component {
             loadingClass: 'loadingAnim hide',
             mainClass: 'mainClass',
 
-            firstNameCharCount: 15,
-            lastNameCharCount: 15,
-            companyNameCharCount: 50,
-            phoneNoCharCount: 10,
-            whatsappNoCharCount: 10,
-            number: 0,
-            count: 0,
-            value: '',
-           
+            redirect: false,
 
-            redirect: false
+            firstName: null,
+            lastName: null,
+
         }
 
         // setTimeout(()=> {
@@ -42,7 +40,31 @@ class ProfileDetailsVendor extends React.Component {
     }
 
     componentDidMount = () => {
+        
         this.props.getUserData()
+        
+      
+
+
+        .then((data) => {
+
+            let { userData } = this.props
+
+            //
+            // DECRYPT REQUEST DATA
+            // 
+            let decryptedData = decryptData(
+                userData.responseData
+            )
+            //
+            // DECRYPT REQUEST DATA
+            //
+
+            this.setState({
+                firstName : decryptedData.firstName,
+                lastName: decryptedData.lastName,
+            })
+        })
     }
 
     handlechange = ({target: {value}}) => this.setState(state => value.length <= 6 && !isNaN(Number(value)) && {value} || state)
@@ -107,162 +129,40 @@ class ProfileDetailsVendor extends React.Component {
         }
     }
 
+    hitTheAPI = (objectName, data) => {
 
-    validatePhoneNo = (e) => {
-        const val = e.target.value
+        this
+            .props
+            .navBarLoadingAnimationShowHide(true)
 
-        this.setState({
-            phoneNoCharCount: 10 - val.length
-        })
+        let rawData = {}
 
-        if (val.length !== 10) {
-            this.setState({
-                phoneNoText: "Remember, your number has to be valid",
-                phoneNoClass: 'phoneNoText',
-                phoneNoIsValid: false,
+        rawData[objectName] = data
+
+        // 
+        // Encrypt data
+        // 
+        const encryptedData = encryptData(rawData)
+        // 
+        // Encrypt data
+        // 
+
+        this
+            .props
+            .hitApi(api.UPDATE_USER_DATA, "PUT", 
+                {
+                    message : "Update user's data",
+                    requestData : encryptedData
+                }
+            )
+
+            .then(() => {
+
+                this
+                    .props
+                    .navBarLoadingAnimationShowHide(false)
+                console.log(this.props.responseData)
             })
-        }
-
-        if (!/^[0-9]+$/.test(val)) {
-            this.setState({
-                phoneNoText: "Numbers only",
-                phoneNoClass: 'phoneNoText',
-                phoneNoIsValid: false,
-            })
-        }
-
-        if (val.length === 10 && /^[0-9]+$/.test(val))
-            this.setState({
-                phoneNoText: null,
-                phoneNoClass: 'phoneNoText hide',
-                phoneNoIsValid: true,
-            })
-    }
-
-    validateWhatsappNo = (e) => {
-        const val = e.target.value
-
-        this.setState({
-            whatsappNoCharCount: 10 - val.length
-        })
-
-
-        if (val.length !== 10) {
-            this.setState({
-                whatsappNoText: "Remember, your number has to be valid",
-                whatsappNoClass: 'whatsappNoText',
-                whatsappNoIsValid: false,
-            })
-        }
-
-        if (!/^[0-9]+$/.test(val)) {
-            this.setState({
-                whatsappNoText: "Numbers only",
-                whatsappNoClass: 'whatsappNoText',
-                whatsappNoIsValid: false,
-            })
-        }
-
-        if (val.length === 10 && /^[0-9]+$/.test(val))
-            this.setState({
-                whatsappNoText: null,
-                whatsappNoClass: 'whatsappNoText hide',
-                whatsappNoIsValid: true,
-            })
-
-    }
-
-    validateFirstName = (e) => {
-
-        const val = e.target.value
-
-        this.setState({
-            firstNameCharCount: 15 - val.length
-        })
-
-        if (val === "") {
-            this.setState({
-                firstNameText: "Please tell us your first name.",
-                firstNameClass: 'firstNameText',
-                firstNameIsValid: false,
-            })
-        }
-
-        if (!/^[a-zA-Z]*$/g.test(val)) {
-            this.setState({
-                firstNameText: "Please enter english alphabets only.",
-                firstNameClass: 'firstNameText',
-                firstNameIsValid: false,
-            })
-        }
-
-        if (val !== "" && /^[a-zA-Z]*$/g.test(val))
-            this.setState({
-                firstNameText: null,
-                firstNameClass: 'firstNameText hide',
-                firstNameIsValid: true,
-            })
-    }
-
-    validateLastName = (e) => {
-        const val = e.target.value
-
-        this.setState({
-            lastNameCharCount: 15 - val.length
-        })
-
-        if (val === "") {
-            this.setState({
-                lastNameText: "Please tell us your last name.",
-                lastNameClass: 'lastNameText',
-                lastNameIsValid: false,
-            })
-        }
-
-        if (!/^[a-zA-Z]*$/g.test(val)) {
-            this.setState({
-                lastNameText: "Please enter english alphabets only.",
-                lastNameClass: 'lastNameText',
-                lastNameIsValid: false,
-            })
-        }
-
-        if (val !== "" && /^[a-zA-Z]*$/g.test(val))
-            this.setState({
-                lastNameText: null,
-                lastNameClass: 'lastNameText hide',
-                lastNameIsValid: true,
-            })
-
-    }
-
-
-    validateCompanyName = (e) => {
-
-        const val = e.target.value
-
-        this.setState({
-            companyNameCharCount: 50 - val.length
-        })
-
-        if (val === "") 
-        this.setState({
-            companyNameText: "Please tell us your Company's name.",
-            companyNameClass: 'companyNameText',
-            companyNameIsValid: false,
-        })
-
-        if (val !== "")
-        this.setState({
-            companyNameText: null,
-            companyNameClass: 'companyNameText hide',
-            companyNameIsValid: true,
-        })
-    }
-
-
-    submitForm = () => {
-
     }
 
 
@@ -322,26 +222,24 @@ class ProfileDetailsVendor extends React.Component {
                                                     <div className= "firstNameWrap">
                                                         <InputForm
                                                             refName= "firstName"
-                                                            placeholder= "First Name"
+                                                            placeholder= "First name"
                                                             isMandatory= {true}
                                                             validationType= "alphabetsAndSpecialCharacters"
                                                             characterCount= "15"
-                                                            result= {(val) => this.setState({
-                                                                firstName: val
-                                                            })}
+                                                            value={this.state.firstName ? this.state.firstName : null }
+                                                            result={(val, isValid) => this.hitTheAPI("firstName", val)}
                                                         />
                                                     </div>
 
                                                     <div className="lastNameWrap">
                                                         <InputForm
                                                             refName= "lastName"
-                                                            placeholder= "Last Name"
-                                                            isMandatory= {true}
+                                                            placeholder= "Last name"
+                                                            isMandatory= { true }
                                                             validationType= "alphabetsAndSpecialCharacters"
                                                             characterCount= "15"
-                                                            result= {(val) => this.setState({
-                                                                lastName: val
-                                                            })}
+                                                            value={this.state.lastName ? this.state.lastName : null}
+                                                            result={(val, isValid) => this.hitTheAPI("lastName", val)}
                                                         />
                                                     </div>
 
@@ -751,13 +649,16 @@ class ProfileDetailsVendor extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        userData: state.userData
+        userData: state.userData,
+        responseData: state.responseDataFromAPI
     }
 }
 
 const matchDispatchToProps = (dispatch) => {
     return bindActionCreators({
-        getUserData
+        getUserData,
+        hitApi,
+        navBarLoadingAnimationShowHide
     }, dispatch)
 }
 
