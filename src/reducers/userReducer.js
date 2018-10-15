@@ -8,7 +8,6 @@ export function userData(state = {
             ...action.payload
         }
     }
+
     return state
 }
-
-

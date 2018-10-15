@@ -1,0 +1,224 @@
+@import "_mixins";
+@import "_vars";
+
+@include includeCommonStyles;
+@include ignoreDefaultStyles;
+
+nav{
+    width: 100%;
+    margin: 0;
+    margin-top: 0.2em;
+}
+
+.rollingLogsLogoWrap{
+    margin-left: 0.8em;
+}
+
+
+
+.loadingAnimation{
+    background: $white;
+    width: 5em;
+    border-radius: 0.5em;
+    margin-right: 1em;
+    margin-left: 26%;
+    
+    @include flexCentreRow;
+
+    h4{
+        font-weight: 500;
+    }
+
+    .loadingIcon{
+        @include flexCentreRow;
+        margin-right: 0.4em;
+        margin-top: 0.5em;
+    }
+
+    .loadingTextWrap{
+        @include flexCentreCol;
+        width: 100%;
+
+        .outerDiv{
+            height: 0.2em;
+            width: 100%;
+            border-radius: 2em;
+
+            .innerDiv{
+                height: 0.2em;
+                width: 20%;
+                background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB, #23D5AB, #23A6D5, #E73C7E, #EE7752,#E73C7E, #23A6D5, #23D5AB);
+                background-size: 1000% 1000%;
+                -webkit-animation: Gradient 5s ease infinite;
+                -moz-animation: Gradient 5s ease infinite;
+                animation: Gradient 5s ease infinite;
+                border-radius: 2em;
+                animation: leftRight 2s infinite;
+            }
+        }
+    }
+
+
+    animation: flash 1s ease;
+
+}
+
+.hide{
+    display: none;
+}
+
+
+.navbarHeaderClass{
+    @include flexCentreRow;
+    justify-content: space-between;
+    width: 100%;
+
+    .loginAndSignUpButtons{
+        @include flexCentreRow;
+    }
+}
+
+.rotated{
+    transform-origin: 50% 50%;
+    transform: rotateZ(180deg)
+}
+
+.menu{
+    @include flexCentreRow;
+    cursor: pointer;
+    border-radius: 0.2em;
+    transition: 0.2s;
+    margin-right: 1em;
+
+    &:focus {
+        outline: none
+    }
+
+
+    .proPicSmall{
+        width: 2.75em;
+        height: 2.75em;
+        
+        @include flexCentreRow;
+        img{
+            border-radius: 0.2em;
+            max-width: 2.25em;
+            max-height: 2.25em;
+    }
+
+    }
+
+    .dropDownIcon{
+        padding: 0.5em 0.5em;
+        transition: 0.1s;
+    }
+
+            
+    .menuDropWrap{
+        position: relative;
+        z-index: 1;
+
+        .menuDrop{
+            position: absolute;
+            right: -0.3em;
+            top: 1em;
+            width: 15em;
+            
+            // background: $yellow;
+
+            
+            border-radius: 0.3em;
+            
+            .menuDropClose{
+                p{
+                    text-align: center;
+                    color: red;
+                }
+            }
+
+            .dummyWrap{
+                // position: absolute;
+                // margin-top: 1em;
+                height: 1em;
+                // width: 100%;
+                // top: 1em;
+                right: 0;
+                width: 100%;
+                // background: red;
+            }
+
+            .menuItemsFullWrap{
+                border: 0.2em solid $white;
+                background: $white;
+                padding: 0.25em 0.5em;
+
+                @include box_shadow;
+
+                .menuItem{
+                
+                    @include flexCentreRow;
+                    justify-content: flex-start;
+                    margin: 0.25em;
+                    // border-bottom: 0.1em solid $mediumGrey;
+                    margin-bottom: 0;
+                    padding-bottom: 0.2em;
+    
+                    .icon{
+                        margin-right: 0.5em;
+                        @include flexCentreRow;
+                    }
+    
+                    transition: 0.2s;
+    
+                    &:hover{
+                        p{
+                            color : $secondaryMagenta;
+                        }
+                    }
+    
+                    
+                }
+            }
+
+
+        }
+    }
+
+    // .menuDropWrap{
+    //     position: relative;
+    //     .menuDrop{
+    //         position: absolute;
+    //         right: 0;
+    //         top: 2em;
+    //         border: 0.2em solid $white;
+    //         width: 10em;
+    //         background: $white;
+    //         border-radius: 0.3em;
+    //         @include box_shadow;
+
+    //         .menuItem{
+    //             @include flexCentreRow;
+    //             justify-content: flex-start;
+    //             margin: 0.25em;
+    //             // border-bottom: 0.1em solid $mediumGrey;
+    //             margin-bottom: 0;
+    //             padding-bottom: 0.2em;
+
+    //             .icon{
+    //                 margin-right: 0.5em;
+    //                 @include flexCentreRow;
+    //             }
+
+    //             transition: 0.2s;
+
+    //             &:hover{
+    //                 p{
+    //                     color : $secondaryMagenta;
+    //                 }
+    //             }
+
+                
+    //         }
+    //     }
+    // }
+}

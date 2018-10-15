@@ -98,8 +98,6 @@ export default class SignUp extends React.Component{
 
     validateAndSubmit = () => {
 
-        // console.log(this.createUserRLId("commonUser"))
-
         let rawData = {
             emailId : this.refs.emailAddress.value,
             password : this.refs.pWord.value,
@@ -164,8 +162,7 @@ export default class SignUp extends React.Component{
 
                         localStorage.setItem('loginThrough', 'form')
 
-                        console.log(decryptData(res.data.responseData))
-                        // window.open('/user/who', '_self')
+                        window.open('/vendor/profile-details', '_self')
                     }
                 })
                 .catch(err => {
@@ -232,7 +229,6 @@ export default class SignUp extends React.Component{
                     userEmailIsValid: true
                 })
 
-                // console.log(theInput)
             }
         }
     }

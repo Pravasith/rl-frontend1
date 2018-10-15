@@ -170,6 +170,119 @@
         text-decoration: none;
     }
 
+    /* The animation code */
+    @keyframes upAndDownLite {
+        0%   {
+            transform: translateY(2px);
+        }
+
+        40%  {
+            transform: translateY(-1px);
+        }
+
+        60%  {
+            transform: translateY(-1px);
+        }
+
+        100%  {
+            transform: translateY(2px);
+        }
+    }
+
+    @keyframes scaleYHighAndLow {
+        0%   {
+            transform: scaleY(0.95);
+        }
+
+        50%  {
+            transform: scaleY(1);
+        }
+
+        100%  {
+            transform: scaleY(0.95);
+        }
+    }
+
+    @keyframes rotateLeftAndRight {
+        0%   {
+            transform: rotateZ(-7deg);
+        }
+
+        50%  {
+            transform: rotateZ(7deg);
+        }
+
+        100%  {
+            transform: rotateZ(-7deg);
+        }
+    }
+
+    @keyframes flash {
+        0% {
+            background: $white;
+        }
+        50% {
+            background: $highLightBlue;
+        }
+        100% {
+            background: $white;
+        }
+    }
+
+    @keyframes leftRight {
+        0% {
+            transform: translateX(0)
+            scaleX(1);
+            background-position: 0% 50%;
+            
+        }
+        
+        25% {
+            transform: translateX(200%)
+            scaleX(0.2);
+            
+        }
+
+        50% {
+            transform: translateX(410%)
+            scaleX(1);
+            background-position: 100% 50%;
+        }
+        
+        75% {
+            transform: translateX(200%)
+            scaleX(0.2);
+        }
+        
+        100% {
+            transform: translateX(0%)
+            scaleX(1);
+            background-position: 0% 50%;
+        }
+    }
+
+        
+    /* The element to apply the animation to */
+    #shakeHands {
+        animation: upAndDown 1.5s infinite;
+    }
+
+    #botBgd {
+        transform-origin: 50% 50%;
+        animation: scaleYHighAndLow 2s infinite;
+    }
+
+    #tree {
+        transform-origin: 70% 100%;
+        animation: rotateLeftAndRight 1.5s infinite;
+    }
+
+    #loadTree{
+        transform-origin: 72% 100%;
+        animation: rotateLeftAndRight 1.5s infinite;
+    }
+
+
 
 }
 

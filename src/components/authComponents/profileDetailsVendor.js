@@ -2,13 +2,18 @@ import React from "react"
 
 import "../../assets/sass/vendor_form.scss"
 
-import { TableIcon, MinusImageIcon, PlusImageIcon, UploadImageIcon } from "../../assets/images/index";
-import LogoAnimation from "../animations/logoAnimation";
-import { GradientButton, InputForm } from "../UX/uxComponents";
+import { connect } from "react-redux"
+import { bindActionCreators } from "redux"
+import { TableIcon, MinusImageIcon, PlusImageIcon, UploadImageIcon } from "../../assets/images"
+import LogoAnimation from "../animations/logoAnimation"
+import { GradientButton, InputForm } from "../UX/uxComponents"
 import statesAndCities from "../../lib/statesAndCities"
+import { Footer } from "../footer/footer"
+import Navbar from "../navbar/navbar"
+import { getUserData } from "../../actions/userActions"
 
 
-export default class ProfileDetailsVendor extends React.Component {
+class ProfileDetailsVendor extends React.Component {
 
     constructor(props, context) {
         super(props, context)
@@ -34,6 +39,13 @@ export default class ProfileDetailsVendor extends React.Component {
 
     }
 
+<<<<<<< HEAD
+=======
+    componentDidMount = () => {
+        this.props.getUserData()
+    }
+
+>>>>>>> 15884b164e77f07cd904cc9064f6552f492f2c2f
     returnStatesOfIndia = () => {
 
         const array = [ ...statesAndCities ]
@@ -74,16 +86,16 @@ export default class ProfileDetailsVendor extends React.Component {
     }
 
     returnCitiesOfIndia = () => {
-        if (this.state.statesList)
-        return [...this.state.statesList].map((item, i) => (
-            <option
-                key={i}
-                value={item}
-            >
-                { item }
-            </option>
-        ))
-
+        if (this.state.statesList){
+            return [...this.state.statesList].map((item, i) => (
+                <option
+                    key = { i }
+                    value = { item }
+                    >
+                    { item }
+                </option>
+            ))
+        }
 
         else if (!this.state.statesList) {
             return <option
@@ -124,7 +136,6 @@ export default class ProfileDetailsVendor extends React.Component {
                 phoneNoClass: 'phoneNoText hide',
                 phoneNoIsValid: true,
             })
-
     }
 
     validateWhatsappNo = (e) => {
@@ -159,8 +170,6 @@ export default class ProfileDetailsVendor extends React.Component {
             })
 
     }
-
-
 
     validateFirstName = (e) => {
 
@@ -268,15 +277,18 @@ export default class ProfileDetailsVendor extends React.Component {
                 <div className={this.state.mainClass}>
                     <article className="vendorProfileDetailsOuterwrapper">
 
+                        <Navbar
+                            userData = {this.props.userData}
+                        />
+
                         <header className="vendorHeaderClass">
-                            <h3 className="vendorHeaderSection">Okay. Very quickly we'll just finish off a small profile details form.</h3>
+                            <h3 className="vendorHeaderSection">Okay, very quickly we'll just finish off a simple details form</h3>
                             <div className="line"></div>
                         </header>
 
                         <section className="vendorFormOuterSection">
 
                             <div className="vendorInnerSection">
-
                                 <div className="leftSection">
                                     <div className="leftSectionInnerLayer">
                                         <div className="iconWrapper">
@@ -285,10 +297,12 @@ export default class ProfileDetailsVendor extends React.Component {
 
                                         <div className="formCompletionInfoSection">
                                             <div className="outerLayer">
-                                                <h3><span>4/9</span> Questions answered</h3>
+                                                <h3>
+                                                    <span>4/9</span> Questions answered</h3>
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
 
                                 <div className="rightFormSection">
@@ -549,15 +563,32 @@ export default class ProfileDetailsVendor extends React.Component {
 
                                                             <div className="inputColumn">
                                                                 <div className="numberInputSection inputColumnInnerLayer">
+<<<<<<< HEAD
                                                                     <div className="VolumeCategory">
+=======
+                                                                    <div 
+                                                                        className="VolumeCategory" 
+                                                                        // onClick={this.decreaseValue.bind(this)}
+                                                                        >
+>>>>>>> 15884b164e77f07cd904cc9064f6552f492f2c2f
                                                                         <MinusImageIcon/>
                                                                     </div>
+
                                                                     <div className="numberSection">
                                                                         <p>{this.state.number}</p>
                                                                     </div>
+<<<<<<< HEAD
                                                                     <div className="VolumeCategory">
+=======
+
+                                                                    <div 
+                                                                        className="VolumeCategory" 
+                                                                        // onClick={this.increaseValue.bind(this)}
+                                                                        >
+>>>>>>> 15884b164e77f07cd904cc9064f6552f492f2c2f
                                                                         <PlusImageIcon/>
                                                                     </div>
+
                                                                     <div className="yearSelectionCategory">
                                                                         <p>Years</p>
                                                                     </div>
@@ -572,7 +603,14 @@ export default class ProfileDetailsVendor extends React.Component {
                                                                 
                                                                 <div className="inputColumn">
                                                                     <div className="numberInputSection inputColumnInnerLayer">
+<<<<<<< HEAD
                                                                         <div className="VolumeCategory">
+=======
+                                                                        <div 
+                                                                            className="VolumeCategory" 
+                                                                            // onClick={this.decreaseCount.bind(this)}
+                                                                            >
+>>>>>>> 15884b164e77f07cd904cc9064f6552f492f2c2f
                                                                             <MinusImageIcon />
                                                                         </div>
 
@@ -580,7 +618,14 @@ export default class ProfileDetailsVendor extends React.Component {
                                                                             <p>{this.state.count}</p>
                                                                         </div>
 
+<<<<<<< HEAD
                                                                         <div className="VolumeCategory">
+=======
+                                                                        <div 
+                                                                            className="VolumeCategory" 
+                                                                            // onClick={this.increaseCount.bind(this)}
+                                                                            >
+>>>>>>> 15884b164e77f07cd904cc9064f6552f492f2c2f
                                                                             <PlusImageIcon />
                                                                         </div>
 
@@ -677,6 +722,7 @@ export default class ProfileDetailsVendor extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div className="formInputContainer">
                                                 <div className="formInputInnerLayer">
                                                     <div className="formParaSection">
@@ -713,6 +759,8 @@ export default class ProfileDetailsVendor extends React.Component {
                             </div>
                         </section>
                     </article>
+
+                    <Footer/>
                 </div>
             </div>
         )
@@ -720,4 +768,16 @@ export default class ProfileDetailsVendor extends React.Component {
 }
 
 
+const mapStateToProps = (state) => {
+    return {
+        userData: state.userData
+    }
+}
 
+const matchDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+        getUserData
+    }, dispatch)
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(ProfileDetailsVendor)
