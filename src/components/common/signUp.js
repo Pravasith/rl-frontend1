@@ -229,7 +229,6 @@ export default class SignUp extends React.Component{
                     userEmailIsValid: true
                 })
 
-                // console.log(theInput)
             }
         }
     }

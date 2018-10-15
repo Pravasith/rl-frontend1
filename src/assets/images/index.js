@@ -5,6 +5,7 @@ export const LogoLoadingAnimation = () => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="223.495" height="174.978"
             viewBox="0 0 223.495 174.978">
+
             <g id="buildingInnerStrokeLines" fill="none" stroke="#4D4D4D" strokeLinecap="round"
                 strokeLinejoin="round" strokeDasharray="1000" strokeMiterlimit="10" strokeDashoffset="1000" >
                 <polyline points="121.27,48.972 122.23,60.178 155.527,63.7" />
@@ -23,6 +24,7 @@ export const LogoLoadingAnimation = () => {
                 />
                 <line strokeWidth="2" x1="68.442" y1="125.491" x2="66.2" y2="97.318" />
             </g>
+
             <g id="backgroundLand" fill="none" stroke="#4D4D4D" strokeLinecap="round" strokeLinejoin="round"
                 strokeMiterlimit="10" strokeDasharray="1000" strokeDashoffset="1000">
                 <line strokeWidth="2" x1="130.554" y1="110.446" x2="169.834" y2="110.382"
@@ -35,9 +37,11 @@ export const LogoLoadingAnimation = () => {
                 <line strokeWidth="2" x1="39.626" y1="110.444" x2="1" y2="110.38" />
                 <path strokeWidth="2" d="M39.626,110.444" />
             </g>
+
             <circle fill="#FFF" stroke="#4D4D4D" strokeWidth="3" strokeLinecap="round"
                 strokeLinejoin="round" strokeDasharray="1000"   strokeDashoffset="1000" strokeMiterlimit="10" cx="173.009" cy="30.955" r="29.456"
                 id="treeBush" />
+
             <g id="treeSculpture" stroke="#4D4D4D" strokeDasharray="1000"  strokeLinecap="round" strokeLinejoin="round"
                 strokeMiterlimit="10" strokeDashoffset="1000" >
                 <ellipse fill="none" strokeWidth="3" cx="182.934" cy="127.646" rx="9.926"
@@ -62,9 +66,11 @@ export const LogoLoadingAnimation = () => {
                 />
                 <path fill="none" strokeWidth="2" d="M154.6,92.587" />
             </g>
+
             <circle fill="#FFF" stroke="#4D4D4D" strokeWidth="3" strokeLinecap="round"
                 strokeLinejoin="round" strokeDasharray="1000" strokeDashoffset="1000"  strokeMiterlimit="10" cx="202.465" cy="48.245" r="17.609"
                 id="treeBushTwo" />
+
             <g id="buildingOuterCoverLine" fill="none" stroke="#4D4D4D" strokeWidth="3"
                 strokeLinecap="round" strokeDasharray="1000" strokeDashoffset="1000"  strokeLinejoin="round" strokeMiterlimit="10">
                 <path d="M46.03,121.97l-6.403-11.525l3.202-8.965l-5.764-4.162v-5.443l-3.842-20.49l73.318-28.175l14.729,5.763L155.527,63.7l-9.604,10.887 l-1.281,7.043c0,0-13.767,28.175-14.087,28.815c-0.319,0.64-3.842,11.525-3.842,11.525l-36.179,8.645l-22.092-5.123l-7.364-18.889 l-5.442,10.246v5.763L46.03,121.97z"
@@ -76,8 +82,9 @@ export const LogoLoadingAnimation = () => {
                 />
                 <polyline points="105.902,44.489 91.173,115.567 91.173,130.614" />
             </g>
+
             <g id="window" fill="#FFF" stroke="#4D4D4D" strokeWidth="3" strokeLinecap="round"
-strokeLinejoin = "round" strokeDasharray = "1000" strokeDashoffset = "1000" strokeMiterlimit = "10" >
+                strokeLinejoin = "round" strokeDasharray = "1000" strokeDashoffset = "1000" strokeMiterlimit = "10" >
                 <polygon points="104.934,83.337 104.934,109.911 117.934,107.723 117.934,94.597"
                 />
                 <polygon points="55.934,121.945 55.934,117.318 61.272,108.827 66.72,123.663"
@@ -384,9 +391,108 @@ export const UploadImageIcon = () => {
     )
 }
 
+export const ProfilePictureIcon = () => {
+
+    return (
+        <svg id="profilePicture" xmlns="http://www.w3.org/2000/svg" width="41.685"
+            height="43.468" viewBox="0 0 41.685 43.468">
+            <circle fill="#F2F2F2" cx="20.842" cy="22.625" r="20.842" />
+            <path fill="#4D4D4D" d="M5.36,28.557l3.276-9.029c0,0,0.446-12.906,13.008-12.906c12.561,0,11.702,10.927,11.702,10.927	s0.201,7.467-4.347,10.932c0,0-1.314,0.752-1.314,3.352c0,2.599,0,10.396,0,10.396s-4,2.382-12,0.542v-6.802H9.421l-0.65-7.347	L5.36,28.557z"
+            />
+            <path fill="#E6E6E6" d="M9.685,30.533c0,0,2.058-0.163,3.411-1.354c0,0-1.411,2.599-3.411,2.274V30.533z"
+            />
+            <line fill="none" stroke="#29ABE2" strokeWidth="3" strokeMiterlimit="10"
+                x1="4.332" y1="6.622" x2="38.117" y2="21.356" />
+            <polygon fill="#29ABE2" stroke="#29ABE2" strokeWidth="3" strokeMiterlimit="10"
+                points="11.451,9.727 18.95,1.783 35.166,8.524 34.206,19.65" />
+            <circle fill="#FFF" cx="12.913" cy="19.65" r="1.706" />
+        </svg>
+    )
+
+}
+
+export const DropDownIcon = () => {
+
+    return (
+        <svg id="rota" xmlns="http://www.w3.org/2000/svg" width="12.333" height="11"
+            viewBox="0 0 12.333 11">
+            <polygon fill="#FFF" stroke="#29ABE2" strokeWidth="2" strokeLinecap="round"
+                strokeLinejoin="round" strokeMiterlimit="10" points="11.333,1 6.333,10 1,1"
+            />
+        </svg>
+    )
+}
 
 
 
+export const ProfilePageIcon = () => {
+
+    return (
+
+        <svg id="rota" xmlns="http://www.w3.org/2000/svg" width="21.215" height="19.699"
+            viewBox="0 0 21.215 19.699">
+            <path fill="#29ABE2" stroke="gray" strokeWidth="2" strokeLinecap="round"
+                strokeLinejoin="round" strokeMiterlimit="10" d="M1.191,18.183c0,0,1.167-6.917,9.417-6.917s9.5,6.917,9.5,6.917H1.191z"
+            />
+            <circle fill="#FFF" stroke="gray" strokeWidth="2" strokeLinecap="round"
+                strokeLinejoin="round" strokeMiterlimit="10" cx="10.607" cy="7.224" r="5.5"
+            />
+        </svg>
+    )
+
+}
+
+export const SignOutIcon = () => {
+
+    return (
+        <svg id="rota" xmlns="http://www.w3.org/2000/svg" width="21.215" height="19.698"
+            viewBox="0 0 21.215 19.698">
+            <g strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10">
+                <rect x="7.345" y="1" fill="#29ABE2" stroke="#FFF" width="12.87" height="17.698"
+                />
+                <g fill="none" stroke="gray">
+                    <polyline points="4.969,4.696 1,9.987 11.075,9.987" />
+                    <line x1="4.969" y1="14.465" x2="1" y2="9.987" />
+                </g>
+            </g>
+        </svg>
+    )
+}
+
+
+export const NavBarLoadingIcon = () => {
+
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="70" height="39" viewBox="0 0 70 39">
+            <g stroke="#666" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10"
+                id="house">
+                <path fill="#FFF" strokeWidth="2" d="M11.843,14.491l0.556,15.591c0,0,0.114,1.313,1.685,1.956c1.572,0.646,6.938,1.946,6.938,1.946s1.433,0.562,3.548-0.565 c2.113-1.127,17.614-8.257,17.614-8.257s0.734-0.201,0.669-2.039c-0.066-1.842-0.146-4.118-0.146-4.118"
+                />
+                <path fill="none" d="M45.844,17.59 c0.027,0.251-0.05,0.553-0.54,0.622c-0.842,0.114-19.333,2.002-20.593,2.131c-0.047,0.004-0.095,0-0.14-0.014 c-0.171-0.053-0.599-0.205-0.821-0.474C23.113,19.084,15.37,7.611,15.37,7.611"
+                />
+                <path fill="#FFF" strokeWidth="2" d="M12.042,20.096c0,0-5.176,0.185-5.849,0.208c-0.573,0.02-0.764-0.226-0.809-0.3c-0.014-0.022-0.028-0.042-0.044-0.061 l-0.169-0.204c-0.102-0.124-0.161-0.301-0.15-0.48c0.01-0.129,0.056-0.274,0.177-0.41c0.31-0.347,8.419-10.71,9.1-11.582 c0.037-0.045,0.077-0.083,0.123-0.11c0.133-0.082,0.437-0.229,0.922-0.247c0.659-0.023,23.299,3.27,24.307,3.424 c0.024,0.003,0.047,0.009,0.069,0.018c0.131,0.047,0.542,0.228,0.727,0.662c0.22,0.517,5.054,6.14,5.054,6.14 s0.011,0.878,0.032,1.074"
+                />
+                <path fill="none" d="M6.156,19.252 L14.35,9.227c0,0,0.181-0.621,0.741-0.027c0.559,0.595,7.951,11.557,7.951,11.557s0.505,0.948,1.978,0.72 c1.945-0.302,20.46-2.826,20.46-2.826s0.277-0.058,0.493-0.811"
+                />
+                <path fill="none" d="M14.438,26.852 l-0.153-4.292c0,0,0.054-0.354,0.391-0.365c0.336-0.012,3.179,0.414,3.179,0.414s0.271,0.078,0.281,0.34 c0.009,0.263,0.163,4.556,0.163,4.556s-0.059,0.265-0.26,0.272c-0.203,0.007-3.39-0.669-3.39-0.669S14.447,27.116,14.438,26.852z"
+                />
+                <path fill="none" d="M26.829,21.211 l0.278,6.9c0,0,0.322,1.48,1.381,1.004c1.062-0.477,7.888-3.526,7.888-3.526s0.595-0.284,0.561-1.247 c-0.034-0.964-0.161-4.537-0.161-4.537"
+                />
+                <path fill="none" strokeWidth="2" d="M27.019,25.922l3.297-1.302c0,0,0.401-0.102,0.377-0.802c-0.026-0.701-0.104-2.892-0.104-2.892"
+                />
+                <line fill="none" x1="31.251" y1="24.412" x2="35.768" y2="24.602" />
+            </g>
+            <g stroke="#666" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10"
+                id="loadTree">
+                <circle fill="#29ABE2" cx="47.518" cy="11.542" r="8.197" />
+                <circle fill="#FFF" cx="58.517" cy="15.348" r="4.9" />
+                <path fill="#FFF" d="M48.271,14.546 l2.587,6.108l-0.434,14.832c0,0,0.964,0.421,1.895-0.066l0.259-15.354l4.491-2.65l-0.026-0.755l-4.812,2.586l-2.357-4.151 L48.271,14.546z"
+                />
+            </g>
+        </svg>
+    )
+
+}
 export const YourImageName = () => {
 
     return
