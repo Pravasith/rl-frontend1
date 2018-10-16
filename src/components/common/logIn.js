@@ -264,9 +264,10 @@ export default class LogIn extends React.Component {
 
                                         onChange={(e) => this.validateEmail(e)}
                                     />
-                                    <div className="animationLine line">
+                                    <span className="InputSeparatorLine"> </span>
+                                    {/* <div className="animationLine line">
                                         <div className="innerLine"></div>
-                                    </div>
+                                    </div> */}
                                 </div>
                                 <p
                                     className={this.state.userEmailClass}
@@ -281,9 +282,10 @@ export default class LogIn extends React.Component {
                                         placeholder="Type your password here"
                                         onKeyPress={(e) => this.validatePassword(e)}
                                     />
-                                    <div className="animationLine line">
+                                    <span className="InputSeparatorLine"> </span>
+                                    {/* <div className="animationLine line">
                                         <div className="innerLine"></div>
-                                    </div>
+                                    </div> */}
                                 </div>
                                 <p
                                     className={this.state.passwordClass}

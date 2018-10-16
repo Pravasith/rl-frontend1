@@ -40,9 +40,35 @@
         color: $darkerGrey;
         outline: none;
         height: 1.5em;
-        margin: 0.25em;
+        // margin: 0.25em;
+        border-bottom: 0.2em solid $lightGrey;
         // margin-bottom: 0.25em;
+        &:focus + .InputSeparatorLine {
+            transform: scaleX(1) translateY(-2px);   
+              opacity: 1;
+           }
+           &:hover + .InputSeparatorLine{
+            transform: scaleX(1) translateY(-2px);   
+            opacity: 1;
+           }
 
+    }
+
+    .InputSeparatorLine {
+        height:0.2em;
+        width: 100%;
+        background: $darkGrey;
+        display: block;
+        transform: scaleX(0) translateY(-2px);
+        transform-origin: 50%;
+        opacity: 0;
+        transition: all .15s $curve;
+    }
+    
+    
+    * :focus {
+        outline-color: transparent;
+        outline-style: none;
     }
 
     .animationLine{

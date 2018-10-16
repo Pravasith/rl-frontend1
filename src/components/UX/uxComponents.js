@@ -207,7 +207,7 @@ export class InputForm extends React.Component {
                             defaultValue= {this.props.value ? this.props.value : ""}
                         />
 
-                        <span class="InputSeparatorLine"> </span>
+                        <span className="InputSeparatorLine"> </span>
 
                         {/* <div className="animationLine line">
                             <div className="innerLine"></div>

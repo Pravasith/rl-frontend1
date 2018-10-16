@@ -357,9 +357,10 @@ export default class SignUp extends React.Component{
 
                                         onChange = { (e) => this.validateEmail(e) }
                                     />
-                                    <div className="animationLine line">
+                                    <span className="InputSeparatorLine"> </span>
+                                    {/* <div className="animationLine line">
                                                 <div className="innerLine"></div>
-                                    </div>
+                                    </div> */}
                                 </div>
                                 <p 
                                     className = {this.state.userEmailClass}
@@ -398,9 +399,10 @@ export default class SignUp extends React.Component{
 
                                         onChange = { (e) => this.validatePassword(e) }
                                     />
-                                    <div className="animationLine line">
+                                    <span className="InputSeparatorLine"> </span>
+                                    {/* <div className="animationLine line">
                                                 <div className="innerLine"></div>
-                                    </div>
+                                    </div> */}
                                 </div>
                                 <p 
                                     className = {this.state.passwordClass}
@@ -439,9 +441,10 @@ export default class SignUp extends React.Component{
 
                                         onChange = { (e) => this.validateConfirmPassword(e) }
                                     />
-                                    <div className="animationLine line">
+                                    <span className="InputSeparatorLine"> </span>
+                                    {/* <div className="animationLine line">
                                                 <div className="innerLine"></div>
-                                    </div>
+                                    </div> */}
                                 </div>
                                 <p 
                                     className = {this.state.confirmPasswordClass}

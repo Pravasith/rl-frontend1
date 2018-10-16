@@ -158,7 +158,7 @@ export default class VendorDashboardDetails extends React.Component {
                                         <div className="imageUpoloadUpperSection">
                                             <div className="upperSectionInnerLayer">
                                                 <img 
-                                                    // src="https://cdn.pixabay.com/photo/2016/10/27/22/53/heart-1776746_960_720.jpg" 
+                                                    src="https://i.pinimg.com/originals/50/69/bd/5069bd3b995a9e7b50e42ad1c08d1e8e.jpg" 
                                                     alt="" 
                                                     className="imageContainer"
                                                 />

@@ -1,0 +1,30 @@
+@import "_mixins";
+@import "_vars";
+
+@include includeCommonStyles;
+@include ignoreDefaultStyles;
+
+
+@include scrollStyles;
+
+.hide{
+    display: none;
+}
+
+.line{
+    
+    width: 90%;
+    height: 0.2em;
+    border-radius: 0.2em;
+    background: $lightGrey;
+    margin: 0.4em 0;
+}
+
+.vendorProductDashboard{
+    .mainClass{
+        .vendorProductOuterLayer{
+            
+        }
+    }
+}
+

@@ -30,6 +30,9 @@ class ProfileDetailsVendor extends React.Component {
 
             firstName: null,
             lastName: null,
+            warningClass: 'warningClass hide',
+            warningText: null,
+            value: '',
 
         }
 
@@ -67,7 +70,24 @@ class ProfileDetailsVendor extends React.Component {
         })
     }
 
-    handlechange = ({target: {value}}) => this.setState(state => value.length <= 6 && !isNaN(Number(value)) && {value} || state)
+    validateCard(e) {
+        const { key } = e
+        let theInput
+
+        if (key !== 'Enter')
+            theInput = e.target.value + key
+
+        if (theInput.length > 2) {
+            this.setState({
+                warningText: "it must have only two values",
+                warningClass: 'warningClass',
+                passwordIsValid: false
+            })
+        }
+    }
+    // handlechange = ({target: {value}}) => this.setState(state => value.length <= 6 && !isNaN(Number(value)) && {value} || state)
+    
+    //  this.setState(state => value.length <= 6 && !isNaN(Number(value)) && {value} || state)
 
     returnStatesOfIndia = () => {
 
@@ -539,43 +559,52 @@ class ProfileDetailsVendor extends React.Component {
                                                         </div>
 
                                                         <div className="inputColumn">
-                                                            <input type="tel" placeholder="22" 
-                                                            maxlength="2" 
-                                                            value={this.state.value} onChange={this.handlechange}
+                                                            <input 
+                                                                type="text" 
+                                                                placeholder="22" 
+                                                                // maxLength="2" 
+                                                                onKeyPress={(e) => this.validateCard(e)}                                                            
                                                             />
-                                                            <span class="InputSeparatorLine"> </span>
+                                                            <span className="InputSeparatorLine"> </span>
                                                         </div>
 
                                                         <p>-</p>
 
                                                         <div className="inputColumn">
                                                             <input type="text" placeholder="AAAAA0000A" maxLength="10"/>
-                                                            <span class="InputSeparatorLine"> </span>
+                                                            <span className="InputSeparatorLine"> </span>
                                                         </div>
 
                                                         <p>-</p>
 
                                                         <div className="inputColumn">
-                                                            <input type="text" placeholder="1" maxlength="1" pattern="\d*"/>
-                                                            <span class="InputSeparatorLine"> </span>
+                                                            <input type="text" placeholder="1" maxLength="1" pattern="\d*"/>
+                                                            <span className="InputSeparatorLine"> </span>
                                                         </div>
 
                                                         <p>-</p>
 
                                                         <div className="inputColumn">
                                                             <input type="text" placeholder="Z" pattern="[A-Z]{1}" maxLength="1"/>
-                                                            <span class="InputSeparatorLine"> </span>
+                                                            <span className="InputSeparatorLine"> </span>
                                                         </div>
 
                                                         <p>-</p>
 
                                                         <div className="inputColumn">
-                                                            <input type="text" placeholder="5" maxlength="1" pattern="\d*"/>
-                                                            <span class="InputSeparatorLine"> </span>
+                                                            <input type="text" placeholder="5" maxLength="1" pattern="\d*"/>
+                                                            <span className="InputSeparatorLine"> </span>
                                                             {/* <div className="animationLine line">
                                                                 <div className="innerLine"></div>
                                                             </div> */}
                                                         </div>
+                                                    </div>
+                                                    <div className="warningSection">
+                                                        <p 
+                                                            className={this.state.warningClass}
+                                                        >
+                                                            { this.state.warningText }
+                                                        </p>
                                                     </div>
                                                 </div>
                                             </div>

@@ -283,6 +283,9 @@ input[type=number]::-webkit-outer-spin-button {
                                                     padding: 0.2em 0.5em;
                                                 }
                                             }
+
+                                            
+
                                             .inputColumn{
                                                 @include flexCentreCol;
                                                 align-items: flex-start;
@@ -382,6 +385,17 @@ input[type=number]::-webkit-outer-spin-button {
                                                 //         }
                                                 //     }
                                                 // }
+                                            }
+                                        }
+                                        .warningSection{
+                                            width: 70%;
+                                            text-align: center;
+                                            margin: 0 auto;
+                            
+                                            p{
+                                                color: $white;
+                                                background:$primaryMagenta;
+                                                padding: 0.5em;
                                             }
                                         }
                                         // .inputCategorySection{

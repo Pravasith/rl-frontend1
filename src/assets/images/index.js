@@ -530,6 +530,22 @@ export const PlusButtonIcon = () => {
     )
 }
 
+export const AddNewProduct = () => {
+
+    return (
+        <svg id='newProductAdd' xmlns='http://www.w3.org/2000/svg' width='44.891'
+        height='50' viewBox='0 0 44.891 50'>
+            <g fill='#FFF'>
+                <path d='M19.891,29v-5h5.281c-0.293-0.687-0.609-1.379-0.979-2.083C15.62,5.584,19.623,3,20.022,0h-6.631H6.946 c0.388,3,4.279,5.584-4.055,21.917s4,28.083,4,28.083h6.5h6.688c0,0,9.127-8.461,6.659-21H19.891z'
+                />
+                <polygon points='44.891,25 34.891,25 34.891,14 31.891,14 31.891,25 20.891,25 20.891,28 31.891,28 31.891,38 34.891,38 34.891,28 44.891,28'
+                />
+            </g>
+        </svg>
+    )
+
+}
+
 export const YourImageName = () => {
 
     return
