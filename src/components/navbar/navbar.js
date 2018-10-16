@@ -10,9 +10,7 @@ import { GradientButton, WhiteButton } from '../UX/uxComponents'
 import { navBarLoadingAnimationShowHide, hitApi } from '../../actions/generalActions'
 
 import "../../assets/sass/navbar.scss"
-
-
-
+import { api } from '../../actions/apiLinks';
 
 class Navbar extends Component {
     constructor(props){
@@ -51,10 +49,16 @@ class Navbar extends Component {
     }
 
     returnProfilePicture = () => {
-        return (
-            <ProfilePictureIcon/>
-        )
+
+        console.log(this.props.userData)
+
+        if(this.props.userData.profilePicture )
+            return <img src={this.props.userData.profilePicture} alt="" />
+
+        else
+            return <ProfilePictureIcon />
     }
+
 
     returnFooter = () => {
 
@@ -75,7 +79,7 @@ class Navbar extends Component {
 
                         <div className="profilePicTiny">
                             <div className="innerWrap">
-                                {this.returnProfilePicture()}
+                                { this.returnProfilePicture() }
                             </div>
                         </div>
 
@@ -103,16 +107,24 @@ class Navbar extends Component {
                                         <p>My profile</p>
                                     </div>
 
-                                    <div
-                                        className="menuItem"
-                                        onClick={() => this.signOut()}
-                                    >
-                                        <div className="icon">
-                                            <SignOutIcon />
-                                        </div>
+                                    <Link
+                                        href = {api.USER_SIGN_OUT}
+                                        >
+                                        <a>
+                                            <div
+                                                className="menuItem"
+                                            // onClick={() => this.signOut()}
+                                            >
 
-                                        <p>Sign out</p>
-                                    </div>
+                                                <div className="icon">
+                                                    <SignOutIcon />
+                                                </div>
+                                                <p>Sign out</p>
+                                            </div>
+                                        </a>
+                                        
+                                    </Link>
+                                  
                                 </div>
 
                             </div>
