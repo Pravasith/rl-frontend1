@@ -1,8 +1,10 @@
 
+import {Provider} from "react-redux"
 
-import StartPage from "../src/components/common/startPage";
+import StartPage from "../src/components/common/startPage"
 import Link from 'next/link'
 import routeLinks from "../src/config/routeLinks"
+import store from "../src/store"
 
 const PostLink = (props) => (
     <Link 
@@ -14,8 +16,7 @@ const PostLink = (props) => (
 )
 
 const Index = () => (
-
-
+    <Provider store={store} >
         <section
             className="bringingTheArtInArchitectureBigWrap"
         >
@@ -23,11 +24,11 @@ const Index = () => (
                 <StartPage />
 
                 <ul>
-                    <PostLink id= {routeLinks.VENDOR_DASHBOARD} />
+                    <PostLink id={routeLinks.VENDOR_DASHBOARD} />
                 </ul>
             </div>
         </section>
-
+    </Provider>
 )
 
 export default Index

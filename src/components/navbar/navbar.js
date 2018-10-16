@@ -11,9 +11,6 @@ import { navBarLoadingAnimationShowHide, hitApi } from '../../actions/generalAct
 
 import "../../assets/sass/navbar.scss"
 
-
-
-
 class Navbar extends Component {
     constructor(props){
         super(props)

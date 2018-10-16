@@ -7,37 +7,37 @@
 
 // Navbar in Start page styles
 .wrapperForNavbar{
-    nav{
-        width: 100%;
-        background: $white;
+    // nav{
+    //     width: 100%;
+    //     background: $white;
 
-        .navbarHeaderClass{
-            @include flexCentreRow;
-            min-height: 3em;
-            justify-content: flex-end;
-            margin: 0 0.5em;
+    //     .navbarHeaderClass{
+    //         @include flexCentreRow;
+    //         min-height: 3em;
+    //         justify-content: flex-end;
+    //         // margin: 0 0.5em;
             
-            .rollingLogsLogo{
+    //         .rollingLogsLogo{
 
-            }
+    //         }
 
-            article{
+    //         article{
 
-            }
+    //         }
 
-            .loginAndSignUpButtons{
-                @include flexCentreRow;
-                justify-content: flex-end;
-                width: 97%;
+    //         .loginAndSignUpButtons{
+    //             @include flexCentreRow;
+    //             justify-content: flex-end;
+    //             width: 97%;
 
-                .signUpButton{
-                    width: 10em;
-                }
+    //             .signUpButton{
+    //                 width: 10em;
+    //             }
 
-                .logInButton{
-                    width: 10em;
-                }
-            }
-        }
-    }
+    //             .logInButton{
+    //                 width: 10em;
+    //             }
+    //         }
+    //     }
+    // }
 }

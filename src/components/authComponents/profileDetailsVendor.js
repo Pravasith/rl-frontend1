@@ -1,21 +1,23 @@
 import React from "react"
 
-
 import "../../assets/sass/vendor_form.scss"
 
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
-import { TableIcon, MinusImageIcon, PlusImageIcon, UploadImageIcon } from "../../assets/images"
+
+
 import LogoAnimation from "../animations/logoAnimation"
-import { GradientButton, InputForm } from "../UX/uxComponents"
 import statesAndCities from "../../lib/statesAndCities"
-import { Footer } from "../footer/footer"
+
+import { TableIcon, MinusImageIcon, PlusImageIcon, UploadImageIcon } from "../../assets/images"
+import { GradientButton, InputForm } from "../UX/uxComponents"
+
 import Navbar from "../navbar/navbar"
+import { Footer } from "../footer/footer"
 import { getUserData } from "../../actions/userActions"
 import { hitApi, navBarLoadingAnimationShowHide } from "../../actions/generalActions";
 import { api } from "../../actions/apiLinks";
-import { encryptData, decryptData } from "../../factories/encryptDecrypt";
-
+import { encryptData, decryptData } from "../../factories/encryptDecrypt"
 
 class ProfileDetailsVendor extends React.Component {
 
@@ -32,19 +34,11 @@ class ProfileDetailsVendor extends React.Component {
             lastName: null,
 
         }
-
-        // setTimeout(()=> {
-        //     console.log(this.refs.firstName.value)
-        // },4000)
-
     }
 
     componentDidMount = () => {
         
         this.props.getUserData()
-        
-      
-
 
         .then((data) => {
 
@@ -65,6 +59,8 @@ class ProfileDetailsVendor extends React.Component {
                 lastName: decryptedData.lastName,
             })
         })
+
+        .catch(e => console.error(e))
     }
 
     returnStatesOfIndia = () => {
