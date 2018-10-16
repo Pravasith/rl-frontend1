@@ -108,6 +108,24 @@
         }
     }
 
+    .profilePicTiny{
+        @include flexCentreCol;
+        min-width: 2.8em;
+        min-height: 2.8em;
+        border-radius: 3em;
+        background: #fff;
+        .innerWrap{
+            width: 2.2em;
+            height: 2.2em;
+            img{
+                width: 2.2em;
+                height: 2.2em;
+                border-radius: 6em;
+                object-fit: cover;
+            }
+        }
+    }
+
     
     // fonts
 
