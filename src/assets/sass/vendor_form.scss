@@ -308,6 +308,15 @@ input[type=number]::-webkit-outer-spin-button {
                                                     height: 1.5em;
                                                     width: 100%;
                                                     text-align: center;
+                                                    border-bottom: 0.2em solid $lightGrey;
+                                                    &:focus + .InputSeparatorLine {
+                                                        transform: scaleX(1) translateY(-2px);   
+                                                          opacity: 1;
+                                                       }
+                                                       &:hover + .InputSeparatorLine{
+                                                        transform: scaleX(1) translateY(-2px);   
+                                                        opacity: 1;
+                                                       }
                                                 }
                                                 .animationLine{
                                                     margin-top: 0;
@@ -324,6 +333,22 @@ input[type=number]::-webkit-outer-spin-button {
                                                     }
                                             
                                                     
+                                                }
+                                                .InputSeparatorLine {
+                                                    height:0.2em;
+                                                    width: 100%;
+                                                    background: $darkGrey;
+                                                    display: block;
+                                                    transform: scaleX(0) translateY(-2px);
+                                                    transform-origin: 50%;
+                                                    opacity: 0;
+                                                    transition: all .15s $curve;
+                                                }
+                                                
+                                                
+                                                * :focus {
+                                                    outline-color: transparent;
+                                                    outline-style: none;
                                                 }
                                                 // .warningSection{
                                                 //     width: 100%;

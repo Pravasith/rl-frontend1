@@ -25,13 +25,18 @@ class ProfileDetailsVendor extends React.Component {
         super(props, context)
 
         this.state = {
-            loadingClass: 'loadingAnim hide',
-            mainClass: 'mainClass',
+            loadingClass: 'loadingAnim',
+            mainClass: 'mainClass hide',
+            
 
             redirect: false,
 
             firstName: null,
             lastName: null,
+
+            companyName: null,
+
+            value: ""
 
         }
     }
@@ -39,7 +44,6 @@ class ProfileDetailsVendor extends React.Component {
     componentDidMount = () => {
         
         this.props.getUserData()
-
         .then((data) => {
 
             let { userData } = this.props
@@ -55,12 +59,73 @@ class ProfileDetailsVendor extends React.Component {
             //
 
             this.setState({
+                loadingClass: 'loadingAnim hide',
+                mainClass: 'mainClass',
+
                 firstName : decryptedData.firstName,
                 lastName: decryptedData.lastName,
+                mobileNo: decryptedData.mobileNo,
+                whatsappNo: decryptedData.whatsappNo
             })
         })
 
+        this.props.hitApi(api.GET_VENDOR_DATA, "GET")
+            .then((data) => {
+
+                let { responseData } = this.props
+
+                if (responseData.responsePayload.message !== "User credentials not found"){
+
+                    //
+                    // DECRYPT REQUEST DATA
+                    // 
+                    let decryptedData = decryptData(
+                        responseData.responsePayload.responseData
+                    )
+                    //
+                    // DECRYPT REQUEST DATA
+                    //
+
+                    this.setState({
+                        companyName: decryptedData.companyName,
+                    })
+                }
+
+            })
+
         .catch(e => console.error(e))
+    }
+
+
+    returnNavBarData = () => {
+        if(this.props.userData.responseData){
+
+            // console.log(this.props.userData.responseData)
+
+            //
+            // DECRYPT REQUEST DATA
+            // 
+            let decryptedData = decryptData(
+                this.props.userData.responseData
+            )
+            //
+            // DECRYPT REQUEST DATA
+            //
+
+            return decryptedData
+        }
+
+        else{
+            return null
+        }
+    }
+
+    handlechange = (e) => {
+        const val =  e.target.value
+
+        
+        console.log(val)
+        // this.setState(state => value.length <= 6 && !isNaN(Number(value)) && { value } || state)
     }
 
     returnStatesOfIndia = () => {
@@ -155,10 +220,54 @@ class ProfileDetailsVendor extends React.Component {
                 this
                     .props
                     .navBarLoadingAnimationShowHide(false)
-                console.log(this.props.responseData)
+
+                // console.log(this.props.responseData)
             })
     }
 
+    updateVendorData = (objectName, data) => {
+
+        this
+            .props
+            .navBarLoadingAnimationShowHide(true)
+
+        let rawData = {}
+
+        rawData[objectName] = data
+
+        //
+        // Encrypt data
+        //
+        const encryptedData = encryptData(rawData)
+        //
+        // Encrypt data
+        //
+
+        this
+            .props
+            .hitApi(api.UPDATE_VENDOR_DATA, "PUT",
+                {
+                    message: "Update vendor's data",
+                    requestData: encryptedData
+                }
+            )
+
+            .then(() => {
+                this
+                    .props
+                    .navBarLoadingAnimationShowHide(false)
+
+                //
+                // Decrypt data
+                //
+                const decryptedData = decryptData(this.props.responseData.responsePayload.responseData)
+                // console.log(this.props.responseData.responsePayload)
+                // console.log(decryptedData)
+                //
+                // Decrypt data
+                //
+            })
+    }
 
 
     render() {
@@ -174,7 +283,7 @@ class ProfileDetailsVendor extends React.Component {
                     <article className="vendorProfileDetailsOuterwrapper">
 
                         <Navbar
-                            userData = {this.props.userData}
+                            userData= { this.returnNavBarData() }
                         />
 
                         <header className="vendorHeaderClass">
@@ -221,7 +330,7 @@ class ProfileDetailsVendor extends React.Component {
                                                             validationType= "alphabetsAndSpecialCharacters"
                                                             characterCount= "15"
                                                             value={this.state.firstName ? this.state.firstName : null }
-                                                            result={(val, isValid) => this.hitTheAPI("firstName", val)}
+                                                            result={(val) => this.hitTheAPI("firstName", val)}
                                                         />
                                                     </div>
 
@@ -233,7 +342,7 @@ class ProfileDetailsVendor extends React.Component {
                                                             validationType= "alphabetsAndSpecialCharacters"
                                                             characterCount= "15"
                                                             value={this.state.lastName ? this.state.lastName : null}
-                                                            result={(val, isValid) => this.hitTheAPI("lastName", val)}
+                                                            result={(val) => this.hitTheAPI("lastName", val)}
                                                         />
                                                     </div>
 
@@ -255,9 +364,8 @@ class ProfileDetailsVendor extends React.Component {
                                                             isMandatory= {true}
                                                             validationType= "alphabetsSpecialCharactersAndNumbers"
                                                             characterCount= "50"
-                                                            result= {(val) => this.setState({
-                                                                companyName: val
-                                                            })}
+                                                            value={this.state.companyName ? this.state.companyName : null}
+                                                            result={(val) => this.updateVendorData("companyName", val)}
                                                         />
                                                     </div>
                                                 </div>
@@ -278,9 +386,12 @@ class ProfileDetailsVendor extends React.Component {
                                                             isMandatory={true}
                                                             validationType="onlyNumbers"
                                                             characterCount="10"
-                                                            result={(val) => this.setState({
-                                                                phoneNumber: val
-                                                            })}
+                                                            value={
+                                                                this.state.mobileNo
+                                                                    ? this.state.mobileNo
+                                                                    : null
+                                                            }
+                                                            result={(val) => this.hitTheAPI("mobileNo", val)}
                                                         />
                                                     </div>
 
@@ -291,9 +402,12 @@ class ProfileDetailsVendor extends React.Component {
                                                             isMandatory={false}
                                                             validationType="onlyNumbers"
                                                             characterCount="10"
-                                                            result={(val) => this.setState({
-                                                                whatsappNumber: val
-                                                            })}
+                                                            value={
+                                                                this.state.whatsappNo
+                                                                    ? this.state.whatsappNo
+                                                                    : null
+                                                            }
+                                                            result={(val, isValid) => this.hitTheAPI("whatsappNo", val)}
                                                         />
                                                     </div>
 
@@ -533,47 +647,50 @@ class ProfileDetailsVendor extends React.Component {
                                                         </div>
 
                                                         <div className="inputColumn">
-                                                            <input type="text" placeholder="22" />
-
-                                                            <div className="animationLine line">
-                                                                <div className="innerLine"></div>
-                                                            </div>
+                                                            <input type="tel" placeholder="22" 
+                                                            maxLength="2" 
+                                                            defaultValue= { this.state.value } 
+                                                            onChange= {e => this.handlechange(e)}
+                                                            />
+                                                            <span className="InputSeparatorLine"> </span>
                                                         </div>
 
                                                         <p>-</p>
 
                                                         <div className="inputColumn">
-                                                            <input type="text" placeholder="AAAAA0000A" />
-                                                            <div className="animationLine line">
-                                                                <div className="innerLine"></div>
-                                                            </div>
+                                                            <input type="text" placeholder="AAAAA0000A" maxLength="10"/>
+                                                            <span className="InputSeparatorLine"> </span>
                                                         </div>
 
                                                         <p>-</p>
 
                                                         <div className="inputColumn">
-                                                            <input type="text" placeholder="1" />
-                                                            <div className="animationLine line">
-                                                                <div className="innerLine"></div>
-                                                            </div>
+                                                            <input 
+                                                                type="text" 
+                                                                placeholder="1" 
+                                                                maxLength="1" 
+                                                                pattern="\d*"
+                                                                defaultValue={this.state.value}
+                                                                onChange={e => this.handlechange(e)}
+                                                            />
+                                                            <span className="InputSeparatorLine"> </span>
                                                         </div>
 
                                                         <p>-</p>
 
                                                         <div className="inputColumn">
-                                                            <input type="text" placeholder="Z" />
-                                                            <div className="animationLine line">
-                                                                <div className="innerLine"></div>
-                                                            </div>
+                                                            <input type="text" placeholder="Z" pattern="[A-Z]{1}" maxLength="1"/>
+                                                            <span className="InputSeparatorLine"> </span>
                                                         </div>
 
                                                         <p>-</p>
 
                                                         <div className="inputColumn">
-                                                            <input type="text" placeholder="5" />
-                                                            <div className="animationLine line">
+                                                            <input type="text" placeholder="5" maxLength="1" pattern="\d*"/>
+                                                            <span className="InputSeparatorLine"> </span>
+                                                            {/* <div className="animationLine line">
                                                                 <div className="innerLine"></div>
-                                                            </div>
+                                                            </div> */}
                                                         </div>
                                                     </div>
                                                 </div>

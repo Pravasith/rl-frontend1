@@ -9,7 +9,7 @@ import { GradientButton } from "../UX/uxComponents";
 
 import "../../assets/sass/sign_up_log_in.scss"
 import { Footer } from "../footer/footer";
-import { encryptData } from "../../factories/encryptDecrypt";
+import { encryptData, decryptData } from "../../factories/encryptDecrypt";
 
 export default class LogIn extends React.Component {
 
@@ -79,7 +79,19 @@ export default class LogIn extends React.Component {
                 })
 
                 .then(res => {
-                    if (!res.data.registered)
+
+                    //
+                    // DECRYPT REQUEST DATA
+                    // 
+                    let decryptedData = decryptData(
+                        res.data.responseData
+                    )
+                    //
+                    // DECRYPT REQUEST DATA
+                    //
+
+
+                    if (!decryptedData.registered)
                         this.setState({
                             passwordText: "Sorry, you have not yet registered with us. Please sign-up",
                             passwordClass: 'passwordText',
@@ -88,7 +100,7 @@ export default class LogIn extends React.Component {
                             mainClass: 'mainClass',
                         })
 
-                    if (!res.data.passwordRight)
+                    if (!decryptedData.passwordRight)
                         this.setState({
                             passwordText: "Your password doesnot match the one in our records. Try logging in through google or linkedIn.",
                             passwordClass: 'passwordText',
@@ -97,10 +109,10 @@ export default class LogIn extends React.Component {
                             mainClass: 'mainClass',
                         })
 
-                    if (res.data.passwordRight && res.data.registered) {
+                    if (decryptedData.passwordRight && decryptedData.registered) {
                         localStorage.setItem('loginThrough', 'form')
 
-                        if (res.data.userType === "vendor")
+                        if (decryptedData.userType === "vendor")
                         window.open('/vendor/profile-details', '_self')
 
                         else

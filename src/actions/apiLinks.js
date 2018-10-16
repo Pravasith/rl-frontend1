@@ -15,7 +15,14 @@ const API_URL = API_BASE_URL + API_PATH
 export const api = {
     CREATE_USER : API_URL + 'user/create-user',
     GET_USER_DATA : API_URL + 'user/get-user-data',
+
     UPDATE_USER_DATA : API_URL + 'user/update-user-data',
+    UPDATE_VENDOR_DATA: API_URL + 'user/update-vendor-data',
+
+    GET_VENDOR_DATA: API_URL + 'user/get-vendor-data',
+
+    USER_SIGN_OUT: API_URL + 'user/sign-out',
+    USER_LOGIN : API_URL + 'user/login',
 
     UPDATE_USER_TYPE : API_URL + 'user/update-user-type',
     

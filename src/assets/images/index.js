@@ -493,6 +493,43 @@ export const NavBarLoadingIcon = () => {
     )
 
 }
+
+export const WhiteArrowLeft = () => {
+
+    return (
+        <svg id="Left_Arrow" xmlns="http://www.w3.org/2000/svg" width="15.404" height="14.641"
+        viewBox="-48.625 -40.5 15.404 14.641">
+            <polygon id="polygon" fill="none" stroke="#FFF" strokeWidth="2" strokeLinecap="round"
+            strokeLinejoin="round" strokeMiterlimit="10" points="-37.735,-39.5 -47.625,-33.102 -37.735,-26.859"
+            />
+        </svg>
+        
+    )
+}
+
+export const WhiteArrowRight = () => {
+
+    return (
+        <svg id="Right_Arrow" xmlns="http://www.w3.org/2000/svg" width="15.404" height="14.641"
+        viewBox="-48.625 -40.5 15.404 14.641">
+            <polygon id="polygon"fill="none" stroke="#FFF" strokeWidth="2" strokeLinecap="round"
+            strokeLinejoin="round" strokeMiterlimit="10" points="-44.306,-26.859 -34.416,-33.257 -44.306,-39.5"
+            />
+        </svg>
+    )
+}
+
+export const PlusButtonIcon = () => {
+
+    return(
+        <svg id='plusSymbol' xmlns='http://www.w3.org/2000/svg' width='14' height='14'
+        viewBox='0 0 14 14'>
+            <polygon fill='#CCC' points='13,5 9,5 9,1 5,1 5,5 1,5 1,9 5,9 5,13 9,13 9,9 13,9'
+            />
+        </svg>
+    )
+}
+
 export const YourImageName = () => {
 
     return
