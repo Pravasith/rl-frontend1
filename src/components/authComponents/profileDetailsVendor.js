@@ -27,61 +27,57 @@ class ProfileDetailsVendor extends React.Component {
         this.state = {
             loadingClass: 'loadingAnim',
             mainClass: 'mainClass hide',
-            
 
             redirect: false,
 
             firstName: null,
             lastName: null,
+
             warningClass: 'warningClass hide',
             warningText: null,
-            value: '',
+
+            value: "",
 
             companyName: null,
-
-            value: ""
-
         }
     }
 
     componentDidMount = () => {
-        
+
         this.props.getUserData()
-        .then((data) => {
+            .then((data) => {
+                let { userData } = this.props
 
-            let { userData } = this.props
+                //
+                // DECRYPT REQUEST DATA
+                // 
+                let decryptedData = decryptData(
+                    userData.responseData
+                )
+                //
+                // DECRYPT REQUEST DATA
+                //
 
-            //
-            // DECRYPT REQUEST DATA
-            // 
-            let decryptedData = decryptData(
-                userData.responseData
-            )
-            //
-            // DECRYPT REQUEST DATA
-            //
+                this.setState({
+                    loadingClass: 'loadingAnim hide',
+                    mainClass: 'mainClass',
 
-            this.setState({
-                loadingClass: 'loadingAnim hide',
-                mainClass: 'mainClass',
-
-                firstName : decryptedData.firstName,
-                lastName: decryptedData.lastName,
-                mobileNo: decryptedData.mobileNo,
-                whatsappNo: decryptedData.whatsappNo
+                    firstName: decryptedData.firstName,
+                    lastName: decryptedData.lastName,
+                    mobileNo: decryptedData.mobileNo,
+                    whatsappNo: decryptedData.whatsappNo
+                })
             })
-        })
 
         this.props.hitApi(api.GET_VENDOR_DATA, "GET")
             .then((data) => {
-
                 let { responseData } = this.props
 
-                if (responseData.responsePayload.message !== "User credentials not found"){
+                if (responseData.responsePayload.message !== "User credentials not found") {
 
                     //
                     // DECRYPT REQUEST DATA
-                    // 
+                    //
                     let decryptedData = decryptData(
                         responseData.responsePayload.responseData
                     )
@@ -90,18 +86,32 @@ class ProfileDetailsVendor extends React.Component {
                     //
 
                     this.setState({
+
                         companyName: decryptedData.companyName,
+
+                        hNo: decryptedData.address.hNo,
+                        stNo: decryptedData.address.stNo,
+                        detailedAddressLine1: decryptedData.address.detailedAddressLine1,
+                        detailedAddressLine2: decryptedData.address.detailedAddressLine2,
+                        state: decryptedData.address.state,
+                        city: decryptedData.address.city,
+                        pincode: decryptedData.address.pincode,
+
+                        companyDescriptionLine1: decryptedData.companyDescriptionLine1,
+                        companyDescriptionLine2: decryptedData.companyDescriptionLine2,
+
+                        pan: decryptedData.PAN,
+
                     })
                 }
-
             })
 
-        .catch(e => console.error(e))
+            .catch(e => console.error(e))
     }
 
 
     returnNavBarData = () => {
-        if(this.props.userData.responseData){
+        if (this.props.userData.responseData) {
 
             // console.log(this.props.userData.responseData)
 
@@ -118,7 +128,7 @@ class ProfileDetailsVendor extends React.Component {
             return decryptedData
         }
 
-        else{
+        else {
             return null
         }
     }
@@ -139,29 +149,49 @@ class ProfileDetailsVendor extends React.Component {
         }
     }
     // handlechange = ({target: {value}}) => this.setState(state => value.length <= 6 && !isNaN(Number(value)) && {value} || state)
-    
+
     //  this.setState(state => value.length <= 6 && !isNaN(Number(value)) && {value} || state)
 
     returnStatesOfIndia = () => {
-
         const array = [ ...statesAndCities ]
-       
-        return array.map((item,i) => (
-                <option
-                    key= {i}
-                    value= {item.state}
-                    >
-                    {item.state} 
-                </option>
-            )
-        )
 
+        return array.map((item, i) => (
+            <option
+                key={i}
+                value={item.state}
+                >
+                { item.state }
+            </option>
+        ))
+    }
+
+    returnStateValue = () => {
+        if(this.state.state)
+            return this.state.state
+        
+        else
+            return "548784154874648746"
+    }
+
+    returnCityValue = () => {
+        if (this.state.city)
+            return this.state.city
+
+        else
+            return "548784154874648746"
     }
 
     handleStateSelection = (e) => {
         const val = e.target.value
-        
+
         this.changeCityList(val)
+        this.updateVendorData("address.state", val)
+    }
+
+    handleCitySelection = (e) => {
+        const val = e.target.value
+
+        this.updateVendorData("address.city", val)
     }
 
     changeCityList = (theState) => {
@@ -170,32 +200,32 @@ class ProfileDetailsVendor extends React.Component {
         let citiesArray = []
 
         statesArray.map((item, i) => {
-            if(theState === item.state){
+            if (theState === item.state) {
                 citiesArray = [...item.cities]
             }
         })
 
         this.setState({
-            statesList : [ ...citiesArray ]
+            statesList: [...citiesArray]
         })
- 
+
     }
 
     returnCitiesOfIndia = () => {
-        if (this.state.statesList){
+        if (this.state.statesList) {
             return [...this.state.statesList].map((item, i) => (
                 <option
-                    key = { i }
-                    value = { item }
+                    key={i}
+                    value={item}
                     >
-                    { item }
+                    {item}
                 </option>
             ))
         }
 
         else if (!this.state.statesList) {
             return <option
-                value= {"PLEASE_SELECT_STATE"}
+                value={"PLEASE_SELECT_STATE"}
                 >
                 Please select a state above
             </option>
@@ -222,10 +252,10 @@ class ProfileDetailsVendor extends React.Component {
 
         this
             .props
-            .hitApi(api.UPDATE_USER_DATA, "PUT", 
+            .hitApi(api.UPDATE_USER_DATA, "PUT",
                 {
-                    message : "Update user's data",
-                    requestData : encryptedData
+                    message: "Update user's data",
+                    requestData: encryptedData
                 }
             )
 
@@ -237,6 +267,7 @@ class ProfileDetailsVendor extends React.Component {
 
                 // console.log(this.props.responseData)
             })
+
     }
 
     updateVendorData = (objectName, data) => {
@@ -257,6 +288,7 @@ class ProfileDetailsVendor extends React.Component {
         // Encrypt data
         //
 
+
         this
             .props
             .hitApi(api.UPDATE_VENDOR_DATA, "PUT",
@@ -265,6 +297,8 @@ class ProfileDetailsVendor extends React.Component {
                     requestData: encryptedData
                 }
             )
+
+            .catch(e => console.error(e))
 
             .then(() => {
                 this
@@ -275,12 +309,13 @@ class ProfileDetailsVendor extends React.Component {
                 // Decrypt data
                 //
                 const decryptedData = decryptData(this.props.responseData.responsePayload.responseData)
-                // console.log(this.props.responseData.responsePayload)
-                // console.log(decryptedData)
                 //
                 // Decrypt data
                 //
             })
+
+
+
     }
 
 
@@ -297,7 +332,7 @@ class ProfileDetailsVendor extends React.Component {
                     <article className="vendorProfileDetailsOuterwrapper">
 
                         <Navbar
-                            userData= { this.returnNavBarData() }
+                            userData={this.returnNavBarData()}
                         />
 
                         <header className="vendorHeaderClass">
@@ -336,25 +371,25 @@ class ProfileDetailsVendor extends React.Component {
                                                         <p>Your name as you would like your customers to call you?</p>
                                                     </div>
 
-                                                    <div className= "firstNameWrap">
+                                                    <div className="firstNameWrap">
                                                         <InputForm
-                                                            refName= "firstName"
-                                                            placeholder= "First name"
-                                                            isMandatory= {true}
-                                                            validationType= "alphabetsAndSpecialCharacters"
-                                                            characterCount= "15"
-                                                            value={this.state.firstName ? this.state.firstName : null }
+                                                            refName="firstName"
+                                                            placeholder="First name"
+                                                            isMandatory={true}
+                                                            validationType="alphabetsAndSpecialCharacters"
+                                                            characterCount="15"
+                                                            value={this.state.firstName ? this.state.firstName : null}
                                                             result={(val) => this.hitTheAPI("firstName", val)}
                                                         />
                                                     </div>
 
                                                     <div className="lastNameWrap">
                                                         <InputForm
-                                                            refName= "lastName"
-                                                            placeholder= "Last name"
-                                                            isMandatory= { true }
-                                                            validationType= "alphabetsAndSpecialCharacters"
-                                                            characterCount= "15"
+                                                            refName="lastName"
+                                                            placeholder="Last name"
+                                                            isMandatory={true}
+                                                            validationType="alphabetsAndSpecialCharacters"
+                                                            characterCount="15"
                                                             value={this.state.lastName ? this.state.lastName : null}
                                                             result={(val) => this.hitTheAPI("lastName", val)}
                                                         />
@@ -371,13 +406,13 @@ class ProfileDetailsVendor extends React.Component {
                                                         <p> What should we call your company as? </p>
                                                     </div>
 
-                                                    <div className= "companyNameWrap">
+                                                    <div className="companyNameWrap">
                                                         <InputForm
-                                                            refName= "companyName"
-                                                            placeholder= "Type your company name here"
-                                                            isMandatory= {true}
-                                                            validationType= "alphabetsSpecialCharactersAndNumbers"
-                                                            characterCount= "50"
+                                                            refName="companyName"
+                                                            placeholder="Type your company name here"
+                                                            isMandatory={true}
+                                                            validationType="alphabetsSpecialCharactersAndNumbers"
+                                                            characterCount="50"
                                                             value={this.state.companyName ? this.state.companyName : null}
                                                             result={(val) => this.updateVendorData("companyName", val)}
                                                         />
@@ -392,7 +427,7 @@ class ProfileDetailsVendor extends React.Component {
                                                         <h3>3</h3>
                                                         <p>Your phone number</p>
                                                     </div>
-                                                    
+
                                                     <div className="phoneNoWrap">
                                                         <InputForm
                                                             refName="phoneNo"
@@ -434,6 +469,7 @@ class ProfileDetailsVendor extends React.Component {
                                                         <h3>4</h3>
                                                         <p>Tell us your company address. We’ll bill the customer with this address</p>
                                                     </div>
+
                                                     <div className="houseNoWrap">
                                                         <InputForm
                                                             refName="houseNo"
@@ -441,9 +477,8 @@ class ProfileDetailsVendor extends React.Component {
                                                             isMandatory={true}
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
                                                             characterCount="15"
-                                                            result={(val) => this.setState({
-                                                                houseNumber: val
-                                                            })}
+                                                            value={this.state.hNo ? this.state.hNo : null}
+                                                            result={val => this.updateVendorData("address.hNo", val)}
                                                         />
                                                     </div>
 
@@ -454,11 +489,11 @@ class ProfileDetailsVendor extends React.Component {
                                                             isMandatory={true}
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
                                                             characterCount="15"
-                                                            result={(val) => this.setState({
-                                                                streetNumber : val
-                                                            })}
+                                                            value={this.state.stNo ? this.state.stNo : null}
+                                                            result={val => this.updateVendorData("address.stNo", val)}
                                                         />
                                                     </div>
+
                                                     <div className="detailedAddressLineWrap">
                                                         <InputForm
                                                             refName="detailedAddressLineOne"
@@ -466,9 +501,8 @@ class ProfileDetailsVendor extends React.Component {
                                                             isMandatory={true}
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
                                                             characterCount="100"
-                                                            result={(val) => this.setState({
-                                                                detailedAddressLineOne : val
-                                                            })}
+                                                            value={this.state.detailedAddressLine1 ? this.state.detailedAddressLine1 : null}
+                                                            result={val => this.updateVendorData("address.detailedAddressLine1", val)}
                                                         />
                                                     </div>
 
@@ -479,9 +513,8 @@ class ProfileDetailsVendor extends React.Component {
                                                             isMandatory={false}
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
                                                             characterCount="100"
-                                                            result={(val) => this.setState({
-                                                                detailedAddressLineTwo : val
-                                                            })}
+                                                            value={this.state.detailedAddressLine2 ? this.state.detailedAddressLine2 : null}
+                                                            result={val => this.updateVendorData("address.detailedAddressLine2", val)}
                                                         />
                                                     </div>
 
@@ -492,13 +525,13 @@ class ProfileDetailsVendor extends React.Component {
 
                                                         <div className="customSelectOption">
                                                             <select
-                                                                name= "statesOfIndia" 
-                                                                id= "statesOfIndia"
-                                                                defaultValue= "548784154874648746"
+                                                                name="statesOfIndia"
+                                                                id="statesOfIndia"
+                                                                defaultValue={this.returnStateValue()}
                                                                 onChange={(e) => this.handleStateSelection(e)}
-                                                                >
+                                                            >
                                                                 <option value="548784154874648746">Choose state</option>
-                                                                { this.returnStatesOfIndia() }
+                                                                {this.returnStatesOfIndia()}
                                                             </select>
                                                         </div>
                                                     </div>
@@ -512,8 +545,9 @@ class ProfileDetailsVendor extends React.Component {
                                                             <select
                                                                 name="citiesOfIndia"
                                                                 id="citiesOfIndia"
-                                                                defaultValue="548784154874648746"
-                                                                >
+                                                                defaultValue= { this.returnCityValue() }
+                                                                onChange={(e) => this.handleCitySelection(e)}
+                                                            >
                                                                 <option value="548784154874648746">Choose city</option>
                                                                 {this.returnCitiesOfIndia()}
                                                             </select>
@@ -527,9 +561,8 @@ class ProfileDetailsVendor extends React.Component {
                                                             isMandatory={true}
                                                             validationType="onlyNumbers"
                                                             characterCount="6"
-                                                            result={(val) => this.setState({
-                                                                pincode : val
-                                                            })}
+                                                            value={this.state.pincode ? this.state.pincode : null}
+                                                            result={val => this.updateVendorData("address.pincode", val)}
                                                         />
                                                     </div>
 
@@ -545,13 +578,12 @@ class ProfileDetailsVendor extends React.Component {
                                                     <div className="companyDescriptionWrap">
                                                         <InputForm
                                                             refName="companyDescriptionOne"
-                                                            placeholder="You can show off a little here"
+                                                            placeholder="You can show off a little here, write something great about your company"
                                                             isMandatory={true}
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
-                                                            characterCount="60"
-                                                            result={(val) => this.setState({
-                                                                companyDescription : val
-                                                            })}
+                                                            characterCount="100"
+                                                            value={this.state.companyDescriptionLine1 ? this.state.companyDescriptionLine1 : null}
+                                                            result={val => this.updateVendorData("companyDescriptionLine1", val)}
                                                         />
                                                     </div>
                                                     <div className="companyDescriptionWrap">
@@ -561,9 +593,8 @@ class ProfileDetailsVendor extends React.Component {
                                                             isMandatory={true}
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
                                                             characterCount="100"
-                                                            result={(val) => this.setState({
-                                                                city : val
-                                                            })}
+                                                            value={this.state.companyDescriptionLine2 ? this.state.companyDescriptionLine2 : null}
+                                                            result={val => this.updateVendorData("companyDescriptionLine2", val)}
                                                         />
                                                     </div>
 
@@ -576,7 +607,7 @@ class ProfileDetailsVendor extends React.Component {
                                                         <h3>6</h3>
                                                         <p>How long have you been in this industry?</p>
                                                     </div>
-                                                    
+
                                                     <div className="industryTimeWrap">
                                                         <div className="timeWrap inputCategorySection">
                                                             <div className="mandatorySection">
@@ -585,22 +616,22 @@ class ProfileDetailsVendor extends React.Component {
 
                                                             <div className="inputColumn">
                                                                 <div className="numberInputSection inputColumnInnerLayer">
-                                                                    <div 
-                                                                        className="VolumeCategory" 
-                                                                        // onClick={this.decreaseValue.bind(this)}
-                                                                        >
-                                                                        <MinusImageIcon/>
+                                                                    <div
+                                                                        className="VolumeCategory"
+                                                                    // onClick={this.decreaseValue.bind(this)}
+                                                                    >
+                                                                        <MinusImageIcon />
                                                                     </div>
 
                                                                     <div className="numberSection">
                                                                         <p>{this.state.number}</p>
                                                                     </div>
 
-                                                                    <div 
-                                                                        className="VolumeCategory" 
-                                                                        // onClick={this.increaseValue.bind(this)}
-                                                                        >
-                                                                        <PlusImageIcon/>
+                                                                    <div
+                                                                        className="VolumeCategory"
+                                                                    // onClick={this.increaseValue.bind(this)}
+                                                                    >
+                                                                        <PlusImageIcon />
                                                                     </div>
 
                                                                     <div className="yearSelectionCategory">
@@ -614,33 +645,33 @@ class ProfileDetailsVendor extends React.Component {
                                                             <div className="mandatorySection">
                                                                 <p>Mandatory</p>
                                                             </div>
-                                                                
-                                                                <div className="inputColumn">
-                                                                    <div className="numberInputSection inputColumnInnerLayer">
-                                                                        <div 
-                                                                            className="VolumeCategory" 
-                                                                            // onClick={this.decreaseCount.bind(this)}
-                                                                            >
-                                                                            <MinusImageIcon />
-                                                                        </div>
 
-                                                                        <div className="numberSection">
-                                                                            <p>{this.state.count}</p>
-                                                                        </div>
+                                                            <div className="inputColumn">
+                                                                <div className="numberInputSection inputColumnInnerLayer">
+                                                                    <div
+                                                                        className="VolumeCategory"
+                                                                    // onClick={this.decreaseCount.bind(this)}
+                                                                    >
+                                                                        <MinusImageIcon />
+                                                                    </div>
 
-                                                                        <div 
-                                                                            className="VolumeCategory" 
-                                                                            // onClick={this.increaseCount.bind(this)}
-                                                                            >
-                                                                            <PlusImageIcon />
-                                                                        </div>
+                                                                    <div className="numberSection">
+                                                                        <p>{this.state.count}</p>
+                                                                    </div>
 
-                                                                        <div className="yearSelectionCategory">
-                                                                            <p>Months</p>
-                                                                        </div>
+                                                                    <div
+                                                                        className="VolumeCategory"
+                                                                    // onClick={this.increaseCount.bind(this)}
+                                                                    >
+                                                                        <PlusImageIcon />
+                                                                    </div>
+
+                                                                    <div className="yearSelectionCategory">
+                                                                        <p>Months</p>
                                                                     </div>
                                                                 </div>
-                                                            
+                                                            </div>
+
                                                         </div>
 
                                                     </div>
@@ -661,11 +692,11 @@ class ProfileDetailsVendor extends React.Component {
                                                         </div>
 
                                                         <div className="inputColumn">
-                                                            <input 
-                                                                type="text" 
-                                                                placeholder="22" 
+                                                            <input
+                                                                type="text"
+                                                                placeholder="22"
                                                                 // maxLength="2" 
-                                                                onKeyPress={(e) => this.validateCard(e)}                                                            
+                                                                onKeyPress={(e) => this.validateCard(e)}
                                                             />
                                                             <span className="InputSeparatorLine"> </span>
                                                         </div>
@@ -673,28 +704,28 @@ class ProfileDetailsVendor extends React.Component {
                                                         <p>-</p>
 
                                                         <div className="inputColumn">
-                                                            <input type="text" placeholder="AAAAA0000A" maxLength="10"/>
+                                                            <input type="text" placeholder="AAAAA0000A" maxLength="10" />
                                                             <span className="InputSeparatorLine"> </span>
                                                         </div>
 
                                                         <p>-</p>
 
                                                         <div className="inputColumn">
-                                                            <input type="text" placeholder="1" maxLength="1" pattern="\d*"/>
+                                                            <input type="text" placeholder="1" maxLength="1" pattern="\d*" />
                                                             <span className="InputSeparatorLine"> </span>
                                                         </div>
 
                                                         <p>-</p>
 
                                                         <div className="inputColumn">
-                                                            <input type="text" placeholder="Z" pattern="[A-Z]{1}" maxLength="1"/>
+                                                            <input type="text" placeholder="Z" pattern="[A-Z]{1}" maxLength="1" />
                                                             <span className="InputSeparatorLine"> </span>
                                                         </div>
 
                                                         <p>-</p>
 
                                                         <div className="inputColumn">
-                                                            <input type="text" placeholder="5" maxLength="1" pattern="\d*"/>
+                                                            <input type="text" placeholder="5" maxLength="1" pattern="\d*" />
                                                             <span className="InputSeparatorLine"> </span>
                                                             {/* <div className="animationLine line">
                                                                 <div className="innerLine"></div>
@@ -702,10 +733,10 @@ class ProfileDetailsVendor extends React.Component {
                                                         </div>
                                                     </div>
                                                     <div className="warningSection">
-                                                        <p 
+                                                        <p
                                                             className={this.state.warningClass}
                                                         >
-                                                            { this.state.warningText }
+                                                            {this.state.warningText}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -725,9 +756,8 @@ class ProfileDetailsVendor extends React.Component {
                                                             isMandatory={true}
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
                                                             characterCount="10"
-                                                            result={(val) => this.setState({
-                                                                City : val
-                                                            })}
+                                                            value={this.state.pan ? this.state.pan : null}
+                                                            result={val => this.updateVendorData("PAN", val)}
                                                         />
                                                     </div>
                                                 </div>
@@ -770,7 +800,7 @@ class ProfileDetailsVendor extends React.Component {
                         </section>
                     </article>
 
-                    <Footer/>
+                    <Footer />
                 </div>
             </div>
         )

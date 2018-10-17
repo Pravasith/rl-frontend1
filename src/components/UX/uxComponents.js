@@ -19,7 +19,7 @@ export const WhiteButton = (props) => {
 
 export class InputForm extends React.Component {
 
-    constructor(props, context){
+    constructor(props, context) {
         super(props, context)
 
         this.state = {
@@ -33,7 +33,7 @@ export class InputForm extends React.Component {
     }
 
     componentDidMount = () => {
-        
+
     }
 
     submitForm = (val) => {
@@ -44,15 +44,14 @@ export class InputForm extends React.Component {
 
     validateForm = (e, validationType) => {
 
-        if (validationType === "alphabetsAndSpecialCharacters"){
+        if (validationType === "alphabetsAndSpecialCharacters") {
             const val = e.target.value
 
             this.setState({
                 charCount: Number(this.props.characterCount) - val.length
             })
 
-
-            if(this.props.isMandatory){
+            if (this.props.isMandatory) {
                 if (val === "")
                     this.setState({
                         warningText: "This information is required",
@@ -61,17 +60,14 @@ export class InputForm extends React.Component {
                     })
             }
 
-            
-
             if (!/^[a-zA-Z]*$/g.test(val))
-            this.setState({
-                warningText: "Please enter english alphabets only.",
-                warningClass: "warningClass",
-                fieldIsValid: false,
-            })
-            
+                this.setState({
+                    warningText: "Please enter english alphabets only.",
+                    warningClass: "warningClass",
+                    fieldIsValid: false,
+                })
 
-            if (val !== "" && /^[a-zA-Z]*$/g.test(val)){
+            if (val !== "" && /^[a-zA-Z]*$/g.test(val)) {
                 this.setState({
                     warningText: null,
                     warningClass: "warningClass hide",
@@ -80,7 +76,7 @@ export class InputForm extends React.Component {
 
                 this
                     .props
-                    .result (val)
+                    .result(val)
             }
         }
 
@@ -88,16 +84,16 @@ export class InputForm extends React.Component {
         else if (validationType === "onlyNumbers") {
             const val = e.target.value
 
-            console.log(val)
+            // console.log(val)
 
             this.setState({
                 charCount: Number(this.props.characterCount) - val.length
             })
 
             // if (this.props.isMandatory)
-            if (val.length !== 10) {
+            if (val.length !== Number(this.props.characterCount)) {
                 this.setState({
-                    warningText: "Remember, your number has to be valid",
+                    warningText: "Remember, the number has to be valid",
                     warningClass: "warningClass",
                     fieldIsValid: false,
                 })
@@ -112,28 +108,28 @@ export class InputForm extends React.Component {
                 })
             }
 
-            if(this.props.isMandatory)
-            if(val.length === 0){
-                this.setState({
-                    warningText: "This information is required",
-                    warningClass: "warningClass",
-                    fieldIsValid: false,
-                })
-            }
-                
+            if (this.props.isMandatory)
+                if (val.length === 0) {
+                    this.setState({
+                        warningText: "This information is required",
+                        warningClass: "warningClass",
+                        fieldIsValid: false,
+                    })
+                }
+
 
             if (!this.props.isMandatory)
-            if (val.length === 0){
-                this.setState({
-                    warningText: null,
-                    warningClass: "warningClass hide",
-                    fieldIsValid: true,
-                })
-            }
-                
+                if (val.length === 0) {
+                    this.setState({
+                        warningText: null,
+                        warningClass: "warningClass hide",
+                        fieldIsValid: true,
+                    })
+                }
 
 
-            if (val.length === 10 && /^[0-9]+$/.test(val)){
+
+            if (val.length === Number(this.props.characterCount) && /^[0-9]+$/.test(val)) {
                 this.setState({
                     warningText: null,
                     warningClass: "warningClass hide",
@@ -144,11 +140,11 @@ export class InputForm extends React.Component {
                     .props
                     .result(val)
             }
-            
+
 
         }
 
-        else if (validationType === "alphabetsSpecialCharactersAndNumbers"){
+        else if (validationType === "alphabetsSpecialCharactersAndNumbers") {
             const val = e.target.value
 
             this.setState({
@@ -156,12 +152,12 @@ export class InputForm extends React.Component {
             })
 
             if (this.props.isMandatory)
-            if (val === "")
-                this.setState({
-                    warningText: "This information is required",
-                    warningClass: "warningClass",
-                    fieldIsValid: false,
-                })
+                if (val === "")
+                    this.setState({
+                        warningText: "This information is required",
+                        warningClass: "warningClass",
+                        fieldIsValid: false,
+                    })
 
 
             if (val !== "") {
@@ -179,18 +175,18 @@ export class InputForm extends React.Component {
     }
 
     returnMandatory = () => {
-        if(this.props.isMandatory)
-        return (
-            <div className="mandatorySection">
-                <p>Mandatory</p>
-            </div>
-        )
+        if (this.props.isMandatory)
+            return (
+                <div className="mandatorySection">
+                    <p>Mandatory</p>
+                </div>
+            )
 
         else
-        return (
-            <div className="mandatorySection">
-            </div>
-        )
+            return (
+                <div className="mandatorySection">
+                </div>
+            )
     }
 
     render() {
@@ -200,23 +196,21 @@ export class InputForm extends React.Component {
 
                 <div className="inputCategorySection" >
 
-
-
-                    { this.returnMandatory() }
+                    {this.returnMandatory()}
 
                     <div className="inputColumn">
                         <input
-                            ref= { this.props.refName }
-                            type= "text"
-                            placeholder= { this.props.placeholder }
-                            maxLength= { this.props.characterCount }
-                            onKeyPress= { e => {
+                            ref={this.props.refName}
+                            type="text"
+                            placeholder={this.props.placeholder}
+                            maxLength={this.props.characterCount}
+                            onKeyPress={e => {
                                 if (e.key === "Enter") {
                                     this.submitForm(e.target.value)
                                 }
                             }}
-                            onChange= { e => this.validateForm(e, this.props.validationType) }
-                            defaultValue= {this.props.value ? this.props.value : ""}
+                            onChange={e => this.validateForm(e, this.props.validationType)}
+                            defaultValue={this.props.value ? this.props.value : ""}
                         />
 
                         <span className="InputSeparatorLine"> </span>
@@ -227,9 +221,9 @@ export class InputForm extends React.Component {
 
                         <div className="warningSection">
                             <p
-                                className= { this.state.warningClass }
+                                className={this.state.warningClass}
                             >
-                                { this.state.warningText }
+                                {this.state.warningText}
                             </p>
                         </div>
                     </div>
@@ -243,8 +237,8 @@ export class InputForm extends React.Component {
                     </div>
                 </div>
 
-            </div>       
-            )
+            </div>
+        )
     }
 
 }
