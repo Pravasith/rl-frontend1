@@ -701,7 +701,7 @@ class ProfileDetailsVendor extends React.Component {
                                                             </div> */}
                                                         </div>
                                                     </div>
-                                                    <div className="warningSection">
+                                                    <div className="gstInputSection warningSection">
                                                         <p 
                                                             className={this.state.warningClass}
                                                         >
