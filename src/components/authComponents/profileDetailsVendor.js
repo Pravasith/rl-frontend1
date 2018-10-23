@@ -36,7 +36,8 @@ class ProfileDetailsVendor extends React.Component {
             warningClass: 'warningClass hide',
             warningText: null,
 
-            value: "",
+            yearCount: 0,
+            monthCount: 0,
 
             companyName: null,
         }
@@ -69,6 +70,8 @@ class ProfileDetailsVendor extends React.Component {
                 })
             })
 
+        
+
         this.props.hitApi(api.GET_VENDOR_DATA, "GET")
             .then((data) => {
                 let { responseData } = this.props
@@ -100,6 +103,9 @@ class ProfileDetailsVendor extends React.Component {
                         companyDescriptionLine1: decryptedData.companyDescriptionLine1,
                         companyDescriptionLine2: decryptedData.companyDescriptionLine2,
 
+                        yearCount: decryptedData.experience.years,
+                        monthCount: decryptedData.experience.months,
+
                         pan: decryptedData.PAN,
 
                     })
@@ -107,6 +113,39 @@ class ProfileDetailsVendor extends React.Component {
             })
 
             .catch(e => console.error(e))
+    }
+
+
+    decreaseValue = (yearOrMonth) => {
+        if (yearOrMonth === "year" && this.state.yearCount > 0){
+            this.updateVendorData("experience.years", this.state.yearCount - 1)
+            this.setState({
+                yearCount : this.state.yearCount - 1
+            })
+        }
+
+        if (yearOrMonth === "month" && this.state.monthCount > 0) {
+            this.updateVendorData("experience.months", this.state.monthCount - 1)
+            this.setState({
+                monthCount: this.state.monthCount - 1
+            })
+        }
+    }
+
+    increaseValue = (yearOrMonth) => {
+        if (yearOrMonth === "year" && this.state.yearCount < 100) {
+            this.updateVendorData("experience.years", this.state.yearCount + 1)
+            this.setState({
+                yearCount: this.state.yearCount + 1
+            })
+        }
+
+        if (yearOrMonth === "month" && this.state.monthCount < 12) {
+            this.updateVendorData("experience.months", this.state.monthCount + 1)
+            this.setState({
+                monthCount: this.state.monthCount + 1
+            })
+        }
     }
 
 
@@ -232,7 +271,7 @@ class ProfileDetailsVendor extends React.Component {
         }
     }
 
-    hitTheAPI = (objectName, data) => {
+    hitTheAPI = async (objectName, data) => {
 
         this
             .props
@@ -250,7 +289,7 @@ class ProfileDetailsVendor extends React.Component {
         // Encrypt data
         // 
 
-        this
+        await this
             .props
             .hitApi(api.UPDATE_USER_DATA, "PUT",
                 {
@@ -270,7 +309,7 @@ class ProfileDetailsVendor extends React.Component {
 
     }
 
-    updateVendorData = (objectName, data) => {
+    updateVendorData = async (objectName, data) => {
 
         this
             .props
@@ -288,8 +327,7 @@ class ProfileDetailsVendor extends React.Component {
         // Encrypt data
         //
 
-
-        this
+        await this
             .props
             .hitApi(api.UPDATE_VENDOR_DATA, "PUT",
                 {
@@ -336,7 +374,7 @@ class ProfileDetailsVendor extends React.Component {
                         />
 
                         <header className="vendorHeaderClass">
-                            <h3 className="vendorHeaderSection">Okay, very quickly we'll just finish off a simple details form</h3>
+                            <h3 className="vendorHeaderSection"> Okay, let's finish a simple form</h3>
                             <div className="line"></div>
                         </header>
 
@@ -352,11 +390,11 @@ class ProfileDetailsVendor extends React.Component {
                                         <div className="formCompletionInfoSection">
                                             <div className="outerLayer">
                                                 <h3>
-                                                    <span>4/9</span> Questions answered</h3>
+                                                    <span>4/9</span>Questions answered
+                                                </h3>
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
 
                                 <div className="rightFormSection">
@@ -617,20 +655,20 @@ class ProfileDetailsVendor extends React.Component {
                                                             <div className="inputColumn">
                                                                 <div className="numberInputSection inputColumnInnerLayer">
                                                                     <div
-                                                                        className="VolumeCategory"
-                                                                    // onClick={this.decreaseValue.bind(this)}
-                                                                    >
+                                                                        className="plusAndMinusWrap"
+                                                                        onClick={() => this.decreaseValue("year")}
+                                                                        >
                                                                         <MinusImageIcon />
                                                                     </div>
 
                                                                     <div className="numberSection">
-                                                                        <p>{this.state.number}</p>
+                                                                        <p>{this.state.yearCount}</p>
                                                                     </div>
 
                                                                     <div
-                                                                        className="VolumeCategory"
-                                                                    // onClick={this.increaseValue.bind(this)}
-                                                                    >
+                                                                        className="plusAndMinusWrap"
+                                                                        onClick={() => this.increaseValue("year")}
+                                                                        >
                                                                         <PlusImageIcon />
                                                                     </div>
 
@@ -649,19 +687,19 @@ class ProfileDetailsVendor extends React.Component {
                                                             <div className="inputColumn">
                                                                 <div className="numberInputSection inputColumnInnerLayer">
                                                                     <div
-                                                                        className="VolumeCategory"
-                                                                    // onClick={this.decreaseCount.bind(this)}
+                                                                        className="plusAndMinusWrap"
+                                                                        onClick={() => this.decreaseValue("month")}
                                                                     >
                                                                         <MinusImageIcon />
                                                                     </div>
 
                                                                     <div className="numberSection">
-                                                                        <p>{this.state.count}</p>
+                                                                        <p>{this.state.monthCount}</p>
                                                                     </div>
 
                                                                     <div
-                                                                        className="VolumeCategory"
-                                                                    // onClick={this.increaseCount.bind(this)}
+                                                                        className="plusAndMinusWrap"
+                                                                        onClick={() => this.increaseValue("month")}
                                                                     >
                                                                         <PlusImageIcon />
                                                                     </div>
@@ -704,21 +742,35 @@ class ProfileDetailsVendor extends React.Component {
                                                         <p>-</p>
 
                                                         <div className="inputColumn">
-                                                            <input type="text" placeholder="AAAAA0000A" maxLength="10" />
+                                                            <input 
+                                                                type="text" 
+                                                                placeholder="AAAAA0000A" 
+                                                                maxLength="10" 
+                                                            />
                                                             <span className="InputSeparatorLine"> </span>
                                                         </div>
 
                                                         <p>-</p>
 
                                                         <div className="inputColumn">
-                                                            <input type="text" placeholder="1" maxLength="1" pattern="\d*" />
+                                                            <input 
+                                                                type="text" 
+                                                                placeholder="1" 
+                                                                maxLength="1" 
+                                                                pattern="\d*" 
+                                                            />
                                                             <span className="InputSeparatorLine"> </span>
                                                         </div>
 
                                                         <p>-</p>
 
                                                         <div className="inputColumn">
-                                                            <input type="text" placeholder="Z" pattern="[A-Z]{1}" maxLength="1" />
+                                                            <input 
+                                                                type="text" 
+                                                                placeholder="Z"
+                                                                pattern="[A-Z]{1}" 
+                                                                maxLength="1"
+                                                            />
                                                             <span className="InputSeparatorLine"> </span>
                                                         </div>
 
