@@ -24,7 +24,6 @@ export default class VendorProductDashboard extends React.Component{
     render(){
 
         return(
-
             <div className="vendorProductDashboard">
 
                 <div className={this.state.loadingClass}>
@@ -34,7 +33,7 @@ export default class VendorProductDashboard extends React.Component{
                 <div className={this.state.mainClass}>
 
                     <article className="vendorProductOuterLayer">
-                        chutiye
+                        hello
                     </article>
 
                 </div>
