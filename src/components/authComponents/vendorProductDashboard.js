@@ -34,7 +34,7 @@ export default class VendorProductDashboard extends React.Component{
                 <div className={this.state.mainClass}>
 
                     <article className="vendorProductOuterLayer">
-                        chutiye
+                        vendor-product-mangement-page
                     </article>
 
                 </div>
