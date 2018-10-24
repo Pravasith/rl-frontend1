@@ -11,7 +11,10 @@ export const GradientButton = (props) => {
 
 export const WhiteButton = (props) => {
     return (
-        <div className="whiteButtonWrapper">
+        <div
+            className="whiteButtonWrapper"
+            onClick = {() => props.runFunction()}
+            >
             {props.children}
         </div>
     )

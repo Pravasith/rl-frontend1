@@ -68,42 +68,51 @@
 
 .vendorDashboardWrapper{
     width: 100%;
-    height: 99vh;
+    // height: 97vh;
     background: $white;
+
     .mainClass{
         @include flexCentreCol;
         width: 100%;
+
         .vendorDashboardOuterLayer{
             @include flexCentreRow;
-            width: 98%;
+            width: 100%;
             margin-top: 1em;
+
             .vendorDashboardInnerLayer{
                 @include flexCentreRow;
                 align-items: flex-start;
-                 width: 80%;
+                width: 100%;
+
                 .uploadSectionLeftWrapper{
                     @include flexCentreRow;
-                    width: 50%;
-                    margin: 0 auto;
+                    min-width: 35%;
+                    // margin: 0 auto;
                     padding: 0.3em;
+
                     .leftWrapperInnerLayer{
                         @include flexCentreCol;
                         width: 100%;
+
                         .imageUploadBigContainer{
                             @include flexCentreCol;
                             align-items: flex-start;
                             width: 90%;
                             margin: 0 auto;
-                            .imageUpoloadUpperSection{
+
+                            .imageUploadUpperSection{
                                 @include flexCentreCol;
                                 width: 100%;
                                 padding: 0.3em;
                                 background: $veryLightGrey;
-                                margin: 0 auto;
+                                // margin: 0 auto;
+
                                 .upperSectionInnerLayer{
                                     width:100%;
                                     position: relative;
                                     padding-bottom: 90%;
+
                                     .imageContainer{
                                         width:100%;
                                         height:100%;
@@ -112,27 +121,33 @@
                                     }
                                 }
                             }
+
                             .imageUploadDownSection{
                                 @include flexCentreCol;
                                 width: 100%;
                                 margin-top: 1em;
+
                                 .uploadedHeaderSection{
                                     @include flexCentreRow;
                                     justify-content: flex-start;
                                     width: 100%;
+
                                     .headingArea{
                                         @include flexCentreCol;
                                         align-items: flex-start;
+
                                         .headingColumn{
-                                            font-size: 1.2em;
+                                            font-size: 0.8em;
                                              color: $darkerGrey;
                                         }
+
                                         .line{
                                             width: 50%;
                                             background: $secondaryMagenta;
                                         }
                                     }
                                 }
+
                                 .downSectionInnerLayer{
                                     width: 100%;
                                 }
@@ -141,10 +156,13 @@
                         
                     }
                 }
-                .uploadSectionRightWrapeer{
-                    width: 50%;
-                    margin: 0 auto;
+
+                .uploadSectionRightWrapper{
+                    width: 60%;
+                    // margin: 0 auto;
                     padding: 0.3em;
+                    padding-left: 2em;
+
                     .rightWrapperInnerLayer{
                         @include flexCentreCol;
                         align-items: flex-start;
@@ -165,49 +183,92 @@
                                 }
                             }
                         }
+
                         .vendorUploadFormSection{
                             width: 100%;
                             height: 28em;
                             overflow-y: auto;
                             margin-top: 0.5em;
+
                             .vendorUploadFormInnerContainer{
                                 @include flexCentreCol;
                                 width: 80%;
+
                                 .inputFormContainer{
                                     @include flexCentreCol;
                                     align-items: flex-start;
                                     width: 100%;
                                     margin: 1em 0;
+
                                     .formParaSection{
                                         margin-bottom: 0.5em;
+
                                         .pargraphClass{
                                             font-size: 1em;
                                             color: $darkerGrey;
-
                                         }
                                     }
+
+                                    .materialHolder{
+                                        .materialWrap{
+                                            ul{
+                                                margin: 0;
+                                                padding-left: 2em;
+                                            }
+                                        }
+
+                                        p{
+                                            font-size: 0.8em;
+                                            padding: 0.5em;
+                                            padding-top: 0;
+                                            padding-left: 0;
+                                        }
+                                    }
+
                                     .materialNameColumn{
+                                        @include flexCentreRow;
+                                        align-items: flex-start;
+
+                                        .inputCategorySection{
+                                            margin-bottom: 1em;
+                                            margin-top: 0.5em;
+                                        }
+
+                                        .whiteButtonWrapper{
+                                            margin: 0;
+                                            margin-top: 0.5em;
+                                            font-size: 0.75em;
+                                            margin-left: 2em;
+                                        }
+
                                         .mandatorySection{
                                             display: none;
                                         }
                                     }
+
                                     .colorVariantSliderContainer{
                                         width: 100%;
                                         margin-bottom: 0.5em;
+
                                         .productView{
                                             margin:0.5em 0;
                                         }
                                     }
+
                                     .buttonContainer{
+
                                         .vendorDashboardBtn{
                                             @include flexCentreRow;
+
                                             .svgImageContainer{
                                                 margin: 0 0.5em;
                                             }
                                         }
                                     }
+
                                     .mentionedSizeContainer{
                                         width: 100%;
+
                                         .addedProductSizeContainer{
                                             .mentionedProductSizeList{
                                                 color: $darkGrey;
@@ -216,6 +277,7 @@
                                             }
                                         }
                                     }
+
                                     .materialInfoColumn{
                                         width: 100%;
                                         .mandatorySection{
@@ -229,5 +291,9 @@
                 }
             }
         }
+    }
+
+    .hide{
+        display: none;
     }
 }

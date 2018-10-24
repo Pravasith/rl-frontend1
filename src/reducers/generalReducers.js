@@ -38,5 +38,3 @@ export function navBarLoadingClass(
     }
     return state
 }
-
-
