@@ -630,6 +630,101 @@ input[type=number]::-webkit-outer-spin-button {
 
 @media screen and (max-width: 1024px){
 
+    .bigWrapper{
+       .mainClass{
+           .vendorProfileDetailsOuterwrapper{
+               .vendorHeaderClass{}
+               .vendorFormOuterSection{
+                   @include flexCentreRow;
+                   .vendorInnerSection{
+                       @include flexCentreCol;
+                       .leftSection{
+                           width: 80%;
+                           .leftSectionInnerLayer{
+
+                           }
+                       }
+                       .rightFormSection{
+                           .formSectionInnerLayer{
+                            .vendorForm{
+                                .formInputContainer{
+                                    .formInputInnerLayer{
+                                        // @include flexCentreCol;
+                                        width: 82%;
+                                        .formParaSection{
+                                            @include flexCentreRow;
+                                        }
+                                        .imageCategorySection {
+                                            .inputColumn{
+                                                .imageUploadIconSection{
+                                                    @include flexCentreRow;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                           }
+                       }
+                   }
+               }
+           }
+       } 
+    }
+
+}
+
+@media screen and (max-width: 768px){
+
+    .bigWrapper{
+        .mainClass{
+            .vendorProfileDetailsOuterwrapper{
+                .vendorHeaderClass{}
+                .vendorFormOuterSection{
+                    @include flexCentreRow;
+                    .vendorInnerSection{
+                        @include flexCentreCol;
+                        .leftSection{
+                            width: 80%;
+                            .leftSectionInnerLayer{
+ 
+                            }
+                        }
+                        .rightFormSection{
+                            .formSectionInnerLayer{
+                             .vendorForm{
+                                 .formInputContainer{
+                                     .formInputInnerLayer{
+                                         // @include flexCentreCol;
+                                         width: 82%;
+                                         .formParaSection{
+                                             @include flexCentreRow;
+                                         }
+                                         .cardInstructionPara {
+                                             width: 100%;
+                                         }
+                                         .cardInputSection {
+                                             width: 100%;
+                                         }
+                                         .imageCategorySection {
+                                             width: 100%;
+                                             .inputColumn{
+                                                 .imageUploadIconSection{
+                                                     @include flexCentreRow;
+                                                 }
+                                             }
+                                         }
+                                     }
+                                 }
+                             }
+                            }
+                        }
+                    }
+                }
+            }
+        } 
+     }
+
 }
 
 

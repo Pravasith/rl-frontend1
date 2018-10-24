@@ -403,6 +403,7 @@
     .signUpWrapper{
         .topHeading{
             @include flexCentreCol;
+            width: 80%;
             // .shakeHand{
 
             //     display: none;
@@ -416,7 +417,7 @@
         .formsX{
             @include flexCentreCol;
             .leftForm{
-                width: 100%;
+                width: 80%;
                 padding: 1em 0;
                 order: 3;
             }
@@ -429,7 +430,7 @@
             }
 
             .socialNetworksForm{
-                width: 100%;
+                width: 70%;
                 order: 1;
             }
         }
