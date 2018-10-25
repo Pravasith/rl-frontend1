@@ -39,6 +39,9 @@ class ProfileDetailsVendor extends React.Component {
             yearCount: 0,
             monthCount: 0,
 
+            // my code
+            inputCount: 0,
+
             companyName: null,
            
         }
@@ -149,6 +152,23 @@ class ProfileDetailsVendor extends React.Component {
         }
     }
 
+    // my code
+
+    validateInput = (oneOrTwo) => {
+        if(oneOrTwo === "one"){
+            this.setState({
+                inputCount: 1
+            })
+        }
+        if(oneOrTwo === "two"){
+            this.setState({
+                inputCount: 2
+            })
+        }
+    }
+
+    // my code
+
 
     returnNavBarData = () => {
         if (this.props.userData.responseData) {
@@ -172,6 +192,9 @@ class ProfileDetailsVendor extends React.Component {
             return null
         }
     }
+
+    
+
 
     onChange(event) {
         if (event.target.value.length === event.target.maxLength) {
@@ -399,8 +422,10 @@ class ProfileDetailsVendor extends React.Component {
 
                                         <div className="formCompletionInfoSection">
                                             <div className="outerLayer">
-                                                <h3>
-                                                    <span>4/9</span>Questions answered
+                                                <h3
+                                                    
+                                                >
+                                                    <span>{this.state.inputCount}/9</span>Questions answered
                                                 </h3>
                                             </div>
                                         </div>
@@ -412,7 +437,10 @@ class ProfileDetailsVendor extends React.Component {
 
                                         <form action="" className="vendorForm">
 
-                                            <div className="formInputContainer">
+                                            <div 
+                                                className="formInputContainer"
+                                                onClick={() => this.validateInput("one")}
+                                            >
                                                 <div className="formInputInnerLayer">
                                                     <div className="formParaSection">
                                                         <h3>1</h3>
@@ -446,7 +474,10 @@ class ProfileDetailsVendor extends React.Component {
                                                 </div>
                                             </div>
 
-                                            <div className="formInputContainer">
+                                            <div 
+                                                className="formInputContainer"
+                                                onClick={() => this.validateInput("two")}
+                                            >
                                                 <div className="formInputInnerLayer">
                                                     <div className="formParaSection">
                                                         <h3> 2 </h3>

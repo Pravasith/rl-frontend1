@@ -321,6 +321,7 @@ class VendorDashboardDetails extends React.Component {
 
                                                 <div className = "materialNameColumn">
 
+                                                    <div className="inputWrap">
                                                     <input
                                                         placeholder = "Type material's name here"
                                                         ref = "materialInput"
@@ -333,6 +334,8 @@ class VendorDashboardDetails extends React.Component {
                                                             }
                                                         }}
                                                     />
+                                                    <span className="InputSeparatorLine"> </span>
+                                                    </div>
 
                                                     <WhiteButton
                                                         runFunction={this.addMaterialName}
