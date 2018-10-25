@@ -211,17 +211,22 @@
 
                                     .materialHolder{
                                         .materialWrap{
+                                            @include flexCentreRow;
+                                            justify-content: flex-start;
+
                                             ul{
                                                 margin: 0;
                                                 padding-left: 2em;
+                                                padding-top: 0.1em;
+                                                margin-right: 0.5em;
                                             }
                                         }
 
                                         p{
                                             font-size: 0.8em;
-                                            padding: 0.5em;
-                                            padding-top: 0;
-                                            padding-left: 0;
+                                            padding-right: 0.5em;
+                                            padding-bottom: 0.5em;
+                                            // padding-left: 0;
                                         }
                                     }
 
@@ -285,7 +290,7 @@
                                     }
 
                                     .colorVariantSliderContainer{
-                                        width: 100%;
+                                        width: 70%;
                                         margin-bottom: 0.5em;
 
                                         .productView{

@@ -34,7 +34,39 @@
             }
         }
     }
-
-    
 }
 
+
+.closeButton{
+    cursor: pointer;
+
+
+    #line1{
+        transform-origin: 50% 50%;
+        transform: rotateZ(-45deg);
+        transition: 0.2s;
+    }
+
+    #line2{
+        transform-origin: 50% 50%;
+        transform: rotateZ(45deg);
+        transition: 0.2s;
+    }
+
+    &:hover{
+        #line1{
+            transform-origin: 50% 50%;
+            transform: rotateZ(-0deg);
+        }
+
+        #line2{
+            transform-origin: 50% 50%;
+            transform: rotateZ(0deg);
+        }
+
+        circle{
+            fill: $highLightBlue;
+            transition: 0.2s;
+        }
+    }
+}

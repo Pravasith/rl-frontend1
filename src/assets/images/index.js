@@ -543,8 +543,26 @@ export const AddNewProduct = () => {
             </g>
         </svg>
     )
-
 }
+
+
+export const CloseButton = () => {
+    return (
+        <div className="closeButton">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15">
+                <circle fill="#333" cx="7.5" cy="7.5" r="7.5" id="closeButton" />
+                <line fill="none" stroke="#FFF" strokeWidth="2" strokeLinecap="round"
+                    strokeLinejoin="round" strokeMiterlimit="10" x1="10.059" y1="4.891" x2="4.737"
+                    y2="10.214" id="line2" />
+                <line fill="none" stroke="#FFF" strokeWidth="2" strokeLinecap="round"
+                    strokeLinejoin="round" strokeMiterlimit="10" x1="4.99" y1="4.891" x2="10.313"
+                    y2="10.214" id="line1" />
+            </svg>
+        </div>
+    )
+}
+
+
 
 export const YourImageName = () => {
 

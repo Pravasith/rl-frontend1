@@ -8,7 +8,7 @@ import { bindActionCreators } from "redux"
 import { getUserData } from "../../actions/userActions"
 import { hitApi, navBarLoadingAnimationShowHide } from "../../actions/generalActions";
 
-import { PlusButtonIcon } from "../../assets/images"
+import { PlusButtonIcon, CloseButton } from "../../assets/images"
 import LogoAnimation from "../animations/logoAnimation"
 import { InputForm, WhiteButton } from "../UX/uxComponents"
 import HtmlSlider from "../UX/htmlSlider"
@@ -199,9 +199,16 @@ class VendorDashboardDetails extends React.Component {
     }
 
     addMaterialName = () => {
-        const temp = this.state.materialName
+        let temp = this.state.materialName
 
-        this.state.materialsAdded.push(temp)
+        let dummyArray = [...this.state.materialsAdded]
+
+        dummyArray.map(item => item.toLowerCase())
+
+        if (!dummyArray.includes(temp.toLowerCase())) {
+            this.state.materialsAdded.push(temp)
+        }
+
         this.setState({
             materialsAdded: this.state.materialsAdded.length !== 0 ? this.state.materialsAdded : [this.state.materialName]
         })
@@ -209,35 +216,57 @@ class VendorDashboardDetails extends React.Component {
         this.refs.materialInput.value = ""
     }
 
-    setMaterialName = (e) => {
+    removeMaterials = (index) => {
 
+        this
+            .state
+            .materialsAdded
+            .splice(index, 1)
+
+        this.setState({
+            materialsAdded: this.state.materialsAdded.length !== 0 ? this.state.materialsAdded : []
+        })
+
+    }
+
+    setMaterialName = (e) => {
         const val = e.target.value
 
         this.setState({
-            materialName : val
+            materialName: val
         })
     }
 
-    returnMaterialsAdded = () => this
-        .state
-        .materialsAdded
-        .map((item, i) => {
-            return(
-                <div className="materialWrap">
-                    <ul>
-                        <li>
-                            <p key={i}>
-                                {item}
-                            </p>
-                        </li>
-                    </ul>
+    returnMaterialsAdded = () => {
+        return (
+            this
+                .state
+                .materialsAdded
+                .map((item, i) => {
+                    return (
+                        <div
+                            className="materialWrap"
+                            key={i}
+                        >
+                            <ul>
+                                <li>
+                                    <p key={i}>
+                                        {item}
+                                    </p>
+                                </li>
+                            </ul>
 
-                    <div className="deleteIcon">
-                        
-                    </div>
-                </div>
-            )
-        })
+                            <div
+                                className="deleteIcon"
+                                onClick={() => this.removeMaterials(i)}
+                            >
+                                <CloseButton />
+                            </div>
+                        </div>
+                    )
+                })
+        )
+    }
 
     render() {
         return (
@@ -319,12 +348,12 @@ class VendorDashboardDetails extends React.Component {
                                                     {this.returnMaterialsAdded()}
                                                 </div>
 
-                                                <div className = "materialNameColumn">
+                                                <div className="materialNameColumn">
 
                                                     <div className="inputWrap">
                                                     <input
-                                                        placeholder = "Type material's name here"
-                                                        ref = "materialInput"
+                                                        placeholder="Type material's name here"
+                                                        ref="materialInput"
                                                         type="text"
                                                         onChange={e => this.setMaterialName(e)}
                                                         onKeyPress={e => {
@@ -339,7 +368,7 @@ class VendorDashboardDetails extends React.Component {
 
                                                     <WhiteButton
                                                         runFunction={this.addMaterialName}
-                                                        >
+                                                    >
                                                         Add
                                                     </WhiteButton>
                                                 </div>
@@ -363,7 +392,7 @@ class VendorDashboardDetails extends React.Component {
                                                         <div className="svgImageContainer">
                                                             <PlusButtonIcon />
                                                         </div>
-                                                        Add new finish/color
+                                                            Add new finish/color
                                                         </div>
                                                 </div>
                                             </div>
