@@ -844,9 +844,6 @@ class ProfileDetailsVendor extends React.Component {
                                                                 onChange={(event) =>this.onChange(event)}
                                                             />
                                                             <span className="InputSeparatorLine"> </span>
-                                                            {/* <div className="animationLine line">
-                                                                <div className="innerLine"></div>
-                                                            </div> */}
                                                         </div>
                                                     </div>
                                                     <div className="gstInputSection warningSection">

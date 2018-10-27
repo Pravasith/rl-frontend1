@@ -209,6 +209,16 @@
                                         }
                                     }
 
+                                    .productSizeDescriptionOuterLayer{
+                                        .productSizeDescriptionInnerLayer{
+                                            @include flexCentreRow;
+                                            background: $lightGrey;
+                                            .sizeEditingButtons{
+                                                @include flexCentreRow;
+                                            }
+                                        }
+                                    }
+
                                     .materialHolder{
                                         .materialWrap{
                                             @include flexCentreRow;

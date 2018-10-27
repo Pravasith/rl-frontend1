@@ -186,10 +186,7 @@ export class InputForm extends React.Component {
             )
 
         else
-            return (
-                <div className="mandatorySection">
-                </div>
-            )
+            return 
     }
 
     render() {
