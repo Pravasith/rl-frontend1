@@ -56,19 +56,22 @@ export default class HtmlSlider extends React.Component{
             imageNumberCount : 0,
 
             rightArrowClass : "rightArrowButton",
-            leftArrowClass : "hide"
+            leftArrowClass : "hide",
+
         }
+
+        
     }
 
     componentDidMount = () => {
-        // 6 - 0 <=  5+1
+
         if(this.props.categoryData.imagesInCategory.length - this.state.imageNumberCount + 1
             <= 
-            // 5
             this.props.numberOfSlides + 1
             ){
+
             this.setState({
-                rightArrowClass : "hide"
+                rightArrowClass : "hide",
             })
         }
     }
@@ -88,11 +91,12 @@ export default class HtmlSlider extends React.Component{
 
         const returnImagesInCategories = () => {
             const imageArray = productDetailObject.imagesInCategory.map((image, j) => {
-
-                return (
-                    <img key = {j} src = { image.imageURL } alt = {image.itemCode}/>
-                    // <p>{image.itemCode}</p>
-                )
+                return <img 
+                    key={j} 
+                    src={image.imageURL} 
+                    alt={image.itemCode} 
+                    onClick={() => this.props.runFunction(image)}
+                    />
             })
 
             return imageArray
@@ -100,7 +104,6 @@ export default class HtmlSlider extends React.Component{
 
         const isTrendingArray = () => {
             const trendingArray = productDetailObject.imagesInCategory.map((image, j) => {
-
                 return (
                     image.textOnRibbonSatisfied
                 )
@@ -110,31 +113,20 @@ export default class HtmlSlider extends React.Component{
         }
 
         return dummyArr.map((item, i) => {
-
-            
-
             return (
                 <div 
                     className="outerMostLayer"
-                    key = { i }
+                    key={i}
                     >
 
                     <div className="innerWrapperImage">
+
                         <div className="productCatalogueImage">
                             <div className="outerProductImageLayer">
                                 <div className="innerImageLayer">
                                     <div className="imgConatiner">
                                         <div className="imgOuterLayer">
-
                                             { [...returnImagesInCategories()][this.state.imageNumberCount + i] }
-                                            
-                                            {/* <div className="uponHover">
-                                                <div className="viewProjectWrap">
-                                                    <div className="mediumBtn viewButtonBlue">
-                                                        View
-                                                    </div>
-                                                </div>
-                                            </div> */}
                                         </div>
                                     </div>
                                 </div>
@@ -206,7 +198,6 @@ export default class HtmlSlider extends React.Component{
                     rightArrowClass : "hide"
                 })
             }
-
         }
 
     }
@@ -230,9 +221,7 @@ export default class HtmlSlider extends React.Component{
                     </div>
                     
                     <div className="imageContainerMiddleLayer">
-                    
                         { this.showItems(this.props.categoryData) }
-                    
                     </div>
 
                     <div className="arrowButtonContainer">

@@ -18,6 +18,7 @@ import { getUserData } from "../../actions/userActions"
 import { hitApi, navBarLoadingAnimationShowHide } from "../../actions/generalActions";
 import { api } from "../../actions/apiLinks";
 import { encryptData, decryptData } from "../../factories/encryptDecrypt"
+import ImageUploader from "../UX/imageUploader";
 
 class ProfileDetailsVendor extends React.Component {
 
@@ -68,49 +69,51 @@ class ProfileDetailsVendor extends React.Component {
                     mobileNo: decryptedData.mobileNo,
                     whatsappNo: decryptedData.whatsappNo
                 })
+
+                this.props.hitApi(api.GET_VENDOR_DATA, "GET")
+                    .then((data) => {
+                        let { responseData } = this.props
+
+                        if (responseData.responsePayload.message !== "User credentials not found") {
+
+                            //
+                            // DECRYPT REQUEST DATA
+                            //
+                            let decryptedData = decryptData(
+                                responseData.responsePayload.responseData
+                            )
+                            //
+                            // DECRYPT REQUEST DATA
+                            //
+
+                            this.setState({
+
+                                companyName: decryptedData.companyName,
+
+                                hNo: decryptedData.address.hNo,
+                                stNo: decryptedData.address.stNo,
+                                detailedAddressLine1: decryptedData.address.detailedAddressLine1,
+                                detailedAddressLine2: decryptedData.address.detailedAddressLine2,
+                                state: decryptedData.address.state,
+                                city: decryptedData.address.city,
+                                pincode: decryptedData.address.pincode,
+
+                                companyDescriptionLine1: decryptedData.companyDescriptionLine1,
+                                companyDescriptionLine2: decryptedData.companyDescriptionLine2,
+
+                                yearCount: decryptedData.experience.years,
+                                monthCount: decryptedData.experience.months,
+
+                                pan: decryptedData.PAN,
+
+                            })
+                        }
+                    })
+
+                    .catch(e => console.error(e))
             })
 
         
-
-        this.props.hitApi(api.GET_VENDOR_DATA, "GET")
-            .then((data) => {
-                let { responseData } = this.props
-
-                if (responseData.responsePayload.message !== "User credentials not found") {
-
-                    //
-                    // DECRYPT REQUEST DATA
-                    //
-                    let decryptedData = decryptData(
-                        responseData.responsePayload.responseData
-                    )
-                    //
-                    // DECRYPT REQUEST DATA
-                    //
-
-                    this.setState({
-
-                        companyName: decryptedData.companyName,
-
-                        hNo: decryptedData.address.hNo,
-                        stNo: decryptedData.address.stNo,
-                        detailedAddressLine1: decryptedData.address.detailedAddressLine1,
-                        detailedAddressLine2: decryptedData.address.detailedAddressLine2,
-                        state: decryptedData.address.state,
-                        city: decryptedData.address.city,
-                        pincode: decryptedData.address.pincode,
-
-                        companyDescriptionLine1: decryptedData.companyDescriptionLine1,
-                        companyDescriptionLine2: decryptedData.companyDescriptionLine2,
-
-                        yearCount: decryptedData.experience.years,
-                        monthCount: decryptedData.experience.months,
-
-                        pan: decryptedData.PAN,
-
-                    })
-                }
-            })
 
             .catch(e => console.error(e))
     }
@@ -821,17 +824,11 @@ class ProfileDetailsVendor extends React.Component {
                                                         <h3>9</h3>
                                                         <p>Upload your company logo here. Max size 1mb.</p>
                                                     </div>
-
-                                                    <div className="imageCategorySection inputCategorySection">
-                                                        <div className="inputColumn">
-                                                            <div className="imageUploadIconSection">
-                                                                <UploadImageIcon />
-                                                            </div>
-                                                            <div className="uploadInstructionSection">
-                                                                <p>Click here to upload an image. Formats allowed are .jpeg, .jpg, .png</p>
-                                                            </div>
-                                                        </div>
+                                                    
+                                                    <div className="imageOuterLayer">
+                                                        <ImageUploader/>
                                                     </div>
+
                                                 </div>
                                             </div>
 

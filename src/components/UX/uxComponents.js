@@ -186,10 +186,7 @@ export class InputForm extends React.Component {
             )
 
         else
-            return (
-                <div className="mandatorySection">
-                </div>
-            )
+            return <div className="mandatorySection"></div>
     }
 
     render() {
@@ -234,7 +231,7 @@ export class InputForm extends React.Component {
                     <div className="countSection">
                         <p
                             ref="charCount"
-                        >
+                            >
                             {this.state.charCount}
                         </p>
                     </div>

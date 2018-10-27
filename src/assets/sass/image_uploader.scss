@@ -1,0 +1,35 @@
+@import "_mixins";
+@import "_vars";
+
+
+@include includeCommonStyles;
+@include ignoreDefaultStyles;
+
+
+.imageUploaderWrap{
+     @include flexCentreRow;
+     width: 100%;
+    //  margin: 0 auto;
+    .pictureUpload{
+        @include flexCentreCol;
+        width: 100%;
+        .pictureContainer{
+            @include flexCentreCol;
+            
+            .uploadContainer{
+                @include flexCentreCol;
+                 border: 0.1em solid $mediumGrey;
+                border-style: dashed;
+                padding: 1em;
+                &:hover{
+                    cursor: pointer;
+                }
+            }
+            h3{
+                text-align: center;
+                font-size: 0.75em;
+                font-weight: 400;
+            }
+        }
+    }
+}
