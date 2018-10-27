@@ -210,9 +210,22 @@
                                     }
 
                                     .productSizeDescriptionOuterLayer{
+                                        width: 100%;
                                         .productSizeDescriptionInnerLayer{
                                             @include flexCentreRow;
+                                            justify-content: space-between;
+                                            padding: 1em;
                                             background: $lightGrey;
+                                            .productSizeDetails{
+                                                @include flexCentreCol;
+                                                align-items: flex-start;
+                                                .sizeCart{
+                                                    @include flexCentreRow;
+                                                }
+                                                .costCart{
+                                                    @include flexCentreRow;
+                                                }
+                                            }
                                             .sizeEditingButtons{
                                                 @include flexCentreRow;
                                             }

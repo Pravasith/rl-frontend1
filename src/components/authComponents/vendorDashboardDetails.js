@@ -436,7 +436,16 @@ class VendorDashboardDetails extends React.Component {
                                                 </div> 
                                                 <div className="productSizeDescriptionOuterLayer">
                                                     <div className="productSizeDescriptionInnerLayer">
-                                                        <div className="productSizeDetails"></div>
+                                                        <div className="productSizeDetails">
+                                                            <div className="sizeCart">
+                                                                <h3>Size nomenclature</h3>
+                                                                <p>Small - 4ft * 3ft</p>
+                                                            </div>
+                                                            <div className="costCart">
+                                                                <h3>Cost over base price</h3>
+                                                                <p>Rs.20</p>
+                                                            </div>
+                                                        </div>
                                                         <div className="sizeEditingButtons">
                                                            <div className="editButton">
                                                                  <WhiteButton>
@@ -449,6 +458,14 @@ class VendorDashboardDetails extends React.Component {
                                                                 </WhiteButton>
                                                            </div>
                                                         </div>
+                                                    </div>
+                                                </div>
+                                                <div className="buttonContainer">
+                                                    <div className="mediumBtn vendorDashboardBtn">
+                                                        <div className="svgImageContainer">
+                                                            <PlusButtonIcon />
+                                                        </div>
+                                                        Add new size
                                                     </div>
                                                 </div>
                                             </div>
@@ -564,7 +581,7 @@ class VendorDashboardDetails extends React.Component {
                                                             <PlusButtonIcon />
                                                         </div>
                                                         Add new size
-                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
 
