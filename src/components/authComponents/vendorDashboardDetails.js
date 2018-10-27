@@ -26,7 +26,8 @@ class VendorDashboardDetails extends React.Component {
             mainClass: 'mainClass hide',
             redirect: false,
 
-            materialsAdded: []
+            materialsAdded: [],
+            materialName: ""
         }
 
     }
@@ -174,6 +175,16 @@ class VendorDashboardDetails extends React.Component {
                 })
             })
 
+            .catch((err) => {
+                if (err.response) {
+                    if (err.response.status === 401)
+                        window.open('/log-in', "_self")
+                }
+
+                else
+                    console.error(err)
+            })
+
     }
 
 
@@ -199,21 +210,26 @@ class VendorDashboardDetails extends React.Component {
     }
 
     addMaterialName = () => {
+        
         let temp = this.state.materialName
 
-        let dummyArray = [...this.state.materialsAdded]
+        if(temp !== ""){
 
-        dummyArray.map(item => item.toLowerCase())
+            let dummyArray = [...this.state.materialsAdded]
 
-        if (!dummyArray.includes(temp.toLowerCase())) {
-            this.state.materialsAdded.push(temp)
+            dummyArray.map(item => item.toLowerCase())
+
+            if (!dummyArray.includes(temp.toLowerCase())) {
+                this.state.materialsAdded.push(temp)
+            }
+
+            this.setState({
+                materialsAdded: this.state.materialsAdded.length !== 0 ? this.state.materialsAdded : [this.state.materialName]
+            })
+
+            this.refs.materialInput.value = ""
         }
-
-        this.setState({
-            materialsAdded: this.state.materialsAdded.length !== 0 ? this.state.materialsAdded : [this.state.materialName]
-        })
-
-        this.refs.materialInput.value = ""
+        
     }
 
     removeMaterials = (index) => {
@@ -268,6 +284,10 @@ class VendorDashboardDetails extends React.Component {
         )
     }
 
+    getData = (data) => {
+        console.log(data)
+    }
+
     render() {
         return (
             <div className="vendorDashboardWrapper">
@@ -313,6 +333,7 @@ class VendorDashboardDetails extends React.Component {
                                                     categoryData={this.returnVariationImages()} // format of Item 
                                                     numberOfSlides={4} // Change the css grid properties for responsiveness
                                                     textOnRibbon={"TRENDING NOW"} // All caps
+                                                    runFunction={(data) => this.getData(data)}
                                                 />
                                             </div>
 
@@ -551,6 +572,7 @@ class VendorDashboardDetails extends React.Component {
                                                         categoryData={this.returnVariationColors()} // format of Item 
                                                         numberOfSlides={4} // Change the css grid properties for responsiveness
                                                         textOnRibbon={"TRENDING NOW"} // All caps
+                                                        runFunction={(data) => this.getData(data)}
                                                     />
                                                 </div>
 
@@ -580,6 +602,7 @@ class VendorDashboardDetails extends React.Component {
                                                         <div className="svgImageContainer">
                                                             <PlusButtonIcon />
                                                         </div>
+
                                                         Add new size
                                                     </div>
                                                 </div>
@@ -615,18 +638,13 @@ class VendorDashboardDetails extends React.Component {
                                                         })}
                                                     />
                                                 </div>
+
                                             </div>
-
                                         </div>
-
                                     </section>
-
                                 </article>
-
                             </div>
-
                         </section>
-
                     </article>
                 </div>
             </div>
