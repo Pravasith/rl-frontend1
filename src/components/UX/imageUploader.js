@@ -9,7 +9,10 @@ export default class ImageUploader extends React.Component {
 
         this.state = {
             pictureClass: "pictureContainer",
-            smallLoaderClass: "loader hide"
+            smallLoaderClass: "loader hide",
+
+            uploadImageClass: "uploadContainer",
+            selectedImageClass: "hide"
         }
     }
 
@@ -69,6 +72,10 @@ export default class ImageUploader extends React.Component {
                         onInput={(e) => this.pictureUploader(e)}
                         onClick={(event) => {
                             event.target.value = null
+                            this.setState({
+                                uploadImageClass: "hide",
+                                selectedImageClass: "selectClasss"
+                            })
                         }}
                         ref="uploadLabel"
                         style={{ display: "none" }}
@@ -79,17 +86,27 @@ export default class ImageUploader extends React.Component {
                     />
 
                     <label htmlFor="uploadImageInput" className={this.state.pictureClass}  >
-                        <div className="uploadContainer">
+                        <div className= {this.state.uploadImageClass} >
                             <div className="uploadIconWrap">
                                 <UploadImageIcon />
                             </div>
-                            
+
                             <h3>
                                 Click here to upload an image.Formats allowed are.jpeg,.jpg,.png (Max.500 kb)
                             </h3>
                         </div>
+
+                        <div className={this.state.selectedImageClass} >
+                            <div className="selectedImage">
+                                <img src="https://i.imgur.com/dZVD5wF.png" alt=""/>
+                            </div>
+
+                            <h3>
+                                Click to change image
+                            </h3>
+                        </div>
                     </label>
-                    
+
                 </div>
             </div>
         )

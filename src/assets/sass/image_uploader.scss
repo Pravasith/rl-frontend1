@@ -21,10 +21,16 @@
                  border: 0.1em solid $mediumGrey;
                 border-style: dashed;
                 padding: 1em;
+
                 &:hover{
                     cursor: pointer;
                 }
             }
+
+            .hide{
+                display: none;
+            }
+
             h3{
                 text-align: center;
                 font-size: 0.75em;
