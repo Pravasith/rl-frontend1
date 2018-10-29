@@ -38,3 +38,20 @@
         }
     }
 }
+
+
+@media screen and (max-width: 1024px){
+
+    .footerWrapper{
+        position: fixed;
+        bottom: 0;
+    }
+}
+
+
+@media screen and (max-width: 768px){
+
+    .footerWrapper{
+        display: none;
+    }
+}

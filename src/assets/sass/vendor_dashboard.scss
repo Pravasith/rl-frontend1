@@ -209,6 +209,29 @@
                                         }
                                     }
 
+                                    .productSizeDescriptionOuterLayer{
+                                        width: 100%;
+                                        .productSizeDescriptionInnerLayer{
+                                            @include flexCentreRow;
+                                            justify-content: space-between;
+                                            padding: 1em;
+                                            background: $lightGrey;
+                                            .productSizeDetails{
+                                                @include flexCentreCol;
+                                                align-items: flex-start;
+                                                .sizeCart{
+                                                    @include flexCentreRow;
+                                                }
+                                                .costCart{
+                                                    @include flexCentreRow;
+                                                }
+                                            }
+                                            .sizeEditingButtons{
+                                                @include flexCentreRow;
+                                            }
+                                        }
+                                    }
+
                                     .materialHolder{
                                         .materialWrap{
                                             @include flexCentreRow;
@@ -234,6 +257,44 @@
                                         @include flexCentreRow;
                                         align-items: flex-start;
 
+                                        .inputWrap{
+                                            @include flexCentreCol;
+                                            margin-top: 0.5em;
+
+                                            input{
+                                                border: none;
+                                                // border-bottom: 0.2em solid $black;
+                                                background: transparent;
+                                                color: $darkerGrey;
+                                                outline: none;
+                                                height: 1.5em;
+                                                width: 100%;
+                                                border-bottom: 0.2em solid $lightGrey;
+                                                &:focus + .InputSeparatorLine {
+                                                    transform: scaleX(1) translateY(-2px);   
+                                                      opacity: 1;
+                                                   }
+                                                   &:hover + .InputSeparatorLine{
+                                                    transform: scaleX(1) translateY(-2px);   
+                                                    opacity: 1;
+                                                   }
+                                            }
+                                
+                                            
+                                            .InputSeparatorLine {
+                                                height:0.2em;
+                                                width: 100%;
+                                                background: $darkGrey;
+                                                display: block;
+                                                transform: scaleX(0) translateY(-2px);
+                                                transform-origin: 50%;
+                                                opacity: 0;
+                                                transition: all .15s $curve;
+                                            }
+    
+                                        }
+
+                                       
                                         .inputCategorySection{
                                             margin-bottom: 1em;
                                             margin-top: 0.5em;

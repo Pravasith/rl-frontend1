@@ -360,6 +360,173 @@ class VendorDashboardDetails extends React.Component {
                                     <section className="vendorUploadFormSection">
 
                                         <div className="vendorUploadFormInnerContainer">
+
+                                            <div className="inputFormContainer">
+                                                <div className="formParaSection">
+                                                    <p className="pargraphClass">Name of the product</p>
+                                                </div>
+                                                <div className="materialInformationColumn">
+                                                    <InputForm
+                                                        refName="productName"
+                                                        placeholder="Ex.Vertical Moss"
+                                                        isMandatory={true}
+                                                        validationType="alphabetsSpecialCharactersAndNumbers"
+                                                        characterCount="30"
+                                                        result={(val) => this.setState({
+                                                            productName: val
+                                                        })}
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            <div className="inputFormContainer">
+                                                <div className="formParaSection">
+                                                    <p className="pargraphClass">Product Code</p>
+                                                </div>
+                                                <div className="productCode">
+                                                    <InputForm
+                                                        refName="productName"
+                                                        placeholder="Type here"
+                                                        isMandatory={true}
+                                                        validationType="alphabetsSpecialCharactersAndNumbers"
+                                                        characterCount="30"
+                                                        result={(val) => this.setState({
+                                                            productCode: val
+                                                        })}
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            <div className="inputFormContainer">
+                                                <div className="formParaSection">
+                                                    <p className="pargraphClass">Different Code</p>
+                                                </div>
+                                                <div className="productDifferentCode">
+                                                    <InputForm
+                                                        refName="differentCode"
+                                                        placeholder="Type here"
+                                                        isMandatory={false}
+                                                        validationType="alphabetsSpecialCharactersAndNumbers"
+                                                        characterCount="30"
+                                                        result={(val) => this.setState({
+                                                            productDiffCode: val
+                                                        })}
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            <div className="inputFormContainer">
+                                                <div className="formParaSection">
+                                                    <p className="pargraphClass">Best price of this product</p>
+                                                </div>
+                                                <div className="PricingSection">
+                                                    <InputForm
+                                                        refName="productPrice"
+                                                        placeholder="Type here(in Rupees)"
+                                                        isMandatory={true}
+                                                        validationType="alphabetsSpecialCharactersAndNumbers"
+                                                        characterCount="30"
+                                                        result={(val) => this.setState({
+                                                            productPrice: val
+                                                        })}
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            <div className="inputFormContainer">
+                                                <div className="formParaSection">
+                                                    <p className="pargraphClass">Material</p>
+                                                </div>
+                                                <div className="ProductMaterialSection">
+                                                    <InputForm
+                                                        refName="productMaterial"
+                                                        placeholder="Type here"
+                                                        isMandatory={true}
+                                                        validationType="alphabetsSpecialCharactersAndNumbers"
+                                                        characterCount="30"
+                                                        result={(val) => this.setState({
+                                                            productMaterial: val
+                                                        })}
+                                                    />
+                                                </div>
+                                            </div>
+                                            
+                                            <div className="inputFormContainer">
+                                                <div className="formParaSection">
+                                                    <p className="pargraphClass">Sizes available</p>
+                                                </div> 
+                                                <div className="productSizeDescriptionOuterLayer">
+                                                    <div className="productSizeDescriptionInnerLayer">
+                                                        <div className="productSizeDetails">
+                                                            <div className="sizeCart">
+                                                                <h3>Size nomenclature</h3>
+                                                                <p>Small - 4ft * 3ft</p>
+                                                            </div>
+                                                            <div className="costCart">
+                                                                <h3>Cost over base price</h3>
+                                                                <p>Rs.20</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="sizeEditingButtons">
+                                                           <div className="editButton">
+                                                                 <WhiteButton>
+                                                                    Edit
+                                                                </WhiteButton>
+                                                           </div> 
+                                                           <div className="deleteButton">
+                                                                 <WhiteButton>
+                                                                    Delete
+                                                                </WhiteButton>
+                                                           </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="buttonContainer">
+                                                    <div className="mediumBtn vendorDashboardBtn">
+                                                        <div className="svgImageContainer">
+                                                            <PlusButtonIcon />
+                                                        </div>
+                                                        Add new size
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="inputFormContainer">
+                                                <div className="formParaSection">
+                                                    <p className="pargraphClass">Min.quantity</p>
+                                                </div>
+                                                <div className="ProductQuantitySection">
+                                                    <InputForm
+                                                        refName="productMinQuantity"
+                                                        placeholder="Ex. 20"
+                                                        isMandatory={true}
+                                                        validationType="onlyNumbers"
+                                                        characterCount="20"
+                                                        result={(val) => this.setState({
+                                                            produtMinQunatity: val
+                                                        })}
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            <div className="inputFormContainer">
+                                                <div className="formParaSection">
+                                                    <p className="pargraphClass">Max.quantity</p>
+                                                </div>
+                                                <div className="ProductQuantitySection">
+                                                    <InputForm
+                                                        refName="productMaxQuantity"
+                                                        placeholder="Ex. 20"
+                                                        isMandatory={true}
+                                                        validationType="onlyNumbers"
+                                                        characterCount="20"
+                                                        result={(val) => this.setState({
+                                                            produtMinQunatity: val
+                                                        })}
+                                                    />
+                                                </div>
+                                            </div>
+
                                             <div className="inputFormContainer">
                                                 <div className="formParaSection">
                                                     <p className="pargraphClass"> Material variations available </p>
@@ -371,6 +538,7 @@ class VendorDashboardDetails extends React.Component {
 
                                                 <div className="materialNameColumn">
 
+                                                    <div className="inputWrap">
                                                     <input
                                                         placeholder="Type material's name here"
                                                         ref="materialInput"
@@ -383,6 +551,8 @@ class VendorDashboardDetails extends React.Component {
                                                             }
                                                         }}
                                                     />
+                                                    <span className="InputSeparatorLine"> </span>
+                                                    </div>
 
                                                     <WhiteButton
                                                         runFunction={this.addMaterialName}

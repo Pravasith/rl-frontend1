@@ -12,7 +12,7 @@
 }
 
 .line{
-    
+
     width: 90%;
     height: 0.2em;
     border-radius: 0.2em;
@@ -21,9 +21,158 @@
 }
 
 .vendorProductDashboard{
+    width: 100%;
+    background: $white;
+
     .mainClass{
+        @include flexCentreCol;
+        width: 100%;
+
         .vendorProductOuterLayer{
-            
+            @include flexCentreCol;
+            width: 100%;
+            // margin-top: 1em;
+
+            .productHeadingSection{
+                @include flexCentreRow;
+                width: 100%;
+
+                .firstHeadingComponent{
+                    @include flexCentreCol;
+                    width: 50%;
+                    &:hover{
+                        cursor: pointer;
+                        .line{
+                            width: 100%;
+                            background: $highLightBlue;
+                            transition: 0.2s;
+                        }
+                    }
+                    .line{
+                        width: 100%;
+                        height: 0.2em;
+                        border-radius: 0.2em;
+                        background: $lightGrey;
+                        margin: 0.4em 0;
+                        transition: 0.2s;
+                    }
+            }
+            .active{
+                    .headingClass{
+                        color: $darkerGrey;
+                    }
+
+                    .line{
+                        background: $darkerGrey;
+                    }
+                 }
+             }
+
+            .newCategorySection{
+                @include flexCentreCol;
+                width: 100%;
+
+                .add{
+                    @include flexCentreCol;
+                    width: 97%;
+                    padding: 0.5em;
+
+                    .addProductButton{
+                        @include flexCentreRow;
+                        justify-content: flex-start;
+                        width: 100%;
+
+                        .gradientButtonWrapper{
+                            .svgImageContainer{
+                                margin-right: 0.5em;
+                            }
+                        }
+                    }
+
+                    .addedProductSectionCategoryOuterLayer{
+                        height: 29em;
+                        width: 100%;
+                        overflow-y: auto;
+                        margin-top: 0.5em;
+
+                        .addedProductSectionCategoryInnerLayer{
+                            @include flexCentreCol;
+                            padding: 0.25em;
+
+                            .productCategory{
+                                @include flexCentreCol;
+                                justify-content: flex-start;
+                                width: 100%;
+
+                                .productHeadingSection{
+                                    @include flexCentreCol;
+                                    align-items: flex-start;
+                                    .productHeader{
+
+                                    }
+                                    .line{
+                                        width: 7%;
+                                    }
+                                }
+                                
+                                .productPictureSection{
+                                    @include flexCentreRow;
+                                    width: 100%;
+                                    margin-top: 0.5em;
+                                    .productPictureInnerLayer{
+                                        @include flexCentreRow;
+                                        justify-content: flex-start;
+                                        width: 100%;
+                                        padding: 0.25em;
+                                        .addProductSectionOuterLayer{
+                                            width: 15%;
+                                            height: 11em;
+                                            margin: 0.2em;
+                                            &:hover{
+                                                cursor: pointer;
+                                            }
+                                            .addProductSectionInnerLayer{
+                                                @include flexCentreRow;
+                                                height: 100%;
+                                                background: $white;
+                                                padding: 0.5em 0.4em;
+                                                @include box_shadow;
+                                                .addProductGradientLayer{
+                                                    @include flexCentreCol;
+                                                    // background: black;
+                                                    background: linear-gradient(45deg, #23A6D5, #E73C7E);
+                                                    width: 95%;
+                                                    height: 100%;
+                                                    .svgImageSection{
+                                                        @include flexCentreRow
+                                                    }
+                                                    .paraSection{
+                                                        text-align: center;
+                                                        width: 70%;
+                                                        .addToCategory{
+                                                            color: $white;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                            }
+
+                        }
+                    }
+
+                }
+
+              
+            }
+        }
+
+        .footerWrapper{
+            position: fixed;
+            bottom: 0;
         }
     }
 }

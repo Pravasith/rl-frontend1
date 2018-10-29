@@ -40,7 +40,11 @@ class ProfileDetailsVendor extends React.Component {
             yearCount: 0,
             monthCount: 0,
 
+            // my code
+            inputCount: 0,
+
             companyName: null,
+           
         }
     }
 
@@ -151,6 +155,23 @@ class ProfileDetailsVendor extends React.Component {
         }
     }
 
+    // my code
+
+    validateInput = (oneOrTwo) => {
+        if(oneOrTwo === "one"){
+            this.setState({
+                inputCount: 1
+            })
+        }
+        if(oneOrTwo === "two"){
+            this.setState({
+                inputCount: 2
+            })
+        }
+    }
+
+    // my code
+
 
     returnNavBarData = () => {
         if (this.props.userData.responseData) {
@@ -175,9 +196,19 @@ class ProfileDetailsVendor extends React.Component {
         }
     }
 
+    
+
+
+    onChange(event) {
+        if (event.target.value.length === event.target.maxLength) {
+          this.refs[parseInt(event.target.id, 10) + 1].focus();
+        }
+    }
+
     validateCard(e) {
         const { key } = e
         let theInput
+        
 
         if (key !== 'Enter')
             theInput = e.target.value + key
@@ -188,8 +219,10 @@ class ProfileDetailsVendor extends React.Component {
                 warningClass: 'warningClass',
                 passwordIsValid: false
             })
+           
         }
     }
+
     // handlechange = ({target: {value}}) => this.setState(state => value.length <= 6 && !isNaN(Number(value)) && {value} || state)
 
     //  this.setState(state => value.length <= 6 && !isNaN(Number(value)) && {value} || state)
@@ -392,8 +425,10 @@ class ProfileDetailsVendor extends React.Component {
 
                                         <div className="formCompletionInfoSection">
                                             <div className="outerLayer">
-                                                <h3>
-                                                    <span>4/9</span>Questions answered
+                                                <h3
+                                                    
+                                                >
+                                                    <span>{this.state.inputCount}/9</span>Questions answered
                                                 </h3>
                                             </div>
                                         </div>
@@ -405,7 +440,10 @@ class ProfileDetailsVendor extends React.Component {
 
                                         <form action="" className="vendorForm">
 
-                                            <div className="formInputContainer">
+                                            <div 
+                                                className="formInputContainer"
+                                                onClick={() => this.validateInput("one")}
+                                            >
                                                 <div className="formInputInnerLayer">
                                                     <div className="formParaSection">
                                                         <h3>1</h3>
@@ -439,7 +477,10 @@ class ProfileDetailsVendor extends React.Component {
                                                 </div>
                                             </div>
 
-                                            <div className="formInputContainer">
+                                            <div 
+                                                className="formInputContainer"
+                                                onClick={() => this.validateInput("two")}
+                                            >
                                                 <div className="formInputInnerLayer">
                                                     <div className="formParaSection">
                                                         <h3> 2 </h3>
@@ -734,10 +775,15 @@ class ProfileDetailsVendor extends React.Component {
 
                                                         <div className="inputColumn">
                                                             <input
+                                                                autoFocus="autofocus"
                                                                 type="text"
                                                                 placeholder="22"
                                                                 maxLength="2" 
+                                                                id="1"
+                                                                ref="1"
                                                                 onKeyPress={(e) => this.validateCard(e)}
+                                                                onChange={(event) =>this.onChange(event)}
+                                                                
                                                             />
                                                             <span className="InputSeparatorLine"> </span>
                                                         </div>
@@ -746,9 +792,14 @@ class ProfileDetailsVendor extends React.Component {
 
                                                         <div className="inputColumn">
                                                             <input 
+                                                                autoFocus="autofocus"
                                                                 type="text" 
+                                                                id="2"
                                                                 placeholder="AAAAA0000A" 
+                                                                ref="2"
                                                                 maxLength="10" 
+                                                                onChange={(event) =>this.onChange(event)}
+                                                                
                                                             />
                                                             <span className="InputSeparatorLine"> </span>
                                                         </div>
@@ -760,7 +811,10 @@ class ProfileDetailsVendor extends React.Component {
                                                                 type="text" 
                                                                 placeholder="1" 
                                                                 maxLength="1" 
+                                                                ref="3"
+                                                                id="3"
                                                                 pattern="\d*" 
+                                                                onChange={(event) =>this.onChange(event)}
                                                             />
                                                             <span className="InputSeparatorLine"> </span>
                                                         </div>
@@ -772,7 +826,10 @@ class ProfileDetailsVendor extends React.Component {
                                                                 type="text" 
                                                                 placeholder="Z"
                                                                 pattern="[A-Z]{1}" 
+                                                                ref="4"
+                                                                id="4"
                                                                 maxLength="1"
+                                                                onChange={(event) =>this.onChange(event)}
                                                             />
                                                             <span className="InputSeparatorLine"> </span>
                                                         </div>
@@ -780,15 +837,20 @@ class ProfileDetailsVendor extends React.Component {
                                                         <p>-</p>
 
                                                         <div className="inputColumn">
-                                                            <input type="text" placeholder="5" maxLength="1" pattern="\d*" />
+                                                            <input 
+                                                                type="text" 
+                                                                placeholder="5" 
+                                                                maxLength="1"
+                                                                ref="5"
+                                                                id="5"
+                                                                pattern="\d*" 
+                                                                onChange={(event) =>this.onChange(event)}
+                                                            />
                                                             <span className="InputSeparatorLine"> </span>
-                                                            {/* <div className="animationLine line">
-                                                                <div className="innerLine"></div>
-                                                            </div> */}
                                                         </div>
                                                     </div>
-                                                    <div className="warningSection">
-                                                        <p
+                                                    <div className="gstInputSection warningSection">
+                                                        <p 
                                                             className={this.state.warningClass}
                                                         >
                                                             {this.state.warningText}
