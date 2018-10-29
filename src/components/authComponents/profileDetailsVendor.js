@@ -888,7 +888,9 @@ class ProfileDetailsVendor extends React.Component {
                                                     </div>
                                                     
                                                     <div className="imageOuterLayer">
-                                                        <ImageUploader/>
+                                                        <ImageUploader
+                                                            
+                                                        />
                                                     </div>
 
                                                 </div>
