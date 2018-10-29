@@ -16,11 +16,11 @@ class ImageUploader extends React.Component {
         super(props, context)
 
         this.state = {
-            pictureClass: "pictureContainer",
-            smallLoaderClass: "loader hide",
+            // pictureClass: "pictureContainer",
+            // smallLoaderClass: "loader hide",
 
-            uploadImageClass: "uploadContainer",
-            selectedImageClass: "hide"
+            // uploadImageClass: "uploadContainer",
+            // selectedImageClass: "hide"
         }
     }
 
@@ -62,10 +62,10 @@ class ImageUploader extends React.Component {
         if (e.target.files[0]) {
 
             // console.log(e.target.files[0], e.target.files[0].size)
-            this.setState({
-                pictureClass: "pictureContainer hide",
-                smallLoaderClass: "loader"
-            })
+            // this.setState({
+            //     pictureClass: "pictureContainer hide",
+            //     smallLoaderClass: "loader"
+            // })
 
 
 
@@ -174,8 +174,8 @@ class ImageUploader extends React.Component {
                         accept="image/*"
                     />
 
-                    <label htmlFor="uploadImageInput" className={this.state.pictureClass}  >
-                        <div className= {this.state.uploadImageClass} >
+                    <label htmlFor="uploadImageInput" className="pictureContainer"  >
+                        <div className= "uploadContainer" >
                             <div className="uploadIconWrap">
                                 <UploadImageIcon />
                             </div>
