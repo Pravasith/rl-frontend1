@@ -31,4 +31,5 @@ export const api = {
     REGISTER_LINKEDIN_USER : API_URL + 'user/login-linkedin-user',
     REGISTER_GOOGLE_USER : API_URL + 'user/login-google-user',
 
+    UPLOAD_IMAGE : API_URL + 'common/upload-image',
 }
