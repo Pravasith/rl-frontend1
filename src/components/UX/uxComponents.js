@@ -275,7 +275,7 @@ export const SelectList = (props) => {
     // console.log(props)
     return(
         <div className="selectList">
-            <label> {props.title} </label>
+            <label>{props.title}</label>
             <select
                 id={props.categoryId}
                 name={props.name}
@@ -288,7 +288,7 @@ export const SelectList = (props) => {
                 return (
                     <option 
                         key={option.categoryId}
-                        value={option.categoryId}
+                        value={option.categoryName}
                         label={option.categoryName}>{option.value}</option>
                 )
             })}

@@ -41,21 +41,11 @@ class VendorProductDashboard extends React.Component {
             tagsAdded: [],
             tagName: "",
 
-            dummyDataStructure: [
-                {
-                    categoryName: "",
-                    productsArray: ["DCHu347398", "dauihydui", "ausdhuD"]
-                },
-                {
-                    categoryName: "",
-                    productsArray: ["DCHu347398", "dauihydui", "ausdhuD"]
-                }
-
-            ],
+            dummyDataStructure: [],
 
             newProduct: {
                 categoryName: '',
-                categoryId: ''
+                categoryId: '',
             },
 
 
@@ -96,15 +86,12 @@ class VendorProductDashboard extends React.Component {
                     mainClass: 'mainClass',
                 })
             })
-
+        // console.log('DM',this.state.dummyDataStructure[0].categoryName)
     }
 
-    componentDidUpdate() {
-        // this.setState({ newProduct: {
-        //     categoryName: this.state.newProduct.categoryName,
-        //     categoryId: this.state.newProduct.categoryId
-        // }})
-    }
+    // componentDidUpdate() {
+    //     console.log('DU',this.state.dummyDataStructure)
+    // }
 
     returnNavBarData = () => {
         if (this.props.userData.responseData) {
@@ -157,7 +144,8 @@ class VendorProductDashboard extends React.Component {
     }
 
     returnContent = () => {
-        let { contentType } = this.state
+        let { contentType } = this.state;
+        let { dummyDataStructure } = this.state;
 
         if (contentType === 'uploadedProducts') {
 
@@ -184,15 +172,35 @@ class VendorProductDashboard extends React.Component {
 
                         <div className="addedProductSectionCategoryInnerLayer">
 
-                            <div className={this.state.vendorGraphicClass}>
-                                <div>
-                                    <ArrowMarkLong />
-                                </div>
+                            {dummyDataStructure.length === 0 ?
+                                (<div className={this.state.vendorGraphicClass}>
+                                        <div>
+                                            <ArrowMarkLong />
+                                        </div>
 
-                                <div>
-                                    <VendorGraphic />
-                                </div>
-                            </div>
+                                        <div>
+                                            <VendorGraphic />
+                                        </div>
+                                    </div>)
+                                : 
+                                (<div className={this.state.vendorGraphicClass}>
+                                        <div>
+                                        <div className="addProductClass">
+                                            {dummyDataStructure.map((product, i) =>
+                                                <div key={i} className="categoryCarousel">
+                                                    <h3>
+                                                        {product.categoryName}
+                                                    </h3>
+                                                    <GradientButton
+                                                        runFunction={() => {
+                                                            window.open("/vendor-dashboard-detail", "_self")
+                                                        }}>
+                                                        Add product in this category
+                                                    </GradientButton>
+                                                </div>)}
+                                            </div>
+                                        </div>
+                                </div>)}
 
                         </div>
 
@@ -215,11 +223,14 @@ class VendorProductDashboard extends React.Component {
 
 
     onSelect = (e) => {
+    
         let val = e.target.value;
-
-        this.setState(prevState => ({ newProduct:
-            { ...prevState.category, categoryName: val}
-        }))
+        
+        this.setState({
+            newProduct: {
+                categoryName: val
+            }
+        })
     }
 
     setTagName = (e) => {
@@ -323,23 +334,26 @@ class VendorProductDashboard extends React.Component {
         }
 
         let categoryDetails = {
-            categoryName: this.state.category,
-            categoryId: "",
+            categoryName: this.state.newProduct.categoryName,
+            categoryId: this.state.newProduct.categoryId,
             productsArray: []
         }
 
         this.state.tempArr.push(categoryDetails)
 
         this.setState({
-            dummyDataStructure: [...this.state.dummyDataStructure, ...this.state.tempArr],
-                newProduct: {
-                    categoryId: '',
-                    categoryName: ''
-                }
+            dummyDataStructure: [...this.state.tempArr],
+            newProduct: {
+                categoryName: '',
+                categoryId: '',
+            }
             })
     }
 
     render() {
+        const { categoryName } = this.state.newProduct;
+        const { options } = this.state;
+
         const tagsModal = (
             <div className={this.state.modalCondition}>
                 <div className="dummyXClass">
@@ -350,8 +364,8 @@ class VendorProductDashboard extends React.Component {
 
                         <SelectList
                             name={'category'}
-                            options={this.state.options}
-                            value={this.state.newProduct.categoryName }
+                            options={options}
+                            value={categoryName}
                             placeholder={'Choose Category'}
                             handleChange={this.onSelect}
                         />
