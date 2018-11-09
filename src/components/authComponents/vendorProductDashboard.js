@@ -12,7 +12,7 @@ import { decryptData } from "../../factories/encryptDecrypt";
 import { Footer } from "../footer/footer"
 
 import { CloseButton } from "../../assets/images"
-import { WhiteArrowLeft, WhiteArrowRight, UploadImageIcon, PlusButtonIconWhite, AddNewProduct, VendorGraphic, ArrowMarkLong } from "../../assets/images";
+import { WhiteArrowLeft, WhiteArrowRight, UploadImageIcon, PlusButtonIconWhite, AddNewProduct, VendorGraphic, ArrowMarkLong, BigCloseButton} from "../../assets/images";
 import LogoAnimation from "../animations/logoAnimation";
 import { GradientButton, InputForm, SelectList } from "../UX/uxComponents";
 import HtmlSlider from "../UX/htmlSlider"
@@ -174,11 +174,11 @@ class VendorProductDashboard extends React.Component {
 
                             {dummyDataStructure.categoryName === "" ?
                                 (<div className={this.state.vendorGraphicClass}>
-                                        <div>
+                                        <div className="arrowSvgSection">
                                             <ArrowMarkLong />
                                         </div>
 
-                                        <div>
+                                        <div className="vendorSvgSection">
                                             <VendorGraphic />
                                         </div>
                                     </div>)
@@ -371,9 +371,23 @@ class VendorProductDashboard extends React.Component {
         const tagsModal = (
             <div className={this.state.modalCondition}>
                 <div className="dummyXClass">
-                    < div className="whiteSquareForModal" >
-                        <div className="modalHeader">
-                            <h3>Details about the category</h3>
+                    < div className="whiteSquareForModal">
+                        <div className="vendorDashboardModal">
+                            <div className="modalHeader">
+                                <h3>Details about the category</h3>
+                                <div className="line"></div>
+                            </div>
+                            <div
+                                className="deleteButton"
+                                onClick={() => this.setState({
+                                    modalCondition: "whiteBackgroundForModal hide",
+                                    vendorGraphicClass: "initialVendorGraphic",
+                                })}
+                            >
+                                <div className="deleteButtonSvgSection">
+                                    <BigCloseButton/>
+                                </div>
+                            </div>
                         </div>
 
                         <SelectList
@@ -448,14 +462,14 @@ class VendorProductDashboard extends React.Component {
 
                     </div>
 
-                    <div
+                    {/* <div
                         className="deleteButton"
                         onClick={() => this.setState({
                             modalCondition: "whiteBackgroundForModal hide",
                             vendorGraphicClass: "initialVendorGraphic",
                         })}
                     >
-                    </div>
+                    </div> */}
                 </div>
             </div>
         );

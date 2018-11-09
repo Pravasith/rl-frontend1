@@ -573,6 +573,21 @@ export const CloseButton = () => {
     )
 }
 
+export const BigCloseButton = () => {
+
+    return (
+        <svg id="bigCloseButton" xmlns="http://www.w3.org/2000/svg" width="24.333" height="24.333"
+        viewBox="0 0 24.333 24.333">
+            <g fill="none" stroke="#4D4D4D" strokeWidth="4" strokeLinecap="round"
+            strokeLinejoin="round" strokeMiterlimit="10">
+                <line x1="22.764" y1="1.798" x2="1.568" y2="23" />
+                <line x1="22.764" y1="23" x2="1.568" y2="1.798" />
+            </g>
+        </svg>
+    )
+        
+}
+
 
 
 export const VendorGraphic = () => {
