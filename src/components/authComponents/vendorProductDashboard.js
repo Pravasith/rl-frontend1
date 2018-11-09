@@ -89,9 +89,9 @@ class VendorProductDashboard extends React.Component {
         // console.log('DM',this.state.dummyDataStructure[0].categoryName)
     }
 
-    // componentDidUpdate() {
-    //     console.log('DU',this.state.dummyDataStructure)
-    // }
+    componentDidUpdate() {
+        console.log('DU',this.state.dummyDataStructure);
+    }
 
     returnNavBarData = () => {
         if (this.props.userData.responseData) {
@@ -172,7 +172,7 @@ class VendorProductDashboard extends React.Component {
 
                         <div className="addedProductSectionCategoryInnerLayer">
 
-                            {dummyDataStructure.length === 0 ?
+                            {dummyDataStructure.categoryName === "" ?
                                 (<div className={this.state.vendorGraphicClass}>
                                         <div>
                                             <ArrowMarkLong />
@@ -317,14 +317,28 @@ class VendorProductDashboard extends React.Component {
 
     proceedHandler = () => {
         const { categoryName } = this.state.newProduct;
-        // console.log(categoryName.length);
+        console.log(categoryName.length);
         if (categoryName.length !== 0 && categoryName.length !== "") {
-
             // console.log(this.state.category + "inside")
+
+            let categoryDetails = {
+                categoryName: this.state.newProduct.categoryName,
+                categoryId: this.state.newProduct.categoryId,
+                productsArray: []
+            }
+
+            this.state.tempArr.push(categoryDetails);
+
             this.setState({
                 vendorGraphicClass: "initialVendorGraphic",
                 modalCondition: "whiteBackgroundForModal hide",
+                dummyDataStructure: [...this.state.tempArr],
+                newProduct: {
+                    categoryName: '',
+                    categoryId: '',
+                }
             })
+
         }
 
         else{
@@ -333,21 +347,21 @@ class VendorProductDashboard extends React.Component {
             })
         }
 
-        let categoryDetails = {
-            categoryName: this.state.newProduct.categoryName,
-            categoryId: this.state.newProduct.categoryId,
-            productsArray: []
-        }
+        // let categoryDetails = {
+        //     categoryName: this.state.newProduct.categoryName,
+        //     categoryId: this.state.newProduct.categoryId,
+        //     productsArray: []
+        // }
 
-        this.state.tempArr.push(categoryDetails)
+        // this.state.tempArr.push(categoryDetails)
 
-        this.setState({
-            dummyDataStructure: [...this.state.tempArr],
-            newProduct: {
-                categoryName: '',
-                categoryId: '',
-            }
-            })
+        // this.setState({
+        //     dummyDataStructure: [...this.state.tempArr],
+        //     newProduct: {
+        //         categoryName: '',
+        //         categoryId: '',
+        //     }
+        //     })
     }
 
     render() {

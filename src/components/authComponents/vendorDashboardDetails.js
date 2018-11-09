@@ -469,7 +469,7 @@ class VendorDashboardDetails extends React.Component {
                                                         </div>
                                                         <div className="sizeEditingButtons">
                                                            <div className="editButton">
-                                                                 <WhiteButton>
+                                                                <WhiteButton>
                                                                     Edit
                                                                 </WhiteButton>
                                                            </div> 
