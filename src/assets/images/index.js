@@ -576,9 +576,24 @@ export const CloseButton = () => {
 export const BigCloseButton = () => {
 
     return (
-        <svg id="bigCloseButton" xmlns="http://www.w3.org/2000/svg" width="24.333" height="24.333"
+        <svg id="bigCloseButton" xmlns="http://www.w3.org/2000/svg" width="24.333" height="16"
         viewBox="0 0 24.333 24.333">
-            <g fill="none" stroke="#4D4D4D" strokeWidth="4" strokeLinecap="round"
+            <g fill="none" stroke="#4D4D4D" strokeWidth="2" strokeLinecap="round"
+            strokeLinejoin="round" strokeMiterlimit="10">
+                <line x1="22.764" y1="1.798" x2="1.568" y2="23" />
+                <line x1="22.764" y1="23" x2="1.568" y2="1.798" />
+            </g>
+        </svg>
+    )
+        
+}
+
+export const SmallCloseButton = () => {
+
+    return (
+        <svg id="smallCloseButton" xmlns="http://www.w3.org/2000/svg" width="26.333" height="10"
+        viewBox="0 0 24.333 24.333">
+            <g fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round"
             strokeLinejoin="round" strokeMiterlimit="10">
                 <line x1="22.764" y1="1.798" x2="1.568" y2="23" />
                 <line x1="22.764" y1="23" x2="1.568" y2="1.798" />
@@ -595,7 +610,7 @@ export const VendorGraphic = () => {
     return (
 
         <svg id='Vendor-Product-Animation' xmlns='http://www.w3.org/2000/svg'
-            width='332.231' height='302.146' viewBox='0 0 332.231 302.146'>
+            width='332.231' height='274.146' viewBox='0 0 332.231 302.146'>
             <circle fill='#F3F3F3' cx='178.419' cy='157.932' r='144.215' />
             <circle fill='#E6E6E5' cx='178.419' cy='157.932' r='126.547' />
             <path fill='#FFF' stroke='#818181' strokeWidth='4' strokeLinecap='round'

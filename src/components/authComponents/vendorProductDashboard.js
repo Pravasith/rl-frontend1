@@ -12,7 +12,7 @@ import { decryptData } from "../../factories/encryptDecrypt";
 import { Footer } from "../footer/footer"
 
 import { CloseButton } from "../../assets/images"
-import { WhiteArrowLeft, WhiteArrowRight, UploadImageIcon, PlusButtonIconWhite, AddNewProduct, VendorGraphic, ArrowMarkLong, BigCloseButton} from "../../assets/images";
+import { WhiteArrowLeft, WhiteArrowRight, UploadImageIcon, PlusButtonIconWhite, AddNewProduct, VendorGraphic, ArrowMarkLong, BigCloseButton, SmallCloseButton } from "../../assets/images";
 import LogoAnimation from "../animations/logoAnimation";
 import { GradientButton, InputForm, SelectList } from "../UX/uxComponents";
 import HtmlSlider from "../UX/htmlSlider"
@@ -30,11 +30,15 @@ class VendorProductDashboard extends React.Component {
             // my code
             mainHeadingClass1: 'uploadedProducts active',
             mainHeadingClass2: 'clientData',
+            charCount: 20,
+            
 
             contentType: "uploadedProducts",
+            
 
             modalCondition: "whiteBackgroundForModal hide",
             vendorGraphicClass: "initialVendorGraphic",
+            
 
             category: "",
 
@@ -237,6 +241,11 @@ class VendorProductDashboard extends React.Component {
         const val = e.target.value
 
         this.setState({
+            charCount: 20 - val.length
+        })
+
+
+        this.setState({
             tagName: val
         })
     }
@@ -274,21 +283,24 @@ class VendorProductDashboard extends React.Component {
                         <div
                             className="tagWrap"
                             key={i}
-                        >
-                            <ul>
-                                <li>
-                                    <p key={i}>
-                                        {item}
-                                    </p>
-                                </li>
-                            </ul>
-
-                            <div
-                                className="deleteIcon"
-                                onClick={() => this.removeTags(i)}
-                            >
-                                <CloseButton />
+                        >   
+                            <div className="tagWrapInnerLayer">
+                                <ul>
+                                    <li>
+                                        <p key={i}>
+                                            {item}
+                                        </p>
+                                    </li>
+                                </ul>
+                                <div
+                                    className="deleteIcon"
+                                    onClick={() => this.removeTags(i)}
+                                    >
+                                    <SmallCloseButton />
+                                </div>
                             </div>
+
+                            
                         </div>
                     )
                 })
@@ -357,7 +369,10 @@ class VendorProductDashboard extends React.Component {
         const tagsModal = (
             <div className={this.state.modalCondition}>
                 <div className="dummyXClass">
-                    < div className="whiteSquareForModal">
+
+                
+                  
+                    <div className="whiteSquareForModal">
                         <div className="vendorDashboardModal">
                             <div className="modalHeader">
                                 <h3>Details about the category</h3>
@@ -376,31 +391,49 @@ class VendorProductDashboard extends React.Component {
                             </div>
                         </div>
 
-                        <SelectList
-                            name={'category'}
-                            options={options}
-                            value={categoryName}
-                            placeholder={'Choose Category'}
-                            handleChange={this.onSelect}
-                        />
-
-                        <div>
-                            <h5>Add tags <small>(optional)</small></h5>
-                            <input
-                                placeholder="For Ex. Sofa"
-                                ref="tagInput"
-                                type="text"
-                                onChange={e => this.setTagName(e)}
-                                onKeyPress={e => {
-                                    if (e.key === "Enter") {
-                                        this.setTagName(e)
-                                        this.addTagName()
-                                    }
-                                }}
+                         <div className="vendorCategorySelection">        
+                            <SelectList
+                                name={'category'}
+                                options={options}
+                                value={categoryName}
+                                placeholder={'Choose Category'}
+                                handleChange={this.onSelect}
                             />
+                        </div>
 
-                            <div className="red">
-                                {this.returnTagsAdded()}
+                        <div className="vendorTagCategory">
+                            <div className="vendorHeadingSection">
+                                <h3>Add tags <span className="vendorHeaderSpanClass">(optional)</span></h3>
+                            </div>
+                            <div className="inputCategorySection">
+                                <div className="vendorInput">
+                                    <input
+                                        placeholder="For Ex. Sofa"
+                                        ref="tagInput"
+                                        type="text"
+                                        maxLength = "20"
+                                        onChange={e => this.setTagName(e)}
+                                        onKeyPress={e => {
+                                            if (e.key === "Enter") {
+                                                this.setTagName(e)
+                                                this.addTagName()
+                                            }
+                                        }}
+                                    />
+                                    <span className="InputSeparatorLine"> </span>
+                                 </div>
+                                 <div className="charCount">
+                                    <p ref="charCount">
+                                        {this.state.charCount}
+                                    </p>
+                                 </div>
+                                
+                            </div>
+
+                            <div className="vendorSelectedCategory">
+                                <div className="vendorSelectedCategoryInnerLayer">
+                                    {this.returnTagsAdded()}
+                                </div>
                             </div>
                         </div>
 
@@ -448,14 +481,8 @@ class VendorProductDashboard extends React.Component {
 
                     </div>
 
-                    {/* <div
-                        className="deleteButton"
-                        onClick={() => this.setState({
-                            modalCondition: "whiteBackgroundForModal hide",
-                            vendorGraphicClass: "initialVendorGraphic",
-                        })}
-                    >
-                    </div> */}
+                   
+                    
                 </div>
             </div>
         );
