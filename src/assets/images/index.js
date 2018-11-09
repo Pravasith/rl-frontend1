@@ -39,10 +39,10 @@ export const LogoLoadingAnimation = () => {
             </g>
 
             <circle fill="#FFF" stroke="#4D4D4D" strokeWidth="3" strokeLinecap="round"
-                strokeLinejoin="round" strokeDasharray="1000"   strokeDashoffset="1000" strokeMiterlimit="10" cx="173.009" cy="30.955" r="29.456"
+                strokeLinejoin="round" strokeDasharray="1000" strokeDashoffset="1000" strokeMiterlimit="10" cx="173.009" cy="30.955" r="29.456"
                 id="treeBush" />
 
-            <g id="treeSculpture" stroke="#4D4D4D" strokeDasharray="1000"  strokeLinecap="round" strokeLinejoin="round"
+            <g id="treeSculpture" stroke="#4D4D4D" strokeDasharray="1000" strokeLinecap="round" strokeLinejoin="round"
                 strokeMiterlimit="10" strokeDashoffset="1000" >
                 <ellipse fill="none" strokeWidth="3" cx="182.934" cy="127.646" rx="9.926"
                     ry="1.602" />
@@ -68,11 +68,11 @@ export const LogoLoadingAnimation = () => {
             </g>
 
             <circle fill="#FFF" stroke="#4D4D4D" strokeWidth="3" strokeLinecap="round"
-                strokeLinejoin="round" strokeDasharray="1000" strokeDashoffset="1000"  strokeMiterlimit="10" cx="202.465" cy="48.245" r="17.609"
+                strokeLinejoin="round" strokeDasharray="1000" strokeDashoffset="1000" strokeMiterlimit="10" cx="202.465" cy="48.245" r="17.609"
                 id="treeBushTwo" />
 
             <g id="buildingOuterCoverLine" fill="none" stroke="#4D4D4D" strokeWidth="3"
-                strokeLinecap="round" strokeDasharray="1000" strokeDashoffset="1000"  strokeLinejoin="round" strokeMiterlimit="10">
+                strokeLinecap="round" strokeDasharray="1000" strokeDashoffset="1000" strokeLinejoin="round" strokeMiterlimit="10">
                 <path d="M46.03,121.97l-6.403-11.525l3.202-8.965l-5.764-4.162v-5.443l-3.842-20.49l73.318-28.175l14.729,5.763L155.527,63.7l-9.604,10.887 l-1.281,7.043c0,0-13.767,28.175-14.087,28.815c-0.319,0.64-3.842,11.525-3.842,11.525l-36.179,8.645l-22.092-5.123l-7.364-18.889 l-5.442,10.246v5.763L46.03,121.97z"
                 />
                 <polygon points="105.902,80.524 105.902,112.904 121.109,109.964 121.109,94.916"
@@ -84,7 +84,7 @@ export const LogoLoadingAnimation = () => {
             </g>
 
             <g id="window" fill="#FFF" stroke="#4D4D4D" strokeWidth="3" strokeLinecap="round"
-                strokeLinejoin = "round" strokeDasharray = "1000" strokeDashoffset = "1000" strokeMiterlimit = "10" >
+                strokeLinejoin="round" strokeDasharray="1000" strokeDashoffset="1000" strokeMiterlimit="10" >
                 <polygon points="104.934,83.337 104.934,109.911 117.934,107.723 117.934,94.597"
                 />
                 <polygon points="55.934,121.945 55.934,117.318 61.272,108.827 66.72,123.663"
@@ -146,7 +146,7 @@ export const SimpleLogo = () => {
 
 export const RollingLogsTextLogoSmall = () => {
 
-    return(
+    return (
         <svg id="rolling-logs-architects" xmlns="http://www.w3.org/2000/svg" width="128.66"
             height="31.919" viewBox="0 0 128.66 31.919">
             <g fillRule="evenodd" clipRule="evenodd" strokeWidth="0.25" strokeMiterlimit="10">
@@ -498,12 +498,12 @@ export const WhiteArrowLeft = () => {
 
     return (
         <svg id="Left_Arrow" xmlns="http://www.w3.org/2000/svg" width="15.404" height="14.641"
-        viewBox="-48.625 -40.5 15.404 14.641">
+            viewBox="-48.625 -40.5 15.404 14.641">
             <polygon id="polygon" fill="none" stroke="#FFF" strokeWidth="2" strokeLinecap="round"
-            strokeLinejoin="round" strokeMiterlimit="10" points="-37.735,-39.5 -47.625,-33.102 -37.735,-26.859"
+                strokeLinejoin="round" strokeMiterlimit="10" points="-37.735,-39.5 -47.625,-33.102 -37.735,-26.859"
             />
         </svg>
-        
+
     )
 }
 
@@ -511,9 +511,9 @@ export const WhiteArrowRight = () => {
 
     return (
         <svg id="Right_Arrow" xmlns="http://www.w3.org/2000/svg" width="15.404" height="14.641"
-        viewBox="-48.625 -40.5 15.404 14.641">
-            <polygon id="polygon"fill="none" stroke="#FFF" strokeWidth="2" strokeLinecap="round"
-            strokeLinejoin="round" strokeMiterlimit="10" points="-44.306,-26.859 -34.416,-33.257 -44.306,-39.5"
+            viewBox="-48.625 -40.5 15.404 14.641">
+            <polygon id="polygon" fill="none" stroke="#FFF" strokeWidth="2" strokeLinecap="round"
+                strokeLinejoin="round" strokeMiterlimit="10" points="-44.306,-26.859 -34.416,-33.257 -44.306,-39.5"
             />
         </svg>
     )
@@ -521,10 +521,10 @@ export const WhiteArrowRight = () => {
 
 export const PlusButtonIcon = () => {
 
-    return(
+    return (
         <svg id='plusSymbol' xmlns='http://www.w3.org/2000/svg' width='14' height='14'
-        viewBox='0 0 14 14'>
-            <polygon id="polygon"fill='#CCC' points='13,5 9,5 9,1 5,1 5,5 1,5 1,9 5,9 5,13 9,13 9,9 13,9'
+            viewBox='0 0 14 14'>
+            <polygon id="polygon" fill='#CCC' points='13,5 9,5 9,1 5,1 5,5 1,5 1,9 5,9 5,13 9,13 9,9 13,9'
             />
         </svg>
     )
@@ -532,9 +532,9 @@ export const PlusButtonIcon = () => {
 
 export const PlusButtonIconWhite = () => {
 
-    return(
+    return (
         <svg id='plusSymbolWhite' xmlns='http://www.w3.org/2000/svg' width='14' height='14'
-        viewBox='0 0 14 14'>
+            viewBox='0 0 14 14'>
             <polygon fill='#FFFFFF' points='13,5 9,5 9,1 5,1 5,5 1,5 1,9 5,9 5,13 9,13 9,9 13,9'
             />
         </svg>
@@ -545,7 +545,7 @@ export const AddNewProduct = () => {
 
     return (
         <svg id='newProductAdd' xmlns='http://www.w3.org/2000/svg' width='44.891'
-        height='50' viewBox='0 0 44.891 50'>
+            height='50' viewBox='0 0 44.891 50'>
             <g fill='#FFF'>
                 <path d='M19.891,29v-5h5.281c-0.293-0.687-0.609-1.379-0.979-2.083C15.62,5.584,19.623,3,20.022,0h-6.631H6.946 c0.388,3,4.279,5.584-4.055,21.917s4,28.083,4,28.083h6.5h6.688c0,0,9.127-8.461,6.659-21H19.891z'
                 />
@@ -575,18 +575,127 @@ export const CloseButton = () => {
 
 
 
+export const VendorGraphic = () => {
+
+    return (
+
+        <svg id='Vendor-Product-Animation' xmlns='http://www.w3.org/2000/svg'
+            width='332.231' height='302.146' viewBox='0 0 332.231 302.146'>
+            <circle fill='#F3F3F3' cx='178.419' cy='157.932' r='144.215' />
+            <circle fill='#E6E6E5' cx='178.419' cy='157.932' r='126.547' />
+            <path fill='#FFF' stroke='#818181' strokeWidth='4' strokeLinecap='round'
+                strokeLinejoin='round' strokeMiterlimit='10' d='M117.521,178.205v-48.482c0,0-1.98-8.658,7.175-11.873c9.15-3.218,52.688-15.341,52.688-15.341s10.392-4.782,19.626,0 c9.236,4.785,36.277,21.129,36.277,21.129s4.701,2.125,4.701,8.064c0,5.934-1.483,46.503-1.483,46.503s-0.082,6.104-5.03,9.399 c-4.946,3.298-32.076,15.585-32.076,15.585s-1.732,3.959-20.778,0c-19.048-3.956-55.657-13.111-55.657-13.111 S117.521,188.596,117.521,178.205z'
+            />
+            <path fill='#FFF' stroke='#818181' strokeWidth='4' strokeLinecap='round'
+                strokeLinejoin='round' strokeMiterlimit='10' d='M124.999,134.466c0,0,8.174-2.179,12.598-1.5'
+            />
+            <path fill='#FFF' stroke='#818181' strokeWidth='4' strokeLinecap='round'
+                strokeLinejoin='round' strokeMiterlimit='10' d='M146.258,131.596c0,0,14.842-0.575,27.211,0.086'
+            />
+            <polygon fill='#F3F3F3' stroke='#F3F3F3' strokeWidth='3' strokeLinecap='round'
+                strokeLinejoin='round' strokeMiterlimit='10' points='202.553,188.066 203.221,119.134 229.641,135.041 229.048,173.473'
+            />
+            <circle fill='#B4B4B4' cx='134.6' cy='147.908' r='2.653' />
+            <path fill='#B4B4B4' d='M158.225,147.908c0,1.469-1.188,2.656-2.651,2.656c-1.462,0-2.657-1.188-2.657-2.656 c0-1.468,1.194-2.651,2.657-2.651C157.038,145.257,158.225,146.44,158.225,147.908z'
+            />
+            <path fill='none' stroke='#B4B4B4' strokeWidth='4' strokeLinecap='round'
+                strokeLinejoin='round' strokeMiterlimit='10' d='M134.872,161.12c0,0,9.279,10.104,24.69,0'
+            />
+            <g stroke='#B4B4B4' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round'
+                strokeMiterlimit='10'>
+                <polygon fill='#FFF' points='14.356,95.358 25.178,101.061 46.688,96.451 47.252,84.113 36.288,81.271 35.178,75 19.649,75 16.11,79.066 14.356,82.917'
+                />
+                <polyline fill='none' points='26.356,100 26.356,86.131 20.646,84.092 16.613,76.805'
+                />
+                <polyline fill='none' points='27.356,87 40.212,87 43.639,87 27.787,89.365'
+                />
+                <line fill='none' x1='27.789' y1='93.413' x2='43.639' y2='91.271' />
+                <line fill='none' x1='42.356' y1='98' x2='42.356' y2='85' />
+                <polygon fill='#FFF' points='51.356,97.482 88.496,107.371 107.356,102.266 107.356,86.987 104.412,86.777 100.184,75 97.613,75 72.768,75 69.912,77.37 66.025,82.526 51.356,84.092'
+                />
+                <polyline fill='none' points='85.356,105 85.356,88.7 103.777,86.569' />
+                <line fill='none' x1='90.356' y1='105' x2='90.356' y2='91' />
+                <polyline fill='none' points='54.356,98 54.356,87.844 56.216,86.56 67.356,84.417 67.356,79'
+                />
+                <line fill='none' x1='55.205' y1='92.342' x2='84.477' y2='99.553' />
+                <line fill='none' x1='55.205' y1='87.844' x2='84.477' y2='93.413' />
+                <path fill='none' d='M69.356,95v-3.729l10.487-4.712c0.429-0.715,4.323-9.685,4.323-9.685'
+                />
+                <polyline fill='none' points='68.913,84.417 95.258,86.56 98.471,75.849'
+                />
+                <line fill='none' x1='99.897' y1='84.417' x2='101.327' y2='81.204' />
+                <ellipse fill='#FFF' cx='57.051' cy='72.559' rx='5.248' ry='4.712' />
+                <ellipse fill='#FFF' cx='48.312' cy='63.586' rx='3.427' ry='3.391' />
+                <line fill='none' x1='55.356' y1='68' x2='55.356' y2='55' />
+                <line fill='none' x1='47.356' y1='60' x2='47.356' y2='54' />
+            </g>
+            <g fill='#FFF' stroke='#B4B4B4' strokeWidth='2' strokeLinecap='round'
+                strokeLinejoin='round' strokeMiterlimit='10'>
+                <polygon points='1.356,147.551 31.356,154.1 31.356,177.79 1.356,167.739'
+                />
+                <polygon points='31.356,154.121 77.356,142.613 77.356,162.714 31.356,177.79'
+                />
+                <polygon points='1,147.551 31.152,154.121 77.815,142.613 50.535,139.764'
+                />
+            </g>
+            <g fill='#FFF' stroke='#B4B4B4' strokeWidth='2' strokeLinecap='round'
+                strokeLinejoin='round' strokeMiterlimit='10'>
+                <path d='M261.323,73c0,0-0.097-3.957,5.064-3.957s5.06,3.957,5.06,3.957H261.323z'
+                />
+                <polygon points='263.79,70 266.388,63.113 268.991,70' />
+                <path d='M239.259,94c0,0,0.884-19.757,27.129-19.757S293.518,94,293.518,94H239.259z'
+                />
+                <ellipse cx='266.388' cy='92.868' rx='27.129' ry='5.897' />
+                <ellipse cx='266.141' cy='88.902' rx='6.587' ry='1.828' />
+                <line x1='266.356' y1='63' x2='266.356' y2='29' />
+            </g>
+            <g fill='#FFF' stroke='#B4B4B4' strokeWidth='2' strokeLinecap='round'
+                strokeLinejoin='round' strokeMiterlimit='10'>
+                <rect x='140.356' y='1' width='69' height='70' />
+                <rect x='145.356' y='6' width='59' height='60' />
+                <line x1='175.356' y1='6' x2='175.356' y2='66' />
+                <circle cx='163.507' cy='29.208' r='2.002' />
+                <path d='M165.356,48.81c0,1.253-0.694,2.19-1.738,2.19h-0.223c-1.043,0-2.039-0.937-2.039-2.19V36.534c0-1.253,0.995-2.534,2.039-2.534 h0.223c1.044,0,1.738,1.281,1.738,2.534V48.81z'
+                />
+            </g>
+            <g fill='#FFF' stroke='#B4B4B4' strokeWidth='2' strokeLinecap='round'
+                strokeLinejoin='round' strokeMiterlimit='10'>
+                <path d='M304.416,108c0,0,6.727,0.938,0,24.25c-6.726,23.313,0,31.199,6.727,39.941c0,0,6.247,2.751,12.974-0.031 c0,0,13.452-16.686,3.363-38.689C317.39,111.468,326.037,108,326.037,108H304.416z'
+                />
+                <path d='M285.063,134c0,0,6.402-0.075,0,14.465c-6.4,14.541,0,19.131,6.402,24.582c0,0,5.942,1.551,12.344-0.184 c0,0,12.802-9.831,3.201-23.554c-9.603-13.723-1.372-15.31-1.372-15.31H285.063z'
+                />
+            </g>
+        </svg>
+
+
+
+    )
+
+}
+
+
+export const ArrowMarkLong = () => {
+
+    return (
+
+        <svg id='arrowMark' xmlns='http://www.w3.org/2000/svg' width='149.166'
+            height='160.698' viewBox='0 0 149.166 160.698'>
+            <path fill='none' stroke='#4E4E4E' strokeWidth='4' strokeLinecap='round'
+                strokeLinejoin='round' strokeMiterlimit='10' d='M147.166,158.698c0,0-120.156-38.525-132.385-145.402'
+            />
+            <polyline fill='none' stroke='#4E4E4E' strokeWidth='4' strokeLinecap='round'
+                strokeLinejoin='round' strokeMiterlimit='10' points='2,17.355 13.343,2 27.91,13.862'
+            />
+        </svg>
+    )
+
+}
+
+
 export const YourImageName = () => {
 
     return
 
 }
-
-// GOVIND NEW PULL
-
-
-// Unauthorized code
-// Virus
-// XYZ
-
 
 

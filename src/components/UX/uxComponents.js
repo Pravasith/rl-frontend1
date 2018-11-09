@@ -3,7 +3,13 @@ import React from 'react'
 
 export const GradientButton = (props) => {
     return (
-        <div className="gradientButtonWrapper">
+        <div
+            className="gradientButtonWrapper"
+            onClick={() => {
+                if (props.runFunction)
+                    props.runFunction()
+            }}
+        >
             {props.children}
         </div>
     )
@@ -13,14 +19,29 @@ export const WhiteButton = (props) => {
     return (
         <div
             className="whiteButtonWrapper"
-            onClick = {() => props.runFunction()}
-            >
+            onClick={() => {
+                if (props.runFunction)
+                    props.runFunction()
+            }}
+        >
             {props.children}
         </div>
     )
 }
 
 export class InputForm extends React.Component {
+
+    // How to use this component -
+
+    //     <InputForm
+    //         refName="tagCategory"
+    //         placeholder="For Ex. Sofa"
+    //         isMandatory={false}
+    //         validationType="alphabetsSpecialCharactersAndNumbers" 
+    //         characterCount="20"
+    //         value=""
+    //         result={(val) => console.log(val)}
+    //     />
 
     constructor(props, context) {
         super(props, context)
@@ -40,9 +61,14 @@ export class InputForm extends React.Component {
     }
 
     submitForm = (val) => {
+
+
+
         this
             .props
             .result(val)
+
+
     }
 
     validateForm = (e, validationType) => {
@@ -205,8 +231,10 @@ export class InputForm extends React.Component {
                             placeholder={this.props.placeholder}
                             maxLength={this.props.characterCount}
                             onKeyPress={e => {
+
                                 if (e.key === "Enter") {
-                                    this.submitForm(e.target.value)
+                                    e.preventDefault()
+                                    this.submitForm(e.target.value + e.key)
                                 }
                             }}
                             onChange={e => this.validateForm(e, this.props.validationType)}
@@ -231,7 +259,7 @@ export class InputForm extends React.Component {
                     <div className="countSection">
                         <p
                             ref="charCount"
-                            >
+                        >
                             {this.state.charCount}
                         </p>
                     </div>
@@ -243,3 +271,28 @@ export class InputForm extends React.Component {
 
 }
 
+export const SelectList = (props) => {
+    // console.log(props)
+    return(
+        <div className="selectList">
+            <label>{props.title}</label>
+            <select
+                id={props.categoryId}
+                name={props.name}
+                value={props.value}
+                onChange={props.handleChange}
+                className=""
+            >
+            <option value="" disabled>{props.placeholder}</option>
+            {props.options.map(option => {
+                return (
+                    <option 
+                        key={option.categoryId}
+                        value={option.categoryName}
+                        label={option.categoryName}>{option.value}</option>
+                )
+            })}
+            </select>
+        </div>
+    )
+}
