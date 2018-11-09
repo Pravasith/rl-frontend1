@@ -30,6 +30,8 @@ class VendorProductDashboard extends React.Component{
             // my code
             mainHeadingClass1 : 'uploadedProducts active',
             mainHeadingClass2 : 'clientData',
+
+            contentType: 'uploadedProducts',
            
 
             redirect: false

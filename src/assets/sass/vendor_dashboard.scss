@@ -107,6 +107,40 @@
                                 padding: 0.3em;
                                 background: $veryLightGrey;
                                 // margin: 0 auto;
+                                .imageUploadInnerLayer{
+                                    // position: relative;
+                                    width: 100%;
+                                    height: 25em;
+                                    .imageContainerInnerSection{
+                                        @include flexCentreCol;
+                                        .productUploadHeaderSection{
+                                            width: 100%;
+                                            background: $primaryMagenta;
+                                            p{
+                                                color: $white;
+                                                text-align: center;
+                                                padding: 0.5em;
+                                            }
+                                        }
+                                        .imageUploadComponent{
+                                            @include flexCentreCol;
+                                            width: 50%;
+                                            margin: 0 auto;
+                                            margin-top: 20%;
+                                            .vendorImageUploadHeaderComponent{
+                                                margin-bottom: 0.5em;
+                                                .headingArea{
+                                                    @include flexCentreCol;
+                                                    .line{
+                                                        background: $secondaryMagenta;
+                                                        width: 50%;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    
+                                }
 
                                 .upperSectionInnerLayer{
                                     width:100%;
@@ -209,8 +243,20 @@
                                         }
                                     }
 
+                                    .productDifferentCode{
+                                        width: 45%;
+                                        .inputCommonWrapper{
+                                            .inputCategorySection{
+                                                .mandatorySection{
+                                                    display: none;
+                                                }
+                                            }
+                                        }
+                                    }
+
                                     .productSizeDescriptionOuterLayer{
                                         width: 100%;
+                                        margin: 0.5em 0;
                                         .productSizeDescriptionInnerLayer{
                                             @include flexCentreRow;
                                             justify-content: space-between;
@@ -218,12 +264,17 @@
                                             background: $lightGrey;
                                             .productSizeDetails{
                                                 @include flexCentreCol;
+                                                width: 50%;
                                                 align-items: flex-start;
-                                                .sizeCart{
+                                                .sizeCostCartWrap{
                                                     @include flexCentreRow;
+                                                    justify-content: space-between;
+                                                    width: 100%;
                                                 }
                                                 .costCart{
                                                     @include flexCentreRow;
+                                                    justify-content: space-between;
+                                                    width: 100%;
                                                 }
                                             }
                                             .sizeEditingButtons{
@@ -318,6 +369,20 @@
 
                                         .productView{
                                             margin:0.5em 0;
+                                            .innerViewProductLayer{
+                                                .imageContainerMiddleLayer{
+                                                    .outerMostLayer{
+                                                        .innerWrapperImage{
+                                                            .productCatalogueImage{
+                                                                .outerProductImageLayer{
+                                                                    background: transparent;
+                                                                    box-shadow: none;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
                                         }
                                     }
 

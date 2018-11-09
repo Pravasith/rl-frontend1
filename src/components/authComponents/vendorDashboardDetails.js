@@ -10,10 +10,12 @@ import { hitApi, navBarLoadingAnimationShowHide } from "../../actions/generalAct
 
 import { PlusButtonIcon, CloseButton } from "../../assets/images"
 import LogoAnimation from "../animations/logoAnimation"
-import { InputForm, WhiteButton } from "../UX/uxComponents"
+import { GradientButton,InputForm, WhiteButton } from "../UX/uxComponents"
 import HtmlSlider from "../UX/htmlSlider"
 import Navbar from "../navbar/navbar"
 import { decryptData } from "../../factories/encryptDecrypt";
+import ImageUploader from "../UX/imageUploader";
+
 
 
 class VendorDashboardDetails extends React.Component {
@@ -302,6 +304,7 @@ class VendorDashboardDetails extends React.Component {
                         userData={this.returnNavBarData()}
                     />
 
+                    
                     <article className="vendorDashboardOuterLayer">
                         <section className="vendorDashboardInnerLayer">
                             <div className="uploadSectionLeftWrapper">
@@ -309,13 +312,34 @@ class VendorDashboardDetails extends React.Component {
                                     <section className="imageUploadBigContainer">
 
                                         <div className="imageUploadUpperSection">
-                                            <div className="upperSectionInnerLayer">
+                                            <div className="imageUploadInnerLayer">
+
+                                                <div className="imageContainerInnerSection">
+                                                    <div className="productUploadHeaderSection">
+                                                        <p>Please upload an image with size lesser than 500kb </p>
+                                                    </div>
+
+                                                    <div className="imageUploadComponent">
+                                                        <header className="vendorImageUploadHeaderComponent">
+                                                            <div className="headingArea">
+                                                                <h3 class="headingClass">Product image</h3>
+                                                                <div className="line"></div>
+                                                            </div>
+                                                        </header>
+                                                        <ImageUploader/>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                            {/* <div className="upperSectionInnerLayer">
                                                 <img
                                                     src="https://i.pinimg.com/originals/50/69/bd/5069bd3b995a9e7b50e42ad1c08d1e8e.jpg"
                                                     alt=""
                                                     className="imageContainer"
                                                 />
-                                            </div>
+                                            </div> */}
+
+
                                         </div>
 
                                         <div className="imageUploadDownSection">
@@ -399,7 +423,7 @@ class VendorDashboardDetails extends React.Component {
 
                                             <div className="inputFormContainer">
                                                 <div className="formParaSection">
-                                                    <p className="pargraphClass">Different Code</p>
+                                                    <p className="pargraphClass">Different Code (if any)</p>
                                                 </div>
                                                 <div className="productDifferentCode">
                                                     <InputForm
@@ -422,7 +446,7 @@ class VendorDashboardDetails extends React.Component {
                                                 <div className="PricingSection">
                                                     <InputForm
                                                         refName="productPrice"
-                                                        placeholder="Type here(in Rupees)"
+                                                        placeholder="Type here (in Rupees)"
                                                         isMandatory={true}
                                                         validationType="alphabetsSpecialCharactersAndNumbers"
                                                         characterCount="30"
@@ -450,7 +474,112 @@ class VendorDashboardDetails extends React.Component {
                                                     />
                                                 </div>
                                             </div>
-                                            
+                                        
+                                            <div className="inputFormContainer">
+                                                <div className="formParaSection">
+                                                    <p className="pargraphClass"> Features </p>
+                                                </div>
+
+                                                <div className="materialHolder" >
+                                                    {this.returnMaterialsAdded()}
+                                                </div>
+
+                                                <div className="materialNameColumn">
+
+                                                    <div className="inputWrap">
+                                                    <input
+                                                        placeholder="Type material's name here"
+                                                        ref="materialInput"
+                                                        type="text"
+                                                        onChange={e => this.setMaterialName(e)}
+                                                        onKeyPress={e => {
+                                                            if (e.key === "Enter") {
+                                                                this.setMaterialName(e)
+                                                                this.addMaterialName()
+                                                            }
+                                                        }}
+                                                    />
+                                                    <span className="InputSeparatorLine"> </span>
+                                                    </div>
+
+                                                    <WhiteButton
+                                                        runFunction={this.addMaterialName}
+                                                    >
+                                                        Add
+                                                    </WhiteButton>
+                                                </div>
+                                            </div>
+
+                                            <div className="inputFormContainer">
+                                                <div className="formParaSection">
+                                                    <p className="pargraphClass"> Finishing options </p>
+                                                </div>
+
+                                                <div className="colorVariantSliderContainer">
+                                                    <HtmlSlider
+                                                        categoryData={this.returnVariationColors()} // format of Item 
+                                                        numberOfSlides={4} // Change the css grid properties for responsiveness
+                                                        textOnRibbon={"TRENDING NOW"} // All caps
+                                                        runFunction={(data) => this.getData(data)}
+                                                    />
+                                                </div>
+
+                                                <div className="buttonContainer">
+                                                    <div className="mediumBtn vendorDashboardBtn">
+                                                        <div className="svgImageContainer">
+                                                            <PlusButtonIcon />
+                                                        </div>
+                                                            Add new finish
+                                                        </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="inputFormContainer">
+                                                <div className="formParaSection">
+                                                    <p className="pargraphClass"> Color options </p>
+                                                </div>
+
+                                                <div className="colorVariantSliderContainer">
+                                                    <HtmlSlider
+                                                        categoryData={this.returnVariationColors()} // format of Item 
+                                                        numberOfSlides={4} // Change the css grid properties for responsiveness
+                                                        textOnRibbon={"TRENDING NOW"} // All caps
+                                                        runFunction={(data) => this.getData(data)}
+                                                    />
+                                                </div>
+
+                                                <div className="buttonContainer">
+                                                    <div className="mediumBtn vendorDashboardBtn">
+                                                        <div className="svgImageContainer">
+                                                            <PlusButtonIcon />
+                                                        </div>
+                                                            Add new color
+                                                        </div>
+                                                </div>
+                                            </div>
+
+                                            {/* <div className="inputFormContainer">
+                                                <div className="formParaSection">
+                                                    <p className="pargraphClass"> Sizes available </p>
+                                                </div>
+
+                                                <div className="mentionedSizeContainer">
+                                                    <ul className="addedProductSizeContainer">
+                                                        <li className="mentionedProductSizeList">Small - 4ft x 3ft - price - Rs 25000 excl. Taxes</li>
+                                                    </ul>
+                                                </div>
+
+                                                <div className="buttonContainer">
+                                                    <div className="mediumBtn vendorDashboardBtn">
+                                                        <div className="svgImageContainer">
+                                                            <PlusButtonIcon />
+                                                        </div>
+
+                                                        Add new size
+                                                    </div>
+                                                </div>
+                                            </div> */}
+
                                             <div className="inputFormContainer">
                                                 <div className="formParaSection">
                                                     <p className="pargraphClass">Sizes available</p>
@@ -458,11 +587,11 @@ class VendorDashboardDetails extends React.Component {
                                                 <div className="productSizeDescriptionOuterLayer">
                                                     <div className="productSizeDescriptionInnerLayer">
                                                         <div className="productSizeDetails">
-                                                            <div className="sizeCart">
+                                                            <div className="sizeCostCartWrap">
                                                                 <h3>Size nomenclature</h3>
                                                                 <p>Small - 4ft * 3ft</p>
                                                             </div>
-                                                            <div className="costCart">
+                                                            <div className="sizeCostCartWrap">
                                                                 <h3>Cost over base price</h3>
                                                                 <p>Rs.20</p>
                                                             </div>
@@ -529,93 +658,12 @@ class VendorDashboardDetails extends React.Component {
 
                                             <div className="inputFormContainer">
                                                 <div className="formParaSection">
-                                                    <p className="pargraphClass"> Material variations available </p>
-                                                </div>
-
-                                                <div className="materialHolder" >
-                                                    {this.returnMaterialsAdded()}
-                                                </div>
-
-                                                <div className="materialNameColumn">
-
-                                                    <div className="inputWrap">
-                                                    <input
-                                                        placeholder="Type material's name here"
-                                                        ref="materialInput"
-                                                        type="text"
-                                                        onChange={e => this.setMaterialName(e)}
-                                                        onKeyPress={e => {
-                                                            if (e.key === "Enter") {
-                                                                this.setMaterialName(e)
-                                                                this.addMaterialName()
-                                                            }
-                                                        }}
-                                                    />
-                                                    <span className="InputSeparatorLine"> </span>
-                                                    </div>
-
-                                                    <WhiteButton
-                                                        runFunction={this.addMaterialName}
-                                                    >
-                                                        Add
-                                                    </WhiteButton>
-                                                </div>
-                                            </div>
-
-                                            <div className="inputFormContainer">
-                                                <div className="formParaSection">
-                                                    <p className="pargraphClass"> Finishing / color options </p>
-                                                </div>
-
-                                                <div className="colorVariantSliderContainer">
-                                                    <HtmlSlider
-                                                        categoryData={this.returnVariationColors()} // format of Item 
-                                                        numberOfSlides={4} // Change the css grid properties for responsiveness
-                                                        textOnRibbon={"TRENDING NOW"} // All caps
-                                                        runFunction={(data) => this.getData(data)}
-                                                    />
-                                                </div>
-
-                                                <div className="buttonContainer">
-                                                    <div className="mediumBtn vendorDashboardBtn">
-                                                        <div className="svgImageContainer">
-                                                            <PlusButtonIcon />
-                                                        </div>
-                                                            Add new finish/color
-                                                        </div>
-                                                </div>
-                                            </div>
-
-                                            <div className="inputFormContainer">
-                                                <div className="formParaSection">
-                                                    <p className="pargraphClass"> Sizes available </p>
-                                                </div>
-
-                                                <div className="mentionedSizeContainer">
-                                                    <ul className="addedProductSizeContainer">
-                                                        <li className="mentionedProductSizeList">Small - 4ft x 3ft - price - Rs 25000 excl. Taxes</li>
-                                                    </ul>
-                                                </div>
-
-                                                <div className="buttonContainer">
-                                                    <div className="mediumBtn vendorDashboardBtn">
-                                                        <div className="svgImageContainer">
-                                                            <PlusButtonIcon />
-                                                        </div>
-
-                                                        Add new size
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div className="inputFormContainer">
-                                                <div className="formParaSection">
-                                                    <p className="pargraphClass"> Features of the product </p>
+                                                    <p className="pargraphClass"> Product description </p>
                                                 </div>
 
                                                 <div className="materialInfoColumn">
                                                     <InputForm
-                                                        refName="companyName"
+                                                        refName="productDescription"
                                                         placeholder="Type something good about the product"
                                                         isMandatory={false}
                                                         validationType="alphabetsSpecialCharactersAndNumbers"
@@ -626,7 +674,7 @@ class VendorDashboardDetails extends React.Component {
                                                     />
                                                 </div>
 
-                                                <div className="materialInfoColumn">
+                                                {/* <div className="materialInfoColumn">
                                                     <InputForm
                                                         refName="companyName"
                                                         placeholder="Ex. Space Saving Compact Design"
@@ -637,15 +685,45 @@ class VendorDashboardDetails extends React.Component {
                                                             materialName: val
                                                         })}
                                                     />
+                                                </div> */}
+
+                                            </div>
+
+                                            <div className="inputFormContainer">
+                                                <div className="formParaSection">
+                                                    <p className="pargraphClass"> Features / specifications of the product </p>
+                                                </div>
+
+                                                <div className="materialInfoColumn">
+                                                    <InputForm
+                                                        refName="companyName"
+                                                        placeholder="Type here"
+                                                        isMandatory={false}
+                                                        validationType="alphabetsSpecialCharactersAndNumbers"
+                                                        characterCount="100"
+                                                        result={(val) => this.setState({
+                                                            materialName: val
+                                                        })}
+                                                    />
                                                 </div>
 
                                             </div>
+
+                                            <div className="inputFormContainer">
+                                                <div className="formParaSection">
+                                                    <GradientButton>
+                                                        Proceed
+                                                    </GradientButton>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </section>
                                 </article>
                             </div>
                         </section>
                     </article>
+                    
                 </div>
             </div>
         )
