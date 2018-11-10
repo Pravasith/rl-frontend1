@@ -11,6 +11,42 @@
     display: none;
 }
 
+.whiteBackgroundForModal{
+                width: 100%;
+                height: 94.5%;
+                background: $veryLightGrey;
+                // opacity: 0.5;
+                position: absolute;
+                top: 0;
+                left: 0;
+                margin-top: 4%;
+         
+                .dummyXClass{
+                    width: 100%;
+                    height: 100%;
+                    @include flexCentreRow;
+
+                    .whiteSquareForModal{
+                        width: 25em;
+                        height: 25em;
+                        background: $white;
+                    }
+
+                    .selectButton{
+                        width: 50%;
+                        height: 2em;
+                    }
+
+                    .deleteButton{
+                        @include flexCentreRow;
+                        // width: 5em;
+                        // height: 5em;
+                        // background: red;
+                    }
+                }
+                
+
+            }
 
 .line{
     
@@ -283,8 +319,8 @@
                                         }
                                     }
 
-                                    .materialHolder{
-                                        .materialWrap{
+                                    .featureHolder{
+                                        .featureWrap{
                                             @include flexCentreRow;
                                             justify-content: flex-start;
 
@@ -304,7 +340,7 @@
                                         }
                                     }
 
-                                    .materialNameColumn{
+                                    .featureNameColumn{
                                         @include flexCentreRow;
                                         align-items: flex-start;
 

@@ -519,7 +519,7 @@ class VendorProductDashboard extends React.Component {
                                     >
                                         <h3 className="headingClass">
                                             Simple Sales Manager
-                                </h3>
+                                        </h3>
                                         <div className="line"></div>
                                     </div>
 

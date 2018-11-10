@@ -1,6 +1,6 @@
 import React from "react"
 
-import "../../assets/sass/vendor_dashboard.scss"
+import "../../assets/sass/add_product_details.scss"
 
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
@@ -10,15 +10,14 @@ import { hitApi, navBarLoadingAnimationShowHide } from "../../actions/generalAct
 
 import { PlusButtonIcon, CloseButton, BigCloseButton } from "../../assets/images"
 import LogoAnimation from "../animations/logoAnimation"
-import { GradientButton,InputForm, WhiteButton } from "../UX/uxComponents"
+import { GradientButton, InputForm, WhiteButton } from "../UX/uxComponents"
 import HtmlSlider from "../UX/htmlSlider"
 import Navbar from "../navbar/navbar"
-import { decryptData } from "../../factories/encryptDecrypt";
-import ImageUploader from "../UX/imageUploader";
+import { decryptData } from "../../factories/encryptDecrypt"
+import ImageUploader from "../UX/imageUploader"
 
 
-
-class VendorDashboardDetails extends React.Component {
+class AddProductDetails extends React.Component {
 
     constructor(props, context) {
         super(props, context)
@@ -28,22 +27,7 @@ class VendorDashboardDetails extends React.Component {
             mainClass: 'mainClass hide',
             redirect: false,
 
-            modalCondition: "whiteBackgroundForModal hide",
-            modalSize: "whiteBackgroundForModal hide",
-            modalColor: "whiteBackgroundForModal hide",
-
-            materialsAdded: [],
-            materialName: "",
-
-            tempArr: [],
-            dummyDataStructure: [],
-
-            colorName: '',
-            colorCode: '',
-            sizeName: '',
-            sizeCost: '',
-
-            isProceedClicked: false
+            featuresAdded: []
         }
 
     }
@@ -201,16 +185,10 @@ class VendorDashboardDetails extends React.Component {
                 else
                     console.error(err)
             })
-
-    }
-
-    componentDidUpdate() {
-        console.log(this.state.dummyDataStructure);
     }
 
     returnNavBarData = () => {
         if (this.props.userData.responseData) {
-
             //
             // DECRYPT REQUEST DATA
             // 
@@ -229,61 +207,59 @@ class VendorDashboardDetails extends React.Component {
         }
     }
 
-    addMaterialName = () => {
-        
-        let temp = this.state.materialName
+    addFeatureName = () => {
+        let temp = this.state.featureName
 
-        if(temp !== ""){
-
-            let dummyArray = [...this.state.materialsAdded]
+        if (temp !== "") {
+            let dummyArray = [...this.state.featuresAdded]
 
             dummyArray.map(item => item.toLowerCase())
 
             if (!dummyArray.includes(temp.toLowerCase())) {
-                this.state.materialsAdded.push(temp)
+                this.state.featuresAdded.push(temp)
             }
 
             this.setState({
-                materialsAdded: this.state.materialsAdded.length !== 0 ? this.state.materialsAdded : [this.state.materialName]
+                featuresAdded: this.state.featuresAdded.length !== 0 ? this.state.featuresAdded : [this.state.featureName]
             })
 
-            this.refs.materialInput.value = ""
+            this.refs.featureInput.value = ""
         }
-        
+
     }
 
-    removeMaterials = (index) => {
-
+    removeFeature = (index) => {
         this
             .state
-            .materialsAdded
+            .featuresAdded
             .splice(index, 1)
 
         this.setState({
-            materialsAdded: this.state.materialsAdded.length !== 0 ? this.state.materialsAdded : []
+            featuresAdded: this.state.featuresAdded.length !== 0 ? this.state.featuresAdded : []
         })
 
     }
 
-    setMaterialName = (e) => {
+    setfeatureName = (e) => {
         const val = e.target.value
 
         this.setState({
-            materialName: val
+            featureName: val
         })
     }
 
-    returnMaterialsAdded = () => {
+    returnfeaturesAdded = () => {
         return (
             this
                 .state
-                .materialsAdded
+                .featuresAdded
+
                 .map((item, i) => {
                     return (
                         <div
-                            className="materialWrap"
+                            className="featureWrap"
                             key={i}
-                        >
+                            >
                             <ul>
                                 <li>
                                     <p key={i}>
@@ -294,8 +270,8 @@ class VendorDashboardDetails extends React.Component {
 
                             <div
                                 className="deleteIcon"
-                                onClick={() => this.removeMaterials(i)}
-                            >
+                                onClick={() => this.removeFeature(i)}
+                                >
                                 <CloseButton />
                             </div>
                         </div>
@@ -304,272 +280,36 @@ class VendorDashboardDetails extends React.Component {
         )
     }
 
-    getData = (data) => {
-        console.log(data)
-    }
-
-    
-
     returnModal = () => {
-        if(this.state.activeModal === "color"){
-            return (
-
-                <div className={this.state.modalColor}>
-                    <div className="dummyXClass">
-                        < div className="whiteSquareForModal">
-                            <div className="vendorDashboardModal">
-                                <div className="modalHeader">
-                                    <h3>Enter a color code</h3>
-                                    <div className="line"></div>
-                                </div>
-                                <div
-                                    className="deleteButton"
-                                    onClick={() => this.setState({
-                                        modalColor: "whiteBackgroundForModal hide"
-                                    })}
-                                >
-                                    <div className="deleteButtonSvgSection">
-                                        <BigCloseButton />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="inputFormContainer">
-                                <div className="formParaSection">
-                                    <p className="pargraphClass">Name of the color</p>
-                                </div>
-                                <div className="productColorName">
-                                    <InputForm
-                                        refName="colorName"
-                                        placeholder="Ex. Orange"
-                                        isMandatory={true}
-                                        validationType="alphabetsSpecialCharactersAndNumbers"
-                                        characterCount="6"
-                                        result={(val) => this.setState({
-                                            colorName: val
-                                        })}
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="inputFormContainer">
-                                <div className="formParaSection">
-                                    <p className="pargraphClass">Color code (hex)</p>
-                                </div>
-                                <div className="productColorCode">
-                                    <InputForm
-                                        refName="colorCode"
-                                        placeholder="Ex. #29abe2"
-                                        isMandatory={true}
-                                        validationType="alphabetsSpecialCharactersAndNumbers"
-                                        characterCount="6"
-                                        result={(val) => this.setState({
-                                            colorCode: val
-                                        })}
-                                    />
-                                    <p>You can get the hexcode of the desired color <a href="https://www.google.com/">here</a></p>
-                                </div>
-                            </div>
-
-                            <div className="proceedOrNotCheck">
-                                <GradientButton
-                                    runFunction={() => {
-                                        this.proceedHandler()
-                                        }}>
-                                    Proceed
-                                </GradientButton>
-
-                                {this.displayProceedErrorColor()}
-                            </div>
+        return (
+            <div className="modalBackgroundMainOuterWrap">
+                <div className="modalBackgroundDummyClass">
+                    <div className="modalBackgroundInnerWrap">
+                        <div className="modalOuterWrap">
+                            <header></header>
+                            <article>
+                                <p>Hello modal</p>
+                            </article>
+                            <footer></footer>
                         </div>
                     </div>
                 </div>
-
-            )
-        }
-
-        else if (this.state.activeModal === "size") {
-            return(
-                <div className={this.state.modalSize}>
-                    <div className="dummyXClass">
-                        < div className="whiteSquareForModal">
-                            <div className="vendorDashboardModal">
-                                <div className="modalHeader">
-                                    <h3>Size details</h3>
-                                    <div className="line"></div>
-                                </div>
-                                <div
-                                    className="deleteButton"
-                                    onClick={() => this.setState({
-                                        modalSize: "whiteBackgroundForModal hide"
-                                    })}
-                                >
-                                    <div className="deleteButtonSvgSection">
-                                        <BigCloseButton />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="inputFormContainer">
-                                <div className="formParaSection">
-                                    <p className="pargraphClass">Size name</p>
-                                </div>
-                                <div className="productSizeName">
-                                    <InputForm
-                                        refName="sizeName"
-                                        placeholder="Ex. Small-2ft x 2ft"
-                                        isMandatory={true}
-                                        validationType="alphabetsSpecialCharactersAndNumbers"
-                                        characterCount="30"
-                                        result={(val) => this.setState({
-                                            sizeName: val
-                                        })}
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="inputFormContainer">
-                                <div className="formParaSection">
-                                    <p className="pargraphClass">Extra cost for size(over base price)</p>
-                                </div>
-                                <div className="productCostForSize">
-                                    <InputForm
-                                        refName="sizeCost"
-                                        placeholder="Ex. 20"
-                                        isMandatory={true}
-                                        validationType="onlyNumbers"
-                                        characterCount="5"
-                                        result={(val) => this.setState({
-                                            sizeCost: val
-                                        })}
-                                    />
-                                </div>
-                            </div>
-
-                            {/* <div className="inputFormContainer">
-                            <div className="formParaSection">
-                                <p className="pargraphClass">Extra cost for size(over base price)</p>
-                            </div>
-                            <div className="productCostForSize">
-                                <InputForm
-                                    refName="sizeCost"
-                                    placeholder="Ex. 20"
-                                    isMandatory={true}
-                                    validationType="onlyNumbers"
-                                    characterCount="5"
-                                    result={(val) => console.log(val)}
-                                />
-                            </div>
-                        </div> */}
-
-                            <div className="proceedOrNotCheck">
-                                <GradientButton
-                                    runFunction={() => this.proceedHandler()}>
-                                    Proceed
-                            </GradientButton>
-
-                                {this.displayProceedErrorSize()}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            )
-        }
-    }
-
-    displayProceedErrorColor = () => {
-        const { colorName } = this.state;
-        const { colorCode } = this.state;
-        const { isProceedClicked } = this.state;
-
-        if (isProceedClicked && colorName ==="") {
-            return <small> Please enter color name</small>;
-        } else if (isProceedClicked && colorCode ==="") {
-            return <small>Please enter color code</small>
-        } 
-    }
-
-    displayProceedErrorSize = () => {
-        const { sizeName } = this.state;
-        const { sizeCost } = this.state;
-        const { isProceedClicked } = this.state;
-
-        if (isProceedClicked && sizeName === "") {
-            return <small>Please enter size name</small>
-        } else if (isProceedClicked && sizeCost === "") {
-            return <small>Please enter size cost</small>
-        }
-    }
-
-    proceedHandler = () => {
-        const { colorName } = this.state;
-        const { colorCode } = this.state;
-        const { sizeName } = this.state;
-        const { sizeCost } = this.state;
-
-        console.log(colorName, colorCode, sizeName, sizeCost);
-
-        if (colorName.length !== 0 && colorCode.length !== 0) {
-            console.log("heyy")
-
-            let colorDetails = {
-                colorName,
-                colorCode
-            }
-
-            this.state.dummyDataStructure.push(colorDetails);
-
-            this.setState({
-                modalColor: "whiteBackgroundForModal hide",
-                colorName: '',
-                colorCode: '',
-            })
-        } 
-        
-        else if (sizeName.length !== 0 && sizeCost.length !== 0) {
-
-            let sizeDetails = {
-                sizeName,
-                sizeCost
-            }
-
-            this.state.dummyDataStructure.push(sizeDetails);
-
-            this.setState({
-                modalSize: "whiteBackgroundForModal hide",
-                sizeName: '',
-                sizeCost: '',
-                activeModal: "size",
-            })
-        }
-
-        else {
-            this.setState({
-                isProceedClicked: true
-            })
-        }
+            </div>
+        )
     }
 
     render() {
-        // const colorModal = ();
-
-        // const sizeModal = ();
-
         return (
             <div className="vendorDashboardWrapper">
-
                 <div className={this.state.loadingClass}>
                     <LogoAnimation />
                 </div>
 
                 <div className={this.state.mainClass}>
-
                     <Navbar
                         userData={this.returnNavBarData()}
                     />
 
-                    
                     <article className="vendorDashboardOuterLayer">
                         <section className="vendorDashboardInnerLayer">
                             <div className="uploadSectionLeftWrapper">
@@ -591,10 +331,10 @@ class VendorDashboardDetails extends React.Component {
                                                                 <div className="line"></div>
                                                             </div>
                                                         </header>
-                                                        <ImageUploader/>
+                                                        <ImageUploader />
                                                     </div>
                                                 </div>
-                                                
+
                                             </div>
                                             {/* <div className="upperSectionInnerLayer">
                                                 <img
@@ -633,9 +373,7 @@ class VendorDashboardDetails extends React.Component {
                             </div>
 
                             <div className="uploadSectionRightWrapper">
-
                                 <article className="rightWrapperInnerLayer">
-
                                     <header className="vendorFormHeading">
 
                                         <div className="headingArea">
@@ -647,9 +385,7 @@ class VendorDashboardDetails extends React.Component {
                                     </header>
 
                                     <section className="vendorUploadFormSection">
-
                                         <div className="vendorUploadFormInnerContainer">
-
                                             <div className="inputFormContainer">
                                                 <div className="formParaSection">
                                                     <p className="pargraphClass">Name of the product</p>
@@ -739,36 +475,36 @@ class VendorDashboardDetails extends React.Component {
                                                     />
                                                 </div>
                                             </div>
-                                        
+
                                             <div className="inputFormContainer">
                                                 <div className="formParaSection">
                                                     <p className="pargraphClass"> Features </p>
                                                 </div>
 
-                                                <div className="materialHolder" >
-                                                    {this.returnMaterialsAdded()}
+                                                <div className="featureHolder" >
+                                                    {this.returnfeaturesAdded()}
                                                 </div>
 
-                                                <div className="materialNameColumn">
+                                                <div className="featureNameColumn">
 
                                                     <div className="inputWrap">
-                                                    <input
-                                                        placeholder="Type material's name here"
-                                                        ref="materialInput"
-                                                        type="text"
-                                                        onChange={e => this.setMaterialName(e)}
-                                                        onKeyPress={e => {
-                                                            if (e.key === "Enter") {
-                                                                this.setMaterialName(e)
-                                                                this.addMaterialName()
-                                                            }
-                                                        }}
-                                                    />
-                                                    <span className="InputSeparatorLine"> </span>
+                                                        <input
+                                                            placeholder="Type the value-add features about this product"
+                                                            ref="featureInput"
+                                                            type="text"
+                                                            onChange={e => this.setfeatureName(e)}
+                                                            onKeyPress={e => {
+                                                                if (e.key === "Enter") {
+                                                                    this.setfeatureName(e)
+                                                                    this.addFeatureName()
+                                                                }
+                                                            }}
+                                                        />
+                                                        <span className="InputSeparatorLine"> </span>
                                                     </div>
 
                                                     <WhiteButton
-                                                        runFunction={this.addMaterialName}
+                                                        runFunction={this.addFeatureName}
                                                     >
                                                         Add
                                                     </WhiteButton>
@@ -794,7 +530,7 @@ class VendorDashboardDetails extends React.Component {
                                                         <div className="svgImageContainer">
                                                             <PlusButtonIcon />
                                                         </div>
-                                                            Add new finish
+                                                        Add new finish
                                                         </div>
                                                 </div>
                                             </div>
@@ -830,48 +566,10 @@ class VendorDashboardDetails extends React.Component {
                                                 </div>
                                             </div>
 
-
-                                            {/* <div className="addProductButton">
-                                                <GradientButton
-
-                                                    runFunction={() => this.setState({
-                                                        vendorGraphicClass: "initialVendorGraphic hide",
-                                                        modalCondition: "whiteBackgroundForModal",
-                                                    })}
-                                                >
-                                                    <div className="svgImageContainer">
-                                                        <PlusButtonIconWhite />
-                                                    </div>
-                                                    Add new category
-                                                </GradientButton>
-                                            </div> */}
-
-                                            {/* <div className="inputFormContainer">
-                                                <div className="formParaSection">
-                                                    <p className="pargraphClass"> Sizes available </p>
-                                                </div>
-
-                                                <div className="mentionedSizeContainer">
-                                                    <ul className="addedProductSizeContainer">
-                                                        <li className="mentionedProductSizeList">Small - 4ft x 3ft - price - Rs 25000 excl. Taxes</li>
-                                                    </ul>
-                                                </div>
-
-                                                <div className="buttonContainer">
-                                                    <div className="mediumBtn vendorDashboardBtn">
-                                                        <div className="svgImageContainer">
-                                                            <PlusButtonIcon />
-                                                        </div>
-
-                                                        Add new size
-                                                    </div>
-                                                </div>
-                                            </div> */}
-
                                             <div className="inputFormContainer">
                                                 <div className="formParaSection">
                                                     <p className="pargraphClass">Sizes available</p>
-                                                </div> 
+                                                </div>
                                                 <div className="productSizeDescriptionOuterLayer">
                                                     <div className="productSizeDescriptionInnerLayer">
                                                         <div className="productSizeDetails">
@@ -885,27 +583,24 @@ class VendorDashboardDetails extends React.Component {
                                                             </div>
                                                         </div>
                                                         <div className="sizeEditingButtons">
-                                                           <div className="editButton">
-                                                                 <WhiteButton>
+                                                            <div className="editButton">
+                                                                <WhiteButton>
                                                                     Edit
                                                                 </WhiteButton>
-                                                           </div> 
-                                                           <div className="deleteButton">
-                                                                 <WhiteButton>
+                                                            </div>
+                                                            <div className="deleteButton">
+                                                                <WhiteButton>
                                                                     Delete
                                                                 </WhiteButton>
-                                                           </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
+
                                                 <div className="buttonContainer">
                                                     <WhiteButton
-                                                        runFunction={() =>
-                                                            // console.log('hit')
-                                                            this.setState({
-                                                                modalSize: "whiteBackgroundForModal"
-                                                            })
-                                                        }
+                                                        runFunction={() => {
+                                                        }}
                                                     >
                                                         <div className="svgImageContainer">
                                                             <PlusButtonIcon />
@@ -964,7 +659,7 @@ class VendorDashboardDetails extends React.Component {
                                                         validationType="alphabetsSpecialCharactersAndNumbers"
                                                         characterCount="100"
                                                         result={(val) => this.setState({
-                                                            materialName: val
+                                                            featureName: val
                                                         })}
                                                     />
                                                 </div>
@@ -977,7 +672,7 @@ class VendorDashboardDetails extends React.Component {
                                                         validationType="alphabetsSpecialCharactersAndNumbers"
                                                         characterCount="100"
                                                         result={(val) => this.setState({
-                                                            materialName: val
+                                                            featureName: val
                                                         })}
                                                     />
                                                 </div> */}
@@ -997,7 +692,7 @@ class VendorDashboardDetails extends React.Component {
                                                         validationType="alphabetsSpecialCharactersAndNumbers"
                                                         characterCount="100"
                                                         result={(val) => this.setState({
-                                                            materialName: val
+                                                            featureName: val
                                                         })}
                                                     />
                                                 </div>
@@ -1011,18 +706,18 @@ class VendorDashboardDetails extends React.Component {
                                                     </GradientButton>
                                                 </div>
                                             </div>
-                                            {
-                                                this.returnModal()
-                                            }
-                                            {/* {colorModal}
-                                            {sizeModal} */}
+                                            
+
                                         </div>
                                     </section>
                                 </article>
                             </div>
                         </section>
                     </article>
-                    
+
+                    {
+                        this.returnModal()
+                    }
                 </div>
             </div>
         )
@@ -1033,7 +728,10 @@ class VendorDashboardDetails extends React.Component {
 
 
 const mapStateToProps = (state) => {
-    return { userData: state.userData, responseData: state.responseDataFromAPI }
+    return ({ 
+            userData: state.userData,
+            responseData: state.responseDataFromAPI 
+        })
 }
 
 const matchDispatchToProps = (dispatch) => {
@@ -1044,4 +742,4 @@ const matchDispatchToProps = (dispatch) => {
     }, dispatch)
 }
 
-export default connect(mapStateToProps, matchDispatchToProps)(VendorDashboardDetails)
+export default connect(mapStateToProps, matchDispatchToProps)(AddProductDetails)
