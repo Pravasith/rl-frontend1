@@ -111,353 +111,396 @@
         @include flexCentreCol;
         width: 100%;
 
-        .vendorDashboardOuterLayer{
-            @include flexCentreRow;
+        .vendorDummyContainer{
             width: 100%;
-            margin-top: 1em;
+            height: 100%;
+            position: relative;
 
-            .vendorDashboardInnerLayer{
-                @include flexCentreRow;
-                align-items: flex-start;
-                width: 100%;
-
-                .uploadSectionLeftWrapper{
-                    @include flexCentreRow;
-                    min-width: 35%;
-                    // margin: 0 auto;
-                    padding: 0.3em;
-
-                    .leftWrapperInnerLayer{
-                        @include flexCentreCol;
+            .vendorDashboardOuterLayer{
+                        @include flexCentreRow;
                         width: 100%;
+                        margin-top: 1em;
 
-                        .imageUploadBigContainer{
-                            @include flexCentreCol;
-                            align-items: flex-start;
-                            width: 90%;
-                            margin: 0 auto;
-
-                            .imageUploadUpperSection{
-                                @include flexCentreCol;
-                                width: 100%;
-                                padding: 0.3em;
-                                background: $veryLightGrey;
-                                // margin: 0 auto;
-                                .imageUploadInnerLayer{
-                                    // position: relative;
-                                    width: 100%;
-                                    height: 25em;
-                                    .imageContainerInnerSection{
-                                        @include flexCentreCol;
-                                        .productUploadHeaderSection{
-                                            width: 100%;
-                                            background: $primaryMagenta;
-                                            p{
-                                                color: $white;
-                                                text-align: center;
-                                                padding: 0.5em;
-                                            }
-                                        }
-                                        .imageUploadComponent{
-                                            @include flexCentreCol;
-                                            width: 50%;
-                                            margin: 0 auto;
-                                            margin-top: 20%;
-                                            .vendorImageUploadHeaderComponent{
-                                                margin-bottom: 0.5em;
-                                                .headingArea{
-                                                    @include flexCentreCol;
-                                                    .line{
-                                                        background: $secondaryMagenta;
-                                                        width: 50%;
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                    
-                                }
-
-                                .upperSectionInnerLayer{
-                                    width:100%;
-                                    position: relative;
-                                    padding-bottom: 90%;
-
-                                    .imageContainer{
-                                        width:100%;
-                                        height:100%;
-                                        object-fit: cover;
-                                        position:absolute;
-                                    }
-                                }
-                            }
-
-                            .imageUploadDownSection{
-                                @include flexCentreCol;
-                                width: 100%;
-                                margin-top: 1em;
-
-                                .uploadedHeaderSection{
-                                    @include flexCentreRow;
-                                    justify-content: flex-start;
-                                    width: 100%;
-
-                                    .headingArea{
-                                        @include flexCentreCol;
-                                        align-items: flex-start;
-
-                                        .headingColumn{
-                                            font-size: 0.8em;
-                                             color: $darkerGrey;
-                                        }
-
-                                        .line{
-                                            width: 50%;
-                                            background: $secondaryMagenta;
-                                        }
-                                    }
-                                }
-
-                                .downSectionInnerLayer{
-                                    width: 100%;
-                                }
-                            }
-                        }
-                        
-                    }
-                }
-
-                .uploadSectionRightWrapper{
-                    width: 60%;
-                    // margin: 0 auto;
-                    padding: 0.3em;
-                    padding-left: 2em;
-
-                    .rightWrapperInnerLayer{
-                        @include flexCentreCol;
-                        align-items: flex-start;
-                        width: 100%;
-                        .vendorFormHeading{
+                        .vendorDashboardInnerLayer{
                             @include flexCentreRow;
-                            .headingArea{
-                                @include flexCentreCol;
-                                align-items: flex-start;
-                                width: 100%;
-                                .headingClass{
-                                    font-size: 1.2em;
-                                    color: $darkerGrey;
-                                }
-                                .line{
-                                    background: $secondaryMagenta;
-                                    width: 40%;
-                                }
-                            }
-                        }
-
-                        .vendorUploadFormSection{
+                            align-items: flex-start;
                             width: 100%;
-                            height: 28em;
-                            overflow-y: auto;
-                            margin-top: 0.5em;
 
-                            .vendorUploadFormInnerContainer{
-                                @include flexCentreCol;
-                                width: 80%;
+                            .uploadSectionLeftWrapper{
+                                @include flexCentreRow;
+                                min-width: 35%;
+                                // margin: 0 auto;
+                                padding: 0.3em;
 
-                                .inputFormContainer{
+                                .leftWrapperInnerLayer{
                                     @include flexCentreCol;
-                                    align-items: flex-start;
                                     width: 100%;
-                                    margin: 1em 0;
 
-                                    .formParaSection{
-                                        margin-bottom: 0.5em;
-
-                                        .pargraphClass{
-                                            font-size: 1em;
-                                            color: $darkerGrey;
-                                        }
-                                    }
-
-                                    .productDifferentCode{
-                                        width: 45%;
-                                        .inputCommonWrapper{
-                                            .inputCategorySection{
-                                                .mandatorySection{
-                                                    display: none;
-                                                }
-                                            }
-                                        }
-                                    }
-
-                                    .productSizeDescriptionOuterLayer{
-                                        width: 100%;
-                                        margin: 0.5em 0;
-                                        .productSizeDescriptionInnerLayer{
-                                            @include flexCentreRow;
-                                            justify-content: space-between;
-                                            padding: 1em;
-                                            background: $lightGrey;
-                                            .productSizeDetails{
-                                                @include flexCentreCol;
-                                                width: 50%;
-                                                align-items: flex-start;
-                                                .sizeCostCartWrap{
-                                                    @include flexCentreRow;
-                                                    justify-content: space-between;
-                                                    width: 100%;
-                                                }
-                                                .costCart{
-                                                    @include flexCentreRow;
-                                                    justify-content: space-between;
-                                                    width: 100%;
-                                                }
-                                            }
-                                            .sizeEditingButtons{
-                                                @include flexCentreRow;
-                                            }
-                                        }
-                                    }
-
-                                    .featureHolder{
-                                        .featureWrap{
-                                            @include flexCentreRow;
-                                            justify-content: flex-start;
-
-                                            ul{
-                                                margin: 0;
-                                                padding-left: 2em;
-                                                padding-top: 0.1em;
-                                                margin-right: 0.5em;
-                                            }
-                                        }
-
-                                        p{
-                                            font-size: 0.8em;
-                                            padding-right: 0.5em;
-                                            padding-bottom: 0.5em;
-                                            // padding-left: 0;
-                                        }
-                                    }
-
-                                    .featureNameColumn{
-                                        @include flexCentreRow;
+                                    .imageUploadBigContainer{
+                                        @include flexCentreCol;
                                         align-items: flex-start;
+                                        width: 90%;
+                                        margin: 0 auto;
 
-                                        .inputWrap{
+                                        .imageUploadUpperSection{
                                             @include flexCentreCol;
-                                            margin-top: 0.5em;
-
-                                            input{
-                                                border: none;
-                                                // border-bottom: 0.2em solid $black;
-                                                background: transparent;
-                                                color: $darkerGrey;
-                                                outline: none;
-                                                height: 1.5em;
+                                            width: 100%;
+                                            padding: 0.3em;
+                                            background: $veryLightGrey;
+                                            // margin: 0 auto;
+                                            .imageUploadInnerLayer{
+                                                // position: relative;
                                                 width: 100%;
-                                                border-bottom: 0.2em solid $lightGrey;
-                                                &:focus + .InputSeparatorLine {
-                                                    transform: scaleX(1) translateY(-2px);   
-                                                      opacity: 1;
-                                                   }
-                                                   &:hover + .InputSeparatorLine{
-                                                    transform: scaleX(1) translateY(-2px);   
-                                                    opacity: 1;
-                                                   }
-                                            }
-                                
-                                            
-                                            .InputSeparatorLine {
-                                                height:0.2em;
-                                                width: 100%;
-                                                background: $darkGrey;
-                                                display: block;
-                                                transform: scaleX(0) translateY(-2px);
-                                                transform-origin: 50%;
-                                                opacity: 0;
-                                                transition: all .15s $curve;
-                                            }
-    
-                                        }
-
-                                       
-                                        .inputCategorySection{
-                                            margin-bottom: 1em;
-                                            margin-top: 0.5em;
-                                        }
-
-                                        .whiteButtonWrapper{
-                                            margin: 0;
-                                            margin-top: 0.5em;
-                                            font-size: 0.75em;
-                                            margin-left: 2em;
-                                        }
-
-                                        .mandatorySection{
-                                            display: none;
-                                        }
-                                    }
-
-                                    .colorVariantSliderContainer{
-                                        width: 70%;
-                                        margin-bottom: 0.5em;
-
-                                        .productView{
-                                            margin:0.5em 0;
-                                            .innerViewProductLayer{
-                                                .imageContainerMiddleLayer{
-                                                    .outerMostLayer{
-                                                        .innerWrapperImage{
-                                                            .productCatalogueImage{
-                                                                .outerProductImageLayer{
-                                                                    background: transparent;
-                                                                    box-shadow: none;
+                                                height: 25em;
+                                                .imageContainerInnerSection{
+                                                    @include flexCentreCol;
+                                                    .productUploadHeaderSection{
+                                                        width: 100%;
+                                                        background: $primaryMagenta;
+                                                        p{
+                                                            color: $white;
+                                                            text-align: center;
+                                                            padding: 0.5em;
+                                                        }
+                                                    }
+                                                    .imageUploadComponent{
+                                                        @include flexCentreCol;
+                                                        width: 50%;
+                                                        margin: 0 auto;
+                                                        margin-top: 20%;
+                                                        .vendorImageUploadHeaderComponent{
+                                                            margin-bottom: 0.5em;
+                                                            .headingArea{
+                                                                @include flexCentreCol;
+                                                                .line{
+                                                                    background: $secondaryMagenta;
+                                                                    width: 50%;
                                                                 }
                                                             }
                                                         }
                                                     }
                                                 }
+                                                
+                                            }
+
+                                            .upperSectionInnerLayer{
+                                                width:100%;
+                                                position: relative;
+                                                padding-bottom: 90%;
+
+                                                .imageContainer{
+                                                    width:100%;
+                                                    height:100%;
+                                                    object-fit: cover;
+                                                    position:absolute;
+                                                }
+                                            }
+                                        }
+
+                                        .imageUploadDownSection{
+                                            @include flexCentreCol;
+                                            width: 100%;
+                                            margin-top: 1em;
+
+                                            .uploadedHeaderSection{
+                                                @include flexCentreRow;
+                                                justify-content: flex-start;
+                                                width: 100%;
+
+                                                .headingArea{
+                                                    @include flexCentreCol;
+                                                    align-items: flex-start;
+
+                                                    .headingColumn{
+                                                        font-size: 0.8em;
+                                                        color: $darkerGrey;
+                                                    }
+
+                                                    .line{
+                                                        width: 50%;
+                                                        background: $secondaryMagenta;
+                                                    }
+                                                }
+                                            }
+
+                                            .downSectionInnerLayer{
+                                                width: 100%;
+                                            }
+                                        }
+                                    }
+                                    
+                                }
+                            }
+
+                            .uploadSectionRightWrapper{
+                                width: 60%;
+                                // margin: 0 auto;
+                                padding: 0.3em;
+                                padding-left: 2em;
+
+                                .rightWrapperInnerLayer{
+                                    @include flexCentreCol;
+                                    align-items: flex-start;
+                                    width: 100%;
+                                    .vendorFormHeading{
+                                        @include flexCentreRow;
+                                        .headingArea{
+                                            @include flexCentreCol;
+                                            align-items: flex-start;
+                                            width: 100%;
+                                            .headingClass{
+                                                font-size: 1.2em;
+                                                color: $darkerGrey;
+                                            }
+                                            .line{
+                                                background: $secondaryMagenta;
+                                                width: 40%;
                                             }
                                         }
                                     }
 
-                                    .buttonContainer{
-
-                                        .vendorDashboardBtn{
-                                            @include flexCentreRow;
-
-                                            .svgImageContainer{
-                                                margin: 0 0.5em;
-                                            }
-                                        }
-                                    }
-
-                                    .mentionedSizeContainer{
+                                    .vendorUploadFormSection{
                                         width: 100%;
+                                        height: 28em;
+                                        overflow-y: auto;
+                                        margin-top: 0.5em;
 
-                                        .addedProductSizeContainer{
-                                            .mentionedProductSizeList{
-                                                color: $darkGrey;
-                                                font-weight: 500;
-                                                font-size: 0.85em;
+                                        .vendorUploadFormInnerContainer{
+                                            @include flexCentreCol;
+                                            width: 80%;
+
+                                            .inputFormContainer{
+                                                @include flexCentreCol;
+                                                align-items: flex-start;
+                                                width: 100%;
+                                                margin: 1em 0;
+
+                                                .formParaSection{
+                                                    margin-bottom: 0.5em;
+
+                                                    .pargraphClass{
+                                                        font-size: 1em;
+                                                        color: $darkerGrey;
+                                                    }
+                                                }
+
+                                                .productDifferentCode{
+                                                    width: 45%;
+                                                    .inputCommonWrapper{
+                                                        .inputCategorySection{
+                                                            .mandatorySection{
+                                                                display: none;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+
+                                                .productSizeDescriptionOuterLayer{
+                                                    width: 100%;
+                                                    margin: 0.5em 0;
+                                                    .productSizeDescriptionInnerLayer{
+                                                        @include flexCentreRow;
+                                                        justify-content: space-between;
+                                                        padding: 1em;
+                                                        background: $lightGrey;
+                                                        .productSizeDetails{
+                                                            @include flexCentreCol;
+                                                            width: 50%;
+                                                            align-items: flex-start;
+                                                            .sizeCostCartWrap{
+                                                                @include flexCentreRow;
+                                                                justify-content: space-between;
+                                                                width: 100%;
+                                                            }
+                                                            .costCart{
+                                                                @include flexCentreRow;
+                                                                justify-content: space-between;
+                                                                width: 100%;
+                                                            }
+                                                        }
+                                                        .sizeEditingButtons{
+                                                            @include flexCentreRow;
+                                                        }
+                                                    }
+                                                }
+
+                                                .featureHolder{
+                                                    .featureWrap{
+                                                        @include flexCentreRow;
+                                                        justify-content: flex-start;
+
+                                                        ul{
+                                                            margin: 0;
+                                                            padding-left: 2em;
+                                                            padding-top: 0.1em;
+                                                            margin-right: 0.5em;
+                                                        }
+                                                    }
+
+                                                    p{
+                                                        font-size: 0.8em;
+                                                        padding-right: 0.5em;
+                                                        padding-bottom: 0.5em;
+                                                        // padding-left: 0;
+                                                    }
+                                                }
+
+                                                .featureNameColumn{
+                                                    @include flexCentreRow;
+                                                    align-items: flex-start;
+
+                                                    .inputWrap{
+                                                        @include flexCentreCol;
+                                                        margin-top: 0.5em;
+
+                                                        input{
+                                                            border: none;
+                                                            // border-bottom: 0.2em solid $black;
+                                                            background: transparent;
+                                                            color: $darkerGrey;
+                                                            outline: none;
+                                                            height: 1.5em;
+                                                            width: 100%;
+                                                            border-bottom: 0.2em solid $lightGrey;
+                                                            &:focus + .InputSeparatorLine {
+                                                                transform: scaleX(1) translateY(-2px);   
+                                                                opacity: 1;
+                                                            }
+                                                            &:hover + .InputSeparatorLine{
+                                                                transform: scaleX(1) translateY(-2px);   
+                                                                opacity: 1;
+                                                            }
+                                                        }
+                                            
+                                                        
+                                                        .InputSeparatorLine {
+                                                            height:0.2em;
+                                                            width: 100%;
+                                                            background: $darkGrey;
+                                                            display: block;
+                                                            transform: scaleX(0) translateY(-2px);
+                                                            transform-origin: 50%;
+                                                            opacity: 0;
+                                                            transition: all .15s $curve;
+                                                        }
+                
+                                                    }
+
+                                                
+                                                    .inputCategorySection{
+                                                        margin-bottom: 1em;
+                                                        margin-top: 0.5em;
+                                                    }
+
+                                                    .whiteButtonWrapper{
+                                                        margin: 0;
+                                                        margin-top: 0.5em;
+                                                        font-size: 0.75em;
+                                                        margin-left: 2em;
+                                                    }
+
+                                                    .mandatorySection{
+                                                        display: none;
+                                                    }
+                                                }
+
+                                                .colorVariantSliderContainer{
+                                                    width: 70%;
+                                                    margin-bottom: 0.5em;
+
+                                                    .productView{
+                                                        margin:0.5em 0;
+                                                        .innerViewProductLayer{
+                                                            .imageContainerMiddleLayer{
+                                                                .outerMostLayer{
+                                                                    .innerWrapperImage{
+                                                                        .productCatalogueImage{
+                                                                            .outerProductImageLayer{
+                                                                                background: transparent;
+                                                                                box-shadow: none;
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+
+                                                .buttonContainer{
+
+                                                    .vendorDashboardBtn{
+                                                        @include flexCentreRow;
+
+                                                        .svgImageContainer{
+                                                            margin: 0 0.5em;
+                                                        }
+                                                    }
+                                                }
+
+                                                .mentionedSizeContainer{
+                                                    width: 100%;
+
+                                                    .addedProductSizeContainer{
+                                                        .mentionedProductSizeList{
+                                                            color: $darkGrey;
+                                                            font-weight: 500;
+                                                            font-size: 0.85em;
+                                                        }
+                                                    }
+                                                }
+
+                                                .materialInfoColumn{
+                                                    width: 100%;
+                                                    .mandatorySection{
+                                                        display: none;
+                                                    }
+                                                }
                                             }
-                                        }
-                                    }
-
-                                    .materialInfoColumn{
-                                        width: 100%;
-                                        .mandatorySection{
-                                            display: none;
                                         }
                                     }
                                 }
                             }
                         }
+            }
+
+            .modalBackgroundMainOuterWrap{
+                width: 100%;
+                height: 100%;
+                // position: relative;
+                background: yellow;
+
+                .modalBackgroundDummyClass{
+                    width: 100%;
+                    height: 100%;
+                    background: $modalGrey;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    // margin-top: 4%;
+
+                    .modalBackgroundInnerWrap{
+                        @include flexCentreRow;
+                        width: 100%;
+                        height: 100%;
+
+                        .modalOuterWrap{
+                            @include flexCentreCol;
+                        }
                     }
                 }
             }
+
+            .blurClass{
+                filter: blur(0.3em);
+            }
+
+            .hide{
+                display: none;
+            }
         }
+
+        
     }
 
     .hide{

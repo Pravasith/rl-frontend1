@@ -258,9 +258,9 @@ class VendorProductDashboard extends React.Component {
 
             let dummyArray = [...this.state.tagsAdded]
 
-            dummyArray.map(item => item.toUpperCase())
+            dummyArray.map(item => item.toLowerCase())
 
-            if (!dummyArray.includes(temp.toUpperCase())) {
+            if (!dummyArray.includes(temp.toLowerCase())) {
                 this.state.tagsAdded.push(temp)
             }
 

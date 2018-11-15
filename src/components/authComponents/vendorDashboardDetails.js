@@ -174,7 +174,6 @@ class VendorDashboardDetails extends React.Component {
         this
             .props
             .getUserData()
-
             .then((data) => {
                 let { userData } = this.props
 
@@ -477,6 +476,24 @@ class VendorDashboardDetails extends React.Component {
             )
         }
     }
+
+    // displayProceedError = () => {
+    //     const { colorName } = this.state;
+    //     const { colorCode } = this.state;
+    //     const { sizeName } = this.state;
+    //     const { sizeCost } = this.state;
+    //     const { isProceedClicked } = this.state;
+
+    //     if (isProceedClicked && colorName === "") {
+    //         return <small> Please enter color name</small>;
+    //     } else if (isProceedClicked && colorCode === "") {
+    //         return <small>Please enter color code</small>
+    //     } else if (isProceedClicked && sizeName === "") {
+    //         return <small>Please enter size name</small>
+    //     } else if (isProceedClicked && sizeCost === "") {
+    //         return <small>Please enter size cost</small>
+    //     }
+    // }
 
     displayProceedErrorColor = () => {
         const { colorName } = this.state;
