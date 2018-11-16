@@ -1,20 +1,20 @@
 import React from "react"
 
-import "../../assets/sass/add_product_details.scss"
+import "../../../assets/sass/add_product_details.scss"
 
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 
-import { getUserData } from "../../actions/userActions"
-import { hitApi, navBarLoadingAnimationShowHide } from "../../actions/generalActions";
+import { getUserData } from "../../../actions/userActions"
+import { hitApi, navBarLoadingAnimationShowHide } from "../../../actions/generalActions";
 
-import { PlusButtonIcon, CloseButton, BigCloseButton } from "../../assets/images"
-import LogoAnimation from "../animations/logoAnimation"
-import { GradientButton, InputForm, WhiteButton } from "../UX/uxComponents"
-import HtmlSlider from "../UX/htmlSlider"
-import Navbar from "../navbar/navbar"
-import { decryptData } from "../../factories/encryptDecrypt"
-import ImageUploader from "../UX/imageUploader"
+import { PlusButtonIcon, CloseButton, BigCloseButton } from "../../../assets/images"
+import LogoAnimation from "../../animations/logoAnimation"
+import { GradientButton, InputForm, WhiteButton } from "../../UX/uxComponents"
+import HtmlSlider from "../../UX/htmlSlider"
+import Navbar from "../../navbar/navbar"
+import { decryptData } from "../../../factories/encryptDecrypt"
+import ImageUploader from "../../UX/imageUploader"
 
 class AddProductDetails extends React.Component {
 

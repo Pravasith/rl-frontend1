@@ -16,7 +16,7 @@ import Navbar from "../navbar/navbar"
 import { decryptData } from "../../factories/encryptDecrypt";
 import ImageUploader from "../UX/imageUploader";
 
-
+///// Old add products code //////
 
 class VendorDashboardDetails extends React.Component {
 

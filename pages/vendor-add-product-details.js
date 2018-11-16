@@ -1,7 +1,7 @@
 
 import {Provider} from 'react-redux'
 import store from "../src/store"
-import AddProductDetails from "../src/components/authComponents/addProductDetails";
+import AddProductDetails from "../src/components/authComponents/vendor/addProductDetails"
 
 const VendorAddProductDetails = () => (
 
