@@ -493,7 +493,7 @@ class AddProductDetails extends React.Component {
 
                                 <div className="colorCategorySection">
                                     <div className="selectedColorSection">
-                                        
+
                                     </div>
                                     <div className="colorInputFormSection">
 
@@ -915,7 +915,7 @@ class AddProductDetails extends React.Component {
                                                             runFunction={this.addFeatureName}
                                                         >
                                                             Add
-                                                    </WhiteButton>
+                                                        </WhiteButton>
                                                     </div>
                                                 </div>
 
