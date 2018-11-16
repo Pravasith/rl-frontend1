@@ -46,17 +46,18 @@ class AddProductDetails extends React.Component {
             sizeName: '',
             sizeCost: '',
 
+            productDimensions: [],
+
             isProceedClicked: false,
 
             erorrs: {}
         }
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.errors) {
-            this.setState({ errors: nextProps.errors });
-        }
-    }
+    // componentDidUpdate() {
+    //     console.log(this.state.productDimensions)
+    // }
+
 
     modalClassToggle = (showOrNot) => {
         if(showOrNot === "show")
@@ -365,6 +366,129 @@ class AddProductDetails extends React.Component {
     //     }
     // }
 
+    returnProductDimensions = () => {
+        return (
+            this
+                .state
+                .productDimensions
+                .map((item, i) => {
+                    return (
+                        <div
+                            className="productWrap"
+                            key={i}
+                            >
+                            <ul>
+                                <li>
+                                    <p key={i}>
+                                        {item.sizeName}
+                                    </p>
+                                </li>
+
+                                <li>
+                                    <p key={i}>
+                                        {item.sizeCost}
+                                    </p>
+                                </li>
+                            </ul>
+                            
+                            <div className="sizeEditingButtons">
+                                <div className="editButton">
+                                    <WhiteButton
+                                        runFunction={() => {
+                                            this.editProductDimensions(i)
+                                            this.modalClassToggle("show")
+                                        }}
+                                    >
+                                        Edit
+                                    </WhiteButton>
+                                </div>
+                                <div 
+                                    className="deleteButton"
+                                    onClick={() => this.removeProductDimensions(i)}
+                                >
+                                    <WhiteButton>
+                                        Delete
+                                    </WhiteButton>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                })
+        )
+    }
+
+    editProductDimensions = (index) => {
+        console.log(this.state.productDimensions[index]);
+        return (
+            <div className={this.state.modalSize}>
+                <div className="dummyXClass">
+                    < div className="whiteSquareForModal">
+                        <div className="vendorDashboardModal">
+                            <div className="modalHeader">
+                                <h3>Size details</h3>
+                                <div className="line"></div>
+                            </div>
+                        </div>
+
+                        <div className="inputFormContainer">
+                            <div className="formParaSection">
+                                <p className="pargraphClass">Size name</p>
+                            </div>
+                            <div className="productSizeName">
+                                <p className="madatoryHighlight">Mandatory</p>
+                                <input
+                                    type="text"
+                                    name="sizeName"
+                                    placeholder={this.state.productDimensions[index].sizeName}
+                                    onChange={this.onChange}
+                                    ref="sizeName"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="inputFormContainer">
+                            <div className="formParaSection">
+                                <p className="pargraphClass">Extra cost for size(over base price)</p>
+                            </div>
+                            <div className="productCostForSize">
+                                <p className="madatoryHighlight">Mandatory</p>
+                                <input
+                                    type="text"
+                                    name="sizeCost"
+                                    placeholder={this.state.productDimensions[index].sizeCost}
+                                    onChange={this.onChange}
+                                    ref="sizeCost"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="proceedOrNotCheck">
+                            <GradientButton
+                                runFunction={() => this.proceedHandler("size")}>
+                                Proceed
+                                    </GradientButton>
+
+                            {this.displayError("size")}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
+    removeProductDimensions = (index) => {
+        this
+            .state
+            .productDimensions
+            .splice(index, 1)
+
+        this.setState({
+            productDimensions: this.state.productDimensions.length !== 0 ? this.state.productDimensions : []
+        })
+
+    }
+
+
     displayError = (modalType) => {
         if (modalType === "color") {
             if(this.state.colorIsValid === false){
@@ -397,6 +521,10 @@ class AddProductDetails extends React.Component {
         const validateColorModal = (colorName, colorCode) => {
             if(colorName !== "" && colorCode !== ""){
                 isColorValid = true
+            } 
+            
+            else if (colorName === "" && colorCode === "") {
+                emptyField = "colorName"
             }
 
             else {
@@ -483,13 +611,27 @@ class AddProductDetails extends React.Component {
 
             let validatedData = validateSizeModal(sizeName, sizeCost);
 
-            console.log(validatedData)
-
             if (validatedData.isSizeValid) {
+                let temp = {
+                    sizeName: this.state.sizeName,
+                    sizeCost: this.state.sizeCost
+                }
+
+                if(temp !== "") {
+                    let dummyArray = [...this.state.productDimensions]
+
+                    // dummyArray.map(item => item.toLowerCase())
+
+                    if(!dummyArray.includes(temp)){
+                        this.state.productDimensions.push(temp)
+                    }
+                }
                     this.setState({
                         sizeIsValid: true,
                         emptyFieldInSize: null,
-                        modalType: null
+                        modalType: null,
+                        productDimensions: this.state.productDimensions.length !== 0 ? 
+                                                        this.state.productDimensions : null
                     })
 
                 this.refs.sizeCost.value = ""
@@ -627,7 +769,7 @@ class AddProductDetails extends React.Component {
                                             <input
                                                 type="text"
                                                 name="colorCode"
-                                                placeholder="Ex. Orange"
+                                                placeholder="Ex. #29abe2"
                                                 // value={this.state.colorCode}
                                                 onChange={this.onChange}
                                                 ref = "colorCode"
@@ -760,9 +902,6 @@ class AddProductDetails extends React.Component {
                                 </div>
                             </header>
                             <footer>
-                                {/* <GradientButton>
-                                    Proceed
-                                </GradientButton> */}
                             </footer>
                         </div>
                     </div>
@@ -1096,7 +1235,10 @@ class AddProductDetails extends React.Component {
                                                                 <PlusButtonIcon />
                                                             </div>
                                                             Add new size
-                                                    </WhiteButton>
+                                                        </WhiteButton>
+                                                        <div className="prodDimensionHolder" >
+                                                            {this.returnProductDimensions()}
+                                                        </div>
                                                     </div>
                                                 </div>
 
