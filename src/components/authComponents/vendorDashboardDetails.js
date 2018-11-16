@@ -29,14 +29,14 @@ class VendorDashboardDetails extends React.Component {
             redirect: false,
 
             modalCondition: "whiteBackgroundForModal hide",
-            modalSize: "whiteBackgroundForModal hide",
-            modalColor: "whiteBackgroundForModal hide",
 
             materialsAdded: [],
             materialName: "",
 
             tempArr: [],
             dummyDataStructure: [],
+
+            activeModal: '',
 
             colorName: '',
             colorCode: '',
@@ -200,11 +200,11 @@ class VendorDashboardDetails extends React.Component {
                 else
                     console.error(err)
             })
-
+        console.log(this.state.activeModal);
     }
 
     componentDidUpdate() {
-        console.log(this.state.dummyDataStructure);
+        console.log(this.state.activeModal);
     }
 
     returnNavBarData = () => {
@@ -313,7 +313,7 @@ class VendorDashboardDetails extends React.Component {
         if(this.state.activeModal === "color"){
             return (
 
-                <div className={this.state.modalColor}>
+                <div className={this.state.modalCondition}>
                     <div className="dummyXClass">
                         < div className="whiteSquareForModal">
                             <div className="vendorDashboardModal">
@@ -324,7 +324,7 @@ class VendorDashboardDetails extends React.Component {
                                 <div
                                     className="deleteButton"
                                     onClick={() => this.setState({
-                                        modalColor: "whiteBackgroundForModal hide"
+                                        modalCondition: "whiteBackgroundForModal hide"
                                     })}
                                 >
                                     <div className="deleteButtonSvgSection">
@@ -389,7 +389,7 @@ class VendorDashboardDetails extends React.Component {
 
         else if (this.state.activeModal === "size") {
             return(
-                <div className={this.state.modalSize}>
+                <div className={this.state.modalCondition}>
                     <div className="dummyXClass">
                         < div className="whiteSquareForModal">
                             <div className="vendorDashboardModal">
@@ -400,7 +400,7 @@ class VendorDashboardDetails extends React.Component {
                                 <div
                                     className="deleteButton"
                                     onClick={() => this.setState({
-                                        modalSize: "whiteBackgroundForModal hide"
+                                        modalCondition: "whiteBackgroundForModal hide"
                                     })}
                                 >
                                     <div className="deleteButtonSvgSection">
@@ -538,7 +538,7 @@ class VendorDashboardDetails extends React.Component {
             this.state.dummyDataStructure.push(colorDetails);
 
             this.setState({
-                modalColor: "whiteBackgroundForModal hide",
+                modalCondition: "whiteBackgroundForModal hide",
                 colorName: '',
                 colorCode: '',
             })
@@ -554,7 +554,7 @@ class VendorDashboardDetails extends React.Component {
             this.state.dummyDataStructure.push(sizeDetails);
 
             this.setState({
-                modalSize: "whiteBackgroundForModal hide",
+                modalCondition: "whiteBackgroundForModal hide",
                 sizeName: '',
                 sizeCost: '',
                 activeModal: "size",
@@ -835,7 +835,8 @@ class VendorDashboardDetails extends React.Component {
                                                         runFunction={() =>
                                                             // console.log('hit')
                                                             this.setState({
-                                                                modalColor: "whiteBackgroundForModal"
+                                                                activeModal: "color",
+                                                                modalCondition: "whiteBackgroundForModal"
                                                             })
                                                         }
                                                     >
@@ -920,7 +921,8 @@ class VendorDashboardDetails extends React.Component {
                                                         runFunction={() =>
                                                             // console.log('hit')
                                                             this.setState({
-                                                                modalSize: "whiteBackgroundForModal"
+                                                                activeModal: "size",
+                                                                modalCondition: "whiteBackgroundForModal"
                                                             })
                                                         }
                                                     >
