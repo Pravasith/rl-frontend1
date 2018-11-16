@@ -429,7 +429,7 @@
 
                                                 .buttonContainer{
 
-                                                    .vendorDashboardBtn{
+                                                    .whiteButtonWrapper{
                                                         @include flexCentreRow;
 
                                                         .svgImageContainer{
@@ -489,8 +489,9 @@
                             align-items: flex-start;
                             background: $white;
                             padding: 0.8em;
+                            @include box_shadow;
                             .modalContentWrap{
-                                .modalContentClass,.modalFinishClass{
+                                .modalContentClass,.modalFinishClass,.modalSizeClass{
                                     .dummyXClass{
                                         .whiteSquareForModal{
                                             .vendorDashboardModal{
@@ -511,18 +512,43 @@
                                                         background: $secondaryMagenta;
                                                         width: 35%;
                                                     }
+                                                    
                                                 }
                                             }
-                                            .inputFormContainer{
+                                            .colorCategorySection{
+                                                @include flexCentreRow;
+                                                align-items: flex-start;
+                                                .selectedColorSection{
+                                                    width: 3em;
+                                                    height: 3em;
+                                                    background: $lightGrey;
+                                                    margin:1em 0.8em 0 0.8em;
+                                                }
+                                                .colorInputFormSection{
+                                                    @include flexCentreCol;
+                                                    align-items: flex-start;
+                                                    margin-left: 0.3em;                                                    
+                                                }
+                                            }
+                                            .inputFormContainer,.colorInputFormSection{
                                                 @include flexCentreCol;
                                                 align-items: flex-start;
                                                 margin: 0.5em 0 1em 0;
                                                 .finishInputParaContainer{
-                                                    @include flexCentreRow;
+                                                    @include flexCentreCol;
                                                     text-align: center;
                                                     width: 100%;
                                                     .pargraphClass{
                                                         width: 50%;
+                                                    }
+                                                    .exampleUploadedImgThumbnail{
+                                                        width: 10%;
+                                                        margin-top: 0.5em;
+                                                        img{
+                                                            width: 3em;
+                                                            height: 3em;
+                                                            object-fit: cover;
+                                                        }
                                                     }
                                                 }
                                                 .formParaSection{
@@ -532,7 +558,13 @@
                                                         font-size: 0.8em;
                                                     }
                                                 }
-                                                .productColorInfoSection{
+                                                .productCostForSize{
+                                                    width: 100%;
+                                                    .modalInputCategory{
+                                                        width: 100%;
+                                                    }
+                                                }
+                                                .productInputInfoSection{
                                                     @include flexCentreRow;
                                                     .modalMandatorySection{
                                                         background: $secondaryMagenta;
@@ -588,8 +620,15 @@
                                                     }
                                                 }
                                             }
-                                            .uploadedImgThumbnail{
-
+                                            .imageUploaderContainer{
+                                                @include flexCentreRow;
+                                                width: 100%;
+                                                margin-bottom: 1em;
+                                                .imageUploaderInnerLayer{
+                                                    @include flexCentreRow;
+                                                    width: 50%;
+                                                }
+                                                
                                             }
                                             .proceedOrNotCheck{
                                                 @include flexCentreRow;
