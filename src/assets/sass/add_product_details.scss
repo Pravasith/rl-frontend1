@@ -490,25 +490,120 @@
                             background: $white;
                             padding: 0.8em;
                             .modalContentWrap{
-                                .modalContentClass{
+                                .modalContentClass,.modalFinishClass{
                                     .dummyXClass{
                                         .whiteSquareForModal{
                                             .vendorDashboardModal{
+                                                @include flexCentreCol;
                                                 .modalHeader{
                                                     @include flexCentreCol;
                                                     text-align: center;
                                                     .line{
                                                         background: $secondaryMagenta;
-                                                        width: 20%;
+                                                        width: 30%;
                                                     }
                                                 }
+                                                .finsihModalHeader{
+                                                    @include flexCentreCol;
+                                                    text-align: center;
+                                                    width: 50%;
+                                                    .line{
+                                                        background: $secondaryMagenta;
+                                                        width: 35%;
+                                                    }
+                                                }
+                                            }
+                                            .inputFormContainer{
+                                                @include flexCentreCol;
+                                                align-items: flex-start;
+                                                margin: 0.5em 0 1em 0;
+                                                .finishInputParaContainer{
+                                                    @include flexCentreRow;
+                                                    text-align: center;
+                                                    width: 100%;
+                                                    .pargraphClass{
+                                                        width: 50%;
+                                                    }
+                                                }
+                                                .formParaSection{
+                                                    margin-bottom: 0.3em;
+                                                    .pargraphClass{
+                                                        // color: green;
+                                                        font-size: 0.8em;
+                                                    }
+                                                }
+                                                .productColorInfoSection{
+                                                    @include flexCentreRow;
+                                                    .modalMandatorySection{
+                                                        background: $secondaryMagenta;
+                                                        padding: 0.2em;
+                                                        .madatoryHighlight{
+                                                            color: $white;
+                                                        }
+                                                    }
+                                                    .modalInputCategory{
+                                                        margin-left: 1em;
+                                                        input{
+                                                            border: none;
+                                                            // border-bottom: 0.2em solid $black;
+                                                            background: transparent;
+                                                            color: $darkerGrey;
+                                                            outline: none;
+                                                            height: 1.5em;
+                                                            width: 100%;
+                                                            border-bottom: 0.2em solid $lightGrey;
+                                                            &:focus + .InputSeparatorLine {
+                                                                transform: scaleX(1) translateY(-2px);   
+                                                                  opacity: 1;
+                                                               }
+                                                               &:hover + .InputSeparatorLine{
+                                                                transform: scaleX(1) translateY(-2px);   
+                                                                opacity: 1;
+                                                               }
+                                                        }
+                                                        .InputSeparatorLine {
+                                                            height:0.2em;
+                                                            width: 100%;
+                                                            background: $darkGrey;
+                                                            display: block;
+                                                            transform: scaleX(0) translateY(-2px);
+                                                            transform-origin: 50%;
+                                                            opacity: 0;
+                                                            transition: all .15s $curve;
+                                                        }
+                                                        
+                                                        
+                                                        * :focus {
+                                                            outline-color: transparent;
+                                                            outline-style: none;
+                                                        }
+                                                    }
+                                                    
+                                                }
+                                                .colorLinkSection{
+                                                    margin-top: 0.3em;
+                                                    width: 89%;
+                                                    a{
+                                                        color: $primaryMagenta;
+                                                    }
+                                                }
+                                            }
+                                            .uploadedImgThumbnail{
+
+                                            }
+                                            .proceedOrNotCheck{
+                                                @include flexCentreRow;
+                                                width: 100%;
+
                                             }
                                         }
                                     }
                                 }
                             }
                             .closeHeaderSection{
-
+                                .closeButtonContainer{
+                                    cursor: pointer;
+                                }
                             }
                         }
                     }
