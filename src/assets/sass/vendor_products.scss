@@ -445,6 +445,20 @@
             }
         }
 
+        .contentWrapper{
+            .mainContentWrap{
+                @include flexCentreCol;
+                .gradientButtonWrapper{
+
+                }
+                .vendorGraphicCenter{
+                    .svgImageContainer{
+                        @include flexCentreRow;
+                    }
+                }
+            }
+        }
+
         .footerWrapper{
             position: fixed;
             bottom: 0;
@@ -452,6 +466,10 @@
         }
 
         
+    }
+
+    .hide{
+        display: none;
     }
 }
 

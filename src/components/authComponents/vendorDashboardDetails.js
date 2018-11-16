@@ -8,7 +8,7 @@ import { bindActionCreators } from "redux"
 import { getUserData } from "../../actions/userActions"
 import { hitApi, navBarLoadingAnimationShowHide } from "../../actions/generalActions";
 
-import { PlusButtonIcon, CloseButton } from "../../assets/images"
+import { PlusButtonIcon, CloseButton, BigCloseButton } from "../../assets/images"
 import LogoAnimation from "../animations/logoAnimation"
 import { GradientButton,InputForm, WhiteButton } from "../UX/uxComponents"
 import HtmlSlider from "../UX/htmlSlider"
@@ -16,7 +16,7 @@ import Navbar from "../navbar/navbar"
 import { decryptData } from "../../factories/encryptDecrypt";
 import ImageUploader from "../UX/imageUploader";
 
-
+///// Old add products code //////
 
 class VendorDashboardDetails extends React.Component {
 
@@ -28,8 +28,22 @@ class VendorDashboardDetails extends React.Component {
             mainClass: 'mainClass hide',
             redirect: false,
 
+            modalCondition: "whiteBackgroundForModal hide",
+            modalSize: "whiteBackgroundForModal hide",
+            modalColor: "whiteBackgroundForModal hide",
+
             materialsAdded: [],
-            materialName: ""
+            materialName: "",
+
+            tempArr: [],
+            dummyDataStructure: [],
+
+            colorName: '',
+            colorCode: '',
+            sizeName: '',
+            sizeCost: '',
+
+            isProceedClicked: false
         }
 
     }
@@ -189,6 +203,9 @@ class VendorDashboardDetails extends React.Component {
 
     }
 
+    componentDidUpdate() {
+        console.log(this.state.dummyDataStructure);
+    }
 
     returnNavBarData = () => {
         if (this.props.userData.responseData) {
@@ -290,7 +307,272 @@ class VendorDashboardDetails extends React.Component {
         console.log(data)
     }
 
+    
+
+    returnModal = () => {
+        if(this.state.activeModal === "color"){
+            return (
+
+                <div className={this.state.modalColor}>
+                    <div className="dummyXClass">
+                        < div className="whiteSquareForModal">
+                            <div className="vendorDashboardModal">
+                                <div className="modalHeader">
+                                    <h3>Enter a color code</h3>
+                                    <div className="line"></div>
+                                </div>
+                                <div
+                                    className="deleteButton"
+                                    onClick={() => this.setState({
+                                        modalColor: "whiteBackgroundForModal hide"
+                                    })}
+                                >
+                                    <div className="deleteButtonSvgSection">
+                                        <BigCloseButton />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="inputFormContainer">
+                                <div className="formParaSection">
+                                    <p className="pargraphClass">Name of the color</p>
+                                </div>
+                                <div className="productColorName">
+                                    <InputForm
+                                        refName="colorName"
+                                        placeholder="Ex. Orange"
+                                        isMandatory={true}
+                                        validationType="alphabetsSpecialCharactersAndNumbers"
+                                        characterCount="6"
+                                        result={(val) => this.setState({
+                                            colorName: val
+                                        })}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="inputFormContainer">
+                                <div className="formParaSection">
+                                    <p className="pargraphClass">Color code (hex)</p>
+                                </div>
+                                <div className="productColorCode">
+                                    <InputForm
+                                        refName="colorCode"
+                                        placeholder="Ex. #29abe2"
+                                        isMandatory={true}
+                                        validationType="alphabetsSpecialCharactersAndNumbers"
+                                        characterCount="6"
+                                        result={(val) => this.setState({
+                                            colorCode: val
+                                        })}
+                                    />
+                                    <p>You can get the hexcode of the desired color <a href="https://www.google.com/">here</a></p>
+                                </div>
+                            </div>
+
+                            <div className="proceedOrNotCheck">
+                                <GradientButton
+                                    runFunction={() => {
+                                        this.proceedHandler()
+                                        }}>
+                                    Proceed
+                                </GradientButton>
+
+                                {this.displayProceedErrorColor()}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            )
+        }
+
+        else if (this.state.activeModal === "size") {
+            return(
+                <div className={this.state.modalSize}>
+                    <div className="dummyXClass">
+                        < div className="whiteSquareForModal">
+                            <div className="vendorDashboardModal">
+                                <div className="modalHeader">
+                                    <h3>Size details</h3>
+                                    <div className="line"></div>
+                                </div>
+                                <div
+                                    className="deleteButton"
+                                    onClick={() => this.setState({
+                                        modalSize: "whiteBackgroundForModal hide"
+                                    })}
+                                >
+                                    <div className="deleteButtonSvgSection">
+                                        <BigCloseButton />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="inputFormContainer">
+                                <div className="formParaSection">
+                                    <p className="pargraphClass">Size name</p>
+                                </div>
+                                <div className="productSizeName">
+                                    <InputForm
+                                        refName="sizeName"
+                                        placeholder="Ex. Small-2ft x 2ft"
+                                        isMandatory={true}
+                                        validationType="alphabetsSpecialCharactersAndNumbers"
+                                        characterCount="30"
+                                        result={(val) => this.setState({
+                                            sizeName: val
+                                        })}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="inputFormContainer">
+                                <div className="formParaSection">
+                                    <p className="pargraphClass">Extra cost for size(over base price)</p>
+                                </div>
+                                <div className="productCostForSize">
+                                    <InputForm
+                                        refName="sizeCost"
+                                        placeholder="Ex. 20"
+                                        isMandatory={true}
+                                        validationType="onlyNumbers"
+                                        characterCount="5"
+                                        result={(val) => this.setState({
+                                            sizeCost: val
+                                        })}
+                                    />
+                                </div>
+                            </div>
+
+                            {/* <div className="inputFormContainer">
+                            <div className="formParaSection">
+                                <p className="pargraphClass">Extra cost for size(over base price)</p>
+                            </div>
+                            <div className="productCostForSize">
+                                <InputForm
+                                    refName="sizeCost"
+                                    placeholder="Ex. 20"
+                                    isMandatory={true}
+                                    validationType="onlyNumbers"
+                                    characterCount="5"
+                                    result={(val) => console.log(val)}
+                                />
+                            </div>
+                        </div> */}
+
+                            <div className="proceedOrNotCheck">
+                                <GradientButton
+                                    runFunction={() => this.proceedHandler()}>
+                                    Proceed
+                            </GradientButton>
+
+                                {this.displayProceedErrorSize()}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            )
+        }
+    }
+
+    // displayProceedError = () => {
+    //     const { colorName } = this.state;
+    //     const { colorCode } = this.state;
+    //     const { sizeName } = this.state;
+    //     const { sizeCost } = this.state;
+    //     const { isProceedClicked } = this.state;
+
+    //     if (isProceedClicked && colorName === "") {
+    //         return <small> Please enter color name</small>;
+    //     } else if (isProceedClicked && colorCode === "") {
+    //         return <small>Please enter color code</small>
+    //     } else if (isProceedClicked && sizeName === "") {
+    //         return <small>Please enter size name</small>
+    //     } else if (isProceedClicked && sizeCost === "") {
+    //         return <small>Please enter size cost</small>
+    //     }
+    // }
+
+    displayProceedErrorColor = () => {
+        const { colorName } = this.state;
+        const { colorCode } = this.state;
+        const { isProceedClicked } = this.state;
+
+        if (isProceedClicked && colorName ==="") {
+            return <small> Please enter color name</small>;
+        } else if (isProceedClicked && colorCode ==="") {
+            return <small>Please enter color code</small>
+        } 
+    }
+
+    displayProceedErrorSize = () => {
+        const { sizeName } = this.state;
+        const { sizeCost } = this.state;
+        const { isProceedClicked } = this.state;
+
+        if (isProceedClicked && sizeName === "") {
+            return <small>Please enter size name</small>
+        } else if (isProceedClicked && sizeCost === "") {
+            return <small>Please enter size cost</small>
+        }
+    }
+
+    proceedHandler = () => {
+        const { colorName } = this.state;
+        const { colorCode } = this.state;
+        const { sizeName } = this.state;
+        const { sizeCost } = this.state;
+
+        console.log(colorName, colorCode, sizeName, sizeCost);
+
+        if (colorName.length !== 0 && colorCode.length !== 0) {
+            console.log("heyy")
+
+            let colorDetails = {
+                colorName,
+                colorCode
+            }
+
+            this.state.dummyDataStructure.push(colorDetails);
+
+            this.setState({
+                modalColor: "whiteBackgroundForModal hide",
+                colorName: '',
+                colorCode: '',
+            })
+        } 
+        
+        else if (sizeName.length !== 0 && sizeCost.length !== 0) {
+
+            let sizeDetails = {
+                sizeName,
+                sizeCost
+            }
+
+            this.state.dummyDataStructure.push(sizeDetails);
+
+            this.setState({
+                modalSize: "whiteBackgroundForModal hide",
+                sizeName: '',
+                sizeCost: '',
+                activeModal: "size",
+            })
+        }
+
+        else {
+            this.setState({
+                isProceedClicked: true
+            })
+        }
+    }
+
     render() {
+        // const colorModal = ();
+
+        // const sizeModal = ();
+
         return (
             <div className="vendorDashboardWrapper">
 
@@ -322,7 +604,7 @@ class VendorDashboardDetails extends React.Component {
                                                     <div className="imageUploadComponent">
                                                         <header className="vendorImageUploadHeaderComponent">
                                                             <div className="headingArea">
-                                                                <h3 class="headingClass">Product image</h3>
+                                                                <h3 className="headingClass">Product image</h3>
                                                                 <div className="line"></div>
                                                             </div>
                                                         </header>
@@ -549,14 +831,37 @@ class VendorDashboardDetails extends React.Component {
                                                 </div>
 
                                                 <div className="buttonContainer">
-                                                    <div className="mediumBtn vendorDashboardBtn">
+                                                    <WhiteButton
+                                                        runFunction={() =>
+                                                            // console.log('hit')
+                                                            this.setState({
+                                                                modalColor: "whiteBackgroundForModal"
+                                                            })
+                                                        }
+                                                    >
                                                         <div className="svgImageContainer">
                                                             <PlusButtonIcon />
                                                         </div>
-                                                            Add new color
-                                                        </div>
+                                                        Add new color
+                                                    </WhiteButton>
                                                 </div>
                                             </div>
+
+
+                                            {/* <div className="addProductButton">
+                                                <GradientButton
+
+                                                    runFunction={() => this.setState({
+                                                        vendorGraphicClass: "initialVendorGraphic hide",
+                                                        modalCondition: "whiteBackgroundForModal",
+                                                    })}
+                                                >
+                                                    <div className="svgImageContainer">
+                                                        <PlusButtonIconWhite />
+                                                    </div>
+                                                    Add new category
+                                                </GradientButton>
+                                            </div> */}
 
                                             {/* <div className="inputFormContainer">
                                                 <div className="formParaSection">
@@ -611,12 +916,19 @@ class VendorDashboardDetails extends React.Component {
                                                     </div>
                                                 </div>
                                                 <div className="buttonContainer">
-                                                    <div className="mediumBtn vendorDashboardBtn">
+                                                    <WhiteButton
+                                                        runFunction={() =>
+                                                            // console.log('hit')
+                                                            this.setState({
+                                                                modalSize: "whiteBackgroundForModal"
+                                                            })
+                                                        }
+                                                    >
                                                         <div className="svgImageContainer">
                                                             <PlusButtonIcon />
                                                         </div>
                                                         Add new size
-                                                    </div>
+                                                    </WhiteButton>
                                                 </div>
                                             </div>
 
@@ -716,7 +1028,11 @@ class VendorDashboardDetails extends React.Component {
                                                     </GradientButton>
                                                 </div>
                                             </div>
-
+                                            {
+                                                this.returnModal()
+                                            }
+                                            {/* {colorModal}
+                                            {sizeModal} */}
                                         </div>
                                     </section>
                                 </article>
