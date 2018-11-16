@@ -603,6 +603,21 @@ export const SmallCloseButton = () => {
         
 }
 
+export const SmallModalCloseButton = () => {
+
+    return (
+        <svg id="smallCloseButton" xmlns="http://www.w3.org/2000/svg" width="28.333" height="15"
+        viewBox="0 0 24.333 24.333">
+            <g fill="none" stroke="#212529" strokeWidth="2" strokeLinecap="round"
+            strokeLinejoin="round" strokeMiterlimit="10">
+                <line x1="22.764" y1="1.798" x2="1.568" y2="23" />
+                <line x1="22.764" y1="23" x2="1.568" y2="1.798" />
+            </g>
+        </svg>
+    )
+        
+}
+
 
 
 export const VendorGraphic = () => {

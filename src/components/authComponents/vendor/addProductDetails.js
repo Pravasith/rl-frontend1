@@ -8,7 +8,7 @@ import { bindActionCreators } from "redux"
 import { getUserData } from "../../../actions/userActions"
 import { hitApi, navBarLoadingAnimationShowHide } from "../../../actions/generalActions";
 
-import { PlusButtonIcon, CloseButton, BigCloseButton } from "../../../assets/images"
+import { PlusButtonIcon, CloseButton, BigCloseButton,SmallCloseButton,SmallModalCloseButton } from "../../../assets/images"
 import LogoAnimation from "../../animations/logoAnimation"
 import { GradientButton, InputForm, WhiteButton } from "../../UX/uxComponents"
 import HtmlSlider from "../../UX/htmlSlider"
@@ -33,6 +33,8 @@ class AddProductDetails extends React.Component {
             // dynamincally toggle classes to flip styles //
             vendorDashboardOuterClass: "vendorDashboardOuterLayer",
             modalClassToggle: "modalBackgroundMainOuterWrap hide",
+            modalColor: "modalContentClass",
+            modalFinish: "modalFinishClass",
             // dynamincally toggle classes to flip styles //
 
             modalType : null,
@@ -518,7 +520,7 @@ class AddProductDetails extends React.Component {
                 <div className={this.state.modalFinish}>
                     <div className="dummyXClass">
                         <div className="whiteSquareForModal">
-                            <div className="closeUpImg">
+                            {/* <div className="closeUpImg">
                                 <h3>Add a close-up image thumbnail for this finish</h3>
                                 <div className="line"></div>
                                 <p>Example: The image thumbnail for Pinewood finish looks like this</p>
@@ -526,6 +528,21 @@ class AddProductDetails extends React.Component {
                                     <img className="uploadedImage" src="" alt="" />
                                     <ImageUploader />
                                 </div>
+                            </div> */}
+                            <div className="vendorDashboardModal">
+                                <div className="modalHeader finsihModalHeader">
+                                    <h3>Add a close-up image thumbnail for this finish</h3>
+                                    <div className="line"></div>
+                                </div>
+                            </div>
+                            <div className="inputFormContainer">
+                                <div className="formParaSection finishInputParaContainer">
+                                    <p className="pargraphClass">Example: The image thumbnail for Pinewood finish looks like this</p>
+                                </div>
+                            </div>
+                            <div className="uploadedImgThumbnail">
+                                <img className="uploadedImage" src="" alt="" />
+                                <ImageUploader />
                             </div>
                         </div>
                         <div className="whiteSquareForModal">
@@ -547,7 +564,7 @@ class AddProductDetails extends React.Component {
                 return (
                     <div className={this.state.modalColor}>
                         <div className="dummyXClass">
-                            < div className="whiteSquareForModal">
+                            <div className="whiteSquareForModal">
                                 <div className="vendorDashboardModal">
                                     <div className="modalHeader">
                                         <h3>Enter a color code</h3>
@@ -559,7 +576,7 @@ class AddProductDetails extends React.Component {
                                     <div className="formParaSection">
                                         <p className="pargraphClass">Name of the color</p>
                                     </div>
-                                    <div className="productColorName">
+                                    <div className="productColorInfoSection">
                                         {/* <InputForm
                                             refName="colorName"
                                             placeholder="Ex. Orange"
@@ -571,7 +588,10 @@ class AddProductDetails extends React.Component {
                                                 colorName: val
                                             })}
                                         /> */}
-                                        <p className="madatoryHighlight">Mandatory</p>
+                                        <div className="modalMandatorySection">
+                                            <p className="madatoryHighlight">Mandatory</p>
+                                        </div>
+                                        <div className="modalInputCategory">
                                             <input 
                                                 type="text"
                                                 name="colorName"
@@ -580,6 +600,8 @@ class AddProductDetails extends React.Component {
                                                 onChange= {this.onChange}
                                                 ref = "colorName"
                                             />
+                                            <span className="InputSeparatorLine"> </span>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -587,7 +609,7 @@ class AddProductDetails extends React.Component {
                                     <div className="formParaSection">
                                         <p className="pargraphClass">Color code (hex)</p>
                                     </div>
-                                    <div className="productColorCode">
+                                    <div className="productColorInfoSection">
                                         {/* <InputForm
                                             refName="colorCode"
                                             placeholder="Ex. #29abe2"
@@ -598,7 +620,10 @@ class AddProductDetails extends React.Component {
                                                 colorCode: val
                                             })}
                                         /> */}
-                                        <p className="madatoryHighlight">Mandatory</p>
+                                        <div className="modalMandatorySection">
+                                            <p className="madatoryHighlight">Mandatory</p>
+                                        </div>
+                                        <div className="modalInputCategory">
                                             <input
                                                 type="text"
                                                 name="colorCode"
@@ -607,9 +632,13 @@ class AddProductDetails extends React.Component {
                                                 onChange={this.onChange}
                                                 ref = "colorCode"
                                             />
-                                        <p>You can get the hexcode of the desired color 
-                                            <a href="https://www.google.com/">here</a>
-                                        </p>
+                                            <span className="InputSeparatorLine"> </span>
+                                        </div>
+                                        
+                                    </div>
+                                    <div className="colorLinkSection">
+                                            <p>You can get the hexcode of the desired color 
+                                            <a href="https://www.google.com/"> here</a></p>
                                     </div>
                                 </div>
 
@@ -717,18 +746,19 @@ class AddProductDetails extends React.Component {
                 <div className="modalBackgroundDummyClass">
                     <div className="modalBackgroundInnerWrap">
                         <div className="modalOuterWrap">
-                            <header>
-                                <p
+                            
+                            <article className="modalContentWrap">
+                                {returnModalContent()}
+                            </article>
+                            <header className="closeHeaderSection">
+                                <div className="closeButtonContainer"
                                     onClick = {() => {
                                         this.modalClassToggle("dontShow")
                                     }}
                                     >
-                                    Close
-                                </p>
+                                        <SmallModalCloseButton/>
+                                </div>
                             </header>
-                            <article>
-                                {returnModalContent()}
-                            </article>
                             <footer>
                                 {/* <GradientButton>
                                     Proceed
