@@ -485,7 +485,31 @@
                         height: 100%;
 
                         .modalOuterWrap{
-                            @include flexCentreCol;
+                            @include flexCentreRow;
+                            align-items: flex-start;
+                            background: $white;
+                            padding: 0.8em;
+                            .modalContentWrap{
+                                .modalContentClass{
+                                    .dummyXClass{
+                                        .whiteSquareForModal{
+                                            .vendorDashboardModal{
+                                                .modalHeader{
+                                                    @include flexCentreCol;
+                                                    text-align: center;
+                                                    .line{
+                                                        background: $secondaryMagenta;
+                                                        width: 20%;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            .closeHeaderSection{
+
+                            }
                         }
                     }
                 }

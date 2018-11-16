@@ -8,7 +8,7 @@ import { bindActionCreators } from "redux"
 import { getUserData } from "../../../actions/userActions"
 import { hitApi, navBarLoadingAnimationShowHide } from "../../../actions/generalActions";
 
-import { PlusButtonIcon, CloseButton, BigCloseButton } from "../../../assets/images"
+import { PlusButtonIcon, CloseButton, BigCloseButton,SmallCloseButton,SmallModalCloseButton } from "../../../assets/images"
 import LogoAnimation from "../../animations/logoAnimation"
 import { GradientButton, InputForm, WhiteButton } from "../../UX/uxComponents"
 import HtmlSlider from "../../UX/htmlSlider"
@@ -33,6 +33,7 @@ class AddProductDetails extends React.Component {
             // dynamincally toggle classes to flip styles //
             vendorDashboardOuterClass: "vendorDashboardOuterLayer",
             modalClassToggle: "modalBackgroundMainOuterWrap hide",
+            modalColor: "modalContentClass",
             // dynamincally toggle classes to flip styles //
 
             modalType : null,
@@ -426,7 +427,7 @@ class AddProductDetails extends React.Component {
                 return (
                     <div className={this.state.modalColor}>
                         <div className="dummyXClass">
-                            < div className="whiteSquareForModal">
+                            <div className="whiteSquareForModal">
                                 <div className="vendorDashboardModal">
                                     <div className="modalHeader">
                                         <h3>Enter a color code</h3>
@@ -560,18 +561,19 @@ class AddProductDetails extends React.Component {
                 <div className="modalBackgroundDummyClass">
                     <div className="modalBackgroundInnerWrap">
                         <div className="modalOuterWrap">
-                            <header>
-                                <p
+                            
+                            <article className="modalContentWrap">
+                                {returnModalContent()}
+                            </article>
+                            <header className="closeHeaderSection">
+                                <div className="closeButtonContainer"
                                     onClick = {() => {
                                         this.modalClassToggle("dontShow")
                                     }}
                                     >
-                                    Close
-                                </p>
+                                        <SmallModalCloseButton/>
+                                </div>
                             </header>
-                            <article>
-                                {returnModalContent()}
-                            </article>
                             <footer>
                                 {/* <GradientButton>
                                     Proceed
