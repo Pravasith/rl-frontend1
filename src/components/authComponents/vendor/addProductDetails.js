@@ -227,6 +227,11 @@ class AddProductDetails extends React.Component {
             })
     }
 
+    componentDidUpdate() {
+        console.log(this.state.colorName);
+        console.log(this.state.colorCode)
+    }
+
     returnNavBarData = () => {
         if (this.props.userData.responseData) {
             //
@@ -415,12 +420,42 @@ class AddProductDetails extends React.Component {
             }
         }
 
+    onChange = (e) => {
+        this.setState({ [e.target.name]: e.target.value });
+    }
+
     returnModal = () => {
         const { modalType } = this.state;
 
         const returnModalContent = () => {
             if(modalType === "finish") {
-                <p>finish</p>       
+                return (
+                <div className={this.state.modalFinish}>
+                    <div className="dummyXClass">
+                        <div className="whiteSquareForModal">
+                            <div className="closeUpImg">
+                                <h3>Add a close-up image thumbnail for this finish</h3>
+                                <div className="line"></div>
+                                <p>Example: The image thumbnail for Pinewood finish looks like this</p>
+                                <div className="uploadedImgThumbnail">
+                                    <img className="uploadedImage" src="" alt="" />
+                                    <ImageUploader />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="whiteSquareForModal">
+                            <div className="uploadedImg">
+                                <h3>You have uploaded this image</h3>
+                                <div className="line"></div>
+                                <div className="uploadedImgThumbnail">
+                                    <img className="uploadedImage" src="" alt="" />
+                                    <ImageUploader />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+                )       
             }
 
             else if (modalType === "color") {
@@ -440,7 +475,7 @@ class AddProductDetails extends React.Component {
                                         <p className="pargraphClass">Name of the color</p>
                                     </div>
                                     <div className="productColorName">
-                                        <InputForm
+                                        {/* <InputForm
                                             refName="colorName"
                                             placeholder="Ex. Orange"
                                             isMandatory={true}
@@ -450,7 +485,15 @@ class AddProductDetails extends React.Component {
                                             result={(val) => this.setState({
                                                 colorName: val
                                             })}
-                                        />
+                                        /> */}
+                                        <p className="madatoryHighlight">Mandatory</p>
+                                            <input 
+                                                type="text"
+                                                name="colorName"
+                                                placeholder="Ex. Orange"
+                                                value={this.state.colorName}
+                                                onChange={this.onChange}
+                                            />
                                     </div>
                                 </div>
 
@@ -459,7 +502,7 @@ class AddProductDetails extends React.Component {
                                         <p className="pargraphClass">Color code (hex)</p>
                                     </div>
                                     <div className="productColorCode">
-                                        <InputForm
+                                        {/* <InputForm
                                             refName="colorCode"
                                             placeholder="Ex. #29abe2"
                                             isMandatory={true}
@@ -468,7 +511,15 @@ class AddProductDetails extends React.Component {
                                             result={(val) => this.setState({
                                                 colorCode: val
                                             })}
-                                        />
+                                        /> */}
+                                        <p className="madatoryHighlight">Mandatory</p>
+                                            <input
+                                                type="text"
+                                                name="colorCode"
+                                                placeholder="Ex. Orange"
+                                                value={this.state.colorCode}
+                                                onChange={this.onChange}
+                                            />
                                         <p>You can get the hexcode of the desired color 
                                             <a href="https://www.google.com/">here</a>
                                         </p>
@@ -509,7 +560,7 @@ class AddProductDetails extends React.Component {
                                         <p className="pargraphClass">Size name</p>
                                     </div>
                                     <div className="productSizeName">
-                                        <InputForm
+                                        {/* <InputForm
                                             refName="sizeName"
                                             placeholder="Ex. Small-2ft x 2ft"
                                             isMandatory={true}
@@ -518,7 +569,15 @@ class AddProductDetails extends React.Component {
                                             result={(val) => this.setState({
                                                 sizeName: val
                                             })}
-                                        />
+                                        /> */}
+                                        <p className="madatoryHighlight">Mandatory</p>
+                                            <input
+                                                type="text"
+                                                name="sizeName"
+                                                placeholder="Ex. Small-2ft x 2ft"
+                                                value={this.state.sizeName}
+                                                onChange={this.onChange}
+                                            />
                                     </div>
                                 </div>
 
@@ -527,7 +586,7 @@ class AddProductDetails extends React.Component {
                                         <p className="pargraphClass">Extra cost for size(over base price)</p>
                                     </div>
                                     <div className="productCostForSize">
-                                        <InputForm
+                                        {/* <InputForm
                                             refName="sizeCost"
                                             placeholder="Ex. 20"
                                             isMandatory={true}
@@ -536,7 +595,15 @@ class AddProductDetails extends React.Component {
                                             result={(val) => this.setState({
                                                 sizeCost: val
                                             })}
-                                        />
+                                        /> */}
+                                        <p className="madatoryHighlight">Mandatory</p>
+                                            <input
+                                                type="text"
+                                                name="sizeCost"
+                                                placeholder="Ex. 20"
+                                                value={this.state.sizeCost}
+                                                onChange={this.onChange}
+                                            />
                                     </div>
                                 </div>
 
