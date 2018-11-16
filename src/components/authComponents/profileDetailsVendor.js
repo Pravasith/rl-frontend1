@@ -889,10 +889,10 @@ class ProfileDetailsVendor extends React.Component {
                                                     
                                                     <div className="imageOuterLayer">
                                                         <ImageUploader
-                                                            
+                                                            imageType = "regularImage" // regularImage || profileImage
+                                                            resultData = {(data) => console.log(data)}
                                                         />
                                                     </div>
-
                                                 </div>
                                             </div>
 
