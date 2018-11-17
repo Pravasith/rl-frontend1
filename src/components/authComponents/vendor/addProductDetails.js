@@ -323,49 +323,6 @@ class AddProductDetails extends React.Component {
         )
     }
 
-        // displayProceedError = () => {
-        //     const { colorName } = this.state;
-        //     const { colorCode } = this.state;
-        //     const { sizeName } = this.state;
-        //     const { sizeCost } = this.state;
-        //     const { isProceedClicked } = this.state;
-
-        //     if (isProceedClicked && colorName === "") {
-        //         return <small> Please enter color name</small>;
-        //     } else if (isProceedClicked && colorCode === "") {
-        //         return <small>Please enter color code</small>
-        //     } else if (isProceedClicked && sizeName === "") {
-        //         return <small>Please enter size name</small>
-        //     } else if (isProceedClicked && sizeCost === "") {
-        //         return <small>Please enter size cost</small>
-        //     }
-        // }
-
-    // displayProceedErrorColor = () => {
-    //     const { colorName } = this.state;
-    //     const { colorCode } = this.state;
-    //     const { isProceedClicked } = this.state;
-
-    //     if (isProceedClicked && colorName === "") {
-    //         return <small> Please enter color name</small>;
-    //     } else if (isProceedClicked && colorCode === "") {
-    //         return <small>Please enter color code</small>
-    //     }
-    // }
-    
-
-    // displayProceedErrorSize = () => {
-    //     const { sizeName } = this.state;
-    //     const { sizeCost } = this.state;
-    //     const { isProceedClicked } = this.state;
-
-    //     if (isProceedClicked && sizeName === "") {
-    //         return <small>Please enter size name</small>
-    //     } else if (isProceedClicked && sizeCost === "") {
-    //         return <small>Please enter size cost</small>
-    //     }
-    // }
-
     returnProductDimensions = () => {
         return (
             this
@@ -393,11 +350,8 @@ class AddProductDetails extends React.Component {
                             
                             <div className="sizeEditingButtons">
                                 <div className="editButton">
-                                    <WhiteButton
-                                        runFunction={() => {
-                                            this.editProductDimensions(i)
-                                            this.modalClassToggle("show")
-                                        }}
+                                    <WhiteButton 
+                                        runFunction={() => this.editProductDimensions(i)}
                                     >
                                         Edit
                                     </WhiteButton>
@@ -418,62 +372,7 @@ class AddProductDetails extends React.Component {
     }
 
     editProductDimensions = (index) => {
-        console.log(this.state.productDimensions[index]);
-        return (
-            <div className={this.state.modalSize}>
-                <div className="dummyXClass">
-                    < div className="whiteSquareForModal">
-                        <div className="vendorDashboardModal">
-                            <div className="modalHeader">
-                                <h3>Size details</h3>
-                                <div className="line"></div>
-                            </div>
-                        </div>
-
-                        <div className="inputFormContainer">
-                            <div className="formParaSection">
-                                <p className="pargraphClass">Size name</p>
-                            </div>
-                            <div className="productSizeName">
-                                <p className="madatoryHighlight">Mandatory</p>
-                                <input
-                                    type="text"
-                                    name="sizeName"
-                                    placeholder={this.state.productDimensions[index].sizeName}
-                                    onChange={this.onChange}
-                                    ref="sizeName"
-                                />
-                            </div>
-                        </div>
-
-                        <div className="inputFormContainer">
-                            <div className="formParaSection">
-                                <p className="pargraphClass">Extra cost for size(over base price)</p>
-                            </div>
-                            <div className="productCostForSize">
-                                <p className="madatoryHighlight">Mandatory</p>
-                                <input
-                                    type="text"
-                                    name="sizeCost"
-                                    placeholder={this.state.productDimensions[index].sizeCost}
-                                    onChange={this.onChange}
-                                    ref="sizeCost"
-                                />
-                            </div>
-                        </div>
-
-                        <div className="proceedOrNotCheck">
-                            <GradientButton
-                                runFunction={() => this.proceedHandler("size")}>
-                                Proceed
-                                    </GradientButton>
-
-                            {this.displayError("size")}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        )
+        console.log(this.state.productDimensions[index].sizeName, this.state.productDimensions[index].sizeCost);
     }
 
     removeProductDimensions = (index) => {
@@ -605,9 +504,6 @@ class AddProductDetails extends React.Component {
         else if (typeOfButtonClicked === "size") {
             const sizeName = this.refs.sizeName.value;
             const sizeCost = this.refs.sizeCost.value;
-            
-            // console.log(this.refs.sizeName.value);
-            // console.log(this.refs.sizeCost.value);
 
             let validatedData = validateSizeModal(sizeName, sizeCost);
 
@@ -619,8 +515,6 @@ class AddProductDetails extends React.Component {
 
                 if(temp !== "") {
                     let dummyArray = [...this.state.productDimensions]
-
-                    // dummyArray.map(item => item.toLowerCase())
 
                     if(!dummyArray.includes(temp)){
                         this.state.productDimensions.push(temp)
