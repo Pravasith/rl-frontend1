@@ -336,13 +336,16 @@ class AddProductDetails extends React.Component {
                             key={i}
                             >
                             <ul>
+                                
                                 <li>
+                                    <p>Size nomenclature</p>
                                     <p key={i}>
                                         {item.sizeName}
                                     </p>
                                 </li>
 
                                 <li>
+                                    <p>Cost over base price</p>
                                     <p key={i}>
                                         {item.sizeCost}
                                     </p>
@@ -613,7 +616,7 @@ class AddProductDetails extends React.Component {
                                     </div>
                                 </div>
 
-                                <div className="inputFormContainer">
+                                {/* <div className="inputFormContainer">
                                     <div className="formParaSection">
                                         <p className="pargraphClass">Name of the color</p>
                                     </div>
@@ -629,7 +632,7 @@ class AddProductDetails extends React.Component {
                                                 colorName: val
                                             })}
                                         /> */}
-                                        <div className="modalMandatorySection">
+                                        {/* <div className="modalMandatorySection">
                                             <p className="madatoryHighlight">Mandatory</p>
                                         </div>
                                         <div className="modalInputCategory">
@@ -644,71 +647,85 @@ class AddProductDetails extends React.Component {
                                             <span className="InputSeparatorLine"> </span>
                                         </div>
                                     </div>
-                                </div>
+                                </div>  */}
 
-                            </div>
-                                    <div className="colorInputFormSection">
+                            
+                                    <div className="colorCategorySection">
+                                        <div className="selectedColorSection">
+                                        </div>
+                                        <div className="colorInputFormSection">
 
-                                        <div className="inputFormContainer">
-                                            <div className="formParaSection">
-                                                <p className="pargraphClass">Name of the color</p>
-                                            </div>
-                                            <div className="productInputInfoSection">
-                                                {/* <InputForm
-                                                    refName="colorName"
-                                                    placeholder="Ex. Orange"
-                                                    isMandatory={true}
-                                                    validationType="alphabetsSpecialCharactersAndNumbers"
-                                                    characterCount="6"
-                                                    value={this.state.colorName}
-                                                    result={(val) => this.setState({
-                                                        colorName: val
-                                                    })}
-                                                /> */}
-                                                <div className="modalMandatorySection">
-                                                    <p className="madatoryHighlight">Mandatory</p>
+                                            <div className="inputFormContainer">
+                                                <div className="formParaSection">
+                                                    <p className="pargraphClass">Name of the color</p>
                                                 </div>
-                                                <div className="modalInputCategory">
-                                                    <input 
-                                                        type="text"
-                                                        name="colorName"
+                                                <div className="productInputInfoSection">
+                                                    {/* <InputForm
+                                                        refName="colorName"
                                                         placeholder="Ex. Orange"
+                                                        isMandatory={true}
+                                                        validationType="alphabetsSpecialCharactersAndNumbers"
+                                                        characterCount="6"
                                                         value={this.state.colorName}
-                                                        onChange={this.onChange}
-                                                    />
-                                                    <span className="InputSeparatorLine"> </span>
+                                                        result={(val) => this.setState({
+                                                            colorName: val
+                                                        })}
+                                                    /> */}
+                                                    <div className="modalMandatorySection">
+                                                        <p className="madatoryHighlight">Mandatory</p>
+                                                    </div>
+                                                    <div className="modalInputCategory">
+                                                        <input 
+                                                            type="text"
+                                                            name="colorName"
+                                                            placeholder="Ex. Orange"
+                                                            value={this.state.colorName}
+                                                            onChange={this.onChange}
+                                                        />
+                                                        <span className="InputSeparatorLine"> </span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div className="modalInputCategory">
-                                            <input
-                                                type="text"
-                                                name="colorCode"
-                                                placeholder="Ex. #29abe2"
-                                                // value={this.state.colorCode}
-                                                onChange={this.onChange}
-                                                ref = "colorCode"
-                                            />
-                                            <span className="InputSeparatorLine"> </span>
+                                            <div className="inputFormContainer">
+                                                <div className="formParaSection">
+                                                    <p className="pargraphClass">Color Code (hex)</p>
+                                                </div>
+                                                <div className="productInputInfoSection">
+                                                    <div className="modalMandatorySection">
+                                                        <p className="madatoryHighlight">Mandatory</p>
+                                                    </div>
+                                                    <div className="modalInputCategory">
+                                                        <input
+                                                            type="text"
+                                                            name="colorCode"
+                                                            placeholder="Ex. #29abe2"
+                                                            // value={this.state.colorCode}
+                                                            onChange={this.onChange}
+                                                            ref = "colorCode"
+                                                        />
+                                                        <span className="InputSeparatorLine"> </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="proceedOrNotCheck">
+                                                <GradientButton
+                                                    runFunction={() => {
+                                                        this.proceedHandler("color")
+                                                    }}>
+                                                    Proceed
+                                                </GradientButton>
+
+                                                {this.displayError("color")}
+                                            </div>
+                                    
                                         </div>
 
-                                        <div className="proceedOrNotCheck">
-                                            <GradientButton
-                                                runFunction={() => {
-                                                    this.proceedHandler("color")
-                                                }}>
-                                                Proceed
-                                            </GradientButton>
-
-                                            {this.displayError("color")}
-                                        </div>
-                                
                                     </div>
-                                        
-                                </div>
+
                             </div>
-                    //     </div>
-                    // </div>
+                         </div>
+                        </div>
                 )
             }
 
