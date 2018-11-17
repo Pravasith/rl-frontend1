@@ -47,17 +47,18 @@ class AddProductDetails extends React.Component {
             sizeName: '',
             sizeCost: '',
 
+            productDimensions: [],
+
             isProceedClicked: false,
 
             erorrs: {}
         }
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.errors) {
-            this.setState({ errors: nextProps.errors });
-        }
-    }
+    // componentDidUpdate() {
+    //     console.log(this.state.productDimensions)
+    // }
+
 
     modalClassToggle = (showOrNot) => {
         if(showOrNot === "show")
@@ -76,6 +77,7 @@ class AddProductDetails extends React.Component {
 
     returnVariationColors = () => {
         return (
+
             {
                 categoryName: "Water bodies",
                 imagesInCategory: [
@@ -229,11 +231,6 @@ class AddProductDetails extends React.Component {
             })
     }
 
-    componentDidUpdate() {
-        console.log(this.state.colorName);
-        console.log(this.state.colorCode)
-    }
-
     returnNavBarData = () => {
         if (this.props.userData.responseData) {
             //
@@ -327,100 +324,225 @@ class AddProductDetails extends React.Component {
         )
     }
 
-        displayProceedError = () => {
-            const { colorName } = this.state;
-            const { colorCode } = this.state;
-            const { sizeName } = this.state;
-            const { sizeCost } = this.state;
-            const { isProceedClicked } = this.state;
+    returnProductDimensions = () => {
+        return (
+            this
+                .state
+                .productDimensions
+                .map((item, i) => {
+                    return (
+                        <div
+                            className="productWrap"
+                            key={i}
+                            >
+                            <ul>
+                                <li>
+                                    <p key={i}>
+                                        {item.sizeName}
+                                    </p>
+                                </li>
 
-            if (isProceedClicked && colorName === "") {
-                return <small> Please enter color name</small>;
-            } else if (isProceedClicked && colorCode === "") {
-                return <small>Please enter color code</small>
-            } else if (isProceedClicked && sizeName === "") {
-                return <small>Please enter size name</small>
-            } else if (isProceedClicked && sizeCost === "") {
-                return <small>Please enter size cost</small>
+                                <li>
+                                    <p key={i}>
+                                        {item.sizeCost}
+                                    </p>
+                                </li>
+                            </ul>
+                            
+                            <div className="sizeEditingButtons">
+                                <div className="editButton">
+                                    <WhiteButton 
+                                        runFunction={() => this.editProductDimensions(i)}
+                                    >
+                                        Edit
+                                    </WhiteButton>
+                                </div>
+                                <div 
+                                    className="deleteButton"
+                                    onClick={() => this.removeProductDimensions(i)}
+                                >
+                                    <WhiteButton>
+                                        Delete
+                                    </WhiteButton>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                })
+        )
+    }
+
+    editProductDimensions = (index) => {
+        console.log(this.state.productDimensions[index].sizeName, this.state.productDimensions[index].sizeCost);
+    }
+
+    removeProductDimensions = (index) => {
+        this
+            .state
+            .productDimensions
+            .splice(index, 1)
+
+        this.setState({
+            productDimensions: this.state.productDimensions.length !== 0 ? this.state.productDimensions : []
+        })
+
+    }
+
+
+    displayError = (modalType) => {
+        if (modalType === "color") {
+            if(this.state.colorIsValid === false){
+                return (
+                    <div className="errorMessage">
+                        <p>Please enter the {this.state.emptyFieldInColor === "colorName" ? "color name" : "color code" }</p>
+                    </div>
+                )
             }
         }
 
-    // displayProceedErrorColor = () => {
-    //     const { colorName } = this.state;
-    //     const { colorCode } = this.state;
-    //     const { isProceedClicked } = this.state;
+        else if (modalType === "size") {
+            if(this.state.sizeIsValid === false){
+                return (
+                    <div className="errorMessage">
+                        <p>Please enter the {this.state.emptyFieldInSize}</p>
+                    </div>
+                )
+            }
+        }
+    }
 
-    //     if (isProceedClicked && colorName === "") {
-    //         return <small> Please enter color name</small>;
-    //     } else if (isProceedClicked && colorCode === "") {
-    //         return <small>Please enter color code</small>
-    //     }
-    // }
-
-    // displayProceedErrorSize = () => {
-    //     const { sizeName } = this.state;
-    //     const { sizeCost } = this.state;
-    //     const { isProceedClicked } = this.state;
-
-    //     if (isProceedClicked && sizeName === "") {
-    //         return <small>Please enter size name</small>
-    //     } else if (isProceedClicked && sizeCost === "") {
-    //         return <small>Please enter size cost</small>
-    //     }
-    // }
     
-        proceedHandler = () => {
-            const { colorName } = this.state;
-            const { colorCode } = this.state;
-            const { sizeName } = this.state;
-            const { sizeCost } = this.state;
+    proceedHandler = (typeOfButtonClicked) => {
 
-            console.log('colorName:', colorName, 
-                        'colorCode:', colorCode, 
-                        'sizeName:', sizeName, 
-                        'sizeCost:', sizeCost);
+        let isColorValid = false;
+        let isSizeValid = false;
+        let emptyField;
 
-            if (colorName.length !== 0 && colorCode.length !== 0) {
-                console.log("heyy")
-
-                let colorDetails = {
-                    colorName,
-                    colorCode
-                }
-
-                this.state.dummyDataStructure.push(colorDetails);
-
-                this.setState({
-                    modalClassToggle: "modalBackgroundMainOuterWrap hide",
-                    vendorDashboardOuterClass : "vendorDashboardOuterLayer",
-                    colorName: '',
-                    colorCode: '',
-                })
+        const validateColorModal = (colorName, colorCode) => {
+            if(colorName !== "" && colorCode !== ""){
+                isColorValid = true
+            } 
+            
+            else if (colorName === "" && colorCode === "") {
+                emptyField = "colorName"
             }
 
-            else if (sizeName.length !== 0 && sizeCost.length !== 0) {
+            else {
+                if (colorName === "") 
+                    emptyField = "colorName"
 
-                let sizeDetails = {
-                    sizeName,
-                    sizeCost
-                }
+                if (colorCode === "")
+                    emptyField = "colorCode"
+            }
 
-                this.state.dummyDataStructure.push(sizeDetails);
+            const validationData = {
+                isColorValid,
+                emptyField
+            }
+
+            return validationData
+        }
+
+
+        const validateSizeModal = (sizeName, sizeCost) => {
+            if(sizeName !== "" && sizeCost !== ""){
+                isSizeValid = true;
+            }
+
+            else if (sizeName === "" && sizeCost === "") {
+                emptyField = "sizeName"
+            } 
+
+            else {
+                if (sizeName === "")
+                    emptyField = "sizeName"
+                if (sizeCost === "")
+                    emptyField = "sizeCost"
+            }
+
+            const validationData = {
+                isSizeValid,
+                emptyField
+            }
+
+            return validationData;
+        }
+
+        if(typeOfButtonClicked === "color"){
+            const colorCode = this.refs.colorCode.value
+            const colorName = this.refs.colorName.value
+
+            let validatedData = validateColorModal(colorName, colorCode)
+
+            if(validatedData.isColorValid){
+                
+                this.setState({
+                    colorIsValid: true,
+                    emptyFieldInColor: null
+                })
+
+                // save data
+
+                this.refs.colorCode.value = ""
+                this.refs.colorName.value = ""
 
                 this.setState({
-                    modalClassToggle: "modalBackgroundMainOuterWrap hide",
-                    vendorDashboardOuterClass: "vendorDashboardOuterLayer",
-                    sizeName: '',
-                    sizeCost: ''
+                    modalType : null
                 })
+
+                this.modalClassToggle("dontShow")
+            }
+
+            else{
+                
+                this.setState({
+                    colorIsValid : false,
+                    emptyFieldInColor : validatedData.emptyField
+                })
+            }
+        }
+
+        else if (typeOfButtonClicked === "size") {
+            const sizeName = this.refs.sizeName.value;
+            const sizeCost = this.refs.sizeCost.value;
+
+            let validatedData = validateSizeModal(sizeName, sizeCost);
+
+            if (validatedData.isSizeValid) {
+                let temp = {
+                    sizeName: this.state.sizeName,
+                    sizeCost: this.state.sizeCost
+                }
+
+                if(temp !== "") {
+                    let dummyArray = [...this.state.productDimensions]
+
+                    if(!dummyArray.includes(temp)){
+                        this.state.productDimensions.push(temp)
+                    }
+                }
+                    this.setState({
+                        sizeIsValid: true,
+                        emptyFieldInSize: null,
+                        modalType: null,
+                        productDimensions: this.state.productDimensions.length !== 0 ? 
+                                                        this.state.productDimensions : null
+                    })
+
+                this.refs.sizeCost.value = ""
+                this.refs.sizeName.value = ""
+
+                this.modalClassToggle("dontShow")
             }
 
             else {
                 this.setState({
-                    isProceedClicked: true
+                    sizeIsValid: false,
+                    emptyFieldInSize: validatedData.emptyField
                 })
             }
         }
+    }
 
     onChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
@@ -491,10 +613,40 @@ class AddProductDetails extends React.Component {
                                     </div>
                                 </div>
 
-                                <div className="colorCategorySection">
-                                    <div className="selectedColorSection">
-
+                                <div className="inputFormContainer">
+                                    <div className="formParaSection">
+                                        <p className="pargraphClass">Name of the color</p>
                                     </div>
+                                    <div className="productColorInfoSection">
+                                        {/* <InputForm
+                                            refName="colorName"
+                                            placeholder="Ex. Orange"
+                                            isMandatory={true}
+                                            validationType="alphabetsSpecialCharactersAndNumbers"
+                                            characterCount="6"
+                                            value={this.state.colorName}
+                                            result={(val) => this.setState({
+                                                colorName: val
+                                            })}
+                                        /> */}
+                                        <div className="modalMandatorySection">
+                                            <p className="madatoryHighlight">Mandatory</p>
+                                        </div>
+                                        <div className="modalInputCategory">
+                                            <input 
+                                                type="text"
+                                                name="colorName"
+                                                placeholder="Ex. Orange"
+                                                // value= {this.state.colorName}
+                                                onChange= {this.onChange}
+                                                ref = "colorName"
+                                            />
+                                            <span className="InputSeparatorLine"> </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
                                     <div className="colorInputFormSection">
 
                                         <div className="inputFormContainer">
@@ -528,59 +680,35 @@ class AddProductDetails extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <div className="inputFormContainer">
-                                            <div className="formParaSection">
-                                                <p className="pargraphClass">Color code (hex)</p>
-                                            </div>
-                                            <div className="productInputInfoSection">
-                                                {/* <InputForm
-                                                    refName="colorCode"
-                                                    placeholder="Ex. #29abe2"
-                                                    isMandatory={true}
-                                                    validationType="alphabetsSpecialCharactersAndNumbers"
-                                                    characterCount="6"
-                                                    result={(val) => this.setState({
-                                                        colorCode: val
-                                                    })}
-                                                /> */}
-                                                <div className="modalMandatorySection">
-                                                    <p className="madatoryHighlight">Mandatory</p>
-                                                </div>
-                                                <div className="modalInputCategory">
-                                                    <input
-                                                        type="text"
-                                                        name="colorCode"
-                                                        placeholder="Ex. Orange"
-                                                        value={this.state.colorCode}
-                                                        onChange={this.onChange}
-                                                    />
-                                                    <span className="InputSeparatorLine"> </span>
-                                                </div>
-                                                
-                                            </div>
-                                            <div className="colorLinkSection">
-                                                    <p>You can get the hexcode of the desired color 
-                                                    <a href="https://www.google.com/"> here</a></p>
-                                            </div>
+                                        <div className="modalInputCategory">
+                                            <input
+                                                type="text"
+                                                name="colorCode"
+                                                placeholder="Ex. #29abe2"
+                                                // value={this.state.colorCode}
+                                                onChange={this.onChange}
+                                                ref = "colorCode"
+                                            />
+                                            <span className="InputSeparatorLine"> </span>
                                         </div>
 
                                         <div className="proceedOrNotCheck">
-                                    <GradientButton
-                                        runFunction={() => {
-                                            this.proceedHandler()
-                                        }}>
-                                        Proceed
-                                    </GradientButton>
+                                            <GradientButton
+                                                runFunction={() => {
+                                                    this.proceedHandler("color")
+                                                }}>
+                                                Proceed
+                                            </GradientButton>
 
-                                    {this.displayProceedError()}
-                                </div>
+                                            {this.displayError("color")}
+                                        </div>
                                 
                                     </div>
+                                        
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                    //     </div>
+                    // </div>
                 )
             }
 
@@ -620,8 +748,9 @@ class AddProductDetails extends React.Component {
                                                 type="text"
                                                 name="sizeName"
                                                 placeholder="Ex. Small-2ft x 2ft"
-                                                value={this.state.sizeName}
+                                                // value={this.state.sizeName}
                                                 onChange={this.onChange}
+                                                ref="sizeName"
                                             />
                                             <span className="InputSeparatorLine"> </span>
                                         </div>
@@ -651,8 +780,9 @@ class AddProductDetails extends React.Component {
                                                 type="text"
                                                 name="sizeCost"
                                                 placeholder="Ex. 20"
-                                                value={this.state.sizeCost}
+                                                // value={this.state.sizeCost}
                                                 onChange={this.onChange}
+                                                ref="sizeCost"
                                             />
                                             <span className="InputSeparatorLine"> </span>
                                         </div>
@@ -661,11 +791,11 @@ class AddProductDetails extends React.Component {
 
                                 <div className="proceedOrNotCheck">
                                     <GradientButton
-                                        runFunction={() => this.proceedHandler()}>
+                                        runFunction={() => this.proceedHandler("size")}>
                                         Proceed
                                     </GradientButton>
 
-                                    {this.displayProceedError()}
+                                    {this.displayError("size")}
                                 </div>
                             </div>
                         </div>
@@ -694,9 +824,6 @@ class AddProductDetails extends React.Component {
                                 </div>
                             </header>
                             <footer>
-                                {/* <GradientButton>
-                                    Proceed
-                                </GradientButton> */}
                             </footer>
                         </div>
                     </div>
@@ -1030,7 +1157,10 @@ class AddProductDetails extends React.Component {
                                                                 <PlusButtonIcon />
                                                             </div>
                                                             Add new size
-                                                    </WhiteButton>
+                                                        </WhiteButton>
+                                                        <div className="prodDimensionHolder" >
+                                                            {this.returnProductDimensions()}
+                                                        </div>
                                                     </div>
                                                 </div>
 

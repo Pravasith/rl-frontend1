@@ -569,10 +569,6 @@ class VendorDashboardDetails extends React.Component {
     }
 
     render() {
-        // const colorModal = ();
-
-        // const sizeModal = ();
-
         return (
             <div className="vendorDashboardWrapper">
 

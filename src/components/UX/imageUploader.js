@@ -3,12 +3,24 @@ import React from "react"
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 
+import axios from "axios"
+
 import { getUserData } from "../../actions/userActions"
 import { hitApi, navBarLoadingAnimationShowHide } from "../../actions/generalActions";
 
 import { UploadImageIcon } from '../../assets/images';
 import "../../assets/sass/image_uploader.scss"
 import { decryptData } from "../../factories/encryptDecrypt";
+import { api } from "../../actions/apiLinks";
+import { TimelineLite } from "gsap";
+
+
+// use this component like this
+//
+// <ImageUploader
+//     type = "regularImage" // regularImage || profileImage
+//     resultData = {(data) => console.log(data)}
+// />
 
 class ImageUploader extends React.Component {
 
@@ -16,8 +28,15 @@ class ImageUploader extends React.Component {
         super(props, context)
 
         this.state = {
-            // pictureClass: "pictureContainer",
-            // smallLoaderClass: "loader hide",
+            pictureClass: "pictureContainer",
+            smallLoader: "smallLoader hide",
+
+            message : "Click here to upload an image.Formats allowed are.jpeg,.jpg,.png (Max. 1 MB)",
+
+            uploadIconClass: "uploadIconWrap",
+            imageClass: "imageCover hide",
+
+            imageURL: ""
 
             // uploadImageClass: "uploadContainer",
             // selectedImageClass: "hide"
@@ -58,30 +77,28 @@ class ImageUploader extends React.Component {
     }
 
     pictureUploader = (e) => {
-
-        if (e.target.files[0]) {
-
-            // console.log(e.target.files[0], e.target.files[0].size)
-            // this.setState({
-            //     pictureClass: "pictureContainer hide",
-            //     smallLoaderClass: "loader"
-            // })
-
-
-
+        if (e.target.files[0]) 
             this.uploadHandler(e.target.files[0])
-        }
     }
 
     uploadHandler = (theFile) => {
         if (theFile) {
+            this.setState({
+                pictureClass: "pictureContainer hide",
+                smallLoader: "smallLoader",
+            })
+
+
             // const theFile = theFile
             const reader = new FileReader()
 
             reader.onloadend = () => {
                 const fd = new FormData()
 
-                // console.log(theFile.name)
+                const getExtensionOfFile = () => {
+                    const fileExtention = '.' + theFile.type.split('/')[1]
+                    return fileExtention
+                }
 
                 const generateRandomString = () => {
                     let text = ""
@@ -90,20 +107,32 @@ class ImageUploader extends React.Component {
                     for (var i = 0; i < 10; i++)
                         text += possible.charAt(Math.floor(Math.random() * possible.length))
 
-                    const randomString = text + "-" + this.state.userData.rLId + "-" + Date.now()
+                    const randomString = this.props.imageType + "-" + this.state.userData.rLId + "-" + text  + "-" + Date.now() 
                     return randomString
                 }
 
-                const newName = generateRandomString()
+                const newName =  generateRandomString() + getExtensionOfFile()
 
                 fd.append('toxicData', theFile, newName)
                 this.uploadImageToBackend(fd)
-
             }
 
             reader.readAsDataURL(theFile)
         }
 
+    }
+
+    progressTrack = (progressEvent) => {
+
+        const tl = new TimelineLite()
+
+        let progress = (progressEvent.loaded / progressEvent.total * 100)
+
+        tl.to('.innerLoadingBar', 0.2, {
+            width : progress + "%"
+        })
+        
+        // console.log( "Progress : " + ( progressEvent.loaded / progressEvent.total * 100 ) + '%' )
     }
 
     
@@ -119,34 +148,33 @@ class ImageUploader extends React.Component {
                 'Accept-Language': 'en-US,en;q=0.8',
                 'Content-Type': 'image/png' || 'image/jpg' || 'image/jpeg' || 'image/gif'                    
                 },
+
                 withCredentials: true,
 
-                // onUploadProgress: progressEvent => {
-                //     let progress = (progressEvent.loaded / progressEvent.total * 100) 
-                //     console.log( "Progress : " + ( progressEvent.loaded / progressEvent.total * 100 ) + '%' )
-                // }
+                onUploadProgress: this.progressTrack 
             })
+
         .then(res => {
             // console.log(res.data)
             this.setState({
-                image : res.data.imageURL,
+                // image : res.data.imageURL,
                 pictureClass : "pictureContainer",
-                smallLoaderClass : "loader hide"
+                smallLoader: "smallLoader hide",
+                message: "You have uploaded this one. Click to change.",
+
+                uploadIconClass: "uploadIconWrap hide",
+                imageClass: "imageCover",
+
+                imageURL: res.data.imageURL
             })
 
-            let temp = [...this.state.assignmentTempArr]
-            temp.push(
-                {
-                    imageOrText : "image",
-                    imageURL : res.data.imageURL
-                }
-            )
-
-            this.setState({
-                assignmentTempArr : [...temp]
+            const tl = new TimelineLite()
+            tl.set('.innerLoadingBar', {
+                width : 0 + "%"
             })
 
-            // console.log(document.getElementsByClassName('previewContainer3') )
+            this.props.resultData(res.data)
+
         })
         .catch(err => {
             console.error(err)
@@ -160,31 +188,48 @@ class ImageUploader extends React.Component {
             <div className="imageUploaderWrap">
                 <div className="pictureUpload">
 
-                    <input
-                        onInput={(e) => this.pictureUploader(e)}
-                        onClick={(event) => {
-                            event.target.value = null
-                            
-                        }}
-                        ref="uploadLabel"
-                        style={{ display: "none" }}
-                        type="file"
-                        name="uploadImage"
-                        id="uploadImageInput"
-                        accept="image/*"
-                    />
+                    <div className="inputContainer">
+                        <input
+                            onInput={(e) => this.pictureUploader(e)}
+                            onClick={(event) => {
+                                event.target.value = null
+                            }}
+                            ref="uploadLabel"
+                            style={{ display: "none" }}
+                            type="file"
+                            name="uploadImage"
+                            id="uploadImageInput"
+                            accept="image/*"
+                        />
 
-                    <label htmlFor="uploadImageInput" className="pictureContainer"  >
-                        <div className= "uploadContainer" >
-                            <div className="uploadIconWrap">
-                                <UploadImageIcon />
+                        <label 
+                            htmlFor="uploadImageInput" 
+                            className={this.state.pictureClass}
+                            >
+
+                            <div className= "uploadContainer" >
+                                <div className={this.state.uploadIconClass}>
+                                    <UploadImageIcon />
+                                </div>
+
+                                <div className={this.state.imageClass}>
+                                    <img src={this.state.imageURL} alt=""/>
+                                </div>
+
+                                <h3>
+                                    {this.state.message}
+                                </h3>
                             </div>
 
-                            <h3>
-                                Click here to upload an image.Formats allowed are.jpeg,.jpg,.png (Max.500 kb)
-                            </h3>
+                        </label>
+
+                        <div className={this.state.smallLoader}>
+                            <div className="outerLoadingBar">
+                                <div className="innerLoadingBar">
+                                </div>
+                            </div>
                         </div>
-                    </label>
+                    </div>
 
                 </div>
             </div>
