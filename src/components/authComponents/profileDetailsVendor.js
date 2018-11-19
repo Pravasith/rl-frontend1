@@ -110,15 +110,12 @@ class ProfileDetailsVendor extends React.Component {
 
                                 pan: decryptedData.PAN,
 
+                                companyProfilePicture: decryptedData.companyProfilePicture
                             })
                         }
                     })
-
                     .catch(e => console.error(e))
             })
-
-        
-
             .catch(e => console.error(e))
     }
 
@@ -390,6 +387,35 @@ class ProfileDetailsVendor extends React.Component {
 
 
 
+    }
+
+
+    returnImageUploader = () => {
+
+        if(this.state.companyProfilePicture){
+            console.log("is not empty", this.state.companyProfilePicture)
+            return (
+                <ImageUploader
+                    imageType = "regularImage" // regularImage || profileImage
+                    resultData = {val => this.updateVendorData("companyProfilePicture", val.imageURL)}
+                    showInitialImage = {this.state.companyProfilePicture}
+                />
+            )
+        }
+
+        else{
+            console.log("is empty", this.state.companyProfilePicture)
+            return (
+                <div>
+                    <ImageUploader
+                        imageType = "regularImage" // regularImage || profileImage
+                        resultData = {val => this.updateVendorData("companyProfilePicture", val.imageURL)}
+                        showInitialImage = {this.state.companyProfilePicture}
+                    />
+                </div>
+            )
+        }
+        
     }
 
 
@@ -809,8 +835,8 @@ class ProfileDetailsVendor extends React.Component {
                                                         <div className="inputColumn">
                                                             <input 
                                                                 type="text" 
-                                                                placeholder="1" 
-                                                                maxLength="1" 
+                                                                placeholder="1"
+                                                                maxLength="1"
                                                                 ref="3"
                                                                 id="3"
                                                                 pattern="\d*" 
@@ -888,10 +914,7 @@ class ProfileDetailsVendor extends React.Component {
                                                     </div>
                                                     
                                                     <div className="imageOuterLayer">
-                                                        <ImageUploader
-                                                            imageType = "regularImage" // regularImage || profileImage
-                                                            resultData = {(data) => console.log(data)}
-                                                        />
+                                                        {this.returnImageUploader()}
                                                     </div>
                                                 </div>
                                             </div>
