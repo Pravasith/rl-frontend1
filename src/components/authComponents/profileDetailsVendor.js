@@ -173,8 +173,6 @@ class ProfileDetailsVendor extends React.Component {
     returnNavBarData = () => {
         if (this.props.userData.responseData) {
 
-            // console.log(this.props.userData.responseData)
-
             //
             // DECRYPT REQUEST DATA
             // 
@@ -220,9 +218,6 @@ class ProfileDetailsVendor extends React.Component {
         }
     }
 
-    // handlechange = ({target: {value}}) => this.setState(state => value.length <= 6 && !isNaN(Number(value)) && {value} || state)
-
-    //  this.setState(state => value.length <= 6 && !isNaN(Number(value)) && {value} || state)
 
     returnStatesOfIndia = () => {
         const array = [ ...statesAndCities ]
@@ -393,7 +388,7 @@ class ProfileDetailsVendor extends React.Component {
     returnImageUploader = () => {
 
         if(this.state.companyProfilePicture){
-            console.log("is not empty", this.state.companyProfilePicture)
+            // console.log("is not empty", this.state.companyProfilePicture)
             return (
                 <ImageUploader
                     imageType = "regularImage" // regularImage || profileImage
@@ -404,7 +399,7 @@ class ProfileDetailsVendor extends React.Component {
         }
 
         else{
-            console.log("is empty", this.state.companyProfilePicture)
+            // console.log("is empty", this.state.companyProfilePicture)
             return (
                 <div>
                     <ImageUploader
@@ -922,7 +917,9 @@ class ProfileDetailsVendor extends React.Component {
                                             <div className="formInputContainer">
                                                 <div className="formInputInnerLayer">
                                                     <div className="formParaSection">
-                                                        <GradientButton>
+                                                        <GradientButton
+                                                            runFunction = {() => window.open('/vendor-main-dashboard')}
+                                                            >
                                                             Proceed
                                                         </GradientButton>
                                                     </div>

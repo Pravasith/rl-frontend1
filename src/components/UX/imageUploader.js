@@ -49,7 +49,6 @@ class ImageUploader extends React.Component {
             .then(() => {
                 let { userData } = this.props
 
-                console.log(userData)
                 //
                 // DECRYPT REQUEST DATA
                 //
@@ -63,8 +62,6 @@ class ImageUploader extends React.Component {
                 })
 
                 if(this.props.showInitialImage){
-
-                    console.log("INSIDE", this.props.showInitialImage)
                     this.setState({
                         // image : res.data.imageURL,
                         pictureClass : "pictureContainer",
@@ -100,39 +97,60 @@ class ImageUploader extends React.Component {
 
     uploadHandler = (theFile) => {
         if (theFile) {
-            this.setState({
-                pictureClass: "pictureContainer hide",
-                smallLoader: "smallLoader",
-            })
 
-            const reader = new FileReader()
-
-            reader.onloadend = () => {
-                const fd = new FormData()
-
-                const getExtensionOfFile = () => {
-                    const fileExtention = '.' + theFile.type.split('/')[1]
-                    return fileExtention
-                }
-
-                const generateRandomString = () => {
-                    let text = ""
-                    let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-
-                    for (var i = 0; i < 10; i++)
-                        text += possible.charAt(Math.floor(Math.random() * possible.length))
-
-                    const randomString = this.props.imageType + "-" + this.state.userData.rLId + "-" + text  + "-" + Date.now() 
-                    return randomString
-                }
-
-                const newName =  generateRandomString() + getExtensionOfFile()
-
-                fd.append('toxicData', theFile, newName)
-                this.uploadImageToBackend(fd)
+            // check for size
+            if(theFile.size > 1 * 1024 * 1024){
+                this.setState({
+                    // image : res.data.imageURL,
+                    pictureClass : "pictureContainer",
+                    smallLoader: "smallLoader hide",
+                    message: "The image you are trying to upload exceeds 1 MB in size. Click here again to upload a new one.",
+    
+                    uploadIconClass: "uploadIconWrap hide",
+                    imageClass: "imageCover",
+    
+                    imageURL: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/imageTooBig-01.png"
+                })
             }
 
-            reader.readAsDataURL(theFile)
+            else{
+
+                this.setState({
+                    pictureClass: "pictureContainer hide",
+                    smallLoader: "smallLoader",
+                })
+
+                const reader = new FileReader()
+
+                reader.onloadend = () => {
+                    const fd = new FormData()
+    
+                    const getExtensionOfFile = () => {
+                        const fileExtention = '.' + theFile.type.split('/')[1]
+                        return fileExtention
+                    }
+    
+                    const generateRandomString = () => {
+                        let text = ""
+                        let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+    
+                        for (var i = 0; i < 10; i++)
+                            text += possible.charAt(Math.floor(Math.random() * possible.length))
+    
+                        const randomString = this.props.imageType + "-" + this.state.userData.rLId + "-" + text  + "-" + Date.now() 
+                        return randomString
+                    }
+    
+                    const newName =  generateRandomString() + getExtensionOfFile()
+    
+                    fd.append('toxicData', theFile, newName)
+                    this.uploadImageToBackend(fd)
+                }
+    
+                reader.readAsDataURL(theFile)
+            }
+
+            
         }
 
     }
@@ -150,6 +168,7 @@ class ImageUploader extends React.Component {
 
         // uploads image to backend. From there 
         // the image is written to an s3 bucket
+
 
         axios.post(api.UPLOAD_IMAGE, theFile, 
             {
