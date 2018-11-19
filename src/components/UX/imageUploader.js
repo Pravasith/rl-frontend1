@@ -20,6 +20,7 @@ import { TimelineLite } from "gsap";
 // <ImageUploader
 //     type = "regularImage" // regularImage || profileImage
 //     resultData = {(data) => console.log(data)}
+//     showInitialImage = "" // image src link // optional
 // />
 
 class ImageUploader extends React.Component {
@@ -38,8 +39,6 @@ class ImageUploader extends React.Component {
 
             imageURL: ""
 
-            // uploadImageClass: "uploadContainer",
-            // selectedImageClass: "hide"
         }
     }
 
@@ -62,6 +61,24 @@ class ImageUploader extends React.Component {
                 this.setState({
                     userData : decryptedData
                 })
+
+                if(this.props.showInitialImage){
+
+                    console.log("INSIDE", this.props.showInitialImage)
+                    this.setState({
+                        // image : res.data.imageURL,
+                        pictureClass : "pictureContainer",
+                        smallLoader: "smallLoader hide",
+                        message: "Click to upload another image.",
+
+                        uploadIconClass: "uploadIconWrap hide",
+                        imageClass: "imageCover",
+        
+                        imageURL: this.props.showInitialImage
+                    })
+                }
+
+                
             })
 
             .catch((err) => {
@@ -88,8 +105,6 @@ class ImageUploader extends React.Component {
                 smallLoader: "smallLoader",
             })
 
-
-            // const theFile = theFile
             const reader = new FileReader()
 
             reader.onloadend = () => {
@@ -123,16 +138,11 @@ class ImageUploader extends React.Component {
     }
 
     progressTrack = (progressEvent) => {
-
         const tl = new TimelineLite()
-
         let progress = (progressEvent.loaded / progressEvent.total * 100)
-
         tl.to('.innerLoadingBar', 0.2, {
             width : progress + "%"
         })
-        
-        // console.log( "Progress : " + ( progressEvent.loaded / progressEvent.total * 100 ) + '%' )
     }
 
     
@@ -182,7 +192,6 @@ class ImageUploader extends React.Component {
         })
     }
 
-
     render() {
         return (
             <div className="imageUploaderWrap">
@@ -195,7 +204,7 @@ class ImageUploader extends React.Component {
                                 event.target.value = null
                             }}
                             ref="uploadLabel"
-                            style={{ display: "none" }}
+                            style={{display: "none"}}
                             type="file"
                             name="uploadImage"
                             id="uploadImageInput"
