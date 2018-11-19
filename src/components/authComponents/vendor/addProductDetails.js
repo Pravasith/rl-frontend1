@@ -750,6 +750,8 @@ class AddProductDetails extends React.Component {
                                     <div className="modalHeader">
                                         <h3>Size details</h3>
                                         <div className="line"></div>
+                                        <h3>Size details</h3>
+                                        <div className="line"></div>
                                     </div>
                                 </div>
 
