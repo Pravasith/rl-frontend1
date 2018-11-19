@@ -343,7 +343,7 @@ class AddProductDetails extends React.Component {
                                 </div>
                                 <div className="sizeCostCartWrap">
                                     <h3>Cost over base price</h3>
-                                    <p key={i}>{item.sizeCost}</p>
+                                    <p key={i}>Rs. {item.sizeCost}</p>
                                 </div>
                                 </div>
                                 {/* <ul>
@@ -864,7 +864,9 @@ class AddProductDetails extends React.Component {
         return (
             <div className="vendorDashboardWrapper">
                 <div className={this.state.loadingClass}>
-                    <LogoAnimation />
+                    <LogoAnimation
+                        text="We are loading..."
+                    />
                 </div>
 
                 <div className={this.state.mainClass}>
@@ -905,7 +907,7 @@ class AddProductDetails extends React.Component {
                                                     alt=""
                                                     className="imageContainer"
                                                 />
-                                            </div> */}
+                                                </div> */}
 
 
                                             </div>

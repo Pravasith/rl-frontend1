@@ -167,7 +167,7 @@
                                                         @include flexCentreCol;
                                                         width: 50%;
                                                         margin: 0 auto;
-                                                        margin-top: 20%;
+                                                        margin-top: 11%;
                                                         .vendorImageUploadHeaderComponent{
                                                             margin-bottom: 0.5em;
                                                             .headingArea{
@@ -301,7 +301,7 @@
                                                     .productSizeDescriptionInnerLayer{
                                                         @include flexCentreRow;
                                                         justify-content: space-between;
-                                                        padding: 1em;
+                                                        padding: 0.5em 1em;
                                                         background: $lightGrey;
                                                         margin: 0.5em 0;
                                                         .productSizeDetails{
@@ -312,9 +312,13 @@
                                                                 @include flexCentreRow;
                                                                 justify-content: space-between;
                                                                 width: 100%;
+                                                                h3{
+                                                                    font-size: 0.8em;
+                                                                }
                                                                 p{
                                                                     width: 35%;
-                                                                    font-size: 0.8em;
+                                                                    font-size: 0.9em;
+                                                                    font-weight: 600;
                                                                 }
                                                             }
                                                             .costCart{
@@ -325,6 +329,16 @@
                                                         }
                                                         .sizeEditingButtons{
                                                             @include flexCentreRow;
+                                                            .editButton{
+                                                                .whiteButtonWrapper{
+                                                                    padding: 0.5em 1.3em;
+                                                                }
+                                                            }
+                                                            .deleteButton{
+                                                                .whiteButtonWrapper{
+                                                                    padding: 0.5em 1.3em;
+                                                                }
+                                                            }
                                                         }
                                                     }
                                                 }
@@ -402,6 +416,9 @@
                                                         margin-top: 0.5em;
                                                         font-size: 0.75em;
                                                         margin-left: 2em;
+                                                        // .whiteButtonWrapper{
+                                                        //     padding: 0.2em 1.3em 0.2em 1.3em;
+                                                        // }
                                                     }
 
                                                     .mandatorySection{
