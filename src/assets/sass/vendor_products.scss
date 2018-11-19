@@ -36,34 +36,189 @@
 
             .whiteBackgroundForModal{
                 width: 100%;
-                height: 100%;
-                background: yellow;
-                opacity: 0.5;
+                height: 94.5%;
+                background: $modalGrey;
+                // opacity: 0.5;
                 position: absolute;
                 top: 0;
                 left: 0;
-                
-
+                margin-top: 4%;
+         
                 .dummyXClass{
-                    width: 100%;
                     @include flexCentreRow;
+                    width: 100%;
+                    height: 100%;
 
                     .whiteSquareForModal{
                         width: 25em;
                         height: 25em;
                         background: $white;
+                        .vendorDashboardModal{
+                            @include flexCentreRow;
+                            .modalHeader{
+                                @include flexCentreCol;
+                                width: 84%;
+                                margin-top: 0.5em;
+                                h3{
+                                    color: $darkerGrey;
+                                }
+                                .line{
+                                    background: $secondaryMagenta;
+                                    width: 30%;
+                                }
+                            }
+                            .deleteButton{
+                                cursor: pointer;
+                            }
+                        }
+
+                        .vendorCategorySelection{
+                            @include flexCentreRow;
+                            width: 80%;
+                            margin-top: 1em;
+                            .selectList{
+                                width: 70%;
+                                select{
+                                    background: $darkerGrey;
+                                }
+                            }
+                        }
+
+                        .vendorTagCategory{
+                            @include flexCentreCol;
+                            margin-top: 1em;
+                            .vendorHeadingSection{
+                                width: 80%;
+                                h3{
+                                    // width: 80%;
+                                    color: $darkerGrey;
+                                    font-size: 0.8em;
+                                    .vendorHeaderSpanClass{
+                                        color: $darkerGrey;
+                                    }
+                                } 
+                            }
+                            .inputCategorySection{
+                                @include flexCentreRow;
+                                width: 80%;
+                                margin-top: 0.5em;
+                                .vendorInput{
+                                    @include flexCentreCol;
+                                    width: 90%;
+                                input{
+                                    border: none;
+                                    // border-bottom: 0.2em solid $black;
+                                    background: transparent;
+                                    color: $darkerGrey;
+                                    outline: none;
+                                    height: 1.5em;
+                                    width: 100%;
+                                    border-bottom: 0.2em solid $lightGrey;
+                                    &:focus + .InputSeparatorLine {
+                                        transform: scaleX(1) translateY(-2px);   
+                                          opacity: 1;
+                                       }
+                                       &:hover + .InputSeparatorLine{
+                                        transform: scaleX(1) translateY(-2px);   
+                                        opacity: 1;
+                                       }
+                                }
+
+                                .InputSeparatorLine {
+                                    height:0.2em;
+                                    width: 100%;
+                                    background: $darkGrey;
+                                    display: block;
+                                    transform: scaleX(0) translateY(-2px);
+                                    transform-origin: 50%;
+                                    opacity: 0;
+                                    transition: all .15s $curve;
+                                }
+                                
+                                
+                                * :focus {
+                                    outline-color: transparent;
+                                    outline-style: none;
+                                }
+                             }
+                             .charCount{
+                                 margin-left: 0.3em;
+                             }
+                            }
+                            .vendorSelectedCategory{
+                                width: 90%;
+                                height: 10em;
+                                margin-top: 0.5em;
+                                overflow-y: auto;
+                                .vendorSelectedCategoryInnerLayer{
+                                    display: inline-block;
+                                    margin-top: 0.5em;
+                                    .tagWrap{
+                                        display: inline-flex;
+                                        margin: 0.3em;
+                                        padding: 0 0.8em 0 0;
+                                        background: $darkerGrey;
+                                        .tagWrapInnerLayer{
+                                            @include flexCentreRow;
+                                            ul{
+                                                list-style-type: none;
+                                                padding: 0 0.5em;
+                                                margin: 0.5em;
+                                                li{
+                                                    p{
+                                                        color: $white;
+                                                    }
+                                                }
+                                            }
+                                            .deleteIcon{
+                                                cursor: pointer;
+                                            }
+                                        }
+                                        
+                                    }
+                                }
+                            }
+                           
+                            
+                        }
+                        .proceedOrNotCheck{
+                            width: 50%;
+                            margin: 0 auto;
+                        }
                     }
 
-                    .selectButton{
-                        width: 50%;
-                        height: 2em;
+                    .deleteClass{
+                        width: 40%;
+                        height: 10em;
+                        background: $white;
+                        .deletClassInnerLayer{
+                            @include flexCentreCol;
+                            height: 100%;
+                            .deleteHeaderSection{
+                                @include flexCentreRow;
+                                text-align: center;
+                                h3{
+                                    font-size: 1.5em;
+                                }
+                            }
+                            .buttonCategorySection{
+                                @include flexCentreRow;
+                                justify-content: space-between;
+                                margin-top: 1em;
+                                width: 50%;
+                            }
+                        }
                     }
 
-                    .deleteButton{
-                        width: 5em;
-                        height: 5em;
-                        background: red;
-                    }
+                        .selectButton{
+                            width: 50%;
+                            height: 2em;
+                        }
+
+                        .deleteButton{
+                            @include flexCentreRow;
+                        }
+                    
                 }
                 
 
@@ -136,18 +291,85 @@
                             }
 
                             .addedProductSectionCategoryOuterLayer{
-                                height: 29em;
+                                height: 26em;
                                 width: 100%;
                                 overflow-y: auto;
                                 margin-top: 0.5em;
 
                                 .addedProductSectionCategoryInnerLayer{
                                     @include flexCentreCol;
+                                    align-items: flex-start;
                                     padding: 0.25em;
 
                                     .initialVendorGraphic{
-
+                                        @include flexCentreRow;
+                                        align-items: flex-start;
+                                        width: 100%;
+                                        .vendorSvgSection{
+                                            @include flexCentreRow;
+                                            width: 60%;;
+                                        }
                                     }
+                                    .addedProductWrap{
+                                        width: 100%;
+                                    .vendorProductAddingWrap{
+                                        width: 100%;
+                                        .addProductClass{
+                                            @include flexCentreCol;
+                                            justify-content: flex-start;
+                                            width: 100%;
+                                            .categoryCarousel{
+                                                width: 98%;
+                                                margin: 1em 0 0 1em;
+                                                .productCategoryName{
+                                                    @include flexCentreRow;
+                                                    justify-content: space-between; 
+                                                    width: 15%;   
+                                                    h3{
+
+                                                    }
+                                                    .deleteOption{
+                                                        // margin-left: 10%;
+                                                    }
+                                                }
+                                                .line{
+                                                    width: 5%;
+                                                }
+                                                .gradientButtonOuterLayer{
+                                                    @include flexCentreRow;
+                                                    align-items: flex-start;
+                                                    justify-content: flex-start;
+                                                    width: 100%;
+                                                    margin-top: 0.5em;
+                                                    .gradientButtonWrapper{
+                                                        @include flexCentreCol;
+                                                        height: 10em;
+                                                        width: 8em;
+                                                        border-radius: 0em;
+                                                        text-align: center;
+                                                        background: linear-gradient(-40deg,  #E73C7E, #23A6D5);
+                                                    }
+
+                                                    .addedProductSectionContainer{
+                                                        @include flexCentreRow;
+                                                        background: $lightGrey;
+                                                        margin: 0.5em 0 0 1em;
+                                                        height: 11em;
+                                                        width: 80%;
+                                                        .addedProductSectionInnerLayer{
+                                                            @include flexCentreRow;
+                                                            padding: 0.5em;
+                                                            width: 97%;
+                                                            height: 9em;
+                                                            // background: chartreuse;
+                                                        }
+                                                    }
+                                                }   
+                                            }
+                                            
+                                        }
+                                    }
+                                }
 
                                     .hide{
                                         display: none;
@@ -223,6 +445,20 @@
             }
         }
 
+        .contentWrapper{
+            .mainContentWrap{
+                @include flexCentreCol;
+                .gradientButtonWrapper{
+
+                }
+                .vendorGraphicCenter{
+                    .svgImageContainer{
+                        @include flexCentreRow;
+                    }
+                }
+            }
+        }
+
         .footerWrapper{
             position: fixed;
             bottom: 0;
@@ -230,6 +466,10 @@
         }
 
         
+    }
+
+    .hide{
+        display: none;
     }
 }
 

@@ -796,7 +796,7 @@ class ProfileDetailsVendor extends React.Component {
 
                                                         <div className="inputColumn">
                                                             <input
-                                                                autoFocus="autofocus"
+                                                                // autoFocus="autofocus"
                                                                 type="text"
                                                                 placeholder="22"
                                                                 maxLength="2" 

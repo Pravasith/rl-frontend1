@@ -12,9 +12,9 @@ import { decryptData } from "../../factories/encryptDecrypt";
 import { Footer } from "../footer/footer"
 
 import { CloseButton } from "../../assets/images"
-import { WhiteArrowLeft, WhiteArrowRight, UploadImageIcon, PlusButtonIconWhite, AddNewProduct, VendorGraphic, ArrowMarkLong } from "../../assets/images";
+import { WhiteArrowLeft, WhiteArrowRight, UploadImageIcon, PlusButtonIconWhite, AddNewProduct, VendorGraphic, ArrowMarkLong, BigCloseButton, SmallCloseButton } from "../../assets/images";
 import LogoAnimation from "../animations/logoAnimation";
-import { GradientButton, InputForm, SelectList } from "../UX/uxComponents";
+import { GradientButton, InputForm, SelectList, WhiteButton } from "../UX/uxComponents";
 import HtmlSlider from "../UX/htmlSlider"
 
 
@@ -27,14 +27,25 @@ class VendorProductDashboard extends React.Component {
             loadingClass: 'loadingAnim hide',
             mainClass: 'mainClass',
 
+
+          
             // my code
             mainHeadingClass1: 'uploadedProducts active',
             mainHeadingClass2: 'clientData',
+            charCount: 20,
+            
 
             contentType: "uploadedProducts",
+            
 
             modalCondition: "whiteBackgroundForModal hide",
             vendorGraphicClass: "initialVendorGraphic",
+            vendorGraphicClassWrap: "addedProductWrap",
+            modalClass: "whiteSquareForModal",
+            modalDeleteClass: "deleteClass",
+
+            messageWrap:"messageWrap hide",
+
 
             category: "",
 
@@ -48,12 +59,34 @@ class VendorProductDashboard extends React.Component {
                 categoryId: '',
             },
 
-
-
             options: [
-                { categoryName: 'Category - 1', categoryId: 1 },
-                { categoryName: 'Category - 2', categoryId: 2 },
-                { categoryName: 'Category - 3', categoryId: 3 }
+                { categoryName: 'Lighting', categoryId: 1 },
+                { categoryName: 'Roofing', categoryId: 2 },
+                { categoryName: 'Furniture', categoryId: 3 },
+                { categoryName: 'Bathroom', categoryId: 4 },
+                { categoryName: 'Gardens', categoryId: 5 },
+                { categoryName: 'Switches', categoryId: 6 },
+                { categoryName: 'Decorative Fans', categoryId: 7 },
+                { categoryName: 'Home Decor', categoryId: 8 },
+                { categoryName: 'Wooden Flooring', categoryId: 9 },
+                { categoryName: 'Wardrobes', categoryId: 10 },
+                { categoryName: 'Staircases', categoryId: 11 },
+                { categoryName: 'Flooring', categoryId: 12 },
+                { categoryName: 'Glasses', categoryId: 13 },
+                { categoryName: 'Doors and Windows', categoryId: 14 },
+                { categoryName: 'Lift and Elevators', categoryId: 15 },
+                { categoryName: 'Wall Finishers', categoryId: 16 },
+                { categoryName: 'Architectural Meshes', categoryId: 17 },
+                { categoryName: 'Kitchen', categoryId: 18 },
+                { categoryName: 'Ceiling', categoryId: 19 },
+                { categoryName: 'IOT Solutions', categoryId: 20 },
+                { categoryName: 'Kids', categoryId: 21 },
+                { categoryName: 'Carpets and Rugs', categoryId: 22 },
+                { categoryName: 'Sculpture & Stone art', categoryId: 23 },
+                { categoryName: 'Curtains and Blinds', categoryId: 24 },
+                { categoryName: 'Industrial', categoryId: 25 },
+                { categoryName: 'Security Systems', categoryId: 26 },
+                { categoryName: 'Services', categoryId: 27 }
             ],
 
             tempArr: [],
@@ -86,12 +119,21 @@ class VendorProductDashboard extends React.Component {
                     mainClass: 'mainClass',
                 })
             })
-        // console.log('DM',this.state.dummyDataStructure[0].categoryName)
+
+            .catch((err) => {
+                if (err.response) {
+                    if (err.response.status === 401)
+                        window.open('/log-in', "_self")
+                }
+
+                else
+                    console.error(err)
+            })
+        // console.log('DM',this.state.modalDeleteClass)
     }
 
-    // componentDidUpdate() {
-    //     console.log('DU',this.state.dummyDataStructure)
-    // }
+    componentDidUpdate() {
+    }
 
     returnNavBarData = () => {
         if (this.props.userData.responseData) {
@@ -143,6 +185,7 @@ class VendorProductDashboard extends React.Component {
         }
     }
 
+
     returnContent = () => {
         let { contentType } = this.state;
         let { dummyDataStructure } = this.state;
@@ -150,15 +193,16 @@ class VendorProductDashboard extends React.Component {
         if (contentType === 'uploadedProducts') {
 
             return (
-
                 <div className="add">
 
                     <div className="addProductButton">
                         <GradientButton
-
                             runFunction={() => this.setState({
                                 vendorGraphicClass: "initialVendorGraphic hide",
                                 modalCondition: "whiteBackgroundForModal",
+                                modalClass: "whiteSquareForModal",
+                                modalDeleteClass: "deleteClass hide",
+                               
                             })}
                         >
                             <div className="svgImageContainer">
@@ -172,32 +216,57 @@ class VendorProductDashboard extends React.Component {
 
                         <div className="addedProductSectionCategoryInnerLayer">
 
-                            {dummyDataStructure.length === 0 ?
+                            {dummyDataStructure.categoryName === "" ?
                                 (<div className={this.state.vendorGraphicClass}>
-                                        <div>
+                                        <div className="arrowSvgSection">
                                             <ArrowMarkLong />
                                         </div>
 
-                                        <div>
+                                        <div className="vendorSvgSection">
                                             <VendorGraphic />
                                         </div>
                                     </div>)
                                 : 
-                                (<div className={this.state.vendorGraphicClass}>
-                                        <div>
-                                        <div className="addProductClass">
-                                            {dummyDataStructure.map((product, i) =>
-                                                <div key={i} className="categoryCarousel">
-                                                    <h3>
-                                                        {product.categoryName}
-                                                    </h3>
-                                                    <GradientButton
-                                                        runFunction={() => {
-                                                            window.open("/vendor-dashboard-detail", "_self")
-                                                        }}>
-                                                        Add product in this category
-                                                    </GradientButton>
-                                                </div>)}
+                                (<div className={this.state.vendorGraphicClassWrap}>
+                                        <div className="vendorProductAddingWrap">
+                                            <div className="addProductClass">
+                                                {dummyDataStructure.map((product, i) =>
+                                                    <div 
+                                                        key={i} className="categoryCarousel">
+                                                        <div className="productCategoryName">
+                                                            <h3>
+                                                                {product.categoryName}
+                                                            </h3>
+                                                            <div 
+                                                                // onClick = {()=> this.removeCategory(i)}
+                                                                onClick ={()=> this.setState({
+                                                                    vendorGraphicClassWrap: "addedProductWrap hide",
+                                                                    modalCondition: "whiteBackgroundForModal",
+                                                                    modalClass: "whiteSquareForModal hide",
+                                                                    modalDeleteClass: "deleteClass",
+                                                                })}
+                                                                className="deleteOption">
+                                                                <CloseButton />
+                                                            </div>
+                                                        </div>
+                                                        <div className="line"></div>
+                                                        <div className="gradientButtonOuterLayer">
+                                                            <GradientButton
+                                                                runFunction={() => {
+                                                                    window.open("/vendor-dashboard-detail", "_self")
+                                                                }}>
+                                                                <div className="svgImageContainer">
+                                                                    <AddNewProduct/>
+                                                                </div>
+                                                                Add product in this category
+                                                            </GradientButton>
+                                                            <div className="addedProductSectionContainer">
+                                                                <div className="addedProductSectionInnerLayer">
+                                                                
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>)}
                                             </div>
                                         </div>
                                 </div>)}
@@ -237,6 +306,12 @@ class VendorProductDashboard extends React.Component {
         const val = e.target.value
 
         this.setState({
+            charCount: 20 - val.length
+        })
+        
+
+
+        this.setState({
             tagName: val
         })
     }
@@ -249,9 +324,9 @@ class VendorProductDashboard extends React.Component {
 
             let dummyArray = [...this.state.tagsAdded]
 
-            dummyArray.map(item => item.toUpperCase())
+            dummyArray= dummyArray.map(item => item.toLowerCase())
 
-            if (!dummyArray.includes(temp.toUpperCase())) {
+            if (!dummyArray.includes(temp.toLowerCase())) {
                 this.state.tagsAdded.push(temp)
             }
 
@@ -274,21 +349,24 @@ class VendorProductDashboard extends React.Component {
                         <div
                             className="tagWrap"
                             key={i}
-                        >
-                            <ul>
-                                <li>
-                                    <p key={i}>
-                                        {item}
-                                    </p>
-                                </li>
-                            </ul>
-
-                            <div
-                                className="deleteIcon"
-                                onClick={() => this.removeTags(i)}
-                            >
-                                <CloseButton />
+                        >   
+                            <div className="tagWrapInnerLayer">
+                                <ul>
+                                    <li>
+                                        <p key={i}>
+                                            {item}
+                                        </p>
+                                    </li>
+                                </ul>
+                                <div
+                                    className="deleteIcon"
+                                    onClick={() => this.removeTags(i)}
+                                    >
+                                    <SmallCloseButton />
+                                </div>
                             </div>
+
+                            
                         </div>
                     )
                 })
@@ -308,23 +386,48 @@ class VendorProductDashboard extends React.Component {
 
     }
 
+    removeCategory = (i) => {
+
+        this.state.dummyDataStructure.splice(i, 1)
+
+        this.setState({
+            dummyDataStructure: this.state.dummyDataStructure.length !== 0 ? this.state.dummyDataStructure : [],
+            vendorGraphicClassWrap: "addedProductWrap",
+            modalCondition: "whiteBackgroundForModal hide"
+        })
+    }
+
     displayProceedError = () => {
         const { categoryName } = this.state.newProduct;
         const { isProceedClicked } = this.state;
 
-        if (isProceedClicked && categoryName === "") return <small> Please choose category to proceed.</small>;
+        if (isProceedClicked && categoryName === "") return <p> Please choose category to proceed.</p>;
     }
 
     proceedHandler = () => {
         const { categoryName } = this.state.newProduct;
-        // console.log(categoryName.length);
+        console.log(categoryName.length);
         if (categoryName.length !== 0 && categoryName.length !== "") {
-
             // console.log(this.state.category + "inside")
+
+            let categoryDetails = {
+                categoryName: this.state.newProduct.categoryName,
+                categoryId: this.state.newProduct.categoryId,
+                productsArray: []
+            }
+
+            this.state.tempArr.push(categoryDetails);
+
             this.setState({
                 vendorGraphicClass: "initialVendorGraphic",
                 modalCondition: "whiteBackgroundForModal hide",
+                dummyDataStructure: [...this.state.tempArr],
+                newProduct: {
+                    categoryName: '',
+                    categoryId: '',
+                }
             })
+
         }
 
         else{
@@ -332,120 +435,125 @@ class VendorProductDashboard extends React.Component {
                 isProceedClicked: true
             })
         }
-
-        let categoryDetails = {
-            categoryName: this.state.newProduct.categoryName,
-            categoryId: this.state.newProduct.categoryId,
-            productsArray: []
-        }
-
-        this.state.tempArr.push(categoryDetails)
-
-        this.setState({
-            dummyDataStructure: [...this.state.tempArr],
-            newProduct: {
-                categoryName: '',
-                categoryId: '',
-            }
-            })
     }
 
-    render() {
-        const { categoryName } = this.state.newProduct;
-        const { options } = this.state;
+    returnTagsModal = () => {
+        const {categoryName} = this.state.newProduct;
+        const {options} = this.state;
 
-        const tagsModal = (
+        return (
             <div className={this.state.modalCondition}>
                 <div className="dummyXClass">
-                    < div className="whiteSquareForModal" >
-                        <div className="modalHeader">
-                            <h3>Details about the category</h3>
+                    <div className={this.state.modalClass}>
+                        <div className="vendorDashboardModal">
+                            <div className="modalHeader">
+                                <h3>Details about the category</h3>
+                                <div className="line"></div>
+                            </div>
+                            <div
+                                className="deleteButton"
+                                onClick={() => this.setState({
+                                    modalCondition: "whiteBackgroundForModal hide",
+                                    vendorGraphicClass: "initialVendorGraphic",
+                                })}
+                            >
+                                <div className="deleteButtonSvgSection">
+                                    <BigCloseButton />
+                                </div>
+                            </div>
                         </div>
 
-                        <SelectList
-                            name={'category'}
-                            options={options}
-                            value={categoryName}
-                            placeholder={'Choose Category'}
-                            handleChange={this.onSelect}
-                        />
-
-                        <div>
-                            <h5>Add tags <small>(optional)</small></h5>
-                            <input
-                                placeholder="For Ex. Sofa"
-                                ref="tagInput"
-                                type="text"
-                                onChange={e => this.setTagName(e)}
-                                onKeyPress={e => {
-                                    if (e.key === "Enter") {
-                                        this.setTagName(e)
-                                        this.addTagName()
-                                    }
-                                }}
+                        <div className="vendorCategorySelection">
+                            <SelectList
+                                name={'category'}
+                                options={options}
+                                value={categoryName}
+                                placeholder={'Choose Category'}
+                                handleChange={this.onSelect}
                             />
+                        </div>
 
-                            <div className="red">
-                                {this.returnTagsAdded()}
+                        <div className="vendorTagCategory">
+                            <div className="vendorHeadingSection">
+                                <h3>Add tags <span className="vendorHeaderSpanClass">(optional)</span></h3>
+                            </div>
+                            <div className="inputCategorySection">
+                                <div className="vendorInput">
+                                    <input
+                                        placeholder="For Ex. Sofa"
+                                        ref="tagInput"
+                                        type="text"
+                                        maxLength="20"
+                                        onChange={e => this.setTagName(e)}
+                                        onKeyPress={e => {
+                                            if (e.key === "Enter") {
+                                                this.setTagName(e)
+                                                this.addTagName()
+                                            }
+                                        }}
+                                    />
+                                    <span className="InputSeparatorLine"> </span>
+                                </div>
+                                <div className="charCount">
+                                    <p ref="charCount">
+                                        {this.state.charCount}
+                                    </p>
+                                </div>
+
+                            </div>
+
+                            <div className="vendorSelectedCategory">
+                                <div className="vendorSelectedCategoryInnerLayer">
+                                    {this.returnTagsAdded()}
+                                </div>
                             </div>
                         </div>
 
                         <div className="proceedOrNotCheck">
                             <GradientButton
-                                runFunction={() =>  this.proceedHandler()}>
+                                runFunction={() => this.proceedHandler()}>
                                 Proceed
-                            </GradientButton>
+                                </GradientButton>
 
                             {this.displayProceedError()}
                         </div>
-
-                        
-
-                        {/* <div className="proceedBtnAlign">
-                            <GradientButton
-                                runFunction={() => {
-
-                                    this.state.category.length !== 0
-                                        ?
-                                        this.setState({
-                                            vendorGraphicClass: "initialVendorGraphic",
-                                            modalCondition: "whiteBackgroundForModal hide",
-                                        })
-                                        :
-                                        console.log('Please choose category to proceed');
-
-                                    let categoryDetails = {
-                                        categoryName: this.state.category,
-                                        categoryId: "",
-                                        productsArray: []
-                                    }
-
-                                    this.state.tempArr.push(categoryDetails)
-
-                                    this.setState({
-                                        dummyDataStructure: [...this.state.dummyDataStructure, ...this.state.tempArr],
-                                        category: ''
-                                    })
-                                }}>
-                                Proceed
-                            </GradientButton>
-                            <small> Please choose category to proceed. </small>
-                        </div> */}
-
                     </div>
 
-                    <div
-                        className="deleteButton"
-                        onClick={() => this.setState({
-                            modalCondition: "whiteBackgroundForModal hide",
-                            vendorGraphicClass: "initialVendorGraphic",
-                        })}
-                    >
+
+                    <div className={this.state.modalDeleteClass}>
+                        <div className="deletClassInnerLayer">
+                            <header className="deleteHeaderSection">
+                                <h3>Are you sure you want to delete this?</h3>
+                            </header>
+
+                            <div className="buttonCategorySection">
+                                <div className="proceedButtonCategory">
+                                    <WhiteButton
+                                        runFunction={() => this.removeCategory()}
+                                    >
+                                        Yes
+                                    </WhiteButton>
+                                </div>
+                                <div className="proceedButtonCategory">
+                                    <WhiteButton
+                                        runFunction={() => this.setState({
+                                            vendorGraphicClassWrap: "addedProductWrap",
+                                            modalCondition: "whiteBackgroundForModal hide",
+                                        })}
+                                    >
+                                        No
+                                    </WhiteButton>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        );
+        )
 
+    }
+
+    render() {
         return (
             <div className="vendorProductDashboard">
 
@@ -491,7 +599,7 @@ class VendorProductDashboard extends React.Component {
                                     >
                                         <h3 className="headingClass">
                                             Simple Sales Manager
-                                </h3>
+                                        </h3>
                                         <div className="line"></div>
                                     </div>
 
@@ -511,7 +619,8 @@ class VendorProductDashboard extends React.Component {
 
                         <Footer />
 
-                        {tagsModal}
+                        {this.returnTagsModal()}
+
                     </div>
 
                 </div>

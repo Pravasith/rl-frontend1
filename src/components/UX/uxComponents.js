@@ -61,14 +61,9 @@ export class InputForm extends React.Component {
     }
 
     submitForm = (val) => {
-
-
-
         this
             .props
             .result(val)
-
-
     }
 
     validateForm = (e, validationType) => {
@@ -296,3 +291,5 @@ export const SelectList = (props) => {
         </div>
     )
 }
+
+
