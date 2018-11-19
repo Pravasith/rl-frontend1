@@ -756,7 +756,6 @@ class AddProductDetails extends React.Component {
                                 <div className="inputFormContainer">
                                     <div className="formParaSection">
                                         <p className="pargraphClass">Size name</p>
-                                        <p className="pargraphClass">Size name</p>
                                     </div>
                                     <div className="productInputInfoSection productSizeName">
                                         {/* <InputForm
