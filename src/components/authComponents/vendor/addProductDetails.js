@@ -331,44 +331,55 @@ class AddProductDetails extends React.Component {
                 .productDimensions
                 .map((item, i) => {
                     return (
-                        <div
-                            className="productWrap"
-                            key={i}
-                            >
-                            <ul>
-                                
-                                <li>
-                                    <p>Size nomenclature</p>
-                                    <p key={i}>
-                                        {item.sizeName}
-                                    </p>
-                                </li>
-
-                                <li>
-                                    <p>Cost over base price</p>
-                                    <p key={i}>
-                                        {item.sizeCost}
-                                    </p>
-                                </li>
-                            </ul>
-                            
-                            <div className="sizeEditingButtons">
-                                <div className="editButton">
-                                    <WhiteButton 
-                                        runFunction={() => this.editProductDimensions(i)}
-                                    >
-                                        Edit
-                                    </WhiteButton>
-                                </div>
-                                <div 
-                                    className="deleteButton"
-                                    onClick={() => this.removeProductDimensions(i)}
+                        <div className="productSizeDescriptionInnerLayer">
+                            <div
+                                className="productSizeDetails"
+                                key={i}
                                 >
-                                    <WhiteButton>
-                                        Delete
-                                    </WhiteButton>
+                                <div className="sizeCostCartWrap">
+                                    <h3>Size nomenclature</h3>
+                                    <p key={i}
+                                    >{item.sizeName}</p>
                                 </div>
-                            </div>
+                                <div className="sizeCostCartWrap">
+                                    <h3>Cost over base price</h3>
+                                    <p key={i}>{item.sizeCost}</p>
+                                </div>
+                                </div>
+                                {/* <ul>
+                                    
+                                    <li>
+                                        <p>Size nomenclature</p>
+                                        <p key={i}>
+                                            {item.sizeName}
+                                        </p>
+                                    </li>
+
+                                    <li>
+                                        <p>Cost over base price</p>
+                                        <p key={i}>
+                                            {item.sizeCost}
+                                        </p>
+                                    </li>
+                                </ul> */}
+                                
+                                <div className="sizeEditingButtons">
+                                    <div className="editButton">
+                                        <WhiteButton 
+                                            runFunction={() => this.editProductDimensions(i)}
+                                        >
+                                            Edit
+                                        </WhiteButton>
+                                    </div>
+                                    <div 
+                                        className="deleteButton"
+                                        onClick={() => this.removeProductDimensions(i)}
+                                    >
+                                        <WhiteButton>
+                                            Delete
+                                        </WhiteButton>
+                                    </div>
+                                </div>
                         </div>
                     )
                 })
@@ -1135,8 +1146,8 @@ class AddProductDetails extends React.Component {
                                                         <p className="pargraphClass">Sizes available</p>
                                                     </div>
                                                     <div className="productSizeDescriptionOuterLayer">
-                                                        <div className="productSizeDescriptionInnerLayer">
-                                                            <div className="productSizeDetails">
+                                                        {/* <div className="productSizeDescriptionInnerLayer"> */}
+                                                            {/* <div className="productSizeDetails">
                                                                 <div className="sizeCostCartWrap">
                                                                     <h3>Size nomenclature</h3>
                                                                     <p>Small - 4ft * 3ft</p>
@@ -1150,18 +1161,24 @@ class AddProductDetails extends React.Component {
                                                                 <div className="editButton">
                                                                     <WhiteButton>
                                                                         Edit
-                                                                </WhiteButton>
+                                                                    </WhiteButton>
                                                                 </div>
                                                                 <div className="deleteButton">
                                                                     <WhiteButton>
                                                                         Delete
-                                                                </WhiteButton>
+                                                                    </WhiteButton>
                                                                 </div>
-                                                            </div>
-                                                        </div>
+                                                            </div> */}
+                                                            {/* <div className="prodDimensionHolder"> */}
+                                                                {this.returnProductDimensions()}
+                                                            {/* </div> */}
+                                                        {/* </div> */}
                                                     </div>
 
                                                     <div className="buttonContainer">
+                                                         {/* <div className="prodDimensionHolder">
+                                                            {this.returnProductDimensions()}
+                                                        </div> */}
                                                         <WhiteButton
                                                             runFunction={() => {
                                                                 this.modalClassToggle("show")
@@ -1175,9 +1192,9 @@ class AddProductDetails extends React.Component {
                                                             </div>
                                                             Add new size
                                                         </WhiteButton>
-                                                        <div className="prodDimensionHolder" >
+                                                        {/* <div className="prodDimensionHolder">
                                                             {this.returnProductDimensions()}
-                                                        </div>
+                                                        </div> */}
                                                     </div>
                                                 </div>
 

@@ -145,7 +145,7 @@
                                         .imageUploadUpperSection{
                                             @include flexCentreCol;
                                             width: 100%;
-                                            padding: 0.3em;
+                                            padding: 0  0 0.3em 0;
                                             background: $veryLightGrey;
                                             // margin: 0 auto;
                                             .imageUploadInnerLayer{
@@ -303,6 +303,7 @@
                                                         justify-content: space-between;
                                                         padding: 1em;
                                                         background: $lightGrey;
+                                                        margin: 0.5em 0;
                                                         .productSizeDetails{
                                                             @include flexCentreCol;
                                                             width: 50%;
@@ -311,6 +312,10 @@
                                                                 @include flexCentreRow;
                                                                 justify-content: space-between;
                                                                 width: 100%;
+                                                                p{
+                                                                    width: 35%;
+                                                                    font-size: 0.8em;
+                                                                }
                                                             }
                                                             .costCart{
                                                                 @include flexCentreRow;
