@@ -71,7 +71,6 @@ class AddProductDetails extends React.Component {
                 modalClassToggle: "modalBackgroundMainOuterWrap hide", 
                 vendorDashboardOuterClass: "vendorDashboardOuterLayer",
             })
-
     }
 
     returnVariationColors = () => {
@@ -1248,7 +1247,7 @@ class AddProductDetails extends React.Component {
                                                     <div className="formParaSection">
                                                         <GradientButton>
                                                             Proceed
-                                                    </GradientButton>
+                                                        </GradientButton>
                                                     </div>
                                                 </div>
 
