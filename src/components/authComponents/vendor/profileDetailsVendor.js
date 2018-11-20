@@ -1,24 +1,24 @@
 import React from "react"
 
-import "../../assets/sass/vendor_form.scss"
+import "../../../assets/sass/vendor_form.scss"
 
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 
 
-import LogoAnimation from "../animations/logoAnimation"
-import statesAndCities from "../../lib/statesAndCities"
+import LogoAnimation from "../../animations/logoAnimation"
+import statesAndCities from "../../../lib/statesAndCities"
 
-import { TableIcon, MinusImageIcon, PlusImageIcon, UploadImageIcon } from "../../assets/images"
-import { GradientButton, InputForm } from "../UX/uxComponents"
+import { TableIcon, MinusImageIcon, PlusImageIcon, UploadImageIcon } from "../../../assets/images"
+import { GradientButton, InputForm } from "../../UX/uxComponents"
 
-import Navbar from "../navbar/navbar"
-import { Footer } from "../footer/footer"
-import { getUserData } from "../../actions/userActions"
-import { hitApi, navBarLoadingAnimationShowHide } from "../../actions/generalActions";
-import { api } from "../../actions/apiLinks";
-import { encryptData, decryptData } from "../../factories/encryptDecrypt"
-import ImageUploader from "../UX/imageUploader";
+import Navbar from "../../navbar/navbar"
+import { Footer } from "../../footer/footer"
+import { getUserData } from "../../../actions/userActions"
+import { hitApi, navBarLoadingAnimationShowHide } from "../../../actions/generalActions";
+import { api } from "../../../actions/apiLinks";
+import { encryptData, decryptData } from "../../../factories/encryptDecrypt"
+import ImageUploader from "../../UX/imageUploader";
 
 class ProfileDetailsVendor extends React.Component {
 
@@ -90,6 +90,22 @@ class ProfileDetailsVendor extends React.Component {
                             // DECRYPT REQUEST DATA
                             //
 
+                            let gstInState = {}
+
+                            const getIndividualGSTINs = () => {
+                                decryptedData.GSTIN.split('-').map((item, i) => {
+                                    gstInState["gstIn" + (i+1)] = item
+                                })
+                            }
+
+                            // getIndividualGSTINs()
+
+                            getIndividualGSTINs()
+
+                            // console.log("GSTIN STATE", gstInState)
+
+                            
+
                             this.setState({
 
                                 companyName: decryptedData.companyName,
@@ -110,7 +126,9 @@ class ProfileDetailsVendor extends React.Component {
 
                                 pan: decryptedData.PAN,
 
-                                companyProfilePicture: decryptedData.companyProfilePicture
+                                companyProfilePicture: decryptedData.companyProfilePicture,
+
+                                ...gstInState
                             })
                         }
                     })
@@ -194,10 +212,19 @@ class ProfileDetailsVendor extends React.Component {
     
 
 
-    onChange(event) {
+    onChangeGST = (event, gstPart) => {
         if (event.target.value.length === event.target.maxLength) {
-          this.refs[parseInt(event.target.id, 10) + 1].focus();
-          console.log(event.target.value)
+            if(gstPart !== "gstIn5"){
+                this.refs["gstIn" + (parseInt(event.target.id, 10) + 1)].focus()
+            }
+
+            else{
+                const {gstIn1, gstIn2, gstIn3, gstIn4, gstIn5 } = this.refs
+                const gstIn = `${gstIn1.value}-${gstIn2.value}-${gstIn3.value}-${gstIn4.value}-${gstIn5.value}`
+                this.updateVendorData("GSTIN", gstIn)
+            }
+            
+          
         }
        
     }
@@ -788,7 +815,7 @@ class ProfileDetailsVendor extends React.Component {
                                                 <div className="formInputInnerLayer">
                                                     <div className="cardInstructionPara formParaSection">
                                                         <h3>7</h3>
-                                                        <p>Your company’s GST Identication number. <a href="">Click here</a>  if you want to know more about this.</p>
+                                                        <p>Your company’s GST Identication number. <a href="https://cleartax.in/s/know-your-gstin#what"  target="_blank" >Click here</a>  if you want to know more about this.</p>
                                                     </div>
 
                                                     <div className="cardInputSection inputCategorySection">
@@ -799,13 +826,14 @@ class ProfileDetailsVendor extends React.Component {
                                                         <div className="inputColumn">
                                                             <input
                                                                 // autoFocus="autofocus"
+                                                                defaultValue = {this.state.gstIn1}
                                                                 type="text"
                                                                 placeholder="22"
                                                                 maxLength="2" 
                                                                 id="1"
-                                                                ref="1"
+                                                                ref="gstIn1"
                                                                 onKeyPress={(e) => this.validateCard(e)}
-                                                                onChange={(event) =>this.onChange(event)}
+                                                                onChange={(event) =>this.onChangeGST(event, "gstIn1")}
                                                                 
                                                             />
                                                             <span className="InputSeparatorLine"> </span>
@@ -816,12 +844,13 @@ class ProfileDetailsVendor extends React.Component {
                                                         <div className="inputColumn">
                                                             <input 
                                                                 autoFocus="autofocus"
+                                                                defaultValue = {this.state.gstIn2}
                                                                 type="text" 
                                                                 id="2"
                                                                 placeholder="AAAAA0000A" 
-                                                                ref="2"
+                                                                ref="gstIn2"
                                                                 maxLength="10" 
-                                                                onChange={(event) =>this.onChange(event)}
+                                                                onChange={(event) =>this.onChangeGST(event, "gstIn2")}
                                                                 
                                                             />
                                                             <span className="InputSeparatorLine"> </span>
@@ -833,11 +862,12 @@ class ProfileDetailsVendor extends React.Component {
                                                             <input 
                                                                 type="text" 
                                                                 placeholder="1"
+                                                                defaultValue = {this.state.gstIn3}
                                                                 maxLength="1"
-                                                                ref="3"
+                                                                ref="gstIn3"
                                                                 id="3"
                                                                 pattern="\d*" 
-                                                                onChange={(event) =>this.onChange(event)}
+                                                                onChange={(event) =>this.onChangeGST(event, "gstIn3")}
                                                             />
                                                             <span className="InputSeparatorLine"> </span>
                                                         </div>
@@ -846,13 +876,14 @@ class ProfileDetailsVendor extends React.Component {
 
                                                         <div className="inputColumn">
                                                             <input 
+                                                                defaultValue = {this.state.gstIn4}
                                                                 type="text" 
                                                                 placeholder="Z"
                                                                 pattern="[A-Z]{1}" 
-                                                                ref="4"
+                                                                ref="gstIn4"
                                                                 id="4"
                                                                 maxLength="1"
-                                                                onChange={(event) =>this.onChange(event)}
+                                                                onChange={(event) =>this.onChangeGST(event, "gstIn4")}
                                                             />
                                                             <span className="InputSeparatorLine"> </span>
                                                         </div>
@@ -862,12 +893,13 @@ class ProfileDetailsVendor extends React.Component {
                                                         <div className="inputColumn">
                                                             <input 
                                                                 type="text" 
+                                                                defaultValue = {this.state.gstIn5}
                                                                 placeholder="5" 
                                                                 maxLength="1"
-                                                                ref="5"
+                                                                ref="gstIn5"
                                                                 id="5"
                                                                 pattern="\d*" 
-                                                                onChange={(event) =>this.onChange(event)}
+                                                                onChange={(event) =>this.onChangeGST(event, "gstIn5")}
                                                             />
                                                             <span className="InputSeparatorLine"> </span>
                                                         </div>
@@ -886,7 +918,7 @@ class ProfileDetailsVendor extends React.Component {
                                                 <div className="formInputInnerLayer">
                                                     <div className="formParaSection">
                                                         <h3>8</h3>
-                                                        <p>PAN number</p>
+                                                        <p>Your company's PAN number</p>
                                                     </div>
 
                                                     <div className="panNumber">
@@ -920,7 +952,7 @@ class ProfileDetailsVendor extends React.Component {
                                                 <div className="formInputInnerLayer">
                                                     <div className="formParaSection">
                                                         <GradientButton
-                                                            runFunction = {() => window.open('/vendor-main-dashboard')}
+                                                            runFunction = {() => window.open('/vendor-main-dashboard', '_self')}
                                                             >
                                                             Proceed
                                                         </GradientButton>

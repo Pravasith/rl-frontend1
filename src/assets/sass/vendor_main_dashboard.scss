@@ -462,6 +462,7 @@
             .mainContentWrap{
                 @include flexCentreCol;
                 width: 100%;
+                
                 align-items: flex-start;
                 .gradientButtonWrapper{
                     .svgImageContainer{
@@ -496,6 +497,11 @@
                         }
                     }
                 }
+            }
+
+            .contentLoader{
+                min-height: 30em;
+                @include flexCentreCol;
             }
             .hide{
                 display: none;
