@@ -32,6 +32,7 @@ class VendorMainDashboard extends React.Component {
             internalLoaderClass: 'contentLoader',
             modalClass: 'modalClass hide',
             mainContentWrap: 'mainContentWrap hide',
+            contentWrapper:'contentWrapper hide',
             sectionClass: 'newCategorySection hide',
             vendorInitialGraphic: 'vendorGraphicCenter',
 
@@ -239,6 +240,8 @@ class VendorMainDashboard extends React.Component {
                     mainContentWrap: 'mainContentWrap',
                     internalLoaderClass: 'contentLoader hide',
                     sectionClass: 'newCategorySection',
+                    contentWrapper:'contentWrapper',
+
                 })
             }, 4000)
 
@@ -258,21 +261,24 @@ class VendorMainDashboard extends React.Component {
             }
 
             return(
-                    <div className="contentWrapper">
-                        <div className={this.state.mainContentWrap}>
-                            <GradientButton
-                                runFunction={() => {
-                                    this.setState({
-                                        modalClass: 'modalClass',
-                                        vendorInitialGraphic: 'vendorGraphicCenter hide'
-                                    })
-                                }}
-                                >
-                                <div className="svgImageContainer">
-                                    <PlusButtonIconWhite />
-                                </div>
-                                Add new category
-                            </GradientButton>
+                    <div className="add">
+                        <div className={this.state.contentWrapper}>
+                        {/* <div className={this.state.mainContentWrap}> */}
+                            <div className="addProductButton">
+                                <GradientButton
+                                    runFunction={() => {
+                                        this.setState({
+                                            modalClass: 'modalClass',
+                                            vendorInitialGraphic: 'hide',
+                                        })
+                                    }}
+                                    >
+                                    <div className="svgImageContainer">
+                                        <PlusButtonIconWhite />
+                                    </div>
+                                    Add new category
+                                </GradientButton>
+                            </div>
                             <div className={this.state.vendorInitialGraphic}>
                                 <div className="svgImageContainer">
                                     {/* <div className="arrowSvgImageContainer">
@@ -289,8 +295,8 @@ class VendorMainDashboard extends React.Component {
                                     </div>
                                 </div>
                             </div>
+                        
                         </div>
-
                         <div
                             className= {this.state.internalLoaderClass}
                             >
@@ -317,20 +323,31 @@ class VendorMainDashboard extends React.Component {
     returnTags = () => {
         const tags = this.state.tagsAdded.map((item, i) => {
             return (
-                <div key={i}>
-                    <p>{item}</p>
-                    <p
-                        onClick = {() => this.closeTag(i)}
+                <div
+                    className="tagsContainer" 
+                    key={i}>
+                    <div className="tagWrapInnerLayer">
+                        <p>
+                            {item}
+                        </p>
+                        {/* <p
+                            onClick = {() => this.closeTag(i)}
+                            >
+                            X
+                        </p> */}
+                        <div 
+                            className="closeTagContainer"
+                            onClick = {() => this.closeTag(i)}
                         >
-                        X
-                    </p>
+                            <SmallCloseButton />
+                        </div>
+                    </div>
                 </div>
                 
             )
         })
 
-        return tags
-        
+        return tags  
     }
 
     removeTag = (i) => {
@@ -343,47 +360,65 @@ class VendorMainDashboard extends React.Component {
 
         return (
             <div className={this.state.modalClass}>
-                <div className="modalInnerLayer">
-                    <h3>Details about the category</h3>
-                    <div className="line"></div>
-                    <div 
-                        className="close"
-                        onClick={() => this.setState({
-                            modalClass: "modalClass hide",
-                            mainContentWrap: "mainContentWrap",
-                        })
-                    }
-                    >
-                        <BigCloseButton />
-                    </div>
-                    <SelectList
-                        name={'category'}
-                        options={options}
-                        value={categoryName}
-                        placeholder={'Choose Category'}
-                        handleChange={this.onSelect}
-                    />
-                    <h3>Add tags: </h3>
-                    <input
-                        placeholder="For Ex. Sofa"
-                        ref="tagInput"
-                        type="text"
-                        maxLength="20"
-                        onChange = {this.setTagName}
-                        onKeyPress={e => {
-                            if (e.key === "Enter") {
-                                this.setTagName(e)
-                                this.addTagName()
+                <div className="modalOuterLayer">
+                    <div className="modalInnerLayer">
+                        <div className="modalHeaderCloserSection">
+                            <div className="modalHeaderContainer">
+                                <h3>Details about the category</h3>
+                                <div className="line"></div>
+                            </div>
+                            <div 
+                                className="close"
+                                onClick={() => this.setState({
+                                    modalClass: "modalClass hide",
+                                    mainContentWrap: "mainContentWrap",
+                                    vendorInitialGraphic: 'vendorGraphicCenter',
+                                })
                             }
-                        }} 
-                    />
-                    <div className="addedTagsContainer">
-                        {this.returnTags()}
-                    </div>
-                    <div className="proceedButton">
-                        <GradientButton>
-                            Proceed
-                        </GradientButton>
+                            >
+                                <BigCloseButton />
+                            </div>
+                        </div>
+                        <div className="selectListCategorySection">
+                            <SelectList
+                                name={'category'}
+                                options={options}
+                                value={categoryName}
+                                placeholder={'Choose Category'}
+                                handleChange={this.onSelect}
+                            />
+                        </div>
+                        <div className="addTagsContainer">
+                            <div className="vendorHeaderSection">
+                                <h3>Add tags (optional) </h3>
+                            </div>
+                            <div className="vendorInputSection">
+                                <input
+                                    placeholder="For Ex. Sofa"
+                                    ref="tagInput"
+                                    type="text"
+                                    maxLength="20"
+                                    onChange = {this.setTagName}
+                                    onKeyPress={e => {
+                                        if (e.key === "Enter") {
+                                            this.setTagName(e)
+                                            this.addTagName()
+                                        }
+                                    }} 
+                                />
+                                <span className="InputSeparatorLine"> </span>
+                            </div>
+                        </div>
+                        <div className="addedTagsContainer">
+                            <div className="addedTagsInnerContainer">
+                                {this.returnTags()}
+                            </div>
+                        </div>
+                        <div className="proceedButton">
+                            <GradientButton>
+                                Proceed
+                            </GradientButton>
+                        </div>
                     </div>
                 </div>
             </div>

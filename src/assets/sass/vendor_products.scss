@@ -7,6 +7,42 @@
 
 @include scrollStyles;
 
+input{
+    border: none;
+    // border-bottom: 0.2em solid $black;
+    background: transparent;
+    color: $darkerGrey;
+    outline: none;
+    height: 1.5em;
+    width: 100%;
+    border-bottom: 0.2em solid $lightGrey;
+    &:focus + .InputSeparatorLine {
+        transform: scaleX(1) translateY(-2px);   
+          opacity: 1;
+       }
+       &:hover + .InputSeparatorLine{
+        transform: scaleX(1) translateY(-2px);   
+        opacity: 1;
+       }
+}
+
+.InputSeparatorLine {
+    height:0.2em;
+    width: 100%;
+    background: $darkGrey;
+    display: block;
+    transform: scaleX(0) translateY(-2px);
+    transform-origin: 50%;
+    opacity: 0;
+    transition: all .15s $curve;
+}
+
+
+* :focus {
+    outline-color: transparent;
+    outline-style: none;
+}
+
 .hide{
     display: none;
 }
@@ -35,13 +71,100 @@
 
             .modalClass{
                 width: 100%;
-                height: 94.5%;
+                height: 91vh;
                 background: $modalGrey;
                 // opacity: 0.5;
                 position: absolute;
                 top: 0;
                 left: 0;
                 margin-top: 4%;
+                .modalOuterLayer{
+                   @include flexCentreRow;
+                   height: 100%;
+                .modalInnerLayer{
+                    @include flexCentreCol;
+                    justify-content: flex-start;
+                    width: 30%;
+                    height: 25em;
+                    background: $white;
+                    .modalHeaderCloserSection{
+                        @include flexCentreRow;
+                        width: 100%;
+                        .modalHeaderContainer{
+                            @include flexCentreCol;
+                            margin-top: 0.5em;
+                            width: 85%;
+                            h3{
+    
+                            }
+                            .line{
+                                width: 30%;
+                                background: $secondaryMagenta;
+                            }
+                        }
+                        .close{
+                            cursor: pointer;
+                        }
+                    }
+                    .selectListCategorySection{
+                        @include flexCentreRow;
+                        width: 100%;
+                        margin-top: 1em;
+                        .selectList{
+                            width: 80%;
+                        }
+                    }
+                    .addTagsContainer{
+                        @include flexCentreCol;
+                        width: 100%;
+                        margin-top: 1em;
+                        .vendorHeaderSection{
+                            @include flexCentreRow;
+                            justify-content: flex-start;
+                            width: 80%;
+                            h3{
+
+                            }
+                        }
+                        .vendorInputSection{
+                            @include flexCentreCol;
+                            width: 80%;
+                            margin-top: 0.3em;
+                            input{
+                                width: 100%;
+                            }
+                        }
+                    }
+                    .addedTagsContainer{
+                        width: 90%;
+                        height: 10em;
+                        margin-top: 0.5em;
+                        overflow-y: auto;
+                        .addedTagsInnerContainer{
+                            display: inline-block;
+                            margin-top: 0.5em;
+                            .tagsContainer{
+                                display: inline-flex;
+                                margin: 0.3em;
+                                padding: 0.2em;
+                                background: $darkerGrey;
+                                .tagWrapInnerLayer{
+                                    @include flexCentreRow;
+                                    p{
+                                        color: $white;
+                                        margin: 0.3em;
+                                    }
+                                    .closeTagContainer{
+                                        @include flexCentreRow;
+                                        align-items: flex-start;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                }
+              }
             }
 
 
@@ -455,19 +578,30 @@
                 }
             }
         }
-
-        .contentWrapper{
-            @include flexCentreRow;
+    .add{
+      .contentWrapper{
+            @include flexCentreCol;
             width: 100%;
-            .mainContentWrap{
-                @include flexCentreCol;
+            .addProductButton{
+                @include flexCentreRow;
+                justify-content: flex-start;
                 width: 100%;
-                align-items: flex-start;
                 .gradientButtonWrapper{
                     .svgImageContainer{
                         margin-right: 0.5em;
                     }
                 }
+            }
+    
+            // .mainContentWrap{
+            //     @include flexCentreCol;
+            //     width: 100%;
+            //     align-items: flex-start;
+            //     .gradientButtonWrapper{
+            //         .svgImageContainer{
+            //             margin-right: 0.5em;
+            //         }
+            //     }
                 .vendorGraphicCenter{
                     @include flexCentreCol;
                     width: 100%;
@@ -486,7 +620,7 @@
                                 .vendorGraphicParaInnerLayer{
                                     @include flexCentreRow;
                                     h3{
-                                        width: 33%;
+                                        width: 35%;
                                         span{
                                             color: $primaryMagenta;
                                         }
@@ -495,12 +629,16 @@
                             }
                         }
                     }
+                    .hide{
+                        display: none;
+                    }
                 }
-            }
+            // }
             .hide{
                 display: none;
             }
         }
+    }
 
         .footerWrapper{
             position: fixed;
