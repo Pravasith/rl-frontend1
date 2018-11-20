@@ -229,7 +229,7 @@ export class InputForm extends React.Component {
 
                                 if (e.key === "Enter") {
                                     e.preventDefault()
-                                    this.submitForm(e.target.value + e.key)
+                                    this.submitForm(e.target.value)
                                 }
                             }}
                             onChange={e => this.validateForm(e, this.props.validationType)}
