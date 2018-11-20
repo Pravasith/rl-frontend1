@@ -623,97 +623,92 @@ export const SmallModalCloseButton = () => {
 export const VendorGraphic = () => {
 
     return (
-
-        <svg id='Vendor-Product-Animation' xmlns='http://www.w3.org/2000/svg'
-            width='332.231' height='274.146' viewBox='0 0 332.231 302.146'>
-            <circle fill='#F3F3F3' cx='178.419' cy='157.932' r='144.215' />
-            <circle fill='#E6E6E5' cx='178.419' cy='157.932' r='126.547' />
-            <path fill='#FFF' stroke='#818181' strokeWidth='4' strokeLinecap='round'
-                strokeLinejoin='round' strokeMiterlimit='10' d='M117.521,178.205v-48.482c0,0-1.98-8.658,7.175-11.873c9.15-3.218,52.688-15.341,52.688-15.341s10.392-4.782,19.626,0 c9.236,4.785,36.277,21.129,36.277,21.129s4.701,2.125,4.701,8.064c0,5.934-1.483,46.503-1.483,46.503s-0.082,6.104-5.03,9.399 c-4.946,3.298-32.076,15.585-32.076,15.585s-1.732,3.959-20.778,0c-19.048-3.956-55.657-13.111-55.657-13.111 S117.521,188.596,117.521,178.205z'
+        <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" width="332.231" height="302.146"
+        viewBox="0 0 332.231 302.146">
+            <circle fill="#F4F4F4" cx="177.704" cy="157.563" r="118.499" />
+            <circle fill="#EDEDED" cx="177.704" cy="157.563" r="90.9" />
+            <path fill="#FFF" stroke="gray" strokeWidth="3" strokeLinecap="round"
+            strokeLinejoin="round" strokeMiterlimit="10" d="M124.103,175.063v-42.637c0,0-1.742-7.614,6.31-10.441c8.047-2.83,46.334-13.491,46.334-13.491s9.139-4.205,17.26,0 c8.122,4.208,31.902,18.581,31.902,18.581s4.135,1.869,4.135,7.092c0,5.218-1.304,40.896-1.304,40.896s-0.073,5.367-4.425,8.266 c-4.35,2.9-28.208,13.705-28.208,13.705s-1.523,3.482-18.273,0c-16.751-3.479-48.945-11.529-48.945-11.529 S124.103,184.199,124.103,175.063z"
             />
-            <path fill='#FFF' stroke='#818181' strokeWidth='4' strokeLinecap='round'
-                strokeLinejoin='round' strokeMiterlimit='10' d='M124.999,134.466c0,0,8.174-2.179,12.598-1.5'
+            <path fill="#FFF" stroke="gray" strokeWidth="3" strokeLinecap="round"
+            strokeLinejoin="round" strokeMiterlimit="10" d="M130.678,136.597c0,0,7.188-1.916,11.079-1.319"
             />
-            <path fill='#FFF' stroke='#818181' strokeWidth='4' strokeLinecap='round'
-                strokeLinejoin='round' strokeMiterlimit='10' d='M146.258,131.596c0,0,14.842-0.575,27.211,0.086'
+            <path fill="#FFF" stroke="gray" strokeWidth="3" strokeLinecap="round"
+            strokeLinejoin="round" strokeMiterlimit="10" d="M149.374,134.073c0,0,13.052-0.506,23.931,0.075"
             />
-            <polygon fill='#F3F3F3' stroke='#F3F3F3' strokeWidth='3' strokeLinecap='round'
-                strokeLinejoin='round' strokeMiterlimit='10' points='202.553,188.066 203.221,119.134 229.641,135.041 229.048,173.473'
+            <polygon fill="#F2F2F2" stroke="#F2F2F2" strokeWidth="3" strokeLinecap="round"
+            strokeLinejoin="round" strokeMiterlimit="10" points="198.88,183.735 199.468,123.115 222.702,137.103 222.181,170.9"
             />
-            <circle fill='#B4B4B4' cx='134.6' cy='147.908' r='2.653' />
-            <path fill='#B4B4B4' d='M158.225,147.908c0,1.469-1.188,2.656-2.651,2.656c-1.462,0-2.657-1.188-2.657-2.656 c0-1.468,1.194-2.651,2.657-2.651C157.038,145.257,158.225,146.44,158.225,147.908z'
+            <circle fill="#B3B3B3" cx="139.121" cy="148.418" r="2.333" />
+            <circle fill="#B3B3B3" cx="157.564" cy="148.418" r="2.334" />
+            <path fill="none" stroke="#B3B3B3" strokeWidth="3" strokeLinecap="round"
+            strokeLinejoin="round" strokeMiterlimit="10" d="M139.361,160.037c0,0,8.16,8.886,21.713,0"
             />
-            <path fill='none' stroke='#B4B4B4' strokeWidth='4' strokeLinecap='round'
-                strokeLinejoin='round' strokeMiterlimit='10' d='M134.872,161.12c0,0,9.279,10.104,24.69,0'
-            />
-            <g stroke='#B4B4B4' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round'
-                strokeMiterlimit='10'>
-                <polygon fill='#FFF' points='14.356,95.358 25.178,101.061 46.688,96.451 47.252,84.113 36.288,81.271 35.178,75 19.649,75 16.11,79.066 14.356,82.917'
+            <g stroke="#B3B3B3" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10">
+                <polygon fill="#FFF" points="45.856,93.803 54.731,98.457 72.307,94.695 72.779,84.625 63.836,82.461 62.936,77.5 50.262,77.5 47.331,80.662 45.856,83.65"
                 />
-                <polyline fill='none' points='26.356,100 26.356,86.131 20.646,84.092 16.613,76.805'
+                <polyline fill="none" points="54.856,98 54.856,86.272 50.636,84.608 47.124,78.865"
                 />
-                <polyline fill='none' points='27.356,87 40.212,87 43.639,87 27.787,89.365'
+                <polyline fill="none" points="56.356,87.5 67.043,87.5 69.84,87.5 56.806,89.43"
                 />
-                <line fill='none' x1='27.789' y1='93.413' x2='43.639' y2='91.271' />
-                <line fill='none' x1='42.356' y1='98' x2='42.356' y2='85' />
-                <polygon fill='#FFF' points='51.356,97.482 88.496,107.371 107.356,102.266 107.356,86.987 104.412,86.777 100.184,75 97.613,75 72.768,75 69.912,77.37 66.025,82.526 51.356,84.092'
+                <line fill="none" x1="56.905" y1="92.215" x2="69.84" y2="90.467" />
+                <line fill="none" x1="67.856" y1="96" x2="67.856" y2="85" />
+                <polygon fill="#FFF" points="75.856,95.536 105.815,103.607 120.856,99.441 120.856,86.971 118.946,86.956 115.989,77.5 113.891,77.5 93.613,77.5 91.283,79.278 87.969,83.408 75.856,84.608"
                 />
-                <polyline fill='none' points='85.356,105 85.356,88.7 103.777,86.569' />
-                <line fill='none' x1='90.356' y1='105' x2='90.356' y2='91' />
-                <polyline fill='none' points='54.356,98 54.356,87.844 56.216,86.56 67.356,84.417 67.356,79'
+                <polyline fill="none" points="103.856,102 103.856,88.369 118.89,86.793"
                 />
-                <line fill='none' x1='55.205' y1='92.342' x2='84.477' y2='99.553' />
-                <line fill='none' x1='55.205' y1='87.844' x2='84.477' y2='93.413' />
-                <path fill='none' d='M69.356,95v-3.729l10.487-4.712c0.429-0.715,4.323-9.685,4.323-9.685'
+                <line fill="none" x1="106.856" y1="102" x2="106.856" y2="91" />
+                <polyline fill="none" points="77.856,96 77.856,87.67 79.569,86.622 88.856,84.873 88.856,80"
                 />
-                <polyline fill='none' points='68.913,84.417 95.258,86.56 98.471,75.849'
+                <line fill="none" x1="79.28" y1="91.341" x2="103.17" y2="97.227" />
+                <line fill="none" x1="79.28" y1="87.67" x2="103.17" y2="92.215" />
+                <path fill="none" d="M90.856,93v-2.533 l8.545-3.846c0.351-0.583,3.536-8.159,3.536-8.159"
                 />
-                <line fill='none' x1='99.897' y1='84.417' x2='101.327' y2='81.204' />
-                <ellipse fill='#FFF' cx='57.051' cy='72.559' rx='5.248' ry='4.712' />
-                <ellipse fill='#FFF' cx='48.312' cy='63.586' rx='3.427' ry='3.391' />
-                <line fill='none' x1='55.356' y1='68' x2='55.356' y2='55' />
-                <line fill='none' x1='47.356' y1='60' x2='47.356' y2='54' />
+                <polyline fill="none" points="90.467,84.873 111.968,86.622 114.591,77.881"
+                />
+                <line fill="none" x1="115.755" y1="84.873" x2="116.921" y2="82.251" />
+                <ellipse fill="#FFF" cx="80.786" cy="75.196" rx="4.283" ry="3.845" />
+                <ellipse fill="#FFF" cx="73.655" cy="67.872" rx="2.797" ry="2.769" />
+                <line fill="none" x1="78.856" y1="72" x2="78.856" y2="61" />
+                <line fill="none" x1="72.856" y1="65" x2="72.856" y2="60" />
             </g>
-            <g fill='#FFF' stroke='#B4B4B4' strokeWidth='2' strokeLinecap='round'
-                strokeLinejoin='round' strokeMiterlimit='10'>
-                <polygon points='1.356,147.551 31.356,154.1 31.356,177.79 1.356,167.739'
+            <g fill="#FFF" stroke="#B3B3B3" strokeLinecap="round" strokeLinejoin="round"
+            strokeMiterlimit="10">
+                <polygon points="18.856,146.785 46.856,152.953 46.856,175.267 18.856,165.8"
                 />
-                <polygon points='31.356,154.121 77.356,142.613 77.356,162.714 31.356,177.79'
+                <polygon points="46.856,152.973 89.856,142.134 89.856,161.066 46.856,175.267"
                 />
-                <polygon points='1,147.551 31.152,154.121 77.815,142.613 50.535,139.764'
+                <polygon points="18.598,146.785 46.997,152.973 90.948,142.134 65.253,139.45"
                 />
             </g>
-            <g fill='#FFF' stroke='#B4B4B4' strokeWidth='2' strokeLinecap='round'
-                strokeLinejoin='round' strokeMiterlimit='10'>
-                <path d='M261.323,73c0,0-0.097-3.957,5.064-3.957s5.06,3.957,5.06,3.957H261.323z'
+            <g fill="#FFF" stroke="#B3B3B3" strokeLinecap="round" strokeLinejoin="round"
+            strokeMiterlimit="10">
+                <path d="M236.532,80.5 c0,0-0.077-3.147,4.027-3.147c4.104,0,4.023,3.147,4.023,3.147H236.532z"
                 />
-                <polygon points='263.79,70 266.388,63.113 268.991,70' />
-                <path d='M239.259,94c0,0,0.884-19.757,27.129-19.757S293.518,94,293.518,94H239.259z'
+                <polygon points="238.493,77.5 240.56,72.024 242.63,77.5" />
+                <path d="M218.986,96.5 c0,0,0.703-15.71,21.573-15.71c20.869,0,21.573,15.71,21.573,15.71H218.986z"
                 />
-                <ellipse cx='266.388' cy='92.868' rx='27.129' ry='5.897' />
-                <ellipse cx='266.141' cy='88.902' rx='6.587' ry='1.828' />
-                <line x1='266.356' y1='63' x2='266.356' y2='29' />
+                <ellipse cx="240.56" cy="95.331" rx="21.573" ry="4.689" />
+                <ellipse cx="240.363" cy="92.177" rx="5.238" ry="1.453" />
+                <line x1="240.856" y1="75" x2="240.856" y2="48" />
             </g>
-            <g fill='#FFF' stroke='#B4B4B4' strokeWidth='2' strokeLinecap='round'
-                strokeLinejoin='round' strokeMiterlimit='10'>
-                <rect x='140.356' y='1' width='69' height='70' />
-                <rect x='145.356' y='6' width='59' height='60' />
-                <line x1='175.356' y1='6' x2='175.356' y2='66' />
-                <circle cx='163.507' cy='29.208' r='2.002' />
-                <path d='M165.356,48.81c0,1.253-0.694,2.19-1.738,2.19h-0.223c-1.043,0-2.039-0.937-2.039-2.19V36.534c0-1.253,0.995-2.534,2.039-2.534 h0.223c1.044,0,1.738,1.281,1.738,2.534V48.81z'
-                />
-            </g>
-            <g fill='#FFF' stroke='#B4B4B4' strokeWidth='2' strokeLinecap='round'
-                strokeLinejoin='round' strokeMiterlimit='10'>
-                <path d='M304.416,108c0,0,6.727,0.938,0,24.25c-6.726,23.313,0,31.199,6.727,39.941c0,0,6.247,2.751,12.974-0.031 c0,0,13.452-16.686,3.363-38.689C317.39,111.468,326.037,108,326.037,108H304.416z'
-                />
-                <path d='M285.063,134c0,0,6.402-0.075,0,14.465c-6.4,14.541,0,19.131,6.402,24.582c0,0,5.942,1.551,12.344-0.184 c0,0,12.802-9.831,3.201-23.554c-9.603-13.723-1.372-15.31-1.372-15.31H285.063z'
+            <g fill="#FFF" stroke="#B3B3B3" strokeLinecap="round" strokeLinejoin="round"
+            strokeMiterlimit="10">
+                <rect x="151.856" y="30.5" width="43" height="42" />
+                <rect x="154.856" y="32.5" width="37" height="38" />
+                <line x1="173.856" y1="33" x2="173.856" y2="70" />
+                <circle cx="167.158" cy="46.743" r="1.224" />
+                <path d="M167.856,58.728 c0,0.767,0.008,1.772-0.631,1.772h-0.137c-0.638,0-2.232-1.006-2.232-1.772v-7.505c0-0.766,1.595-1.722,2.232-1.722h0.137 c0.639,0,0.631,0.956,0.631,1.722V58.728z"
                 />
             </g>
-        </svg>
-
-
-
+            <g fill="#FFF" stroke="#B3B3B3" strokeLinecap="round" strokeLinejoin="round"
+            strokeMiterlimit="10">
+                <path d="M277.547,118.5 c0,0,5.861,0.512,0,20.824c-5.86,20.313,0,27.032,5.861,34.649c0,0,5.442,2.321,11.304-0.103c0,0,11.721-14.272,2.93-33.444 c-8.791-19.172-1.257-21.926-1.257-21.926H277.547z"
+                />
+                <path d="M260.685,140.5 c0,0,5.579-0.043,0,12.625c-5.576,12.67,0,16.68,5.579,21.43c0,0,5.177,1.356,10.755-0.154c0,0,11.154-8.585,2.789-20.543 c-8.367-11.956-1.195-13.357-1.195-13.357H260.685z"
+                />
+            </g>
+        </svg>        
     )
 
 }

@@ -145,7 +145,7 @@
                                         .imageUploadUpperSection{
                                             @include flexCentreCol;
                                             width: 100%;
-                                            padding: 0.3em;
+                                            padding: 0  0 0.3em 0;
                                             background: $veryLightGrey;
                                             // margin: 0 auto;
                                             .imageUploadInnerLayer{
@@ -154,6 +154,7 @@
                                                 height: 25em;
                                                 .imageContainerInnerSection{
                                                     @include flexCentreCol;
+                                                    height: 100%;
                                                     .productUploadHeaderSection{
                                                         width: 100%;
                                                         background: $primaryMagenta;
@@ -167,7 +168,7 @@
                                                         @include flexCentreCol;
                                                         width: 50%;
                                                         margin: 0 auto;
-                                                        margin-top: 20%;
+                                                        // margin-top: 11%;
                                                         .vendorImageUploadHeaderComponent{
                                                             margin-bottom: 0.5em;
                                                             .headingArea{
@@ -301,8 +302,9 @@
                                                     .productSizeDescriptionInnerLayer{
                                                         @include flexCentreRow;
                                                         justify-content: space-between;
-                                                        padding: 1em;
+                                                        padding: 0.5em 1em;
                                                         background: $lightGrey;
+                                                        margin: 0.5em 0;
                                                         .productSizeDetails{
                                                             @include flexCentreCol;
                                                             width: 50%;
@@ -311,6 +313,14 @@
                                                                 @include flexCentreRow;
                                                                 justify-content: space-between;
                                                                 width: 100%;
+                                                                h3{
+                                                                    font-size: 0.8em;
+                                                                }
+                                                                p{
+                                                                    width: 35%;
+                                                                    font-size: 0.9em;
+                                                                    font-weight: 600;
+                                                                }
                                                             }
                                                             .costCart{
                                                                 @include flexCentreRow;
@@ -320,6 +330,16 @@
                                                         }
                                                         .sizeEditingButtons{
                                                             @include flexCentreRow;
+                                                            .editButton{
+                                                                .whiteButtonWrapper{
+                                                                    padding: 0.5em 1.3em;
+                                                                }
+                                                            }
+                                                            .deleteButton{
+                                                                .whiteButtonWrapper{
+                                                                    padding: 0.5em 1.3em;
+                                                                }
+                                                            }
                                                         }
                                                     }
                                                 }
@@ -397,6 +417,9 @@
                                                         margin-top: 0.5em;
                                                         font-size: 0.75em;
                                                         margin-left: 2em;
+                                                        // .whiteButtonWrapper{
+                                                        //     padding: 0.2em 1.3em 0.2em 1.3em;
+                                                        // }
                                                     }
 
                                                     .mandatorySection{
@@ -429,7 +452,7 @@
 
                                                 .buttonContainer{
 
-                                                    .vendorDashboardBtn{
+                                                    .whiteButtonWrapper{
                                                         @include flexCentreRow;
 
                                                         .svgImageContainer{
@@ -489,8 +512,9 @@
                             align-items: flex-start;
                             background: $white;
                             padding: 0.8em;
+                            @include box_shadow;
                             .modalContentWrap{
-                                .modalContentClass,.modalFinishClass{
+                                .modalContentClass,.modalFinishClass,.modalSizeClass{
                                     .dummyXClass{
                                         .whiteSquareForModal{
                                             .vendorDashboardModal{
@@ -511,18 +535,43 @@
                                                         background: $secondaryMagenta;
                                                         width: 35%;
                                                     }
+                                                    
                                                 }
                                             }
-                                            .inputFormContainer{
+                                            .colorCategorySection{
+                                                @include flexCentreRow;
+                                                align-items: flex-start;
+                                                .selectedColorSection{
+                                                    width: 3em;
+                                                    height: 3em;
+                                                    background: $lightGrey;
+                                                    margin:1em 0.8em 0 0.8em;
+                                                }
+                                                .colorInputFormSection{
+                                                    @include flexCentreCol;
+                                                    align-items: flex-start;
+                                                    margin-left: 0.3em;                                                    
+                                                }
+                                            }
+                                            .inputFormContainer,.colorInputFormSection{
                                                 @include flexCentreCol;
                                                 align-items: flex-start;
                                                 margin: 0.5em 0 1em 0;
                                                 .finishInputParaContainer{
-                                                    @include flexCentreRow;
+                                                    @include flexCentreCol;
                                                     text-align: center;
                                                     width: 100%;
                                                     .pargraphClass{
                                                         width: 50%;
+                                                    }
+                                                    .exampleUploadedImgThumbnail{
+                                                        width: 10%;
+                                                        margin-top: 0.5em;
+                                                        img{
+                                                            width: 3em;
+                                                            height: 3em;
+                                                            object-fit: cover;
+                                                        }
                                                     }
                                                 }
                                                 .formParaSection{
@@ -532,7 +581,13 @@
                                                         font-size: 0.8em;
                                                     }
                                                 }
-                                                .productColorInfoSection{
+                                                .productCostForSize{
+                                                    width: 100%;
+                                                    .modalInputCategory{
+                                                        width: 100%;
+                                                    }
+                                                }
+                                                .productInputInfoSection{
                                                     @include flexCentreRow;
                                                     .modalMandatorySection{
                                                         background: $secondaryMagenta;
@@ -588,8 +643,15 @@
                                                     }
                                                 }
                                             }
-                                            .uploadedImgThumbnail{
-
+                                            .imageUploaderContainer{
+                                                @include flexCentreRow;
+                                                width: 100%;
+                                                margin-bottom: 1em;
+                                                .imageUploaderInnerLayer{
+                                                    @include flexCentreRow;
+                                                    width: 50%;
+                                                }
+                                                
                                             }
                                             .proceedOrNotCheck{
                                                 @include flexCentreRow;

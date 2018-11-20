@@ -35,6 +35,7 @@ class AddProductDetails extends React.Component {
             modalClassToggle: "modalBackgroundMainOuterWrap hide",
             modalColor: "modalContentClass",
             modalFinish: "modalFinishClass",
+            modalSize: "modalSizeClass",
             // dynamincally toggle classes to flip styles //
 
             modalType : null,
@@ -355,13 +356,39 @@ class AddProductDetails extends React.Component {
                                         Edit
                                     </WhiteButton>
                                 </div>
+
                                 <div 
                                     className="deleteButton"
                                     onClick={() => this.removeProductDimensions(i)}
-                                >
-                                    <WhiteButton>
-                                        Delete
-                                    </WhiteButton>
+                                    >
+                                    <div className="sizeCostCartWrap">
+                                        <h3>Size nomenclature</h3>
+                                        <p key={i}
+                                            >{item.sizeName}</p>
+                                    </div>
+                                    <div className="sizeCostCartWrap">
+                                        <h3>Cost over base price</h3>
+                                        <p key={i}>Rs. {item.sizeCost}</p>
+                                    </div>
+                                </div>
+                               
+                                
+                                <div className="sizeEditingButtons">
+                                    <div className="editButton">
+                                        <WhiteButton 
+                                            runFunction={() => this.editProductDimensions(i)}
+                                            >
+                                            Edit
+                                        </WhiteButton>
+                                    </div>
+                                    <div 
+                                        className="deleteButton"
+                                        onClick={() => this.removeProductDimensions(i)}
+                                        >
+                                        <WhiteButton>
+                                            Delete
+                                        </WhiteButton>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -592,11 +619,15 @@ class AddProductDetails extends React.Component {
                             <div className="inputFormContainer">
                                 <div className="formParaSection finishInputParaContainer">
                                     <p className="pargraphClass">Example: The image thumbnail for Pinewood finish looks like this</p>
+                                    <div className="exampleUploadedImgThumbnail">
+                                        <img className="uploadedImage" src="https://res.cloudinary.com/wnbcloud/image/upload/h_300,w_400/v1467638340/ash2_wqnx4x.jpg" alt="" />
+                                    </div>
                                 </div>
                             </div>
-                            <div className="uploadedImgThumbnail">
-                                <img className="uploadedImage" src="" alt="" />
-                                <ImageUploader />
+                            <div className="imageUploaderContainer">
+                                <div className="imageUploaderInnerLayer">
+                                    <ImageUploader />
+                                </div>
                             </div>
                         </div>
                         <div className="whiteSquareForModal">
@@ -626,7 +657,7 @@ class AddProductDetails extends React.Component {
                                     </div>
                                 </div>
 
-                                <div className="inputFormContainer">
+                                {/* <div className="inputFormContainer">
                                     <div className="formParaSection">
                                         <p className="pargraphClass">Name of the color</p>
                                     </div>
@@ -642,7 +673,7 @@ class AddProductDetails extends React.Component {
                                                 colorName: val
                                             })}
                                         /> */}
-                                        <div className="modalMandatorySection">
+                                        {/* <div className="modalMandatorySection">
                                             <p className="madatoryHighlight">Mandatory</p>
                                         </div>
                                         <div className="modalInputCategory">
@@ -657,58 +688,85 @@ class AddProductDetails extends React.Component {
                                             <span className="InputSeparatorLine"> </span>
                                         </div>
                                     </div>
-                                </div>
+                                </div>  */}
 
-                                <div className="inputFormContainer">
-                                    <div className="formParaSection">
-                                        <p className="pargraphClass">Color code (hex)</p>
-                                    </div>
-                                    <div className="productColorInfoSection">
-                                        {/* <InputForm
-                                            refName="colorCode"
-                                            placeholder="Ex. #29abe2"
-                                            isMandatory={true}
-                                            validationType="alphabetsSpecialCharactersAndNumbers"
-                                            characterCount="6"
-                                            result={(val) => this.setState({
-                                                colorCode: val
-                                            })}
-                                        /> */}
-                                        <div className="modalMandatorySection">
-                                            <p className="madatoryHighlight">Mandatory</p>
+                            
+                                    <div className="colorCategorySection">
+                                        <div className="selectedColorSection">
                                         </div>
-                                        <div className="modalInputCategory">
-                                            <input
-                                                type="text"
-                                                name="colorCode"
-                                                placeholder="Ex. #29abe2"
-                                                // value={this.state.colorCode}
-                                                onChange={this.onChange}
-                                                ref = "colorCode"
-                                            />
-                                            <span className="InputSeparatorLine"> </span>
+                                        <div className="colorInputFormSection">
+
+                                            <div className="inputFormContainer">
+                                                <div className="formParaSection">
+                                                    <p className="pargraphClass">Name of the color</p>
+                                                </div>
+                                                <div className="productInputInfoSection">
+                                                    {/* <InputForm
+                                                        refName="colorName"
+                                                        placeholder="Ex. Orange"
+                                                        isMandatory={true}
+                                                        validationType="alphabetsSpecialCharactersAndNumbers"
+                                                        characterCount="6"
+                                                        value={this.state.colorName}
+                                                        result={(val) => this.setState({
+                                                            colorName: val
+                                                        })}
+                                                    /> */}
+                                                    <div className="modalMandatorySection">
+                                                        <p className="madatoryHighlight">Mandatory</p>
+                                                    </div>
+                                                    <div className="modalInputCategory">
+                                                        <input 
+                                                            type="text"
+                                                            name="colorName"
+                                                            placeholder="Ex. Orange"
+                                                            value={this.state.colorName}
+                                                            onChange={this.onChange}
+                                                        />
+                                                        <span className="InputSeparatorLine"> </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="inputFormContainer">
+                                                <div className="formParaSection">
+                                                    <p className="pargraphClass">Color Code (hex)</p>
+                                                </div>
+                                                <div className="productInputInfoSection">
+                                                    <div className="modalMandatorySection">
+                                                        <p className="madatoryHighlight">Mandatory</p>
+                                                    </div>
+                                                    <div className="modalInputCategory">
+                                                        <input
+                                                            type="text"
+                                                            name="colorCode"
+                                                            placeholder="Ex. #29abe2"
+                                                            // value={this.state.colorCode}
+                                                            onChange={this.onChange}
+                                                            ref = "colorCode"
+                                                        />
+                                                        <span className="InputSeparatorLine"> </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="proceedOrNotCheck">
+                                                <GradientButton
+                                                    runFunction={() => {
+                                                        this.proceedHandler("color")
+                                                    }}>
+                                                    Proceed
+                                                </GradientButton>
+
+                                                {this.displayError("color")}
+                                            </div>
+                                    
                                         </div>
-                                        
-                                    </div>
-                                    <div className="colorLinkSection">
-                                            <p>You can get the hexcode of the desired color 
-                                            <a href="https://www.google.com/"> here</a></p>
-                                    </div>
-                                </div>
 
-                                <div className="proceedOrNotCheck">
-                                    <GradientButton
-                                        runFunction={() => {
-                                            this.proceedHandler("color")
-                                        }}>
-                                        Proceed
-                                    </GradientButton>
+                                    </div>
 
-                                    {this.displayError("color")}
-                                </div>
                             </div>
+                         </div>
                         </div>
-                    </div>
                 )
             }
 
@@ -717,7 +775,7 @@ class AddProductDetails extends React.Component {
 
                     <div className={this.state.modalSize}>
                         <div className="dummyXClass">
-                            < div className="whiteSquareForModal">
+                            <div className="whiteSquareForModal">
                                 <div className="vendorDashboardModal">
                                     <div className="modalHeader">
                                         <h3>Size details</h3>
@@ -729,7 +787,7 @@ class AddProductDetails extends React.Component {
                                     <div className="formParaSection">
                                         <p className="pargraphClass">Size name</p>
                                     </div>
-                                    <div className="productSizeName">
+                                    <div className="productInputInfoSection productSizeName">
                                         {/* <InputForm
                                             refName="sizeName"
                                             placeholder="Ex. Small-2ft x 2ft"
@@ -740,7 +798,10 @@ class AddProductDetails extends React.Component {
                                                 sizeName: val
                                             })}
                                         /> */}
-                                        <p className="madatoryHighlight">Mandatory</p>
+                                        <div className="modalMandatorySection">
+                                            <p className="madatoryHighlight">Mandatory</p>
+                                        </div>
+                                        <div className="modalInputCategory">
                                             <input
                                                 type="text"
                                                 name="sizeName"
@@ -749,6 +810,8 @@ class AddProductDetails extends React.Component {
                                                 onChange={this.onChange}
                                                 ref="sizeName"
                                             />
+                                            <span className="InputSeparatorLine"> </span>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -756,7 +819,7 @@ class AddProductDetails extends React.Component {
                                     <div className="formParaSection">
                                         <p className="pargraphClass">Extra cost for size(over base price)</p>
                                     </div>
-                                    <div className="productCostForSize">
+                                    <div className="productInputInfoSection productCostForSize">
                                         {/* <InputForm
                                             refName="sizeCost"
                                             placeholder="Ex. 20"
@@ -767,7 +830,10 @@ class AddProductDetails extends React.Component {
                                                 sizeCost: val
                                             })}
                                         /> */}
-                                        <p className="madatoryHighlight">Mandatory</p>
+                                        {/* <div className="modalMandatorySection">
+                                            <p className="madatoryHighlight">Mandatory</p>
+                                        </div> */}
+                                        <div className="modalInputCategory">
                                             <input
                                                 type="text"
                                                 name="sizeCost"
@@ -776,6 +842,8 @@ class AddProductDetails extends React.Component {
                                                 onChange={this.onChange}
                                                 ref="sizeCost"
                                             />
+                                            <span className="InputSeparatorLine"> </span>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -826,7 +894,9 @@ class AddProductDetails extends React.Component {
         return (
             <div className="vendorDashboardWrapper">
                 <div className={this.state.loadingClass}>
-                    <LogoAnimation />
+                    <LogoAnimation
+                        text="We are loading..."
+                    />
                 </div>
 
                 <div className={this.state.mainClass}>
@@ -845,9 +915,9 @@ class AddProductDetails extends React.Component {
                                                 <div className="imageUploadInnerLayer">
 
                                                     <div className="imageContainerInnerSection">
-                                                        <div className="productUploadHeaderSection">
+                                                        {/* <div className="productUploadHeaderSection">
                                                             <p>Please upload an image with size lesser than 500kb </p>
-                                                        </div>
+                                                        </div> */}
 
                                                         <div className="imageUploadComponent">
                                                             <header className="vendorImageUploadHeaderComponent">
@@ -867,7 +937,7 @@ class AddProductDetails extends React.Component {
                                                     alt=""
                                                     className="imageContainer"
                                                 />
-                                            </div> */}
+                                                </div> */}
 
 
                                             </div>
@@ -1032,7 +1102,7 @@ class AddProductDetails extends React.Component {
                                                             runFunction={this.addFeatureName}
                                                         >
                                                             Add
-                                                    </WhiteButton>
+                                                        </WhiteButton>
                                                     </div>
                                                 </div>
 
@@ -1108,8 +1178,8 @@ class AddProductDetails extends React.Component {
                                                         <p className="pargraphClass">Sizes available</p>
                                                     </div>
                                                     <div className="productSizeDescriptionOuterLayer">
-                                                        <div className="productSizeDescriptionInnerLayer">
-                                                            <div className="productSizeDetails">
+                                                        {/* <div className="productSizeDescriptionInnerLayer"> */}
+                                                            {/* <div className="productSizeDetails">
                                                                 <div className="sizeCostCartWrap">
                                                                     <h3>Size nomenclature</h3>
                                                                     <p>Small - 4ft * 3ft</p>
@@ -1123,18 +1193,24 @@ class AddProductDetails extends React.Component {
                                                                 <div className="editButton">
                                                                     <WhiteButton>
                                                                         Edit
-                                                                </WhiteButton>
+                                                                    </WhiteButton>
                                                                 </div>
                                                                 <div className="deleteButton">
                                                                     <WhiteButton>
                                                                         Delete
-                                                                </WhiteButton>
+                                                                    </WhiteButton>
                                                                 </div>
-                                                            </div>
-                                                        </div>
+                                                            </div> */}
+                                                            {/* <div className="prodDimensionHolder"> */}
+                                                                {this.returnProductDimensions()}
+                                                            {/* </div> */}
+                                                        {/* </div> */}
                                                     </div>
 
                                                     <div className="buttonContainer">
+                                                         {/* <div className="prodDimensionHolder">
+                                                            {this.returnProductDimensions()}
+                                                        </div> */}
                                                         <WhiteButton
                                                             runFunction={() => {
                                                                 this.modalClassToggle("show")
@@ -1148,9 +1224,9 @@ class AddProductDetails extends React.Component {
                                                             </div>
                                                             Add new size
                                                         </WhiteButton>
-                                                        <div className="prodDimensionHolder" >
+                                                        {/* <div className="prodDimensionHolder">
                                                             {this.returnProductDimensions()}
-                                                        </div>
+                                                        </div> */}
                                                     </div>
                                                 </div>
 
