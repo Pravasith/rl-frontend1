@@ -30,9 +30,10 @@ class VendorMainDashboard extends React.Component {
 
             contentClass: 'contentClass hide',
             internalLoaderClass: 'contentLoader',
-            modalClass: 'modalClass',
+            modalClass: 'modalClass hide',
             mainContentWrap: 'mainContentWrap hide',
             sectionClass: 'newCategorySection hide',
+            vendorInitialGraphic: 'vendorGraphicCenter',
 
             // my code
             mainHeadingClass1: 'uploadedProducts active',
@@ -248,103 +249,65 @@ class VendorMainDashboard extends React.Component {
     returnContent = () => {
         let { contentType } = this.state;
 
-
         // {this.returnDataFromBackendAndShow()}
 
         if (contentType === 'uploadedProducts'){
-            {this.returnDataFromBackendAndShow()}
-            return(
-                // {this.returnDataFromBackendAndShow()}
 
-                        <div className="contentWrapper">
-                            <div className={this.state.mainContentWrap}>
-                                <GradientButton
-                                    runFunction={() => {
-                                        this.setState({
-                                            modalClass: 'modalClass'
-                                        })
-                                    }}
-                                    >
-                                    <div className="svgImageContainer">
-                                        <PlusButtonIconWhite />
-                                    </div>
-                                    Add new category
-                                </GradientButton>
-                                <div className="vendorGraphicCenter">
-                                    <div className="svgImageContainer">
-                                        {/* <div className="arrowSvgImageContainer">
-                                            <ArrowMarkLong/>
-                                        </div> */}
-                                        <div className="graphicSvgImageContainer">
-                                            <VendorGraphic/>
-                                            <div className="vendorGraphicInnerContainer">
-                                                <div className="vendorGraphicParaInnerLayer">
-                                                    <h3>Hey <span>{this.state.firstName}</span> show your amazing products to your clients, start
-                                                    by clicking Add new category button on the top.</h3>
-                                                </div>
+            {
+                this.returnDataFromBackendAndShow()
+            }
+
+            return(
+                    <div className="contentWrapper">
+                        <div className={this.state.mainContentWrap}>
+                            <GradientButton
+                                runFunction={() => {
+                                    this.setState({
+                                        modalClass: 'modalClass',
+                                        vendorInitialGraphic: 'vendorGraphicCenter hide'
+                                    })
+                                }}
+                                >
+                                <div className="svgImageContainer">
+                                    <PlusButtonIconWhite />
+                                </div>
+                                Add new category
+                            </GradientButton>
+                            <div className={this.state.vendorInitialGraphic}>
+                                <div className="svgImageContainer">
+                                    {/* <div className="arrowSvgImageContainer">
+                                        <ArrowMarkLong/>
+                                    </div> */}
+                                    <div className="graphicSvgImageContainer">
+                                        <VendorGraphic/>
+                                        <div className="vendorGraphicInnerContainer">
+                                            <div className="vendorGraphicParaInnerLayer">
+                                                <h3>Hey <span>{this.state.firstName}</span>, show your amazing products to your clients, start
+                                                by clicking Add new category button on the top.</h3>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <div
-                                className= {this.state.internalLoaderClass}
-                                >
-                                <LogoLoadingAnimation />
-                            </div> 
                         </div>
+
+                        <div
+                            className= {this.state.internalLoaderClass}
+                            >
+                            <LogoLoadingAnimation />
+                        </div> 
+                    </div>
             )
         }
         else if (contentType === 'clientData') {
             return (
-                <div className="clientProductWrap">
-                    <div className="clientSectionInnerWrap">
-                        Coming Soon
+                    <div className="clientProductWrap">
+                        <div className="clientSectionInnerWrap">
+                            Coming Soon
+                        </div>
                     </div>
-                </div>
             )
         }
-
-        // return (
-            // <div className="contentWrapper">
-            //         <div className={this.state.mainContentWrap}>
-            //             <GradientButton
-            //                 runFunction={() => {
-            //                     this.setState({
-            //                         modalClass: 'modalClass'
-            //                     })
-            //                 }}
-            //                 >
-            //                 <div className="svgImageContainer">
-            //                     <PlusButtonIconWhite />
-            //                 </div>
-            //                 Add new category
-            //             </GradientButton>
-            //             <div className="vendorGraphicCenter">
-            //                 <div className="svgImageContainer">
-            //                     <div className="arrowSvgImageContainer">
-            //                         <ArrowMarkLong/>
-            //                     </div>
-            //                     <div className="GraphicSvgImageContainer">
-            //                         <VendorGraphic/>
-            //                     </div>
-            //                 </div>
-            //             <small>Hey {} show your amazing products to your clients, start
-            //                 by clicking Add new category button on the top.</small>
-            //             </div>
-
-            //             <div className="dfdfdf"></div>
-            //         </div>
-
-            //         <div
-            //             className= {this.state.internalLoaderClass}
-            //             >
-            //             <LogoLoadingAnimation />
-            //         </div> 
-            // </div>
-            
-        // )
     }
 
     closeTag = (indexNumber) => {
@@ -379,12 +342,19 @@ class VendorMainDashboard extends React.Component {
         const { options } = this.state;
 
         return (
-            <div className="modalOuterLayer">
+            <div className={this.state.modalClass}>
                 <div className="modalInnerLayer">
                     <h3>Details about the category</h3>
                     <div className="line"></div>
-                    <div className="close">
-                        <SmallCloseButton/>
+                    <div 
+                        className="close"
+                        onClick={() => this.setState({
+                            modalClass: "modalClass hide",
+                            mainContentWrap: "mainContentWrap",
+                        })
+                    }
+                    >
+                        <BigCloseButton />
                     </div>
                     <SelectList
                         name={'category'}
@@ -405,11 +375,10 @@ class VendorMainDashboard extends React.Component {
                                 this.setTagName(e)
                                 this.addTagName()
                             }
-                        }} />
+                        }} 
+                    />
                     <div className="addedTagsContainer">
                         {this.returnTags()}
-
-
                     </div>
                     <div className="proceedButton">
                         <GradientButton>
@@ -462,7 +431,9 @@ class VendorMainDashboard extends React.Component {
         return (
             <div className="vendorProductDashboard">
                 <div className={this.state.loadingClass}>
-                    <LogoAnimation />
+                    <LogoAnimation
+                        text="We are loading..."
+                    />
                 </div>
 
                 <div className={this.state.mainClass}>
@@ -522,7 +493,9 @@ class VendorMainDashboard extends React.Component {
                         </div>
                         
                         <Footer />
-                        {/* {this.returnModal()} */}
+
+                        {this.returnModal()}
+
                     </div>
                 </div>
             </div>

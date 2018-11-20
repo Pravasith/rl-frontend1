@@ -199,7 +199,9 @@ class ProfileDetailsVendor extends React.Component {
     onChange(event) {
         if (event.target.value.length === event.target.maxLength) {
           this.refs[parseInt(event.target.id, 10) + 1].focus();
+          console.log(event.target.value)
         }
+       
     }
 
     validateCard(e) {
