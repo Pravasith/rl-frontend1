@@ -52,11 +52,11 @@ class ProfileDetailsVendor extends React.Component {
 
             modalClassToggle: "modalBackgroundMainOuterWrap hide",
 
-            gstIn1: null,
-            gstIn2: null,
-            gstIn3: null,
-            gstIn4: null,
-            gstIn5: null,
+            gstIn1: "",
+            gstIn2: "",
+            gstIn3: "",
+            gstIn4: "",
+            gstIn5: "",
         }
     }
 
@@ -134,9 +134,9 @@ class ProfileDetailsVendor extends React.Component {
             .catch(e => console.error(e))
     }
 
-    // componentDidUpdate() {
-    //     console.log(this.state.gstIn);
-    // }
+    componentDidUpdate() {
+        console.log(this.state.gstIn);
+    }
 
 
     decreaseValue = (yearOrMonth) => {
@@ -208,29 +208,43 @@ class ProfileDetailsVendor extends React.Component {
     
 
 
-    handleGST(event, gstPart) {
+    handleGST = (event, gstPart) => {
         const val = event.target.value;
         const { gstIn1, gstIn2, gstIn3, gstIn4, gstIn5 } = this.state;
+
+        const validateGST = () => {
+            // if (gstIn1 !== "" && gstIn2 !== "" && gstIn3 !== "" && gstIn4 !== "") {
+                const GSTIN = gstIn1 + gstIn2 + gstIn3 + gstIn4 + gstIn5;
+
+                // console.log(GSTIN)
+                console.log(gstIn1, gstIn2, gstIn3, gstIn4, gstIn5);
+
+                this.setState({
+                    gstIn: GSTIN
+                })
+
+                console.log(this.state.gstIn)
+            // }
+        }
         
         if (val.length === event.target.maxLength) {
-            if (gstPart !== "GSTIN5"){
-                this.refs[parseInt(event.target.id, 10) + 1].focus();
-            }
-
-          
             if (gstPart === "GSTIN1") { 
+                this.refs[parseInt(event.target.id) +1].focus();
                 this.setState({
                     gstIn1: val
                 })
             } else if (gstPart === "GSTIN2") {
+                this.refs[parseInt(event.target.id) +1].focus();
                 this.setState({
                     gstIn2: val
                 })
             } else if (gstPart === "GSTIN3") {
+                this.refs[parseInt(event.target.id) +1].focus();
                 this.setState({
                     gstIn3: val
                 })
             } else if (gstPart === "GSTIN4") {
+                this.refs[parseInt(event.target.id) +1].focus();
                 this.setState({
                     gstIn4: val
                 })
@@ -238,26 +252,14 @@ class ProfileDetailsVendor extends React.Component {
                 this.setState({
                     gstIn5: val
                 })
-            }
+            } 
+            validateGST();
         } 
         
         else {
             console.log("wrks", gstPart)
         }
-
-
-
-        if (gstIn1 !== null  && gstIn2 !== null && gstIn3 !== null && gstIn4 !== null && gstIn5 !== null) {
-                const GSTIN = gstIn1 + gstIn2 + gstIn3 + gstIn4 + gstIn5;
-
-                // console.log(GSTIN)
-                // console.log(gstIn1, gstIn2, gstIn3, gstIn4, gstIn5);
-
-                this.setState({
-                    gstIn: GSTIN
-                })
-            }
-        }
+    }
 
     validateCard(e) {
         const { key } = e
@@ -472,6 +474,12 @@ class ProfileDetailsVendor extends React.Component {
 
                     yearCount: decryptedData.experience.years,
                     monthCount: decryptedData.experience.months,
+
+                    gstIn1: decryptedData.gstIn1,
+                    gstIn2: decryptedData.gstIn2,
+                    gstIn3: decryptedData.gstIn3, 
+                    gstIn4: decryptedData.gstIn4, 
+                    gstIn5: decryptedData.gstIn5,
 
                     gtsIn: decryptedData.GSTIN,
                     pan: decryptedData.PAN,
@@ -969,7 +977,7 @@ class ProfileDetailsVendor extends React.Component {
                                             <div className="formInputContainer">
                                                 <div className="formInputInnerLayer">
                                                     <div className="cardInstructionPara formParaSection">
-                                                        <h3>7</h3>
+                                                        <h3 onClick={() => console.log(this.state.gstIn)}>7</h3>
                                                         <p>Your company’s GST Identication number. <a href="">Click here</a>  if you want to know more about this.</p>
                                                     </div>
 
