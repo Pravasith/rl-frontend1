@@ -154,6 +154,7 @@
                                                 height: 25em;
                                                 .imageContainerInnerSection{
                                                     @include flexCentreCol;
+                                                    height: 100%;
                                                     .productUploadHeaderSection{
                                                         width: 100%;
                                                         background: $primaryMagenta;
@@ -167,7 +168,7 @@
                                                         @include flexCentreCol;
                                                         width: 50%;
                                                         margin: 0 auto;
-                                                        margin-top: 11%;
+                                                        // margin-top: 11%;
                                                         .vendorImageUploadHeaderComponent{
                                                             margin-bottom: 0.5em;
                                                             .headingArea{

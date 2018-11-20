@@ -7,9 +7,11 @@
 
 .footerWrapper{
     @include flexCentreRow;
+    position: fixed;
+    bottom: 0;
     justify-content: space-between;
     width: 97.5%;
-    padding: 1em 1.25% ;
+    padding: 0.2em 1em;
     background: $veryLightGrey;
 
     .leftSideTermsETC{

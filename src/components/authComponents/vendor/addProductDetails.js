@@ -750,8 +750,6 @@ class AddProductDetails extends React.Component {
                                     <div className="modalHeader">
                                         <h3>Size details</h3>
                                         <div className="line"></div>
-                                        <h3>Size details</h3>
-                                        <div className="line"></div>
                                     </div>
                                 </div>
 
@@ -887,9 +885,9 @@ class AddProductDetails extends React.Component {
                                                 <div className="imageUploadInnerLayer">
 
                                                     <div className="imageContainerInnerSection">
-                                                        <div className="productUploadHeaderSection">
+                                                        {/* <div className="productUploadHeaderSection">
                                                             <p>Please upload an image with size lesser than 500kb </p>
-                                                        </div>
+                                                        </div> */}
 
                                                         <div className="imageUploadComponent">
                                                             <header className="vendorImageUploadHeaderComponent">

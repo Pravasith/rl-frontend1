@@ -446,16 +446,48 @@
         }
 
         .contentWrapper{
+            @include flexCentreRow;
+            width: 100%;
             .mainContentWrap{
                 @include flexCentreCol;
+                width: 100%;
+                align-items: flex-start;
                 .gradientButtonWrapper{
-
-                }
-                .vendorGraphicCenter{
                     .svgImageContainer{
-                        @include flexCentreRow;
+                        margin-right: 0.5em;
                     }
                 }
+                .vendorGraphicCenter{
+                    @include flexCentreCol;
+                    width: 100%;
+                    .svgImageContainer{
+                        @include flexCentreRow;
+                        width: 100%;
+                        .graphicSvgImageContainer{
+                            position: relative;
+                            text-align: center;
+                            width: 100%;
+                            .vendorGraphicInnerContainer{
+                                position: absolute;
+                                text-align: center;
+                                bottom: 10%;
+                                width: 100%;
+                                .vendorGraphicParaInnerLayer{
+                                    @include flexCentreRow;
+                                    h3{
+                                        width: 33%;
+                                        span{
+                                            color: $primaryMagenta;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .hide{
+                display: none;
             }
         }
 
