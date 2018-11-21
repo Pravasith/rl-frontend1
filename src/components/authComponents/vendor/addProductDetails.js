@@ -72,7 +72,6 @@ class AddProductDetails extends React.Component {
                 modalClassToggle: "modalBackgroundMainOuterWrap hide", 
                 vendorDashboardOuterClass: "vendorDashboardOuterLayer",
             })
-
     }
 
     returnVariationColors = () => {
@@ -331,10 +330,35 @@ class AddProductDetails extends React.Component {
                 .productDimensions
                 .map((item, i) => {
                     return (
-                        <div className="productSizeDescriptionInnerLayer">
-                            <div
-                                className="productSizeDetails"
-                                key={i}
+                        <div
+                            className="productWrap"
+                            key={i}
+                            >
+                            <ul>
+                                <li>
+                                    <p key={i}>
+                                        {item.sizeName}
+                                    </p>
+                                </li>
+
+                                <li>
+                                    <p key={i}>
+                                        {item.sizeCost}
+                                    </p>
+                                </li>
+                            </ul>
+                            
+                            <div className="sizeEditingButtons">
+                                <div className="editButton">
+                                    <WhiteButton
+                                        runFunction={() => this.editProductDimensions(i)}
+                                        >
+                                        Edit
+                                    </WhiteButton>
+                                </div>
+                                <div 
+                                    className="deleteButton"
+                                    onClick={() => this.removeProductDimensions(i)}
                                 >
                                 <div className="sizeCostCartWrap">
                                     <h3>Size nomenclature</h3>
@@ -380,14 +404,32 @@ class AddProductDetails extends React.Component {
                                         </WhiteButton>
                                     </div>
                                 </div>
+                            </div>
                         </div>
                     )
                 })
         )
     }
 
-    editProductDimensions = (index) => {
-        console.log(this.state.productDimensions[index].sizeName, this.state.productDimensions[index].sizeCost);
+    editProductDimensions = async (index) => {
+        const sizeName = this.state.productDimensions[index].sizeName;
+        const sizeCost = this.state.productDimensions[index].sizeCost;
+
+        const setSyncState = async () => {
+            await this.setState({
+                modalType: "size",
+            })
+        }
+
+        await setSyncState()
+
+        this.modalClassToggle("show")
+
+        this.refs.sizeName.value = sizeName
+        this.refs.sizeCost.value = sizeCost
+
+        
+
     }
 
     removeProductDimensions = (index) => {
@@ -520,6 +562,8 @@ class AddProductDetails extends React.Component {
             const sizeName = this.refs.sizeName.value;
             const sizeCost = this.refs.sizeCost.value;
 
+            
+
             let validatedData = validateSizeModal(sizeName, sizeCost);
 
             if (validatedData.isSizeValid) {
@@ -535,13 +579,13 @@ class AddProductDetails extends React.Component {
                         this.state.productDimensions.push(temp)
                     }
                 }
-                    this.setState({
-                        sizeIsValid: true,
-                        emptyFieldInSize: null,
-                        modalType: null,
-                        productDimensions: this.state.productDimensions.length !== 0 ? 
-                                                        this.state.productDimensions : null
-                    })
+
+                this.setState({
+                    sizeIsValid: true,
+                    emptyFieldInSize: null,
+                    modalType: null,
+                    productDimensions: this.state.productDimensions.length !== 0 ? this.state.productDimensions : null
+                })
 
                 this.refs.sizeCost.value = ""
                 this.refs.sizeName.value = ""
@@ -1293,7 +1337,7 @@ class AddProductDetails extends React.Component {
                                                     <div className="formParaSection">
                                                         <GradientButton>
                                                             Proceed
-                                                    </GradientButton>
+                                                        </GradientButton>
                                                     </div>
                                                 </div>
 
