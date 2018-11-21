@@ -9,7 +9,7 @@ import { bindActionCreators } from "redux"
 import LogoAnimation from "../../animations/logoAnimation"
 import statesAndCities from "../../../lib/statesAndCities"
 
-import { TableIcon, MinusImageIcon, PlusImageIcon, UploadImageIcon } from "../../../assets/images"
+import { TableIcon, MinusImageIcon, PlusImageIcon,BigCloseButton,ErrorMsgSign, UploadImageIcon } from "../../../assets/images"
 import { GradientButton, InputForm, WhiteButton } from "../../UX/uxComponents"
 
 import Navbar from "../../navbar/navbar"
@@ -687,14 +687,35 @@ class ProfileDetailsVendor extends React.Component {
                 <div className="dummyXClass">
                     <div className="whiteSquareForModal">
                         <div className="vendorProfileDetailsModal">
-                            <div className="modalHeader">
-                                <h3>{emptyField
-                                        .map((item, i) => 
-                                            <div className="errorFieldMessage" key={i}>{item}</div>
-                                    )}
-                                </h3>
-                                <div className="line"></div>
+                            <div className="svgImageContainer">
+                                <ErrorMsgSign />
                             </div>
+                            <div className="modalContentContainer">
+                                <div className="modalContentContainerInnerLayer">
+                                    <div className="content">
+                                        <h3>{emptyField
+                                            .map((item, i) =>
+                                                <div 
+                                                    className="errorFieldMessage" 
+                                                    key={i}>
+                                                        <h3>Please enter your {item}</h3>
+                                                </div>
+                                            )}
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="closeModalContainer">
+                            <WhiteButton
+                                runFunction={() => this.setState({
+                                    modalClassToggle: "modalBackgroundMainOuterWrap hide",
+                                    mainClass: "mainClass"
+                                })}
+                            >
+                                Sure, I’ll do that
+                            </WhiteButton>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -713,42 +734,43 @@ class ProfileDetailsVendor extends React.Component {
                 </div>
 
                 <div className={this.state.mainClass}>
-                    <article className="vendorProfileDetailsOuterwrapper">
+                    <div className="dummyLayer">
+                        <article className="vendorProfileDetailsOuterwrapper">
 
-                        <Navbar
-                            userData={this.returnNavBarData()}
-                        />
+                            <Navbar
+                                userData={this.returnNavBarData()}
+                            />
 
-                        <header className="vendorHeaderClass">
-                            <h3 className="vendorHeaderSection"> Okay, let's finish a simple form</h3>
-                            <div className="line"></div>
-                        </header>
+                            <header className="vendorHeaderClass">
+                                <h3 className="vendorHeaderSection"> Okay, let's finish a simple form</h3>
+                                <div className="line"></div>
+                            </header>
 
-                        <section className= {this.state.vendorFormOuterSectionClass}>
+                            <section className= {this.state.vendorFormOuterSectionClass}>
 
-                            <div className="vendorInnerSection">
-                                <div className="leftSection">
-                                    <div className="leftSectionInnerLayer">
-                                        <div className="iconWrapper">
-                                            <TableIcon />
-                                        </div>
+                                <div className="vendorInnerSection">
+                                    <div className="leftSection">
+                                            <div className="leftSectionInnerLayer">
+                                                <div className="iconWrapper">
+                                                    <TableIcon />
+                                                </div>
 
-                                        <div className="formCompletionInfoSection">
-                                            <div className="outerLayer">
-                                                <h3
-                                                    
-                                                >
-                                                    <span>{this.returnInputCount()}/9</span>Questions answered
-                                                </h3>
+                                            <div className="formCompletionInfoSection">
+                                                <div className="outerLayer">
+                                                    <h3
+                                                        
+                                                    >
+                                                        <span>{this.returnInputCount()}/9</span>Questions answered
+                                                    </h3>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div className="rightFormSection">
-                                    <div className="formSectionInnerLayer">
+                                    <div className="rightFormSection">
+                                        <div className="formSectionInnerLayer">
 
-                                        <form action="" className="vendorForm">
+                                            <form action="" className="vendorForm">
 
                                             <div 
                                                 className="formInputContainer"
@@ -760,104 +782,110 @@ class ProfileDetailsVendor extends React.Component {
                                                         <p>Your name as you would like your customers to call you?</p>
                                                     </div>
 
-                                                    <div className="firstNameWrap">
-                                                        <InputForm
-                                                            refName="firstName"
-                                                            placeholder="First name"
-                                                            isMandatory={true}
-                                                            validationType="alphabetsAndSpecialCharacters"
-                                                            characterCount="15"
-                                                            value={this.state.firstName ? this.state.firstName : null}
-                                                            result={(val) => this.hitTheAPI("firstName", val)}
-                                                        />
-                                                    </div>
+                                                        <div className="firstNameWrap">
+                                                            <InputForm
+                                                                refName="firstName"
+                                                                placeholder="First name"
+                                                                isMandatory={true}
+                                                                validationType="alphabetsAndSpecialCharacters"
+                                                                characterCount="15"
+                                                                value={this.state.firstName ? this.state.firstName : null}
+                                                                result={(val) => this.hitTheAPI("firstName", val)}
+                                                            />
+                                                        </div>
 
-                                                    <div className="lastNameWrap">
-                                                        <InputForm
-                                                            refName="lastName"
-                                                            placeholder="Last name"
-                                                            isMandatory={true}
-                                                            validationType="alphabetsAndSpecialCharacters"
-                                                            characterCount="15"
-                                                            value={this.state.lastName ? this.state.lastName : null}
-                                                            result={(val) => this.hitTheAPI("lastName", val)}
-                                                        />
-                                                    </div>
+                                                        <div className="lastNameWrap">
+                                                            <InputForm
+                                                                refName="lastName"
+                                                                placeholder="Last name"
+                                                                isMandatory={true}
+                                                                validationType="alphabetsAndSpecialCharacters"
+                                                                characterCount="15"
+                                                                value={this.state.lastName ? this.state.lastName : null}
+                                                                result={(val) => this.hitTheAPI("lastName", val)}
+                                                            />
+                                                        </div>
 
+                                                    </div>
                                                 </div>
-                                            </div>
+                                                
 
                                             <div 
                                                 className="formInputContainer"
                                                 onBlur={() => this.checkAnsweredTwo()}
                                             >
                                                 <div className="formInputInnerLayer">
-                                                    <div className="formParaSection">
-                                                        <h3> 2 </h3>
+                                                        <div className="formParaSection">
+                                                            <h3> 2 </h3>
 
-                                                        <p> What should we call your company as? </p>
-                                                    </div>
+                                                                <p> What should we call your company as? </p>
+                                                        </div>
 
-                                                    <div className="companyNameWrap">
-                                                        <InputForm
-                                                            refName="companyName"
-                                                            placeholder="Type your company name here"
-                                                            isMandatory={true}
-                                                            validationType="alphabetsSpecialCharactersAndNumbers"
-                                                            characterCount="50"
-                                                            value={this.state.companyName ? this.state.companyName : null}
-                                                            result={(val) => this.updateVendorData("companyName", val)}
-                                                        />
-                                                    </div>
+                                                        <div className="companyNameWrap">
+                                                            <InputForm
+                                                                refName="companyName"
+                                                                placeholder="Type your company name here"
+                                                                isMandatory={true}
+                                                                validationType="alphabetsSpecialCharactersAndNumbers"
+                                                                characterCount="50"
+                                                                value={this.state.companyName ? this.state.companyName : null}
+                                                                result={(val) => this.updateVendorData("companyName", val)}
+                                                            />
+                                                        </div>
+                                                    
                                                 </div>
                                             </div>
 
-                                            <div className="formInputContainer"
+                                            <div 
+                                                className="formInputContainer"
                                                 onBlur={() => this.checkAnsweredThree()}
                                             >
                                                 <div className="formInputInnerLayer">
 
-                                                    <div className="formParaSection">
-                                                        <h3>3</h3>
-                                                        <p>Your phone number</p>
-                                                    </div>
+                                                {/* <div className="formInputContainer">
+                                                    <div className="formInputInnerLayer"> */}
 
-                                                    <div className="phoneNoWrap">
-                                                        <InputForm
-                                                            refName="phoneNo"
-                                                            placeholder="10 digit Official contact number"
-                                                            isMandatory={true}
-                                                            validationType="onlyNumbers"
-                                                            characterCount="10"
-                                                            value={
-                                                                this.state.mobileNo
-                                                                    ? this.state.mobileNo
-                                                                    : null
-                                                            }
-                                                            result={(val) => this.hitTheAPI("mobileNo", val)}
-                                                        />
-                                                    </div>
+                                                        <div className="formParaSection">
+                                                            <h3>3</h3>
+                                                            <p>Your phone number</p>
+                                                        </div>
 
-                                                    <div className="whatsappNoWrap">
-                                                        <InputForm
-                                                            refName="whatsappNo"
-                                                            placeholder="10 digit Whatsapp number"
-                                                            isMandatory={false}
-                                                            validationType="onlyNumbers"
-                                                            characterCount="10"
-                                                            value={
-                                                                this.state.whatsappNo
-                                                                    ? this.state.whatsappNo
-                                                                    : null
-                                                            }
-                                                            result={(val, isValid) => this.hitTheAPI("whatsappNo", val)}
-                                                        />
-                                                    </div>
+                                                        <div className="phoneNoWrap">
+                                                            <InputForm
+                                                                refName="phoneNo"
+                                                                placeholder="10 digit Official contact number"
+                                                                isMandatory={true}
+                                                                validationType="onlyNumbers"
+                                                                characterCount="10"
+                                                                value={
+                                                                    this.state.mobileNo
+                                                                        ? this.state.mobileNo
+                                                                        : null
+                                                                }
+                                                                result={(val) => this.hitTheAPI("mobileNo", val)}
+                                                            />
+                                                        </div>
 
-                                                </div>
+                                                        <div className="whatsappNoWrap">
+                                                            <InputForm
+                                                                refName="whatsappNo"
+                                                                placeholder="10 digit Whatsapp number"
+                                                                isMandatory={false}
+                                                                validationType="onlyNumbers"
+                                                                characterCount="10"
+                                                                value={
+                                                                    this.state.whatsappNo
+                                                                        ? this.state.whatsappNo
+                                                                        : null
+                                                                }
+                                                                result={(val, isValid) => this.hitTheAPI("whatsappNo", val)}
+                                                            />
+                                                        </div>
+                                                    </div>
                                             </div>
 
-                                            <div className="formInputContainer"
+                                            <div 
+                                                className="formInputContainer"
                                                 onBlur={() => this.checkAnsweredFour()}
                                             >
                                                 <div className="formInputInnerLayer">
@@ -865,107 +893,116 @@ class ProfileDetailsVendor extends React.Component {
                                                         <h3>4</h3>
                                                         <p>Tell us your company address. We’ll bill the customer with this address</p>
                                                     </div>
+                                                
 
-                                                    <div className="houseNoWrap">
-                                                        <InputForm
-                                                            refName="houseNo"
-                                                            placeholder="H.No/Flat no."
-                                                            isMandatory={true}
-                                                            validationType="alphabetsSpecialCharactersAndNumbers"
-                                                            characterCount="15"
-                                                            value={this.state.hNo ? this.state.hNo : null}
-                                                            result={val => this.updateVendorData("address.hNo", val)}
-                                                        />
-                                                    </div>
+                                                {/* <div className="formInputContainer">
+                                                    <div className="formInputInnerLayer">
+                                                        <div className="formParaSection">
+                                                            <h3>4</h3>
+                                                            <p>Tell us your company address. We’ll bill the customer with this address</p>
+                                                        </div> */}
 
-                                                    <div className="StreetNoWrap">
-                                                        <InputForm
-                                                            refName="streetNo"
-                                                            placeholder="Street No."
-                                                            isMandatory={true}
-                                                            validationType="alphabetsSpecialCharactersAndNumbers"
-                                                            characterCount="15"
-                                                            value={this.state.stNo ? this.state.stNo : null}
-                                                            result={val => this.updateVendorData("address.stNo", val)}
-                                                        />
-                                                    </div>
-
-                                                    <div className="detailedAddressLineWrap">
-                                                        <InputForm
-                                                            refName="detailedAddressLineOne"
-                                                            placeholder="Detailed address - line 1"
-                                                            isMandatory={true}
-                                                            validationType="alphabetsSpecialCharactersAndNumbers"
-                                                            characterCount="100"
-                                                            value={this.state.detailedAddressLine1 ? this.state.detailedAddressLine1 : null}
-                                                            result={val => this.updateVendorData("address.detailedAddressLine1", val)}
-                                                        />
-                                                    </div>
-
-                                                    <div className="detailedAddressLineWrap">
-                                                        <InputForm
-                                                            refName="detailedAddressLineTwo"
-                                                            placeholder="Detailed address - line 2"
-                                                            isMandatory={false}
-                                                            validationType="alphabetsSpecialCharactersAndNumbers"
-                                                            characterCount="100"
-                                                            value={this.state.detailedAddressLine2 ? this.state.detailedAddressLine2 : null}
-                                                            result={val => this.updateVendorData("address.detailedAddressLine2", val)}
-                                                        />
-                                                    </div>
-
-                                                    <div className="selectionInputCategory inputCategorySection">
-                                                        <div className="mandatorySection">
-                                                            <p>Mandatory</p>
+                                                        <div className="houseNoWrap">
+                                                            <InputForm
+                                                                refName="houseNo"
+                                                                placeholder="H.No/Flat no."
+                                                                isMandatory={true}
+                                                                validationType="alphabetsSpecialCharactersAndNumbers"
+                                                                characterCount="15"
+                                                                value={this.state.hNo ? this.state.hNo : null}
+                                                                result={val => this.updateVendorData("address.hNo", val)}
+                                                            />
                                                         </div>
 
-                                                        <div className="customSelectOption">
-                                                            <select
-                                                                name="statesOfIndia"
-                                                                id="statesOfIndia"
-                                                                defaultValue={this.returnStateValue()}
-                                                                onChange={(e) => this.handleStateSelection(e)}
-                                                            >
-                                                                <option value="548784154874648746">Choose state</option>
-                                                                {this.returnStatesOfIndia()}
-                                                            </select>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="selectionInputCategory inputCategorySection">
-                                                        <div className="mandatorySection">
-                                                            <p>Mandatory</p>
+                                                        <div className="StreetNoWrap">
+                                                            <InputForm
+                                                                refName="streetNo"
+                                                                placeholder="Street No."
+                                                                isMandatory={true}
+                                                                validationType="alphabetsSpecialCharactersAndNumbers"
+                                                                characterCount="15"
+                                                                value={this.state.stNo ? this.state.stNo : null}
+                                                                result={val => this.updateVendorData("address.stNo", val)}
+                                                            />
                                                         </div>
 
-                                                        <div className="customSelectOption">
-                                                            <select
-                                                                name="citiesOfIndia"
-                                                                id="citiesOfIndia"
-                                                                defaultValue= { this.returnCityValue() }
-                                                                onChange={(e) => this.handleCitySelection(e)}
-                                                            >
-                                                                <option value="548784154874648746">Choose city</option>
-                                                                {this.returnCitiesOfIndia()}
-                                                            </select>
+                                                        <div className="detailedAddressLineWrap">
+                                                            <InputForm
+                                                                refName="detailedAddressLineOne"
+                                                                placeholder="Detailed address - line 1"
+                                                                isMandatory={true}
+                                                                validationType="alphabetsSpecialCharactersAndNumbers"
+                                                                characterCount="100"
+                                                                value={this.state.detailedAddressLine1 ? this.state.detailedAddressLine1 : null}
+                                                                result={val => this.updateVendorData("address.detailedAddressLine1", val)}
+                                                            />
                                                         </div>
-                                                    </div>
 
-                                                    <div className="pinCodeWrap">
-                                                        <InputForm
-                                                            refName="Pincode"
-                                                            placeholder="Pincode"
-                                                            isMandatory={true}
-                                                            validationType="onlyNumbers"
-                                                            characterCount="6"
-                                                            value={this.state.pincode ? this.state.pincode : null}
-                                                            result={val => this.updateVendorData("address.pincode", val)}
-                                                        />
-                                                    </div>
+                                                        <div className="detailedAddressLineWrap">
+                                                            <InputForm
+                                                                refName="detailedAddressLineTwo"
+                                                                placeholder="Detailed address - line 2"
+                                                                isMandatory={false}
+                                                                validationType="alphabetsSpecialCharactersAndNumbers"
+                                                                characterCount="100"
+                                                                value={this.state.detailedAddressLine2 ? this.state.detailedAddressLine2 : null}
+                                                                result={val => this.updateVendorData("address.detailedAddressLine2", val)}
+                                                            />
+                                                        </div>
 
+                                                        <div className="selectionInputCategory inputCategorySection">
+                                                            <div className="mandatorySection">
+                                                                <p>Mandatory</p>
+                                                            </div>
+
+                                                            <div className="customSelectOption">
+                                                                <select
+                                                                    name="statesOfIndia"
+                                                                    id="statesOfIndia"
+                                                                    defaultValue={this.returnStateValue()}
+                                                                    onChange={(e) => this.handleStateSelection(e)}
+                                                                >
+                                                                    <option value="548784154874648746">Choose state</option>
+                                                                    {this.returnStatesOfIndia()}
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <div className="selectionInputCategory inputCategorySection">
+                                                            <div className="mandatorySection">
+                                                                <p>Mandatory</p>
+                                                            </div>
+
+                                                            <div className="customSelectOption">
+                                                                <select
+                                                                    name="citiesOfIndia"
+                                                                    id="citiesOfIndia"
+                                                                    defaultValue= { this.returnCityValue() }
+                                                                    onChange={(e) => this.handleCitySelection(e)}
+                                                                >
+                                                                    <option value="548784154874648746">Choose city</option>
+                                                                    {this.returnCitiesOfIndia()}
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <div className="pinCodeWrap">
+                                                            <InputForm
+                                                                refName="Pincode"
+                                                                placeholder="Pincode"
+                                                                isMandatory={true}
+                                                                validationType="onlyNumbers"
+                                                                characterCount="6"
+                                                                value={this.state.pincode ? this.state.pincode : null}
+                                                                result={val => this.updateVendorData("address.pincode", val)}
+                                                            />
+                                                        </div>
+
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <div className="formInputContainer"
+                                            <div 
+                                                className="formInputContainer"
                                                 onBlur={() => this.checkAnsweredFive()}
                                             >
                                                 <div className="formInputInnerLayer">
@@ -996,10 +1033,11 @@ class ProfileDetailsVendor extends React.Component {
                                                         />
                                                     </div>
 
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <div className="formInputContainer"
+                                            <div 
+                                                className="formInputContainer"
                                                 onClick={() => this.checkAnsweredSix()}
                                             >
                                                 <div className="formInputInnerLayer">
@@ -1008,210 +1046,212 @@ class ProfileDetailsVendor extends React.Component {
                                                         <p>How long have you been in this industry?</p>
                                                     </div>
 
-                                                    <div className="industryTimeWrap">
-                                                        <div className="timeWrap inputCategorySection">
+                                                        <div className="industryTimeWrap">
+                                                            <div className="timeWrap inputCategorySection">
+                                                                <div className="mandatorySection">
+                                                                    <p>Mandatory</p>
+                                                                </div>
+
+                                                                <div className="inputColumn">
+                                                                    <div className="numberInputSection inputColumnInnerLayer">
+                                                                        <div
+                                                                            className="plusAndMinusWrap"
+                                                                            onClick={() => this.decreaseValue("year")}
+                                                                            >
+                                                                            <MinusImageIcon />
+                                                                        </div>
+
+                                                                        <div className="numberSection">
+                                                                            <p>{this.state.yearCount}</p>
+                                                                        </div>
+
+                                                                        <div
+                                                                            className="plusAndMinusWrap"
+                                                                            onClick={() => this.increaseValue("year")}
+                                                                            >
+                                                                            <PlusImageIcon />
+                                                                        </div>
+
+                                                                        <div className="yearSelectionCategory">
+                                                                            <p>Years</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div className="timeWrap inputCategorySection">
+                                                                <div className="mandatorySection">
+                                                                    <p>Mandatory</p>
+                                                                </div>
+
+                                                                <div className="inputColumn">
+                                                                    <div className="numberInputSection inputColumnInnerLayer">
+                                                                        <div
+                                                                            className="plusAndMinusWrap"
+                                                                            onClick={() => this.decreaseValue("month")}
+                                                                        >
+                                                                            <MinusImageIcon />
+                                                                        </div>
+
+                                                                        <div className="numberSection">
+                                                                            <p>{this.state.monthCount}</p>
+                                                                        </div>
+
+                                                                        <div
+                                                                            className="plusAndMinusWrap"
+                                                                            onClick={() => this.increaseValue("month")}
+                                                                        >
+                                                                            <PlusImageIcon />
+                                                                        </div>
+
+                                                                        <div className="yearSelectionCategory">
+                                                                            <p>Months</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                            <div 
+                                                    className="formInputContainer"
+                                                    onToggle={() => this.checkAnsweredSeven()}
+                                                >
+                                                    <div className="formInputInnerLayer">
+                                                        <div className="cardInstructionPara formParaSection">
+                                                            <h3>7</h3>
+                                                            <p>Your company’s GST Identication number. <a href="https://cleartax.in/s/know-your-gstin#what"  target="_blank" >Click here</a>  if you want to know more about this.</p>
+                                                        </div>
+
+                                                        <div className="cardInputSection inputCategorySection">
                                                             <div className="mandatorySection">
                                                                 <p>Mandatory</p>
                                                             </div>
 
                                                             <div className="inputColumn">
-                                                                <div className="numberInputSection inputColumnInnerLayer">
-                                                                    <div
-                                                                        className="plusAndMinusWrap"
-                                                                        onClick={() => this.decreaseValue("year")}
-                                                                        >
-                                                                        <MinusImageIcon />
-                                                                    </div>
-
-                                                                    <div className="numberSection">
-                                                                        <p>{this.state.yearCount}</p>
-                                                                    </div>
-
-                                                                    <div
-                                                                        className="plusAndMinusWrap"
-                                                                        onClick={() => this.increaseValue("year")}
-                                                                        >
-                                                                        <PlusImageIcon />
-                                                                    </div>
-
-                                                                    <div className="yearSelectionCategory">
-                                                                        <p>Years</p>
-                                                                    </div>
-                                                                </div>
+                                                                <input
+                                                                    // autoFocus="autofocus"
+                                                                    defaultValue = {this.state.gstIn1}
+                                                                    type="text"
+                                                                    placeholder="22"
+                                                                    maxLength="2" 
+                                                                    id="1"
+                                                                    ref="gstIn1"
+                                                                    // onKeyPress={(e) => this.validateCard(e)}
+                                                                    onChange={(event) =>this.onChangeGST(event, "gstIn1")}
+                                                                    
+                                                                />
+                                                                <span className="InputSeparatorLine"> </span>
                                                             </div>
-                                                        </div>
 
-                                                        <div className="timeWrap inputCategorySection">
-                                                            <div className="mandatorySection">
-                                                                <p>Mandatory</p>
-                                                            </div>
+                                                            <p>-</p>
 
                                                             <div className="inputColumn">
-                                                                <div className="numberInputSection inputColumnInnerLayer">
-                                                                    <div
-                                                                        className="plusAndMinusWrap"
-                                                                        onClick={() => this.decreaseValue("month")}
-                                                                    >
-                                                                        <MinusImageIcon />
-                                                                    </div>
-
-                                                                    <div className="numberSection">
-                                                                        <p>{this.state.monthCount}</p>
-                                                                    </div>
-
-                                                                    <div
-                                                                        className="plusAndMinusWrap"
-                                                                        onClick={() => this.increaseValue("month")}
-                                                                    >
-                                                                        <PlusImageIcon />
-                                                                    </div>
-
-                                                                    <div className="yearSelectionCategory">
-                                                                        <p>Months</p>
-                                                                    </div>
-                                                                </div>
+                                                                <input 
+                                                                    autoFocus="autofocus"
+                                                                    defaultValue = {this.state.gstIn2}
+                                                                    type="text" 
+                                                                    id="2"
+                                                                    placeholder="AAAAA0000A" 
+                                                                    ref="gstIn2"
+                                                                    maxLength="10" 
+                                                                    onChange={(event) =>this.onChangeGST(event, "gstIn2")}
+                                                                    
+                                                                />
+                                                                <span className="InputSeparatorLine"> </span>
                                                             </div>
 
-                                                        </div>
+                                                            <p>-</p>
 
-                                                    </div>
+                                                            <div className="inputColumn">
+                                                                <input 
+                                                                    type="text" 
+                                                                    placeholder="1"
+                                                                    defaultValue = {this.state.gstIn3}
+                                                                    maxLength="1"
+                                                                    ref="gstIn3"
+                                                                    id="3"
+                                                                    pattern="\d*" 
+                                                                    onChange={(event) =>this.onChangeGST(event, "gstIn3")}
+                                                                />
+                                                                <span className="InputSeparatorLine"> </span>
+                                                            </div>
 
-                                                </div>
-                                            </div>
-
-                                            <div className="formInputContainer"
-                                                onToggle={() => this.checkAnsweredSeven()}
-                                            >
-                                                <div className="formInputInnerLayer">
-                                                    <div className="cardInstructionPara formParaSection">
-                                                        <h3>7</h3>
-                                                        <p>Your company’s GST Identication number. <a href="https://cleartax.in/s/know-your-gstin#what"  target="_blank" >Click here</a>  if you want to know more about this.</p>
-                                                    </div>
-
-                                                    <div className="cardInputSection inputCategorySection">
-                                                        <div className="mandatorySection">
-                                                            <p>Mandatory</p>
-                                                        </div>
-
-                                                        <div className="inputColumn">
-                                                            <input
-                                                                // autoFocus="autofocus"
-                                                                defaultValue = {this.state.gstIn1}
-                                                                type="text"
-                                                                placeholder="22"
-                                                                maxLength="2" 
-                                                                id="1"
-                                                                ref="gstIn1"
-                                                                // onKeyPress={(e) => this.validateCard(e)}
-                                                                onChange={(event) =>this.onChangeGST(event, "gstIn1")}
+                                                            <p>-</p>
+                                                            <div className="inputColumn">
+                                                                <input
+                                                                    type="text"
+                                                                    defaultValue={this.state.gstIn4}
+                                                                    placeholder="Z"
+                                                                    maxLength="1"
+                                                                    ref="gstIn5"
+                                                                    id="4"
+                                                                    pattern="\d*"
+                                                                    onChange={(event) => this.onChangeGST(event, "gstIn4")}
+                                                                />
+                                                                <span className="InputSeparatorLine"> </span>
+                                                            </div>
                                                                 
-                                                            />
-                                                            <span className="InputSeparatorLine"> </span>
+                                                  
+
+                                                            <p>-</p>
+
+                                                            <div className="inputColumn">
+                                                                <input 
+                                                                    type="text" 
+                                                                    defaultValue = {this.state.gstIn5}
+                                                                    placeholder="5" 
+                                                                    maxLength="1"
+                                                                    ref="gstIn5"
+                                                                    id="5"
+                                                                    pattern="\d*" 
+                                                                    onChange={(event) =>this.onChangeGST(event, "gstIn5")}
+                                                                />
+                                                                <span className="InputSeparatorLine"> </span>
+                                                            </div>
+
+                                                            <WhiteButton
+                                                                runFunction={() => this.clearGSTfields()}
+                                                            >
+                                                                Clear
+                                                            </WhiteButton>
                                                         </div>
-
-                                                        <p>-</p>
-
-                                                        <div className="inputColumn">
-                                                            <input 
-                                                                autoFocus="autofocus"
-                                                                defaultValue = {this.state.gstIn2}
-                                                                type="text" 
-                                                                id="2"
-                                                                placeholder="AAAAA0000A" 
-                                                                ref="gstIn2"
-                                                                maxLength="10" 
-                                                                onChange={(event) =>this.onChangeGST(event, "gstIn2")}
-                                                                
-                                                            />
-                                                            <span className="InputSeparatorLine"> </span>
+                                                        <div className="gstInputSection warningSection">
+                                                            <p 
+                                                                className={this.state.warningClass}
+                                                            >
+                                                                {this.state.warningText}
+                                                            </p>
                                                         </div>
-
-                                                        <p>-</p>
-
-                                                        <div className="inputColumn">
-                                                            <input 
-                                                                type="text" 
-                                                                placeholder="1"
-                                                                defaultValue = {this.state.gstIn3}
-                                                                maxLength="1"
-                                                                ref="gstIn3"
-                                                                id="3"
-                                                                pattern="\d*" 
-                                                                onChange={(event) =>this.onChangeGST(event, "gstIn3")}
-                                                            />
-                                                            <span className="InputSeparatorLine"> </span>
-                                                        </div>
-
-                                                        <p>-</p>
-
-                                                        <div className="inputColumn">
-                                                            <input 
-                                                                defaultValue = {this.state.gstIn4}
-                                                                type="text" 
-                                                                placeholder="Z"
-                                                                pattern="[A-Z]{1}" 
-                                                                ref="gstIn4"
-                                                                id="4"
-                                                                maxLength="1"
-                                                                onChange={(event) =>this.onChangeGST(event, "gstIn4")}
-                                                            />
-                                                            <span className="InputSeparatorLine"> </span>
-                                                        </div>
-
-                                                        <p>-</p>
-
-                                                        <div className="inputColumn">
-                                                            <input 
-                                                                type="text" 
-                                                                defaultValue = {this.state.gstIn5}
-                                                                placeholder="5" 
-                                                                maxLength="1"
-                                                                ref="gstIn5"
-                                                                id="5"
-                                                                pattern="\d*" 
-                                                                onChange={(event) =>this.onChangeGST(event, "gstIn5")}
-                                                            />
-                                                            <span className="InputSeparatorLine"> </span>
-                                                        </div>
-
-                                                        <WhiteButton
-                                                            runFunction={() => this.clearGSTfields()}
-                                                        >
-                                                            Clear
-                                                        </WhiteButton>
-                                                    </div>
-                                                    <div className="gstInputSection warningSection">
-                                                        <p 
-                                                            className={this.state.warningClass}
-                                                        >
-                                                            {this.state.warningText}
-                                                        </p>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <div className="formInputContainer"
-                                                onBlur={() => this.checkAnsweredEight()}
-                                            >
-                                                <div className="formInputInnerLayer">
-                                                    <div className="formParaSection">
-                                                        <h3>8</h3>
-                                                        <p>Your company's PAN number</p>
-                                                    </div>
+                                                <div className="formInputContainer">
+                                                    <div className="formInputInnerLayer">
+                                                        <div className="formParaSection">
+                                                            <h3>8</h3>
+                                                            <p>Your company's PAN number</p>
+                                                        </div>
 
-                                                    <div className="panNumber">
-                                                        <InputForm
-                                                            refName="panNumber"
-                                                            placeholder="AAAAA0000A"
-                                                            isMandatory={true}
-                                                            validationType="alphabetsSpecialCharactersAndNumbers"
-                                                            characterCount="10"
-                                                            value={this.state.pan ? this.state.pan : null}
-                                                            result={val => this.updateVendorData("PAN", val)}
-                                                        />
+                                                        <div className="panNumber">
+                                                            <InputForm
+                                                                refName="panNumber"
+                                                                placeholder="AAAAA0000A"
+                                                                isMandatory={true}
+                                                                validationType="alphabetsSpecialCharactersAndNumbers"
+                                                                characterCount="10"
+                                                                value={this.state.pan ? this.state.pan : null}
+                                                                result={val => this.updateVendorData("PAN", val)}
+                                                            />
+                                                        </div>
+
                                                     </div>
                                                 </div>
-                                            </div>
+                                            
 
                                             <div className="formInputContainer"
                                                onLoad={() => this.checkAnsweredNine()} 
@@ -1227,33 +1267,39 @@ class ProfileDetailsVendor extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
+                                                
 
-                                            <div className="formInputContainer">
-                                                <div className="formInputInnerLayer">
-                                                    <div className="formParaSection">
-                                                        <GradientButton
-                                                            runFunction = {() => this.proceedHandler()}
-                                                            >
-                                                            Proceed
-                                                        </GradientButton>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            
 
-                                        </form>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
+                            </section>
+
+                            <div className="proceedButtonHandler">
+                                <div className="formParaSection">
+                                    <GradientButton
+                                        // runFunction = {() => window.open('/vendor-main-dashboard', '_self')}
+                                        runFunction = {() => this.proceedHandler()}
+                                        >
+                                    Save & Proceed
+                                    </GradientButton>
+                                </div>
                             </div>
-                        </section>
-                    
-                        {this.returnModal()}
-                    </article>
+                        
+                            {/* {this.returnModal()} */}
+                        </article>
 
-                    
+                        <Footer />
 
-                    <Footer />
+                        {
+                            this.returnModal()
+                        }
+                     </div>
                 </div>
             </div>
+        
         )
     }
 }

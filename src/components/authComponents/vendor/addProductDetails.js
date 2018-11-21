@@ -331,36 +331,11 @@ class AddProductDetails extends React.Component {
                 .map((item, i) => {
                     return (
                         <div
-                            className="productWrap"
+                            className="productSizeDescriptionOuterLayer"
                             key={i}
                             >
-                            <ul>
-                                <li>
-                                    <p key={i}>
-                                        {item.sizeName}
-                                    </p>
-                                </li>
-
-                                <li>
-                                    <p key={i}>
-                                        {item.sizeCost}
-                                    </p>
-                                </li>
-                            </ul>
-                            
-                            <div className="sizeEditingButtons">
-                                <div className="editButton">
-                                    <WhiteButton
-                                        runFunction={() => this.editProductDimensions(i)}
-                                        >
-                                        Edit
-                                    </WhiteButton>
-                                </div>
-
-                                <div 
-                                    className="deleteButton"
-                                    onClick={() => this.removeProductDimensions(i)}
-                                    >
+                            <div className="productSizeDescriptionInnerLayer">
+                                <div className="productSizeDetails">
                                     <div className="sizeCostCartWrap">
                                         <h3>Size nomenclature</h3>
                                         <p key={i}
@@ -371,8 +346,6 @@ class AddProductDetails extends React.Component {
                                         <p key={i}>Rs. {item.sizeCost}</p>
                                     </div>
                                 </div>
-                               
-                                
                                 <div className="sizeEditingButtons">
                                     <div className="editButton">
                                         <WhiteButton 
