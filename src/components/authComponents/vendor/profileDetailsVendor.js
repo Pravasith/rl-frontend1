@@ -10,7 +10,7 @@ import LogoAnimation from "../../animations/logoAnimation"
 import statesAndCities from "../../../lib/statesAndCities"
 
 import { TableIcon, MinusImageIcon, PlusImageIcon, UploadImageIcon } from "../../../assets/images"
-import { GradientButton, InputForm } from "../../UX/uxComponents"
+import { GradientButton, InputForm, WhiteButton } from "../../UX/uxComponents"
 
 import Navbar from "../../navbar/navbar"
 import { Footer } from "../../footer/footer"
@@ -111,7 +111,7 @@ class ProfileDetailsVendor extends React.Component {
                             }
 
                             // getIndividualGSTINs()
-
+                            if(decryptedData.GSTIN !== null)
                             getIndividualGSTINs()
 
                             // console.log("GSTIN STATE", gstInState)
@@ -150,9 +150,9 @@ class ProfileDetailsVendor extends React.Component {
             .catch(e => console.error(e))
     }
 
-    componentDidUpdate() {
-        console.log(this.state.gstIn);
-    }
+    // componentDidUpdate() {
+    //     console.log(this.state.gstIn);
+    // }
 
 
     decreaseValue = (yearOrMonth) => {
@@ -223,6 +223,7 @@ class ProfileDetailsVendor extends React.Component {
 
 
     onChangeGST = (event, gstPart) => {
+        // console.log(event.target.value.length);
         if (event.target.value.length === event.target.maxLength) {
             if(gstPart !== "gstIn5"){
                 this.refs["gstIn" + (parseInt(event.target.id, 10) + 1)].focus()
@@ -231,30 +232,57 @@ class ProfileDetailsVendor extends React.Component {
             else{
                 const {gstIn1, gstIn2, gstIn3, gstIn4, gstIn5 } = this.refs
                 const gstIn = `${gstIn1.value}-${gstIn2.value}-${gstIn3.value}-${gstIn4.value}-${gstIn5.value}`
+                
                 this.updateVendorData("GSTIN", gstIn)
-            }
-            
-          
-        }
-       
+                console.log(gstIn.length)
+                if (gstIn.length < 19) {
+                    // console.log("Wrks");
+                    this.setState({
+                        warningText: "please check fill all the fields",
+                        warningClass: 'warningClass',
+                        passwordIsValid: false
+                    })
+                }
+            } 
+        }  
+        // else {
+        //     this.returnErrorMsg();
+        // }
     }
 
-    validateCard(e) {
-        const { key } = e
-        let theInput
-        
-
-        if (key !== 'Enter')
-            theInput = e.target.value + key
-
-        if (theInput.length > 2) {
-            this.setState({
-                warningText: "it must have only two values",
+    returnErrorMsg = () => {
+        // console.log("wrks");
+             this.setState({
+                warningText: "please check fill all the fields",
                 warningClass: 'warningClass',
                 passwordIsValid: false
             })
+    }
+
+    clearGSTfields = () => {
+        this.refs.gstIn1.value = ""
+        this.refs.gstIn2.value = ""
+        this.refs.gstIn3.value = ""
+        this.refs.gstIn4.value = ""
+        this.refs.gstIn5.value = ""
+    }
+
+    validateCard(gstField) {
+        // const { key } = e
+        // let theInput
+        
+
+        // if (key !== 'Enter')
+        //     theInput = e.target.value + key
+
+        // if (theInput.length > 2) {
+        //     this.setState({
+        //         warningText: "it must have only two values",
+        //         warningClass: 'warningClass',
+        //         passwordIsValid: false
+        //     })
            
-        }
+        // }
     }
 
 
@@ -970,7 +998,7 @@ class ProfileDetailsVendor extends React.Component {
                                                                 maxLength="2" 
                                                                 id="1"
                                                                 ref="gstIn1"
-                                                                onKeyPress={(e) => this.validateCard(e)}
+                                                                // onKeyPress={(e) => this.validateCard(e)}
                                                                 onChange={(event) =>this.onChangeGST(event, "gstIn1")}
                                                                 
                                                             />
@@ -1041,6 +1069,12 @@ class ProfileDetailsVendor extends React.Component {
                                                             />
                                                             <span className="InputSeparatorLine"> </span>
                                                         </div>
+
+                                                        <WhiteButton
+                                                            runFunction={() => this.clearGSTfields()}
+                                                        >
+                                                            Clear
+                                                        </WhiteButton>
                                                     </div>
                                                     <div className="gstInputSection warningSection">
                                                         <p 
