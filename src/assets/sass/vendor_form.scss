@@ -81,521 +81,599 @@ input[type=number]::-webkit-outer-spin-button {
         @include flexCentreCol;
         width: 100%;
 
-        .vendorProfileDetailsOuterwrapper{
-            @include flexCentreCol;
+        // .blurClass{
+        //     filter: blur(0.3em);
+        // }
+
+        .dummyLayer{
+
             width: 100%;
-            // padding: 0.3em;
+            height: 100%;
+            position: relative;
 
-            .vendorHeaderClass{
-                @include flexCentreCol;
-                width: 90%;
-                margin: 2em 0;
+            .modalBackgroundMainOuterWrap{
+                width: 100%;
+                height: 91vh;
+                background: $modalGrey;
+                // opacity: 0.5;
+                position: absolute;
+                top: 0;
+                left: 0;
+                margin-top: 4%;
 
-                h3{
-                    font-size: 1.5em;
-                    color: $darkerGrey;
-                    font-weight: 400;
-                }
-
-                .line{
-                    width: 10%;
+                .dummyXClass{
+                    @include flexCentreRow;
+                   height: 100%;
+                   .whiteSquareForModal{
+                    @include flexCentreCol;
+                    justify-content: flex-start;
+                    width: 30%;
+                    height: 22em;
+                    background: $white;
+                    @include box_shadow;
+                    .vendorProfileDetailsModal{
+                        @include flexCentreCol;
+                        width: 97%;
+                        padding: 0.3em;
+                        .svgImageContainer{
+                            @include flexCentreRow;
+                            margin-top: 1em;
+                        }
+                        .modalContentContainer{
+                            width: 100%;
+                            height: 10em;
+                            margin-top: 0.5em;
+                            overflow-y: auto;
+                            .modalContentContainerInnerLayer{
+                                display: inline-flex;
+                                width: 95%;
+                                margin: 0.3em;
+                                padding: 0.2em;
+                                // background: $darkerGrey;
+                                .content{
+                                    @include flexCentreRow;
+                                    width: 100%;
+                                    h3{
+                                        color: $primaryMagenta;
+                                        text-align: center;
+                                        margin: 0.3em 0;
+                                        font-size: 1.2em;
+                                        width: 100%;
+                                        .errorFieldMessage{
+                                            width: 100%;
+                                        }
+                                    }
+                                }
+                                // h3{
+                                //     color: $white;
+                                // }
+                            }
+                        }
+                        .closeModalContainer{
+                            @include flexCentreRow;
+                            margin-top: 1em;
+                        }
+                    }
+                   }
                 }
             }
 
-            .vendorFormOuterSection{
-                @include flexCentreRow;
+            .vendorProfileDetailsOuterwrapper{
+                @include flexCentreCol;
                 width: 100%;
-
-                .vendorInnerSection{
+                // padding: 0.3em;
+    
+                .vendorHeaderClass{
+                    @include flexCentreCol;
+                    width: 90%;
+                    margin: 2em 0;
+    
+                    h3{
+                        font-size: 1.5em;
+                        color: $darkerGrey;
+                        font-weight: 400;
+                    }
+    
+                    .line{
+                        width: 10%;
+                    }
+                }
+    
+                .vendorFormOuterSection{
                     @include flexCentreRow;
-                    align-items: flex-start;
                     width: 100%;
-
-                    .leftSection{
+    
+                    .vendorInnerSection{
                         @include flexCentreRow;
-                        width: 30%;
-
-                        .leftSectionInnerLayer{
-                            @include flexCentreCol;
-                            margin: 0 auto;
-                            width: 95%;
-
-                            .iconWrapper{
-                                @include flexCentreRow;
-                                margin-bottom: 2em;
-                            }
-
-                            .formCompletionInfoSection{
-                                @include flexCentreRow;
-                                width: 80%;
-
-                                .outerLayer{
+                        align-items: flex-start;
+                        width: 100%;
+    
+                        .leftSection{
+                            @include flexCentreRow;
+                            width: 30%;
+    
+                            .leftSectionInnerLayer{
+                                @include flexCentreCol;
+                                margin: 0 auto;
+                                width: 95%;
+    
+                                .iconWrapper{
                                     @include flexCentreRow;
-                                    background: $veryLightGrey;
-                                    width: 82%;
-                                    padding: 0 0.5em 0.5em 0.5em;
-                                    // justify-content: flex-start;
-
-                                    h3{
-                                        color: $darkGrey;
-                                        font-weight: 400;
-                                        span{
-                                            font-size: 1.5em;
-                                            margin-right: 0.2em;
+                                    margin-bottom: 2em;
+                                }
+    
+                                .formCompletionInfoSection{
+                                    @include flexCentreRow;
+                                    width: 80%;
+    
+                                    .outerLayer{
+                                        @include flexCentreRow;
+                                        background: $veryLightGrey;
+                                        width: 82%;
+                                        padding: 0 0.5em 0.5em 0.5em;
+                                        // justify-content: flex-start;
+    
+                                        h3{
+                                            color: $darkGrey;
+                                            font-weight: 400;
+                                            span{
+                                                font-size: 1.5em;
+                                                margin-right: 0.2em;
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
-                    }
-
-                    .rightFormSection{
-                        // @include flexCentreRow;
-                        // width: 60%;
-                        height: 23.5em;
-                        overflow-y: auto;
-                        padding: 0.5em;
-                        margin: 1em 0;
-
-                        .formSectionInnerLayer{
-                            @include flexCentreRow;
-                            width: 90%;
-
-                            .vendorForm{
-                                width: 100%;
-
-                                .formInputContainer{
-                                    @include flexCentreRow;
+    
+                        .rightFormSection{
+                            // @include flexCentreRow;
+                            // width: 60%;
+                            height: 21.5em;
+                            overflow-y: auto;
+                            padding: 0.5em;
+                            margin: 1em 0;
+    
+                            .formSectionInnerLayer{
+                                @include flexCentreRow;
+                                width: 90%;
+    
+                                .vendorForm{
                                     width: 100%;
-                                    margin-bottom: 2em;
-                                    // background: grey;
-
-                                    .formInputInnerLayer{
-                                        @include flexCentreCol;
-                                        align-items: flex-start;
-                                        width: 95%;
-
-                                        
-                                            .gstInputSection{
-                                                width: 70%;
-                                                text-align: center;
-                                                margin: 0 auto;
-                                
-                                                p{
-                                                    color: $white;
-                                                    background:$primaryMagenta;
-                                                    padding: 0.5em;
-                                                }
-                                            }
-                                        
-
-                                        .formParaSection{
-                                            @include flexCentreRow;
-                                            justify-content: flex-start;
-                                            width: 100%;
-                                            margin-bottom: 1em;
-                                            h3{
-                                                font-size: 2em;
-                                                // margin-right: 1em;
-                                                // margin: 0 auto;
-                                                width: 11%;
-                                                text-align: center;
-                                                color: $darkerGrey;
-                                            }
-                                            p{
-                                                font-size: 0.9em;
-                                                font-weight: 400;
-                                                color: $darkerGrey;
-                                            }
-                                        }
-
-                                        .imageOuterLayer{
-                                            width: 25%;
-                                            margin-left: 10%;
-                                        }
-                                        .cardInstructionPara{
-                                            p{
-                                                a{
-                                                    color: $secondaryMagenta;
-                                                    border-bottom: 0.1em solid $secondaryMagenta
-                                                }
-                                            }
-                                        }
-                                        .companyNameWrap{
-                                            width: 70%;
-                                        }
-                                        .detailedAddressLineWrap{
-                                            width: 100%;
-                                        }
-                                        .companyDescriptionWrap{
-                                            width: 100%;
-                                        }
-                                        .industryTimeWrap{
+    
+                                    .formInputContainer{
+                                        @include flexCentreRow;
+                                        width: 100%;
+                                        margin-bottom: 2em;
+                                        // background: grey;
+    
+                                        .formInputInnerLayer{
                                             @include flexCentreCol;
                                             align-items: flex-start;
-                                            width: 50%;
-                                            .timeWrap{
+                                            width: 95%;
+    
+                                            
+                                                .gstInputSection{
+                                                    width: 70%;
+                                                    text-align: center;
+                                                    margin: 0 auto;
+                                    
+                                                    p{
+                                                        color: $white;
+                                                        background:$primaryMagenta;
+                                                        padding: 0.5em;
+                                                    }
+                                                }
+                                            
+    
+                                            .formParaSection{
                                                 @include flexCentreRow;
                                                 justify-content: flex-start;
-                                                // align-items: flex-start;
                                                 width: 100%;
                                                 margin-bottom: 1em;
-                                                .mandatorySection{
-                                                        @include flexCentreRow;
-                                                        background: $secondaryMagenta;
-                                                        padding: 0.1em 0.3em;
-                                                        margin-right: 0.5em;
-        
-                                                        p{
-                                                            color: $white;
-                                                            font-size: 0.7em;
-                                                        }
-                                                    }
-                                                    .inputColumn{
-                                                        @include flexCentreRow;
-                                                        justify-content: space-between;
-                                                        width: 50%;
-                                                        .numberInputSection{
-                                                            @include flexCentreRow;
-                                                            justify-content: flex-start;
-                                                            width: 100%;
-                                                            // margin-left: 15%;
-
-                                                            .plusAndMinusWrap{
-                                                                cursor: pointer;
-                                                            }
-
-                                                            .numberSection{
-                                                                @include flexCentreRow;
-                                                                background: $veryLightGrey;
-                                                                padding: 0.5em;
-                                                                border-radius: 0.2em;
-                                                                margin: 0 1em;
-                                                                p{
-                                                                    font-size: 1em;
-                                                                }
-                                                            }
-                                                            .yearSelectionCategory{
-                                                                margin: 0 1em;
-                                                                p{
-                                                                    font-size: 1em;
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                
-                                            }
-                                        }
-                                        .cardInputSection{
-                                            @include flexCentreRow;
-                                            width: 100%;
-                                            .mandatorySection{
-                                                @include flexCentreRow;
-                                                margin-right: 0.5em;
-                                                min-width: 4em;
-                                    
+                                                h3{
+                                                    font-size: 2em;
+                                                    // margin-right: 1em;
+                                                    // margin: 0 auto;
+                                                    width: 11%;
+                                                    text-align: center;
+                                                    color: $darkerGrey;
+                                                }
                                                 p{
-                                                    color: $white;
-                                                    font-size: 0.7em;
-                                                    background: $secondaryMagenta;
-                                                    padding: 0.2em 0.5em;
+                                                    font-size: 0.9em;
+                                                    font-weight: 400;
+                                                    color: $darkerGrey;
                                                 }
                                             }
-
-                                            
-
-                                            .inputColumn{
+    
+                                            .imageOuterLayer{
+                                                width: 25%;
+                                                margin-left: 10%;
+                                            }
+                                            .cardInstructionPara{
+                                                p{
+                                                    a{
+                                                        color: $secondaryMagenta;
+                                                        border-bottom: 0.1em solid $secondaryMagenta
+                                                    }
+                                                }
+                                            }
+                                            .companyNameWrap{
+                                                width: 70%;
+                                            }
+                                            .detailedAddressLineWrap{
+                                                width: 100%;
+                                            }
+                                            .companyDescriptionWrap{
+                                                width: 100%;
+                                            }
+                                            .industryTimeWrap{
                                                 @include flexCentreCol;
                                                 align-items: flex-start;
+                                                width: 50%;
+                                                .timeWrap{
+                                                    @include flexCentreRow;
+                                                    justify-content: flex-start;
+                                                    // align-items: flex-start;
+                                                    width: 100%;
+                                                    margin-bottom: 1em;
+                                                    .mandatorySection{
+                                                            @include flexCentreRow;
+                                                            background: $secondaryMagenta;
+                                                            padding: 0.1em 0.3em;
+                                                            margin-right: 0.5em;
+            
+                                                            p{
+                                                                color: $white;
+                                                                font-size: 0.7em;
+                                                            }
+                                                        }
+                                                        .inputColumn{
+                                                            @include flexCentreRow;
+                                                            justify-content: space-between;
+                                                            width: 50%;
+                                                            .numberInputSection{
+                                                                @include flexCentreRow;
+                                                                justify-content: flex-start;
+                                                                width: 100%;
+                                                                // margin-left: 15%;
+    
+                                                                .plusAndMinusWrap{
+                                                                    cursor: pointer;
+                                                                }
+    
+                                                                .numberSection{
+                                                                    @include flexCentreRow;
+                                                                    background: $veryLightGrey;
+                                                                    padding: 0.5em;
+                                                                    border-radius: 0.2em;
+                                                                    margin: 0 1em;
+                                                                    p{
+                                                                        font-size: 1em;
+                                                                    }
+                                                                }
+                                                                .yearSelectionCategory{
+                                                                    margin: 0 1em;
+                                                                    p{
+                                                                        font-size: 1em;
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    
+                                                }
+                                            }
+                                            .cardInputSection{
+                                                @include flexCentreRow;
                                                 width: 100%;
-                                                margin: 0 0.5em;
-                                    
-                                                &:hover{
-                                    
+                                                .mandatorySection{
+                                                    @include flexCentreRow;
+                                                    margin-right: 0.5em;
+                                                    min-width: 4em;
+                                        
+                                                    p{
+                                                        color: $white;
+                                                        font-size: 0.7em;
+                                                        background: $secondaryMagenta;
+                                                        padding: 0.2em 0.5em;
+                                                    }
+                                                }
+    
+                                                
+    
+                                                .inputColumn{
+                                                    @include flexCentreCol;
+                                                    align-items: flex-start;
+                                                    width: 100%;
+                                                    margin: 0 0.5em;
+                                        
+                                                    &:hover{
+                                        
+                                                        .animationLine{
+                                                            .innerLine{
+                                                                width: 100%;
+                                                                background: $darkerGrey;
+                                                            }
+                                                        }
+                                                        
+                                                    }
+                                                    input{
+                                                        border: none;
+                                                        // border-bottom: 0.2em solid $black;
+                                                        background: transparent;
+                                                        color: $darkerGrey;
+                                                        outline: none;
+                                                        height: 1.5em;
+                                                        width: 100%;
+                                                        text-align: center;
+                                                        border-bottom: 0.2em solid $lightGrey;
+                                                        &:focus + .InputSeparatorLine {
+                                                            transform: scaleX(1) translateY(-2px);   
+                                                              opacity: 1;
+                                                           }
+                                                           &:hover + .InputSeparatorLine{
+                                                            transform: scaleX(1) translateY(-2px);   
+                                                            opacity: 1;
+                                                           }
+                                                    }
                                                     .animationLine{
+                                                        margin-top: 0;
+                                                        padding-top: 0;
+                                                        margin-bottom: 0;
+                                                        width: 100%;
+                                                
                                                         .innerLine{
                                                             width: 100%;
-                                                            background: $darkerGrey;
+                                                            height: 100%;
+                                                            // background: yellow;
+                                                            width: 0%;
+                                                            transition: 0.2s;
                                                         }
+                                                
+                                                        
                                                     }
-                                                    
-                                                }
-                                                input{
-                                                    border: none;
-                                                    // border-bottom: 0.2em solid $black;
-                                                    background: transparent;
-                                                    color: $darkerGrey;
-                                                    outline: none;
-                                                    height: 1.5em;
-                                                    width: 100%;
-                                                    text-align: center;
-                                                    border-bottom: 0.2em solid $lightGrey;
-                                                    &:focus + .InputSeparatorLine {
-                                                        transform: scaleX(1) translateY(-2px);   
-                                                          opacity: 1;
-                                                       }
-                                                       &:hover + .InputSeparatorLine{
-                                                        transform: scaleX(1) translateY(-2px);   
-                                                        opacity: 1;
-                                                       }
-                                                }
-                                                .animationLine{
-                                                    margin-top: 0;
-                                                    padding-top: 0;
-                                                    margin-bottom: 0;
-                                                    width: 100%;
-                                            
-                                                    .innerLine{
+                                                    .InputSeparatorLine {
+                                                        height:0.2em;
                                                         width: 100%;
-                                                        height: 100%;
-                                                        // background: yellow;
-                                                        width: 0%;
-                                                        transition: 0.2s;
+                                                        background: $darkGrey;
+                                                        display: block;
+                                                        transform: scaleX(0) translateY(-2px);
+                                                        transform-origin: 50%;
+                                                        opacity: 0;
+                                                        transition: all .15s $curve;
                                                     }
-                                            
                                                     
-                                                }
-                                                .InputSeparatorLine {
-                                                    height:0.2em;
-                                                    width: 100%;
-                                                    background: $darkGrey;
-                                                    display: block;
-                                                    transform: scaleX(0) translateY(-2px);
-                                                    transform-origin: 50%;
-                                                    opacity: 0;
-                                                    transition: all .15s $curve;
-                                                }
-                                                
-                                                
-                                                * :focus {
-                                                    outline-color: transparent;
-                                                    outline-style: none;
-                                                }
-                                                // .warningSection{
-                                                //     width: 100%;
-                                                //     text-align: center;
-                                    
-                                                //     p{
-                                                //         color: $white;
-                                                //         background:$primaryMagenta;
-                                                //         padding: 0.5em;
-                                                //     }
-                                                // }
-                                    
-                                                // .numberInputSection{
-                                                //     @include flexCentreRow;
-                                                //     justify-content: space-between;
-                                                //     width: 41%;
-                                                //     // margin-left: 15%;
-                                                //     .numberSection{
-                                                //         @include flexCentreRow;
-                                                //         background: $veryLightGrey;
-                                                //         padding: 0.5em;
-                                                //         border-radius: 0.2em;
-                                                //         p{
-                                                //             font-size: 1em;
-                                                //         }
-                                                //     }
-                                    
-                                                //     .yearSelectionCategory{
-                                                //         p{
-                                                //             font-size: 1em;
-                                                //         }
-                                                //     }
-                                                // }
-                                            }
-                                        }
+                                                    
+                                                    * :focus {
+                                                        outline-color: transparent;
+                                                        outline-style: none;
+                                                    }
+                                                    // .warningSection{
+                                                    //     width: 100%;
+                                                    //     text-align: center;
                                         
-                                        // .inputCategorySection{
-                                        //     @include flexCentreRow;
-                                        //     justify-content: flex-start;
-                                        //     align-items: flex-start;
-                                        //     width: 100%;
-                                        //     margin-bottom: 1.5em;
-
-                                        //     .mandatorySection{
-                                        //         @include flexCentreRow;
-                                        //         background: $secondaryMagenta;
-                                        //         padding: 0.1em 0.3em;
-                                        //         margin-right: 0.5em;
-
-                                        //         p{
-                                        //             color: $white;
-                                        //             font-size: 0.7em;
-                                        //         }
-                                        //     }
-                                        //     .inputColumn{
-                                        //         @include flexCentreCol;
-                                        //         align-items: flex-start;
-                                        //         width: 50%;
-                                        //         margin: 0 0.5em;
-                                        //         &:hover{
-
-                                        //             .animationLine{
-                                        //                 .innerLine{
-                                        //                     width: 100%;
-                                        //                     background: $darkerGrey;
-                                        //                 }
-                                        //             }
-                                                    
-                                        //         }
-                                        //         input{
-                                        //             border: none;
-                                        //             // border-bottom: 0.2em solid $black;
-                                        //             background: transparent;
-                                        //             color: $darkerGrey;
-                                        //             outline: none;
-                                        //             height: 1.5em;
-                                        //             width: 93%
-                                        //         }
-                                        //         .animationLine{
-                                        //             margin-top: 0;
-                                        //             padding-top: 0;
-                                        //             margin-bottom: 0;
-                                        //             width: 93%;
+                                                    //     p{
+                                                    //         color: $white;
+                                                    //         background:$primaryMagenta;
+                                                    //         padding: 0.5em;
+                                                    //     }
+                                                    // }
+                                        
+                                                    // .numberInputSection{
+                                                    //     @include flexCentreRow;
+                                                    //     justify-content: space-between;
+                                                    //     width: 41%;
+                                                    //     // margin-left: 15%;
+                                                    //     .numberSection{
+                                                    //         @include flexCentreRow;
+                                                    //         background: $veryLightGrey;
+                                                    //         padding: 0.5em;
+                                                    //         border-radius: 0.2em;
+                                                    //         p{
+                                                    //             font-size: 1em;
+                                                    //         }
+                                                    //     }
+                                        
+                                                    //     .yearSelectionCategory{
+                                                    //         p{
+                                                    //             font-size: 1em;
+                                                    //         }
+                                                    //     }
+                                                    // }
+                                                }
+                                            }
                                             
-                                        //             .innerLine{
-                                        //                 width: 100%;
-                                        //                 height: 100%;
-                                        //                 // background: yellow;
-                                        //                 width: 0%;
-                                        //                 transition: 0.2s;
-                                        //             }
-                                            
-                                                   
-                                        //         }
-                                        //         .warningSection{
-                                                    
-                                        //             width: 88%;
-                                        //             padding: 0.5em;
-                                        //             text-align: center;
-
-                                        //             p{
-                                        //                 color: $white;
-                                        //                 background:$primaryMagenta;
-                                        //             }
-                                        //         }
-                                        //         .numberInputSection{
-                                        //             @include flexCentreRow;
-                                        //             justify-content: space-between;
-                                        //             width: 41%;
-                                        //             // margin-left: 15%;
-                                        //             .numberSection{
-                                        //                 @include flexCentreRow;
-                                        //                 background: $veryLightGrey;
-                                        //                 padding: 0.5em;
-                                        //                 border-radius: 0.2em;
-                                        //                 p{
-                                        //                     font-size: 1em;
-                                        //                 }
-                                        //             }
-                                        //             .yearSelectionCategory{
-                                        //                 p{
-                                        //                     font-size: 1em;
-                                        //                 }
-                                        //             }
-                                        //         }
-                                        //     }
-                                        //     .companyNameSection{
-                                        //         width: 80%;
-                                        //     }
-                                        //     .contactSection{
-                                        //         width: 50%;
-                                        //         margin-left: 15%;
-
-                                        //         .inputRow{
-                                        //             @include flexCentreRow;
-                                        //             width: 100%;
-
-                                        //             .inputColumn{
-                                        //                 width: 100%;
-                                        //             }
-
-                                        //             .countryCode{
-                                        //                 margin-bottom: 0.5em;
-                                        //             }
-                                        //         }
-
+                                            // .inputCategorySection{
+                                            //     @include flexCentreRow;
+                                            //     justify-content: flex-start;
+                                            //     align-items: flex-start;
+                                            //     width: 100%;
+                                            //     margin-bottom: 1.5em;
+    
+                                            //     .mandatorySection{
+                                            //         @include flexCentreRow;
+                                            //         background: $secondaryMagenta;
+                                            //         padding: 0.1em 0.3em;
+                                            //         margin-right: 0.5em;
+    
+                                            //         p{
+                                            //             color: $white;
+                                            //             font-size: 0.7em;
+                                            //         }
+                                            //     }
+                                            //     .inputColumn{
+                                            //         @include flexCentreCol;
+                                            //         align-items: flex-start;
+                                            //         width: 50%;
+                                            //         margin: 0 0.5em;
+                                            //         &:hover{
+    
+                                            //             .animationLine{
+                                            //                 .innerLine{
+                                            //                     width: 100%;
+                                            //                     background: $darkerGrey;
+                                            //                 }
+                                            //             }
+                                                        
+                                            //         }
+                                            //         input{
+                                            //             border: none;
+                                            //             // border-bottom: 0.2em solid $black;
+                                            //             background: transparent;
+                                            //             color: $darkerGrey;
+                                            //             outline: none;
+                                            //             height: 1.5em;
+                                            //             width: 93%
+                                            //         }
+                                            //         .animationLine{
+                                            //             margin-top: 0;
+                                            //             padding-top: 0;
+                                            //             margin-bottom: 0;
+                                            //             width: 93%;
                                                 
-                                        //     }
-                                        //     .addressSection{
-                                        //         width: 50%;
-                                        //         margin-left: 15%;
-                                        //     }
-                                        //     .addressSectionExtended{
-                                        //         width: 100%;
-                                        //         margin-left: 15%;
-                                        //     }
-                                        //     .numberSectionExtended{
-                                        //         width: 56%;
-                                        //         margin-left: 15%;
-                                        //     }
-                                        //     // .cardNumberSection{
-                                        //     //     @include flexCentreRow;
-
-                                        //     // }
-                                        //     .numberCountSection{
-                                        //         p{
-
-                                        //         }
-                                        //     }
-                                        // }
-
-
-                                        .selectionInputCategory{
-                                            @include flexCentreRow;
-                                            justify-content: flex-start;
-                                            width: 100%;
-                                            margin-bottom: 1.5em;
-                                            .mandatorySection{
+                                            //             .innerLine{
+                                            //                 width: 100%;
+                                            //                 height: 100%;
+                                            //                 // background: yellow;
+                                            //                 width: 0%;
+                                            //                 transition: 0.2s;
+                                            //             }
+                                                
+                                                       
+                                            //         }
+                                            //         .warningSection{
+                                                        
+                                            //             width: 88%;
+                                            //             padding: 0.5em;
+                                            //             text-align: center;
+    
+                                            //             p{
+                                            //                 color: $white;
+                                            //                 background:$primaryMagenta;
+                                            //             }
+                                            //         }
+                                            //         .numberInputSection{
+                                            //             @include flexCentreRow;
+                                            //             justify-content: space-between;
+                                            //             width: 41%;
+                                            //             // margin-left: 15%;
+                                            //             .numberSection{
+                                            //                 @include flexCentreRow;
+                                            //                 background: $veryLightGrey;
+                                            //                 padding: 0.5em;
+                                            //                 border-radius: 0.2em;
+                                            //                 p{
+                                            //                     font-size: 1em;
+                                            //                 }
+                                            //             }
+                                            //             .yearSelectionCategory{
+                                            //                 p{
+                                            //                     font-size: 1em;
+                                            //                 }
+                                            //             }
+                                            //         }
+                                            //     }
+                                            //     .companyNameSection{
+                                            //         width: 80%;
+                                            //     }
+                                            //     .contactSection{
+                                            //         width: 50%;
+                                            //         margin-left: 15%;
+    
+                                            //         .inputRow{
+                                            //             @include flexCentreRow;
+                                            //             width: 100%;
+    
+                                            //             .inputColumn{
+                                            //                 width: 100%;
+                                            //             }
+    
+                                            //             .countryCode{
+                                            //                 margin-bottom: 0.5em;
+                                            //             }
+                                            //         }
+    
+                                                    
+                                            //     }
+                                            //     .addressSection{
+                                            //         width: 50%;
+                                            //         margin-left: 15%;
+                                            //     }
+                                            //     .addressSectionExtended{
+                                            //         width: 100%;
+                                            //         margin-left: 15%;
+                                            //     }
+                                            //     .numberSectionExtended{
+                                            //         width: 56%;
+                                            //         margin-left: 15%;
+                                            //     }
+                                            //     // .cardNumberSection{
+                                            //     //     @include flexCentreRow;
+    
+                                            //     // }
+                                            //     .numberCountSection{
+                                            //         p{
+    
+                                            //         }
+                                            //     }
+                                            // }
+    
+    
+                                            .selectionInputCategory{
                                                 @include flexCentreRow;
-                                                margin-right: 0.5em;
-                                                min-width: 4em;
-                                    
-                                                p{
-                                                    color: $white;
-                                                    font-size: 0.7em;
-                                                    background: $secondaryMagenta;
-                                                    padding: 0.2em 0.5em;
-                                                }
-                                            }
-
-                                            .customSelectOption{
-                                                width: 50%;
-                                                select{
-                                                    width: 100%;
-                                                    background: $darkGrey;
-                                                    color: $white;
-                                                    padding: 0.3em;
-                                                }
-                                            }
-                                        }
-
-                                        .cardInputSection {
-                                            width: 75%;
-                                            text-align: center;
-
-                                            .inputColumn{
-                                                input{
-                                                    text-align: center;
-                                                }
-                                            }
-                                        }
-
-                                        .imageCategorySection{
-                                            width: 60%;
-                                            text-align: center;
-
-                                            .inputColumn{
-                                                width: 60%;
-                                                margin: 0 auto;
-                                                .imageUploadIconSection{
-                                                    // margin-left: 25%;
-                                                }
-                                                .uploadInstructionSection{
-                                                    margin-top: 1em;
+                                                justify-content: flex-start;
+                                                width: 100%;
+                                                margin-bottom: 1.5em;
+                                                .mandatorySection{
+                                                    @include flexCentreRow;
+                                                    margin-right: 0.5em;
+                                                    min-width: 4em;
+                                        
                                                     p{
-                                                        font-size: 0.8em;
+                                                        color: $white;
+                                                        font-size: 0.7em;
+                                                        background: $secondaryMagenta;
+                                                        padding: 0.2em 0.5em;
+                                                    }
+                                                }
+    
+                                                .customSelectOption{
+                                                    width: 50%;
+                                                    select{
+                                                        width: 100%;
+                                                        background: $darkGrey;
+                                                        color: $white;
+                                                        padding: 0.3em;
+                                                    }
+                                                }
+                                            }
+    
+                                            .cardInputSection {
+                                                width: 75%;
+                                                text-align: center;
+    
+                                                .inputColumn{
+                                                    input{
+                                                        text-align: center;
+                                                    }
+                                                }
+                                            }
+    
+                                            .imageCategorySection{
+                                                width: 60%;
+                                                text-align: center;
+    
+                                                .inputColumn{
+                                                    width: 60%;
+                                                    margin: 0 auto;
+                                                    .imageUploadIconSection{
+                                                        // margin-left: 25%;
+                                                    }
+                                                    .uploadInstructionSection{
+                                                        margin-top: 1em;
+                                                        p{
+                                                            font-size: 0.8em;
+                                                        }
                                                     }
                                                 }
                                             }
@@ -608,6 +686,8 @@ input[type=number]::-webkit-outer-spin-button {
                 }
             }
         }
+
+        
     }
 
     .hide{
