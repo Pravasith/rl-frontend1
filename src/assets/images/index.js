@@ -736,6 +736,24 @@ export const ArrowMarkLong = () => {
 
 }
 
+export const ErrorMsgSign = () => {
+
+    return(
+
+        <svg id='Layer_1' xmlns='http://www.w3.org/2000/svg' width='105.426' height='80.481'
+        viewBox='0 0 105.426 80.481'>
+            <polygon fill='#F2F2F2' stroke='#B3B3B3' strokeWidth='6' strokeLinecap='round'
+            strokeLinejoin='round' strokeMiterlimit='10' points='53.281,3 3,77.481 102.426,77.481'
+            />
+            <path fill='#B3B3B3' stroke='#B3B3B3' strokeLinecap='round' strokeLinejoin='round'
+            strokeMiterlimit='10' d='M49.456,61.5	c0-1.988,1.378-3.421,3.255-3.421c1.987,0,3.256,1.433,3.256,3.421c0,1.932-1.266,3.418-3.256,3.418	C50.781,64.918,49.456,63.432,49.456,61.5z M50.839,53.608l-0.776-26.487h5.298l-0.772,26.487H50.839z'
+            />
+        </svg>
+
+    )
+
+}
+
 
 export const YourImageName = () => {
 
