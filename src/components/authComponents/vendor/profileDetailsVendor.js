@@ -1188,7 +1188,7 @@ class ProfileDetailsVendor extends React.Component {
                                                                     defaultValue={this.state.gstIn4}
                                                                     placeholder="Z"
                                                                     maxLength="1"
-                                                                    ref="gstIn5"
+                                                                    ref="gstIn4"
                                                                     id="4"
                                                                     pattern="\d*"
                                                                     onChange={(event) => this.onChangeGST(event, "gstIn4")}
@@ -1230,7 +1230,10 @@ class ProfileDetailsVendor extends React.Component {
                                                     </div>
                                                 </div>
 
-                                                <div className="formInputContainer">
+                                                <div 
+                                                    className="formInputContainer"
+                                                    onBlur={() => this.checkAnsweredEight()}
+                                                >
                                                     <div className="formInputInnerLayer">
                                                         <div className="formParaSection">
                                                             <h3>8</h3>
