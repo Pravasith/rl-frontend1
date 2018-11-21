@@ -599,15 +599,16 @@ class ProfileDetailsVendor extends React.Component {
                             <div className="modalContentContainer">
                                 <div className="modalContentContainerInnerLayer">
                                     <div className="content">
-                                        <h3>{emptyField
+                                        <ul>
+                                            {emptyField
                                             .map((item, i) =>
                                                 <div 
                                                     className="errorFieldMessage" 
                                                     key={i}>
-                                                        <h3>Please enter your {item}</h3>
+                                                        <li>Please enter your {item}</li>
                                                 </div>
-                                            )}
-                                        </h3>
+                                            )}  
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
