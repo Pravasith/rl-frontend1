@@ -586,6 +586,8 @@ input{
                 @include flexCentreRow;
                 justify-content: flex-start;
                 width: 100%;
+                
+                align-items: flex-start;
                 .gradientButtonWrapper{
                     .svgImageContainer{
                         margin-right: 0.5em;
@@ -633,7 +635,12 @@ input{
                         display: none;
                     }
                 }
-            // }
+            }
+
+            .contentLoader{
+                min-height: 30em;
+                @include flexCentreCol;
+            }
             .hide{
                 display: none;
             }
@@ -652,5 +659,8 @@ input{
     .hide{
         display: none;
     }
-}
+    
+
+
+
 

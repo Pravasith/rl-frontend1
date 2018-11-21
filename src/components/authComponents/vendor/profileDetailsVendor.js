@@ -1,24 +1,24 @@
 import React from "react"
 
-import "../../assets/sass/vendor_form.scss"
+import "../../../assets/sass/vendor_form.scss"
 
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 
 
-import LogoAnimation from "../animations/logoAnimation"
-import statesAndCities from "../../lib/statesAndCities"
+import LogoAnimation from "../../animations/logoAnimation"
+import statesAndCities from "../../../lib/statesAndCities"
 
-import { TableIcon, MinusImageIcon, PlusImageIcon, UploadImageIcon } from "../../assets/images"
-import { GradientButton, InputForm } from "../UX/uxComponents"
+import { TableIcon, MinusImageIcon, PlusImageIcon, UploadImageIcon } from "../../../assets/images"
+import { GradientButton, InputForm, WhiteButton } from "../../UX/uxComponents"
 
-import Navbar from "../navbar/navbar"
-import { Footer } from "../footer/footer"
-import { getUserData } from "../../actions/userActions"
-import { hitApi, navBarLoadingAnimationShowHide } from "../../actions/generalActions";
-import { api } from "../../actions/apiLinks";
-import { encryptData, decryptData } from "../../factories/encryptDecrypt"
-import ImageUploader from "../UX/imageUploader";
+import Navbar from "../../navbar/navbar"
+import { Footer } from "../../footer/footer"
+import { getUserData } from "../../../actions/userActions"
+import { hitApi, navBarLoadingAnimationShowHide } from "../../../actions/generalActions";
+import { api } from "../../../actions/apiLinks";
+import { encryptData, decryptData } from "../../../factories/encryptDecrypt"
+import ImageUploader from "../../UX/imageUploader";
 
 class ProfileDetailsVendor extends React.Component {
 
@@ -52,11 +52,11 @@ class ProfileDetailsVendor extends React.Component {
 
             modalClassToggle: "modalBackgroundMainOuterWrap hide",
 
-            gstIn1: null,
-            gstIn2: null,
-            gstIn3: null,
-            gstIn4: null,
-            gstIn5: null,
+            gstIn1: "",
+            gstIn2: "",
+            gstIn3: "",
+            gstIn4: "",
+            gstIn5: "",
         }
     }
 
@@ -102,6 +102,22 @@ class ProfileDetailsVendor extends React.Component {
                             // DECRYPT REQUEST DATA
                             //
 
+                            let gstInState = {}
+
+                            const getIndividualGSTINs = () => {
+                                decryptedData.GSTIN.split('-').map((item, i) => {
+                                    gstInState["gstIn" + (i+1)] = item
+                                })
+                            }
+
+                            // getIndividualGSTINs()
+                            if(decryptedData.GSTIN !== null)
+                            getIndividualGSTINs()
+
+                            // console.log("GSTIN STATE", gstInState)
+
+                            
+
                             this.setState({
 
                                 companyName: decryptedData.companyName,
@@ -125,7 +141,7 @@ class ProfileDetailsVendor extends React.Component {
 
                                 companyProfilePicture: decryptedData.companyProfilePicture,
 
-
+                                ...gstInState
                             })
                         }
                     })
@@ -185,8 +201,6 @@ class ProfileDetailsVendor extends React.Component {
     returnNavBarData = () => {
         if (this.props.userData.responseData) {
 
-            // console.log(this.props.userData.responseData)
-
             //
             // DECRYPT REQUEST DATA
             // 
@@ -208,78 +222,69 @@ class ProfileDetailsVendor extends React.Component {
     
 
 
-    handleGST(event, gstPart) {
-        const val = event.target.value;
-        const { gstIn1, gstIn2, gstIn3, gstIn4, gstIn5 } = this.state;
-        
-        if (val.length === event.target.maxLength) {
-            if (gstPart !== "GSTIN5"){
-                this.refs[parseInt(event.target.id, 10) + 1].focus();
+    onChangeGST = (event, gstPart) => {
+        // console.log(event.target.value.length);
+        if (event.target.value.length === event.target.maxLength) {
+            if(gstPart !== "gstIn5"){
+                this.refs["gstIn" + (parseInt(event.target.id, 10) + 1)].focus()
             }
 
-          
-            if (gstPart === "GSTIN1") { 
-                this.setState({
-                    gstIn1: val
-                })
-            } else if (gstPart === "GSTIN2") {
-                this.setState({
-                    gstIn2: val
-                })
-            } else if (gstPart === "GSTIN3") {
-                this.setState({
-                    gstIn3: val
-                })
-            } else if (gstPart === "GSTIN4") {
-                this.setState({
-                    gstIn4: val
-                })
-            } else if (gstPart === "GSTIN5") {
-                this.setState({
-                    gstIn5: val
-                })
-            }
-        } 
-        
-        else {
-            console.log("wrks", gstPart)
-        }
+            else{
+                const {gstIn1, gstIn2, gstIn3, gstIn4, gstIn5 } = this.refs
+                const gstIn = `${gstIn1.value}-${gstIn2.value}-${gstIn3.value}-${gstIn4.value}-${gstIn5.value}`
+                
+                this.updateVendorData("GSTIN", gstIn)
+                console.log(gstIn.length)
+                if (gstIn.length < 19) {
+                    // console.log("Wrks");
+                    this.setState({
+                        warningText: "please check fill all the fields",
+                        warningClass: 'warningClass',
+                        passwordIsValid: false
+                    })
+                }
+            } 
+        }  
+        // else {
+        //     this.returnErrorMsg();
+        // }
+    }
 
-
-
-        if (gstIn1 !== null  && gstIn2 !== null && gstIn3 !== null && gstIn4 !== null && gstIn5 !== null) {
-                const GSTIN = gstIn1 + gstIn2 + gstIn3 + gstIn4 + gstIn5;
-
-                // console.log(GSTIN)
-                // console.log(gstIn1, gstIn2, gstIn3, gstIn4, gstIn5);
-
-                this.setState({
-                    gstIn: GSTIN
-                })
-            }
-        }
-
-    validateCard(e) {
-        const { key } = e
-        let theInput
-        
-
-        if (key !== 'Enter')
-            theInput = e.target.value + key
-
-        if (theInput.length > 2) {
-            this.setState({
-                warningText: "it must have only two values",
+    returnErrorMsg = () => {
+        // console.log("wrks");
+             this.setState({
+                warningText: "please check fill all the fields",
                 warningClass: 'warningClass',
                 passwordIsValid: false
             })
-           
-        }
     }
 
-    // handlechange = ({target: {value}}) => this.setState(state => value.length <= 6 && !isNaN(Number(value)) && {value} || state)
+    clearGSTfields = () => {
+        this.refs.gstIn1.value = ""
+        this.refs.gstIn2.value = ""
+        this.refs.gstIn3.value = ""
+        this.refs.gstIn4.value = ""
+        this.refs.gstIn5.value = ""
+    }
 
-    //  this.setState(state => value.length <= 6 && !isNaN(Number(value)) && {value} || state)
+    validateCard(gstField) {
+        // const { key } = e
+        // let theInput
+        
+
+        // if (key !== 'Enter')
+        //     theInput = e.target.value + key
+
+        // if (theInput.length > 2) {
+        //     this.setState({
+        //         warningText: "it must have only two values",
+        //         warningClass: 'warningClass',
+        //         passwordIsValid: false
+        //     })
+           
+        // }
+    }
+
 
     returnStatesOfIndia = () => {
         const array = [ ...statesAndCities ]
@@ -472,6 +477,12 @@ class ProfileDetailsVendor extends React.Component {
 
                     yearCount: decryptedData.experience.years,
                     monthCount: decryptedData.experience.months,
+
+                    gstIn1: decryptedData.gstIn1,
+                    gstIn2: decryptedData.gstIn2,
+                    gstIn3: decryptedData.gstIn3, 
+                    gstIn4: decryptedData.gstIn4, 
+                    gstIn5: decryptedData.gstIn5,
 
                     gtsIn: decryptedData.GSTIN,
                     pan: decryptedData.PAN,
@@ -970,7 +981,7 @@ class ProfileDetailsVendor extends React.Component {
                                                 <div className="formInputInnerLayer">
                                                     <div className="cardInstructionPara formParaSection">
                                                         <h3>7</h3>
-                                                        <p>Your company’s GST Identication number. <a href="">Click here</a>  if you want to know more about this.</p>
+                                                        <p>Your company’s GST Identication number. <a href="https://cleartax.in/s/know-your-gstin#what"  target="_blank" >Click here</a>  if you want to know more about this.</p>
                                                     </div>
 
                                                     <div className="cardInputSection inputCategorySection">
@@ -986,9 +997,10 @@ class ProfileDetailsVendor extends React.Component {
                                                                 placeholder="22"
                                                                 maxLength="2" 
                                                                 id="1"
-                                                                ref="1"
-                                                                onKeyPress={(e) => this.validateCard(e)}
-                                                                onChange={(event) =>this.handleGST(event, "GSTIN1")}
+                                                                ref="gstIn1"
+                                                                // onKeyPress={(e) => this.validateCard(e)}
+                                                                onChange={(event) =>this.onChangeGST(event, "gstIn1")}
+                                                                
                                                             />
                                                             <span className="InputSeparatorLine"> </span>
                                                         </div>
@@ -998,12 +1010,13 @@ class ProfileDetailsVendor extends React.Component {
                                                         <div className="inputColumn">
                                                             <input 
                                                                 autoFocus="autofocus"
+                                                                defaultValue = {this.state.gstIn2}
                                                                 type="text" 
                                                                 id="2"
                                                                 placeholder="AAAAA0000A" 
-                                                                ref="2"
+                                                                ref="gstIn2"
                                                                 maxLength="10" 
-                                                                onChange={(event) => this.handleGST(event, "GSTIN2")}
+                                                                onChange={(event) =>this.onChangeGST(event, "gstIn2")}
                                                                 
                                                             />
                                                             <span className="InputSeparatorLine"> </span>
@@ -1015,11 +1028,12 @@ class ProfileDetailsVendor extends React.Component {
                                                             <input 
                                                                 type="text" 
                                                                 placeholder="1"
+                                                                defaultValue = {this.state.gstIn3}
                                                                 maxLength="1"
-                                                                ref="3"
+                                                                ref="gstIn3"
                                                                 id="3"
                                                                 pattern="\d*" 
-                                                                onChange={(event) => this.handleGST(event, "GSTIN3")}
+                                                                onChange={(event) =>this.onChangeGST(event, "gstIn3")}
                                                             />
                                                             <span className="InputSeparatorLine"> </span>
                                                         </div>
@@ -1028,13 +1042,14 @@ class ProfileDetailsVendor extends React.Component {
 
                                                         <div className="inputColumn">
                                                             <input 
+                                                                defaultValue = {this.state.gstIn4}
                                                                 type="text" 
                                                                 placeholder="Z"
                                                                 pattern="[A-Z]{1}" 
-                                                                ref="4"
+                                                                ref="gstIn4"
                                                                 id="4"
                                                                 maxLength="1"
-                                                                onChange={(event) => this.handleGST(event, "GSTIN4")}
+                                                                onChange={(event) =>this.onChangeGST(event, "gstIn4")}
                                                             />
                                                             <span className="InputSeparatorLine"> </span>
                                                         </div>
@@ -1044,15 +1059,22 @@ class ProfileDetailsVendor extends React.Component {
                                                         <div className="inputColumn">
                                                             <input 
                                                                 type="text" 
+                                                                defaultValue = {this.state.gstIn5}
                                                                 placeholder="5" 
                                                                 maxLength="1"
-                                                                ref="5"
+                                                                ref="gstIn5"
                                                                 id="5"
                                                                 pattern="\d*" 
-                                                                onChange={(event) => this.handleGST(event, "GSTIN5")}
+                                                                onChange={(event) =>this.onChangeGST(event, "gstIn5")}
                                                             />
                                                             <span className="InputSeparatorLine"> </span>
                                                         </div>
+
+                                                        <WhiteButton
+                                                            runFunction={() => this.clearGSTfields()}
+                                                        >
+                                                            Clear
+                                                        </WhiteButton>
                                                     </div>
                                                     <div className="gstInputSection warningSection">
                                                         <p 
@@ -1068,7 +1090,7 @@ class ProfileDetailsVendor extends React.Component {
                                                 <div className="formInputInnerLayer">
                                                     <div className="formParaSection">
                                                         <h3>8</h3>
-                                                        <p>PAN number</p>
+                                                        <p>Your company's PAN number</p>
                                                     </div>
 
                                                     <div className="panNumber">
@@ -1101,8 +1123,9 @@ class ProfileDetailsVendor extends React.Component {
                                             <div className="formInputContainer">
                                                 <div className="formInputInnerLayer">
                                                     <div className="formParaSection">
-                                                        <GradientButton 
-                                                            runFunction={() => this.proceedHandler()}>
+                                                        <GradientButton
+                                                            runFunction = {() => window.open('/vendor-main-dashboard', '_self')}
+                                                            >
                                                             Proceed
                                                         </GradientButton>
                                                     </div>

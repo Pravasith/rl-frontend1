@@ -356,49 +356,35 @@ class AddProductDetails extends React.Component {
                                         Edit
                                     </WhiteButton>
                                 </div>
+
                                 <div 
                                     className="deleteButton"
                                     onClick={() => this.removeProductDimensions(i)}
-                                >
-                                <div className="sizeCostCartWrap">
-                                    <h3>Size nomenclature</h3>
-                                    <p key={i}
-                                    >{item.sizeName}</p>
+                                    >
+                                    <div className="sizeCostCartWrap">
+                                        <h3>Size nomenclature</h3>
+                                        <p key={i}
+                                            >{item.sizeName}</p>
+                                    </div>
+                                    <div className="sizeCostCartWrap">
+                                        <h3>Cost over base price</h3>
+                                        <p key={i}>Rs. {item.sizeCost}</p>
+                                    </div>
                                 </div>
-                                <div className="sizeCostCartWrap">
-                                    <h3>Cost over base price</h3>
-                                    <p key={i}>Rs. {item.sizeCost}</p>
-                                </div>
-                                </div>
-                                {/* <ul>
-                                    
-                                    <li>
-                                        <p>Size nomenclature</p>
-                                        <p key={i}>
-                                            {item.sizeName}
-                                        </p>
-                                    </li>
-
-                                    <li>
-                                        <p>Cost over base price</p>
-                                        <p key={i}>
-                                            {item.sizeCost}
-                                        </p>
-                                    </li>
-                                </ul> */}
+                               
                                 
                                 <div className="sizeEditingButtons">
                                     <div className="editButton">
                                         <WhiteButton 
                                             runFunction={() => this.editProductDimensions(i)}
-                                        >
+                                            >
                                             Edit
                                         </WhiteButton>
                                     </div>
                                     <div 
                                         className="deleteButton"
                                         onClick={() => this.removeProductDimensions(i)}
-                                    >
+                                        >
                                         <WhiteButton>
                                             Delete
                                         </WhiteButton>

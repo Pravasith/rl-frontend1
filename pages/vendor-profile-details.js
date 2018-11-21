@@ -1,4 +1,4 @@
-import ProfileDetailsVendor from "../src/components/authComponents/profileDetailsVendor";
+import ProfileDetailsVendor from "../src/components/authComponents/vendor/profileDetailsVendor";
 import { Provider } from 'react-redux'
 import store from "../src/store"
 
