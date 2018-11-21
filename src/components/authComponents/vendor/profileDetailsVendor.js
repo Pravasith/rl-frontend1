@@ -44,7 +44,16 @@ class ProfileDetailsVendor extends React.Component {
             monthCount: 0,
 
             // my code
-            inputCount: 0,
+            inputCountOne: 0,
+            inputCountTwo: 0,
+            inputCountThree: 0,
+            inputCountFour: 0,
+            inputCountFive: 0, 
+            inputCountSix: 0,
+            inputCountSeven: 0,
+            inputCountEight: 0,
+            inputCountNine: 0,
+
 
             emptyField: [],
 
@@ -148,10 +157,11 @@ class ProfileDetailsVendor extends React.Component {
                     .catch(e => console.error(e))
             })
             .catch(e => console.error(e))
+            // console.log(this.state.firstName)
     }
 
     // componentDidUpdate() {
-    //     console.log(this.state.gstIn);
+    //     console.log(this.state.gstIn1, this.state.gstIn5);
     // }
 
 
@@ -188,14 +198,132 @@ class ProfileDetailsVendor extends React.Component {
     }
 
     // my code
+    checkAnsweredOne = () => {
+        if (this.state.firstName !== null && this.state.lastName !== null && this.state.inputCountOne !== 1) {
+            console.log("Name wrks")
+            this.setState({
+                inputCountOne: this.state.inputCountOne + 1
+            })
+        } 
+        
+        return this.state.inputCountOne;
+    }
 
-    validateInput = (e) => {
-       this.setState({
-           inputCount: this.state.inputCount + 1
-       })
+    checkAnsweredTwo = () => {
+        if (this.state.companyName !== null && this.state.inputCountTwo !== 1) {
+            console.log("Comapny wrks")
+            this.setState({
+                inputCountTwo: this.state.inputCountTwo + 1
+            })
+        }
+
+        return this.state.inputCountTwo;
+    }
+
+    checkAnsweredThree = () => {
+        if (this.state.mobileNo !== null && this.state.inputCountThree !== 1) {
+            console.log("Contact wrks")
+            this.setState({
+                inputCountThree: this.state.inputCountThree + 1
+            })
+        } 
+        
+        return this.state.inputCountThree;
+    }
+
+    checkAnsweredFour = () => {
+        if (this.state.hNo !== null 
+                && this.state.stNo !== null 
+                && this.state.detailedAddressLine1 !== null 
+                && this.state.state !== null
+                && this.state.city !== null
+                && this.state.pincode !== 0
+                && this.state.inputCountFour !== 1) {
+
+            console.log("Address wrks")
+            this.setState({
+                inputCountFour: this.state.inputCountFour + 1
+            })
+        } 
+        
+        return this.state.inputCountFour;
+    }
+
+    checkAnsweredFive = () => {
+        if (this.state.companyDescriptionLine1 !== null && this.state.inputCountFive !== 1) {
+            console.log("Company Desc wrks")
+            this.setState({
+                inputCountFive: this.state.inputCountFive + 1
+            })
+        } 
+        
+        return this.state.inputCountFive;
+    }
+
+    checkAnsweredSix = () => {
+        if (this.state.yearCount !== 0 && this.state.monthCount !== 0 && this.state.inputCountSix !== 1) {
+            console.log("Exp wrks")
+            this.setState({
+                inputCountSix: this.state.inputCountSix + 1
+            })
+        } 
+        
+        return this.state.inputCountSix;
+    }
+
+    checkAnsweredSeven = () => {
+        if (this.state.gstIn !== null && this.state.inputCountSeven !== 1) {
+            console.log("GST wrks")
+            this.setState({
+                inputCountSeven: this.state.inputCountSeven + 1
+            })
+        } 
+        
+        return this.state.inputCountSeven;
+    }
+
+    checkAnsweredEight = () => {
+        if (this.state.pan !== null && this.state.inputCountEight !== 1) {
+            console.log("Pan wrks")
+            this.setState({
+                inputCountEight: this.state.inputCountEight + 1
+            })
+        } 
+        
+        return this.state.inputCountEight;
+    }
+
+    checkAnsweredNine = () => {
+        if (this.state.companyProfilePicture !== null && this.state.inputCountNine !== 1) {
+            console.log("CompanyPP wrks")
+            this.setState({
+                inputCountNine: this.state.inputCountNine + 1
+            })
+        } 
+        
+        return this.state.inputCountNine;
     }
 
     // my code
+    returnInputCount = () => {
+        const {
+            inputCountOne,
+            inputCountTwo,
+            inputCountThree,
+            inputCountFour,
+            inputCountFive,
+            inputCountSix, 
+            inputCountSeven,
+            inputCountEight, 
+            inputCountNine 
+            } = this.state;
+        
+        let totalAnswered = inputCountOne + inputCountTwo + inputCountThree 
+                            + inputCountFour + inputCountFive + inputCountSix 
+                            + inputCountSeven + inputCountEight + inputCountNine ;
+
+        return totalAnswered;
+    }
 
 
     returnNavBarData = () => {
@@ -223,40 +351,28 @@ class ProfileDetailsVendor extends React.Component {
 
 
     onChangeGST = (event, gstPart) => {
-        // console.log(event.target.value.length);
-        if (event.target.value.length === event.target.maxLength) {
+        const val = event.target.value;
+
+        if (val.length === event.target.maxLength) {
             if(gstPart !== "gstIn5"){
                 this.refs["gstIn" + (parseInt(event.target.id, 10) + 1)].focus()
             }
 
             else{
-                const {gstIn1, gstIn2, gstIn3, gstIn4, gstIn5 } = this.refs
-                const gstIn = `${gstIn1.value}-${gstIn2.value}-${gstIn3.value}-${gstIn4.value}-${gstIn5.value}`
+                const {gstIn1, gstIn2, gstIn3, gstIn4, gstIn5 } = this.refs;
+                const gstIn = `${gstIn1.value}-${gstIn2.value}-${gstIn3.value}-${gstIn4.value}-${gstIn5.value}`;
                 
                 this.updateVendorData("GSTIN", gstIn)
-                console.log(gstIn.length)
+
                 if (gstIn.length < 19) {
-                    // console.log("Wrks");
                     this.setState({
-                        warningText: "please check fill all the fields",
+                        warningText: "please check nad fill all the fields",
                         warningClass: 'warningClass',
                         passwordIsValid: false
                     })
                 }
             } 
         }  
-        // else {
-        //     this.returnErrorMsg();
-        // }
-    }
-
-    returnErrorMsg = () => {
-        // console.log("wrks");
-             this.setState({
-                warningText: "please check fill all the fields",
-                warningClass: 'warningClass',
-                passwordIsValid: false
-            })
     }
 
     clearGSTfields = () => {
@@ -266,25 +382,6 @@ class ProfileDetailsVendor extends React.Component {
         this.refs.gstIn4.value = ""
         this.refs.gstIn5.value = ""
     }
-
-    validateCard(gstField) {
-        // const { key } = e
-        // let theInput
-        
-
-        // if (key !== 'Enter')
-        //     theInput = e.target.value + key
-
-        // if (theInput.length > 2) {
-        //     this.setState({
-        //         warningText: "it must have only two values",
-        //         warningClass: 'warningClass',
-        //         passwordIsValid: false
-        //     })
-           
-        // }
-    }
-
 
     returnStatesOfIndia = () => {
         const array = [ ...statesAndCities ]
@@ -491,9 +588,6 @@ class ProfileDetailsVendor extends React.Component {
                 })
             })
             .catch(e => console.error(e))
-
-
-
     }
 
 
@@ -644,7 +738,7 @@ class ProfileDetailsVendor extends React.Component {
                                                 <h3
                                                     
                                                 >
-                                                    <span>{this.state.inputCount}/9</span>Questions answered
+                                                    <span>{this.returnInputCount()}/9</span>Questions answered
                                                 </h3>
                                             </div>
                                         </div>
@@ -658,7 +752,7 @@ class ProfileDetailsVendor extends React.Component {
 
                                             <div 
                                                 className="formInputContainer"
-                                                onClick={() => console.log('Wrk')}
+                                                onBlur={() => this.checkAnsweredOne()}
                                             >
                                                 <div className="formInputInnerLayer">
                                                     <div className="formParaSection">
@@ -695,7 +789,7 @@ class ProfileDetailsVendor extends React.Component {
 
                                             <div 
                                                 className="formInputContainer"
-                                                onClick={() => this.validateInput("two")}
+                                                onBlur={() => this.checkAnsweredTwo()}
                                             >
                                                 <div className="formInputInnerLayer">
                                                     <div className="formParaSection">
@@ -718,7 +812,9 @@ class ProfileDetailsVendor extends React.Component {
                                                 </div>
                                             </div>
 
-                                            <div className="formInputContainer">
+                                            <div className="formInputContainer"
+                                                onBlur={() => this.checkAnsweredThree()}
+                                            >
                                                 <div className="formInputInnerLayer">
 
                                                     <div className="formParaSection">
@@ -761,7 +857,9 @@ class ProfileDetailsVendor extends React.Component {
                                                 </div>
                                             </div>
 
-                                            <div className="formInputContainer">
+                                            <div className="formInputContainer"
+                                                onBlur={() => this.checkAnsweredFour()}
+                                            >
                                                 <div className="formInputInnerLayer">
                                                     <div className="formParaSection">
                                                         <h3>4</h3>
@@ -867,7 +965,9 @@ class ProfileDetailsVendor extends React.Component {
                                                 </div>
                                             </div>
 
-                                            <div className="formInputContainer">
+                                            <div className="formInputContainer"
+                                                onBlur={() => this.checkAnsweredFive()}
+                                            >
                                                 <div className="formInputInnerLayer">
                                                     <div className="formParaSection">
                                                         <h3>5</h3>
@@ -899,7 +999,9 @@ class ProfileDetailsVendor extends React.Component {
                                                 </div>
                                             </div>
 
-                                            <div className="formInputContainer">
+                                            <div className="formInputContainer"
+                                                onClick={() => this.checkAnsweredSix()}
+                                            >
                                                 <div className="formInputInnerLayer">
                                                     <div className="formParaSection">
                                                         <h3>6</h3>
@@ -977,7 +1079,9 @@ class ProfileDetailsVendor extends React.Component {
                                                 </div>
                                             </div>
 
-                                            <div className="formInputContainer">
+                                            <div className="formInputContainer"
+                                                onToggle={() => this.checkAnsweredSeven()}
+                                            >
                                                 <div className="formInputInnerLayer">
                                                     <div className="cardInstructionPara formParaSection">
                                                         <h3>7</h3>
@@ -1086,7 +1190,9 @@ class ProfileDetailsVendor extends React.Component {
                                                 </div>
                                             </div>
 
-                                            <div className="formInputContainer">
+                                            <div className="formInputContainer"
+                                                onBlur={() => this.checkAnsweredEight()}
+                                            >
                                                 <div className="formInputInnerLayer">
                                                     <div className="formParaSection">
                                                         <h3>8</h3>
@@ -1107,7 +1213,9 @@ class ProfileDetailsVendor extends React.Component {
                                                 </div>
                                             </div>
 
-                                            <div className="formInputContainer">
+                                            <div className="formInputContainer"
+                                               onLoad={() => this.checkAnsweredNine()} 
+                                            >
                                                 <div className="formInputInnerLayer">
                                                     <div className="formParaSection">
                                                         <h3>9</h3>
@@ -1124,7 +1232,7 @@ class ProfileDetailsVendor extends React.Component {
                                                 <div className="formInputInnerLayer">
                                                     <div className="formParaSection">
                                                         <GradientButton
-                                                            runFunction = {() => window.open('/vendor-main-dashboard', '_self')}
+                                                            runFunction = {() => this.proceedHandler()}
                                                             >
                                                             Proceed
                                                         </GradientButton>
