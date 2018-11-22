@@ -353,26 +353,37 @@ class ProfileDetailsVendor extends React.Component {
         const val = event.target.value;
 
         if (val.length === event.target.maxLength) {
-            if(gstPart !== "gstIn5"){
-                this.refs["gstIn" + (parseInt(event.target.id, 10) + 1)].focus()
-            }
 
-            else{
-                const {gstIn1, gstIn2, gstIn3, gstIn4, gstIn5 } = this.refs;
+            this.refs[gstPart].focus();
+
+            // if(gstPart !== "gstIn5"){
+            //     this.refs["gstIn" + (parseInt(event.target.id, 10) + 1)].focus()
+            // }
+
+            // else{
+                const { gstIn1, gstIn2, gstIn3, gstIn4, gstIn5 } = this.refs;
                 const gstIn = `${gstIn1.value}-${gstIn2.value}-${gstIn3.value}-${gstIn4.value}-${gstIn5.value}`;
                 
-                this.updateVendorData("GSTIN", gstIn)
+                
 
-                if (gstIn.length < 19) {
+                if (gstIn.length === 19) {
+                    this.updateVendorData("GSTIN", gstIn)
                     this.setState({
-                        warningText: "please check nad fill all the fields",
+                        warningText: "please check and fill all the fields",
+                        warningClass: 'warningClass hide',
+                        passwordIsValid: false
+                    })
+                }
+                else {
+                    this.setState({
+                        warningText: "please check and fill all the fields",
                         warningClass: 'warningClass',
                         passwordIsValid: false
                     })
                 }
-            } 
-        }  
-    }
+            // }
+        } 
+    }  
 
     clearGSTfields = () => {
         this.refs.gstIn1.value = ""
@@ -681,46 +692,48 @@ class ProfileDetailsVendor extends React.Component {
 
     returnValidationModal = () => {
         const { emptyField } = this.state;
-        return (
-            <div className={this.state.modalClassToggle}>
-                <div className="dummyXClass">
-                    <div className="whiteSquareForModal">
-                        <div className="vendorProfileDetailsModal">
-                            <div className="svgImageContainer">
-                                <ErrorMsgSign />
-                            </div>
-                            <div className="modalContentContainer">
-                                <div className="modalContentContainerInnerLayer">
-                                    <div className="content">
-                                        <h3>{emptyField
-                                            .map((item, i) =>
-                                                <div 
-                                                    className="errorFieldMessage" 
-                                                    key={i}>
+
+        // if (emptyField.length !== 0) {
+            return (
+                <div className={this.state.modalClassToggle}>
+                    <div className="dummyXClass">
+                        <div className="whiteSquareForModal">
+                            <div className="vendorProfileDetailsModal">
+                                <div className="svgImageContainer">
+                                    <ErrorMsgSign />
+                                </div>
+                                <div className="modalContentContainer">
+                                    <div className="modalContentContainerInnerLayer">
+                                        <div className="content">
+                                            <h3>{emptyField
+                                                .map((item, i) =>
+                                                    <div
+                                                        className="errorFieldMessage"
+                                                        key={i}>
                                                         <h3>Please enter your {item}</h3>
-                                                </div>
-                                            )}
-                                        </h3>
+                                                    </div>
+                                                )}
+                                            </h3>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="closeModalContainer">
-                            <WhiteButton
-                                runFunction={() => this.setState({
-                                    modalClassToggle: "modalBackgroundMainOuterWrap hide",
-                                    mainClass: "mainClass"
-                                })}
-                            >
-                                Sure, I’ll do that
+                                <div className="closeModalContainer">
+                                    <WhiteButton
+                                        runFunction={() => this.setState({
+                                            modalClassToggle: "modalBackgroundMainOuterWrap hide",
+                                            mainClass: "mainClass"
+                                        })}
+                                    >
+                                        Sure, I’ll do that
                             </WhiteButton>
+                                </div>
+
                             </div>
-                            
                         </div>
                     </div>
                 </div>
-            </div>
-        )
-            
+            )
+        // }    
     }
 
     render() {
@@ -1141,7 +1154,7 @@ class ProfileDetailsVendor extends React.Component {
                                                                     id="1"
                                                                     ref="gstIn1"
                                                                     // onKeyPress={(e) => this.validateCard(e)}
-                                                                    onChange={(event) =>this.onChangeGST(event, "gstIn1")}
+                                                                    onChange={(event) =>this.onChangeGST(event, "gstIn2")}
                                                                     
                                                                 />
                                                                 <span className="InputSeparatorLine"> </span>
@@ -1158,7 +1171,7 @@ class ProfileDetailsVendor extends React.Component {
                                                                     placeholder="AAAAA0000A" 
                                                                     ref="gstIn2"
                                                                     maxLength="10" 
-                                                                    onChange={(event) =>this.onChangeGST(event, "gstIn2")}
+                                                                    onChange={(event) =>this.onChangeGST(event, "gstIn3")}
                                                                     
                                                                 />
                                                                 <span className="InputSeparatorLine"> </span>
@@ -1175,7 +1188,7 @@ class ProfileDetailsVendor extends React.Component {
                                                                     ref="gstIn3"
                                                                     id="3"
                                                                     pattern="\d*" 
-                                                                    onChange={(event) =>this.onChangeGST(event, "gstIn3")}
+                                                                    onChange={(event) =>this.onChangeGST(event, "gstIn4")}
                                                                 />
                                                                 <span className="InputSeparatorLine"> </span>
                                                             </div>
@@ -1190,7 +1203,7 @@ class ProfileDetailsVendor extends React.Component {
                                                                     ref="gstIn4"
                                                                     id="4"
                                                                     pattern="\d*"
-                                                                    onChange={(event) => this.onChangeGST(event, "gstIn4")}
+                                                                    onChange={(event) => this.onChangeGST(event, "gstIn5")}
                                                                 />
                                                                 <span className="InputSeparatorLine"> </span>
                                                             </div>

@@ -920,7 +920,7 @@ class AddProductDetails extends React.Component {
            { fieldName: 'Best price of this product', value: this.state.productPrice },
            { fieldName: 'Material', value: this.state.productMaterial },
            { fieldName: 'Min. quantity', value: this.state.produtMinQuantity},
-           { fieldName: 'Max. quantity', value: this.state.producMaxQuantity }
+           { fieldName: 'Max. quantity', value: this.state.productMaxQuantity }
        ]
 
        await this.setState({
@@ -943,64 +943,6 @@ class AddProductDetails extends React.Component {
     //    console.log(this.state.emptyField)
        this.modalClassToggle("show");
    }
-
-    // modalClassToggle = (showOrNot) => {
-    //     if (showOrNot === "show")
-    //         this.setState({
-    //             modalClassToggle: "modalBackgroundMainOuterWrap",
-    //             vendorFormOuterSectionClass: "vendorFormOuterSection blurClass",
-    //         })
-
-    //     else if (showOrNot === "dontShow")
-    //         this.setState({
-    //             modalClassToggle: "modalBackgroundMainOuterWrap hide",
-    //             vendorFormOuterSectionClass: "vendorFormOuterSection",
-    //         })
-    // }
-
-    // returnValidationModal = () => {
-    //     const { emptyField } = this.state;
-    //     return (
-    //         <div className={this.state.modalClassToggle}>
-    //             <div className="dummyXClass">
-    //                 <div className="whiteSquareForModal">
-    //                     <div className="addProductDetailsModal">
-    //                         <div className="svgImageContainer">
-    //                             <ErrorMsgSign />
-    //                         </div>
-    //                         <div className="modalContentContainer">
-    //                             <div className="modalContentContainerInnerLayer">
-    //                                 <div className="content">
-    //                                     <h3>{emptyField
-    //                                         .map((item, i) =>
-    //                                             <div
-    //                                                 className="errorFieldMessage"
-    //                                                 key={i}>
-    //                                                 <h3>Please enter your {item}</h3>
-    //                                             </div>
-    //                                         )}
-    //                                     </h3>
-    //                                 </div>
-    //                             </div>
-    //                         </div>
-    //                         <div className="closeModalContainer">
-    //                             <WhiteButton
-    //                                 runFunction={() => this.setState({
-    //                                     modalClassToggle: "modalBackgroundMainOuterWrap hide",
-    //                                     mainClass: "mainClass"
-    //                                 })}
-    //                             >
-    //                                 Sure, I’ll do that
-    //                         </WhiteButton>
-    //                         </div>
-
-    //                     </div>
-    //                 </div>
-    //             </div>
-    //         </div>
-    //     )
-
-    // }
 
     render() {
         return (
@@ -1372,7 +1314,7 @@ class AddProductDetails extends React.Component {
                                                             validationType="onlyNumbers"
                                                             characterCount="20"
                                                             result={(val) => this.setState({
-                                                                produtMaxQuantity: val
+                                                                productMaxQuantity: val
                                                             })}
                                                         />
                                                     </div>
