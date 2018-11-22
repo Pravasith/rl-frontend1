@@ -130,8 +130,8 @@ class ProfileDetailsVendor extends React.Component {
 
                                 companyName: decryptedData.companyName,
 
-                                hNo: decryptedData.address.hNo,
-                                stNo: decryptedData.address.stNo,
+                                // hNo: decryptedData.address.hNo,
+                                // stNo: decryptedData.address.stNo,
                                 detailedAddressLine1: decryptedData.address.detailedAddressLine1,
                                 detailedAddressLine2: decryptedData.address.detailedAddressLine2,
                                 state: decryptedData.address.state,
@@ -571,8 +571,8 @@ class ProfileDetailsVendor extends React.Component {
 
                     companyName: decryptedData.companyName,
 
-                    hNo: decryptedData.address.hNo,
-                    stNo: decryptedData.address.stNo,
+                    // hNo: decryptedData.address.hNo,
+                    // stNo: decryptedData.address.stNo,
                     detailedAddressLine1: decryptedData.address.detailedAddressLine1,
                     detailedAddressLine2: decryptedData.address.detailedAddressLine2,
                     state: decryptedData.address.state,
@@ -636,8 +636,8 @@ class ProfileDetailsVendor extends React.Component {
             {fieldName: 'Last Name', value: this.state.lastName },
             {fieldName: 'Mobile Number', value: this.state.mobileNo },
             {fieldName: 'Company Name', value: this.state.companyName }, 
-            {fieldName: 'House Number', value: this.state.hNo }, 
-            {fieldName: 'Street Number', value: this.state.stNo },
+            // {fieldName: 'House Number', value: this.state.hNo }, 
+            // {fieldName: 'Street Number', value: this.state.stNo },
             {fieldName: 'Address Line', value: this.state.detailedAddressLine1 },
             {fieldName: 'State', value: this.state.state },
             {fieldName: 'City', value: this.state.city },
@@ -921,7 +921,7 @@ class ProfileDetailsVendor extends React.Component {
                                                             <p>Tell us your company address. We’ll bill the customer with this address</p>
                                                         </div> */}
 
-                                                        <div className="houseNoWrap">
+                                                        {/* <div className="houseNoWrap">
                                                             <InputForm
                                                                 refName="houseNo"
                                                                 placeholder="H.No/Flat no."
@@ -943,7 +943,7 @@ class ProfileDetailsVendor extends React.Component {
                                                                 value={this.state.stNo ? this.state.stNo : null}
                                                                 result={val => this.updateVendorData("address.stNo", val)}
                                                             />
-                                                        </div>
+                                                        </div> */}
 
                                                         <div className="detailedAddressLineWrap">
                                                             <InputForm
