@@ -914,10 +914,7 @@ class AddProductDetails extends React.Component {
                                     </div>
                                     <div className="closeModalContainer">
                                         <WhiteButton
-                                            runFunction={() => this.setState({
-                                                modalClassToggle: "modalBackgroundMainOuterWrap hide",
-                                                mainClass: "mainClass"
-                                            })}
+                                            runFunction={() => this.modalClassToggle("dontShow")}
                                         >
                                             Sure, I’ll do that
                                         </WhiteButton>
