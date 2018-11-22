@@ -356,16 +356,9 @@ class ProfileDetailsVendor extends React.Component {
 
             this.refs[gstPart].focus();
 
-            // if(gstPart !== "gstIn5"){
-            //     this.refs["gstIn" + (parseInt(event.target.id, 10) + 1)].focus()
-            // }
-
-            // else{
                 const { gstIn1, gstIn2, gstIn3, gstIn4, gstIn5 } = this.refs;
                 const gstIn = `${gstIn1.value}-${gstIn2.value}-${gstIn3.value}-${gstIn4.value}-${gstIn5.value}`;
                 
-                
-
                 if (gstIn.length === 19) {
                     this.updateVendorData("GSTIN", gstIn)
                     this.setState({
@@ -655,20 +648,22 @@ class ProfileDetailsVendor extends React.Component {
             emptyField : []
         })
 
-
-
         fieldNames.map(item => {
             // console.log(item.fieldName, item.value)
-            if (item.value === null || item.value === "" || item.value === 0 || item.value === undefined){
-                // console.log(`${item.fieldName} is in-valid`)
+            if (item.value === null || item.value === "" || item.value === 0 || item.value === undefined) {
                 if(!this.state.emptyField.includes(item.fieldName))
                         this.state.emptyField.push(item.fieldName)
-            }
+            } 
         })
 
         this.setState({
             emptyField: this.state.emptyField
         })
+
+
+        if (this.state.emptyField.length === 0) {
+            window.open("/vendor-main-dashboard", "_self")
+        }
 
         // console.log(this.state.emptyField)
 
@@ -693,7 +688,7 @@ class ProfileDetailsVendor extends React.Component {
     returnValidationModal = () => {
         const { emptyField } = this.state;
 
-        // if (emptyField.length !== 0) {
+        if (emptyField.length !== 0) {
             return (
                 <div className={this.state.modalClassToggle}>
                     <div className="dummyXClass">
@@ -733,7 +728,7 @@ class ProfileDetailsVendor extends React.Component {
                     </div>
                 </div>
             )
-        // }    
+        }    
     }
 
     render() {
