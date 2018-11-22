@@ -920,7 +920,7 @@ class AddProductDetails extends React.Component {
                                             })}
                                         >
                                             Sure, I’ll do that
-                            </WhiteButton>
+                                        </WhiteButton>
                                     </div>
 
                                 </div>
