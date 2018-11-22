@@ -57,6 +57,9 @@ class AddProductDetails extends React.Component {
             sizeName: '',
             sizeCost: '',
 
+            productMinQuantity: 0,
+            productMaxQuantity: 0,
+
             productDimensions: [],
 
             isProceedClicked: false,
@@ -83,6 +86,7 @@ class AddProductDetails extends React.Component {
                 vendorDashboardOuterClass: "vendorDashboardOuterLayer",
             })
     }
+
 
     returnVariationColors = () => {
         return (
@@ -462,7 +466,7 @@ class AddProductDetails extends React.Component {
             })
         }
 
-        if (minOrMax === "max" && this.state.productMaxQuantity < 12) {
+        if (minOrMax === "max" && this.state.productMaxQuantity < 100) {
             this.setState({
                 productMaxQuantity: this.state.productMaxQuantity + 1
             })
@@ -1357,64 +1361,77 @@ class AddProductDetails extends React.Component {
                                                     </div>
                                                 </div> */}
 
-                                                <div className="productQunatityWrap">
+                                                
+                                                <div className="inputFormContainer">
+                                                    <div className="formParaSection">
+                                                        <p className="pargraphClass">Min. Quantity</p>
+                                                    </div>
+                                                    
                                                     <div className="productQunatityWrap inputCategorySection">
-                                                        <div className="mandatorySection">
-                                                            <p>Mandatory</p>
-                                                        </div>
+                                                        <div className="productInputInnerLayer">
+                                                            <div className="mandatorySection">
+                                                                <p>Mandatory</p>
+                                                            </div>
 
-                                                        <div className="inputColumn">
-                                                            <div className="numberInputSection inputColumnInnerLayer">
-                                                                <div
-                                                                    className="plusAndMinusWrap"
-                                                                    onClick={() => this.decreaseValue("min")}
-                                                                >
-                                                                    <MinusImageIcon />
-                                                                </div>
+                                                            <div className="inputColumn">
+                                                                <div className="numberInputSection inputColumnInnerLayer">
+                                                                    <div
+                                                                        className="plusAndMinusWrap"
+                                                                        onClick={() => this.decreaseValue("min")}
+                                                                    >
+                                                                        <MinusImageIcon />
+                                                                    </div>
 
-                                                                <div className="numberSection">
-                                                                    <p>{this.state.productMinQuantity}</p>
-                                                                </div>
+                                                                    <div className="numberSection">
+                                                                        <p>{this.state.productMinQuantity}</p>
+                                                                    </div>
 
-                                                                <div
-                                                                    className="plusAndMinusWrap"
-                                                                    onClick={() => this.increaseValue("min")}
-                                                                >
-                                                                    <PlusImageIcon />
+                                                                    <div
+                                                                        className="plusAndMinusWrap"
+                                                                        onClick={() => this.increaseValue("min")}
+                                                                    >
+                                                                        <PlusImageIcon />
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                </div>
 
+                                                <div className="inputFormContainer">
+                                                    <div className="formParaSection">
+                                                        <p className="pargraphClass">Max. Quantity</p>
+                                                    </div>
+                                                    
                                                     <div className="productQunatityWrap inputCategorySection">
-                                                        <div className="mandatorySection">
-                                                            <p>Mandatory</p>
-                                                        </div>
+                                                        <div className="productInputInnerLayer">
+                                                            <div className="mandatorySection">
+                                                                <p>Mandatory</p>
+                                                            </div>
 
-                                                        <div className="inputColumn">
-                                                            <div className="numberInputSection inputColumnInnerLayer">
-                                                                <div
-                                                                    className="plusAndMinusWrap"
-                                                                    onClick={() => this.decreaseValue("max")}
-                                                                >
-                                                                    <MinusImageIcon />
-                                                                </div>
+                                                            <div className="inputColumn">
+                                                                <div className="numberInputSection inputColumnInnerLayer">
+                                                                    <div
+                                                                        className="plusAndMinusWrap"
+                                                                        onClick={() => this.decreaseValue("max")}
+                                                                    >
+                                                                        <MinusImageIcon />
+                                                                    </div>
 
-                                                                <div className="numberSection">
-                                                                    <p>{this.state.productMaxQuantity}</p>
-                                                                </div>
+                                                                    <div className="numberSection">
+                                                                        <p>{this.state.productMaxQuantity}</p>
+                                                                    </div>
 
-                                                                <div
-                                                                    className="plusAndMinusWrap"
-                                                                    onClick={() => this.increaseValue("max")}
-                                                                >
-                                                                    <PlusImageIcon />
+                                                                    <div
+                                                                        className="plusAndMinusWrap"
+                                                                        onClick={() => this.increaseValue("max")}
+                                                                    >
+                                                                        <PlusImageIcon />
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-
                                                     </div>
-
                                                 </div>
 
                                                 <div className="inputFormContainer">

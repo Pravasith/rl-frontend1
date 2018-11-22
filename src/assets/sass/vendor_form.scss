@@ -133,6 +133,13 @@ input[type=number]::-webkit-outer-spin-button {
                                 .content{
                                     @include flexCentreRow;
                                     width: 100%;
+                                    ul{
+                                        li{
+                                            color: $primaryMagenta;
+                                            font-size: 1em;
+                                            font-weight: 600;
+                                        }
+                                    }
                                     h3{
                                         color: $primaryMagenta;
                                         text-align: center;
