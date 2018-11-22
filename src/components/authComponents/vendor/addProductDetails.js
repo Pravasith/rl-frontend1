@@ -8,7 +8,17 @@ import { bindActionCreators } from "redux"
 import { getUserData } from "../../../actions/userActions"
 import { hitApi, navBarLoadingAnimationShowHide } from "../../../actions/generalActions";
 
-import { PlusButtonIcon, CloseButton, BigCloseButton, ErrorMsgSign, SmallCloseButton, SmallModalCloseButton } from "../../../assets/images"
+import {
+    PlusButtonIcon,
+    CloseButton,
+    BigCloseButton,
+    ErrorMsgSign,
+    SmallCloseButton,
+    SmallModalCloseButton,
+    MinusImageIcon,
+    PlusImageIcon
+} from "../../../assets/images";
+
 import LogoAnimation from "../../animations/logoAnimation"
 import { GradientButton, InputForm, WhiteButton } from "../../UX/uxComponents"
 import HtmlSlider from "../../UX/htmlSlider"
@@ -431,6 +441,33 @@ class AddProductDetails extends React.Component {
         }
     }
 
+    decreaseValue = (minOrMax) => {
+        if (minOrMax === "min" && this.state.productMinQuantity > 0) {
+            this.setState({
+                productMinQuantity: this.state.productMinQuantity - 1
+            })
+        }
+
+        if (minOrMax === "max" && this.state.productMaxQuantity > 0) {
+            this.setState({
+                productMaxQuantity: this.state.productMaxQuantity - 1
+            })
+        }
+    }
+
+    increaseValue = (minOrMax) => {
+        if (minOrMax === "min" && this.state.productMinQuantity < 100) {
+            this.setState({
+                productMinQuantity: this.state.productMinQuantity + 1
+            })
+        }
+
+        if (minOrMax === "max" && this.state.productMaxQuantity < 12) {
+            this.setState({
+                productMaxQuantity: this.state.productMaxQuantity + 1
+            })
+        }
+    }
     
     proceedHandler = (typeOfButtonClicked) => {
 
@@ -919,7 +956,7 @@ class AddProductDetails extends React.Component {
            { fieldName: 'Product Code', value: this.state.productCode },
            { fieldName: 'Best price of this product', value: this.state.productPrice },
            { fieldName: 'Material', value: this.state.productMaterial },
-           { fieldName: 'Min. quantity', value: this.state.produtMinQuantity},
+           { fieldName: 'Min. quantity', value: this.state.productMinQuantity},
            { fieldName: 'Max. quantity', value: this.state.productMaxQuantity }
        ]
 
@@ -1284,7 +1321,7 @@ class AddProductDetails extends React.Component {
                                                     </div>
                                                 </div>
 
-                                                <div className="inputFormContainer">
+                                                {/* <div className="inputFormContainer">
                                                     <div className="formParaSection">
                                                         <p className="pargraphClass">Min.quantity</p>
                                                     </div>
@@ -1296,7 +1333,7 @@ class AddProductDetails extends React.Component {
                                                             validationType="onlyNumbers"
                                                             characterCount="20"
                                                             result={(val) => this.setState({
-                                                                produtMinQuantity: val
+                                                                c: val
                                                             })}
                                                         />
                                                     </div>
@@ -1318,6 +1355,66 @@ class AddProductDetails extends React.Component {
                                                             })}
                                                         />
                                                     </div>
+                                                </div> */}
+
+                                                <div className="productQunatityWrap">
+                                                    <div className="productQunatityWrap inputCategorySection">
+                                                        <div className="mandatorySection">
+                                                            <p>Mandatory</p>
+                                                        </div>
+
+                                                        <div className="inputColumn">
+                                                            <div className="numberInputSection inputColumnInnerLayer">
+                                                                <div
+                                                                    className="plusAndMinusWrap"
+                                                                    onClick={() => this.decreaseValue("min")}
+                                                                >
+                                                                    <MinusImageIcon />
+                                                                </div>
+
+                                                                <div className="numberSection">
+                                                                    <p>{this.state.productMinQuantity}</p>
+                                                                </div>
+
+                                                                <div
+                                                                    className="plusAndMinusWrap"
+                                                                    onClick={() => this.increaseValue("min")}
+                                                                >
+                                                                    <PlusImageIcon />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="productQunatityWrap inputCategorySection">
+                                                        <div className="mandatorySection">
+                                                            <p>Mandatory</p>
+                                                        </div>
+
+                                                        <div className="inputColumn">
+                                                            <div className="numberInputSection inputColumnInnerLayer">
+                                                                <div
+                                                                    className="plusAndMinusWrap"
+                                                                    onClick={() => this.decreaseValue("max")}
+                                                                >
+                                                                    <MinusImageIcon />
+                                                                </div>
+
+                                                                <div className="numberSection">
+                                                                    <p>{this.state.productMaxQuantity}</p>
+                                                                </div>
+
+                                                                <div
+                                                                    className="plusAndMinusWrap"
+                                                                    onClick={() => this.increaseValue("max")}
+                                                                >
+                                                                    <PlusImageIcon />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
                                                 </div>
 
                                                 <div className="inputFormContainer">
