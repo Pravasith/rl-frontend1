@@ -125,7 +125,6 @@ class ProfileDetailsVendor extends React.Component {
 
                             // console.log("GSTIN STATE", gstInState)
 
-                            
 
                             this.setState({
 
@@ -157,7 +156,7 @@ class ProfileDetailsVendor extends React.Component {
                     .catch(e => console.error(e))
             })
             .catch(e => console.error(e))
-            // console.log(this.state.firstName)
+            
     }
 
     // componentDidUpdate() {
@@ -197,112 +196,112 @@ class ProfileDetailsVendor extends React.Component {
         }
     }
 
-    // my code
-    checkAnsweredOne = () => {
-        if (this.state.firstName !== null && this.state.lastName !== null && this.state.inputCountOne !== 1) {
-            console.log("Name wrks")
-            this.setState({
-                inputCountOne: this.state.inputCountOne + 1
-            })
-        } 
+    // my code for checking answered questions
+    // checkAnsweredOne = () => {
+    //     if (this.state.firstName !== null && this.state.lastName !== null && this.state.inputCountOne !== 1) {
+    //         console.log("Name wrks")
+    //         this.setState({
+    //             inputCountOne: this.state.inputCountOne + 1
+    //         })
+    //     } 
         
-        return this.state.inputCountOne;
-    }
+    //     return this.state.inputCountOne;
+    // }
 
-    checkAnsweredTwo = () => {
-        if (this.state.companyName !== null && this.state.inputCountTwo !== 1) {
-            console.log("Comapny wrks")
-            this.setState({
-                inputCountTwo: this.state.inputCountTwo + 1
-            })
-        }
+    // checkAnsweredTwo = () => {
+    //     if (this.state.companyName !== null && this.state.inputCountTwo !== 1) {
+    //         console.log("Comapny wrks")
+    //         this.setState({
+    //             inputCountTwo: this.state.inputCountTwo + 1
+    //         })
+    //     }
 
-        return this.state.inputCountTwo;
-    }
+    //     return this.state.inputCountTwo;
+    // }
 
-    checkAnsweredThree = () => {
-        if (this.state.mobileNo !== null && this.state.inputCountThree !== 1) {
-            console.log("Contact wrks")
-            this.setState({
-                inputCountThree: this.state.inputCountThree + 1
-            })
-        } 
+    // checkAnsweredThree = () => {
+    //     if (this.state.mobileNo !== null && this.state.inputCountThree !== 1) {
+    //         console.log("Contact wrks")
+    //         this.setState({
+    //             inputCountThree: this.state.inputCountThree + 1
+    //         })
+    //     } 
         
-        return this.state.inputCountThree;
-    }
+    //     return this.state.inputCountThree;
+    // }
 
-    checkAnsweredFour = () => {
-        if (this.state.hNo !== null 
-                && this.state.stNo !== null 
-                && this.state.detailedAddressLine1 !== null 
-                && this.state.state !== null
-                && this.state.city !== null
-                && this.state.pincode !== 0
-                && this.state.inputCountFour !== 1) {
+    // checkAnsweredFour = () => {
+    //     if (this.state.hNo !== null 
+    //             && this.state.stNo !== null 
+    //             && this.state.detailedAddressLine1 !== null 
+    //             && this.state.state !== null
+    //             && this.state.city !== null
+    //             && this.state.pincode !== 0
+    //             && this.state.inputCountFour !== 1) {
 
-            console.log("Address wrks")
-            this.setState({
-                inputCountFour: this.state.inputCountFour + 1
-            })
-        } 
+    //         console.log("Address wrks")
+    //         this.setState({
+    //             inputCountFour: this.state.inputCountFour + 1
+    //         })
+    //     } 
         
-        return this.state.inputCountFour;
-    }
+    //     return this.state.inputCountFour;
+    // }
 
-    checkAnsweredFive = () => {
-        if (this.state.companyDescriptionLine1 !== null && this.state.inputCountFive !== 1) {
-            console.log("Company Desc wrks")
-            this.setState({
-                inputCountFive: this.state.inputCountFive + 1
-            })
-        } 
+    // checkAnsweredFive = () => {
+    //     if (this.state.companyDescriptionLine1 !== null && this.state.inputCountFive !== 1) {
+    //         console.log("Company Desc wrks")
+    //         this.setState({
+    //             inputCountFive: this.state.inputCountFive + 1
+    //         })
+    //     } 
         
-        return this.state.inputCountFive;
-    }
+    //     return this.state.inputCountFive;
+    // }
 
-    checkAnsweredSix = () => {
-        if (this.state.yearCount !== 0 && this.state.monthCount !== 0 && this.state.inputCountSix !== 1) {
-            console.log("Exp wrks")
-            this.setState({
-                inputCountSix: this.state.inputCountSix + 1
-            })
-        } 
+    // checkAnsweredSix = () => {
+    //     if (this.state.yearCount !== 0 && this.state.monthCount !== 0 && this.state.inputCountSix !== 1) {
+    //         console.log("Exp wrks")
+    //         this.setState({
+    //             inputCountSix: this.state.inputCountSix + 1
+    //         })
+    //     } 
         
-        return this.state.inputCountSix;
-    }
+    //     return this.state.inputCountSix;
+    // }
 
-    checkAnsweredSeven = () => {
-        if (this.state.gstIn !== null && this.state.inputCountSeven !== 1) {
-            console.log("GST wrks")
-            this.setState({
-                inputCountSeven: this.state.inputCountSeven + 1
-            })
-        } 
+    // checkAnsweredSeven = () => {
+    //     if (this.state.gstIn !== null && this.state.inputCountSeven !== 1) {
+    //         console.log("GST wrks")
+    //         this.setState({
+    //             inputCountSeven: this.state.inputCountSeven + 1
+    //         })
+    //     } 
         
-        return this.state.inputCountSeven;
-    }
+    //     return this.state.inputCountSeven;
+    // }
 
-    checkAnsweredEight = () => {
-        if (this.state.pan !== null && this.state.inputCountEight !== 1) {
-            console.log("Pan wrks")
-            this.setState({
-                inputCountEight: this.state.inputCountEight + 1
-            })
-        } 
+    // checkAnsweredEight = () => {
+    //     if (this.state.pan !== null && this.state.inputCountEight !== 1) {
+    //         console.log("Pan wrks")
+    //         this.setState({
+    //             inputCountEight: this.state.inputCountEight + 1
+    //         })
+    //     } 
         
-        return this.state.inputCountEight;
-    }
+    //     return this.state.inputCountEight;
+    // }
 
-    checkAnsweredNine = () => {
-        if (this.state.companyProfilePicture !== null && this.state.inputCountNine !== 1) {
-            console.log("CompanyPP wrks")
-            this.setState({
-                inputCountNine: this.state.inputCountNine + 1
-            })
-        } 
+    // checkAnsweredNine = () => {
+    //     if (this.state.companyProfilePicture !== null && this.state.inputCountNine !== 1) {
+    //         console.log("CompanyPP wrks")
+    //         this.setState({
+    //             inputCountNine: this.state.inputCountNine + 1
+    //         })
+    //     } 
         
-        return this.state.inputCountNine;
-    }
+    //     return this.state.inputCountNine;
+    // }
 
     // my code
     returnInputCount = () => {
@@ -354,26 +353,37 @@ class ProfileDetailsVendor extends React.Component {
         const val = event.target.value;
 
         if (val.length === event.target.maxLength) {
-            if(gstPart !== "gstIn5"){
-                this.refs["gstIn" + (parseInt(event.target.id, 10) + 1)].focus()
-            }
 
-            else{
-                const {gstIn1, gstIn2, gstIn3, gstIn4, gstIn5 } = this.refs;
+            this.refs[gstPart].focus();
+
+            // if(gstPart !== "gstIn5"){
+            //     this.refs["gstIn" + (parseInt(event.target.id, 10) + 1)].focus()
+            // }
+
+            // else{
+                const { gstIn1, gstIn2, gstIn3, gstIn4, gstIn5 } = this.refs;
                 const gstIn = `${gstIn1.value}-${gstIn2.value}-${gstIn3.value}-${gstIn4.value}-${gstIn5.value}`;
                 
-                this.updateVendorData("GSTIN", gstIn)
+                
 
-                if (gstIn.length < 19) {
+                if (gstIn.length === 19) {
+                    this.updateVendorData("GSTIN", gstIn)
                     this.setState({
-                        warningText: "please check nad fill all the fields",
+                        warningText: "please check and fill all the fields",
+                        warningClass: 'warningClass hide',
+                        passwordIsValid: false
+                    })
+                }
+                else {
+                    this.setState({
+                        warningText: "please check and fill all the fields",
                         warningClass: 'warningClass',
                         passwordIsValid: false
                     })
                 }
-            } 
-        }  
-    }
+            // }
+        } 
+    }  
 
     clearGSTfields = () => {
         this.refs.gstIn1.value = ""
@@ -624,7 +634,7 @@ class ProfileDetailsVendor extends React.Component {
         const fieldNames =  [
             {fieldName: 'First Name', value: this.state.firstName},
             {fieldName: 'Last Name', value: this.state.lastName },
-            {fieldName: 'mobile Number', value: this.state.mobileNo },
+            {fieldName: 'Mobile Number', value: this.state.mobileNo },
             {fieldName: 'Company Name', value: this.state.companyName }, 
             {fieldName: 'House Number', value: this.state.hNo }, 
             {fieldName: 'Street Number', value: this.state.stNo },
@@ -660,7 +670,7 @@ class ProfileDetailsVendor extends React.Component {
             emptyField: this.state.emptyField
         })
 
-        console.log(this.state.emptyField)
+        // console.log(this.state.emptyField)
 
         this.modalClassToggle("show");
 
@@ -680,49 +690,50 @@ class ProfileDetailsVendor extends React.Component {
             })
     }
 
-    returnModal = () => {
+    returnValidationModal = () => {
         const { emptyField } = this.state;
-        return (
-            <div className={this.state.modalClassToggle}>
-                <div className="dummyXClass">
-                    <div className="whiteSquareForModal">
-                        <div className="vendorProfileDetailsModal">
-                            <div className="svgImageContainer">
-                                <ErrorMsgSign />
-                            </div>
-                            <div className="modalContentContainer">
-                                <div className="modalContentContainerInnerLayer">
-                                    <div className="content">
-                                        <ul>
-                                            {emptyField
-                                            .map((item, i) =>
-                                                <div 
-                                                    className="errorFieldMessage" 
-                                                    key={i}>
-                                                        <li>Please enter your {item}</li>
-                                                </div>
-                                            )}  
-                                        </ul>
+
+        // if (emptyField.length !== 0) {
+            return (
+                <div className={this.state.modalClassToggle}>
+                    <div className="dummyXClass">
+                        <div className="whiteSquareForModal">
+                            <div className="vendorProfileDetailsModal">
+                                <div className="svgImageContainer">
+                                    <ErrorMsgSign />
+                                </div>
+                                <div className="modalContentContainer">
+                                    <div className="modalContentContainerInnerLayer">
+                                        <div className="content">
+                                            <h3>{emptyField
+                                                .map((item, i) =>
+                                                    <div
+                                                        className="errorFieldMessage"
+                                                        key={i}>
+                                                        <h3>Please enter your {item}</h3>
+                                                    </div>
+                                                )}
+                                            </h3>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="closeModalContainer">
-                            <WhiteButton
-                                runFunction={() => this.setState({
-                                    modalClassToggle: "modalBackgroundMainOuterWrap hide",
-                                    mainClass: "mainClass"
-                                })}
-                            >
-                                Sure, I’ll do that
+                                <div className="closeModalContainer">
+                                    <WhiteButton
+                                        runFunction={() => this.setState({
+                                            modalClassToggle: "modalBackgroundMainOuterWrap hide",
+                                            mainClass: "mainClass"
+                                        })}
+                                    >
+                                        Sure, I’ll do that
                             </WhiteButton>
+                                </div>
+
                             </div>
-                            
                         </div>
                     </div>
                 </div>
-            </div>
-        )
-            
+            )
+        // }    
     }
 
     render() {
@@ -756,7 +767,7 @@ class ProfileDetailsVendor extends React.Component {
                                                     <TableIcon />
                                                 </div>
 
-                                            <div className="formCompletionInfoSection">
+                                            {/* <div className="formCompletionInfoSection">
                                                 <div className="outerLayer">
                                                     <h3
                                                         
@@ -764,7 +775,7 @@ class ProfileDetailsVendor extends React.Component {
                                                         <span>{this.returnInputCount()}/9</span>Questions answered
                                                     </h3>
                                                 </div>
-                                            </div>
+                                            </div> */}
                                         </div>
                                     </div>
 
@@ -775,7 +786,7 @@ class ProfileDetailsVendor extends React.Component {
 
                                             <div 
                                                 className="formInputContainer"
-                                                onBlur={() => this.checkAnsweredOne()}
+                                                // onBlur={() => this.checkAnsweredOne()}
                                             >
                                                 <div className="formInputInnerLayer">
                                                     <div className="formParaSection">
@@ -813,7 +824,7 @@ class ProfileDetailsVendor extends React.Component {
 
                                             <div 
                                                 className="formInputContainer"
-                                                onBlur={() => this.checkAnsweredTwo()}
+                                                // onBlur={() => this.checkAnsweredTwo()}
                                             >
                                                 <div className="formInputInnerLayer">
                                                         <div className="formParaSection">
@@ -839,7 +850,7 @@ class ProfileDetailsVendor extends React.Component {
 
                                             <div 
                                                 className="formInputContainer"
-                                                onBlur={() => this.checkAnsweredThree()}
+                                                // onBlur={() => this.checkAnsweredThree()}
                                             >
                                                 <div className="formInputInnerLayer">
 
@@ -887,7 +898,7 @@ class ProfileDetailsVendor extends React.Component {
 
                                             <div 
                                                 className="formInputContainer"
-                                                onBlur={() => this.checkAnsweredFour()}
+                                                // onBlur={() => this.checkAnsweredFour()}
                                             >
                                                 <div className="formInputInnerLayer">
                                                     <div className="formParaSection">
@@ -1004,7 +1015,7 @@ class ProfileDetailsVendor extends React.Component {
 
                                             <div 
                                                 className="formInputContainer"
-                                                onBlur={() => this.checkAnsweredFive()}
+                                                // onBlur={() => this.checkAnsweredFive()}
                                             >
                                                 <div className="formInputInnerLayer">
                                                     <div className="formParaSection">
@@ -1039,7 +1050,7 @@ class ProfileDetailsVendor extends React.Component {
 
                                             <div 
                                                 className="formInputContainer"
-                                                onClick={() => this.checkAnsweredSix()}
+                                                // onClick={() => this.checkAnsweredSix()}
                                             >
                                                 <div className="formInputInnerLayer">
                                                     <div className="formParaSection">
@@ -1120,7 +1131,7 @@ class ProfileDetailsVendor extends React.Component {
 
                                             <div 
                                                     className="formInputContainer"
-                                                    onToggle={() => this.checkAnsweredSeven()}
+                                                    // onToggle={() => this.checkAnsweredSeven()}
                                                 >
                                                     <div className="formInputInnerLayer">
                                                         <div className="cardInstructionPara formParaSection">
@@ -1143,7 +1154,7 @@ class ProfileDetailsVendor extends React.Component {
                                                                     id="1"
                                                                     ref="gstIn1"
                                                                     // onKeyPress={(e) => this.validateCard(e)}
-                                                                    onChange={(event) =>this.onChangeGST(event, "gstIn1")}
+                                                                    onChange={(event) =>this.onChangeGST(event, "gstIn2")}
                                                                     
                                                                 />
                                                                 <span className="InputSeparatorLine"> </span>
@@ -1160,7 +1171,7 @@ class ProfileDetailsVendor extends React.Component {
                                                                     placeholder="AAAAA0000A" 
                                                                     ref="gstIn2"
                                                                     maxLength="10" 
-                                                                    onChange={(event) =>this.onChangeGST(event, "gstIn2")}
+                                                                    onChange={(event) =>this.onChangeGST(event, "gstIn3")}
                                                                     
                                                                 />
                                                                 <span className="InputSeparatorLine"> </span>
@@ -1177,7 +1188,7 @@ class ProfileDetailsVendor extends React.Component {
                                                                     ref="gstIn3"
                                                                     id="3"
                                                                     pattern="\d*" 
-                                                                    onChange={(event) =>this.onChangeGST(event, "gstIn3")}
+                                                                    onChange={(event) =>this.onChangeGST(event, "gstIn4")}
                                                                 />
                                                                 <span className="InputSeparatorLine"> </span>
                                                             </div>
@@ -1192,7 +1203,7 @@ class ProfileDetailsVendor extends React.Component {
                                                                     ref="gstIn4"
                                                                     id="4"
                                                                     pattern="\d*"
-                                                                    onChange={(event) => this.onChangeGST(event, "gstIn4")}
+                                                                    onChange={(event) => this.onChangeGST(event, "gstIn5")}
                                                                 />
                                                                 <span className="InputSeparatorLine"> </span>
                                                             </div>
@@ -1233,7 +1244,7 @@ class ProfileDetailsVendor extends React.Component {
 
                                                 <div 
                                                     className="formInputContainer"
-                                                    onBlur={() => this.checkAnsweredEight()}
+                                                    // onBlur={() => this.checkAnsweredEight()}
                                                 >
                                                     <div className="formInputInnerLayer">
                                                         <div className="formParaSection">
@@ -1258,7 +1269,7 @@ class ProfileDetailsVendor extends React.Component {
                                             
 
                                             <div className="formInputContainer"
-                                               onLoad={() => this.checkAnsweredNine()} 
+                                            //    onLoad={() => this.checkAnsweredNine()} 
                                             >
                                                 <div className="formInputInnerLayer">
                                                     <div className="formParaSection">
@@ -1298,7 +1309,7 @@ class ProfileDetailsVendor extends React.Component {
                         <Footer />
 
                         {
-                            this.returnModal()
+                            this.returnValidationModal()
                         }
                      </div>
                 </div>
