@@ -678,13 +678,13 @@ class ProfileDetailsVendor extends React.Component {
         if (showOrNot === "show")
             this.setState({
                 modalClassToggle: "modalBackgroundMainOuterWrap",
-                vendorFormOuterSectionClass: "vendorFormOuterSection blurClass",
+                mainClass: "mainClass blurClass",
             })
 
         else if (showOrNot === "dontShow")
             this.setState({
                 modalClassToggle: "modalBackgroundMainOuterWrap hide",
-                vendorFormOuterSectionClass: "vendorFormOuterSection",
+                mainClass: "mainClass",
             })
     }
 
@@ -729,7 +729,7 @@ class ProfileDetailsVendor extends React.Component {
                                         }}
                                     >
                                         Sure, I’ll do that
-                            </WhiteButton>
+                                    </WhiteButton>
                                 </div>
 
                             </div>
@@ -762,7 +762,7 @@ class ProfileDetailsVendor extends React.Component {
                                 <div className="line"></div>
                             </header>
 
-                            <section className= {this.state.vendorFormOuterSectionClass}>
+                            <section className= "vendorFormOuterSection">
 
                                 <div className="vendorInnerSection">
                                     <div className="leftSection">
@@ -1302,7 +1302,7 @@ class ProfileDetailsVendor extends React.Component {
                                         // runFunction = {() => window.open('/vendor-main-dashboard', '_self')}
                                         runFunction = {() => this.proceedHandler()}
                                         >
-                                    Save & Proceed
+                                        Save & Proceed
                                     </GradientButton>
                                 </div>
                             </div>
@@ -1312,11 +1312,13 @@ class ProfileDetailsVendor extends React.Component {
 
                         <Footer />
 
-                        {
-                            this.returnValidationModal()
-                        }
+                        
                      </div>
                 </div>
+            
+                {
+                    this.returnValidationModal()
+                }
             </div>
         
         )
