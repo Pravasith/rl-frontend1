@@ -8,7 +8,7 @@ import { bindActionCreators } from "redux"
 import { getUserData } from "../../../actions/userActions"
 import { hitApi, navBarLoadingAnimationShowHide } from "../../../actions/generalActions";
 
-import { PlusButtonIcon, CloseButton, BigCloseButton,SmallCloseButton,SmallModalCloseButton } from "../../../assets/images"
+import { PlusButtonIcon, CloseButton, BigCloseButton, ErrorMsgSign, SmallCloseButton, SmallModalCloseButton } from "../../../assets/images"
 import LogoAnimation from "../../animations/logoAnimation"
 import { GradientButton, InputForm, WhiteButton } from "../../UX/uxComponents"
 import HtmlSlider from "../../UX/htmlSlider"
@@ -228,7 +228,12 @@ class AddProductDetails extends React.Component {
                 else
                     console.error(err)
             })
+            console.log(this.state.productName)
     }
+
+    // componentDidUpdate() {
+    //     console.log(this.state.productName)
+    // }
 
     returnNavBarData = () => {
         if (this.props.userData.responseData) {
@@ -834,6 +839,51 @@ class AddProductDetails extends React.Component {
 
                 )
             }
+
+            else if (modalType === "validation") {
+                return (
+                    <div className={this.state.modalClassToggle}>
+                        <div className="dummyXClass">
+                            <div className="whiteSquareForModal">
+                                <div className="addProductDetailsModal">
+                                    <div className="svgImageContainer">
+                                        <ErrorMsgSign />
+                                    </div>
+                                    <div className="modalContentContainer">
+                                        <div className="modalContentContainerInnerLayer">
+                                            <div className="content">
+                                                <h3>{this.state.emptyField
+                                                    .map((item, i) =>
+                                                        <div
+                                                            className="errorFieldMessage"
+                                                            key={i}>
+                                                            <h3>Please enter:</h3> 
+                                                                <ul>
+                                                                    <li>{item}</li>
+                                                                </ul>
+                                                        </div>
+                                                    )}
+                                                </h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="closeModalContainer">
+                                        <WhiteButton
+                                            runFunction={() => this.setState({
+                                                modalClassToggle: "modalBackgroundMainOuterWrap hide",
+                                                mainClass: "mainClass"
+                                            })}
+                                        >
+                                            Sure, I’ll do that
+                            </WhiteButton>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
         }
 
         return (
@@ -862,6 +912,95 @@ class AddProductDetails extends React.Component {
             </div>
         )
     }
+
+   validateProceedHandler = async () => {
+       const fieldNames = [
+           { fieldName: 'Product Name', value: this.state.productName },
+           { fieldName: 'Product Code', value: this.state.productCode },
+           { fieldName: 'Best price of this product', value: this.state.productPrice },
+           { fieldName: 'Material', value: this.state.productMaterial },
+           { fieldName: 'Min. quantity', value: this.state.produtMinQuantity},
+           { fieldName: 'Max. quantity', value: this.state.producMaxQuantity }
+       ]
+
+       await this.setState({
+           emptyField: []
+       })
+
+       fieldNames.map(item => {
+        //    console.log(item.fieldName, item.value)
+           if (item.value === undefined) {
+            //    console.log(`${item.fieldName} is in-valid`)
+               if (!this.state.emptyField.includes(item.fieldName))
+                   this.state.emptyField.push(item.fieldName)
+           }
+       })
+
+       this.setState({
+           emptyField: this.state.emptyField
+       })
+
+    //    console.log(this.state.emptyField)
+       this.modalClassToggle("show");
+   }
+
+    // modalClassToggle = (showOrNot) => {
+    //     if (showOrNot === "show")
+    //         this.setState({
+    //             modalClassToggle: "modalBackgroundMainOuterWrap",
+    //             vendorFormOuterSectionClass: "vendorFormOuterSection blurClass",
+    //         })
+
+    //     else if (showOrNot === "dontShow")
+    //         this.setState({
+    //             modalClassToggle: "modalBackgroundMainOuterWrap hide",
+    //             vendorFormOuterSectionClass: "vendorFormOuterSection",
+    //         })
+    // }
+
+    // returnValidationModal = () => {
+    //     const { emptyField } = this.state;
+    //     return (
+    //         <div className={this.state.modalClassToggle}>
+    //             <div className="dummyXClass">
+    //                 <div className="whiteSquareForModal">
+    //                     <div className="addProductDetailsModal">
+    //                         <div className="svgImageContainer">
+    //                             <ErrorMsgSign />
+    //                         </div>
+    //                         <div className="modalContentContainer">
+    //                             <div className="modalContentContainerInnerLayer">
+    //                                 <div className="content">
+    //                                     <h3>{emptyField
+    //                                         .map((item, i) =>
+    //                                             <div
+    //                                                 className="errorFieldMessage"
+    //                                                 key={i}>
+    //                                                 <h3>Please enter your {item}</h3>
+    //                                             </div>
+    //                                         )}
+    //                                     </h3>
+    //                                 </div>
+    //                             </div>
+    //                         </div>
+    //                         <div className="closeModalContainer">
+    //                             <WhiteButton
+    //                                 runFunction={() => this.setState({
+    //                                     modalClassToggle: "modalBackgroundMainOuterWrap hide",
+    //                                     mainClass: "mainClass"
+    //                                 })}
+    //                             >
+    //                                 Sure, I’ll do that
+    //                         </WhiteButton>
+    //                         </div>
+
+    //                     </div>
+    //                 </div>
+    //             </div>
+    //         </div>
+    //     )
+
+    // }
 
     render() {
         return (
@@ -1215,7 +1354,7 @@ class AddProductDetails extends React.Component {
                                                             validationType="onlyNumbers"
                                                             characterCount="20"
                                                             result={(val) => this.setState({
-                                                                produtMinQunatity: val
+                                                                produtMinQuantity: val
                                                             })}
                                                         />
                                                     </div>
@@ -1233,7 +1372,7 @@ class AddProductDetails extends React.Component {
                                                             validationType="onlyNumbers"
                                                             characterCount="20"
                                                             result={(val) => this.setState({
-                                                                produtMinQunatity: val
+                                                                produtMaxQuantity: val
                                                             })}
                                                         />
                                                     </div>
@@ -1294,7 +1433,13 @@ class AddProductDetails extends React.Component {
 
                                                 <div className="inputFormContainer">
                                                     <div className="formParaSection">
-                                                        <GradientButton>
+                                                        <GradientButton
+                                                            runFunction={() => { this.validateProceedHandler()
+                                                                                 this.modalClassToggle("show")
+                                                                                 this.setState({
+                                                                                        modalType : "validation"
+                                                                                 })                    
+                                                                        }}>
                                                             Proceed
                                                         </GradientButton>
                                                     </div>

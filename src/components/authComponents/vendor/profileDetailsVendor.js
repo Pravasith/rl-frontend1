@@ -125,7 +125,6 @@ class ProfileDetailsVendor extends React.Component {
 
                             // console.log("GSTIN STATE", gstInState)
 
-                            
 
                             this.setState({
 
@@ -157,7 +156,7 @@ class ProfileDetailsVendor extends React.Component {
                     .catch(e => console.error(e))
             })
             .catch(e => console.error(e))
-            // console.log(this.state.firstName)
+            
     }
 
     // componentDidUpdate() {
@@ -624,7 +623,7 @@ class ProfileDetailsVendor extends React.Component {
         const fieldNames =  [
             {fieldName: 'First Name', value: this.state.firstName},
             {fieldName: 'Last Name', value: this.state.lastName },
-            {fieldName: 'mobile Number', value: this.state.mobileNo },
+            {fieldName: 'Mobile Number', value: this.state.mobileNo },
             {fieldName: 'Company Name', value: this.state.companyName }, 
             {fieldName: 'House Number', value: this.state.hNo }, 
             {fieldName: 'Street Number', value: this.state.stNo },
@@ -680,7 +679,7 @@ class ProfileDetailsVendor extends React.Component {
             })
     }
 
-    returnModal = () => {
+    returnValidationModal = () => {
         const { emptyField } = this.state;
         return (
             <div className={this.state.modalClassToggle}>
@@ -1297,7 +1296,7 @@ class ProfileDetailsVendor extends React.Component {
                         <Footer />
 
                         {
-                            this.returnModal()
+                            this.returnValidationModal()
                         }
                      </div>
                 </div>
