@@ -1050,7 +1050,7 @@ class ProfileDetailsVendor extends React.Component {
 
                                             <div 
                                                 className="formInputContainer"
-                                                onClick={() => this.checkAnsweredSix()}
+                                                // onClick={() => this.checkAnsweredSix()}
                                             >
                                                 <div className="formInputInnerLayer">
                                                     <div className="formParaSection">
@@ -1131,7 +1131,7 @@ class ProfileDetailsVendor extends React.Component {
 
                                             <div 
                                                     className="formInputContainer"
-                                                    onToggle={() => this.checkAnsweredSeven()}
+                                                    // onToggle={() => this.checkAnsweredSeven()}
                                                 >
                                                     <div className="formInputInnerLayer">
                                                         <div className="cardInstructionPara formParaSection">
