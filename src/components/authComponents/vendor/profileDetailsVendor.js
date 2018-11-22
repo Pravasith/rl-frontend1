@@ -552,7 +552,7 @@ class ProfileDetailsVendor extends React.Component {
                 // Decrypt data
                 //
 
-                console.log(decryptedData)
+                // console.log(decryptedData)
 
                 this.setState({
 
@@ -625,7 +625,6 @@ class ProfileDetailsVendor extends React.Component {
             {fieldName: 'Pincode', value: this.state.pincode },
             {fieldName: 'Company Description', value: this.state.companyDescriptionLine1 },
             {fieldName: 'Year', value: this.state.yearCount },
-            {fieldName: 'Months', value: this.state.monthCount },
             {fieldName: 'GST', value: this.state.gstIn},
             {fieldName: 'Pan', value: this.state.pan },
             {fieldName: 'Company Profile Picture', value: this.state.companyProfilePicture }
@@ -1082,11 +1081,11 @@ class ProfileDetailsVendor extends React.Component {
                                                             </div>
 
                                                             <div className="timeWrap inputCategorySection">
-                                                                <div className="mandatorySection">
-                                                                    <p>Mandatory</p>
-                                                                </div>
+                                                                {/* <div className="monthsMandatory mandatorySection">
+                                                                    
+                                                                </div> */}
 
-                                                                <div className="inputColumn">
+                                                                <div className="inputColumn monthsColumn">
                                                                     <div className="numberInputSection inputColumnInnerLayer">
                                                                         <div
                                                                             className="plusAndMinusWrap"
