@@ -141,6 +141,7 @@ input[type=number]::-webkit-outer-spin-button {
                                         overflow-y: auto;
                                         .detailsInputLayer{
                                             @include flexCentreCol;
+                                            height: 100%;
                                             padding-right: 0.5em;
                                             ul{
                                                 li{
