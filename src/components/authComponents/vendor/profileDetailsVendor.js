@@ -43,16 +43,16 @@ class ProfileDetailsVendor extends React.Component {
             yearCount: 0,
             monthCount: 0,
 
-            // my code
-            inputCountOne: 0,
-            inputCountTwo: 0,
-            inputCountThree: 0,
-            inputCountFour: 0,
-            inputCountFive: 0, 
-            inputCountSix: 0,
-            inputCountSeven: 0,
-            inputCountEight: 0,
-            inputCountNine: 0,
+            // state of chechAnswered
+            // inputCountOne: 0,
+            // inputCountTwo: 0,
+            // inputCountThree: 0,
+            // inputCountFour: 0,
+            // inputCountFive: 0, 
+            // inputCountSix: 0,
+            // inputCountSeven: 0,
+            // inputCountEight: 0,
+            // inputCountNine: 0,
 
 
             emptyField: [],
@@ -60,12 +60,6 @@ class ProfileDetailsVendor extends React.Component {
             companyName: null,
 
             modalClassToggle: "modalBackgroundMainOuterWrap hide",
-
-            gstIn1: "",
-            gstIn2: "",
-            gstIn3: "",
-            gstIn4: "",
-            gstIn5: "",
         }
     }
 
@@ -111,19 +105,19 @@ class ProfileDetailsVendor extends React.Component {
                             // DECRYPT REQUEST DATA
                             //
 
-                            let gstInState = {}
+                            // let gstInState = {}
 
-                            const getIndividualGSTINs = () => {
-                                decryptedData.GSTIN.split('-').map((item, i) => {
-                                    gstInState["gstIn" + (i+1)] = item
-                                })
-                            }
+                            // const getIndividualGSTINs = () => {
+                            //     decryptedData.GSTIN.split('-').map((item, i) => {
+                            //         gstInState["gstIn" + (i+1)] = item
+                            //     })
+                            // }
 
+                            // // getIndividualGSTINs()
+                            // if(decryptedData.GSTIN !== undefined)
                             // getIndividualGSTINs()
-                            if(decryptedData.GSTIN !== null)
-                            getIndividualGSTINs()
 
-                            // console.log("GSTIN STATE", gstInState)
+                            // // console.log("GSTIN STATE", gstInState)
 
 
                             this.setState({
@@ -149,7 +143,7 @@ class ProfileDetailsVendor extends React.Component {
 
                                 companyProfilePicture: decryptedData.companyProfilePicture,
 
-                                ...gstInState
+                                // ...gstInState
                             })
                         }
                     })
@@ -160,7 +154,7 @@ class ProfileDetailsVendor extends React.Component {
     }
 
     // componentDidUpdate() {
-    //     console.log(this.state.gstIn1, this.state.gstIn5);
+    //     console.log(this.state.gstIn);
     // }
 
 
@@ -358,10 +352,11 @@ class ProfileDetailsVendor extends React.Component {
 
                 const { gstIn1, gstIn2, gstIn3, gstIn4, gstIn5 } = this.refs;
                 const gstIn = `${gstIn1.value}-${gstIn2.value}-${gstIn3.value}-${gstIn4.value}-${gstIn5.value}`;
-                
+
                 if (gstIn.length === 19) {
                     this.updateVendorData("GSTIN", gstIn)
                     this.setState({
+                        gstIn: gstIn,
                         warningText: "please check and fill all the fields",
                         warningClass: 'warningClass hide',
                         passwordIsValid: false
@@ -374,9 +369,8 @@ class ProfileDetailsVendor extends React.Component {
                         passwordIsValid: false
                     })
                 }
-            // }
-        } 
-    }  
+            } 
+        }  
 
     clearGSTfields = () => {
         this.refs.gstIn1.value = ""
@@ -578,12 +572,6 @@ class ProfileDetailsVendor extends React.Component {
                     yearCount: decryptedData.experience.years,
                     monthCount: decryptedData.experience.months,
 
-                    gstIn1: decryptedData.gstIn1,
-                    gstIn2: decryptedData.gstIn2,
-                    gstIn3: decryptedData.gstIn3, 
-                    gstIn4: decryptedData.gstIn4, 
-                    gstIn5: decryptedData.gstIn5,
-
                     gtsIn: decryptedData.GSTIN,
                     pan: decryptedData.PAN,
 
@@ -649,7 +637,7 @@ class ProfileDetailsVendor extends React.Component {
         })
 
         fieldNames.map(item => {
-            // console.log(item.fieldName, item.value)
+            console.log(item.fieldName, item.value)
             if (item.value === null || item.value === "" || item.value === 0 || item.value === undefined) {
                 if(!this.state.emptyField.includes(item.fieldName))
                         this.state.emptyField.push(item.fieldName)
