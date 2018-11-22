@@ -196,112 +196,112 @@ class ProfileDetailsVendor extends React.Component {
         }
     }
 
-    // my code
-    checkAnsweredOne = () => {
-        if (this.state.firstName !== null && this.state.lastName !== null && this.state.inputCountOne !== 1) {
-            console.log("Name wrks")
-            this.setState({
-                inputCountOne: this.state.inputCountOne + 1
-            })
-        } 
+    // my code for checking answered questions
+    // checkAnsweredOne = () => {
+    //     if (this.state.firstName !== null && this.state.lastName !== null && this.state.inputCountOne !== 1) {
+    //         console.log("Name wrks")
+    //         this.setState({
+    //             inputCountOne: this.state.inputCountOne + 1
+    //         })
+    //     } 
         
-        return this.state.inputCountOne;
-    }
+    //     return this.state.inputCountOne;
+    // }
 
-    checkAnsweredTwo = () => {
-        if (this.state.companyName !== null && this.state.inputCountTwo !== 1) {
-            console.log("Comapny wrks")
-            this.setState({
-                inputCountTwo: this.state.inputCountTwo + 1
-            })
-        }
+    // checkAnsweredTwo = () => {
+    //     if (this.state.companyName !== null && this.state.inputCountTwo !== 1) {
+    //         console.log("Comapny wrks")
+    //         this.setState({
+    //             inputCountTwo: this.state.inputCountTwo + 1
+    //         })
+    //     }
 
-        return this.state.inputCountTwo;
-    }
+    //     return this.state.inputCountTwo;
+    // }
 
-    checkAnsweredThree = () => {
-        if (this.state.mobileNo !== null && this.state.inputCountThree !== 1) {
-            console.log("Contact wrks")
-            this.setState({
-                inputCountThree: this.state.inputCountThree + 1
-            })
-        } 
+    // checkAnsweredThree = () => {
+    //     if (this.state.mobileNo !== null && this.state.inputCountThree !== 1) {
+    //         console.log("Contact wrks")
+    //         this.setState({
+    //             inputCountThree: this.state.inputCountThree + 1
+    //         })
+    //     } 
         
-        return this.state.inputCountThree;
-    }
+    //     return this.state.inputCountThree;
+    // }
 
-    checkAnsweredFour = () => {
-        if (this.state.hNo !== null 
-                && this.state.stNo !== null 
-                && this.state.detailedAddressLine1 !== null 
-                && this.state.state !== null
-                && this.state.city !== null
-                && this.state.pincode !== 0
-                && this.state.inputCountFour !== 1) {
+    // checkAnsweredFour = () => {
+    //     if (this.state.hNo !== null 
+    //             && this.state.stNo !== null 
+    //             && this.state.detailedAddressLine1 !== null 
+    //             && this.state.state !== null
+    //             && this.state.city !== null
+    //             && this.state.pincode !== 0
+    //             && this.state.inputCountFour !== 1) {
 
-            console.log("Address wrks")
-            this.setState({
-                inputCountFour: this.state.inputCountFour + 1
-            })
-        } 
+    //         console.log("Address wrks")
+    //         this.setState({
+    //             inputCountFour: this.state.inputCountFour + 1
+    //         })
+    //     } 
         
-        return this.state.inputCountFour;
-    }
+    //     return this.state.inputCountFour;
+    // }
 
-    checkAnsweredFive = () => {
-        if (this.state.companyDescriptionLine1 !== null && this.state.inputCountFive !== 1) {
-            console.log("Company Desc wrks")
-            this.setState({
-                inputCountFive: this.state.inputCountFive + 1
-            })
-        } 
+    // checkAnsweredFive = () => {
+    //     if (this.state.companyDescriptionLine1 !== null && this.state.inputCountFive !== 1) {
+    //         console.log("Company Desc wrks")
+    //         this.setState({
+    //             inputCountFive: this.state.inputCountFive + 1
+    //         })
+    //     } 
         
-        return this.state.inputCountFive;
-    }
+    //     return this.state.inputCountFive;
+    // }
 
-    checkAnsweredSix = () => {
-        if (this.state.yearCount !== 0 && this.state.monthCount !== 0 && this.state.inputCountSix !== 1) {
-            console.log("Exp wrks")
-            this.setState({
-                inputCountSix: this.state.inputCountSix + 1
-            })
-        } 
+    // checkAnsweredSix = () => {
+    //     if (this.state.yearCount !== 0 && this.state.monthCount !== 0 && this.state.inputCountSix !== 1) {
+    //         console.log("Exp wrks")
+    //         this.setState({
+    //             inputCountSix: this.state.inputCountSix + 1
+    //         })
+    //     } 
         
-        return this.state.inputCountSix;
-    }
+    //     return this.state.inputCountSix;
+    // }
 
-    checkAnsweredSeven = () => {
-        if (this.state.gstIn !== null && this.state.inputCountSeven !== 1) {
-            console.log("GST wrks")
-            this.setState({
-                inputCountSeven: this.state.inputCountSeven + 1
-            })
-        } 
+    // checkAnsweredSeven = () => {
+    //     if (this.state.gstIn !== null && this.state.inputCountSeven !== 1) {
+    //         console.log("GST wrks")
+    //         this.setState({
+    //             inputCountSeven: this.state.inputCountSeven + 1
+    //         })
+    //     } 
         
-        return this.state.inputCountSeven;
-    }
+    //     return this.state.inputCountSeven;
+    // }
 
-    checkAnsweredEight = () => {
-        if (this.state.pan !== null && this.state.inputCountEight !== 1) {
-            console.log("Pan wrks")
-            this.setState({
-                inputCountEight: this.state.inputCountEight + 1
-            })
-        } 
+    // checkAnsweredEight = () => {
+    //     if (this.state.pan !== null && this.state.inputCountEight !== 1) {
+    //         console.log("Pan wrks")
+    //         this.setState({
+    //             inputCountEight: this.state.inputCountEight + 1
+    //         })
+    //     } 
         
-        return this.state.inputCountEight;
-    }
+    //     return this.state.inputCountEight;
+    // }
 
-    checkAnsweredNine = () => {
-        if (this.state.companyProfilePicture !== null && this.state.inputCountNine !== 1) {
-            console.log("CompanyPP wrks")
-            this.setState({
-                inputCountNine: this.state.inputCountNine + 1
-            })
-        } 
+    // checkAnsweredNine = () => {
+    //     if (this.state.companyProfilePicture !== null && this.state.inputCountNine !== 1) {
+    //         console.log("CompanyPP wrks")
+    //         this.setState({
+    //             inputCountNine: this.state.inputCountNine + 1
+    //         })
+    //     } 
         
-        return this.state.inputCountNine;
-    }
+    //     return this.state.inputCountNine;
+    // }
 
     // my code
     returnInputCount = () => {
@@ -670,7 +670,7 @@ class ProfileDetailsVendor extends React.Component {
             emptyField: this.state.emptyField
         })
 
-        console.log(this.state.emptyField)
+        // console.log(this.state.emptyField)
 
         this.modalClassToggle("show");
 
@@ -767,7 +767,7 @@ class ProfileDetailsVendor extends React.Component {
                                                     <TableIcon />
                                                 </div>
 
-                                            <div className="formCompletionInfoSection">
+                                            {/* <div className="formCompletionInfoSection">
                                                 <div className="outerLayer">
                                                     <h3
                                                         
@@ -775,7 +775,7 @@ class ProfileDetailsVendor extends React.Component {
                                                         <span>{this.returnInputCount()}/9</span>Questions answered
                                                     </h3>
                                                 </div>
-                                            </div>
+                                            </div> */}
                                         </div>
                                     </div>
 
@@ -786,7 +786,7 @@ class ProfileDetailsVendor extends React.Component {
 
                                             <div 
                                                 className="formInputContainer"
-                                                onBlur={() => this.checkAnsweredOne()}
+                                                // onBlur={() => this.checkAnsweredOne()}
                                             >
                                                 <div className="formInputInnerLayer">
                                                     <div className="formParaSection">
@@ -824,7 +824,7 @@ class ProfileDetailsVendor extends React.Component {
 
                                             <div 
                                                 className="formInputContainer"
-                                                onBlur={() => this.checkAnsweredTwo()}
+                                                // onBlur={() => this.checkAnsweredTwo()}
                                             >
                                                 <div className="formInputInnerLayer">
                                                         <div className="formParaSection">
@@ -850,7 +850,7 @@ class ProfileDetailsVendor extends React.Component {
 
                                             <div 
                                                 className="formInputContainer"
-                                                onBlur={() => this.checkAnsweredThree()}
+                                                // onBlur={() => this.checkAnsweredThree()}
                                             >
                                                 <div className="formInputInnerLayer">
 
@@ -898,7 +898,7 @@ class ProfileDetailsVendor extends React.Component {
 
                                             <div 
                                                 className="formInputContainer"
-                                                onBlur={() => this.checkAnsweredFour()}
+                                                // onBlur={() => this.checkAnsweredFour()}
                                             >
                                                 <div className="formInputInnerLayer">
                                                     <div className="formParaSection">
@@ -1015,7 +1015,7 @@ class ProfileDetailsVendor extends React.Component {
 
                                             <div 
                                                 className="formInputContainer"
-                                                onBlur={() => this.checkAnsweredFive()}
+                                                // onBlur={() => this.checkAnsweredFive()}
                                             >
                                                 <div className="formInputInnerLayer">
                                                     <div className="formParaSection">
@@ -1244,7 +1244,7 @@ class ProfileDetailsVendor extends React.Component {
 
                                                 <div 
                                                     className="formInputContainer"
-                                                    onBlur={() => this.checkAnsweredEight()}
+                                                    // onBlur={() => this.checkAnsweredEight()}
                                                 >
                                                     <div className="formInputInnerLayer">
                                                         <div className="formParaSection">
@@ -1269,7 +1269,7 @@ class ProfileDetailsVendor extends React.Component {
                                             
 
                                             <div className="formInputContainer"
-                                               onLoad={() => this.checkAnsweredNine()} 
+                                            //    onLoad={() => this.checkAnsweredNine()} 
                                             >
                                                 <div className="formInputInnerLayer">
                                                     <div className="formParaSection">
