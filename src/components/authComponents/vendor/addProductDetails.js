@@ -893,18 +893,22 @@ class AddProductDetails extends React.Component {
                                     <div className="modalContentContainer">
                                         <div className="modalContentContainerInnerLayer">
                                             <div className="content">
-                                                <h3>{this.state.emptyField
-                                                    .map((item, i) =>
-                                                        <div
-                                                            className="errorFieldMessage"
-                                                            key={i}>
-                                                            <h3>Please enter:</h3> 
-                                                                <ul>
-                                                                    <li>{item}</li>
-                                                                </ul>
-                                                        </div>
-                                                    )}
-                                                </h3>
+                                                <h3>Please enter:</h3>
+                                                <div className="detailsToInput">
+                                                    <div className="detailsInputLayer">
+                                                        <h3>{this.state.emptyField
+                                                            .map((item, i) =>
+                                                                <div
+                                                                    className="errorFieldMessage"
+                                                                    key={i}>
+                                                                        <ul>
+                                                                            <li>{item}</li>
+                                                                        </ul>
+                                                                </div>
+                                                            )}
+                                                        </h3>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -916,7 +920,7 @@ class AddProductDetails extends React.Component {
                                             })}
                                         >
                                             Sure, I’ll do that
-                            </WhiteButton>
+                                        </WhiteButton>
                                     </div>
 
                                 </div>

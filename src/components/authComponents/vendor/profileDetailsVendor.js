@@ -688,15 +688,22 @@ class ProfileDetailsVendor extends React.Component {
                                 <div className="modalContentContainer">
                                     <div className="modalContentContainerInnerLayer">
                                         <div className="content">
-                                            <h3>{emptyField
-                                                .map((item, i) =>
-                                                    <div
-                                                        className="errorFieldMessage"
-                                                        key={i}>
-                                                        <h3>Please enter your {item}</h3>
-                                                    </div>
-                                                )}
-                                            </h3>
+                                            <h3>Please enter:</h3>
+                                            <div className="detailsToInput">
+                                                <div className="detailsInputLayer">
+                                                    <h3>{emptyField
+                                                        .map((item, i) =>
+                                                            <div
+                                                                className="errorFieldMessage"
+                                                                key={i}>
+                                                                <ul>
+                                                                    <li>{item}</li>
+                                                                </ul>
+                                                            </div>
+                                                        )}
+                                                    </h3>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
