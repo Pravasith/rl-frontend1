@@ -98,9 +98,9 @@
     }
 }
 
-.mandatorySection{
-    display: none;
-}
+// .mandatorySection{
+//     display: none;
+// }
 
 .vendorDashboardWrapper{
     width: 100%;
@@ -344,6 +344,44 @@
                                                     }
                                                 }
 
+                                                .productQunatityWrap{
+                                                    @include flexCentreRow;
+                                                    width: 100%;
+                                                    margin-top: 0.5em;
+                                                        .productInputInnerLayer{
+                                                             @include flexCentreRow;
+                                                             justify-content: flex-start;
+                                                             width: 100%;
+                                                        .mandatorySection{
+                                                            background: $secondaryMagenta;
+                                                            padding: 0.2em;
+                                                            margin-right: 1em;
+                                                            p{
+                                                                color: $white;
+                                                            }
+                                                        }
+                                                        .inputColumn{
+                                                            @include flexCentreRow;
+                                                            .numberInputSection{
+                                                                @include flexCentreRow;
+                                                                .plusAndMinusWrap{
+                                                                    cursor: pointer;
+                                                                }
+                                                                .numberSection{
+                                                                    @include flexCentreRow;
+                                                                    background: $lightGrey;
+                                                                    padding: 0.5em;
+                                                                    border-radius: 0.2em;
+                                                                    margin: 0px 1em;
+                                                                }
+                                                                .plusAndMinusWrap{
+                                                                    cursor: pointer;
+                                                                }
+                                                            }
+                                                          }
+                                                        }   
+                                                    }
+
                                                 .featureHolder{
                                                     .featureWrap{
                                                         @include flexCentreRow;
@@ -422,9 +460,9 @@
                                                         // }
                                                     }
 
-                                                    .mandatorySection{
-                                                        display: none;
-                                                    }
+                                                    // .mandatorySection{
+                                                    //     display: none;
+                                                    // }
                                                 }
 
                                                 .colorVariantSliderContainer{
@@ -587,6 +625,31 @@
                                                         width: 100%;
                                                     }
                                                 }
+
+                                                // .productQunatityWrap{
+                                                //     @include flexCentreRow;
+                                                //     background: yellow;
+                                                //     width: 100%;
+
+                                                //         .productInputInnerLayer{
+                                                //              @include flexCentreRow;
+                                                //              width: 100%;
+                                                //         .mandatorySection{
+                                                //             p{
+
+                                                //             }
+                                                //         }
+                                                //         .inputColumn{
+                                                //             .numberInputSection{
+                                                //                 .plusAndMinusWrap{}
+                                                //                 .numberSection{}
+                                                //                 .plusAndMinusWrap{}
+                                                //             }
+                                                //           }
+                                                //         }
+   
+                                                // }
+
                                                 .productInputInfoSection{
                                                     @include flexCentreRow;
                                                     .modalMandatorySection{
