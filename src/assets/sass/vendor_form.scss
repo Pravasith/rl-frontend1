@@ -81,9 +81,10 @@ input[type=number]::-webkit-outer-spin-button {
         @include flexCentreCol;
         width: 100%;
 
-        // .blurClass{
-        //     filter: blur(0.3em);
-        // }
+        .blurClass{
+            filter: blur(0.3em);
+            opacity: 0.5;
+        }
 
         .dummyLayer{
 
@@ -94,7 +95,7 @@ input[type=number]::-webkit-outer-spin-button {
             .modalBackgroundMainOuterWrap{
                 width: 100%;
                 height: 91vh;
-                background: $modalGrey;
+                // background: $modalGrey;
                 // opacity: 0.5;
                 position: absolute;
                 top: 0;
@@ -108,7 +109,7 @@ input[type=number]::-webkit-outer-spin-button {
                     @include flexCentreCol;
                     justify-content: flex-start;
                     width: 30%;
-                    height: 22em;
+                    // height: 22em;
                     background: $white;
                     @include box_shadow;
                     .vendorProfileDetailsModal{
@@ -122,7 +123,7 @@ input[type=number]::-webkit-outer-spin-button {
                         .modalContentContainer{
                             width: 100%;
                             // height: 10em;
-                            margin-top: 0.5em;
+                            // margin-top: 0.5em;
                             // overflow-y: auto;
                             .modalContentContainerInnerLayer{
                                 display: inline-flex;
@@ -130,22 +131,29 @@ input[type=number]::-webkit-outer-spin-button {
                                 margin: 0.3em;
                                 padding: 0.2em;
                                 // background: $darkerGrey;
-                                .content{
+                                .contentMissingValues{
                                     width: 100%;
+                                    
                                     h3{
                                         text-align: center;
+                                        margin-bottom: 1em;
                                     }
                                     .detailsToInput{
                                         width: 100%;
-                                        height: 10em;
+                                        height: 8em;
+                                        margin-top: 0.5em;
                                         overflow-y: auto;
                                         .detailsInputLayer{
-                                            @include flexCentreCol;
+                                            // @include flexCentreCol;
                                             padding-right: 0.5em;
+                                            display: grid;
+                                            grid-template-columns: 1fr 1fr;
+
                                             ul{
+                                                margin: 0;
                                                 li{
                                                     color: $primaryMagenta;
-                                                    font-size: 1em;
+                                                    font-size: 0.8em;
                                                     font-weight: 600;
                                                     text-align: left;
                                                 }
@@ -160,6 +168,7 @@ input[type=number]::-webkit-outer-spin-button {
                         .closeModalContainer{
                             @include flexCentreRow;
                             margin: 1em 0;
+                            margin-top: 0;
                         }
                     }
                    }
@@ -175,6 +184,7 @@ input[type=number]::-webkit-outer-spin-button {
                     @include flexCentreCol;
                     width: 90%;
                     margin: 2em 0;
+                    margin-bottom: 0;
     
                     h3{
                         font-size: 1.5em;
@@ -237,7 +247,7 @@ input[type=number]::-webkit-outer-spin-button {
                         .rightFormSection{
                             // @include flexCentreRow;
                             // width: 60%;
-                            height: 21.5em;
+                            height: 23.5em;
                             overflow-y: auto;
                             padding: 0.5em;
                             margin: 1em 0;

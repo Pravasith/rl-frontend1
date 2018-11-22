@@ -105,27 +105,31 @@ class ProfileDetailsVendor extends React.Component {
                             // DECRYPT REQUEST DATA
                             //
 
-                            // let gstInState = {}
+                            let gstInState = {}
 
-                            // const getIndividualGSTINs = () => {
-                            //     decryptedData.GSTIN.split('-').map((item, i) => {
-                            //         gstInState["gstIn" + (i+1)] = item
-                            //     })
-                            // }
+                            const getIndividualGSTINs = () => {
+                                decryptedData.GSTIN.split('-').map((item, i) => {
+                                    gstInState["gstIn" + (i+1)] = item
+                                })
+                            }
 
-                            // // getIndividualGSTINs()
-                            // if(decryptedData.GSTIN !== undefined)
                             // getIndividualGSTINs()
+                            if(decryptedData.GSTIN !== undefined)
+                            getIndividualGSTINs()
+
+                            console.log(gstInState)
 
                             // // console.log("GSTIN STATE", gstInState)
+
+                            // console.log(decryptedData.GSTIN)
 
 
                             this.setState({
 
                                 companyName: decryptedData.companyName,
 
-                                hNo: decryptedData.address.hNo,
-                                stNo: decryptedData.address.stNo,
+                                // hNo: decryptedData.address.hNo,
+                                // stNo: decryptedData.address.stNo,
                                 detailedAddressLine1: decryptedData.address.detailedAddressLine1,
                                 detailedAddressLine2: decryptedData.address.detailedAddressLine2,
                                 state: decryptedData.address.state,
@@ -138,12 +142,13 @@ class ProfileDetailsVendor extends React.Component {
                                 yearCount: decryptedData.experience.years,
                                 monthCount: decryptedData.experience.months,
 
-                                gstIn: decryptedData.GSTIN,
+                                // gstIn: decryptedData.GSTIN,
                                 pan: decryptedData.PAN,
 
                                 companyProfilePicture: decryptedData.companyProfilePicture,
 
-                                // ...gstInState
+                                ...gstInState
+                                
                             })
                         }
                     })
@@ -298,25 +303,25 @@ class ProfileDetailsVendor extends React.Component {
     // }
 
     // my code
-    returnInputCount = () => {
-        const {
-            inputCountOne,
-            inputCountTwo,
-            inputCountThree,
-            inputCountFour,
-            inputCountFive,
-            inputCountSix, 
-            inputCountSeven,
-            inputCountEight, 
-            inputCountNine 
-            } = this.state;
+    // returnInputCount = () => {
+    //     const {
+    //         inputCountOne,
+    //         inputCountTwo,
+    //         inputCountThree,
+    //         inputCountFour,
+    //         inputCountFive,
+    //         inputCountSix, 
+    //         inputCountSeven,
+    //         inputCountEight, 
+    //         inputCountNine 
+    //         } = this.state;
         
-        let totalAnswered = inputCountOne + inputCountTwo + inputCountThree 
-                            + inputCountFour + inputCountFive + inputCountSix 
-                            + inputCountSeven + inputCountEight + inputCountNine ;
+    //     let totalAnswered = inputCountOne + inputCountTwo + inputCountThree 
+    //                         + inputCountFour + inputCountFive + inputCountSix 
+    //                         + inputCountSeven + inputCountEight + inputCountNine ;
 
-        return totalAnswered;
-    }
+    //     return totalAnswered;
+    // }
 
 
     returnNavBarData = () => {
@@ -558,8 +563,8 @@ class ProfileDetailsVendor extends React.Component {
 
                     companyName: decryptedData.companyName,
 
-                    hNo: decryptedData.address.hNo,
-                    stNo: decryptedData.address.stNo,
+                    // hNo: decryptedData.address.hNo,
+                    // stNo: decryptedData.address.stNo,
                     detailedAddressLine1: decryptedData.address.detailedAddressLine1,
                     detailedAddressLine2: decryptedData.address.detailedAddressLine2,
                     state: decryptedData.address.state,
@@ -612,22 +617,33 @@ class ProfileDetailsVendor extends React.Component {
 
 
     proceedHandler = async () => {
+
+        const {gstIn1, gstIn2, gstIn3, gstIn4, gstIn5} = this.state
+
         const fieldNames =  [
-            {fieldName: 'First Name', value: this.state.firstName},
-            {fieldName: 'Last Name', value: this.state.lastName },
-            {fieldName: 'Mobile Number', value: this.state.mobileNo },
-            {fieldName: 'Company Name', value: this.state.companyName }, 
-            {fieldName: 'House Number', value: this.state.hNo }, 
-            {fieldName: 'Street Number', value: this.state.stNo },
-            {fieldName: 'Address Line', value: this.state.detailedAddressLine1 },
-            {fieldName: 'State', value: this.state.state },
-            {fieldName: 'City', value: this.state.city },
-            {fieldName: 'Pincode', value: this.state.pincode },
-            {fieldName: 'Company Description', value: this.state.companyDescriptionLine1 },
-            {fieldName: 'Year', value: this.state.yearCount },
-            {fieldName: 'GST', value: this.state.gstIn},
-            {fieldName: 'Pan', value: this.state.pan },
-            {fieldName: 'Company Profile Picture', value: this.state.companyProfilePicture }
+            {fieldName: 'first name', value: this.state.firstName},
+            {fieldName: 'last name', value: this.state.lastName },
+            {fieldName: 'mobile number', value: this.state.mobileNo },
+            {fieldName: 'company name', value: this.state.companyName }, 
+            // {fieldName: 'house number', value: this.state.hNo }, 
+            // {fieldName: 'street number', value: this.state.stNo },
+            {fieldName: "your company address", value: this.state.detailedAddressLine1 },
+            {fieldName: 'state', value: this.state.state },
+            {fieldName: 'city', value: this.state.city },
+            {fieldName: 'pincode', value: this.state.pincode },
+            {fieldName: 'description about your company', value: this.state.companyDescriptionLine1 },
+            {fieldName: 'experience years', value: this.state.yearCount },
+            {
+                fieldName: "your company's GST identification number",
+                value: 
+                    gstIn1 + "-" +
+                    gstIn2 + "-" +
+                    gstIn3 + "-" +
+                    gstIn4 + "-" +
+                    gstIn5 
+            },
+            {fieldName: "your company's PAN number", value: this.state.pan },
+            {fieldName: "your company's logo", value: this.state.companyProfilePicture }
         ]
 
 
@@ -686,11 +702,11 @@ class ProfileDetailsVendor extends React.Component {
                                 </div>
                                 <div className="modalContentContainer">
                                     <div className="modalContentContainerInnerLayer">
-                                        <div className="content">
-                                            <h3>Please enter:</h3>
+                                        <div className="contentMissingValues">
+                                            <h3>Please provide these details</h3>
                                             <div className="detailsToInput">
                                                 <div className="detailsInputLayer">
-                                                    <h3>{emptyField
+                                                    {emptyField
                                                         .map((item, i) =>
                                                             <div
                                                                 className="errorFieldMessage"
@@ -700,7 +716,7 @@ class ProfileDetailsVendor extends React.Component {
                                                                 </ul>
                                                             </div>
                                                         )}
-                                                    </h3>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -708,10 +724,9 @@ class ProfileDetailsVendor extends React.Component {
                                 </div>
                                 <div className="closeModalContainer">
                                     <WhiteButton
-                                        runFunction={() => this.setState({
-                                            modalClassToggle: "modalBackgroundMainOuterWrap hide",
-                                            mainClass: "mainClass"
-                                        })}
+                                        runFunction={() => {
+                                            this.modalClassToggle("dontShow")
+                                        }}
                                     >
                                         Sure, I’ll do that
                             </WhiteButton>
@@ -903,7 +918,7 @@ class ProfileDetailsVendor extends React.Component {
                                                             <p>Tell us your company address. We’ll bill the customer with this address</p>
                                                         </div> */}
 
-                                                        <div className="houseNoWrap">
+                                                        {/* <div className="houseNoWrap">
                                                             <InputForm
                                                                 refName="houseNo"
                                                                 placeholder="H.No/Flat no."
@@ -925,7 +940,7 @@ class ProfileDetailsVendor extends React.Component {
                                                                 value={this.state.stNo ? this.state.stNo : null}
                                                                 result={val => this.updateVendorData("address.stNo", val)}
                                                             />
-                                                        </div>
+                                                        </div> */}
 
                                                         <div className="detailedAddressLineWrap">
                                                             <InputForm
@@ -1153,7 +1168,7 @@ class ProfileDetailsVendor extends React.Component {
 
                                                             <div className="inputColumn">
                                                                 <input 
-                                                                    autoFocus="autofocus"
+                                                                    // autoFocus="autofocus"
                                                                     defaultValue = {this.state.gstIn2}
                                                                     type="text" 
                                                                     id="2"
