@@ -272,13 +272,12 @@ input[type=number]::-webkit-outer-spin-button {
     
                                             
                                                 .gstInputSection{
-                                                    width: 70%;
+                                                    width: 75%;
                                                     text-align: center;
-                                                    margin: 0 auto;
                                     
                                                     p{
                                                         color: $white;
-                                                        background:$primaryMagenta;
+                                                        background:$secondaryMagenta;
                                                         padding: 0.5em;
                                                     }
                                                 }
@@ -387,6 +386,7 @@ input[type=number]::-webkit-outer-spin-button {
                                             }
                                             .cardInputSection{
                                                 @include flexCentreRow;
+                                                justify-content: flex-start;
                                                 width: 100%;
                                                 .mandatorySection{
                                                     @include flexCentreRow;
@@ -400,13 +400,13 @@ input[type=number]::-webkit-outer-spin-button {
                                                         padding: 0.2em 0.5em;
                                                     }
                                                 }
-    
-                                                
-    
+                                                .inputColumn1{
+                                                    width: 5%;
+                                                }
                                                 .inputColumn{
                                                     @include flexCentreCol;
                                                     align-items: flex-start;
-                                                    width: 100%;
+                                                    // width: 100%;
                                                     margin: 0 0.5em;
                                         
                                                     &:hover{
@@ -438,22 +438,7 @@ input[type=number]::-webkit-outer-spin-button {
                                                             opacity: 1;
                                                            }
                                                     }
-                                                    .animationLine{
-                                                        margin-top: 0;
-                                                        padding-top: 0;
-                                                        margin-bottom: 0;
-                                                        width: 100%;
-                                                
-                                                        .innerLine{
-                                                            width: 100%;
-                                                            height: 100%;
-                                                            // background: yellow;
-                                                            width: 0%;
-                                                            transition: 0.2s;
-                                                        }
-                                                
-                                                        
-                                                    }
+
                                                     .InputSeparatorLine {
                                                         height:0.2em;
                                                         width: 100%;
@@ -470,38 +455,6 @@ input[type=number]::-webkit-outer-spin-button {
                                                         outline-color: transparent;
                                                         outline-style: none;
                                                     }
-                                                    // .warningSection{
-                                                    //     width: 100%;
-                                                    //     text-align: center;
-                                        
-                                                    //     p{
-                                                    //         color: $white;
-                                                    //         background:$primaryMagenta;
-                                                    //         padding: 0.5em;
-                                                    //     }
-                                                    // }
-                                        
-                                                    // .numberInputSection{
-                                                    //     @include flexCentreRow;
-                                                    //     justify-content: space-between;
-                                                    //     width: 41%;
-                                                    //     // margin-left: 15%;
-                                                    //     .numberSection{
-                                                    //         @include flexCentreRow;
-                                                    //         background: $veryLightGrey;
-                                                    //         padding: 0.5em;
-                                                    //         border-radius: 0.2em;
-                                                    //         p{
-                                                    //             font-size: 1em;
-                                                    //         }
-                                                    //     }
-                                        
-                                                    //     .yearSelectionCategory{
-                                                    //         p{
-                                                    //             font-size: 1em;
-                                                    //         }
-                                                    //     }
-                                                    // }
                                                 }
                                             }
                                             
@@ -680,6 +633,7 @@ input[type=number]::-webkit-outer-spin-button {
                                                     }
                                                 }
                                             }
+                                            
     
                                             .imageCategorySection{
                                                 width: 60%;

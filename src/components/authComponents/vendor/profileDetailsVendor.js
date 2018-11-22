@@ -1148,7 +1148,7 @@ class ProfileDetailsVendor extends React.Component {
                                                                 <p>Mandatory</p>
                                                             </div>
 
-                                                            <div className="inputColumn">
+                                                            <div className="inputColumn inputColumn1">
                                                                 <input
                                                                     // autoFocus="autofocus"
                                                                     defaultValue = {this.state.gstIn1}
@@ -1166,7 +1166,7 @@ class ProfileDetailsVendor extends React.Component {
 
                                                             <p>-</p>
 
-                                                            <div className="inputColumn">
+                                                            <div className="inputColumn inputColumn2">
                                                                 <input 
                                                                     // autoFocus="autofocus"
                                                                     defaultValue = {this.state.gstIn2}
@@ -1183,7 +1183,7 @@ class ProfileDetailsVendor extends React.Component {
 
                                                             <p>-</p>
 
-                                                            <div className="inputColumn">
+                                                            <div className="inputColumn inputColumn1">
                                                                 <input 
                                                                     type="text" 
                                                                     placeholder="1"
@@ -1198,7 +1198,7 @@ class ProfileDetailsVendor extends React.Component {
                                                             </div>
 
                                                             <p>-</p>
-                                                            <div className="inputColumn">
+                                                            <div className="inputColumn inputColumn1">
                                                                 <input
                                                                     type="text"
                                                                     defaultValue={this.state.gstIn4}
@@ -1216,7 +1216,7 @@ class ProfileDetailsVendor extends React.Component {
 
                                                             <p>-</p>
 
-                                                            <div className="inputColumn">
+                                                            <div className="inputColumn inputColumn1">
                                                                 <input 
                                                                     type="text" 
                                                                     defaultValue = {this.state.gstIn5}
