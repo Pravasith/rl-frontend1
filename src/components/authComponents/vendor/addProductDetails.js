@@ -48,6 +48,9 @@ class AddProductDetails extends React.Component {
             modalSize: "modalSizeClass",
             // dynamincally toggle classes to flip styles //
 
+            minQuantityPara: "minQuantityPara hide",
+            maxQuantityPara: "maxQuantityPara hide",
+
             modalType : null,
             tempArr: [],
             dummyDataStructure: [],
@@ -57,8 +60,8 @@ class AddProductDetails extends React.Component {
             sizeName: '',
             sizeCost: '',
 
-            productMinQuantity: 0,
-            productMaxQuantity: 0,
+            productMinQuantity: '',
+            productMaxQuantity: '',
 
             productDimensions: [],
 
@@ -242,7 +245,7 @@ class AddProductDetails extends React.Component {
                 else
                     console.error(err)
             })
-            console.log(this.state.productName)
+            // console.log(this.state.productName)
     }
 
     // componentDidUpdate() {
@@ -445,33 +448,55 @@ class AddProductDetails extends React.Component {
         }
     }
 
-    decreaseValue = (minOrMax) => {
-        if (minOrMax === "min" && this.state.productMinQuantity > 0) {
-            this.setState({
-                productMinQuantity: this.state.productMinQuantity - 1
-            })
+    // decreaseValue = (minOrMax) => {
+    //     if (minOrMax === "min" && this.state.productMinQuantity > 0) {
+    //         this.setState({
+    //             productMinQuantity: this.state.productMinQuantity - 1
+    //         })
+    //     }
+
+    //     if (minOrMax === "max" && this.state.productMaxQuantity > 0) {
+    //         this.setState({
+    //             productMaxQuantity: this.state.productMaxQuantity - 1
+    //         })
+    //     }
+    // }
+
+    // increaseValue = (minOrMax) => {
+    //     if (minOrMax === "min" && this.state.productMinQuantity < 100) {
+    //         this.setState({
+    //             productMinQuantity: this.state.productMinQuantity + 1
+    //         })
+    //     }
+
+    //     if (minOrMax === "max" && this.state.productMaxQuantity < 100) {
+    //         this.setState({
+    //             productMaxQuantity: this.state.productMaxQuantity + 1
+    //         })
+    //     }
+    // }
+
+    handleQuantity = async (e, minOrMax) => {
+
+        if (minOrMax === "min") {
+            const productMinQuantity = (e.target.validity.valid) ? e.target.value : this.state.productMinQuantity;
+
+            await this.setState({ productMinQuantity });
+
+            if (this.state.productMinQuantity === "") await this.setState({ minQuantityPara: "minQuantityPara" });
+            else this.setState({ minQuantityPara: "minQuantityPara hide" });
         }
 
-        if (minOrMax === "max" && this.state.productMaxQuantity > 0) {
-            this.setState({
-                productMaxQuantity: this.state.productMaxQuantity - 1
-            })
+        else if (minOrMax === "max") {
+            const productMaxQuantity = (e.target.validity.valid) ? e.target.value : this.state.productMaxQuantity;
+
+            await this.setState({ productMaxQuantity });
+
+            if (this.state.productMaxQuantity === "") this.setState({ maxQuantityPara: "maxQuantityPara" });
+            else this.setState({ maxQuantityPara: "maxQuantityPara hide" });
         }
     }
 
-    increaseValue = (minOrMax) => {
-        if (minOrMax === "min" && this.state.productMinQuantity < 100) {
-            this.setState({
-                productMinQuantity: this.state.productMinQuantity + 1
-            })
-        }
-
-        if (minOrMax === "max" && this.state.productMaxQuantity < 100) {
-            this.setState({
-                productMaxQuantity: this.state.productMaxQuantity + 1
-            })
-        }
-    }
     
     proceedHandler = (typeOfButtonClicked) => {
 
@@ -480,7 +505,7 @@ class AddProductDetails extends React.Component {
         let emptyField;
 
         const validateColorModal = (colorName, colorCode) => {
-            if(colorName !== "" && colorCode !== ""){
+            if(colorName !== "" && colorCode !== "") {
                 isColorValid = true
             } 
             
@@ -971,7 +996,7 @@ class AddProductDetails extends React.Component {
 
        fieldNames.map(item => {
         //    console.log(item.fieldName, item.value)
-           if (item.value === undefined) {
+           if (item.value === undefined || item.value === "") {
             //    console.log(`${item.fieldName} is in-valid`)
                if (!this.state.emptyField.includes(item.fieldName))
                    this.state.emptyField.push(item.fieldName)
@@ -1338,13 +1363,13 @@ class AddProductDetails extends React.Component {
                                                             validationType="onlyNumbers"
                                                             characterCount="20"
                                                             result={(val) => this.setState({
-                                                                c: val
+                                                                productMinQuantity: val
                                                             })}
                                                         />
                                                     </div>
-                                                </div>
+                                                </div> */}
 
-                                                <div className="inputFormContainer">
+                                                {/* <div className="inputFormContainer">
                                                     <div className="formParaSection">
                                                         <p className="pargraphClass">Max.quantity</p>
                                                     </div>
@@ -1373,27 +1398,22 @@ class AddProductDetails extends React.Component {
                                                             <div className="mandatorySection">
                                                                 <p>Mandatory</p>
                                                             </div>
-
                                                             <div className="inputColumn">
                                                                 <div className="numberInputSection inputColumnInnerLayer">
-                                                                    <div
-                                                                        className="plusAndMinusWrap"
-                                                                        onClick={() => this.decreaseValue("min")}
-                                                                    >
-                                                                        <MinusImageIcon />
-                                                                    </div>
-
-                                                                    <div className="numberSection">
-                                                                        <p>{this.state.productMinQuantity}</p>
-                                                                    </div>
-
-                                                                    <div
-                                                                        className="plusAndMinusWrap"
-                                                                        onClick={() => this.increaseValue("min")}
-                                                                    >
-                                                                        <PlusImageIcon />
+                                                                    <input
+                                                                        type="text"
+                                                                        ref="productMinQuantity"
+                                                                        pattern="[0-9]*"
+                                                                        placeholder="Ex. 5"
+                                                                        value={this.state.productMinQuantity}
+                                                                        onChange={(e) => this.handleQuantity(e, "min")}
+                                                                    />
+                                                                    <span className="InputSeparatorLine"> </span>
+                                                                    <div className={this.state.minQuantityPara}>
+                                                                        <p>This information is required (in numbers)</p>
                                                                     </div>
                                                                 </div>
+                                                                
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1410,27 +1430,24 @@ class AddProductDetails extends React.Component {
                                                                 <p>Mandatory</p>
                                                             </div>
 
+                                                          
                                                             <div className="inputColumn">
                                                                 <div className="numberInputSection inputColumnInnerLayer">
-                                                                    <div
-                                                                        className="plusAndMinusWrap"
-                                                                        onClick={() => this.decreaseValue("max")}
-                                                                    >
-                                                                        <MinusImageIcon />
-                                                                    </div>
-
-                                                                    <div className="numberSection">
-                                                                        <p>{this.state.productMaxQuantity}</p>
-                                                                    </div>
-
-                                                                    <div
-                                                                        className="plusAndMinusWrap"
-                                                                        onClick={() => this.increaseValue("max")}
-                                                                    >
-                                                                        <PlusImageIcon />
+                                                                    <input
+                                                                        type="text"
+                                                                        ref="productMinQuantity"
+                                                                        pattern="[0-9]*"
+                                                                        placeholder="Ex. 999"
+                                                                        value={this.state.productMaxQuantity}
+                                                                        onChange={(e) => this.handleQuantity(e, "max")}
+                                                                    />
+                                                                    <span className="InputSeparatorLine"> </span>  
+                                                                    <div className={this.state.maxQuantityPara}>
+                                                                        <p>This information is required (in numbers)</p>
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            
                                                         </div>
                                                     </div>
                                                 </div>
