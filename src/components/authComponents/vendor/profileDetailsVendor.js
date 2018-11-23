@@ -681,9 +681,16 @@ class ProfileDetailsVendor extends React.Component {
         fieldNames.map(item => {
             // console.log(item.fieldName, item.value)
             if (item.value === null || item.value === "" || item.value === 0 || item.value === undefined) {
+                if (item.fieldName !== "experience years")
                 if(!this.state.emptyField.includes(item.fieldName))
                         this.state.emptyField.push(item.fieldName)
-            } 
+            }
+            // else if (item.value === null || item.value === "" || item.value !== 0 || item.value === undefined){
+            //     if (item.fieldName === "experience years"){
+            //         if (!this.state.emptyField.includes(item.fieldName))
+            //             this.state.emptyField.push(item.fieldName)
+            //     }
+            // }
         })
 
         this.setState({
@@ -1270,7 +1277,6 @@ class ProfileDetailsVendor extends React.Component {
                                                                     maxLength="2" 
                                                                     id="1"
                                                                     ref="gstIn1"
-                                                                    // onKeyPress={(e) => this.validateCard(e)}
                                                                     onKeyUp={(e) => this.noSpaces(e)}
                                                                     onChange={(event) =>this.onChangeGST(event, "gstIn2")}
                                                                     
@@ -1378,9 +1384,10 @@ class ProfileDetailsVendor extends React.Component {
                                                                 refName="panNumber"
                                                                 placeholder="AAAAA0000A"
                                                                 isMandatory={true}
-                                                                validationType="alphabetsSpecialCharactersAndNumbers"
+                                                                validationType="alphabetsAndNumbers"
                                                                 characterCount="10"
                                                                 value={this.state.pan ? this.state.pan : null}
+                                                                // onKeyUp={(e) => this.noSpaces(e)}
                                                                 result={val => this.updateVendorData("PAN", val)}
                                                             />
                                                         </div>
