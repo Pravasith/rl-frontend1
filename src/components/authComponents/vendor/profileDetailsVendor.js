@@ -54,7 +54,6 @@ class ProfileDetailsVendor extends React.Component {
             // inputCountEight: 0,
             // inputCountNine: 0,
 
-
             emptyField: [],
 
             companyName: null,
@@ -93,6 +92,8 @@ class ProfileDetailsVendor extends React.Component {
                     .then((data) => {
                         let { responseData } = this.props
 
+                        // console.log(responseData.responsePayload)
+
                         if (responseData.responsePayload.message !== "User credentials not found") {
 
                             //
@@ -105,20 +106,22 @@ class ProfileDetailsVendor extends React.Component {
                             // DECRYPT REQUEST DATA
                             //
 
-                            // let gstInState = {}
+                            let gstInState = {}
 
-                            // const getIndividualGSTINs = () => {
-                            //     decryptedData.GSTIN.split('-').map((item, i) => {
-                            //         gstInState["gstIn" + (i+1)] = item
-                            //     })
-                            // }
+                            const getIndividualGSTINs = () => {
+                                if (decryptedData.GSTIN)
+                                    decryptedData.GSTIN.split('-').map((item, i) => {
+                                        gstInState["gstIn" + (i + 1)] = item
+                                    })
+                            }
 
-                            // // getIndividualGSTINs()
-                            // if(decryptedData.GSTIN !== undefined)
-                            // getIndividualGSTINs()
+                            if (decryptedData.GSTIN !== undefined || decryptedData.GSTIN !== null) {
+                                getIndividualGSTINs()
+                            }
 
-                            // // console.log("GSTIN STATE", gstInState)
+                            // console.log("GSTIN STATE", gstInState)
 
+                            // console.log(decryptedData)
 
                             this.setState({
 
@@ -143,7 +146,7 @@ class ProfileDetailsVendor extends React.Component {
 
                                 companyProfilePicture: decryptedData.companyProfilePicture,
 
-                                // ...gstInState
+                                ...gstInState
                             })
                         }
                     })
@@ -152,11 +155,6 @@ class ProfileDetailsVendor extends React.Component {
             .catch(e => console.error(e))
             
     }
-
-    // componentDidUpdate() {
-    //     console.log(this.state.gstIn);
-    // }
-
 
     decreaseValue = (yearOrMonth) => {
         if (yearOrMonth === "year" && this.state.yearCount > 0){
@@ -298,25 +296,25 @@ class ProfileDetailsVendor extends React.Component {
     // }
 
     // my code
-    returnInputCount = () => {
-        const {
-            inputCountOne,
-            inputCountTwo,
-            inputCountThree,
-            inputCountFour,
-            inputCountFive,
-            inputCountSix, 
-            inputCountSeven,
-            inputCountEight, 
-            inputCountNine 
-            } = this.state;
+    // returnInputCount = () => {
+    //     const {
+    //         inputCountOne,
+    //         inputCountTwo,
+    //         inputCountThree,
+    //         inputCountFour,
+    //         inputCountFive,
+    //         inputCountSix, 
+    //         inputCountSeven,
+    //         inputCountEight, 
+    //         inputCountNine 
+    //         } = this.state;
         
-        let totalAnswered = inputCountOne + inputCountTwo + inputCountThree 
-                            + inputCountFour + inputCountFive + inputCountSix 
-                            + inputCountSeven + inputCountEight + inputCountNine ;
+    //     let totalAnswered = inputCountOne + inputCountTwo + inputCountThree 
+    //                         + inputCountFour + inputCountFive + inputCountSix 
+    //                         + inputCountSeven + inputCountEight + inputCountNine ;
 
-        return totalAnswered;
-    }
+    //     return totalAnswered;
+    // }
 
 
     returnNavBarData = () => {
@@ -343,7 +341,7 @@ class ProfileDetailsVendor extends React.Component {
     
 
 
-    onChangeGST = (event, gstPart) => {
+    onChangeGST = async (event, gstPart) => {
         const val = event.target.value;
 
         if (val.length === event.target.maxLength) {
@@ -353,24 +351,52 @@ class ProfileDetailsVendor extends React.Component {
                 const { gstIn1, gstIn2, gstIn3, gstIn4, gstIn5 } = this.refs;
                 const gstIn = `${gstIn1.value}-${gstIn2.value}-${gstIn3.value}-${gstIn4.value}-${gstIn5.value}`;
 
-                if (gstIn.length === 19) {
-                    this.updateVendorData("GSTIN", gstIn)
-                    this.setState({
-                        gstIn: gstIn,
-                        warningText: "please check and fill all the fields",
-                        warningClass: 'warningClass hide',
-                        passwordIsValid: false
-                    })
+                let gstInForCheck = `${gstIn1.value}${gstIn2.value}${gstIn3.value}${gstIn4.value}${gstIn5.value}`;
+                    gstInForCheck = gstInForCheck.toUpperCase()
+            
+                // console.log(gstInForCheck.length)
+
+                if (gstInForCheck.length === 15) {
+
+                    // console.log(gstIn)
+                    // console.log(/^[0-9A-Z]{2}$/.test("A-1"))
+                    // console.log(/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/.test(gstInForCheck))
+
+                    if (/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/.test(gstInForCheck)) {
+                        
+                        this.updateVendorData("GSTIN", gstIn)
+                        this.setState({
+                            gstIn: gstIn,
+                            warningText: "please check and fill all the fields",
+                            warningClass: 'warningClass hide'
+                        })
+                    }
+                    else {
+                        this.setState({
+                            warningText: "please check your entered GST once",
+                            warningClass: 'warningClass'
+                        })
+                    }
                 }
-                else {
+                else if (gstInForCheck.length !== 15) {
                     this.setState({
                         warningText: "please check and fill all the fields",
-                        warningClass: 'warningClass',
-                        passwordIsValid: false
+                        warningClass: 'warningClass'
                     })
                 }
             } 
         }  
+
+    noSpaces = (e) => {
+        // console.log("Wrks")
+        if (e.target.value.match(/\s/g)) {
+            this.setState({
+                warningText: "Sorry, you are not allowed to enter any spaces",
+                warningClass: 'warningClass'
+            })
+            e.target.value = e.target.value.replace(/\s/g, '');
+        }
+    }
 
     clearGSTfields = () => {
         this.refs.gstIn1.value = ""
@@ -378,6 +404,10 @@ class ProfileDetailsVendor extends React.Component {
         this.refs.gstIn3.value = ""
         this.refs.gstIn4.value = ""
         this.refs.gstIn5.value = ""
+
+        this.setState({
+            gstIn: ""
+        })
     }
 
     returnStatesOfIndia = () => {
@@ -513,7 +543,7 @@ class ProfileDetailsVendor extends React.Component {
 
     }
 
-    updateVendorData = async (objectName, data) => {
+    updateVendorData = (objectName, data) => {
 
         this
             .props
@@ -531,7 +561,7 @@ class ProfileDetailsVendor extends React.Component {
         // Encrypt data
         //
 
-        await this
+        this
             .props
             .hitApi(api.UPDATE_VENDOR_DATA, "PUT",
                 {
@@ -552,7 +582,7 @@ class ProfileDetailsVendor extends React.Component {
                 // Decrypt data
                 //
 
-                // console.log(decryptedData)
+                console.log(decryptedData)
 
                 this.setState({
 
@@ -572,7 +602,7 @@ class ProfileDetailsVendor extends React.Component {
                     yearCount: decryptedData.experience.years,
                     monthCount: decryptedData.experience.months,
 
-                    gtsIn: decryptedData.GSTIN,
+                    gstIn: decryptedData.GSTIN,
                     pan: decryptedData.PAN,
 
                     companyProfilePicture: decryptedData.companyProfilePicture
@@ -612,22 +642,35 @@ class ProfileDetailsVendor extends React.Component {
 
 
     proceedHandler = async () => {
+
+        const {gstIn, gstIn1, gstIn2, gstIn3, gstIn4, gstIn5} = this.state
+
+        // console.log(gstIn1)
+
         const fieldNames =  [
-            {fieldName: 'First Name', value: this.state.firstName},
-            {fieldName: 'Last Name', value: this.state.lastName },
-            {fieldName: 'Mobile Number', value: this.state.mobileNo },
-            {fieldName: 'Company Name', value: this.state.companyName }, 
-            // {fieldName: 'House Number', value: this.state.hNo }, 
-            // {fieldName: 'Street Number', value: this.state.stNo },
-            {fieldName: 'Address Line', value: this.state.detailedAddressLine1 },
-            {fieldName: 'State', value: this.state.state },
-            {fieldName: 'City', value: this.state.city },
-            {fieldName: 'Pincode', value: this.state.pincode },
-            {fieldName: 'Company Description', value: this.state.companyDescriptionLine1 },
-            {fieldName: 'Year', value: this.state.yearCount },
-            {fieldName: 'GST', value: this.state.gstIn},
-            {fieldName: 'Pan', value: this.state.pan },
-            {fieldName: 'Company Profile Picture', value: this.state.companyProfilePicture }
+            {fieldName: 'first name', value: this.state.firstName},
+            {fieldName: 'last name', value: this.state.lastName },
+            {fieldName: 'mobile number', value: this.state.mobileNo },
+            {fieldName: 'company name', value: this.state.companyName }, 
+            // {fieldName: 'house number', value: this.state.hNo }, 
+            // {fieldName: 'street number', value: this.state.stNo },
+            {fieldName: "your company address", value: this.state.detailedAddressLine1 },
+            {fieldName: 'state', value: this.state.state },
+            {fieldName: 'city', value: this.state.city },
+            {fieldName: 'pincode', value: this.state.pincode },
+            {fieldName: 'description about your company', value: this.state.companyDescriptionLine1 },
+            {fieldName: 'experience years', value: this.state.yearCount },
+            {
+                fieldName: "your company's GST identification number",
+                value: gstIn
+                    // gstIn1 + "-" +
+                    // gstIn2 + "-" +
+                    // gstIn3 + "-" +
+                    // gstIn4 + "-" +
+                    // gstIn5 
+            },
+            {fieldName: "your company's PAN number", value: this.state.pan },
+            {fieldName: "your company's logo", value: this.state.companyProfilePicture }
         ]
 
 
@@ -636,7 +679,7 @@ class ProfileDetailsVendor extends React.Component {
         })
 
         fieldNames.map(item => {
-            console.log(item.fieldName, item.value)
+            // console.log(item.fieldName, item.value)
             if (item.value === null || item.value === "" || item.value === 0 || item.value === undefined) {
                 if(!this.state.emptyField.includes(item.fieldName))
                         this.state.emptyField.push(item.fieldName)
@@ -647,14 +690,99 @@ class ProfileDetailsVendor extends React.Component {
             emptyField: this.state.emptyField
         })
 
-
-        if (this.state.emptyField.length === 0) {
-            window.open("/vendor-main-dashboard", "_self")
-        }
-
-        // console.log(this.state.emptyField)
-
         this.modalClassToggle("show");
+
+        if(this.state.emptyField.length === 0) {    
+
+            this.modalClassToggle("dontShow");
+            this.setState({
+                loadingClass: 'loadingAnim',
+                mainClass: 'mainClass hide',
+            })
+            
+            const finalVendorDataToSend = {
+                companyName : this.state.companyName,
+                address : {
+                    detailedAddressLine1 : this.state.detailedAddressLine1,
+                    detailedAddressLine2 : this.state.detailedAddressLine2,
+                    state : this.state.state,
+                    city : this.state.city,
+                    pincode : this.state.pincode,
+                },
+                companyDescriptionLine1: this.state.companyDescriptionLine1,
+                companyDescriptionLine2: this.state.companyDescriptionLine2,
+                experience : {
+                    years : this.state.yearCount,
+                    months :this.state.monthCount,
+                },
+                GSTIN : this.state.gstIn,
+                PAN: this.state.pan,
+                companyProfilePicture: this.state.companyProfilePicture
+            }
+
+            const finalUserDataToSend = {
+                firstName : this.state.firstName,
+                lastName : this.state.lastName,
+                mobileNo : this.state.mobileNo,
+                whatsappNo : this.state.whatsappNo
+            }
+
+            // 
+            // Encrypt data
+            // 
+            const encryptedUserData = encryptData(finalUserDataToSend)
+            const encryptedVendorData = encryptData(finalVendorDataToSend)
+            // 
+            // Encrypt data
+            // 
+
+            this.props.hitApi(api.UPDATE_USER_DATA, "PUT", {
+                message : "Update firstname, lastname, mobile number and whatsapp number",
+                requestData : encryptedUserData
+            })
+            .then(() => {
+
+                // 
+                // Decrypt data
+                // 
+                const decryptedUserData = decryptData(this.props.responseData.responsePayload.responseData)
+                // 
+                // Decrypt data
+                // 
+
+                this.props.hitApi(api.UPDATE_VENDOR_DATA, "PUT", {
+                    message : "Update vendor details",
+                    requestData : encryptedVendorData
+                })
+
+                .then(() => {
+                    // 
+                    // Decrypt data
+                    // 
+                    const decryptedVendorData = decryptData(this.props.responseData.responsePayload.responseData)
+                    // 
+                    // Decrypt data
+                    // 
+
+                    window.open("/vendor-main-dashboard", "_self")
+                })
+                .catch (e => console.error(e))
+
+                // this.setState({
+                //     mainClass : "mainClass",
+                //     loadingClass : "loadingClass hide"
+                // })
+
+                
+
+                
+            })
+            .catch (e => console.error(e))
+
+            // console.log(finalUserDataToSend, finalVendorDataToSend)          
+            
+        }
+        
 
     }
 
@@ -662,13 +790,13 @@ class ProfileDetailsVendor extends React.Component {
         if (showOrNot === "show")
             this.setState({
                 modalClassToggle: "modalBackgroundMainOuterWrap",
-                vendorFormOuterSectionClass: "vendorFormOuterSection blurClass",
+                mainClass: "mainClass blurClass",
             })
 
         else if (showOrNot === "dontShow")
             this.setState({
                 modalClassToggle: "modalBackgroundMainOuterWrap hide",
-                vendorFormOuterSectionClass: "vendorFormOuterSection",
+                mainClass: "mainClass",
             })
     }
 
@@ -686,11 +814,11 @@ class ProfileDetailsVendor extends React.Component {
                                 </div>
                                 <div className="modalContentContainer">
                                     <div className="modalContentContainerInnerLayer">
-                                        <div className="content">
-                                            <h3>Please enter:</h3>
+                                        <div className="contentMissingValues">
+                                            <h3>Please provide these details</h3>
                                             <div className="detailsToInput">
                                                 <div className="detailsInputLayer">
-                                                    <h3>{emptyField
+                                                    {emptyField
                                                         .map((item, i) =>
                                                             <div
                                                                 className="errorFieldMessage"
@@ -700,7 +828,7 @@ class ProfileDetailsVendor extends React.Component {
                                                                 </ul>
                                                             </div>
                                                         )}
-                                                    </h3>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -708,13 +836,12 @@ class ProfileDetailsVendor extends React.Component {
                                 </div>
                                 <div className="closeModalContainer">
                                     <WhiteButton
-                                        runFunction={() => this.setState({
-                                            modalClassToggle: "modalBackgroundMainOuterWrap hide",
-                                            mainClass: "mainClass"
-                                        })}
+                                        runFunction={() => {
+                                            this.modalClassToggle("dontShow")
+                                        }}
                                     >
                                         Sure, I’ll do that
-                            </WhiteButton>
+                                    </WhiteButton>
                                 </div>
 
                             </div>
@@ -731,7 +858,9 @@ class ProfileDetailsVendor extends React.Component {
             <div className="bigWrapper">
 
                 <div className={this.state.loadingClass}>
-                    <LogoAnimation />
+                    <LogoAnimation 
+                        text = "We're loading your page..."
+                    />
                 </div>
 
                 <div className={this.state.mainClass}>
@@ -747,7 +876,7 @@ class ProfileDetailsVendor extends React.Component {
                                 <div className="line"></div>
                             </header>
 
-                            <section className= {this.state.vendorFormOuterSectionClass}>
+                            <section className= "vendorFormOuterSection">
 
                                 <div className="vendorInnerSection">
                                     <div className="leftSection">
@@ -1135,7 +1264,6 @@ class ProfileDetailsVendor extends React.Component {
 
                                                             <div className="inputColumn inputColumn1">
                                                                 <input
-                                                                    // autoFocus="autofocus"
                                                                     defaultValue = {this.state.gstIn1}
                                                                     type="text"
                                                                     placeholder="22"
@@ -1143,6 +1271,7 @@ class ProfileDetailsVendor extends React.Component {
                                                                     id="1"
                                                                     ref="gstIn1"
                                                                     // onKeyPress={(e) => this.validateCard(e)}
+                                                                    onKeyUp={(e) => this.noSpaces(e)}
                                                                     onChange={(event) =>this.onChangeGST(event, "gstIn2")}
                                                                     
                                                                 />
@@ -1153,15 +1282,15 @@ class ProfileDetailsVendor extends React.Component {
 
                                                             <div className="inputColumn inputColumn2">
                                                                 <input 
-                                                                    autoFocus="autofocus"
+                                                                    // autoFocus="autofocus"
                                                                     defaultValue = {this.state.gstIn2}
                                                                     type="text" 
                                                                     id="2"
                                                                     placeholder="AAAAA0000A" 
                                                                     ref="gstIn2"
                                                                     maxLength="10" 
+                                                                    onKeyUp={(e) => this.noSpaces(e)}
                                                                     onChange={(event) =>this.onChangeGST(event, "gstIn3")}
-                                                                    
                                                                 />
                                                                 <span className="InputSeparatorLine"> </span>
                                                             </div>
@@ -1176,7 +1305,8 @@ class ProfileDetailsVendor extends React.Component {
                                                                     maxLength="1"
                                                                     ref="gstIn3"
                                                                     id="3"
-                                                                    pattern="\d*" 
+                                                                    pattern="\d*"
+                                                                    onKeyUp={(e) => this.noSpaces(e)} 
                                                                     onChange={(event) =>this.onChangeGST(event, "gstIn4")}
                                                                 />
                                                                 <span className="InputSeparatorLine"> </span>
@@ -1192,6 +1322,7 @@ class ProfileDetailsVendor extends React.Component {
                                                                     ref="gstIn4"
                                                                     id="4"
                                                                     pattern="\d*"
+                                                                    onKeyUp={(e) => this.noSpaces(e)}
                                                                     onChange={(event) => this.onChangeGST(event, "gstIn5")}
                                                                 />
                                                                 <span className="InputSeparatorLine"> </span>
@@ -1203,13 +1334,14 @@ class ProfileDetailsVendor extends React.Component {
 
                                                             <div className="inputColumn inputColumn1">
                                                                 <input 
-                                                                    type="text" 
+                                                                    type= "text" 
                                                                     defaultValue = {this.state.gstIn5}
                                                                     placeholder="5" 
                                                                     maxLength="1"
                                                                     ref="gstIn5"
                                                                     id="5"
-                                                                    pattern="\d*" 
+                                                                    pattern="\d*"
+                                                                    onKeyUp={(e) => this.noSpaces(e)} 
                                                                     onChange={(event) =>this.onChangeGST(event, "gstIn5")}
                                                                 />
                                                                 <span className="InputSeparatorLine"> </span>
@@ -1271,9 +1403,6 @@ class ProfileDetailsVendor extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                                
-
-                                            
 
                                             </form>
                                         </div>
@@ -1287,7 +1416,7 @@ class ProfileDetailsVendor extends React.Component {
                                         // runFunction = {() => window.open('/vendor-main-dashboard', '_self')}
                                         runFunction = {() => this.proceedHandler()}
                                         >
-                                    Save & Proceed
+                                        Save & Proceed
                                     </GradientButton>
                                 </div>
                             </div>
@@ -1297,11 +1426,13 @@ class ProfileDetailsVendor extends React.Component {
 
                         <Footer />
 
-                        {
-                            this.returnValidationModal()
-                        }
+                        
                      </div>
                 </div>
+            
+                {
+                    this.returnValidationModal()
+                }
             </div>
         
         )

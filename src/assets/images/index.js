@@ -735,13 +735,13 @@ export const ErrorMsgSign = () => {
 
     return(
 
-        <svg id='Layer_1' xmlns='http://www.w3.org/2000/svg' width='105.426' height='80.481'
-        viewBox='0 0 105.426 80.481'>
-            <polygon fill='#F2F2F2' stroke='#B3B3B3' strokeWidth='6' strokeLinecap='round'
-            strokeLinejoin='round' strokeMiterlimit='10' points='53.281,3 3,77.481 102.426,77.481'
+        <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" width="49.5" height="38.084"
+        viewBox="0 0 49.5 38.084">
+            <polygon fill="#29ABE2" stroke="#29ABE2" strokeWidth="4" strokeLinecap="round"
+            strokeLinejoin="round" strokeMiterlimit="10" points="25.01,2 2,36.084 47.5,36.084"
             />
-            <path fill='#B3B3B3' stroke='#B3B3B3' strokeLinecap='round' strokeLinejoin='round'
-            strokeMiterlimit='10' d='M49.456,61.5	c0-1.988,1.378-3.421,3.255-3.421c1.987,0,3.256,1.433,3.256,3.421c0,1.932-1.266,3.418-3.256,3.418	C50.781,64.918,49.456,63.432,49.456,61.5z M50.839,53.608l-0.776-26.487h5.298l-0.772,26.487H50.839z'
+            <path fill="#FFF" stroke="#FFF" strokeWidth="2" strokeLinecap="round"
+            strokeLinejoin="round" strokeMiterlimit="10" d="M23.26,30.336c0-0.909,0.63-1.565,1.489-1.565c0.909,0,1.49,0.656,1.49,1.565c0,0.884-0.579,1.564-1.49,1.564	C23.866,31.901,23.26,31.22,23.26,30.336z M23.893,25.16l-0.355-12.122h2.425L25.608,25.16H23.893z"
             />
         </svg>
 
