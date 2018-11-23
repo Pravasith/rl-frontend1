@@ -54,7 +54,6 @@ class ProfileDetailsVendor extends React.Component {
             // inputCountEight: 0,
             // inputCountNine: 0,
 
-
             emptyField: [],
 
             companyName: null,
@@ -93,6 +92,8 @@ class ProfileDetailsVendor extends React.Component {
                     .then((data) => {
                         let { responseData } = this.props
 
+                        // console.log(responseData.responsePayload)
+
                         if (responseData.responsePayload.message !== "User credentials not found") {
 
                             //
@@ -108,21 +109,17 @@ class ProfileDetailsVendor extends React.Component {
                             let gstInState = {}
 
                             const getIndividualGSTINs = () => {
+                                if(decryptedData.GSTIN)
                                 decryptedData.GSTIN.split('-').map((item, i) => {
                                     gstInState["gstIn" + (i+1)] = item
                                 })
                             }
 
-                            // getIndividualGSTINs()
-                            if(decryptedData.GSTIN !== undefined)
-                            getIndividualGSTINs()
+                            if(decryptedData.GSTIN !== undefined || decryptedData.GSTIN !== null){
+                                getIndividualGSTINs()
+                            }
 
-                            console.log(gstInState)
-
-                            // // console.log("GSTIN STATE", gstInState)
-
-                            // console.log(decryptedData.GSTIN)
-
+                            // console.log(decryptedData)
 
                             this.setState({
 
@@ -142,7 +139,7 @@ class ProfileDetailsVendor extends React.Component {
                                 yearCount: decryptedData.experience.years,
                                 monthCount: decryptedData.experience.months,
 
-                                // gstIn: decryptedData.GSTIN,
+                                gstIn: decryptedData.GSTIN,
                                 pan: decryptedData.PAN,
 
                                 companyProfilePicture: decryptedData.companyProfilePicture,
@@ -157,11 +154,6 @@ class ProfileDetailsVendor extends React.Component {
             .catch(e => console.error(e))
             
     }
-
-    // componentDidUpdate() {
-    //     console.log(this.state.gstIn);
-    // }
-
 
     decreaseValue = (yearOrMonth) => {
         if (yearOrMonth === "year" && this.state.yearCount > 0){
@@ -362,14 +354,14 @@ class ProfileDetailsVendor extends React.Component {
                     this.updateVendorData("GSTIN", gstIn)
                     this.setState({
                         gstIn: gstIn,
-                        warningText: "please check and fill all the fields",
+                        warningText: "please check and fill all the fields, no spaces allowed",
                         warningClass: 'warningClass hide',
                         passwordIsValid: false
                     })
                 }
                 else {
                     this.setState({
-                        warningText: "please check and fill all the fields",
+                        warningText: "please check and fill all the fields, no spaces allowed",
                         warningClass: 'warningClass',
                         passwordIsValid: false
                     })
@@ -383,6 +375,10 @@ class ProfileDetailsVendor extends React.Component {
         this.refs.gstIn3.value = ""
         this.refs.gstIn4.value = ""
         this.refs.gstIn5.value = ""
+
+        this.setState({
+            gstIn: ""
+        })
     }
 
     returnStatesOfIndia = () => {
@@ -518,7 +514,7 @@ class ProfileDetailsVendor extends React.Component {
 
     }
 
-    updateVendorData = async (objectName, data) => {
+    updateVendorData = (objectName, data) => {
 
         this
             .props
@@ -536,7 +532,7 @@ class ProfileDetailsVendor extends React.Component {
         // Encrypt data
         //
 
-        await this
+        this
             .props
             .hitApi(api.UPDATE_VENDOR_DATA, "PUT",
                 {
@@ -557,8 +553,6 @@ class ProfileDetailsVendor extends React.Component {
                 // Decrypt data
                 //
 
-                // console.log(decryptedData)
-
                 this.setState({
 
                     companyName: decryptedData.companyName,
@@ -577,7 +571,7 @@ class ProfileDetailsVendor extends React.Component {
                     yearCount: decryptedData.experience.years,
                     monthCount: decryptedData.experience.months,
 
-                    gtsIn: decryptedData.GSTIN,
+                    gstIn: decryptedData.GSTIN,
                     pan: decryptedData.PAN,
 
                     companyProfilePicture: decryptedData.companyProfilePicture
@@ -618,7 +612,9 @@ class ProfileDetailsVendor extends React.Component {
 
     proceedHandler = async () => {
 
-        const {gstIn1, gstIn2, gstIn3, gstIn4, gstIn5} = this.state
+        const {gstIn, gstIn1, gstIn2, gstIn3, gstIn4, gstIn5} = this.state
+
+        // console.log(gstIn1)
 
         const fieldNames =  [
             {fieldName: 'first name', value: this.state.firstName},
@@ -635,12 +631,12 @@ class ProfileDetailsVendor extends React.Component {
             {fieldName: 'experience years', value: this.state.yearCount },
             {
                 fieldName: "your company's GST identification number",
-                value: 
-                    gstIn1 + "-" +
-                    gstIn2 + "-" +
-                    gstIn3 + "-" +
-                    gstIn4 + "-" +
-                    gstIn5 
+                value: gstIn
+                    // gstIn1 + "-" +
+                    // gstIn2 + "-" +
+                    // gstIn3 + "-" +
+                    // gstIn4 + "-" +
+                    // gstIn5 
             },
             {fieldName: "your company's PAN number", value: this.state.pan },
             {fieldName: "your company's logo", value: this.state.companyProfilePicture }
@@ -652,7 +648,7 @@ class ProfileDetailsVendor extends React.Component {
         })
 
         fieldNames.map(item => {
-            console.log(item.fieldName, item.value)
+            // console.log(item.fieldName, item.value)
             if (item.value === null || item.value === "" || item.value === 0 || item.value === undefined) {
                 if(!this.state.emptyField.includes(item.fieldName))
                         this.state.emptyField.push(item.fieldName)
@@ -663,14 +659,99 @@ class ProfileDetailsVendor extends React.Component {
             emptyField: this.state.emptyField
         })
 
-
-        if (this.state.emptyField.length === 0) {
-            window.open("/vendor-main-dashboard", "_self")
-        }
-
-        // console.log(this.state.emptyField)
-
         this.modalClassToggle("show");
+
+        if(this.state.emptyField.length === 0) {    
+
+            this.modalClassToggle("dontShow");
+            this.setState({
+                loadingClass: 'loadingAnim',
+                mainClass: 'mainClass hide',
+            })
+            
+            const finalVendorDataToSend = {
+                companyName : this.state.companyName,
+                address : {
+                    detailedAddressLine1 : this.state.detailedAddressLine1,
+                    detailedAddressLine2 : this.state.detailedAddressLine2,
+                    state : this.state.state,
+                    city : this.state.city,
+                    pincode : this.state.pincode,
+                },
+                companyDescriptionLine1: this.state.companyDescriptionLine1,
+                companyDescriptionLine2: this.state.companyDescriptionLine2,
+                experience : {
+                    years : this.state.yearCount,
+                    months :this.state.monthCount,
+                },
+                GSTIN : this.state.gstIn,
+                PAN: this.state.pan,
+                companyProfilePicture: this.state.companyProfilePicture
+            }
+
+            const finalUserDataToSend = {
+                firstName : this.state.firstName,
+                lastName : this.state.lastName,
+                mobileNo : this.state.mobileNo,
+                whatsappNo : this.state.whatsappNo
+            }
+
+            // 
+            // Encrypt data
+            // 
+            const encryptedUserData = encryptData(finalUserDataToSend)
+            const encryptedVendorData = encryptData(finalVendorDataToSend)
+            // 
+            // Encrypt data
+            // 
+
+            this.props.hitApi(api.UPDATE_USER_DATA, "PUT", {
+                message : "Update firstname, lastname, mobile number and whatsapp number",
+                requestData : encryptedUserData
+            })
+            .then(() => {
+
+                // 
+                // Decrypt data
+                // 
+                const decryptedUserData = decryptData(this.props.responseData.responsePayload.responseData)
+                // 
+                // Decrypt data
+                // 
+
+                this.props.hitApi(api.UPDATE_VENDOR_DATA, "PUT", {
+                    message : "Update vendor details",
+                    requestData : encryptedVendorData
+                })
+
+                .then(() => {
+                    // 
+                    // Decrypt data
+                    // 
+                    const decryptedVendorData = decryptData(this.props.responseData.responsePayload.responseData)
+                    // 
+                    // Decrypt data
+                    // 
+
+                    window.open("/vendor-main-dashboard", "_self")
+                })
+                .catch (e => console.error(e))
+
+                // this.setState({
+                //     mainClass : "mainClass",
+                //     loadingClass : "loadingClass hide"
+                // })
+
+                
+
+                
+            })
+            .catch (e => console.error(e))
+
+            // console.log(finalUserDataToSend, finalVendorDataToSend)          
+            
+        }
+        
 
     }
 
@@ -746,7 +827,9 @@ class ProfileDetailsVendor extends React.Component {
             <div className="bigWrapper">
 
                 <div className={this.state.loadingClass}>
-                    <LogoAnimation />
+                    <LogoAnimation 
+                        text = "We're loading your page..."
+                    />
                 </div>
 
                 <div className={this.state.mainClass}>
@@ -1150,16 +1233,13 @@ class ProfileDetailsVendor extends React.Component {
 
                                                             <div className="inputColumn inputColumn1">
                                                                 <input
-                                                                    // autoFocus="autofocus"
                                                                     defaultValue = {this.state.gstIn1}
                                                                     type="text"
                                                                     placeholder="22"
                                                                     maxLength="2" 
                                                                     id="1"
                                                                     ref="gstIn1"
-                                                                    // onKeyPress={(e) => this.validateCard(e)}
-                                                                    onChange={(event) =>this.onChangeGST(event, "gstIn2")}
-                                                                    
+                                                                    onChange={(event) => this.onChangeGST(event, "gstIn2")}
                                                                 />
                                                                 <span className="InputSeparatorLine"> </span>
                                                             </div>
@@ -1168,14 +1248,16 @@ class ProfileDetailsVendor extends React.Component {
 
                                                             <div className="inputColumn inputColumn2">
                                                                 <input 
-                                                                    // autoFocus="autofocus"
                                                                     defaultValue = {this.state.gstIn2}
                                                                     type="text" 
                                                                     id="2"
                                                                     placeholder="AAAAA0000A" 
                                                                     ref="gstIn2"
                                                                     maxLength="10" 
-                                                                    onChange={(event) =>this.onChangeGST(event, "gstIn3")}
+                                                                    onChange={(event) => {
+                                                                        this.onChangeGST(event, "gstIn3")
+                                                                    }}
+                                                                    
                                                                     
                                                                 />
                                                                 <span className="InputSeparatorLine"> </span>
@@ -1218,14 +1300,14 @@ class ProfileDetailsVendor extends React.Component {
 
                                                             <div className="inputColumn inputColumn1">
                                                                 <input 
-                                                                    type="text" 
+                                                                    type= "text" 
                                                                     defaultValue = {this.state.gstIn5}
-                                                                    placeholder="5" 
-                                                                    maxLength="1"
-                                                                    ref="gstIn5"
-                                                                    id="5"
-                                                                    pattern="\d*" 
-                                                                    onChange={(event) =>this.onChangeGST(event, "gstIn5")}
+                                                                    placeholder= "5" 
+                                                                    maxLength= "1"
+                                                                    ref= "gstIn5"
+                                                                    id= "5"
+                                                                    pattern= "\d*" 
+                                                                    onChange= {(event) => this.onChangeGST(event, "gstIn5")}
                                                                 />
                                                                 <span className="InputSeparatorLine"> </span>
                                                             </div>
@@ -1286,9 +1368,6 @@ class ProfileDetailsVendor extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                                
-
-                                            
 
                                             </form>
                                         </div>
