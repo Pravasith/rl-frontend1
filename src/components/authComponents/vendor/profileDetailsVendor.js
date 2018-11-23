@@ -43,16 +43,16 @@ class ProfileDetailsVendor extends React.Component {
             yearCount: 0,
             monthCount: 0,
 
-            // my code
-            inputCountOne: 0,
-            inputCountTwo: 0,
-            inputCountThree: 0,
-            inputCountFour: 0,
-            inputCountFive: 0, 
-            inputCountSix: 0,
-            inputCountSeven: 0,
-            inputCountEight: 0,
-            inputCountNine: 0,
+            // state of chechAnswered
+            // inputCountOne: 0,
+            // inputCountTwo: 0,
+            // inputCountThree: 0,
+            // inputCountFour: 0,
+            // inputCountFive: 0, 
+            // inputCountSix: 0,
+            // inputCountSeven: 0,
+            // inputCountEight: 0,
+            // inputCountNine: 0,
 
 
             emptyField: [],
@@ -60,12 +60,6 @@ class ProfileDetailsVendor extends React.Component {
             companyName: null,
 
             modalClassToggle: "modalBackgroundMainOuterWrap hide",
-
-            gstIn1: "",
-            gstIn2: "",
-            gstIn3: "",
-            gstIn4: "",
-            gstIn5: "",
         }
     }
 
@@ -111,19 +105,19 @@ class ProfileDetailsVendor extends React.Component {
                             // DECRYPT REQUEST DATA
                             //
 
-                            let gstInState = {}
+                            // let gstInState = {}
 
-                            const getIndividualGSTINs = () => {
-                                decryptedData.GSTIN.split('-').map((item, i) => {
-                                    gstInState["gstIn" + (i+1)] = item
-                                })
-                            }
+                            // const getIndividualGSTINs = () => {
+                            //     decryptedData.GSTIN.split('-').map((item, i) => {
+                            //         gstInState["gstIn" + (i+1)] = item
+                            //     })
+                            // }
 
+                            // // getIndividualGSTINs()
+                            // if(decryptedData.GSTIN !== undefined)
                             // getIndividualGSTINs()
-                            if(decryptedData.GSTIN !== null)
-                            getIndividualGSTINs()
 
-                            // console.log("GSTIN STATE", gstInState)
+                            // // console.log("GSTIN STATE", gstInState)
 
 
                             this.setState({
@@ -149,7 +143,7 @@ class ProfileDetailsVendor extends React.Component {
 
                                 companyProfilePicture: decryptedData.companyProfilePicture,
 
-                                ...gstInState
+                                // ...gstInState
                             })
                         }
                     })
@@ -160,7 +154,7 @@ class ProfileDetailsVendor extends React.Component {
     }
 
     // componentDidUpdate() {
-    //     console.log(this.state.gstIn1, this.state.gstIn5);
+    //     console.log(this.state.gstIn);
     // }
 
 
@@ -356,19 +350,13 @@ class ProfileDetailsVendor extends React.Component {
 
             this.refs[gstPart].focus();
 
-            // if(gstPart !== "gstIn5"){
-            //     this.refs["gstIn" + (parseInt(event.target.id, 10) + 1)].focus()
-            // }
-
-            // else{
                 const { gstIn1, gstIn2, gstIn3, gstIn4, gstIn5 } = this.refs;
                 const gstIn = `${gstIn1.value}-${gstIn2.value}-${gstIn3.value}-${gstIn4.value}-${gstIn5.value}`;
-                
-                
 
                 if (gstIn.length === 19) {
                     this.updateVendorData("GSTIN", gstIn)
                     this.setState({
+                        gstIn: gstIn,
                         warningText: "please check and fill all the fields",
                         warningClass: 'warningClass hide',
                         passwordIsValid: false
@@ -381,9 +369,8 @@ class ProfileDetailsVendor extends React.Component {
                         passwordIsValid: false
                     })
                 }
-            // }
-        } 
-    }  
+            } 
+        }  
 
     clearGSTfields = () => {
         this.refs.gstIn1.value = ""
@@ -565,7 +552,7 @@ class ProfileDetailsVendor extends React.Component {
                 // Decrypt data
                 //
 
-                console.log(decryptedData)
+                // console.log(decryptedData)
 
                 this.setState({
 
@@ -584,12 +571,6 @@ class ProfileDetailsVendor extends React.Component {
 
                     yearCount: decryptedData.experience.years,
                     monthCount: decryptedData.experience.months,
-
-                    gstIn1: decryptedData.gstIn1,
-                    gstIn2: decryptedData.gstIn2,
-                    gstIn3: decryptedData.gstIn3, 
-                    gstIn4: decryptedData.gstIn4, 
-                    gstIn5: decryptedData.gstIn5,
 
                     gtsIn: decryptedData.GSTIN,
                     pan: decryptedData.PAN,
@@ -644,7 +625,6 @@ class ProfileDetailsVendor extends React.Component {
             {fieldName: 'Pincode', value: this.state.pincode },
             {fieldName: 'Company Description', value: this.state.companyDescriptionLine1 },
             {fieldName: 'Year', value: this.state.yearCount },
-            {fieldName: 'Months', value: this.state.monthCount },
             {fieldName: 'GST', value: this.state.gstIn},
             {fieldName: 'Pan', value: this.state.pan },
             {fieldName: 'Company Profile Picture', value: this.state.companyProfilePicture }
@@ -655,20 +635,22 @@ class ProfileDetailsVendor extends React.Component {
             emptyField : []
         })
 
-
-
         fieldNames.map(item => {
-            // console.log(item.fieldName, item.value)
-            if (item.value === null || item.value === "" || item.value === 0 || item.value === undefined){
-                // console.log(`${item.fieldName} is in-valid`)
+            console.log(item.fieldName, item.value)
+            if (item.value === null || item.value === "" || item.value === 0 || item.value === undefined) {
                 if(!this.state.emptyField.includes(item.fieldName))
                         this.state.emptyField.push(item.fieldName)
-            }
+            } 
         })
 
         this.setState({
             emptyField: this.state.emptyField
         })
+
+
+        if (this.state.emptyField.length === 0) {
+            window.open("/vendor-main-dashboard", "_self")
+        }
 
         // console.log(this.state.emptyField)
 
@@ -693,7 +675,7 @@ class ProfileDetailsVendor extends React.Component {
     returnValidationModal = () => {
         const { emptyField } = this.state;
 
-        // if (emptyField.length !== 0) {
+        if (emptyField.length !== 0) {
             return (
                 <div className={this.state.modalClassToggle}>
                     <div className="dummyXClass">
@@ -740,7 +722,7 @@ class ProfileDetailsVendor extends React.Component {
                     </div>
                 </div>
             )
-        // }    
+        }    
     }
 
     render() {
@@ -1099,11 +1081,11 @@ class ProfileDetailsVendor extends React.Component {
                                                             </div>
 
                                                             <div className="timeWrap inputCategorySection">
-                                                                <div className="mandatorySection">
-                                                                    <p>Mandatory</p>
-                                                                </div>
+                                                                {/* <div className="monthsMandatory mandatorySection">
+                                                                    
+                                                                </div> */}
 
-                                                                <div className="inputColumn">
+                                                                <div className="inputColumn monthsColumn">
                                                                     <div className="numberInputSection inputColumnInnerLayer">
                                                                         <div
                                                                             className="plusAndMinusWrap"

@@ -11,6 +11,43 @@
     display: none;
 }
 
+input{
+                border: none;
+                // border-bottom: 0.2em solid $black;
+                background: transparent;
+                color: $darkerGrey;
+                outline: none;
+                height: 1.5em;
+                width: 100%;
+                border-bottom: 0.2em solid $lightGrey;
+                &:focus + .InputSeparatorLine {
+                    transform: scaleX(1) translateY(-2px);   
+                      opacity: 1;
+                   }
+                   &:hover + .InputSeparatorLine{
+                    transform: scaleX(1) translateY(-2px);   
+                    opacity: 1;
+                   }
+            }
+
+            
+            .InputSeparatorLine {
+                height:0.2em;
+                width: 100%;
+                background: $darkGrey;
+                display: block;
+                transform: scaleX(0) translateY(-2px);
+                transform-origin: 50%;
+                opacity: 0;
+                transition: all .15s $curve;
+            }
+            
+            
+            * :focus {
+                outline-color: transparent;
+                outline-style: none;
+            }
+
 .whiteBackgroundForModal{
         width: 100%;
         height: 94.5%;
@@ -362,20 +399,8 @@
                                                         .inputColumn{
                                                             @include flexCentreRow;
                                                             .numberInputSection{
-                                                                @include flexCentreRow;
-                                                                .plusAndMinusWrap{
-                                                                    cursor: pointer;
-                                                                }
-                                                                .numberSection{
-                                                                    @include flexCentreRow;
-                                                                    background: $lightGrey;
-                                                                    padding: 0.5em;
-                                                                    border-radius: 0.2em;
-                                                                    margin: 0px 1em;
-                                                                }
-                                                                .plusAndMinusWrap{
-                                                                    cursor: pointer;
-                                                                }
+                                                                @include flexCentreCol;
+                                                               
                                                             }
                                                           }
                                                         }   
