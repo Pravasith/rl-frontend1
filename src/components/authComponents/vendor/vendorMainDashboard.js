@@ -448,6 +448,22 @@ class VendorMainDashboard extends React.Component {
                             <h3>2/4</h3>
                             <p>Choose sub-category</p>
                         </div>
+                        <div className="categorySelectionContainer">
+                            <div className="categorySelectionInnerLayer">
+                                <div className="inputCategoryValue">
+                                    <div className="svgCategoryImageContainer"></div>
+                                    <div className="categoryHeadingSection">
+                                        <h3>Furniture</h3>
+                                    </div>
+                                    <div className="categoryCheckBox">
+                                        <div className="categoryCheckBoxInnerLayer">
+                                            <input type="checkbox"/>
+                                            <span className="checkmark"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div className="proceedButton">
                             <WhiteButton>
                                 Go back
@@ -480,6 +496,8 @@ class VendorMainDashboard extends React.Component {
                             <h3>3/4</h3>
                             <p>Choose product type</p>
                         </div>
+                        <div className="categorySelectionContainer">
+                        </div>
                         <div className="proceedButton">
                             <WhiteButton>
                                 Go back
@@ -511,6 +529,8 @@ class VendorMainDashboard extends React.Component {
                         <div className="subHeadingSection">
                             <h3>4/4</h3>
                             <p>Add tags (optional)</p>
+                        </div>
+                        <div className="categorySelectionContainer">
                         </div>
                         <div className="proceedButton">
                             <WhiteButton>

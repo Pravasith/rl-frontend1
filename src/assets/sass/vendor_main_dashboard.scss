@@ -88,6 +88,7 @@ input{
                     height: 25em;
                     margin: 0.5em;
                     background: $white;
+                    @include box_shadow;
                     .modalHeaderCloserSection{
                         @include flexCentreRow;
                         width: 100%;
@@ -106,6 +107,81 @@ input{
                         .close{
                             cursor: pointer;
                         }
+                    }
+                    .subHeadingSection{
+                        @include flexCentreRow;
+                        justify-content: flex-start;
+                        width: 90%;
+                        margin: 0.5em 0 0.5em 0;
+                        h3{
+                            color: $mediumGrey;
+                            font-size: 1.5em;
+                            margin-right: 0.5em;
+                        }
+                        p{
+                            margin-top: 0.8em;
+                        }
+                    }
+                    .categorySelectionContainer{
+                        width: 95%;
+                        height: 14em;
+                        overflow-y: auto;
+
+                        .categorySelectionInnerLayer{
+
+                            .inputCategoryValue{
+                                @include flexCentreRow;
+                                justify-content: flex-start;
+                                width: 50%;
+                                padding: 0.3em;
+                                background: $veryLightGrey;
+                                .svgCategoryImageContainer{
+                                    @include flexCentreRow;
+                                    width: 3em;
+                                    height: 3em;
+                                    background: $secondaryMagenta;
+                                    margin-right: 0.3em;
+                                }
+                                .categoryHeadingSection{
+                                    h3{
+
+                                    }
+                                }
+                                .categoryCheckBox{
+                                    @include flexCentreRow;
+                                    align-items: flex-start;
+                                    .categoryCheckBoxInnerLayer{
+                                        display: block;
+                                        position: relative;
+                                        cursor: pointer;
+                                        font-size: 1.2em;
+                                        user-select: none;
+                                        &:hover input ~ .checkmark{
+                                            background-color: $primaryGreen;
+                                        }
+                                        
+                                        input{
+                                            position: absolute;
+                                            opacity: 0;
+                                            cursor: pointer;
+                                            height: 0;
+                                            width: 0;
+                                        }
+                                        .checkmark{
+                                            position: absolute;
+                                            top: 0;
+                                            left: 0;
+                                            height: 1em;
+                                            width: 1em;
+                                            border-radius: 50%;
+                                            background-color: $white;
+                                            border: 0.1em solid $semiLightGrey;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
                     }
                     .selectListCategorySection{
                         @include flexCentreRow;
@@ -165,6 +241,7 @@ input{
                     }
                     .proceedButton{
                         @include flexCentreRow;
+                        margin-top: 0.5em;
                         width: 100%;
                     }
                     
