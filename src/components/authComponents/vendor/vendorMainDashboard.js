@@ -409,20 +409,6 @@ class VendorMainDashboard extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="inputCategoryValue">
-                                    <div className="svgCategoryImageContainer"></div>
-                                    <div className="categoryHeadingSection">
-                                        <p>Furniture Furniture FurnitureFurniture</p>
-                                    </div>
-                                    <div className="categoryCheckBox">
-                                        <div className="categoryCheckBoxInnerLayer">
-                                            <label class="container">
-                                                <input type="checkbox"/>
-                                                <span class="checkmark"></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <div className="proceedButton">
