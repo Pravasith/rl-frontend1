@@ -105,19 +105,20 @@ class ProfileDetailsVendor extends React.Component {
                             // DECRYPT REQUEST DATA
                             //
 
-                            // let gstInState = {}
+                            let gstInState = {}
 
-                            // const getIndividualGSTINs = () => {
-                            //     decryptedData.GSTIN.split('-').map((item, i) => {
-                            //         gstInState["gstIn" + (i+1)] = item
-                            //     })
-                            // }
+                            const getIndividualGSTINs = () => {
+                                if (decryptedData.GSTIN)
+                                    decryptedData.GSTIN.split('-').map((item, i) => {
+                                        gstInState["gstIn" + (i + 1)] = item
+                                    })
+                            }
 
-                            // // getIndividualGSTINs()
-                            // if(decryptedData.GSTIN !== undefined)
-                            // getIndividualGSTINs()
+                            if (decryptedData.GSTIN !== undefined || decryptedData.GSTIN !== null) {
+                                getIndividualGSTINs()
+                            }
 
-                            // // console.log("GSTIN STATE", gstInState)
+                            // console.log("GSTIN STATE", gstInState)
 
 
                             this.setState({
@@ -143,7 +144,7 @@ class ProfileDetailsVendor extends React.Component {
 
                                 companyProfilePicture: decryptedData.companyProfilePicture,
 
-                                // ...gstInState
+                                ...gstInState
                             })
                         }
                     })
@@ -343,7 +344,7 @@ class ProfileDetailsVendor extends React.Component {
     
 
 
-    onChangeGST = (event, gstPart) => {
+    onChangeGST = async (event, gstPart) => {
         const val = event.target.value;
 
         if (val.length === event.target.maxLength) {
@@ -353,24 +354,52 @@ class ProfileDetailsVendor extends React.Component {
                 const { gstIn1, gstIn2, gstIn3, gstIn4, gstIn5 } = this.refs;
                 const gstIn = `${gstIn1.value}-${gstIn2.value}-${gstIn3.value}-${gstIn4.value}-${gstIn5.value}`;
 
-                if (gstIn.length === 19) {
-                    this.updateVendorData("GSTIN", gstIn)
-                    this.setState({
-                        gstIn: gstIn,
-                        warningText: "please check and fill all the fields",
-                        warningClass: 'warningClass hide',
-                        passwordIsValid: false
-                    })
+                let gstInForCheck = `${gstIn1.value}${gstIn2.value}${gstIn3.value}${gstIn4.value}${gstIn5.value}`;
+                    gstInForCheck = gstInForCheck.toUpperCase()
+            
+                // console.log(gstInForCheck.length)
+
+                if (gstInForCheck.length === 15) {
+
+                    // console.log(gstIn)
+                    // console.log(/^[0-9A-Z]{2}$/.test("A-1"))
+                    // console.log(/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/.test(gstInForCheck))
+
+                    if (/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/.test(gstInForCheck)) {
+                        
+                        this.updateVendorData("GSTIN", gstIn)
+                        this.setState({
+                            gstIn: gstIn,
+                            warningText: "please check and fill all the fields",
+                            warningClass: 'warningClass hide'
+                        })
+                    }
+                    else {
+                        this.setState({
+                            warningText: "please check your entered GST once",
+                            warningClass: 'warningClass'
+                        })
+                    }
                 }
-                else {
+                else if (gstInForCheck.length !== 15) {
                     this.setState({
                         warningText: "please check and fill all the fields",
-                        warningClass: 'warningClass',
-                        passwordIsValid: false
+                        warningClass: 'warningClass'
                     })
                 }
             } 
         }  
+
+    noSpaces = (e) => {
+        // console.log("Wrks")
+        if (e.target.value.match(/\s/g)) {
+            this.setState({
+                warningText: "Sorry, you are not allowed to enter any spaces",
+                warningClass: 'warningClass'
+            })
+            e.target.value = e.target.value.replace(/\s/g, '');
+        }
+    }
 
     clearGSTfields = () => {
         this.refs.gstIn1.value = ""
@@ -552,7 +581,7 @@ class ProfileDetailsVendor extends React.Component {
                 // Decrypt data
                 //
 
-                // console.log(decryptedData)
+                console.log(decryptedData)
 
                 this.setState({
 
@@ -572,7 +601,7 @@ class ProfileDetailsVendor extends React.Component {
                     yearCount: decryptedData.experience.years,
                     monthCount: decryptedData.experience.months,
 
-                    gtsIn: decryptedData.GSTIN,
+                    gstIn: decryptedData.GSTIN,
                     pan: decryptedData.PAN,
 
                     companyProfilePicture: decryptedData.companyProfilePicture
@@ -1143,6 +1172,7 @@ class ProfileDetailsVendor extends React.Component {
                                                                     id="1"
                                                                     ref="gstIn1"
                                                                     // onKeyPress={(e) => this.validateCard(e)}
+                                                                    onKeyUp={(e) => this.noSpaces(e)}
                                                                     onChange={(event) =>this.onChangeGST(event, "gstIn2")}
                                                                     
                                                                 />
@@ -1153,15 +1183,15 @@ class ProfileDetailsVendor extends React.Component {
 
                                                             <div className="inputColumn">
                                                                 <input 
-                                                                    autoFocus="autofocus"
+                                                                    // autoFocus="autofocus"
                                                                     defaultValue = {this.state.gstIn2}
                                                                     type="text" 
                                                                     id="2"
                                                                     placeholder="AAAAA0000A" 
                                                                     ref="gstIn2"
                                                                     maxLength="10" 
+                                                                    onKeyUp={(e) => this.noSpaces(e)}
                                                                     onChange={(event) =>this.onChangeGST(event, "gstIn3")}
-                                                                    
                                                                 />
                                                                 <span className="InputSeparatorLine"> </span>
                                                             </div>
@@ -1176,7 +1206,8 @@ class ProfileDetailsVendor extends React.Component {
                                                                     maxLength="1"
                                                                     ref="gstIn3"
                                                                     id="3"
-                                                                    pattern="\d*" 
+                                                                    pattern="\d*"
+                                                                    onKeyUp={(e) => this.noSpaces(e)} 
                                                                     onChange={(event) =>this.onChangeGST(event, "gstIn4")}
                                                                 />
                                                                 <span className="InputSeparatorLine"> </span>
@@ -1192,6 +1223,7 @@ class ProfileDetailsVendor extends React.Component {
                                                                     ref="gstIn4"
                                                                     id="4"
                                                                     pattern="\d*"
+                                                                    onKeyUp={(e) => this.noSpaces(e)}
                                                                     onChange={(event) => this.onChangeGST(event, "gstIn5")}
                                                                 />
                                                                 <span className="InputSeparatorLine"> </span>
@@ -1209,7 +1241,8 @@ class ProfileDetailsVendor extends React.Component {
                                                                     maxLength="1"
                                                                     ref="gstIn5"
                                                                     id="5"
-                                                                    pattern="\d*" 
+                                                                    pattern="\d*"
+                                                                    onKeyUp={(e) => this.noSpaces(e)} 
                                                                     onChange={(event) =>this.onChangeGST(event, "gstIn5")}
                                                                 />
                                                                 <span className="InputSeparatorLine"> </span>
