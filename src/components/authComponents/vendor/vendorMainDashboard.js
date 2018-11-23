@@ -384,7 +384,7 @@ class VendorMainDashboard extends React.Component {
                             <h3>1/4</h3>
                             <p>Choose category</p>
                         </div>
-                        <div className="selectListCategorySection">
+                        {/* <div className="selectListCategorySection">
                             <SelectList
                                 name={'category'}
                                 options={options}
@@ -392,31 +392,37 @@ class VendorMainDashboard extends React.Component {
                                 placeholder={'Choose Category'}
                                 handleChange={this.onSelect}
                             />
-                        </div>
-                        <div className="addTagsContainer">
-                            <div className="vendorHeaderSection">
-                                <h3>Add tags (optional) </h3>
-                            </div>
-                            <div className="vendorInputSection">
-                                <input
-                                    placeholder="For Ex. Sofa"
-                                    ref="tagInput"
-                                    type="text"
-                                    maxLength="20"
-                                    onChange = {this.setTagName}
-                                    onKeyPress={e => {
-                                        if (e.key === "Enter") {
-                                            this.setTagName(e)
-                                            this.addTagName()
-                                        }
-                                    }} 
-                                />
-                                <span className="InputSeparatorLine"> </span>
-                            </div>
-                        </div>
-                        <div className="addedTagsContainer">
-                            <div className="addedTagsInnerContainer">
-                                {this.returnTags()}
+                        </div> */}
+                        <div className="categorySelectionContainer">
+                            <div className="categorySelectionInnerLayer">
+                                <div className="inputCategoryValue">
+                                    <div className="svgCategoryImageContainer"></div>
+                                    <div className="categoryHeadingSection">
+                                        <p>Furniture</p>
+                                    </div>
+                                    <div className="categoryCheckBox">
+                                        <div className="categoryCheckBoxInnerLayer">
+                                            <label class="container">
+                                                <input type="checkbox"/>
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="inputCategoryValue">
+                                    <div className="svgCategoryImageContainer"></div>
+                                    <div className="categoryHeadingSection">
+                                        <p>Furniture Furniture FurnitureFurniture</p>
+                                    </div>
+                                    <div className="categoryCheckBox">
+                                        <div className="categoryCheckBoxInnerLayer">
+                                            <label class="container">
+                                                <input type="checkbox"/>
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div className="proceedButton">
@@ -451,15 +457,16 @@ class VendorMainDashboard extends React.Component {
                         <div className="categorySelectionContainer">
                             <div className="categorySelectionInnerLayer">
                                 <div className="inputCategoryValue">
-                                    <div className="svgCategoryImageContainer"></div>
-                                    <div className="categoryHeadingSection">
-                                        <h3>Furniture</h3>
-                                    </div>
-                                    <div className="categoryCheckBox">
+                                    <div className="categoryCheckSecondBox">
                                         <div className="categoryCheckBoxInnerLayer">
-                                            <input type="checkbox"/>
-                                            <span className="checkmark"></span>
+                                            <label class="container">
+                                                <input type="checkbox"/>
+                                                <span class="checkmark"></span>
+                                            </label>
                                         </div>
+                                    </div> 
+                                    <div className="categoryHeadingSection">
+                                        <p>Interior Lighting</p>
                                     </div>
                                 </div>
                             </div>
@@ -497,6 +504,21 @@ class VendorMainDashboard extends React.Component {
                             <p>Choose product type</p>
                         </div>
                         <div className="categorySelectionContainer">
+                            <div className="categorySelectionProductType">
+                                <div className="inputCategoryValue">
+                                    <div className="categoryCheckBox">
+                                        <div className="categoryCheckBoxInnerLayer">
+                                            <label class="container">
+                                                <input type="checkbox"/>
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </div>
+                                    </div> 
+                                    <div className="categoryHeadingSection">
+                                        <p>Pendant lamps</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div className="proceedButton">
                             <WhiteButton>
@@ -530,7 +552,31 @@ class VendorMainDashboard extends React.Component {
                             <h3>4/4</h3>
                             <p>Add tags (optional)</p>
                         </div>
-                        <div className="categorySelectionContainer">
+                        <div className="addTagsContainer">
+                            {/* <div className="vendorHeaderSection">
+                                <h3>Add tags (optional) </h3>
+                            </div> */}
+                            <div className="vendorInputSection">
+                                <input
+                                    placeholder="For Ex. Sofa"
+                                    ref="tagInput"
+                                    type="text"
+                                    maxLength="20"
+                                    onChange = {this.setTagName}
+                                    onKeyPress={e => {
+                                        if (e.key === "Enter") {
+                                            this.setTagName(e)
+                                            this.addTagName()
+                                        }
+                                    }} 
+                                />
+                                <span className="InputSeparatorLine"> </span>
+                            </div>
+                        </div>
+                        <div className="addedTagsContainer">
+                            <div className="addedTagsInnerContainer">
+                                {this.returnTags()}
+                            </div>
                         </div>
                         <div className="proceedButton">
                             <WhiteButton>
