@@ -386,6 +386,7 @@ input{
                                                     margin-top: 0.5em;
                                                         .productInputInnerLayer{
                                                              @include flexCentreRow;
+                                                             align-items: flex-start;
                                                              justify-content: flex-start;
                                                              width: 100%;
                                                         .mandatorySection{
@@ -400,7 +401,24 @@ input{
                                                             @include flexCentreRow;
                                                             .numberInputSection{
                                                                 @include flexCentreCol;
-                                                               
+                                                               .minQuantityPara{
+                                                                width: 100%;
+                                                                text-align: center;
+                                                                    p{
+                                                                        color: $white;
+                                                                        background:$primaryMagenta;
+                                                                        padding: 0.5em;
+                                                                    }
+                                                               }
+                                                               .maxQuantityPara{
+                                                                width: 100%;
+                                                                text-align: center;
+                                                                    p{
+                                                                        color: $white;
+                                                                        background:$primaryMagenta;
+                                                                        padding: 0.5em;
+                                                                    }
+                                                               }
                                                             }
                                                           }
                                                         }   

@@ -185,12 +185,14 @@ input[type=number]::-webkit-outer-spin-button {
     
                                             
                                                 .gstInputSection{
-                                                    width: 75%;
+                                                    width: 50%;
+                                                    text-align: center;
+                                                    margin-left: 8%;
                                                     text-align: center;
                                     
                                                     p{
                                                         color: $white;
-                                                        background:$secondaryMagenta;
+                                                        background: $semiDarkGrey;
                                                         padding: 0.5em;
                                                     }
                                                 }
