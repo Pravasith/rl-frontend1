@@ -217,6 +217,52 @@ input[type=number]::-webkit-outer-spin-button {
                                                     color: $darkerGrey;
                                                 }
                                             }
+
+                                            .experienceSection{
+                                                @include flexCentreRow;
+                                                justify-content: flex-start;
+                                                align-items: flex-start;
+                                                width: 100%;
+                                                .mandatorySection{
+                                                    p{
+                                                        color: #ffffff;
+                                                        font-size: 0.7em;
+                                                        background: $secondaryMagenta;
+                                                        padding: 0.2em 0.5em;
+                                                    }
+                                                }
+                                                .radioButtonSelection{
+                                                    @include flexCentreRow;
+                                                    justify-content: flex-start;
+                                                    align-items: flex-start;
+                                                    width: 70%;
+                                                    .radioButtonSelectionInnerLayer{
+                                                        @include flexCentreRow;
+                                                        width: 100%;
+                                                        .radio-outline{
+                                                            width: 100%;
+                                                            .radio-mid{
+                                                                display: grid;
+                                                                grid-template-columns: 1fr 1fr;
+                                                                margin-left: 0.5em;
+                                                                width: 70%;
+                                                                .radio-inline{
+                                                                    @include flexCentreRow;
+                                                                    margin: 0.5em;
+                                                                    input{
+                                                                        width: 10%;
+                                                                        cursor: pointer;
+                                                                    }
+                                                                    p{
+                                                                        width: 80%;
+                                                                        font-size: 1em;
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
     
                                             .imageOuterLayer{
                                                 width: 25%;

@@ -971,8 +971,7 @@ class ProfileDetailsVendor extends React.Component {
                                                 <div className="formInputInnerLayer">
                                                         <div className="formParaSection">
                                                             <h3> 2 </h3>
-
-                                                                <p> What should we call your company as? </p>
+                                                            <p> What should we call your company as? </p>
                                                         </div>
 
                                                         <div className="companyNameWrap">
@@ -1199,14 +1198,24 @@ class ProfileDetailsVendor extends React.Component {
                                                         <h3>6</h3>
                                                         <p>How long have you been in this industry?</p>
                                                     </div>
+                                                    <div className="experienceSection inputCategorySection">
+                                                        <div className="mandatorySection">
+                                                            <p>Mandatory</p>
+                                                        </div>
+                                                        <div className="radioButtonSelection">
+                                                            <div className="radioButtonSelectionInnerLayer">
+                                                                <RadioButton
+                                                                    title="Testing"
+                                                                    name={'experience'}
+                                                                    options={this.state.expOptions}
+                                                                    selectedOption={this.state.experienceCount}
+                                                                    onChange={this.handleRadiobutton}
+                                                                />
+                                                            </div>
+                                                        </div>  
+                                                    </div>
 
-                                                        <RadioButton
-                                                            title="Testing"
-                                                            name={'experience'}
-                                                            options={this.state.expOptions}
-                                                            selectedOption={this.state.experienceCount}
-                                                            onChange={this.handleRadiobutton}
-                                                        />
+                                                        
                                                         {/* <div className="industryTimeWrap">
                                                             <div className="timeWrap inputCategorySection">
                                                                 <div className="mandatorySection">
