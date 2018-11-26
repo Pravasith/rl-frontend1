@@ -127,7 +127,7 @@ export class InputForm extends React.Component {
                     fieldIsValid: false,
                 })
 
-            if (val !== "" && /^[a-zA-Z]*$/g.test(val)) {
+            if (val !== "" && /^[0-9a-zA-Z]*$/g.test(val)) {
                 this.setState({
                     warningText: null,
                     warningClass: "warningClass hide",
@@ -143,8 +143,6 @@ export class InputForm extends React.Component {
 
         else if (validationType === "onlyNumbers") {
             const val = e.target.value
-
-            // console.log(val)
 
             this.setState({
                 charCount: Number(this.props.characterCount) - val.length
