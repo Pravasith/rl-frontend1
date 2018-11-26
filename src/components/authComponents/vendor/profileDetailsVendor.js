@@ -395,10 +395,6 @@ class ProfileDetailsVendor extends React.Component {
 
                 if (gstInForCheck.length === 15) {
 
-                    // console.log(gstIn)
-                    // console.log(/^[0-9A-Z]{2}$/.test("A-1"))
-                    // console.log(/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/.test(gstInForCheck))
-
                     if (/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/.test(gstInForCheck)) {
                         
                         this.updateVendorData("GSTIN", gstIn)
@@ -568,7 +564,7 @@ class ProfileDetailsVendor extends React.Component {
                 // Decrypt data
                 //
 
-                console.log(decryptedData)
+                // console.log(decryptedData)
 
                 this.setState({
                     firstName: decryptedData.firstName,
@@ -625,8 +621,6 @@ class ProfileDetailsVendor extends React.Component {
 
                     companyName: decryptedData.companyName,
 
-                    // hNo: decryptedData.address.hNo,
-                    // stNo: decryptedData.address.stNo,
                     detailedAddressLine1: decryptedData.address.detailedAddressLine1,
                     detailedAddressLine2: decryptedData.address.detailedAddressLine2,
                     state: decryptedData.address.state,
@@ -636,8 +630,6 @@ class ProfileDetailsVendor extends React.Component {
                     companyDescriptionLine1: decryptedData.companyDescriptionLine1,
                     companyDescriptionLine2: decryptedData.companyDescriptionLine2,
 
-                    // yearCount: decryptedData.experience.years,
-                    // monthCount: decryptedData.experience.months,
                     experienceCount: decryptedData.experience.years,
 
                     gstIn: decryptedData.GSTIN,
@@ -679,21 +671,8 @@ class ProfileDetailsVendor extends React.Component {
     }
 
     handleRadiobutton = (e) => {
-        // e.preventDefault();
         const val = e.target.value;
-        // // let newSelectionArray;
 
-        // if (this.state.newUser.colors.indexOf(newSelection) > -1) {
-        //     newSelectionArray = this.state.newUser.colors.filter(s => s !== newSelection)
-        // } else {
-        //     newSelectionArray = [...this.state.newUser.colors, newSelection];
-        // }
-
-        // this.setState(prevState => ({
-        //     newUser:
-        //         { ...prevState.newUser, colors: newSelectionArray }
-        // })
-        // )
         this.updateVendorData("experience.years", val)
         this.setState({ experienceCount: e.target.value })
     }
@@ -759,7 +738,6 @@ class ProfileDetailsVendor extends React.Component {
                 companyDescriptionLine2: this.state.companyDescriptionLine2,
                 experience : {
                     years : this.state.experienceCount,
-                    // months :this.state.monthCount,
                 },
                 GSTIN : this.state.gstIn,
                 PAN: this.state.pan,
@@ -1004,7 +982,7 @@ class ProfileDetailsVendor extends React.Component {
                                                                 isMandatory={true}
                                                                 validationType="alphabetsSpecialCharactersAndNumbers"
                                                                 characterCount="50"
-                                                                value={this.state.companyName ? this.state.companyName : null}
+                                                                value={this.state.companyName}
                                                                 result={(val) => this.updateVendorData("companyName", val)}
                                                             />
                                                         </div>

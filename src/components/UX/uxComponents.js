@@ -127,7 +127,7 @@ export class InputForm extends React.Component {
                     fieldIsValid: false,
                 })
 
-            if (val !== "" && /^[a-zA-Z]*$/g.test(val)) {
+            if (val !== "" && /^[0-9a-zA-Z]*$/g.test(val)) {
                 this.setState({
                     warningText: null,
                     warningClass: "warningClass hide",
@@ -332,7 +332,6 @@ export const RadioButton = (props) => {
     // console.log(props)
     return (
         <div className="radio-outline">
-            {/* <label htmlFor={props.name} className="radio-label">{props.title}</label> */}
             <div className="radio-mid">
                 {props.options.map(option => {
                     // console.log(option)
@@ -344,7 +343,6 @@ export const RadioButton = (props) => {
                                 onChange={props.onChange}
                                 value={option.value}
                                 checked={props.selectedOption ? props.selectedOption.indexOf(option.value) > -1 : false}
-                                // defaultChecked={}
                                 type="radio" />{option.value} years
                         </label>
                     );
