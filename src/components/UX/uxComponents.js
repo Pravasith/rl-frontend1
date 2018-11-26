@@ -104,6 +104,42 @@ export class InputForm extends React.Component {
             }
         }
 
+        else if (validationType === "alphabetsAndNumbers") {
+            const val = e.target.value
+
+            this.setState({
+                charCount: Number(this.props.characterCount) - val.length
+            })
+
+            if (this.props.isMandatory) {
+                if (val === "")
+                    this.setState({
+                        warningText: "This information is required",
+                        warningClass: "warningClass",
+                        fieldIsValid: false,
+                    })
+            }
+
+            if (!/^[0-9a-zA-Z]*$/g.test(val))
+                this.setState({
+                    warningText: "Please enter alphabets or/and numbers only.",
+                    warningClass: "warningClass",
+                    fieldIsValid: false,
+                })
+
+            if (val !== "" && /^[a-zA-Z]*$/g.test(val)) {
+                this.setState({
+                    warningText: null,
+                    warningClass: "warningClass hide",
+                    fieldIsValid: true,
+                })
+
+                this
+                    .props
+                    .result(val)
+            }
+        }
+
 
         else if (validationType === "onlyNumbers") {
             const val = e.target.value
@@ -292,4 +328,29 @@ export const SelectList = (props) => {
     )
 }
 
+export const RadioButton = (props) => {
+    // console.log(props)
+    return (
+        <div className="radio-outline">
+            {/* <label htmlFor={props.name} className="radio-label">{props.title}</label> */}
+            <div className="radio-mid">
+                {props.options.map(option => {
+                    // console.log(option)
+                    return (
+                        <label key={option.id} className="radio-inline">
+                            <input
+                                id={option.id}
+                                name={props.name}
+                                onChange={props.onChange}
+                                value={option.value}
+                                checked={props.selectedOption ? props.selectedOption.indexOf(option.value) > -1 : false}
+                                // defaultChecked={}
+                                type="radio" />{option.value} years
+                        </label>
+                    );
+                })}
+            </div>
+        </div>
+    );
+}
 
