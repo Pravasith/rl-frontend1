@@ -41,3 +41,77 @@
     //     }
     // }
 }
+
+.mainClass{
+    header{
+        .wrapperForNavbar{}
+    }
+    .mainContentSection{
+        width: 97%;
+        margin: 0 auto;
+        .contentSectionInnerLayer{
+            @include flexCentreCol;
+            align-items: flex-start;
+            .vendorMainHeaderSection{
+                @include flexCentreCol;
+                align-items: flex-start;
+                width: 88%;
+                margin: 0 auto;
+                h3{
+                    font-size: 2em;
+                    width: 54%;
+                }
+                .line{
+                    width: 5%;
+                    margin-left: 2%;
+                }
+            }
+            .architectureFrontContent{
+                width: 100%;
+                margin-top: 1em;
+                .architectureFrontContentInnerLayer{
+                    @include flexCentreRow;
+                    .frontPageLeftSection{
+                        .svgImageInnerLayer{}
+                    }
+                    .frontPageRightSection{
+                        width: 60%;
+                        .rightSectionInnerLayer{
+                            @include flexCentreCol;
+                            &:hover{
+                                .ProceedButtonContainer{
+                                    cursor: pointer;  
+                                }
+                            }
+                            .rightSectionContentWrapper{
+                                @include flexCentreCol;
+                                align-items: flex-start;
+                                width: 55%;
+                                .rightSectionContentWrapperInnerLayer{
+                                    @include flexCentreRow;
+                                    ul{
+                                        h3{
+                                            &:hover{
+                                                color: $primaryMagenta;
+                                            }
+                                            font-size: 1.3em;
+                                            margin: 1em 0;
+                                            cursor: pointer;
+                                        }
+                                    }
+                                }
+                                .ProceedButtonContainer{
+                                    @include flexCentreRow;
+                                    .gradientButtonWrapper{
+                                        padding: 1em 2.5em;
+                                    }   
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
