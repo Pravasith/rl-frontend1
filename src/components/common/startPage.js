@@ -78,14 +78,14 @@ export default class StartPage extends React.Component {
                                             <div className="rightSectionContentWrapper">
                                                 <div className="rightSectionContentWrapperInnerLayer">
                                                     <ul>
-                                                        <h3>
+                                                        <h3 className="one">
                                                             <li>Build your profile, share it on social media</li>
                                                         </h3>
-                                                        <h3>
+                                                        <h3 className="two">
                                                             <li>Upload and manage your products on an
                                                             amazingly user friendly dashboard</li>
                                                         </h3>
-                                                        <h3>
+                                                        <h3 className="three">
                                                             <li>Send quotes to architects, negotiate,
                                                             deliver and get paid online!</li>
                                                         </h3>

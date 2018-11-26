@@ -98,6 +98,34 @@
                                             margin: 1em 0;
                                             cursor: pointer;
                                         }
+                                        .one{
+                                            animation-name: example;
+                                            animation-duration: 3.9s;
+                                            animation-iteration-count: infinite;
+                                        }
+                                        @keyframes example {
+                                            from {color: $primaryMagenta;}
+                                            to {color: $darkGrey;}
+                                        }
+                                        .two{
+                                            animation-name: two;
+                                            animation-duration: 4.2s;
+                                            animation-iteration-count: infinite;
+                                        }
+                                        @keyframes two {
+                                            from {color: $primaryMagenta;}
+                                            to {color: $darkGrey;}
+                                        }
+                                        .three{
+                                            animation-name: three;
+                                            animation-duration: 4.5s;
+                                            animation-iteration-count: infinite;
+                                        }
+                                        @keyframes three {
+                                            from {color: $primaryMagenta;}
+                                            to {color: $darkGrey;}
+                                        }
+                                       
                                     }
                                 }
                                 .ProceedButtonContainer{
