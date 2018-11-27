@@ -674,27 +674,19 @@ class ProfileDetailsVendor extends React.Component {
         const { gstIn } =  this.state
 
         const fieldNames =  [
-            {fieldName: 'first name', value: this.state.firstName},
-            {fieldName: 'last name', value: this.state.lastName },
-            {fieldName: 'mobile number', value: this.state.mobileNo },
-            {fieldName: 'company name', value: this.state.companyName },
-            {fieldName: "your company address", value: this.state.detailedAddressLine1 },
-            {fieldName: 'state', value: this.state.state },
-            {fieldName: 'city', value: this.state.city },
-            {fieldName: 'pincode', value: this.state.pincode },
-            {fieldName: 'description about your company', value: this.state.companyDescriptionLine1 },
-            {fieldName: 'experience years', value: this.state.yearCount },
-            {
-                fieldName: "your company's GST identification number",
-                value: gstIn
-                    // gstIn1 + "-" +
-                    // gstIn2 + "-" +
-                    // gstIn3 + "-" +
-                    // gstIn4 + "-" +
-                    // gstIn5 
-            },
-            {fieldName: "your company's PAN number", value: this.state.pan },
-            {fieldName: "your company's logo", value: this.state.companyProfilePicture }
+            { fieldName: 'first name', value: this.state.firstName },
+            { fieldName: 'last name', value: this.state.lastName },
+            { fieldName: 'mobile number', value: this.state.mobileNo },
+            { fieldName: 'company name', value: this.state.companyName }, 
+            { fieldName: "your company address", value: this.state.detailedAddressLine1 },
+            { fieldName: 'state', value: this.state.state },
+            { fieldName: 'city', value: this.state.city },
+            { fieldName: 'pincode', value: this.state.pincode },
+            { fieldName: 'description about your company', value: this.state.companyDescriptionLine1 },
+            { fieldName: 'your experience in the industry', value: this.state.experienceCount },
+            { fieldName: "your company's GST identification number", value: this.state.gstIn },
+            { fieldName: "your company's PAN number", value: this.state.pan },
+            { fieldName: "your company's logo", value: this.state.companyProfilePicture }
         ]
 
 
