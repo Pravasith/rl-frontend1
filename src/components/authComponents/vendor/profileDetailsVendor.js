@@ -55,7 +55,7 @@ class ProfileDetailsVendor extends React.Component {
             // inputCountEight: 0,
             // inputCountNine: 0,
 
-            expOptions: [
+            experienceOptions: [
                 {
                     id: 1,
                     value: "0-1"
@@ -155,16 +155,13 @@ class ProfileDetailsVendor extends React.Component {
                                 getIndividualGSTINs()
                             }
 
-                            // console.log("GSTIN STATE", gstInState)
 
-                            console.log(decryptedData)
+                            // console.log(decryptedData)
 
                             this.setState({
 
                                 companyName: decryptedData.companyName,
 
-                                // hNo: decryptedData.address.hNo,
-                                // stNo: decryptedData.address.stNo,
                                 detailedAddressLine1: decryptedData.address.detailedAddressLine1,
                                 detailedAddressLine2: decryptedData.address.detailedAddressLine2,
                                 state: decryptedData.address.state,
@@ -174,8 +171,6 @@ class ProfileDetailsVendor extends React.Component {
                                 companyDescriptionLine1: decryptedData.companyDescriptionLine1,
                                 companyDescriptionLine2: decryptedData.companyDescriptionLine2,
 
-                                // yearCount: decryptedData.experience.years,
-                                // monthCount: decryptedData.experience.months,
                                 experienceCount: decryptedData.experience.years,
 
                                 gstIn: decryptedData.GSTIN,
@@ -671,6 +666,8 @@ class ProfileDetailsVendor extends React.Component {
 
     proceedHandler = async () => {
 
+        const { gstIn } =  this.state
+
         const fieldNames =  [
             { fieldName: 'first name', value: this.state.firstName },
             { fieldName: 'last name', value: this.state.lastName },
@@ -782,7 +779,7 @@ class ProfileDetailsVendor extends React.Component {
 
                     // console.log(decryptedVendorData)
 
-                    // window.open("/vendor-main-dashboard", "_self")
+                    window.open("/vendor-main-dashboard", "_self")
                 })
                 .catch (e => console.error(e))
 
@@ -962,8 +959,7 @@ class ProfileDetailsVendor extends React.Component {
                                                 <div className="formInputInnerLayer">
                                                         <div className="formParaSection">
                                                             <h3> 2 </h3>
-
-                                                                <p> What should we call your company as? </p>
+                                                            <p> What should we call your company as? </p>
                                                         </div>
 
                                                         <div className="companyNameWrap">
@@ -1180,9 +1176,8 @@ class ProfileDetailsVendor extends React.Component {
                                                             result={val => this.updateVendorData("companyDescriptionLine2", val)}
                                                         />
                                                     </div>
-
-                                                    </div>
                                                 </div>
+                                            </div>
 
                                             <div 
                                                 className="formInputContainer"
@@ -1193,14 +1188,24 @@ class ProfileDetailsVendor extends React.Component {
                                                         <h3>6</h3>
                                                         <p>How long have you been in this industry?</p>
                                                     </div>
+                                                    <div className="experienceSection inputCategorySection">
+                                                        <div className="mandatorySection">
+                                                            <p>Mandatory</p>
+                                                        </div>
+                                                        <div className="radioButtonSelection">
+                                                            <div className="radioButtonSelectionInnerLayer">
+                                                                <RadioButton
+                                                                    title="Testing"
+                                                                    name={'experience'}
+                                                                    options={this.state.experienceOptions}
+                                                                    selectedOption={this.state.experienceCount}
+                                                                    onChange={this.handleRadiobutton}
+                                                                />
+                                                            </div>
+                                                        </div>  
+                                                    </div>
 
-                                                        <RadioButton
-                                                            title="Testing"
-                                                            name={'experience'}
-                                                            options={this.state.expOptions}
-                                                            selectedOption={this.state.experienceCount}
-                                                            onChange={this.handleRadiobutton}
-                                                        />
+                                                        
                                                         {/* <div className="industryTimeWrap">
                                                             <div className="timeWrap inputCategorySection">
                                                                 <div className="mandatorySection">
@@ -1294,7 +1299,6 @@ class ProfileDetailsVendor extends React.Component {
                                                                     ref="gstIn1"
                                                                     onKeyUp={(e) => this.noSpaces(e)}
                                                                     onChange={(event) =>this.onChangeGST(event, "gstIn2")}
-                                                                    
                                                                 />
                                                                 <span className="InputSeparatorLine"> </span>
                                                             </div>
@@ -1334,6 +1338,7 @@ class ProfileDetailsVendor extends React.Component {
                                                             </div>
 
                                                             <p>-</p>
+
                                                             <div className="inputColumn inputColumn1">
                                                                 <input
                                                                     type="text"
@@ -1348,8 +1353,6 @@ class ProfileDetailsVendor extends React.Component {
                                                                 />
                                                                 <span className="InputSeparatorLine"> </span>
                                                             </div>
-                                                                
-                                                  
 
                                                             <p>-</p>
 

@@ -12,6 +12,7 @@ import {
     PlusButtonIcon,
     CloseButton,
     BigCloseButton,
+    ModalCloseButton,
     ErrorMsgSign,
     SmallCloseButton,
     SmallModalCloseButton,
@@ -334,7 +335,7 @@ class AddProductDetails extends React.Component {
 
                             <div
                                 className="deleteIcon"
-                                onClick={() => this.removeFeature(i)}
+                                onClick={() => this.removeFeature(index)}
                                 >
                                 <CloseButton />
                             </div>
@@ -359,14 +360,14 @@ class AddProductDetails extends React.Component {
                                 className="colorDetails"
                                 style = {{background : item.colorCode}}
                             >
-                                <p>{item.colorCode}</p>
                                 <div className="closeButtonContainer"
                                     onClick={() => {
-                                        this.removeColor()
+                                        this.removeColor(i)
                                     }}
                                 >
-                                    <SmallCloseButton />
+                                    <CloseButton />
                                 </div>
+                                <p>{item.colorCode}</p>
                             </div>
                         </div>
                     </div>
@@ -810,9 +811,9 @@ class AddProductDetails extends React.Component {
                                     </div>
                                 </div>
 
+                                <div className="colorCategorySection">
 
-                            
-                                    <div className="colorCategorySection">
+                                    <div className="colorCategoryInnerLayerContainer">
                                         <div 
                                             className="selectedColorSection"
                                             ref = "colorPreview"
@@ -853,6 +854,7 @@ class AddProductDetails extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div className="inputFormContainer">
                                                 <div className="formParaSection">
                                                     <p className="pargraphClass">
@@ -876,31 +878,25 @@ class AddProductDetails extends React.Component {
 
                                                         <p>Don't forget the # before the code</p> 
                                                     </div>
-                                                </div>
-
-                                                
+                                                </div> 
                                             </div>
 
-                                    
-
-                                            <div className="proceedOrNotCheck">
-                                                <GradientButton
-                                                    runFunction={() => {
-                                                        this.proceedHandler("color")
-                                                    }}>
-                                                    Proceed
-                                                </GradientButton>
-
-                                                {this.displayError("color")}
-                                            </div>
-                                    
                                         </div>
-
                                     </div>
+                                    <div className="proceedOrNotCheck">
+                                        <GradientButton
+                                            runFunction={() => {
+                                                this.proceedHandler("color")
+                                            }}>
+                                            Proceed
+                                        </GradientButton>
+                                    </div>
+                                    {this.displayError("color")}
 
+                                </div>
                             </div>
                          </div>
-                        </div>
+                    </div>
                 )
             }
 
@@ -983,10 +979,9 @@ class AddProductDetails extends React.Component {
                                     <GradientButton
                                         runFunction={() => this.proceedHandler("size")}>
                                         Proceed
-                                    </GradientButton>
-
-                                    {this.displayError("size")}
+                                    </GradientButton> 
                                 </div>
+                                {this.displayError("size")}
                             </div>
                         </div>
                     </div>
@@ -1045,22 +1040,21 @@ class AddProductDetails extends React.Component {
             <div className={this.state.modalClassToggle}>
                 <div className="modalBackgroundDummyClass">
                     <div className="modalBackgroundInnerWrap">
-                        <div className="modalOuterWrap">
-                            
-                            <article className="modalContentWrap">
-                                {returnModalContent()}
-                            </article>
                             <header className="closeHeaderSection">
                                 <div className="closeButtonContainer"
                                     onClick = {() => {
                                         this.modalClassToggle("dontShow")
                                     }}
                                     >
-                                        <SmallModalCloseButton/>
+                                        <ModalCloseButton />
                                 </div>
                             </header>
-                            <footer>
-                            </footer>
+                        <div className="modalOuterWrap">
+                            
+                            <article className="modalContentWrap">
+                                {returnModalContent()}
+                            </article>
+                            
                         </div>
                     </div>
                 </div>
@@ -1074,7 +1068,7 @@ class AddProductDetails extends React.Component {
            { fieldName: 'Product Code', value: this.state.productCode },
            { fieldName: 'Best price of this product', value: this.state.productPrice },
            { fieldName: 'Material', value: this.state.productMaterial },
-        //    { fieldName: 'Finishing Otpions', value: this.state.finishArray },
+           { fieldName: 'Finishing Otpions', value: this.state.finishArray },
            { fieldName: 'Color Options', value: this.state.colorArray },
            { fieldName: 'Sizes Available', value: this.state.productDimensions },
            { fieldName: 'Min. quantity', value: this.state.productMinQuantity},
@@ -1086,7 +1080,7 @@ class AddProductDetails extends React.Component {
        })
 
        fieldNames.map(item => {
-           console.log(item.fieldName, typeof(item.value))
+        //    console.log(item.fieldName, typeof(item.value))
            if (item.value === undefined || item.value === null || item.value.length === 0) {
             //    console.log(`${item.fieldName} is in-valid`)
                if (!this.state.emptyField.includes(item.fieldName))
@@ -1362,33 +1356,36 @@ class AddProductDetails extends React.Component {
                                                             > Color options </p>
                                                     </div>
 
-                                                    <div className="colorVariantSliderContainer">
+                                                    <div className="colorSelectionContainer">
                                                         {/* <HtmlSlider
                                                             categoryData={this.returnVariationColors()} // format of Item 
                                                             numberOfSlides={4} // Change the css grid properties for responsiveness
                                                             textOnRibbon={"TRENDING NOW"} // All caps
                                                             runFunction={(data) => this.getData(data)}
                                                         /> */}
+                                                        <div className="addColorDummyContainer">
+                                                            <div className="addColorDummyContainerInnerLayer">
+                                                                <div className="addButtonContainer">
+                                                                            <WhiteButton
+                                                                        runFunction={() => {
+                                                                                // console.log('hit')
+                                                                                this.modalClassToggle("show")
+                                                                                this.setState({
+                                                                                    modalType : "color"
+                                                                                }
+                                                                            )}
+                                                                        }
+                                                                    >
+                                                                        <div className="svgImageContainer">
+                                                                            <PlusButtonIcon />
+                                                                        </div>
+                                                                    </WhiteButton>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                         {this.returnColorModule()}
                                                     </div>
 
-                                                    <div className="buttonContainer">
-                                                        <WhiteButton
-                                                            runFunction={() => {
-                                                                    // console.log('hit')
-                                                                    this.modalClassToggle("show")
-                                                                    this.setState({
-                                                                        modalType : "color"
-                                                                    }
-                                                                )}
-                                                            }
-                                                        >
-                                                            <div className="svgImageContainer">
-                                                                <PlusButtonIcon />
-                                                            </div>
-                                                            Add new color
-                                                    </WhiteButton>
-                                                    </div>
                                                 </div>
 
                                                 <div className="inputFormContainer">
@@ -1396,39 +1393,13 @@ class AddProductDetails extends React.Component {
                                                         <p className="pargraphClass">Sizes available</p>
                                                     </div>
                                                     <div className="productSizeDescriptionOuterLayer">
-                                                        {/* <div className="productSizeDescriptionInnerLayer"> */}
-                                                            {/* <div className="productSizeDetails">
-                                                                <div className="sizeCostCartWrap">
-                                                                    <h3>Size nomenclature</h3>
-                                                                    <p>Small - 4ft * 3ft</p>
-                                                                </div>
-                                                                <div className="sizeCostCartWrap">
-                                                                    <h3>Cost over base price</h3>
-                                                                    <p>Rs.20</p>
-                                                                </div>
-                                                            </div>
-                                                            <div className="sizeEditingButtons">
-                                                                <div className="editButton">
-                                                                    <WhiteButton>
-                                                                        Edit
-                                                                    </WhiteButton>
-                                                                </div>
-                                                                <div className="deleteButton">
-                                                                    <WhiteButton>
-                                                                        Delete
-                                                                    </WhiteButton>
-                                                                </div>
-                                                            </div> */}
-                                                            {/* <div className="prodDimensionHolder"> */}
-                                                                {this.returnProductDimensions()}
-                                                            {/* </div> */}
-                                                        {/* </div> */}
+
+                                                        {this.returnProductDimensions()}
+
                                                     </div>
 
                                                     <div className="buttonContainer">
-                                                         {/* <div className="prodDimensionHolder">
-                                                            {this.returnProductDimensions()}
-                                                        </div> */}
+
                                                         <WhiteButton
                                                             runFunction={() => {
                                                                 this.modalClassToggle("show")
@@ -1602,24 +1573,22 @@ class AddProductDetails extends React.Component {
                                                     </div>
 
                                                 </div>
-
-                                                <div className="inputFormContainer">
-                                                    <div className="formParaSection">
-                                                        <GradientButton
-                                                            runFunction={() => { this.validateProceedHandler()
-                                                                                 this.modalClassToggle("show")
-                                                                                 this.setState({
-                                                                                        modalType : "validation"
-                                                                                 })                    
-                                                                        }}>
-                                                            Proceed
-                                                        </GradientButton>
-                                                    </div>
-                                                </div>
-
-
                                             </div>
                                         </section>
+                                        <div className="formButtonContainer">
+                                            <div className="buttonContainer">
+                                                <GradientButton
+                                                    runFunction={() => 
+                                                        { this.validateProceedHandler()
+                                                            this.modalClassToggle("show")
+                                                            this.setState({
+                                                                modalType : "validation"
+                                                            })                    
+                                                        }}>
+                                                    Proceed
+                                                </GradientButton>
+                                            </div>
+                                        </div>
                                     </article>
                                 </div>
                             </section>
@@ -1629,8 +1598,6 @@ class AddProductDetails extends React.Component {
                             this.returnModal()
                         }
                     </div>
-
-                    
                 </div>
             </div>
         )
@@ -1658,3 +1625,23 @@ const matchDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(AddProductDetails)
+
+
+
+
+{/* <div className="buttonContainer">
+<WhiteButton
+    runFunction={() => {
+            this.modalClassToggle("show")
+            this.setState({
+                modalType : "color"
+            }
+        )}
+    }
+>
+    <div className="svgImageContainer">
+        <PlusButtonIcon />
+    </div>
+    Add new color
+</WhiteButton>
+</div> */}

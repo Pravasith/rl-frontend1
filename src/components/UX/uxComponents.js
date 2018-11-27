@@ -402,7 +402,10 @@ export const RadioButton = (props) => {
                                 onChange={props.onChange}
                                 value={option.value}
                                 checked={props.selectedOption ? props.selectedOption.indexOf(option.value) > -1 : false}
-                                type="radio" />{option.value} years
+                                type="radio" 
+                            />
+                            <span className ="checkmark"></span>
+                            <p>{option.value} years</p>
                         </label>
                     );
                 })}
