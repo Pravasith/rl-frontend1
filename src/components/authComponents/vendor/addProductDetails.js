@@ -1390,39 +1390,13 @@ class AddProductDetails extends React.Component {
                                                         <p className="pargraphClass">Sizes available</p>
                                                     </div>
                                                     <div className="productSizeDescriptionOuterLayer">
-                                                        {/* <div className="productSizeDescriptionInnerLayer"> */}
-                                                            {/* <div className="productSizeDetails">
-                                                                <div className="sizeCostCartWrap">
-                                                                    <h3>Size nomenclature</h3>
-                                                                    <p>Small - 4ft * 3ft</p>
-                                                                </div>
-                                                                <div className="sizeCostCartWrap">
-                                                                    <h3>Cost over base price</h3>
-                                                                    <p>Rs.20</p>
-                                                                </div>
-                                                            </div>
-                                                            <div className="sizeEditingButtons">
-                                                                <div className="editButton">
-                                                                    <WhiteButton>
-                                                                        Edit
-                                                                    </WhiteButton>
-                                                                </div>
-                                                                <div className="deleteButton">
-                                                                    <WhiteButton>
-                                                                        Delete
-                                                                    </WhiteButton>
-                                                                </div>
-                                                            </div> */}
-                                                            {/* <div className="prodDimensionHolder"> */}
-                                                                {this.returnProductDimensions()}
-                                                            {/* </div> */}
-                                                        {/* </div> */}
+
+                                                        {this.returnProductDimensions()}
+
                                                     </div>
 
                                                     <div className="buttonContainer">
-                                                         {/* <div className="prodDimensionHolder">
-                                                            {this.returnProductDimensions()}
-                                                        </div> */}
+
                                                         <WhiteButton
                                                             runFunction={() => {
                                                                 this.modalClassToggle("show")
@@ -1436,49 +1410,10 @@ class AddProductDetails extends React.Component {
                                                             </div>
                                                             Add new size
                                                         </WhiteButton>
-                                                        {/* <div className="prodDimensionHolder">
-                                                            {this.returnProductDimensions()}
-                                                        </div> */}
+
                                                     </div>
                                                 </div>
 
-                                                {/* <div className="inputFormContainer">
-                                                    <div className="formParaSection">
-                                                        <p className="pargraphClass">Min.quantity</p>
-                                                    </div>
-                                                    <div className="ProductQuantitySection">
-                                                        <InputForm
-                                                            refName="productMinQuantity"
-                                                            placeholder="Ex. 20"
-                                                            isMandatory={true}
-                                                            validationType="onlyNumbers"
-                                                            characterCount="20"
-                                                            result={(val) => this.setState({
-                                                                productMinQuantity: val
-                                                            })}
-                                                        />
-                                                    </div>
-                                                </div> */}
-
-                                                {/* <div className="inputFormContainer">
-                                                    <div className="formParaSection">
-                                                        <p className="pargraphClass">Max.quantity</p>
-                                                    </div>
-                                                    <div className="ProductQuantitySection">
-                                                        <InputForm
-                                                            refName="productMaxQuantity"
-                                                            placeholder="Ex. 20"
-                                                            isMandatory={true}
-                                                            validationType="onlyNumbers"
-                                                            characterCount="20"
-                                                            result={(val) => this.setState({
-                                                                productMaxQuantity: val
-                                                            })}
-                                                        />
-                                                    </div>
-                                                </div> */}
-
-                                                
                                                 <div className="inputFormContainer">
                                                     <div className="formParaSection">
                                                         <p className="pargraphClass">Min. Quantity</p>
@@ -1620,8 +1555,6 @@ class AddProductDetails extends React.Component {
                             this.returnModal()
                         }
                     </div>
-
-                    
                 </div>
             </div>
         )

@@ -12,41 +12,41 @@
 }
 
 input{
-                border: none;
-                // border-bottom: 0.2em solid $black;
-                background: transparent;
-                color: $darkerGrey;
-                outline: none;
-                height: 1.5em;
-                width: 100%;
-                border-bottom: 0.2em solid $lightGrey;
-                &:focus + .InputSeparatorLine {
-                    transform: scaleX(1) translateY(-2px);   
-                      opacity: 1;
-                   }
-                   &:hover + .InputSeparatorLine{
-                    transform: scaleX(1) translateY(-2px);   
-                    opacity: 1;
-                   }
+        border: none;
+        // border-bottom: 0.2em solid $black;
+        background: transparent;
+        color: $darkerGrey;
+        outline: none;
+        height: 1.5em;
+        width: 100%;
+        border-bottom: 0.2em solid $lightGrey;
+        &:focus + .InputSeparatorLine {
+            transform: scaleX(1) translateY(-2px);   
+                opacity: 1;
             }
+            &:hover + .InputSeparatorLine{
+            transform: scaleX(1) translateY(-2px);   
+            opacity: 1;
+            }
+    }
 
-            
-            .InputSeparatorLine {
-                height:0.2em;
-                width: 100%;
-                background: $darkGrey;
-                display: block;
-                transform: scaleX(0) translateY(-2px);
-                transform-origin: 50%;
-                opacity: 0;
-                transition: all .15s $curve;
-            }
-            
-            
-            * :focus {
-                outline-color: transparent;
-                outline-style: none;
-            }
+    
+    .InputSeparatorLine {
+        height:0.2em;
+        width: 100%;
+        background: $darkGrey;
+        display: block;
+        transform: scaleX(0) translateY(-2px);
+        transform-origin: 50%;
+        opacity: 0;
+        transition: all .15s $curve;
+    }
+    
+    
+    * :focus {
+        outline-color: transparent;
+        outline-style: none;
+    }
 
 .whiteBackgroundForModal{
         width: 100%;
@@ -657,12 +657,16 @@ input{
                                         .detailsToInput{
                                             width: 100%;
                                             height: 7em;
+                                            margin: 1em 0;
                                             overflow-y: auto;
                                             .detailsInputLayer{
                                                 @include flexCentreCol;
                                                 height: 100%;
-                                                padding-right: 0.5em;
-                                                h3{
+                                                margin-top: 0.5em;
+                                                padding-right: 0.3em;
+                                                h3{ 
+                                                    display: grid;
+                                                    grid-template-columns: 1fr 1fr;
                                                     text-align: left;
                                                     color: $primaryMagenta;
                                                 }
@@ -672,6 +676,7 @@ input{
                                 }
                             }
                             .closeModalContainer{
+                                @include flexCentreRow;
                                 margin-top: 1em;
                             }
                         }
@@ -793,29 +798,6 @@ input{
                                                     }
                                                 }
 
-                                                // .productQunatityWrap{
-                                                //     @include flexCentreRow;
-                                                //     background: yellow;
-                                                //     width: 100%;
-
-                                                //         .productInputInnerLayer{
-                                                //              @include flexCentreRow;
-                                                //              width: 100%;
-                                                //         .mandatorySection{
-                                                //             p{
-
-                                                //             }
-                                                //         }
-                                                //         .inputColumn{
-                                                //             .numberInputSection{
-                                                //                 .plusAndMinusWrap{}
-                                                //                 .numberSection{}
-                                                //                 .plusAndMinusWrap{}
-                                                //             }
-                                                //           }
-                                                //         }
-   
-                                                // }
 
                                                 .productInputInfoSection{
                                                     @include flexCentreRow;
