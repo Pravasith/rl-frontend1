@@ -671,6 +671,8 @@ class ProfileDetailsVendor extends React.Component {
 
     proceedHandler = async () => {
 
+        const { gstIn } =  this.state
+
         const fieldNames =  [
             {fieldName: 'first name', value: this.state.firstName},
             {fieldName: 'last name', value: this.state.lastName },
@@ -1184,9 +1186,8 @@ class ProfileDetailsVendor extends React.Component {
                                                             result={val => this.updateVendorData("companyDescriptionLine2", val)}
                                                         />
                                                     </div>
-
-                                                    </div>
                                                 </div>
+                                            </div>
 
                                             <div 
                                                 className="formInputContainer"
@@ -1308,7 +1309,6 @@ class ProfileDetailsVendor extends React.Component {
                                                                     ref="gstIn1"
                                                                     onKeyUp={(e) => this.noSpaces(e)}
                                                                     onChange={(event) =>this.onChangeGST(event, "gstIn2")}
-                                                                    
                                                                 />
                                                                 <span className="InputSeparatorLine"> </span>
                                                             </div>
@@ -1348,6 +1348,7 @@ class ProfileDetailsVendor extends React.Component {
                                                             </div>
 
                                                             <p>-</p>
+
                                                             <div className="inputColumn inputColumn1">
                                                                 <input
                                                                     type="text"
@@ -1362,8 +1363,6 @@ class ProfileDetailsVendor extends React.Component {
                                                                 />
                                                                 <span className="InputSeparatorLine"> </span>
                                                             </div>
-                                                                
-                                                  
 
                                                             <p>-</p>
 
