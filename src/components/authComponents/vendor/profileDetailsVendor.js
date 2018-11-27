@@ -10,7 +10,7 @@ import LogoAnimation from "../../animations/logoAnimation"
 import statesAndCities from "../../../lib/statesAndCities"
 
 import { TableIcon, MinusImageIcon, PlusImageIcon,BigCloseButton,ErrorMsgSign, UploadImageIcon } from "../../../assets/images"
-import { GradientButton, InputForm, WhiteButton } from "../../UX/uxComponents"
+import { GradientButton, InputForm, RadioButton, WhiteButton } from "../../UX/uxComponents"
 
 import Navbar from "../../navbar/navbar"
 import { Footer } from "../../footer/footer"
@@ -42,6 +42,7 @@ class ProfileDetailsVendor extends React.Component {
 
             yearCount: 0,
             monthCount: 0,
+            experienceCount: '',
 
             // state of chechAnswered
             // inputCountOne: 0,
@@ -53,6 +54,41 @@ class ProfileDetailsVendor extends React.Component {
             // inputCountSeven: 0,
             // inputCountEight: 0,
             // inputCountNine: 0,
+
+            expOptions: [
+                {
+                    id: 1,
+                    value: "0-1"
+                },
+                {
+                    id: 2,
+                    value: "1-2"
+                },
+                {
+                    id: 3,
+                    value: "2-5"
+                },
+                {
+                    id: 4,
+                    value: "5-10"
+                },
+                {
+                    id: 5,
+                    value: "10-15"
+                },
+                {
+                    id: 6,
+                    value: "15-20"
+                },
+                {
+                    id: 7,
+                    value: "20-30"
+                },
+                {
+                    id: 8,
+                    value: "30+"
+                }
+            ],
 
             emptyField: [],
 
@@ -121,7 +157,7 @@ class ProfileDetailsVendor extends React.Component {
 
                             // console.log("GSTIN STATE", gstInState)
 
-                            // console.log(decryptedData)
+                            console.log(decryptedData)
 
                             this.setState({
 
@@ -138,8 +174,9 @@ class ProfileDetailsVendor extends React.Component {
                                 companyDescriptionLine1: decryptedData.companyDescriptionLine1,
                                 companyDescriptionLine2: decryptedData.companyDescriptionLine2,
 
-                                yearCount: decryptedData.experience.years,
-                                monthCount: decryptedData.experience.months,
+                                // yearCount: decryptedData.experience.years,
+                                // monthCount: decryptedData.experience.months,
+                                experienceCount: decryptedData.experience.years,
 
                                 gstIn: decryptedData.GSTIN,
                                 pan: decryptedData.PAN,
@@ -156,37 +193,37 @@ class ProfileDetailsVendor extends React.Component {
             
     }
 
-    decreaseValue = (yearOrMonth) => {
-        if (yearOrMonth === "year" && this.state.yearCount > 0){
-            this.updateVendorData("experience.years", this.state.yearCount - 1)
-            this.setState({
-                yearCount : this.state.yearCount - 1
-            })
-        }
+    // decreaseValue = (yearOrMonth) => {
+    //     if (yearOrMonth === "year" && this.state.yearCount > 0){
+    //         this.updateVendorData("experience.years", this.state.yearCount - 1)
+    //         this.setState({
+    //             yearCount : this.state.yearCount - 1
+    //         })
+    //     }
 
-        if (yearOrMonth === "month" && this.state.monthCount > 0) {
-            this.updateVendorData("experience.months", this.state.monthCount - 1)
-            this.setState({
-                monthCount: this.state.monthCount - 1
-            })
-        }
-    }
+    //     if (yearOrMonth === "month" && this.state.monthCount > 0) {
+    //         this.updateVendorData("experience.months", this.state.monthCount - 1)
+    //         this.setState({
+    //             monthCount: this.state.monthCount - 1
+    //         })
+    //     }
+    // }
 
-    increaseValue = (yearOrMonth) => {
-        if (yearOrMonth === "year" && this.state.yearCount < 100) {
-            this.updateVendorData("experience.years", this.state.yearCount + 1)
-            this.setState({
-                yearCount: this.state.yearCount + 1
-            })
-        }
+    // increaseValue = (yearOrMonth) => {
+    //     if (yearOrMonth === "year" && this.state.yearCount < 100) {
+    //         this.updateVendorData("experience.years", this.state.yearCount + 1)
+    //         this.setState({
+    //             yearCount: this.state.yearCount + 1
+    //         })
+    //     }
 
-        if (yearOrMonth === "month" && this.state.monthCount < 12) {
-            this.updateVendorData("experience.months", this.state.monthCount + 1)
-            this.setState({
-                monthCount: this.state.monthCount + 1
-            })
-        }
-    }
+    //     if (yearOrMonth === "month" && this.state.monthCount < 12) {
+    //         this.updateVendorData("experience.months", this.state.monthCount + 1)
+    //         this.setState({
+    //             monthCount: this.state.monthCount + 1
+    //         })
+    //     }
+    // }
 
     // my code for checking answered questions
     // checkAnsweredOne = () => {
@@ -576,8 +613,6 @@ class ProfileDetailsVendor extends React.Component {
 
                     companyName: decryptedData.companyName,
 
-                    // hNo: decryptedData.address.hNo,
-                    // stNo: decryptedData.address.stNo,
                     detailedAddressLine1: decryptedData.address.detailedAddressLine1,
                     detailedAddressLine2: decryptedData.address.detailedAddressLine2,
                     state: decryptedData.address.state,
@@ -587,8 +622,7 @@ class ProfileDetailsVendor extends React.Component {
                     companyDescriptionLine1: decryptedData.companyDescriptionLine1,
                     companyDescriptionLine2: decryptedData.companyDescriptionLine2,
 
-                    yearCount: decryptedData.experience.years,
-                    monthCount: decryptedData.experience.months,
+                    experienceCount: decryptedData.experience.years,
 
                     gstIn: decryptedData.GSTIN,
                     pan: decryptedData.PAN,
@@ -628,36 +662,35 @@ class ProfileDetailsVendor extends React.Component {
         
     }
 
+    handleRadiobutton = (e) => {
+        const val = e.target.value;
+
+        this.updateVendorData("experience.years", val)
+        this.setState({ experienceCount: e.target.value })
+    }
 
     proceedHandler = async () => {
 
-        const {gstIn, gstIn1, gstIn2, gstIn3, gstIn4, gstIn5} = this.state
-
-        
+        const { gstIn } =  this.state
 
         const fieldNames =  [
-            {fieldName: 'first name', value: this.state.firstName},
-            {fieldName: 'last name', value: this.state.lastName },
-            {fieldName: 'mobile number', value: this.state.mobileNo },
-            {fieldName: 'company name', value: this.state.companyName },
-            {fieldName: "your company address", value: this.state.detailedAddressLine1 },
-            {fieldName: 'state', value: this.state.state },
-            {fieldName: 'city', value: this.state.city },
-            {fieldName: 'pincode', value: this.state.pincode },
-            {fieldName: 'description about your company', value: this.state.companyDescriptionLine1 },
-            {fieldName: 'experience years', value: this.state.yearCount },
-            {
-                fieldName: "your company's GST identification number",
-                value: gstIn
-                    // gstIn1 + "-" +
-                    // gstIn2 + "-" +
-                    // gstIn3 + "-" +
-                    // gstIn4 + "-" +
-                    // gstIn5 
-            },
-            {fieldName: "your company's PAN number", value: this.state.pan },
-            {fieldName: "your company's logo", value: this.state.companyProfilePicture }
+            { fieldName: 'first name', value: this.state.firstName },
+            { fieldName: 'last name', value: this.state.lastName },
+            { fieldName: 'mobile number', value: this.state.mobileNo },
+            { fieldName: 'company name', value: this.state.companyName }, 
+            { fieldName: "your company address", value: this.state.detailedAddressLine1 },
+            { fieldName: 'state', value: this.state.state },
+            { fieldName: 'city', value: this.state.city },
+            { fieldName: 'pincode', value: this.state.pincode },
+            { fieldName: 'description about your company', value: this.state.companyDescriptionLine1 },
+            { fieldName: 'your experience in the industry', value: this.state.experienceCount },
+            { fieldName: "your company's GST identification number", value: this.state.gstIn },
+            { fieldName: "your company's PAN number", value: this.state.pan },
+            { fieldName: "your company's logo", value: this.state.companyProfilePicture }
         ]
+
+
+        console.log(fieldNames)
 
 
         await this.setState({
@@ -667,16 +700,9 @@ class ProfileDetailsVendor extends React.Component {
         fieldNames.map(item => {
             // console.log(item.fieldName, item.value)
             if (item.value === null || item.value === "" || item.value === 0 || item.value === undefined) {
-                if (item.fieldName !== "experience years")
                 if(!this.state.emptyField.includes(item.fieldName))
                         this.state.emptyField.push(item.fieldName)
             }
-            // else if (item.value === null || item.value === "" || item.value !== 0 || item.value === undefined){
-            //     if (item.fieldName === "experience years"){
-            //         if (!this.state.emptyField.includes(item.fieldName))
-            //             this.state.emptyField.push(item.fieldName)
-            //     }
-            // }
         })
 
         this.setState({
@@ -705,8 +731,7 @@ class ProfileDetailsVendor extends React.Component {
                 companyDescriptionLine1: this.state.companyDescriptionLine1,
                 companyDescriptionLine2: this.state.companyDescriptionLine2,
                 experience : {
-                    years : this.state.yearCount,
-                    months :this.state.monthCount,
+                    years : this.state.experienceCount,
                 },
                 GSTIN : this.state.gstIn.toUpperCase(),
                 PAN: this.state.pan.toUpperCase(),
@@ -939,8 +964,7 @@ class ProfileDetailsVendor extends React.Component {
                                                 <div className="formInputInnerLayer">
                                                         <div className="formParaSection">
                                                             <h3> 2 </h3>
-
-                                                                <p> What should we call your company as? </p>
+                                                            <p> What should we call your company as? </p>
                                                         </div>
 
                                                         <div className="companyNameWrap">
@@ -950,7 +974,7 @@ class ProfileDetailsVendor extends React.Component {
                                                                 isMandatory={true}
                                                                 validationType="alphabetsSpecialCharactersAndNumbers"
                                                                 characterCount="50"
-                                                                value={this.state.companyName ? this.state.companyName : null}
+                                                                value={this.state.companyName}
                                                                 result={(val) => this.updateVendorData("companyName", val)}
                                                             />
                                                         </div>
@@ -1154,9 +1178,8 @@ class ProfileDetailsVendor extends React.Component {
                                                             result={val => this.updateVendorData("companyDescriptionLine2", val)}
                                                         />
                                                     </div>
-
-                                                    </div>
                                                 </div>
+                                            </div>
 
                                             <div 
                                                 className="formInputContainer"
@@ -1167,8 +1190,25 @@ class ProfileDetailsVendor extends React.Component {
                                                         <h3>6</h3>
                                                         <p>How long have you been in this industry?</p>
                                                     </div>
+                                                    <div className="experienceSection inputCategorySection">
+                                                        <div className="mandatorySection">
+                                                            <p>Mandatory</p>
+                                                        </div>
+                                                        <div className="radioButtonSelection">
+                                                            <div className="radioButtonSelectionInnerLayer">
+                                                                <RadioButton
+                                                                    title="Testing"
+                                                                    name={'experience'}
+                                                                    options={this.state.expOptions}
+                                                                    selectedOption={this.state.experienceCount}
+                                                                    onChange={this.handleRadiobutton}
+                                                                />
+                                                            </div>
+                                                        </div>  
+                                                    </div>
 
-                                                        <div className="industryTimeWrap">
+                                                        
+                                                        {/* <div className="industryTimeWrap">
                                                             <div className="timeWrap inputCategorySection">
                                                                 <div className="mandatorySection">
                                                                     <p>Mandatory</p>
@@ -1202,9 +1242,6 @@ class ProfileDetailsVendor extends React.Component {
                                                             </div>
 
                                                             <div className="timeWrap inputCategorySection">
-                                                                {/* <div className="monthsMandatory mandatorySection">
-                                                                    
-                                                                </div> */}
 
                                                                 <div className="inputColumn monthsColumn">
                                                                     <div className="numberInputSection inputColumnInnerLayer">
@@ -1234,7 +1271,7 @@ class ProfileDetailsVendor extends React.Component {
 
                                                             </div>
 
-                                                        </div>
+                                                        </div> */}
 
                                                     </div>
                                                 </div>
@@ -1264,7 +1301,6 @@ class ProfileDetailsVendor extends React.Component {
                                                                     ref="gstIn1"
                                                                     onKeyUp={(e) => this.noSpaces(e)}
                                                                     onChange={(event) =>this.onChangeGST(event, "gstIn2")}
-                                                                    
                                                                 />
                                                                 <span className="InputSeparatorLine"> </span>
                                                             </div>
@@ -1304,6 +1340,7 @@ class ProfileDetailsVendor extends React.Component {
                                                             </div>
 
                                                             <p>-</p>
+
                                                             <div className="inputColumn inputColumn1">
                                                                 <input
                                                                     type="text"
@@ -1318,8 +1355,6 @@ class ProfileDetailsVendor extends React.Component {
                                                                 />
                                                                 <span className="InputSeparatorLine"> </span>
                                                             </div>
-                                                                
-                                                  
 
                                                             <p>-</p>
 

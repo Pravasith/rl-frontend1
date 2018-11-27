@@ -811,10 +811,14 @@ input{
             position: fixed;
             bottom: 0;
         }
-        }
+    }
+
+    .hide{
+        display: none;
+    }
 
         
-    }
+}
 
     .hide{
         display: none;

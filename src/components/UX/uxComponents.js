@@ -326,4 +326,30 @@ export const SelectList = (props) => {
     )
 }
 
+export const RadioButton = (props) => {
+    // console.log(props)
+    return (
+        <div className="radio-outline">
+            <div className="radio-mid">
+                {props.options.map(option => {
+                    // console.log(option)
+                    return (
+                        <label key={option.id} className="radio-inline">
+                            <input
+                                id={option.id}
+                                name={props.name}
+                                onChange={props.onChange}
+                                value={option.value}
+                                checked={props.selectedOption ? props.selectedOption.indexOf(option.value) > -1 : false}
+                                type="radio" 
+                            />
+                            <span className ="checkmark"></span>
+                            <p>{option.value} years</p>
+                        </label>
+                    );
+                })}
+            </div>
+        </div>
+    );
+}
 

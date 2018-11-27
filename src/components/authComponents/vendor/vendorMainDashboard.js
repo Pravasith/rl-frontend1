@@ -494,9 +494,9 @@ class VendorMainDashboard extends React.Component {
                                 <div className="inputCategoryValue">
                                     <div className="categoryCheckBox">
                                         <div className="categoryCheckBoxInnerLayer">
-                                            <label class="container">
+                                            <label className="container">
                                                 <input type="checkbox"/>
-                                                <span class="checkmark"></span>
+                                                <span className="checkmark"></span>
                                             </label>
                                         </div>
                                     </div> 
