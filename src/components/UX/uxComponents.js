@@ -144,8 +144,6 @@ export class InputForm extends React.Component {
         else if (validationType === "onlyNumbers") {
             const val = e.target.value
 
-            // console.log(val)
-
             this.setState({
                 charCount: Number(this.props.characterCount) - val.length
             })
