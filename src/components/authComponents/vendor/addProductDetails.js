@@ -48,8 +48,8 @@ class AddProductDetails extends React.Component {
             modalSize: "modalSizeClass",
             // dynamincally toggle classes to flip styles //
 
-            minQuantityPara: "minQuantityPara hide",
-            maxQuantityPara: "maxQuantityPara hide",
+            // minQuantityPara: "minQuantityPara hide",
+            // maxQuantityPara: "maxQuantityPara hide",
 
             modalType : null,
             tempArr: [],
@@ -62,8 +62,8 @@ class AddProductDetails extends React.Component {
 
             colorArray: [],
 
-            productMinQuantity: '',
-            productMaxQuantity: '',
+            // productMinQuantity: undefined,
+            // productMaxQuantity: undefined,
 
             productDimensions: [],
 
@@ -74,7 +74,7 @@ class AddProductDetails extends React.Component {
     }
 
     // componentDidUpdate() {
-    //     console.log(this.state.productDimensions)
+    //     console.log(this.state.productMinQuantity)
     // }
 
 
@@ -345,7 +345,7 @@ class AddProductDetails extends React.Component {
     }
 
     returnColorModule = () => {
-            console.log(this.state.colorArray)
+            // console.log(this.state.colorArray)
         return (
             this.state.colorArray
             .map((item, i) => {
@@ -502,26 +502,26 @@ class AddProductDetails extends React.Component {
         }
     }
 
-    handleQuantity = async (e, minOrMax) => {
+    // handleQuantity = async (e, minOrMax) => {
 
-        if (minOrMax === "min") {
-            const productMinQuantity = (e.target.validity.valid) ? e.target.value : this.state.productMinQuantity;
+    //     if (minOrMax === "min") {
+    //         const productMinQuantity = (e.target.validity.valid) ? e.target.value : this.state.productMinQuantity;
 
-            await this.setState({ productMinQuantity });
+    //         await this.setState({ productMinQuantity });
 
-            if (this.state.productMinQuantity === "") await this.setState({ minQuantityPara: "minQuantityPara" });
-            else this.setState({ minQuantityPara: "minQuantityPara hide" });
-        }
+    //         if (this.state.productMinQuantity === "") await this.setState({ minQuantityPara: "minQuantityPara" });
+    //         else this.setState({ minQuantityPara: "minQuantityPara hide" });
+    //     }
 
-        else if (minOrMax === "max") {
-            const productMaxQuantity = (e.target.validity.valid) ? e.target.value : this.state.productMaxQuantity;
+    //     else if (minOrMax === "max") {
+    //         const productMaxQuantity = (e.target.validity.valid) ? e.target.value : this.state.productMaxQuantity;
 
-            await this.setState({ productMaxQuantity });
+    //         await this.setState({ productMaxQuantity });
 
-            if (this.state.productMaxQuantity === "") this.setState({ maxQuantityPara: "maxQuantityPara" });
-            else this.setState({ maxQuantityPara: "maxQuantityPara hide" });
-        }
-    }
+    //         if (this.state.productMaxQuantity === "") this.setState({ maxQuantityPara: "maxQuantityPara" });
+    //         else this.setState({ maxQuantityPara: "maxQuantityPara hide" });
+    //     }
+    // }
 
     proceedHandler = (typeOfButtonClicked) => {
 
@@ -670,7 +670,7 @@ class AddProductDetails extends React.Component {
                     colorIsValid: true,
                     emptyFieldInColor: null,
                     modalType: null,
-                    colorArray: this.state.colorArray.length !== 0 ? this.state.colorArray : null
+                    colorArray: this.state.colorArray.length !== 0 ? this.state.colorArray : []
                 })
 
                 // save data
@@ -940,7 +940,6 @@ class AddProductDetails extends React.Component {
                                                 type="text"
                                                 name="sizeName"
                                                 placeholder="Ex. Small-2ft x 2ft"
-                                                // value={this.state.sizeName}
                                                 onChange={this.onChange}
                                                 ref="sizeName"
                                             />
@@ -972,7 +971,6 @@ class AddProductDetails extends React.Component {
                                                 type="text"
                                                 name="sizeCost"
                                                 placeholder="Ex. 20"
-                                                // value={this.state.sizeCost}
                                                 onChange={this.onChange}
                                                 ref="sizeCost"
                                             />
@@ -1076,6 +1074,9 @@ class AddProductDetails extends React.Component {
            { fieldName: 'Product Code', value: this.state.productCode },
            { fieldName: 'Best price of this product', value: this.state.productPrice },
            { fieldName: 'Material', value: this.state.productMaterial },
+        //    { fieldName: 'Finishing Otpions', value: this.state.finishArray },
+           { fieldName: 'Color Options', value: this.state.colorArray },
+           { fieldName: 'Sizes Available', value: this.state.productDimensions },
            { fieldName: 'Min. quantity', value: this.state.productMinQuantity},
            { fieldName: 'Max. quantity', value: this.state.productMaxQuantity }
        ]
@@ -1085,8 +1086,8 @@ class AddProductDetails extends React.Component {
        })
 
        fieldNames.map(item => {
-        //    console.log(item.fieldName, item.value)
-           if (item.value === undefined || item.value === "") {
+           console.log(item.fieldName, typeof(item.value))
+           if (item.value === undefined || item.value === null || item.value.length === 0) {
             //    console.log(`${item.fieldName} is in-valid`)
                if (!this.state.emptyField.includes(item.fieldName))
                    this.state.emptyField.push(item.fieldName)
@@ -1255,11 +1256,13 @@ class AddProductDetails extends React.Component {
                                                             refName="productPrice"
                                                             placeholder="Type here (in Rupees)"
                                                             isMandatory={true}
-                                                            validationType="alphabetsSpecialCharactersAndNumbers"
+                                                            validationType="onlyNumbers"
                                                             characterCount="30"
-                                                            result={(val) => this.setState({
-                                                                productPrice: val
-                                                            })}
+                                                            result={(val) => {
+                                                                this.setState({
+                                                                    productPrice: val
+                                                                })
+                                                            }}
                                                         />
                                                     </div>
                                                 </div>
@@ -1445,32 +1448,33 @@ class AddProductDetails extends React.Component {
                                                     </div>
                                                 </div>
 
-                                                {/* <div className="inputFormContainer">
+                                                <div className="inputFormContainer">
                                                     <div className="formParaSection">
                                                         <p className="pargraphClass">Min.quantity</p>
                                                     </div>
                                                     <div className="ProductQuantitySection">
                                                         <InputForm
                                                             refName="productMinQuantity"
-                                                            placeholder="Ex. 20"
+                                                            placeholder="Ex. 5"
                                                             isMandatory={true}
                                                             validationType="onlyNumbers"
                                                             characterCount="20"
+                                                            value={this.state.productMinQuantity ? this.state.productMinQuantity : null}
                                                             result={(val) => this.setState({
                                                                 productMinQuantity: val
                                                             })}
                                                         />
                                                     </div>
-                                                </div> */}
+                                                </div> 
 
-                                                {/* <div className="inputFormContainer">
+                                                <div className="inputFormContainer">
                                                     <div className="formParaSection">
                                                         <p className="pargraphClass">Max.quantity</p>
                                                     </div>
                                                     <div className="ProductQuantitySection">
                                                         <InputForm
                                                             refName="productMaxQuantity"
-                                                            placeholder="Ex. 20"
+                                                            placeholder="Ex. 99999"
                                                             isMandatory={true}
                                                             validationType="onlyNumbers"
                                                             characterCount="20"
@@ -1479,10 +1483,10 @@ class AddProductDetails extends React.Component {
                                                             })}
                                                         />
                                                     </div>
-                                                </div> */}
+                                                </div>
 
                                                 
-                                                <div className="inputFormContainer">
+                                                {/* <div className="inputFormContainer">
                                                     <div className="formParaSection">
                                                         <p className="pargraphClass">Min. Quantity</p>
                                                     </div>
@@ -1544,7 +1548,7 @@ class AddProductDetails extends React.Component {
                                                             
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> */}
 
                                                 <div className="inputFormContainer">
                                                     <div className="formParaSection">

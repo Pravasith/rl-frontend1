@@ -141,7 +141,7 @@ export class InputForm extends React.Component {
         }
 
 
-        else if (validationType === "onlyNumbers") {
+        else if (validationType === "onlyMobileNumbers") {
             const val = e.target.value
 
             this.setState({
@@ -188,6 +188,67 @@ export class InputForm extends React.Component {
 
 
             if (val.length === Number(this.props.characterCount) && /^[0-9]+$/.test(val)) {
+                this.setState({
+                    warningText: null,
+                    warningClass: "warningClass hide",
+                    fieldIsValid: true,
+                })
+
+                this
+                    .props
+                    .result(val)
+            }
+
+
+        }
+
+        else if (validationType === "onlyNumbers") {
+            const val = e.target.value
+
+            this.setState({
+                charCount: Number(this.props.characterCount) - val.length
+            })
+
+            // if (this.props.isMandatory)
+            // if (val.length !== Number(this.props.characterCount)) {
+            //     this.setState({
+            //         warningText: "Remember, the number has to be valid",
+            //         warningClass: "warningClass",
+            //         fieldIsValid: false,
+            //     })
+            // }
+
+
+            if (!/^[0-9]+$/.test(val)) {
+                this.setState({
+                    warningText: "Numbers only",
+                    warningClass: "warningClass",
+                    fieldIsValid: false,
+                })
+            }
+
+            if (this.props.isMandatory)
+                if (val.length === 0) {
+                    this.setState({
+                        warningText: "This information is required",
+                        warningClass: "warningClass",
+                        fieldIsValid: false,
+                    })
+                }
+
+
+            if (!this.props.isMandatory)
+                if (val.length === 0) {
+                    this.setState({
+                        warningText: null,
+                        warningClass: "warningClass hide",
+                        fieldIsValid: true,
+                    })
+                }
+
+
+
+            if (val.length !== 0 && /^[0-9]+$/.test(val)) {
                 this.setState({
                     warningText: null,
                     warningClass: "warningClass hide",

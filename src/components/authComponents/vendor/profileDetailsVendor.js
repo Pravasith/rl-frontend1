@@ -688,7 +688,7 @@ class ProfileDetailsVendor extends React.Component {
         ]
 
 
-        console.log(fieldNames)
+        // console.log(fieldNames)
 
 
         await this.setState({
@@ -696,7 +696,7 @@ class ProfileDetailsVendor extends React.Component {
         })
 
         fieldNames.map(item => {
-            // console.log(item.fieldName, item.value)
+            console.log(item.fieldName, typeof(item.value))
             if (item.value === null || item.value === "" || item.value === 0 || item.value === undefined) {
                 if(!this.state.emptyField.includes(item.fieldName))
                         this.state.emptyField.push(item.fieldName)
@@ -782,7 +782,7 @@ class ProfileDetailsVendor extends React.Component {
 
                     // console.log(decryptedVendorData)
 
-                    window.open("/vendor-main-dashboard", "_self")
+                    // window.open("/vendor-main-dashboard", "_self")
                 })
                 .catch (e => console.error(e))
 
@@ -1000,7 +1000,7 @@ class ProfileDetailsVendor extends React.Component {
                                                                 refName="phoneNo"
                                                                 placeholder="10 digit Official contact number"
                                                                 isMandatory={true}
-                                                                validationType="onlyNumbers"
+                                                                validationType="onlyMobileNumbers"
                                                                 characterCount="10"
                                                                 value={
                                                                     this.state.mobileNo
@@ -1016,7 +1016,7 @@ class ProfileDetailsVendor extends React.Component {
                                                                 refName="whatsappNo"
                                                                 placeholder="10 digit Whatsapp number"
                                                                 isMandatory={false}
-                                                                validationType="onlyNumbers"
+                                                                validationType="onlyMobileNumbers"
                                                                 characterCount="10"
                                                                 value={
                                                                     this.state.whatsappNo
@@ -1136,10 +1136,13 @@ class ProfileDetailsVendor extends React.Component {
                                                                 refName="Pincode"
                                                                 placeholder="Pincode"
                                                                 isMandatory={true}
-                                                                validationType="onlyNumbers"
+                                                                validationType="onlyMobileNumbers"
                                                                 characterCount="6"
                                                                 value={this.state.pincode ? this.state.pincode : null}
-                                                                result={val => this.updateVendorData("address.pincode", val)}
+                                                                result={val => {
+                                                                    // console.log(typeof(val))
+                                                                    this.updateVendorData("address.pincode", val)
+                                                                }}
                                                             />
                                                         </div>
 
