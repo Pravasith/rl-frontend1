@@ -11,7 +11,7 @@ import { getUserData } from "../../../actions/userActions"
 import { decryptData } from "../../../factories/encryptDecrypt";
 import { Footer } from "../../footer/footer"
 
-import { CloseButton, LogoLoadingAnimation } from "../../../assets/images"
+import { CloseButton, LogoLoadingAnimation, BigAnimatedCloseButton } from "../../../assets/images"
 import { WhiteArrowLeft, WhiteArrowRight, UploadImageIcon, PlusButtonIconWhite, AddNewProduct, VendorGraphic, ArrowMarkLong, BigCloseButton, SmallCloseButton } from "../../../assets/images";
 import LogoAnimation from "../../animations/logoAnimation";
 import { GradientButton, InputForm, SelectList, WhiteButton } from "../../UX/uxComponents";

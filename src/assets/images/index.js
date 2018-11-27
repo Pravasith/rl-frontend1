@@ -1,5 +1,6 @@
 
 import "../sass/images.scss"
+import { TimelineLite, TweenMax, Elastic } from "gsap";
 
 export const LogoLoadingAnimation = () => {
     return (

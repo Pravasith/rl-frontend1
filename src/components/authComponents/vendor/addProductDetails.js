@@ -888,7 +888,7 @@ class AddProductDetails extends React.Component {
                                             <input
                                                 type="text"
                                                 name="sizeName"
-                                                placeholder="Ex. Small-2ft x 2ft"
+                                                placeholder="Ex. Small / Extralarge / 2ftx3ft / any custon name"
                                                 // value={this.state.sizeName}
                                                 onChange={this.onChange}
                                                 ref="sizeName"
@@ -1023,7 +1023,7 @@ class AddProductDetails extends React.Component {
        const fieldNames = [
            { fieldName: 'Product Name', value: this.state.productName },
            { fieldName: 'Product Code', value: this.state.productCode },
-           { fieldName: 'Best price of this product', value: this.state.productPrice },
+           { fieldName: 'Base price of this product', value: this.state.productPrice },
            { fieldName: 'Material', value: this.state.productMaterial },
            { fieldName: 'Min. quantity', value: this.state.productMinQuantity},
            { fieldName: 'Max. quantity', value: this.state.productMaxQuantity }
@@ -1197,7 +1197,7 @@ class AddProductDetails extends React.Component {
 
                                                 <div className="inputFormContainer">
                                                     <div className="formParaSection">
-                                                        <p className="pargraphClass">Best price of this product</p>
+                                                        <p className="pargraphClass">Base price of this product</p>
                                                     </div>
                                                     <div className="PricingSection">
                                                         <InputForm

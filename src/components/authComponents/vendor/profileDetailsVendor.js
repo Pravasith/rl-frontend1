@@ -633,7 +633,7 @@ class ProfileDetailsVendor extends React.Component {
 
         const {gstIn, gstIn1, gstIn2, gstIn3, gstIn4, gstIn5} = this.state
 
-        // console.log(gstIn1)
+        
 
         const fieldNames =  [
             {fieldName: 'first name', value: this.state.firstName},
