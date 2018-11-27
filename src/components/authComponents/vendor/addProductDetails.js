@@ -360,6 +360,13 @@ class AddProductDetails extends React.Component {
                                 style = {{background : item.colorCode}}
                             >
                                 <p>{item.colorCode}</p>
+                                <div className="closeButtonContainer"
+                                    onClick={() => {
+                                        this.removeColor()
+                                    }}
+                                >
+                                    <SmallCloseButton />
+                                </div>
                             </div>
                         </div>
                     </div>
