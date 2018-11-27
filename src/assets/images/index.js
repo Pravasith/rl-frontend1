@@ -588,6 +588,21 @@ export const BigCloseButton = () => {
         
 }
 
+export const ModalCloseButton = () => {
+
+    return (
+        <svg id="bigCloseButton" xmlns="http://www.w3.org/2000/svg" width="27.333" height="40"
+        viewBox="0 0 24.333 24.333">
+            <g fill="none" stroke="#4D4D4D" strokeWidth="2" strokeLinecap="round"
+            strokeLinejoin="round" strokeMiterlimit="10">
+                <line x1="22.764" y1="1.798" x2="1.568" y2="23" />
+                <line x1="22.764" y1="23" x2="1.568" y2="1.798" />
+            </g>
+        </svg>
+    )
+        
+}
+
 export const SmallCloseButton = () => {
 
     return (
