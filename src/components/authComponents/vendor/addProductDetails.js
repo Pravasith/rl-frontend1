@@ -344,6 +344,30 @@ class AddProductDetails extends React.Component {
         )
     }
 
+    returnColorModule = () => {
+            console.log(this.state.colorArray)
+        return (
+            this.state.colorArray
+            .map((item, i) => {
+                return (
+                    <div
+                        className="colorDescriptionOuterLayer"
+                        key={i}
+                    >
+                        <div className="colorDescriptionInnerLayer">
+                            <div 
+                                className="colorDetails"
+                                style = {{background : item.colorCode}}
+                            >
+                                <p>{item.colorCode}</p>
+                            </div>
+                        </div>
+                    </div>
+                )
+            })
+        )
+    }
+        
     returnProductDimensions = () => {
         return (
             this
@@ -419,7 +443,14 @@ class AddProductDetails extends React.Component {
         this.setState({
             productDimensions: this.state.productDimensions.length !== 0 ? this.state.productDimensions : []
         })
+    }
 
+    removeColor = (index) => {
+        this.state.colorArray.splice(index, 1)
+
+        this.setState({
+            colorArray: this.state.colorArray.length !== 0 ? this.state.colorArray : []
+        })
     }
 
     displayError = (modalType, message) => {
@@ -539,7 +570,7 @@ class AddProductDetails extends React.Component {
                         else if(colorDoesntExist === false){
                             isColorValid = false
                             emptyField = "colorCode"
-                            errorMessage = `You have already entered this color code with the name ${alreadyExistingColorName}`
+                            errorMessage = `You have already entered this color code with the name "${alreadyExistingColorName}"`
                         }
                     }                
                 }
@@ -612,20 +643,33 @@ class AddProductDetails extends React.Component {
             let validatedData = validateColorModal(colorName, colorCode)
 
             if(validatedData.isColorValid){
+
+                // let temp = {
+                //     colorCode: this.state.colorCode,
+                //     colorName: this.state.colorName
+                // }
+
+                // console.log("temp:", temp);
+
+                // if (temp !== "") {
+                //     let dummyColorArray = [...this.state.colorArray]
+
+                //     if (!dummyColorArray.includes(temp)) {
+                //         this.state.colorArray.push(temp)
+                //     }
+                // }
                 
                 this.setState({
                     colorIsValid: true,
-                    emptyFieldInColor: null
+                    emptyFieldInColor: null,
+                    modalType: null,
+                    colorArray: this.state.colorArray.length !== 0 ? this.state.colorArray : null
                 })
 
                 // save data
 
                 this.refs.colorCode.value = ""
                 this.refs.colorName.value = ""
-
-                this.setState({
-                    modalType : null
-                })
 
                 this.modalClassToggle("dontShow")
             }
@@ -1309,12 +1353,13 @@ class AddProductDetails extends React.Component {
                                                     </div>
 
                                                     <div className="colorVariantSliderContainer">
-                                                        <HtmlSlider
+                                                        {/* <HtmlSlider
                                                             categoryData={this.returnVariationColors()} // format of Item 
                                                             numberOfSlides={4} // Change the css grid properties for responsiveness
                                                             textOnRibbon={"TRENDING NOW"} // All caps
                                                             runFunction={(data) => this.getData(data)}
-                                                        />
+                                                        /> */}
+                                                        {this.returnColorModule()}
                                                     </div>
 
                                                     <div className="buttonContainer">
