@@ -60,6 +60,8 @@ class AddProductDetails extends React.Component {
             sizeName: '',
             sizeCost: '',
 
+            colorArray: [],
+
             productMinQuantity: '',
             productMaxQuantity: '',
 
@@ -248,9 +250,6 @@ class AddProductDetails extends React.Component {
             // console.log(this.state.productName)
     }
 
-    // componentDidUpdate() {
-    //     console.log(this.state.productName)
-    // }
 
     returnNavBarData = () => {
         if (this.props.userData.responseData) {
@@ -409,8 +408,6 @@ class AddProductDetails extends React.Component {
         this.refs.sizeName.value = sizeName
         this.refs.sizeCost.value = sizeCost
 
-        
-
     }
 
     removeProductDimensions = (index) => {
@@ -425,13 +422,32 @@ class AddProductDetails extends React.Component {
 
     }
 
-
-    displayError = (modalType) => {
+    displayError = (modalType, message) => {
         if (modalType === "color") {
             if(this.state.colorIsValid === false){
+
+                const {emptyFieldInColor} = this.state
+ 
+                const  returnError = () => {
+                    if(emptyFieldInColor === "colorName"){
+                        return <p>{this.state.errorMessage}</p>
+                    }
+
+                    else if(emptyFieldInColor === "colorCode"){
+                        return (
+                            <p>{this.state.errorMessage}</p>
+                        )
+                    }
+
+                    else{
+                        return <p>Oops, something is not right, please reload and try again</p>
+                    }
+                }
+
+
                 return (
                     <div className="errorMessage">
-                        <p>Please enter the {this.state.emptyFieldInColor === "colorName" ? "color name" : "color code" }</p>
+                        {returnError()}
                     </div>
                 )
             }
@@ -447,34 +463,6 @@ class AddProductDetails extends React.Component {
             }
         }
     }
-
-    // decreaseValue = (minOrMax) => {
-    //     if (minOrMax === "min" && this.state.productMinQuantity > 0) {
-    //         this.setState({
-    //             productMinQuantity: this.state.productMinQuantity - 1
-    //         })
-    //     }
-
-    //     if (minOrMax === "max" && this.state.productMaxQuantity > 0) {
-    //         this.setState({
-    //             productMaxQuantity: this.state.productMaxQuantity - 1
-    //         })
-    //     }
-    // }
-
-    // increaseValue = (minOrMax) => {
-    //     if (minOrMax === "min" && this.state.productMinQuantity < 100) {
-    //         this.setState({
-    //             productMinQuantity: this.state.productMinQuantity + 1
-    //         })
-    //     }
-
-    //     if (minOrMax === "max" && this.state.productMaxQuantity < 100) {
-    //         this.setState({
-    //             productMaxQuantity: this.state.productMaxQuantity + 1
-    //         })
-    //     }
-    // }
 
     handleQuantity = async (e, minOrMax) => {
 
@@ -497,33 +485,96 @@ class AddProductDetails extends React.Component {
         }
     }
 
-    
     proceedHandler = (typeOfButtonClicked) => {
 
-        let isColorValid = false;
-        let isSizeValid = false;
-        let emptyField;
+        let isColorValid = false
+        let isSizeValid = false
+        let emptyField
+        let errorMessage
 
         const validateColorModal = (colorName, colorCode) => {
             if(colorName !== "" && colorCode !== "") {
-                isColorValid = true
+                if(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(colorCode)){
+
+                    let alreadyExistingColorName
+                    const { colorArray } = this.state
+
+                    if(colorArray.length === 0){
+                        isColorValid = true
+                        colorArray.push({
+                            colorName : colorName.toLowerCase(),
+                            colorCode : colorCode.toLowerCase()
+                        })
+                    }
+
+                    else{
+                        let colorDoesntExist = true
+
+                        // console.log("---------------------------------------------------")
+                        colorArray.map((item, i) => {
+
+                            // console.log("item.colorName, item.colorCode, colorCode", item.colorName, item.colorCode, colorCode, i)
+                            colorCode = colorCode.toLowerCase()
+
+                            // console.log(item.colorCode !== colorCode)
+
+                            if(item.colorCode === colorCode){
+                                colorDoesntExist = false
+                            }
+
+                            else{
+                                alreadyExistingColorName = item.colorName
+                            }
+                        })
+                        // console.log("---------------------------------------------------")
+    
+                        if(colorDoesntExist === true){
+                            isColorValid = true
+                            colorArray.push({
+                                colorName : colorName.toLowerCase(),
+                                colorCode : colorCode.toLowerCase()
+                            })
+                        }
+
+                        else if(colorDoesntExist === false){
+                            isColorValid = false
+                            emptyField = "colorCode"
+                            errorMessage = `You have already entered this color code with the name ${alreadyExistingColorName}`
+                        }
+                    }                
+                }
+
+                else{
+                    isColorValid = false
+                    emptyField = "colorCode"
+                    errorMessage = "The color code is not right, please retry. See if you forgot to enter the '#' at the beginning."
+                }
+
             } 
             
             else if (colorName === "" && colorCode === "") {
                 emptyField = "colorName"
+                errorMessage = "please enter color name"
             }
 
             else {
-                if (colorName === "") 
+                if (colorName === "") {
                     emptyField = "colorName"
+                    errorMessage = "Please enter color name"
+                }
+                    
 
-                if (colorCode === "")
+                if (colorCode === ""){
                     emptyField = "colorCode"
+                    errorMessage = "Please enter color code"
+                }
+                    
             }
 
             const validationData = {
                 isColorValid,
-                emptyField
+                emptyField,
+                errorMessage
             }
 
             return validationData
@@ -583,7 +634,8 @@ class AddProductDetails extends React.Component {
                 
                 this.setState({
                     colorIsValid : false,
-                    emptyFieldInColor : validatedData.emptyField
+                    emptyFieldInColor : validatedData.emptyField,
+                    errorMessage : validatedData.errorMessage
                 })
             }
         }
@@ -634,6 +686,12 @@ class AddProductDetails extends React.Component {
 
     onChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
+    }
+
+    handleColorInput = (e, colorInputType) => {
+        this.setState({
+            colorPreview : e.target.value
+        })
     }
 
     returnModal = () => {
@@ -701,42 +759,14 @@ class AddProductDetails extends React.Component {
                                     </div>
                                 </div>
 
-                                {/* <div className="inputFormContainer">
-                                    <div className="formParaSection">
-                                        <p className="pargraphClass">Name of the color</p>
-                                    </div>
-                                    <div className="productColorInfoSection">
-                                        {/* <InputForm
-                                            refName="colorName"
-                                            placeholder="Ex. Orange"
-                                            isMandatory={true}
-                                            validationType="alphabetsSpecialCharactersAndNumbers"
-                                            characterCount="6"
-                                            value={this.state.colorName}
-                                            result={(val) => this.setState({
-                                                colorName: val
-                                            })}
-                                        /> */}
-                                        {/* <div className="modalMandatorySection">
-                                            <p className="madatoryHighlight">Mandatory</p>
-                                        </div>
-                                        <div className="modalInputCategory">
-                                            <input 
-                                                type="text"
-                                                name="colorName"
-                                                placeholder="Ex. Orange"
-                                                // value= {this.state.colorName}
-                                                onChange= {this.onChange}
-                                                ref = "colorName"
-                                            />
-                                            <span className="InputSeparatorLine"> </span>
-                                        </div>
-                                    </div>
-                                </div>  */}
 
                             
                                     <div className="colorCategorySection">
-                                        <div className="selectedColorSection">
+                                        <div 
+                                            className="selectedColorSection"
+                                            ref = "colorPreview"
+                                            style = {{background : this.state.colorPreview}}
+                                            >
                                         </div>
                                         <div className="colorInputFormSection">
 
@@ -764,7 +794,8 @@ class AddProductDetails extends React.Component {
                                                             type="text"
                                                             name="colorName"
                                                             placeholder="Ex. Orange"
-                                                            value={this.state.colorName}
+                                                            ref = "colorName"
+                                                            maxLength = "30"
                                                             onChange={this.onChange}
                                                         />
                                                         <span className="InputSeparatorLine"> </span>
@@ -773,7 +804,9 @@ class AddProductDetails extends React.Component {
                                             </div>
                                             <div className="inputFormContainer">
                                                 <div className="formParaSection">
-                                                    <p className="pargraphClass">Color Code (hex)</p>
+                                                    <p className="pargraphClass">
+                                                        Enter the color hex-code (<a href="https://www.google.co.in/search?q=color+selector&rlz=1C1CHBF_enIN822IN822&oq=color+selector&aqs=chrome..69i57.641j0j1&sourceid=chrome&ie=UTF-8" target="_blank">click here</a> to get one)
+                                                    </p>
                                                 </div>
                                                 <div className="productInputInfoSection">
                                                     <div className="modalMandatorySection">
@@ -784,14 +817,20 @@ class AddProductDetails extends React.Component {
                                                             type="text"
                                                             name="colorCode"
                                                             placeholder="Ex. #29abe2"
-                                                            // value={this.state.colorCode}
-                                                            onChange={this.onChange}
+                                                            onChange={(e) => this.handleColorInput(e, "colorCode")}
+                                                            maxLength = "7"
                                                             ref = "colorCode"
                                                         />
                                                         <span className="InputSeparatorLine"> </span>
+
+                                                        <p>Don't forget the # before the code</p> 
                                                     </div>
                                                 </div>
+
+                                                
                                             </div>
+
+                                    
 
                                             <div className="proceedOrNotCheck">
                                                 <GradientButton
@@ -1263,7 +1302,10 @@ class AddProductDetails extends React.Component {
 
                                                 <div className="inputFormContainer">
                                                     <div className="formParaSection">
-                                                        <p className="pargraphClass"> Color options </p>
+                                                        <p 
+                                                            className="pargraphClass"
+                                                            // onClick = {() => console.log(this.state.colorArray)}
+                                                            > Color options </p>
                                                     </div>
 
                                                     <div className="colorVariantSliderContainer">

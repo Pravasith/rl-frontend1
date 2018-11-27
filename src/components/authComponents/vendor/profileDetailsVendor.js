@@ -375,28 +375,21 @@ class ProfileDetailsVendor extends React.Component {
         }
     }
 
-    
-
-
     onChangeGST = async (event, gstPart) => {
-        const val = event.target.value;
+        const val = event.target.value
 
         if (val.length === event.target.maxLength) {
 
-            this.refs[gstPart].focus();
+            this.refs[gstPart].focus()
 
                 const { gstIn1, gstIn2, gstIn3, gstIn4, gstIn5 } = this.refs;
                 const gstIn = `${gstIn1.value}-${gstIn2.value}-${gstIn3.value}-${gstIn4.value}-${gstIn5.value}`;
 
                 let gstInForCheck = `${gstIn1.value}${gstIn2.value}${gstIn3.value}${gstIn4.value}${gstIn5.value}`;
-                    gstInForCheck = gstInForCheck.toUpperCase()
-            
-                // console.log(gstInForCheck.length)
+                gstInForCheck = gstInForCheck.toUpperCase()
 
                 if (gstInForCheck.length === 15) {
-
                     if (/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/.test(gstInForCheck)) {
-                        
                         this.updateVendorData("GSTIN", gstIn)
                         this.setState({
                             gstIn: gstIn,
@@ -406,22 +399,23 @@ class ProfileDetailsVendor extends React.Component {
                     }
                     else {
                         this.setState({
-                            warningText: "please check your entered GST once",
+                            warningText: "oops, the GSTIN you have entered seems wrong, please clear the field and try again",
                             warningClass: 'warningClass'
                         })
                     }
                 }
+
                 else if (gstInForCheck.length !== 15) {
                     this.setState({
                         warningText: "please check and fill all the fields",
                         warningClass: 'warningClass'
                     })
                 }
-            } 
-        }  
+            }
+        }
 
     noSpaces = (e) => {
-        // console.log("Wrks")
+
         if (e.target.value.match(/\s/g)) {
             this.setState({
                 warningText: "Sorry, you are not allowed to enter any spaces",
@@ -564,8 +558,6 @@ class ProfileDetailsVendor extends React.Component {
                 // Decrypt data
                 //
 
-                // console.log(decryptedData)
-
                 this.setState({
                     firstName: decryptedData.firstName,
                     lastName: decryptedData.lastName,
@@ -615,7 +607,7 @@ class ProfileDetailsVendor extends React.Component {
                 // Decrypt data
                 //
 
-                console.log(decryptedData)
+                // console.log(decryptedData)
 
                 this.setState({
 
@@ -680,19 +672,27 @@ class ProfileDetailsVendor extends React.Component {
     proceedHandler = async () => {
 
         const fieldNames =  [
-            { fieldName: 'first name', value: this.state.firstName },
-            { fieldName: 'last name', value: this.state.lastName },
-            { fieldName: 'mobile number', value: this.state.mobileNo },
-            { fieldName: 'company name', value: this.state.companyName }, 
-            { fieldName: "your company address", value: this.state.detailedAddressLine1 },
-            { fieldName: 'state', value: this.state.state },
-            { fieldName: 'city', value: this.state.city },
-            { fieldName: 'pincode', value: this.state.pincode },
-            { fieldName: 'description about your company', value: this.state.companyDescriptionLine1 },
-            { fieldName: 'your experience in the industry', value: this.state.experienceCount },
-            { fieldName: "your company's GST identification number", value: this.state.gstIn },
-            { fieldName: "your company's PAN number", value: this.state.pan },
-            { fieldName: "your company's logo", value: this.state.companyProfilePicture }
+            {fieldName: 'first name', value: this.state.firstName},
+            {fieldName: 'last name', value: this.state.lastName },
+            {fieldName: 'mobile number', value: this.state.mobileNo },
+            {fieldName: 'company name', value: this.state.companyName },
+            {fieldName: "your company address", value: this.state.detailedAddressLine1 },
+            {fieldName: 'state', value: this.state.state },
+            {fieldName: 'city', value: this.state.city },
+            {fieldName: 'pincode', value: this.state.pincode },
+            {fieldName: 'description about your company', value: this.state.companyDescriptionLine1 },
+            {fieldName: 'experience years', value: this.state.yearCount },
+            {
+                fieldName: "your company's GST identification number",
+                value: gstIn
+                    // gstIn1 + "-" +
+                    // gstIn2 + "-" +
+                    // gstIn3 + "-" +
+                    // gstIn4 + "-" +
+                    // gstIn5 
+            },
+            {fieldName: "your company's PAN number", value: this.state.pan },
+            {fieldName: "your company's logo", value: this.state.companyProfilePicture }
         ]
 
 
@@ -739,8 +739,8 @@ class ProfileDetailsVendor extends React.Component {
                 experience : {
                     years : this.state.experienceCount,
                 },
-                GSTIN : this.state.gstIn,
-                PAN: this.state.pan,
+                GSTIN : this.state.gstIn.toUpperCase(),
+                PAN: this.state.pan.toUpperCase(),
                 companyProfilePicture: this.state.companyProfilePicture
             }
 
@@ -788,6 +788,8 @@ class ProfileDetailsVendor extends React.Component {
                     // Decrypt data
                     // 
 
+                    // console.log(decryptedVendorData)
+
                     window.open("/vendor-main-dashboard", "_self")
                 })
                 .catch (e => console.error(e))
@@ -796,9 +798,6 @@ class ProfileDetailsVendor extends React.Component {
                 //     mainClass : "mainClass",
                 //     loadingClass : "loadingClass hide"
                 // })
-
-                
-
                 
             })
             .catch (e => console.error(e))
