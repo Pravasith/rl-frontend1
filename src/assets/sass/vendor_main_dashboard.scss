@@ -138,6 +138,31 @@ input{
                                 padding: 0.3em;
                                 margin: 0.5em 0.3em 0.3em 0;
                                 background: $veryLightGrey;
+
+                                cursor: pointer;
+
+
+
+                                &:hover{
+
+                                    .categoryCheckBox{
+                                        .checkBoxSelect{
+                                            background: $mediumGrey;
+                                            width: 1.4em;
+                                            height: 1.4em;
+                                            border-radius: 1.5em;
+                                            @include flexCentreRow;
+                                            .iconWrap{
+                                                @include flexCentreRow;
+        
+                                            }
+                                        }
+                                    }
+                                    
+                                }
+
+                                
+
                                 .svgCategoryImageContainer{
                                     @include flexCentreRow;
                                     width: 3em;
@@ -151,16 +176,32 @@ input{
 
                                     }
                                 }
+
                                 .categoryCheckSecondBox{
                                     @include flexCentreRow;
                                     margin: 0 1em 1em 0;
                                 }
+
                                 .categoryCheckBox{
                                     @include flexCentreRow;
                                     align-items: flex-start;
-                                    width: 13%;
+                                    // width: 13%;
                                     height: 3em;
                                     margin: 0 0.2em;
+
+                                    .checkBoxSelect{
+                                        transition: 0.2s;
+                                        background: $white;
+                                        width: 1.3em;
+                                        height: 1.3em;
+                                        border-radius: 1.5em;
+                                        @include flexCentreRow;
+                                        .iconWrap{
+                                            @include flexCentreRow;
+
+                                        }
+                                    }
+
                                     .categoryCheckBoxInnerLayer{
 
                                         .container {

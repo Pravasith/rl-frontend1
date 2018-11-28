@@ -572,6 +572,7 @@ input{
                                                                 @include box_shadow;
                                                                 @include flexCentreCol;
                                                                 justify-content: space-between;
+
                                                                 .closeButtonContainer{
                                                                     @include flexCentreRow;
                                                                     justify-content: flex-end;
@@ -581,8 +582,8 @@ input{
                                                                 p{
                                                                     width: 100%;
                                                                     text-align: center;
-                                                                    color: $white;
-                                                                    background: $highLightBlue;
+                                                                    color: $darkGrey;
+                                                                    background: $white;
                                                                 }
                                                             }
                                                         }
