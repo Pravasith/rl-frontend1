@@ -11,7 +11,7 @@ import { getUserData } from "../../../actions/userActions"
 import { decryptData } from "../../../factories/encryptDecrypt";
 import { Footer } from "../../footer/footer"
 
-import { CloseButton, LogoLoadingAnimation } from "../../../assets/images"
+import { CloseButton, LogoLoadingAnimation, BigAnimatedCloseButton, TickSmallWhite } from "../../../assets/images"
 import { WhiteArrowLeft, WhiteArrowRight, UploadImageIcon, PlusButtonIconWhite, AddNewProduct, VendorGraphic, ArrowMarkLong, BigCloseButton, SmallCloseButton } from "../../../assets/images";
 import LogoAnimation from "../../animations/logoAnimation";
 import { GradientButton, InputForm, SelectList, WhiteButton } from "../../UX/uxComponents";
@@ -232,21 +232,15 @@ class VendorMainDashboard extends React.Component {
     }
 
     returnDataFromBackendAndShow = () => {
-
-        // const getDataFromBackendAndShow = () => {
-            setTimeout(() => {
-                this.setState({
-                    recievedData: "Hello",
-                    mainContentWrap: 'mainContentWrap',
-                    internalLoaderClass: 'contentLoader hide',
-                    sectionClass: 'newCategorySection',
-                    contentWrapper:'contentWrapper',
-
-                })
-            }, 4000)
-
-        // }
-
+        setTimeout(() => {
+            this.setState({
+                recievedData: "Hello",
+                mainContentWrap: 'mainContentWrap',
+                internalLoaderClass: 'contentLoader hide',
+                sectionClass: 'newCategorySection',
+                contentWrapper:'contentWrapper',
+            })
+        }, 1000)
     }
 
     returnContent = () => {
@@ -324,29 +318,24 @@ class VendorMainDashboard extends React.Component {
         const tags = this.state.tagsAdded.map((item, i) => {
             return (
                 <div
-                    className="tagsContainer" 
-                    key={i}>
+                    className= "tagsContainer" 
+                    key= {i}
+                    >
                     <div className="tagWrapInnerLayer">
                         <p>
                             {item}
                         </p>
-                        {/* <p
-                            onClick = {() => this.closeTag(i)}
-                            >
-                            X
-                        </p> */}
+
                         <div 
                             className="closeTagContainer"
                             onClick = {() => this.closeTag(i)}
-                        >
+                            >
                             <SmallCloseButton />
                         </div>
                     </div>
                 </div>
-                
             )
         })
-
         return tags  
     }
 
@@ -355,13 +344,13 @@ class VendorMainDashboard extends React.Component {
     }
 
     returnModal = () => {
-        const { categoryName } = this.state;
-        const { options } = this.state;
+        const { categoryName } = this.state
+        const { options } = this.state
 
         return (
             <div className={this.state.modalClass}>
                 <div className="modalOuterLayer">
-                
+
                     <div className="modalInnerLayer">
                         <div className="modalHeaderCloserSection">
                             <div className="modalHeaderContainer">
@@ -380,37 +369,39 @@ class VendorMainDashboard extends React.Component {
                                 <BigCloseButton />
                             </div>
                         </div>
+
                         <div className="subHeadingSection">
                             <h3>1/4</h3>
                             <p>Choose category</p>
                         </div>
-                        {/* <div className="selectListCategorySection">
-                            <SelectList
-                                name={'category'}
-                                options={options}
-                                value={categoryName}
-                                placeholder={'Choose Category'}
-                                handleChange={this.onSelect}
-                            />
-                        </div> */}
+
                         <div className="categorySelectionContainer">
                             <div className="categorySelectionInnerLayer">
                                 <div className="inputCategoryValue">
                                     <div className="svgCategoryImageContainer"></div>
+
                                     <div className="categoryHeadingSection">
                                         <p>Furniture</p>
                                     </div>
+
                                     <div className="categoryCheckBox">
-                                        <div className="categoryCheckBoxInnerLayer">
+                                        {/* <div className="categoryCheckBoxInnerLayer">
                                             <label className="container">
                                                 <input type="checkbox"/>
                                                 <span className="checkmark"></span>
                                             </label>
+                                        </div> */}
+
+                                        <div className="checkBoxSelect">
+                                            <div className="iconWrap">
+                                                <TickSmallWhite/>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                         <div className="proceedButton">
                             <GradientButton>
                                 Proceed
@@ -418,7 +409,7 @@ class VendorMainDashboard extends React.Component {
                         </div>
                     </div>
 
-                    <div className="modalInnerLayer">
+                    {/* <div className="modalInnerLayer">
                         <div className="modalHeaderCloserSection">
                             <div className="modalHeaderContainer">
                                 <h3>Details about the category</h3>
@@ -510,6 +501,7 @@ class VendorMainDashboard extends React.Component {
                             <WhiteButton>
                                 Go back
                             </WhiteButton>
+
                             <GradientButton>
                                 Proceed
                             </GradientButton>
@@ -522,26 +514,25 @@ class VendorMainDashboard extends React.Component {
                                 <h3>Details about the category</h3>
                                 <div className="line"></div>
                             </div>
+
                             <div 
                                 className="close"
                                 onClick={() => this.setState({
                                     modalClass: "modalClass hide",
                                     mainContentWrap: "mainContentWrap",
                                     vendorInitialGraphic: 'vendorGraphicCenter',
-                                })
-                            }
-                            >
+                                })}
+                                >
                                 <BigCloseButton />
                             </div>
                         </div>
+
                         <div className="subHeadingSection">
                             <h3>4/4</h3>
                             <p>Add tags (optional)</p>
                         </div>
+
                         <div className="addTagsContainer">
-                            {/* <div className="vendorHeaderSection">
-                                <h3>Add tags (optional) </h3>
-                            </div> */}
                             <div className="vendorInputSection">
                                 <input
                                     placeholder="For Ex. Sofa"
@@ -559,20 +550,23 @@ class VendorMainDashboard extends React.Component {
                                 <span className="InputSeparatorLine"> </span>
                             </div>
                         </div>
+
                         <div className="addedTagsContainer">
                             <div className="addedTagsInnerContainer">
                                 {this.returnTags()}
                             </div>
                         </div>
+
                         <div className="proceedButton">
                             <WhiteButton>
                                 Go back
                             </WhiteButton>
+
                             <GradientButton>
                                 Proceed
                             </GradientButton>
                         </div>
-                    </div>
+                    </div> */}
 
                 </div>
             </div>

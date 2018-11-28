@@ -1,5 +1,6 @@
 
 import "../sass/images.scss"
+import { TimelineLite, TweenMax, Elastic } from "gsap";
 
 export const LogoLoadingAnimation = () => {
     return (
@@ -865,6 +866,23 @@ export const FrontPageGraphic = () => {
     )
 
 }
+
+
+
+
+export const TickSmallWhite = () => {
+
+    return (
+        <svg id="tickSmallWhite" xmlns="http://www.w3.org/2000/svg" width="12.649" height="8.797"
+        viewBox="0 0 12.649 8.797">
+            <polyline fill="none" stroke="#FFF" strokeWidth="3" strokeLinecap="round"
+            strokeLinejoin="round" strokeMiterlimit="10" points="1.5,4.397 4.266,7.297 11.149,1.5"
+            />
+        </svg>
+    )
+
+}
+
 
 
 export const YourImageName = () => {
