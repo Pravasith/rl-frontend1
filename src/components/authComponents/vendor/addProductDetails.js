@@ -1112,6 +1112,7 @@ class AddProductDetails extends React.Component {
                     <div className="vendorDummyContainer">
                         <article className={this.state.vendorDashboardOuterClass}>
                             <section className="vendorDashboardInnerLayer">
+
                                 <div className="uploadSectionLeftWrapper">
                                     <article className="leftWrapperInnerLayer">
                                         <section className="imageUploadBigContainer">
@@ -1120,9 +1121,6 @@ class AddProductDetails extends React.Component {
                                                 <div className="imageUploadInnerLayer">
 
                                                     <div className="imageContainerInnerSection">
-                                                        {/* <div className="productUploadHeaderSection">
-                                                            <p>Please upload an image with size lesser than 500kb </p>
-                                                        </div> */}
 
                                                         <div className="imageUploadComponent">
                                                             <header className="vendorImageUploadHeaderComponent">
@@ -1136,15 +1134,6 @@ class AddProductDetails extends React.Component {
                                                     </div>
 
                                                 </div>
-                                                {/* <div className="upperSectionInnerLayer">
-                                                <img
-                                                    src="https://i.pinimg.com/originals/50/69/bd/5069bd3b995a9e7b50e42ad1c08d1e8e.jpg"
-                                                    alt=""
-                                                    className="imageContainer"
-                                                />
-                                                </div> */}
-
-
                                             </div>
 
                                             <div className="imageUploadDownSection">
@@ -1174,6 +1163,7 @@ class AddProductDetails extends React.Component {
 
                                 <div className="uploadSectionRightWrapper">
                                     <article className="rightWrapperInnerLayer">
+
                                         <header className="vendorFormHeading">
 
                                             <div className="headingArea">
@@ -1186,6 +1176,7 @@ class AddProductDetails extends React.Component {
 
                                         <section className="vendorUploadFormSection">
                                             <div className="vendorUploadFormInnerContainer">
+                                                
                                                 <div className="inputFormContainer">
                                                     <div className="formParaSection">
                                                         <p className="pargraphClass">Name of the product</p>
@@ -1362,21 +1353,35 @@ class AddProductDetails extends React.Component {
                                                         /> */}
                                                         <div className="addColorDummyContainer">
                                                             <div className="addColorDummyContainerInnerLayer">
-                                                                <div className="addButtonContainer">
-                                                                            <WhiteButton
-                                                                        runFunction={() => {
-                                                                                // console.log('hit')
-                                                                                this.modalClassToggle("show")
-                                                                                this.setState({
-                                                                                    modalType : "color"
-                                                                                }
-                                                                            )}
-                                                                        }
+                                                                <div 
+                                                                    className="addButtonContainer"
+                                                                    onClick={() => {
+                                                                        // console.log('hit')
+                                                                            this.modalClassToggle("show")
+                                                                            this.setState({
+                                                                                modalType : "color"
+                                                                            }
+                                                                        )}
+                                                                    }
                                                                     >
+                                                                            {/* <WhiteButton */}
+                                                                            {/* runFunction={() => {
+                                                                                // console.log('hit')
+                                                                                    this.modalClassToggle("show")
+                                                                                    this.setState({
+                                                                                        modalType : "color"
+                                                                                    }
+                                                                                )}
+                                                                            } */}
+
+
+                                                                        
                                                                         <div className="svgImageContainer">
                                                                             <PlusButtonIcon />
                                                                         </div>
-                                                                    </WhiteButton>
+
+                                                                        <p>Add new</p>
+                                                                    {/* </WhiteButton> */}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1512,6 +1517,7 @@ class AddProductDetails extends React.Component {
                                                 </div>
 
                                                 <div className="inputFormContainer">
+
                                                     <div className="formParaSection">
                                                         <p className="pargraphClass"> Features / specifications of the product </p>
                                                     </div>
@@ -1530,8 +1536,64 @@ class AddProductDetails extends React.Component {
                                                     </div>
 
                                                 </div>
+                                           
+                                                <div className="inputFormContainer">
+                                                        
+                                                    <div className="formParaSection">
+                                                        <h3 className="pargraphClass"> Choose the product’s design style </h3>
+                                                    </div>
+
+                                                    <div className="designStylesOuterLayer">
+                                                        <div className="designStylesInnerLayer">
+
+                                                            <div className="productStyleContainer">
+                                                                <header className="productStyleHeadingSection">
+                                                                    <div className="titleCategory">
+                                                                        <h3>Modern</h3>
+                                                                        <div className="line"></div>
+                                                                    </div>
+                                                                    <div className="checkboxCategory">
+                                                                        <label className="container">
+                                                                            <input type="checkbox"/>
+                                                                            <span className="checkmark"></span>
+                                                                        </label>
+                                                                    </div>
+                                                                </header>
+                                                                <div className="productStyleContentSection">
+                                                                    <div className="productStyleContentSectionInnerLayer">
+                                                                        <div className="imageCategorySection">
+                                                                            <img src="https://cf.ltkcdn.net/interiordesign/images/std/203112-662x450-moderninterior.jpg" alt=""/>
+                                                                        </div>
+                                                                        <div className="styleCategorySection">
+                                                                            <p>
+
+                                                                                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                                                                Vitae quis iusto id impedit nisi molestiae aut possimus
+                                                                                maxime a quos, aliquid culpa repellendus modi sunt cumque, 
+                                                                                perspiciatis praesentium minima. Asperiores consequatur. 
+                                                                                Cum placeat quibusdam quis, eaque, fugit distinctio ab 
+                                                                                aperiam nulla expedita adipisci? Accusamus corporis,  
+                                                                                voluptatum id laboriosam tenetur et esse cupiditate 
+                                                                                optio iusto asperiores porro praesentium distinctio  
+                                                                                soluta natus, nihil dignissimos vero dolor! Suscipit 
+                                                                                nesciunt molestias omnis veritatis alias quod odit ,
+                                                                                ipsa illum nemo eius doloremque maiores hic explicabo.
+
+                                                                            </p>
+                                                                            
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
                                             </div>
                                         </section>
+
                                         <div className="formButtonContainer">
                                             <div className="buttonContainer">
                                                 <GradientButton
@@ -1546,14 +1608,19 @@ class AddProductDetails extends React.Component {
                                                 </GradientButton>
                                             </div>
                                         </div>
+
                                     </article>
+
                                 </div>
+
                             </section>
+
                         </article>
 
                         {
                             this.returnModal()
                         }
+
                     </div>
                 </div>
             </div>
