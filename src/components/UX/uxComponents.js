@@ -393,19 +393,19 @@ export const RadioButton = (props) => {
         <div className="radio-outline">
             <div className="radio-mid">
                 {props.options.map(option => {
-                    // console.log(option)
                     return (
                         <label key={option.id} className="radio-inline">
                             <input
                                 id={option.id}
                                 name={props.name}
+                                suffix={props.suffix}
                                 onChange={props.onChange}
                                 value={option.value}
                                 checked={props.selectedOption ? props.selectedOption.indexOf(option.value) > -1 : false}
                                 type="radio" 
                             />
                             <span className ="checkmark"></span>
-                            <p>{option.value} years</p>
+                            <p>{option.value} {props.suffix}</p>
                         </label>
                     );
                 })}

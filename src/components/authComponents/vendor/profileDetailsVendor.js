@@ -55,41 +55,6 @@ class ProfileDetailsVendor extends React.Component {
             // inputCountEight: 0,
             // inputCountNine: 0,
 
-            experienceOptions: [
-                {
-                    id: 1,
-                    value: "0-1"
-                },
-                {
-                    id: 2,
-                    value: "1-2"
-                },
-                {
-                    id: 3,
-                    value: "2-5"
-                },
-                {
-                    id: 4,
-                    value: "5-10"
-                },
-                {
-                    id: 5,
-                    value: "10-15"
-                },
-                {
-                    id: 6,
-                    value: "15-20"
-                },
-                {
-                    id: 7,
-                    value: "20-30"
-                },
-                {
-                    id: 8,
-                    value: "30+"
-                }
-            ],
-
             emptyField: [],
 
             companyName: null,
@@ -657,11 +622,50 @@ class ProfileDetailsVendor extends React.Component {
         
     }
 
+    returnExperienceOptions = () => {
+        return(
+            [
+                {
+                    id: 1,
+                    value: "0-1"
+                },
+                {
+                    id: 2,
+                    value: "1-2"
+                },
+                {
+                    id: 3,
+                    value: "2-5"
+                },
+                {
+                    id: 4,
+                    value: "5-10"
+                },
+                {
+                    id: 5,
+                    value: "10-15"
+                },
+                {
+                    id: 6,
+                    value: "15-20"
+                },
+                {
+                    id: 7,
+                    value: "20-30"
+                },
+                {
+                    id: 8,
+                    value: "30+"
+                }
+            ]
+        )
+    }
+
     handleRadiobutton = (e) => {
         const val = e.target.value;
 
         this.updateVendorData("experience.years", val)
-        this.setState({ experienceCount: e.target.value })
+        this.setState({ experienceCount: val })
     }
 
     proceedHandler = async () => {
@@ -1195,11 +1199,12 @@ class ProfileDetailsVendor extends React.Component {
                                                         <div className="radioButtonSelection">
                                                             <div className="radioButtonSelectionInnerLayer">
                                                                 <RadioButton
-                                                                    title="Testing"
+                                                                    title="Experience"
                                                                     name={'experience'}
-                                                                    options={this.state.experienceOptions}
+                                                                    suffix="years"
+                                                                    options={this.returnExperienceOptions()}
                                                                     selectedOption={this.state.experienceCount}
-                                                                    onChange={this.handleRadiobutton}
+                                                                    onChange={(e) => this.handleRadiobutton(e)}
                                                                 />
                                                             </div>
                                                         </div>  

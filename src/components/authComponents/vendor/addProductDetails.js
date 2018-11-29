@@ -21,7 +21,7 @@ import {
 } from "../../../assets/images";
 
 import LogoAnimation from "../../animations/logoAnimation"
-import { GradientButton, InputForm, WhiteButton } from "../../UX/uxComponents"
+import { GradientButton, InputForm, WhiteButton, RadioButton } from "../../UX/uxComponents"
 import HtmlSlider from "../../UX/htmlSlider"
 import Navbar from "../../navbar/navbar"
 import { decryptData } from "../../../factories/encryptDecrypt"
@@ -67,16 +67,34 @@ class AddProductDetails extends React.Component {
             // productMaxQuantity: undefined,
 
             productDimensions: [],
+            tagsAdded: [],
+            charCount: 20,
+            checked: undefined,
+
+            productDiscount: undefined,
 
             isProceedClicked: false,
 
-            erorrs: {}
+            erorrs: {},
+
+            warningText: null,
+            warningClass: "warningClass hide",
+            fieldIsValid: false,
+
+            checkBoxClass1: "checkBox",
+            checkBoxClass2: "checkBox",
+
+            displayError: "displayError",
+            displayError: "displayError hide"
+            
         }
     }
 
-    // componentDidUpdate() {
-    //     console.log(this.state.productMinQuantity)
-    // }
+    componentDidUpdate() {
+        console.log("PA:", this.state.productAvailability, 
+                    "PD:", this.state.productDiscount, 
+                    "PT:", this.state.productType)
+    }
 
 
     modalClassToggle = (showOrNot) => {
@@ -313,6 +331,61 @@ class AddProductDetails extends React.Component {
         })
     }
 
+    returnProductType = () => {
+        return(
+             [{
+                id: 1,
+                value: "Pendant lamps 1"
+            },
+            {
+                id: 2,
+                value: "Pendant lamps 2"
+            },
+            {
+                id: 3,
+                value: "Pendant lamps 3"
+            },
+            {
+                id: 4,
+                value: "Pendant lamps 4"
+            }]
+        )
+    }
+
+    returnProductAvailability = () => {
+        return(
+            [{
+                id: 1,
+                value: "Yes, it is available"
+            },
+            {
+                id: 2,
+                value: "No, it is not available"
+            }]
+        )
+    }
+
+    returnProductDiscount = () => {
+        return (
+            [{
+                id: 1,
+                value: 'Pendant lamps'
+            },
+            {
+                id: 2,
+                value: 'Pendant lamps'
+            },
+            {
+                id: 3,
+                value: 'Pendant lamps'
+            },
+            {
+                id: 4,
+                value: 'Pendant lamps'
+            }]
+        )
+    }
+    
     returnfeaturesAdded = () => {
         return (
             this
@@ -503,26 +576,61 @@ class AddProductDetails extends React.Component {
         }
     }
 
-    // handleQuantity = async (e, minOrMax) => {
+    handleQuantity = async (e, minOrMax) => {
 
-    //     if (minOrMax === "min") {
-    //         const productMinQuantity = (e.target.validity.valid) ? e.target.value : this.state.productMinQuantity;
+        if (minOrMax === "min") {
+            const productMinQuantity = (e.target.validity.valid) ? e.target.value : this.state.productMinQuantity;
 
-    //         await this.setState({ productMinQuantity });
+            await this.setState({ productMinQuantity });
 
-    //         if (this.state.productMinQuantity === "") await this.setState({ minQuantityPara: "minQuantityPara" });
-    //         else this.setState({ minQuantityPara: "minQuantityPara hide" });
-    //     }
+            if (this.state.productMinQuantity === "") await this.setState({ minQuantityPara: "minQuantityPara" });
+            else this.setState({ minQuantityPara: "minQuantityPara hide" });
+        }
 
-    //     else if (minOrMax === "max") {
-    //         const productMaxQuantity = (e.target.validity.valid) ? e.target.value : this.state.productMaxQuantity;
+        else if (minOrMax === "max") {
+            const productMaxQuantity = (e.target.validity.valid) ? e.target.value : this.state.productMaxQuantity;
 
-    //         await this.setState({ productMaxQuantity });
+            await this.setState({ productMaxQuantity });
 
-    //         if (this.state.productMaxQuantity === "") this.setState({ maxQuantityPara: "maxQuantityPara" });
-    //         else this.setState({ maxQuantityPara: "maxQuantityPara hide" });
-    //     }
-    // }
+            if (this.state.productMaxQuantity === "") this.setState({ maxQuantityPara: "maxQuantityPara" });
+            else this.setState({ maxQuantityPara: "maxQuantityPara hide" });
+        }
+    }
+
+    handleDiscount = (e) => {
+        // const productDiscount = (e.target.validity.valid) ? e.target.value : this.state.productDiscount;
+       
+        const val = e.target.value;
+        const regEx = /^[0-9\b]+$/;
+
+        console.log(this.state.productDiscount);
+
+        if (regEx.test(val)) {
+                this.setState({
+                    productDiscount: val,
+                    displayError: "displayError hide",
+                    // displayError: "displayError hide"
+                })
+                // console.log("Wrks")
+        } 
+        
+        else if (!regEx.test(val)) {
+            console.log(this.state.productDiscount)
+            this.setState({
+                displayError: "displayError",
+                // displayError: "displayError"
+            })
+        }
+
+        // else if (this.refs.productDiscount.value === "") {
+        //     this.setState({
+        //         displayError: "displayError hide",
+        //         // displayError: "displayError"
+        //     })
+        // }
+        // console.log(productDiscount)
+        // this.setState({ productDiscount, checked: true })
+    }
 
     proceedHandler = (typeOfButtonClicked) => {
 
@@ -744,6 +852,114 @@ class AddProductDetails extends React.Component {
         this.setState({
             colorPreview : e.target.value
         })
+    }
+
+    setTagName = (e) => {
+        const val = e.target.value
+
+        this.setState({
+            charCount: 20 - val.length
+        })
+
+
+
+        this.setState({
+            tagName: val
+        })
+    }
+
+    addTagName = () => {
+
+        let temp = this.state.tagName;
+
+        if (temp !== "") {
+
+            let dummyTagsArray = [...this.state.tagsAdded]
+
+            dummyTagsArray = dummyTagsArray.map(item => item.toLowerCase())
+
+            if (!dummyTagsArray.includes(temp.toLowerCase())) {
+                this.state.tagsAdded.push(temp)
+            }
+
+            this.setState({
+                tagsAdded: this.state.tagsAdded.length !== 0 ? this.state.tagsAdded : [this.state.tagName]
+            })
+
+            this.refs.tagInput.value = ""
+        }
+
+    }
+
+    returnTagsAdded = () => {
+        return (
+            this
+                .state
+                .tagsAdded
+                .map((item, i) => {
+                    return (
+                        <div
+                            className="tagWrap"
+                            key={i}
+                        >
+                            <div className="tagWrapInnerLayer">
+                                <ul>
+                                    <li>
+                                        <p key={i}>
+                                            {item}
+                                        </p>
+                                    </li>
+                                </ul>
+                                <div
+                                    className="deleteIcon"
+                                    onClick={() => this.removeTags(i)}
+                                >
+                                    <SmallCloseButton />
+                                </div>
+                            </div>
+
+
+                        </div>
+                    )
+                })
+        )
+    }
+
+    removeTags = (index) => {
+
+        this
+            .state
+            .tagsAdded
+            .splice(index, 1)
+
+        this.setState({
+            tagsAdded: this.state.tagsAdded.length !== 0 ? this.state.tagsAdded : []
+        })
+
+    }
+
+    handleRadiobutton = async (e, type) => {
+        const val = e.target.value;
+
+        if (type === "productAvailability") {
+            this.setState({ productAvailability: val })
+        }
+
+        else if (type === "productDiscountAvailabilityYes" ) {
+                // this.setState({ productDiscountAvailability: val })
+            // await console.log(this.state.productDiscount)
+            console.log("wrks")
+        }
+
+        else if (type === "productDiscountAvailabilityNo") {
+            // this.setState({ productDiscountAvailability: val })
+            // this.refs.productDiscount.value = "";
+            this.setState({ productDiscount: "" })
+        }
+
+        else if(type === "productType") {
+            this.setState({ productType: val })
+        }
     }
 
     returnModal = () => {
@@ -1062,7 +1278,7 @@ class AddProductDetails extends React.Component {
         )
     }
 
-   validateProceedHandler = async () => {
+    validateProceedHandler = async () => {
        const fieldNames = [
            { fieldName: 'Product Name', value: this.state.productName },
            { fieldName: 'Product Code', value: this.state.productCode },
@@ -1071,8 +1287,14 @@ class AddProductDetails extends React.Component {
            { fieldName: 'Finishing Otpions', value: this.state.finishArray },
            { fieldName: 'Color Options', value: this.state.colorArray },
            { fieldName: 'Sizes Available', value: this.state.productDimensions },
-           { fieldName: 'Min. quantity', value: this.state.productMinQuantity},
-           { fieldName: 'Max. quantity', value: this.state.productMaxQuantity }
+           { fieldName: 'Min. quantity', value: this.state.productMinQuantity },
+           { fieldName: 'Max. quantity', value: this.state.productMaxQuantity },
+           { fieldName: 'Product Design', value: this.state.productDesign },
+           { fieldName: 'Product Type', value: this.state.productType },
+           { fieldName: 'Product Tags', value: this.state.productTags },
+           { fieldName: 'Product Availability', value: this.state.productAvailability },
+           { fieldName: 'Product Discount Availability', value: this.state.productDiscountAvailability },
+        //    { fieldName: 'Product Discount Value', value: this.state.productDiscount }
        ]
 
        await this.setState({
@@ -1094,7 +1316,32 @@ class AddProductDetails extends React.Component {
 
     //    console.log(this.state.emptyField)
        this.modalClassToggle("show");
-   }
+    }
+
+    toggleOptions = (yesOrNo) => {
+        // const {} =this.refs.
+
+        if(yesOrNo === "yes"){
+            this.setState({
+                // productDiscountAvailability: 
+                checkBoxClass1 : "checkBox color",
+                checkBoxClass2 : "checkBox"
+            })
+        }
+
+        else if(yesOrNo === "no"){
+            this.setState({
+                checkBoxClass2 : "checkBox color",
+                checkBoxClass1 : "checkBox" 
+            })
+            this.refs.discountInput.value = "";
+            this.setState({ productDiscount: "" })
+        }
+    }
+    
+    focus = () => {
+        this.refs.discountInput.focus();
+    }
 
     render() {
         return (
@@ -1419,12 +1666,12 @@ class AddProductDetails extends React.Component {
                                                     </div>
                                                 </div>
 
-                                                <div className="inputFormContainer">
-                                                    <div className="formParaSection">
-                                                        <p className="pargraphClass">Min.quantity</p>
-                                                    </div>
-                                                    <div className="ProductQuantitySection">
-                                                        <InputForm
+                                                 <div className="inputFormContainer">
+                                                     <div className="formParaSection">
+                                                         <p className="pargraphClass">Min.quantity</p>
+                                                     </div>
+                                                     <div className="ProductQuantitySection">
+                                                         <InputForm
                                                             refName="productMinQuantity"
                                                             placeholder="Ex. 5"
                                                             isMandatory={true}
@@ -1438,12 +1685,12 @@ class AddProductDetails extends React.Component {
                                                     </div>
                                                 </div> 
 
-                                                <div className="inputFormContainer">
-                                                    <div className="formParaSection">
-                                                        <p className="pargraphClass">Max.quantity</p>
-                                                    </div>
-                                                    <div className="ProductQuantitySection">
-                                                        <InputForm
+                                                 <div className="inputFormContainer">
+                                                     <div className="formParaSection">
+                                                         <p className="pargraphClass">Max.quantity</p>
+                                                     </div>
+                                                     <div className="ProductQuantitySection">
+                                                         <InputForm
                                                             refName="productMaxQuantity"
                                                             placeholder="Ex. 99999"
                                                             isMandatory={true}
@@ -1541,7 +1788,7 @@ class AddProductDetails extends React.Component {
 
                                                     {/* <div className="materialInfoColumn">
                                                     <InputForm
-                                                        refName="companyName"
+                                                        refName="featureName"
                                                         placeholder="Ex. Space Saving Compact Design"
                                                         isMandatory={false}
                                                         validationType="alphabetsSpecialCharactersAndNumbers"
@@ -1561,7 +1808,7 @@ class AddProductDetails extends React.Component {
 
                                                     <div className="materialInfoColumn">
                                                         <InputForm
-                                                            refName="companyName"
+                                                            refName="featureName"
                                                             placeholder="Type here"
                                                             isMandatory={false}
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
@@ -1572,6 +1819,136 @@ class AddProductDetails extends React.Component {
                                                         />
                                                     </div>
 
+                                                </div>
+
+                                                <div className="inputFormContainer">
+                                                    <div className="formParaSection">
+                                                        <p className="pargraphClass"> Add tags for your product </p>
+                                                    </div>
+
+                                                    <div className="inputCategorySection">
+                                                        <div className="materialInfoColumn">
+                                                            <input
+                                                                placeholder="For Ex. Sofa"
+                                                                ref="tagInput"
+                                                                type="text"
+                                                                maxLength="20"
+                                                                onChange={e => this.setTagName(e)}
+                                                                onKeyPress={e => {
+                                                                    if (e.key === "Enter") {
+                                                                        this.setTagName(e)
+                                                                        this.addTagName()
+                                                                    }
+                                                                }}
+                                                            />
+                                                            <span className="InputSeparatorLine"> </span>
+                                                        </div>
+
+                                                        <div className="charCount">
+                                                            <p ref="charCount">
+                                                                {this.state.charCount}
+                                                            </p>
+                                                        </div>
+
+
+                                                        <div className="productTagsCategory">
+                                                            <div className="productTagsCategoryInnerLayer">
+                                                                {this.returnTagsAdded()}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div className="inputFormContainer">
+                                                    <div className="formParaSection">
+                                                        <p className="pargraphClass"> Choose the product type </p>
+                                                    </div>
+
+                                                    <div className="materialInfoColumn">
+                                                        <RadioButton
+                                                            title="Product Design"
+                                                            name={'productType'}
+                                                            options={this.returnProductType()}
+                                                            selectedOption={this.state.productType}
+                                                            onChange={(e) => this.handleRadiobutton(e, "productType")}
+                                                        />
+                                                    </div>
+
+                                                </div>
+
+                                                <div className="inputFormContainer">
+                                                    <div className="formParaSection">
+                                                        <p className="pargraphClass"> Is the product available? </p>
+                                                    </div>
+
+                                                    <div className="materialInfoColumn">
+                                                        <RadioButton
+                                                            title="Product Availability"
+                                                            name={'availability'}
+                                                            options={this.returnProductAvailability()}
+                                                            selectedOption={this.state.productAvailability}
+                                                            onChange={(e) => this.handleRadiobutton(e, "productAvailability")}
+                                                        />
+                                                    </div>
+
+                                                </div>
+
+                                                <div className="inputFormContainer">
+                                                    <div className="formParaSection">
+                                                        <p className="pargraphClass"> Is there a discount on this product now? </p>
+                                                    </div>
+
+                                                    <div 
+                                                        className="materialInfoColumn"
+                                                        >
+
+                                                        <div 
+                                                            className="optionDiv"
+                                                            onClick = {() => {
+                                                                this.toggleOptions("yes")
+                                                                this.focus()
+                                                            }}
+                                                            >
+                                                            <div className={this.state.checkBoxClass1}></div>
+                                                            <div className="contentForOptionSelection">
+                                                                <div className="nonErrorContent">
+                                                                    <p>Yes, we are offering a discount of</p>
+                                                                    <div className="inputSection">
+                                                                        <input 
+                                                                            type="text" 
+                                                                            ref="discountInput"
+                                                                            maxLength="2"
+                                                                            value={this.state.value} 
+                                                                            onChange={(e) => this.handleDiscount(e)}
+                                                                        />
+                                                                        <p>%</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="errorContent">
+                                                                    {/* <p className={this.state.displayError}>
+                                                                        Some error text to be.Some error text to be.Some error text to be.
+                                                                    </p> */}
+                                                                    <p className={this.state.displayError}>
+                                                                        Numbers Only
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div 
+                                                            className="optionDiv"
+                                                            onClick={() => {
+                                                                this.toggleOptions("no")
+
+                                                            }}
+                                                            >
+                                                            <div className={this.state.checkBoxClass2}></div>
+                                                            <div className="contentForOptionSelection">
+                                                                <p>No, there is no discount</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+    
                                                 </div>
                                             </div>
                                         </section>
@@ -1605,10 +1982,6 @@ class AddProductDetails extends React.Component {
 
 }
 
-// AddProductDetails.propTypes = {
-//     errors: PropTypes.object.isRequired
-// };
-
 const mapStateToProps = (state) => {
     return ({ 
             userData: state.userData,
@@ -1625,23 +1998,3 @@ const matchDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(AddProductDetails)
-
-
-
-
-{/* <div className="buttonContainer">
-<WhiteButton
-    runFunction={() => {
-            this.modalClassToggle("show")
-            this.setState({
-                modalType : "color"
-            }
-        )}
-    }
->
-    <div className="svgImageContainer">
-        <PlusButtonIcon />
-    </div>
-    Add new color
-</WhiteButton>
-</div> */}
