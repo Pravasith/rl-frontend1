@@ -43,39 +43,11 @@ class VendorMainDashboard extends React.Component {
 
             contentType: "uploadedProducts",
 
-            options: [
-                { categoryName: 'Lighting', categoryId: 1 },
-                { categoryName: 'Roofing', categoryId: 2 },
-                { categoryName: 'Furniture', categoryId: 3 },
-                { categoryName: 'Bathroom', categoryId: 4 },
-                { categoryName: 'Gardens', categoryId: 5 },
-                { categoryName: 'Switches', categoryId: 6 },
-                { categoryName: 'Decorative Fans', categoryId: 7 },
-                { categoryName: 'Home Decor', categoryId: 8 },
-                { categoryName: 'Wooden Flooring', categoryId: 9 },
-                { categoryName: 'Wardrobes', categoryId: 10 },
-                { categoryName: 'Staircases', categoryId: 11 },
-                { categoryName: 'Flooring', categoryId: 12 },
-                { categoryName: 'Glasses', categoryId: 13 },
-                { categoryName: 'Doors and Windows', categoryId: 14 },
-                { categoryName: 'Lift and Elevators', categoryId: 15 },
-                { categoryName: 'Wall Finishers', categoryId: 16 },
-                { categoryName: 'Architectural Meshes', categoryId: 17 },
-                { categoryName: 'Kitchen', categoryId: 18 },
-                { categoryName: 'Ceiling', categoryId: 19 },
-                { categoryName: 'IOT Solutions', categoryId: 20 },
-                { categoryName: 'Kids', categoryId: 21 },
-                { categoryName: 'Carpets and Rugs', categoryId: 22 },
-                { categoryName: 'Sculpture & Stone art', categoryId: 23 },
-                { categoryName: 'Curtains and Blinds', categoryId: 24 },
-                { categoryName: 'Industrial', categoryId: 25 },
-                { categoryName: 'Security Systems', categoryId: 26 },
-                { categoryName: 'Services', categoryId: 27 }
-            ],
+            categoryErrorClass : "errorMessageWrap",
 
             categoryName: '',
             tagName: '',
-            tagsAdded: []
+            tagsAdded: [],
 
         }
 
@@ -197,7 +169,6 @@ class VendorMainDashboard extends React.Component {
                     .props
                     .navBarLoadingAnimationShowHide(false)
 
-                // console.log(this.props.responseData)
             })
 
     }
@@ -343,9 +314,151 @@ class VendorMainDashboard extends React.Component {
         this.state.tagsAdded.splice(i, 1)
     }
 
+    returnCategoryNames = () => {
+        const categoryArray = [
+            {   
+                categoryName: 'Lighting', 
+                categoryId: 1, 
+                categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/lighting.jpg"
+            },
+
+            {
+                categoryName: 'Furniture',
+                categoryId: 2,
+                categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/furniture.jpg"
+            },
+
+            {
+                categoryName: 'Outdoor',
+                categoryId: 3,
+                categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/outdoor.png",
+            },
+            {
+                categoryName: 'Bathroom',
+                categoryId: 4,
+                categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/bathroom.jpg",
+            },
+            {
+                categoryName: 'Kitchen',
+                categoryId: 5,
+                categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/kitchen.jpg",
+            },
+            {
+                categoryName: 'Office',
+                categoryId: 6,
+                categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/office.jpg",
+            },
+
+            {
+                categoryName: 'Wellness',
+                categoryId: 7,
+                categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/wellness.jpg",
+            },
+            {
+                categoryName: 'Decor',
+                categoryId: 8,
+                categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/decor.jpg",
+            },
+            {
+                categoryName: 'Finishes',
+                categoryId: 9,
+                categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/finishes.jpg",
+            },
+            {
+                categoryName: 'Construction',
+                categoryId: 10,
+                categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/construction.jpg",
+            },
+            {
+                categoryName: 'Safety and security', 
+                categoryId: 11,
+                categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/safety-and-security.jpg",
+               
+            },
+            {
+                categoryName: 'Home automation', 
+                categoryId: 12,
+                categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/home-automation.jpg",
+            },
+           
+        ]
+        
+
+        const selectThisCheckBoxAndDeselectOtherCheckBox = (i) => {
+            const tl = new TimelineLite()
+
+            categoryArray.map((item, j) => {
+                if( i !== j ){
+                    tl.set(
+                        ".CAT" + j,
+                        {
+                            background : "#FFFFFF"
+                        }
+                    )
+                }
+            })
+
+            tl.set(".CAT" + i,
+            {
+                background : "#ff2c6b"
+            })
+
+            this.setState({
+                mainCategorySelection : categoryArray[i].categoryId
+            })
+        }
+
+        return categoryArray.map((item, i) => {
+            return (
+                <div 
+                    className="categorySelectionContainer"
+                    key = {i}
+                    onClick = {() => {
+                        selectThisCheckBoxAndDeselectOtherCheckBox(i)
+                    }}
+                    >
+                    <div className="categorySelectionInnerLayer">
+                        <div 
+                            className="inputCategoryValue"
+                            >
+
+                            <div className="categoryImageAndText">
+                                <div className="svgCategoryImageContainer">
+                                    <img src={item.categoryImage} alt=""/>
+                                </div>
+
+                                <div className="categoryHeadingSection">
+                                    <p>{item.categoryName}</p>
+                                </div>
+
+                                <div className="categoryCheckBox">
+                                    <div className="checkBoxDummyWrap">
+                                        <div 
+                                            className={"checkBoxSelect " + "CAT" + i}
+                                            >
+                                            <div className="iconWrap">
+                                                <TickSmallWhite/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            )
+        })
+
+    }
+
+    handleCategorySelections = () => {
+        if(this.state.mainCategorySelection !== null){
+            
+        }
+    }
+
     returnModal = () => {
-        const { categoryName } = this.state
-        const { options } = this.state
 
         return (
             <div className={this.state.modalClass}>
@@ -354,7 +467,7 @@ class VendorMainDashboard extends React.Component {
                     <div className="modalInnerLayer">
                         <div className="modalHeaderCloserSection">
                             <div className="modalHeaderContainer">
-                                <h3>Details about the category</h3>
+                                <h3>Select one category</h3>
                                 <div className="line"></div>
                             </div>
                             <div 
@@ -371,39 +484,24 @@ class VendorMainDashboard extends React.Component {
                         </div>
 
                         <div className="subHeadingSection">
-                            <h3>1/4</h3>
-                            <p>Choose category</p>
+                            <h3>1/2</h3>
+                            <p>Pick one from the options given below</p>
                         </div>
 
-                        <div className="categorySelectionContainer">
-                            <div className="categorySelectionInnerLayer">
-                                <div className="inputCategoryValue">
-                                    <div className="svgCategoryImageContainer"></div>
-
-                                    <div className="categoryHeadingSection">
-                                        <p>Furniture</p>
-                                    </div>
-
-                                    <div className="categoryCheckBox">
-                                        {/* <div className="categoryCheckBoxInnerLayer">
-                                            <label className="container">
-                                                <input type="checkbox"/>
-                                                <span className="checkmark"></span>
-                                            </label>
-                                        </div> */}
-
-                                        <div className="checkBoxSelect">
-                                            <div className="iconWrap">
-                                                <TickSmallWhite/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div className="dummyContainer">
+                            <div className="categoryPopulation">
+                                {this.returnCategoryNames()}
                             </div>
                         </div>
 
+                        <div className={this.state.categoryErrorClass}>
+                            <p>Please select a category to proceed</p>
+                        </div>
+
                         <div className="proceedButton">
-                            <GradientButton>
+                            <GradientButton
+                                runFunction = {() => this.handleCategorySelections()}
+                                >
                                 Proceed
                             </GradientButton>
                         </div>
