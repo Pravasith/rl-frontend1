@@ -321,6 +321,34 @@ input{
                                                     }
                                                 }
 
+                                                .designStyleCategoryTagsContainer{
+                                                        width: 94%;
+                                                        height: 6em;
+                                                        margin-top: 0.5em;
+                                                        overflow-y: auto;
+                                                    .designStyleTagsInnerLayer{
+                                                        display: inline-block;
+                                                         margin-top: 0.5em;
+                                                        .tagContainer{
+                                                            display: inline-flex;
+                                                            margin: 0.3em;
+                                                            padding: 0.2em;
+                                                            background: $darkerGrey;
+                                                            .tagConatinerInnerLayer{
+                                                                @include flexCentreRow;
+                                                                p{
+                                                                    color: $white;
+                                                                     margin: 0.3em;
+                                                                 }
+                                                                .svgImageSection{
+                                                                    @include flexCentreRow;
+                                                                     align-items: flex-start;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+
                                                 .designStylesOuterLayer{
                                                     width: 100%;
                                                     height: 20em;
@@ -340,6 +368,31 @@ input{
                                                                 background: $white;
                                                                 @include box_shadow;
                                                                 cursor: pointer;
+                                                                .productStyleHeadingSection{
+                                                                    .checkBoxSelect{
+                                                                        background: $mediumGrey;
+                                                                        width: 1.4em;
+                                                                        height: 1.4em;
+                                                                        border-radius: 1.5em;
+                                                                        @include flexCentreRow;
+                                                                        .iconWrap{
+                                                                            @include flexCentreRow;
+                                    
+                                                                        }
+                                                                    }
+                                                                    .checkBoxSelected{
+                                                                        background: $secondaryMagenta;
+                                                                        width: 1.4em;
+                                                                        height: 1.4em;
+                                                                        border-radius: 1.5em;
+                                                                        @include flexCentreRow;
+                                                                        .iconWrap{
+                                                                            @include flexCentreRow;
+                                    
+                                                                        }
+                                                                    }
+                                                                }
+                                                                
                                                             }
                                                             .productStyleHeadingSection{
                                                                 @include flexCentreRow;
@@ -355,77 +408,19 @@ input{
                                                                         margin-top: 0;
                                                                     }
                                                                 }
-                                                                .checkboxCategory{
-                                                                    margin-bottom: 2.2em;
-                                                                      // for customised checkbox button styles
-                                                                        .container {
-                                                                            display: block;
-                                                                            position: relative;
-                                                                            padding-left: 0.5em;
-                                                                            cursor: pointer;
-                                                                            font-size: 1.5em;
-                                                                            -webkit-user-select: none;
-                                                                            -moz-user-select: none;
-                                                                            -ms-user-select: none;
-                                                                            user-select: none;
-
-                                                                            input {
-                                                                                position: absolute;
-                                                                                opacity: 0;
-                                                                                cursor: pointer;
-                                                                            }
-
-                                                                        }
-
-                                                                        /* Create a custom radio button */
-                                                                        .checkmark {
-                                                                            position: absolute;
-                                                                            top: 0;
-                                                                            left: 0;
-                                                                            height: 0.75em;
-                                                                            width: 0.75em;
-                                                                            background-color: $white;
-                                                                            border: 0.1em solid $semiLightGrey;
-                                                                            border-radius: 50%;
-                                                                            transition: 0.2s;
-                                                                        }
-
-                                                                        /* On mouse-over, add a grey background color */
-                                                                        .container:hover input ~ .checkmark {
-                                                                            background-color: $secondaryMagenta;
-                                                                        }
-
-                                                                        /* When the radio button is checked, add a blue background */
-                                                                        .container input:checked ~ .checkmark {
-                                                                            background-color: $secondaryMagenta;
-                                                                            border-color: $secondaryMagenta;
-                                                                        }
-
-                                                                        .checkmark:after {
-                                                                            content: "";
-                                                                            position: absolute;
-                                                                            display: none;
-                                                                        }
-
-                                                                        /* Show the checkmark when checked */
-                                                                            .container input:checked ~ .checkmark:after {
-                                                                                display: block;
-                                                                            }
-
-                                                                            /* Style the checkmark/indicator */
-                                                                            .container .checkmark:after {
-                                                                                left: 0.2em;
-                                                                                bottom: 0.1em;
-                                                                                width: 0.2em;
-                                                                                height: 0.5em;
-                                                                                border: solid white;
-                                                                                border-width: 0 0.1em 0.1em 0;
-                                                                                -webkit-transform: rotate(45deg);
-                                                                                -ms-transform: rotate(45deg);
-                                                                                transform: rotate(45deg);
-                                                                            }
-                                                                    
+                                                                .checkBoxSelect{
+                                                                    background: $white;
+                                                                    width: 1.4em;
+                                                                    height: 1.4em;
+                                                                    border-radius: 1.5em;
+                                                                    transition: 0.2s;
+                                                                    @include flexCentreRow;
+                                                                    .iconWrap{
+                                                                        @include flexCentreRow;
+                                
+                                                                    }
                                                                 }
+
                                                             }
                                                             .productStyleContentSection{
                                                                 @include flexCentreRow;
@@ -683,7 +678,7 @@ input{
                                                                 width: 100%;
                                                                 height: 100%;
                                                                 background: $veryLightGrey;
-                                                                cursor: pointers;                                                            .addButtonContainer{
+                                                                cursor: pointer;                                                            .addButtonContainer{
                                                                 @include flexCentreCol;
                                                                 // align-items: flex-end;
                                                                 .whiteButtonWrapper{
