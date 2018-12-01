@@ -18,17 +18,27 @@ export default class StartPage extends React.Component {
         super(props, context)
 
         this.state = {
-            loadingClass: 'loadingAnim hide',
-            mainClass: 'mainClass',
+            loadingClass: 'loadingAnim',
+            mainClass: 'mainClass hide',
             firstName: null,
         }
     }
 
-    componentDidMount = () => {
 
-    }
+    returnDataFromBackendAndShow = () => {
+        setTimeout( () => {
+            this.setState({
+                loadingClass: 'loadingAnim hide',
+                mainClass: 'mainClass',
+            })
+        },4000)
+    }   
+
 
     render() {
+            {
+            this.returnDataFromBackendAndShow()
+            }
         return (
             <article className="homepageWrapper">
                 <Head>
@@ -44,6 +54,8 @@ export default class StartPage extends React.Component {
                     <meta property="og:image" content="http://static.dezeen.com/assets/images/logo-magazine.png" />
                     <title>Start building your dream home without any hassle in India - Rolling Logs</title>
                 </Head>
+
+            
 
                 <div className={this.state.loadingClass}>
                     <LogoAnimation text = "Bringing back the Art in Architecture."/>

@@ -43,6 +43,9 @@
 }
 
 .mainClass{
+    .hide{
+        display: none;
+    }
     header{
         .wrapperForNavbar{}
     }
@@ -94,7 +97,7 @@
                                             &:hover{
                                                 color: $primaryMagenta;
                                             }
-                                            font-size: 1.3em;
+                                            // font-size: 0.8em;
                                             margin: 1em 0;
                                             cursor: pointer;
                                         }
