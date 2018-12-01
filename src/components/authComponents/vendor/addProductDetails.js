@@ -279,7 +279,6 @@ class AddProductDetails extends React.Component {
                 else
                     console.error(err)
             })
-            // console.log(this.state.productName)
     }
 
 
@@ -439,7 +438,6 @@ class AddProductDetails extends React.Component {
     }
 
     returnColorModule = () => {
-            console.log(this.state.colorArray)
         return (
             this.state.colorArray
             .map((item, i) => {

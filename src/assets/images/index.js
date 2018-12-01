@@ -862,16 +862,10 @@ export const FrontPageGraphic = () => {
                     />
                 </g>
             </svg>
-        
     )
-
 }
 
-
-
-
 export const TickSmallWhite = () => {
-
     return (
         <svg id="tickSmallWhite" xmlns="http://www.w3.org/2000/svg" width="12.649" height="8.797"
         viewBox="0 0 12.649 8.797">
@@ -882,8 +876,6 @@ export const TickSmallWhite = () => {
     )
 
 }
-
-
 
 export const YourImageName = () => {
 
