@@ -362,6 +362,10 @@ input{
                         }
                     }
 
+                    .hide{
+                        display: none;
+                    }
+
                     .subHeadingSection{
                         @include flexCentreRow;
                         justify-content: flex-start;

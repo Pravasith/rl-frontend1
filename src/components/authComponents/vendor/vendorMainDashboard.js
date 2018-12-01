@@ -43,11 +43,14 @@ class VendorMainDashboard extends React.Component {
 
             contentType: "uploadedProducts",
 
-            categoryErrorClass : "errorMessageWrap",
+            categoryErrorClass : "errorMessageWrap hide",
+            categoryErrorMessage : "",
 
             categoryName: '',
             tagName: '',
             tagsAdded: [],
+
+            activeModalType : "categoryModal",
 
         }
 
@@ -404,7 +407,7 @@ class VendorMainDashboard extends React.Component {
             })
 
             this.setState({
-                mainCategorySelection : categoryArray[i].categoryId
+                mainCategorySelection : categoryArray[i]
             })
         }
 
@@ -453,8 +456,125 @@ class VendorMainDashboard extends React.Component {
     }
 
     handleCategorySelections = () => {
-        if(this.state.mainCategorySelection !== null){
-            
+        const { mainCategorySelection } = this.state
+
+        if(mainCategorySelection === undefined || mainCategorySelection === null ){
+            this.setState({
+                categoryErrorClass : "errorMessageWrap",
+                categoryErrorMessage : "You have to select one category",
+            })
+        }
+
+        else if(mainCategorySelection !== undefined && mainCategorySelection !== null ){
+            this.setState({
+                categoryErrorClass : "errorMessageWrap hide",
+                // categoryErrorMessage : "You have to select one category",
+                activeModalType : "subcategoryModal"
+            })
+        }
+    }
+
+    returnModalContent = (categoryModalOrSubcategoryModal) => {
+
+        if(categoryModalOrSubcategoryModal === "categoryModal"){
+            return (
+                <div className="modalInnerLayer">
+                    <div className="modalHeaderCloserSection">
+                        <div className="modalHeaderContainer">
+                            <h3>Select one category</h3>
+                            <div className="line"></div>
+                        </div>
+    
+                        <div 
+                            className="close"
+                            onClick={() => this.setState({
+                                modalClass: "modalClass hide",
+                                mainContentWrap: "mainContentWrap",
+                                vendorInitialGraphic: 'vendorGraphicCenter',
+                            })
+                        }
+                        >
+                            <BigCloseButton />
+                        </div>
+                    </div>
+    
+                    <div className="subHeadingSection">
+                        <h3>1/2</h3>
+                        <p>Pick one from the options given below</p>
+                    </div>
+    
+                    <div className="dummyContainer">
+                        <div className="categoryPopulation">
+                            {this.returnCategoryNames()}
+                        </div>
+                    </div>
+    
+                    <div className={this.state.categoryErrorClass}>
+                        <p>{this.state.categoryErrorMessage}</p>
+                    </div>
+    
+                    <div className="proceedButton">
+                        <GradientButton
+                            runFunction = {() => this.handleCategorySelections()}
+                            >
+                            Proceed
+                        </GradientButton>
+                    </div>
+                </div>
+            )
+        }
+
+        else if(categoryModalOrSubcategoryModal === "subcategoryModal"){
+            return (
+                <div className="modalInnerLayer">
+                    <div className="modalHeaderCloserSection">
+                        <div className="modalHeaderContainer">
+                            <h3>Details about the category</h3>
+                            <div className="line"></div>
+                        </div>
+                        <div 
+                            className="close"
+                            onClick={() => this.setState({
+                                modalClass: "modalClass hide",
+                                mainContentWrap: "mainContentWrap",
+                                vendorInitialGraphic: 'vendorGraphicCenter',
+                            })
+                        }
+                        >
+                            <BigCloseButton />
+                        </div>
+                    </div>
+                    <div className="subHeadingSection">
+                        <h3>2/4</h3>
+                        <p>Choose sub-category</p>
+                    </div>
+                    <div className="categorySelectionContainer">
+                        <div className="categorySelectionInnerLayer">
+                            <div className="inputCategoryValue">
+                                <div className="categoryCheckSecondBox">
+                                    <div className="categoryCheckBoxInnerLayer">
+                                        <label className="container">
+                                            <input type="checkbox"/>
+                                            <span className="checkmark"></span>
+                                        </label>
+                                    </div>
+                                </div> 
+                                <div className="categoryHeadingSection">
+                                    <p>Interior Lighting</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="proceedButton">
+                        <WhiteButton>
+                            Go back
+                        </WhiteButton>
+                        <GradientButton>
+                            Proceed
+                        </GradientButton>
+                    </div>
+                </div>
+            )
         }
     }
 
@@ -464,207 +584,7 @@ class VendorMainDashboard extends React.Component {
             <div className={this.state.modalClass}>
                 <div className="modalOuterLayer">
 
-                    <div className="modalInnerLayer">
-                        <div className="modalHeaderCloserSection">
-                            <div className="modalHeaderContainer">
-                                <h3>Select one category</h3>
-                                <div className="line"></div>
-                            </div>
-                            <div 
-                                className="close"
-                                onClick={() => this.setState({
-                                    modalClass: "modalClass hide",
-                                    mainContentWrap: "mainContentWrap",
-                                    vendorInitialGraphic: 'vendorGraphicCenter',
-                                })
-                            }
-                            >
-                                <BigCloseButton />
-                            </div>
-                        </div>
-
-                        <div className="subHeadingSection">
-                            <h3>1/2</h3>
-                            <p>Pick one from the options given below</p>
-                        </div>
-
-                        <div className="dummyContainer">
-                            <div className="categoryPopulation">
-                                {this.returnCategoryNames()}
-                            </div>
-                        </div>
-
-                        <div className={this.state.categoryErrorClass}>
-                            <p>Please select a category to proceed</p>
-                        </div>
-
-                        <div className="proceedButton">
-                            <GradientButton
-                                runFunction = {() => this.handleCategorySelections()}
-                                >
-                                Proceed
-                            </GradientButton>
-                        </div>
-                    </div>
-
-                    {/* <div className="modalInnerLayer">
-                        <div className="modalHeaderCloserSection">
-                            <div className="modalHeaderContainer">
-                                <h3>Details about the category</h3>
-                                <div className="line"></div>
-                            </div>
-                            <div 
-                                className="close"
-                                onClick={() => this.setState({
-                                    modalClass: "modalClass hide",
-                                    mainContentWrap: "mainContentWrap",
-                                    vendorInitialGraphic: 'vendorGraphicCenter',
-                                })
-                            }
-                            >
-                                <BigCloseButton />
-                            </div>
-                        </div>
-                        <div className="subHeadingSection">
-                            <h3>2/4</h3>
-                            <p>Choose sub-category</p>
-                        </div>
-                        <div className="categorySelectionContainer">
-                            <div className="categorySelectionInnerLayer">
-                                <div className="inputCategoryValue">
-                                    <div className="categoryCheckSecondBox">
-                                        <div className="categoryCheckBoxInnerLayer">
-                                            <label className="container">
-                                                <input type="checkbox"/>
-                                                <span className="checkmark"></span>
-                                            </label>
-                                        </div>
-                                    </div> 
-                                    <div className="categoryHeadingSection">
-                                        <p>Interior Lighting</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="proceedButton">
-                            <WhiteButton>
-                                Go back
-                            </WhiteButton>
-                            <GradientButton>
-                                Proceed
-                            </GradientButton>
-                        </div>
-                    </div>
-
-                    <div className="modalInnerLayer">
-                        <div className="modalHeaderCloserSection">
-                            <div className="modalHeaderContainer">
-                                <h3>Details about the category</h3>
-                                <div className="line"></div>
-                            </div>
-                            <div 
-                                className="close"
-                                onClick={() => this.setState({
-                                    modalClass: "modalClass hide",
-                                    mainContentWrap: "mainContentWrap",
-                                    vendorInitialGraphic: 'vendorGraphicCenter',
-                                })
-                            }
-                            >
-                                <BigCloseButton />
-                            </div>
-                        </div>
-                        <div className="subHeadingSection">
-                            <h3>3/4</h3>
-                            <p>Choose product type</p>
-                        </div>
-                        <div className="categorySelectionContainer">
-                            <div className="categorySelectionProductType">
-                                <div className="inputCategoryValue">
-                                    <div className="categoryCheckBox">
-                                        <div className="categoryCheckBoxInnerLayer">
-                                            <label className="container">
-                                                <input type="checkbox"/>
-                                                <span className="checkmark"></span>
-                                            </label>
-                                        </div>
-                                    </div> 
-                                    <div className="categoryHeadingSection">
-                                        <p>Pendant lamps</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="proceedButton">
-                            <WhiteButton>
-                                Go back
-                            </WhiteButton>
-
-                            <GradientButton>
-                                Proceed
-                            </GradientButton>
-                        </div>
-                    </div>
-
-                    <div className="modalInnerLayer">
-                        <div className="modalHeaderCloserSection">
-                            <div className="modalHeaderContainer">
-                                <h3>Details about the category</h3>
-                                <div className="line"></div>
-                            </div>
-
-                            <div 
-                                className="close"
-                                onClick={() => this.setState({
-                                    modalClass: "modalClass hide",
-                                    mainContentWrap: "mainContentWrap",
-                                    vendorInitialGraphic: 'vendorGraphicCenter',
-                                })}
-                                >
-                                <BigCloseButton />
-                            </div>
-                        </div>
-
-                        <div className="subHeadingSection">
-                            <h3>4/4</h3>
-                            <p>Add tags (optional)</p>
-                        </div>
-
-                        <div className="addTagsContainer">
-                            <div className="vendorInputSection">
-                                <input
-                                    placeholder="For Ex. Sofa"
-                                    ref="tagInput"
-                                    type="text"
-                                    maxLength="20"
-                                    onChange = {this.setTagName}
-                                    onKeyPress={e => {
-                                        if (e.key === "Enter") {
-                                            this.setTagName(e)
-                                            this.addTagName()
-                                        }
-                                    }} 
-                                />
-                                <span className="InputSeparatorLine"> </span>
-                            </div>
-                        </div>
-
-                        <div className="addedTagsContainer">
-                            <div className="addedTagsInnerContainer">
-                                {this.returnTags()}
-                            </div>
-                        </div>
-
-                        <div className="proceedButton">
-                            <WhiteButton>
-                                Go back
-                            </WhiteButton>
-
-                            <GradientButton>
-                                Proceed
-                            </GradientButton>
-                        </div>
-                    </div> */}
+                    {this.returnModalContent(this.state.activeModalType)}
 
                 </div>
             </div>
