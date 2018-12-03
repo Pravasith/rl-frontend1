@@ -323,6 +323,7 @@ class AddProductDetails extends React.Component {
 
     }
 
+
     removeFeature = (index) => {
         this
             .state
@@ -343,7 +344,8 @@ class AddProductDetails extends React.Component {
         })
      }
 
-    handleStyleSelection = (styleData) => {
+     handleStyleSelection = (styleData) => {
+
         this.state.categoryStylesAdded.push(styleData.styleTitle)
         let dummyArray = [...this.state.categoryStylesAdded]
 
@@ -351,6 +353,18 @@ class AddProductDetails extends React.Component {
             categoryStylesAdded : dummyArray
         })
     }
+
+    removeCategory = (index) => {
+        this
+            .state
+            .categoryStylesAdded
+            .splice(index, 1)
+
+            this.setState({
+                categoryStylesAdded: this.state.categoryStylesAdded.length !== 0 ? this.state.categoryStylesAdded : []
+            })
+    }
+
 
 
     returnCategoryContent = () => {

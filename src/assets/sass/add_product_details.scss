@@ -336,6 +336,9 @@ input{
                                                             background: $darkerGrey;
                                                             .tagConatinerInnerLayer{
                                                                 @include flexCentreRow;
+                                                                &:hover{
+                                                                    cursor: pointer;
+                                                                }
                                                                 p{
                                                                     color: $white;
                                                                      margin: 0.3em;
