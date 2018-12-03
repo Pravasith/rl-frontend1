@@ -91,8 +91,9 @@ class AddProductDetails extends React.Component {
 
             // displayError: "displayError",
             displayError: "displayError hide",
-            materialCostIsValid: false
-            
+
+            materialCostIsValid: false,
+            sizeCostIsValid: false
         }
     }
 
@@ -636,6 +637,12 @@ class AddProductDetails extends React.Component {
                         )
                     }
 
+                    else if (emptyFieldInColor === "colorCost") {
+                        return (
+                            <p>{this.state.errorMessage}</p>
+                        )
+                    }
+
                     else{
                         return <p>Oops, something is not right, please reload and try again</p>
                     }
@@ -714,7 +721,14 @@ class AddProductDetails extends React.Component {
                     displayError: "displayError hide",
                     materialCostIsValid: true
                 })
-                console.log("Wrks")
+            }
+
+            else if (checkFor === "size") {
+                this.setState({
+                    sizeCost: val,
+                    displayError: "displayError hide",
+                    sizeCostIsValid: true
+                })
             }
         }
         
@@ -728,6 +742,14 @@ class AddProductDetails extends React.Component {
 
     proceedHandler = (typeOfButtonClicked) => {
 
+        const { colorArray,
+                colorCostIsValid,
+                isChecked, 
+                materialCostIsValid, 
+                productDimensions,
+                productMaterials, 
+                sizeCostIsValid } = this.state;
+
         let isMaterialValid = false
         let isColorValid = false
         let isSizeValid = false
@@ -735,7 +757,6 @@ class AddProductDetails extends React.Component {
         let errorMessage
 
         const validateMaterialModal = (materialName, materialCost) => {
-            const { isChecked, materialCostIsValid } = this.state;
 
             if (materialName !== "") {
                 if(isChecked && materialCost !== "") {
@@ -767,22 +788,78 @@ class AddProductDetails extends React.Component {
             
         }
 
-        const validateColorModal = (colorName, colorCode) => {
-            if(colorName !== "" && colorCode !== "") {
-                if(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(colorCode)){
+        const validateColorModal = (colorName, colorCode, colorCost) => {
+            if (colorName !== "" && colorCode !== "") {
+                if (/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(colorCode)) {
 
-                    let alreadyExistingColorName
+                    let alreadyExistingColorName = ""
                     const { colorArray } = this.state
 
-                    if(colorArray.length === 0){
-                        isColorValid = true
-                        colorArray.push({
-                            colorName : colorName.toLowerCase(),
-                            colorCode : colorCode.toLowerCase()
-                        })
+                    if (colorArray.length === 0) {
+
+                        // make an extra check here for colorCost
+                        
+                        if(isChecked === true){
+                            if (colorCost !== "") {
+                                if (!isNaN(colorCost)) {
+                                    console.log(isChecked, colorCost)
+                                    isColorValid = true
+                                    colorArray.push({
+                                        colorName: colorName.toLowerCase(),
+                                        colorCode: colorCode.toLowerCase(),
+                                        colorCost: parseInt(colorCost)
+                                    })
+
+                                    emptyField = ""
+                                    errorMessage = ""
+
+                                    this.setState({
+                                        isChecked : false,
+                                    })
+
+                                    this.refs.colorName.value = ""
+                                    this.refs.colorCode.value = ""
+                                    this.refs.colorCost.value = ""
+
+                                    console.log({
+                                        colorName: colorName.toLowerCase(),
+                                        colorCode: colorCode.toLowerCase(),
+                                        colorCost: parseInt(colorCost)
+                                    })
+                                }
+
+                                else if (isNaN(colorCost)) {
+                                    isColorValid = false
+                                    emptyField = "colorCost"
+                                    errorMessage = `Please enter only numbers`
+                                }
+                            }
+
+                            else {
+                                isColorValid = false
+                                emptyField = "colorCost"
+                                errorMessage = `Please fill in the extra cost for the color`
+                            }
+                        }
+
+                        else{
+                            isColorValid = true
+                            colorArray.push({
+                                colorName: colorName.toLowerCase(),
+                                colorCode: colorCode.toLowerCase(),
+                                colorCost: parseInt(colorCost)
+                            })
+
+                            console.log({
+                                colorName: colorName.toLowerCase(),
+                                colorCode: colorCode.toLowerCase(),
+                                colorCost: parseInt(colorCost)
+                            })
+                        }
+
                     }
 
-                    else{
+                    else {
                         let colorDoesntExist = true
 
                         // console.log("---------------------------------------------------")
@@ -793,40 +870,106 @@ class AddProductDetails extends React.Component {
 
                             // console.log(item.colorCode !== colorCode)
 
-                            if(item.colorCode === colorCode){
+                            if (item.colorCode === colorCode) {
+                                alreadyExistingColorName = item.colorName
                                 colorDoesntExist = false
                             }
 
-                            else{
-                                alreadyExistingColorName = item.colorName
+                            else {
+                                colorDoesntExist = true
                             }
                         })
                         // console.log("---------------------------------------------------")
-    
-                        if(colorDoesntExist === true){
-                            isColorValid = true
-                            colorArray.push({
-                                colorName : colorName.toLowerCase(),
-                                colorCode : colorCode.toLowerCase()
-                            })
+
+                        if (colorDoesntExist === true) {
+
+                            //// start color cost check ////
+
+
+                            if (isChecked === true) {
+                                if (colorCost !== "") {
+                                    if (!isNaN(colorCost)) {
+                                        console.log(isChecked, colorCost)
+                                        isColorValid = true
+                                        colorArray.push({
+                                            colorName: colorName.toLowerCase(),
+                                            colorCode: colorCode.toLowerCase(),
+                                            colorCost: parseInt(colorCost)
+                                        })
+
+                                        emptyField = ""
+                                        errorMessage = ""
+
+                                        this.setState({
+                                            isChecked: false,
+                                        })
+
+                                        this.refs.colorName.value = ""
+                                        this.refs.colorCode.value = ""
+                                        this.refs.colorCost.value = ""
+
+                                        console.log({
+                                            colorName: colorName.toLowerCase(),
+                                            colorCode: colorCode.toLowerCase(),
+                                            colorCost: parseInt(colorCost)
+                                        })
+                                    }
+
+                                    else if (isNaN(colorCost)) {
+                                        isColorValid = false
+                                        emptyField = "colorCost"
+                                        errorMessage = `Please enter only numbers`
+                                    }
+                                }
+
+                                else {
+                                    isColorValid = false
+                                    emptyField = "colorCost"
+                                    errorMessage = `Please fill in the extra cost for the color`
+                                }
+                            }
+
+                            else {
+                                isColorValid = true
+                                colorArray.push({
+                                    colorName: colorName.toLowerCase(),
+                                    colorCode: colorCode.toLowerCase(),
+                                    colorCost: parseInt(colorCost)
+                                })
+
+                                console.log({
+                                    colorName: colorName.toLowerCase(),
+                                    colorCode: colorCode.toLowerCase(),
+                                    colorCost: parseInt(colorCost)
+                                })
+                            }
+
+
+                            //// end color cost check ////
+
+                            // isColorValid = true
+                            // colorArray.push({
+                            //     colorName: colorName.toLowerCase(),
+                            //     colorCode: colorCode.toLowerCase()
+                            // })
                         }
 
-                        else if(colorDoesntExist === false){
+                        else if (colorDoesntExist === false) {
                             isColorValid = false
                             emptyField = "colorCode"
                             errorMessage = `You have already entered this color code with the name "${alreadyExistingColorName}"`
                         }
-                    }                
+                    }
                 }
 
-                else{
+                else {
                     isColorValid = false
                     emptyField = "colorCode"
                     errorMessage = "The color code is not right, please retry. See if you forgot to enter the '#' at the beginning."
                 }
 
-            } 
-            
+            }
+
             else if (colorName === "" && colorCode === "") {
                 emptyField = "colorName"
                 errorMessage = "please enter color name"
@@ -837,13 +980,13 @@ class AddProductDetails extends React.Component {
                     emptyField = "colorName"
                     errorMessage = "Please enter color name"
                 }
-                    
 
-                if (colorCode === ""){
+
+                if (colorCode === "") {
                     emptyField = "colorCode"
                     errorMessage = "Please enter color code"
                 }
-                    
+
             }
 
             const validationData = {
@@ -857,20 +1000,36 @@ class AddProductDetails extends React.Component {
 
 
         const validateSizeModal = (sizeName, sizeCost) => {
-            if(sizeName !== "" && sizeCost !== ""){
-                isSizeValid = true;
+            if(sizeName !== "") {
+                // if (isChecked && sizeCost !== "") {
+                //     sizeCostIsValid ? isSizeValid = true : emptyField = "Size Cost in Numbers";
+                // }
+                // else if (isChecked && sizeCost === "") {
+                //     emptyField = "Size Cost"
+                // }
+                // else if (isChecked === false && sizeCost === 0) {
+                //     isSizeValid = true;
+                // }
+
+                if(isChecked){
+                    if(sizeCost !== ""){
+                        // then its right, go ahead
+                    }
+
+                    else{
+                        // display error
+                        // and set sizeCostValid to false
+                    }
+                }
+
+                else{
+                    // leave it and give approval
+                }
             }
 
-            else if (sizeName === "" && sizeCost === "") {
+            else if (sizeName === "") {
                 emptyField = "Size Name"
             } 
-
-            else {
-                if (sizeName === "")
-                    emptyField = "Size Name"
-                if (sizeCost === "")
-                    emptyField = "Size Cost"
-            }
 
             const validationData = {
                 isSizeValid,
@@ -880,20 +1039,35 @@ class AddProductDetails extends React.Component {
             return validationData;
         }
 
-
-        if(typeOfButtonClicked === "color"){
+        if (typeOfButtonClicked === "color") {
             const colorCode = this.refs.colorCode.value
             const colorName = this.refs.colorName.value
+            const colorCost = isChecked === true ? this.refs.colorCost.value : 0
 
-            let validatedData = validateColorModal(colorName, colorCode)
+            let validatedData = validateColorModal(colorName, colorCode, colorCost)
 
-            if(validatedData.isColorValid){
-                
+            if (validatedData.isColorValid) {
+
+                // let temp = {
+                //     colorCode: this.state.colorCode,
+                //     colorName: this.state.colorName
+                // }
+
+                // console.log("temp:", temp);
+
+                // if (temp !== "") {
+                //     let dummyColorArray = [...this.state.colorArray]
+
+                //     if (!dummyColorArray.includes(temp)) {
+                //         this.state.colorArray.push(temp)
+                //     }
+                // }
+
                 this.setState({
                     colorIsValid: true,
                     emptyFieldInColor: null,
                     modalType: null,
-                    colorArray: this.state.colorArray.length !== 0 ? this.state.colorArray : []
+                    colorArray: colorArray.length !== 0 ? colorArray : null
                 })
 
                 // save data
@@ -904,42 +1078,45 @@ class AddProductDetails extends React.Component {
                 this.modalClassToggle("dontShow")
             }
 
-            else{
-                
+            else {
+
                 this.setState({
-                    colorIsValid : false,
-                    emptyFieldInColor : validatedData.emptyField,
-                    errorMessage : validatedData.errorMessage
+                    colorIsValid: false,
+                    emptyFieldInColor: validatedData.emptyField,
+                    errorMessage: validatedData.errorMessage
                 })
             }
         }
 
         else if (typeOfButtonClicked === "size") {
+
             const sizeName = this.refs.sizeName.value;
-            const sizeCost = this.refs.sizeCost.value;
+            const sizeCost = isChecked ? this.refs.sizeCost.value : 0;
 
             let validatedData = validateSizeModal(sizeName, sizeCost);
 
             if (validatedData.isSizeValid) {
                 let temp = {
-                    sizeName: this.state.sizeName,
-                    sizeCost: this.state.sizeCost
+                    sizeName,
+                    sizeCost
                 }
 
                 if(temp !== "") {
-                    let dummyArray = [...this.state.productDimensions]
+                    let dummyArray = [...productDimensions]
 
                     if(!dummyArray.includes(temp)){
-                        this.state.productDimensions.push(temp)
+                        productDimensions.push(temp)
                     }
-                }
 
-                this.setState({
-                    sizeIsValid: true,
-                    emptyFieldInSize: null,
-                    modalType: null,
-                    productDimensions: this.state.productDimensions.length !== 0 ? this.state.productDimensions : null
-                })
+                    this.setState({
+                        sizeIsValid: true,
+                        emptyFieldInSize: null,
+                        modalType: null,
+                        isChecked: false,
+                        productDimensions: productDimensions.length !== 0 ? productDimensions : null,
+                        extraCostInput: "extraCostInput hide"
+                    })
+                }
 
                 this.refs.sizeCost.value = ""
                 this.refs.sizeName.value = ""
@@ -958,30 +1135,30 @@ class AddProductDetails extends React.Component {
         else if (typeOfButtonClicked === "material") {
             
             const materialName = this.refs.materialName.value;
-            const materialCost = this.state.isChecked ? this.refs.materialCost.value : 0 ;
+            const materialCost = isChecked ? this.refs.materialCost.value : 0 ;
 
             let validatedData = validateMaterialModal(materialName, materialCost);
 
             if (validatedData.isMaterialValid) {
                 let temp = {
-                    materialCost: materialCost,
-                    materialName: materialName
+                    materialCost,
+                    materialName
                 }
 
                 // console.log("temp:", temp)
 
                 if (temp.materialName !== "") {
-                    let dummyArray = [...this.state.productMaterials]
+                    let dummyArray = [...productMaterials]
 
                     if (!dummyArray.includes(temp)) {
-                        this.state.productMaterials.push(temp)
+                        productMaterials.push(temp)
 
                         this.setState({
                             materialIsValid: true,
                             emptyFieldInMaterial: null,
                             modalType: null,
                             isChecked: false, 
-                            productMaterials: this.state.productMaterials.length !== 0 ? this.state.productMaterials : null,
+                            productMaterials: productMaterials.length !== 0 ? productMaterials : null,
                             extraCostInput: "extraCostInput hide"
                         })
                     }
@@ -1109,7 +1286,37 @@ class AddProductDetails extends React.Component {
     returnExtraCost = (type) => {
         const { extraCostInput, isChecked, materialCost, productPrice } = this.state;
 
-        if(type === "material") {
+        if(type === "color") {
+            return (
+                <div className={extraCostInput}>
+                    <input
+                        type="text"
+                        name="colorCost"
+                        placeholder="Ex. 20"
+                        onChange={(e) => this.checkTypeNumber(e, "color")}
+                        ref="colorCost"
+                    />
+                    <span className="InputSeparatorLine"> </span>
+                </div>
+            )
+        }
+
+        else if(type === "size") {
+            return (
+                <div className={extraCostInput}>
+                    <input
+                        type="text"
+                        name="sizeCost"
+                        placeholder="Ex. 20"
+                        onChange={(e) => this.checkTypeNumber(e, "size")}
+                        ref="sizeCost"
+                    />
+                    <span className="InputSeparatorLine"> </span>
+                </div>
+            )
+        }
+
+        else if(type === "material") {
             return (
                 <div className={extraCostInput}>
                     <input
@@ -1262,6 +1469,28 @@ class AddProductDetails extends React.Component {
 
                                         </div>
                                     </div>
+
+                                    <div className="switch-container">
+                                        <label>
+                                            <p>Is there an extra cost over base price ?</p>
+                                            <input
+                                                ref="switch"
+                                                checked={this.state.isChecked}
+                                                onChange={() => this.onToggleSwitch()}
+                                                className="switch"
+                                                type="checkbox" />
+                                            <div>
+                                                {this.returnExtraCost("color")}
+                                            </div>
+                                        </label>
+                                    </div>
+
+                                    <div className="errorContent">
+                                        <p className={this.state.displayError}>
+                                            Numbers Only
+                                        </p>
+                                    </div>
+
                                     <div className="proceedOrNotCheck">
                                         <GradientButton
                                             runFunction={() => {
@@ -1324,24 +1553,11 @@ class AddProductDetails extends React.Component {
                                     </div>
                                 </div>
 
-                                <div className="inputFormContainer">
+                                {/* <div className="inputFormContainer">
                                     <div className="formParaSection">
                                         <p className="pargraphClass">Extra cost for size(over base price)</p>
                                     </div>
                                     <div className="productInputInfoSection productCostForSize">
-                                        {/* <InputForm
-                                            refName="sizeCost"
-                                            placeholder="Ex. 20"
-                                            isMandatory={true}
-                                            validationType="onlyNumbers"
-                                            characterCount="5"
-                                            result={(val) => this.setState({
-                                                sizeCost: val
-                                            })}
-                                        /> */}
-                                        {/* <div className="modalMandatorySection">
-                                            <p className="madatoryHighlight">Mandatory</p>
-                                        </div> */}
                                         <div className="modalInputCategory">
                                             <input
                                                 type="text"
@@ -1353,6 +1569,27 @@ class AddProductDetails extends React.Component {
                                             <span className="InputSeparatorLine"> </span>
                                         </div>
                                     </div>
+                                </div> */}
+
+                                <div className="switch-container">
+                                    <label>
+                                        <p>Is there an extra cost over base price ?</p>
+                                        <input
+                                            ref="switch"
+                                            checked={this.state.isChecked}
+                                            onChange={() => this.onToggleSwitch()}
+                                            className="switch"
+                                            type="checkbox" />
+                                        <div>
+                                            {this.returnExtraCost("size")}
+                                        </div>
+                                    </label>
+                                </div>
+
+                                <div className="errorContent">
+                                    <p className={this.state.displayError}>
+                                        Numbers Only
+                                    </p>
                                 </div>
 
                                 <div className="proceedOrNotCheck">
@@ -1535,6 +1772,7 @@ class AddProductDetails extends React.Component {
     onToggleSwitch = async () => {
         await this.setState({ isChecked: !this.state.isChecked });
 
+        console.log(this.state.isChecked)
         if (this.state.isChecked === true) this.setState({ extraCostInput: "extraCostInput" });
         else if(this.state.isChecked === false) this.setState({ extraCostInput: "extraCostInput hide" });
     }
