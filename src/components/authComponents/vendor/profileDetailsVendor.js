@@ -55,41 +55,6 @@ class ProfileDetailsVendor extends React.Component {
             // inputCountEight: 0,
             // inputCountNine: 0,
 
-            expOptions: [
-                {
-                    id: 1,
-                    value: "0-1"
-                },
-                {
-                    id: 2,
-                    value: "1-2"
-                },
-                {
-                    id: 3,
-                    value: "2-5"
-                },
-                {
-                    id: 4,
-                    value: "5-10"
-                },
-                {
-                    id: 5,
-                    value: "10-15"
-                },
-                {
-                    id: 6,
-                    value: "15-20"
-                },
-                {
-                    id: 7,
-                    value: "20-30"
-                },
-                {
-                    id: 8,
-                    value: "30+"
-                }
-            ],
-
             emptyField: [],
 
             companyName: null,
@@ -155,16 +120,13 @@ class ProfileDetailsVendor extends React.Component {
                                 getIndividualGSTINs()
                             }
 
-                            // console.log("GSTIN STATE", gstInState)
 
-                            console.log(decryptedData)
+                            // console.log(decryptedData)
 
                             this.setState({
 
                                 companyName: decryptedData.companyName,
 
-                                // hNo: decryptedData.address.hNo,
-                                // stNo: decryptedData.address.stNo,
                                 detailedAddressLine1: decryptedData.address.detailedAddressLine1,
                                 detailedAddressLine2: decryptedData.address.detailedAddressLine2,
                                 state: decryptedData.address.state,
@@ -174,8 +136,6 @@ class ProfileDetailsVendor extends React.Component {
                                 companyDescriptionLine1: decryptedData.companyDescriptionLine1,
                                 companyDescriptionLine2: decryptedData.companyDescriptionLine2,
 
-                                // yearCount: decryptedData.experience.years,
-                                // monthCount: decryptedData.experience.months,
                                 experienceCount: decryptedData.experience.years,
 
                                 gstIn: decryptedData.GSTIN,
@@ -662,11 +622,50 @@ class ProfileDetailsVendor extends React.Component {
         
     }
 
+    returnExperienceOptions = () => {
+        return(
+            [
+                {
+                    id: 1,
+                    value: "0-1"
+                },
+                {
+                    id: 2,
+                    value: "1-2"
+                },
+                {
+                    id: 3,
+                    value: "2-5"
+                },
+                {
+                    id: 4,
+                    value: "5-10"
+                },
+                {
+                    id: 5,
+                    value: "10-15"
+                },
+                {
+                    id: 6,
+                    value: "15-20"
+                },
+                {
+                    id: 7,
+                    value: "20-30"
+                },
+                {
+                    id: 8,
+                    value: "30+"
+                }
+            ]
+        )
+    }
+
     handleRadiobutton = (e) => {
         const val = e.target.value;
 
         this.updateVendorData("experience.years", val)
-        this.setState({ experienceCount: e.target.value })
+        this.setState({ experienceCount: val })
     }
 
     proceedHandler = async () => {
@@ -690,7 +689,7 @@ class ProfileDetailsVendor extends React.Component {
         ]
 
 
-        console.log(fieldNames)
+        // console.log(fieldNames)
 
 
         await this.setState({
@@ -698,7 +697,7 @@ class ProfileDetailsVendor extends React.Component {
         })
 
         fieldNames.map(item => {
-            // console.log(item.fieldName, item.value)
+            console.log(item.fieldName, typeof(item.value))
             if (item.value === null || item.value === "" || item.value === 0 || item.value === undefined) {
                 if(!this.state.emptyField.includes(item.fieldName))
                         this.state.emptyField.push(item.fieldName)
@@ -1001,7 +1000,7 @@ class ProfileDetailsVendor extends React.Component {
                                                                 refName="phoneNo"
                                                                 placeholder="10 digit Official contact number"
                                                                 isMandatory={true}
-                                                                validationType="onlyNumbers"
+                                                                validationType="onlyMobileNumbers"
                                                                 characterCount="10"
                                                                 value={
                                                                     this.state.mobileNo
@@ -1017,7 +1016,7 @@ class ProfileDetailsVendor extends React.Component {
                                                                 refName="whatsappNo"
                                                                 placeholder="10 digit Whatsapp number"
                                                                 isMandatory={false}
-                                                                validationType="onlyNumbers"
+                                                                validationType="onlyMobileNumbers"
                                                                 characterCount="10"
                                                                 value={
                                                                     this.state.whatsappNo
@@ -1137,10 +1136,13 @@ class ProfileDetailsVendor extends React.Component {
                                                                 refName="Pincode"
                                                                 placeholder="Pincode"
                                                                 isMandatory={true}
-                                                                validationType="onlyNumbers"
+                                                                validationType="onlyMobileNumbers"
                                                                 characterCount="6"
                                                                 value={this.state.pincode ? this.state.pincode : null}
-                                                                result={val => this.updateVendorData("address.pincode", val)}
+                                                                result={val => {
+                                                                    // console.log(typeof(val))
+                                                                    this.updateVendorData("address.pincode", val)
+                                                                }}
                                                             />
                                                         </div>
 
@@ -1197,11 +1199,12 @@ class ProfileDetailsVendor extends React.Component {
                                                         <div className="radioButtonSelection">
                                                             <div className="radioButtonSelectionInnerLayer">
                                                                 <RadioButton
-                                                                    title="Testing"
+                                                                    title="Experience"
                                                                     name={'experience'}
-                                                                    options={this.state.expOptions}
+                                                                    suffix="years"
+                                                                    options={this.returnExperienceOptions()}
                                                                     selectedOption={this.state.experienceCount}
-                                                                    onChange={this.handleRadiobutton}
+                                                                    onChange={(e) => this.handleRadiobutton(e)}
                                                                 />
                                                             </div>
                                                         </div>  
