@@ -17,6 +17,7 @@ import LogoAnimation from "../../animations/logoAnimation";
 import { GradientButton, InputForm, SelectList, WhiteButton } from "../../UX/uxComponents";
 import HtmlSlider from "../../UX/htmlSlider"
 import Axios from "axios";
+import { api } from "../../../actions/apiLinks";
 
 
 class VendorMainDashboard extends React.Component {
@@ -321,69 +322,68 @@ class VendorMainDashboard extends React.Component {
         const categoryArray = [
             {   
                 categoryName: 'Lighting', 
-                categoryId: 1, 
+                categoryId: "CAT-1", 
                 categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/lighting.jpg"
             },
 
             {
                 categoryName: 'Furniture',
-                categoryId: 2,
+                categoryId: "CAT-2",
                 categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/furniture.jpg"
             },
 
             {
                 categoryName: 'Outdoor',
-                categoryId: 3,
+                categoryId: "CAT-3",
                 categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/outdoor.png",
             },
             {
                 categoryName: 'Bathroom',
-                categoryId: 4,
+                categoryId: "CAT-4",
                 categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/bathroom.jpg",
             },
             {
                 categoryName: 'Kitchen',
-                categoryId: 5,
+                categoryId: "CAT-5",
                 categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/kitchen.jpg",
             },
             {
                 categoryName: 'Office',
-                categoryId: 6,
+                categoryId: "CAT-6",
                 categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/office.jpg",
             },
 
             {
                 categoryName: 'Wellness',
-                categoryId: 7,
+                categoryId: "CAT-7",
                 categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/wellness.jpg",
             },
             {
                 categoryName: 'Decor',
-                categoryId: 8,
+                categoryId: "CAT-8",
                 categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/decor.jpg",
             },
             {
                 categoryName: 'Finishes',
-                categoryId: 9,
+                categoryId: "CAT-9",
                 categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/finishes.jpg",
             },
             {
                 categoryName: 'Construction',
-                categoryId: 10,
+                categoryId: "CAT-10",
                 categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/construction.jpg",
             },
             {
                 categoryName: 'Safety and security', 
-                categoryId: 11,
+                categoryId: "CAT-11",
                 categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/safety-and-security.jpg",
                
             },
             {
                 categoryName: 'Home automation', 
-                categoryId: 12,
+                categoryId: "CAT-12",
                 categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/home-automation.jpg",
             },
-           
         ]
         
 
@@ -468,7 +468,6 @@ class VendorMainDashboard extends React.Component {
         else if(mainCategorySelection !== undefined && mainCategorySelection !== null ){
             this.setState({
                 categoryErrorClass : "errorMessageWrap hide",
-                // categoryErrorMessage : "You have to select one category",
                 activeModalType : "subcategoryModal"
             })
         }
@@ -525,6 +524,11 @@ class VendorMainDashboard extends React.Component {
         }
 
         else if(categoryModalOrSubcategoryModal === "subcategoryModal"){
+
+            // this.props.hitApi(api.REGISTER_GOOGLE_USER, "GET", {
+
+            // })
+            
             return (
                 <div className="modalInnerLayer">
                     <div className="modalHeaderCloserSection">
@@ -583,12 +587,9 @@ class VendorMainDashboard extends React.Component {
         return (
             <div className={this.state.modalClass}>
                 <div className="modalOuterLayer">
-
                     {this.returnModalContent(this.state.activeModalType)}
-
                 </div>
             </div>
-            
         )
     }
 
