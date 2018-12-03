@@ -67,9 +67,14 @@ class AddProductDetails extends React.Component {
             // productMaxQuantity: undefined,
 
             productDimensions: [],
+            productMaterials: [],
             tagsAdded: [],
             charCount: 20,
             checked: undefined,
+
+            isChecked: false,
+            extraCostInput: 'extraCostInput hide',
+            materialCost: '',
 
             productDiscount: undefined,
 
@@ -84,17 +89,16 @@ class AddProductDetails extends React.Component {
             checkBoxClass1: "checkBox",
             checkBoxClass2: "checkBox",
 
-            displayError: "displayError",
-            displayError: "displayError hide"
+            // displayError: "displayError",
+            displayError: "displayError hide",
+            materialCostIsValid: false
             
         }
     }
 
-    componentDidUpdate() {
-        console.log("PA:", this.state.productAvailability, 
-                    "PD:", this.state.productDiscount, 
-                    "PT:", this.state.productType)
-    }
+    // componentDidUpdate() {
+    //     console.log(this.state.productDiscount)
+    // }
 
 
     modalClassToggle = (showOrNot) => {
@@ -266,7 +270,6 @@ class AddProductDetails extends React.Component {
                 else
                     console.error(err)
             })
-            // console.log(this.state.productName)
     }
 
 
@@ -419,7 +422,6 @@ class AddProductDetails extends React.Component {
     }
 
     returnColorModule = () => {
-            // console.log(this.state.colorArray)
         return (
             this.state.colorArray
             .map((item, i) => {
@@ -526,6 +528,89 @@ class AddProductDetails extends React.Component {
         })
     }
 
+    returnProductMaterials = () => {
+        return (
+            this
+                .state
+                .productMaterials
+                .map((item, i) => {
+                    // console.log(item)
+                    return (
+                        <div
+                            className="productMaterialDescriptionOuterLayer"
+                            key={i}
+                        >
+                            <div className="productMaterialDescriptionInnerLayer">
+                                <div className="productMaterialDetails">
+                                    <div className="MaterialCostCartWrap">
+                                        <h3>Material nomenclature</h3>
+                                        <p key={i}
+                                        >{item.materialName}</p>
+                                    </div>
+                                    <div className="MaterialCostCartWrap">
+                                        <h3>Cost over base price</h3>
+                                        <p key={i}>Rs. {item.materialCost}</p>
+                                    </div>
+                                </div>
+                                <div className="MaterialEditingButtons">
+                                    <div className="editButton">
+                                        <WhiteButton
+                                            runFunction={() => this.editProductMaterials(i)}
+                                        >
+                                            Edit
+                                        </WhiteButton>
+                                    </div>
+                                    <div
+                                        className="deleteButton"
+                                        onClick={() => this.removeProductMaterials(i)}
+                                    >
+                                        <WhiteButton>
+                                            Delete
+                                        </WhiteButton>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                })
+        )
+    }
+
+    editProductMaterials = async (index) => {
+        const materialName = this.state.productMaterials[index].materialName;
+        const materialCost = this.state.productMaterials[index].materialCost;
+
+        const setSyncState = async () => {
+            await this.setState({
+                modalType: "material",
+            })
+        }
+
+        await setSyncState()
+
+        this.modalClassToggle("show")
+
+        this.refs.materialName.value = materialName
+        this.refs.materialCost.value = materialCost
+
+
+        this.setState({
+            materialName,
+            materialCost
+        })
+    }
+
+    removeProductMaterials = (index) => {
+        this
+            .state
+            .productMaterials
+            .splice(index, 1)
+
+        this.setState({
+            productMaterials: this.state.productMaterials.length !== 0 ? this.state.productMaterials : []
+        })
+    }
+
     removeColor = (index) => {
         this.state.colorArray.splice(index, 1)
 
@@ -574,6 +659,16 @@ class AddProductDetails extends React.Component {
                 )
             }
         }
+
+        else if (modalType === "material") {
+            if (this.state.materialIsValid === false) {
+                return (
+                    <div className="errorMessage">
+                        <p>Please enter the {this.state.emptyFieldInMaterial}</p>
+                    </div>
+                )
+            }
+        }
     }
 
     handleQuantity = async (e, minOrMax) => {
@@ -597,47 +692,80 @@ class AddProductDetails extends React.Component {
         }
     }
 
-    handleDiscount = (e) => {
-        // const productDiscount = (e.target.validity.valid) ? e.target.value : this.state.productDiscount;
-       
+    checkTypeNumber = (e, checkFor) => {
+
         const val = e.target.value;
         const regEx = /^[0-9\b]+$/;
 
-        console.log(this.state.productDiscount);
+        console.log(val)
 
-        if (regEx.test(val)) {
+        if (regEx.test(val) === true) {
+            if (checkFor === "discount") {
                 this.setState({
                     productDiscount: val,
                     displayError: "displayError hide",
-                    // displayError: "displayError hide"
+                    
                 })
-                // console.log("Wrks")
-        } 
+            } 
+            
+            else if (checkFor === "material") {
+                this.setState({
+                    materialCost: val,
+                    displayError: "displayError hide",
+                    materialCostIsValid: true
+                })
+                console.log("Wrks")
+            }
+        }
         
         else if (!regEx.test(val)) {
-            console.log(this.state.productDiscount)
             this.setState({
                 displayError: "displayError",
-                // displayError: "displayError"
+                materialCostIsValid: false
             })
         }
-
-        // else if (this.refs.productDiscount.value === "") {
-        //     this.setState({
-        //         displayError: "displayError hide",
-        //         // displayError: "displayError"
-        //     })
-        // }
-        // console.log(productDiscount)
-        // this.setState({ productDiscount, checked: true })
     }
 
     proceedHandler = (typeOfButtonClicked) => {
 
+        let isMaterialValid = false
         let isColorValid = false
         let isSizeValid = false
         let emptyField
         let errorMessage
+
+        const validateMaterialModal = (materialName, materialCost) => {
+            const { isChecked, materialCostIsValid } = this.state;
+
+            if (materialName !== "") {
+                if(isChecked && materialCost !== "") {
+                    materialCostIsValid ? isMaterialValid = true : emptyField = "Material Cost in Numbers";
+                } 
+                else if (isChecked && materialCost === "") {
+                    emptyField = "Material Cost"
+                } 
+                else if (isChecked === false && materialCost === 0) { 
+                    isMaterialValid = true;
+                }
+            }
+
+            else if (materialName === "") {
+                emptyField = "Material Name"
+            }
+
+
+            const validationData = {
+                isMaterialValid,
+                emptyField
+            }
+
+            // console.log(validationData);
+
+            return (
+                validationData
+            )
+            
+        }
 
         const validateColorModal = (colorName, colorCode) => {
             if(colorName !== "" && colorCode !== "") {
@@ -734,14 +862,14 @@ class AddProductDetails extends React.Component {
             }
 
             else if (sizeName === "" && sizeCost === "") {
-                emptyField = "sizeName"
+                emptyField = "Size Name"
             } 
 
             else {
                 if (sizeName === "")
-                    emptyField = "sizeName"
+                    emptyField = "Size Name"
                 if (sizeCost === "")
-                    emptyField = "sizeCost"
+                    emptyField = "Size Cost"
             }
 
             const validationData = {
@@ -752,6 +880,7 @@ class AddProductDetails extends React.Component {
             return validationData;
         }
 
+
         if(typeOfButtonClicked === "color"){
             const colorCode = this.refs.colorCode.value
             const colorName = this.refs.colorName.value
@@ -759,21 +888,6 @@ class AddProductDetails extends React.Component {
             let validatedData = validateColorModal(colorName, colorCode)
 
             if(validatedData.isColorValid){
-
-                // let temp = {
-                //     colorCode: this.state.colorCode,
-                //     colorName: this.state.colorName
-                // }
-
-                // console.log("temp:", temp);
-
-                // if (temp !== "") {
-                //     let dummyColorArray = [...this.state.colorArray]
-
-                //     if (!dummyColorArray.includes(temp)) {
-                //         this.state.colorArray.push(temp)
-                //     }
-                // }
                 
                 this.setState({
                     colorIsValid: true,
@@ -803,8 +917,6 @@ class AddProductDetails extends React.Component {
         else if (typeOfButtonClicked === "size") {
             const sizeName = this.refs.sizeName.value;
             const sizeCost = this.refs.sizeCost.value;
-
-            
 
             let validatedData = validateSizeModal(sizeName, sizeCost);
 
@@ -842,13 +954,59 @@ class AddProductDetails extends React.Component {
                 })
             }
         }
+
+        else if (typeOfButtonClicked === "material") {
+            
+            const materialName = this.refs.materialName.value;
+            const materialCost = this.state.isChecked ? this.refs.materialCost.value : 0 ;
+
+            let validatedData = validateMaterialModal(materialName, materialCost);
+
+            if (validatedData.isMaterialValid) {
+                let temp = {
+                    materialCost: materialCost,
+                    materialName: materialName
+                }
+
+                // console.log("temp:", temp)
+
+                if (temp.materialName !== "") {
+                    let dummyArray = [...this.state.productMaterials]
+
+                    if (!dummyArray.includes(temp)) {
+                        this.state.productMaterials.push(temp)
+
+                        this.setState({
+                            materialIsValid: true,
+                            emptyFieldInMaterial: null,
+                            modalType: null,
+                            isChecked: false, 
+                            productMaterials: this.state.productMaterials.length !== 0 ? this.state.productMaterials : null,
+                            extraCostInput: "extraCostInput hide"
+                        })
+                    }
+                }
+
+                this.refs.materialCost.value = ""
+                this.refs.materialName.value = ""
+
+                this.modalClassToggle("dontShow")
+            }
+
+            else {
+                this.setState({
+                    materialIsValid: false,
+                    emptyFieldInMaterial: validatedData.emptyField
+                })
+            }
+        }
     }
 
     onChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
     }
 
-    handleColorInput = (e, colorInputType) => {
+    handleColorInput = (e) => {
         this.setState({
             colorPreview : e.target.value
         })
@@ -858,14 +1016,12 @@ class AddProductDetails extends React.Component {
         const val = e.target.value
 
         this.setState({
-            charCount: 20 - val.length
-        })
-
-
-
-        this.setState({
+            charCount: 20 - val.length,
             tagName: val
         })
+        // this.setState({
+        //     tagName: val
+        // })
     }
 
     addTagName = () => {
@@ -945,20 +1101,27 @@ class AddProductDetails extends React.Component {
             this.setState({ productAvailability: val })
         }
 
-        else if (type === "productDiscountAvailabilityYes" ) {
-                // this.setState({ productDiscountAvailability: val })
-            // await console.log(this.state.productDiscount)
-            console.log("wrks")
-        }
-
-        else if (type === "productDiscountAvailabilityNo") {
-            // this.setState({ productDiscountAvailability: val })
-            // this.refs.productDiscount.value = "";
-            this.setState({ productDiscount: "" })
-        }
-
         else if(type === "productType") {
             this.setState({ productType: val })
+        }
+    }
+
+    returnExtraCost = (type) => {
+        const { extraCostInput, isChecked, materialCost, productPrice } = this.state;
+
+        if(type === "material") {
+            return (
+                <div className={extraCostInput}>
+                    <input
+                        type="text"
+                        name="materialCost"
+                        placeholder="Ex. 20"
+                        onChange={(e) => this.checkTypeNumber(e, "material")}
+                        ref="materialCost"
+                    />
+                    <span className="InputSeparatorLine"> </span>
+                </div>
+            )
         }
     }
 
@@ -1151,7 +1314,8 @@ class AddProductDetails extends React.Component {
                                             <input
                                                 type="text"
                                                 name="sizeName"
-                                                placeholder="Ex. Small-2ft x 2ft"
+                                                placeholder="Ex. Small / Extralarge / 2ftx3ft / any custon name"
+                                                // value={this.state.sizeName}
                                                 onChange={this.onChange}
                                                 ref="sizeName"
                                             />
@@ -1205,6 +1369,96 @@ class AddProductDetails extends React.Component {
                 )
             }
 
+
+            else if (modalType === "material") {
+                return (
+
+                    <div className={this.state.modalMaterial}>
+                        <div className="dummyXClass">
+                            <div className="whiteSquareForModal">
+                                <div className="vendorDashboardModal">
+                                    <div className="modalHeader">
+                                        <h3>Material details</h3>
+                                        <div className="line"></div>
+                                    </div>
+                                </div>
+
+                                <div className="inputFormContainer">
+                                    <div className="formParaSection">
+                                        <p className="pargraphClass">Material name</p>
+                                    </div>
+                                    <div className="productInputInfoSection productMaterialName">
+                                        <div className="modalMandatorySection">
+                                            <p className="madatoryHighlight">Mandatory</p>
+                                        </div>
+                                        <div className="modalInputCategory">
+                                            <input
+                                                type="text"
+                                                name="materialName"
+                                                placeholder="Ex. Glass reinforced concrete"
+                                                onChange={this.onChange}
+                                                ref="materialName"
+                                            />
+                                            <span className="InputSeparatorLine"> </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* <div className="inputFormContainer">
+                                    <div className="formParaSection">
+                                        <p className="pargraphClass">Extra cost for the material(over base price)</p>
+                                    </div>
+                                    <div className="productInputInfoSection productCostForMaterial">
+                                        <div className="modalInputCategory">
+                                            <input
+                                                type="text"
+                                                name="materialCost"
+                                                placeholder="Ex. 20"
+                                                onChange={this.onChange}
+                                                ref="materialCost"
+                                            />
+                                            <span className="InputSeparatorLine"> </span>
+                                        </div>
+                                    </div>
+                                </div> */}
+
+                                <div className="switch-container">
+                                    <label>
+                                        <p>Is there an extra cost over base price ?</p>
+                                        <input
+                                            ref="switch"
+                                            checked={this.state.isChecked}
+                                            onChange={() => this.onToggleSwitch()}
+                                            className="switch"
+                                            type="checkbox" />
+                                        <div>
+                                            {this.returnExtraCost("material")}
+                                        </div>
+                                    </label>
+                                </div>
+
+                                <div className="errorContent">
+                                    <p className={this.state.displayError}>
+                                        Numbers Only
+                                    </p>
+                                </div>
+
+                                <div className="proceedOrNotCheck">
+                                    <GradientButton
+                                        runFunction={() => this.proceedHandler("material")}
+                                        >
+                                        Proceed
+                                    </GradientButton>
+                                </div>
+                                {this.displayError("material")}
+                            </div>
+                        </div>
+                    </div>
+
+                )
+            }
+
+
             else if (modalType === "validation") {
                 return (
                     <div className={this.state.modalClassToggle}>
@@ -1217,9 +1471,9 @@ class AddProductDetails extends React.Component {
                                     <div className="modalContentContainer">
                                         <div className="modalContentContainerInnerLayer">
                                             <div className="content">
-                                                <h3>Please enter:</h3>
-                                                <div className="detailsToInput">
-                                                    <div className="detailsInputLayer">
+                                                <h3>Please provide the following details</h3>
+                                                {/* <div className="detailsToInput"> */}
+                                                    {/* <div className="detailsInputLayer"> */}
                                                         <h3>{this.state.emptyField
                                                             .map((item, i) =>
                                                                 <div
@@ -1231,8 +1485,8 @@ class AddProductDetails extends React.Component {
                                                                 </div>
                                                             )}
                                                         </h3>
-                                                    </div>
-                                                </div>
+                                                    {/* </div> */}
+                                                {/* </div> */}
                                             </div>
                                         </div>
                                     </div>
@@ -1278,12 +1532,19 @@ class AddProductDetails extends React.Component {
         )
     }
 
+    onToggleSwitch = async () => {
+        await this.setState({ isChecked: !this.state.isChecked });
+
+        if (this.state.isChecked === true) this.setState({ extraCostInput: "extraCostInput" });
+        else if(this.state.isChecked === false) this.setState({ extraCostInput: "extraCostInput hide" });
+    }
+
     validateProceedHandler = async () => {
        const fieldNames = [
            { fieldName: 'Product Name', value: this.state.productName },
            { fieldName: 'Product Code', value: this.state.productCode },
-           { fieldName: 'Best price of this product', value: this.state.productPrice },
-           { fieldName: 'Material', value: this.state.productMaterial },
+           { fieldName: 'Base price of this product', value: this.state.productPrice },
+           { fieldName: 'Material', value: this.state.productMaterials },
            { fieldName: 'Finishing Otpions', value: this.state.finishArray },
            { fieldName: 'Color Options', value: this.state.colorArray },
            { fieldName: 'Sizes Available', value: this.state.productDimensions },
@@ -1293,8 +1554,7 @@ class AddProductDetails extends React.Component {
            { fieldName: 'Product Type', value: this.state.productType },
            { fieldName: 'Product Tags', value: this.state.productTags },
            { fieldName: 'Product Availability', value: this.state.productAvailability },
-           { fieldName: 'Product Discount Availability', value: this.state.productDiscountAvailability },
-        //    { fieldName: 'Product Discount Value', value: this.state.productDiscount }
+           { fieldName: 'Product Discount Value', value: this.state.productDiscount }
        ]
 
        await this.setState({
@@ -1304,7 +1564,7 @@ class AddProductDetails extends React.Component {
        fieldNames.map(item => {
         //    console.log(item.fieldName, typeof(item.value))
            if (item.value === undefined || item.value === null || item.value.length === 0) {
-            //    console.log(`${item.fieldName} is in-valid`)
+               console.log(`${item.fieldName} is in-valid`)
                if (!this.state.emptyField.includes(item.fieldName))
                    this.state.emptyField.push(item.fieldName)
            }
@@ -1323,7 +1583,6 @@ class AddProductDetails extends React.Component {
 
         if(yesOrNo === "yes"){
             this.setState({
-                // productDiscountAvailability: 
                 checkBoxClass1 : "checkBox color",
                 checkBoxClass2 : "checkBox"
             })
@@ -1332,10 +1591,12 @@ class AddProductDetails extends React.Component {
         else if(yesOrNo === "no"){
             this.setState({
                 checkBoxClass2 : "checkBox color",
-                checkBoxClass1 : "checkBox" 
+                checkBoxClass1 : "checkBox",
+                displayError: "displayError hide",
+                productDiscount: ""
             })
+
             this.refs.discountInput.value = "";
-            this.setState({ productDiscount: "" })
         }
     }
     
@@ -1490,7 +1751,7 @@ class AddProductDetails extends React.Component {
 
                                                 <div className="inputFormContainer">
                                                     <div className="formParaSection">
-                                                        <p className="pargraphClass">Best price of this product</p>
+                                                        <p className="pargraphClass">Base price of this product</p>
                                                     </div>
                                                     <div className="PricingSection">
                                                         <InputForm
@@ -1508,7 +1769,7 @@ class AddProductDetails extends React.Component {
                                                     </div>
                                                 </div>
 
-                                                <div className="inputFormContainer">
+                                                {/* <div className="inputFormContainer">
                                                     <div className="formParaSection">
                                                         <p className="pargraphClass">Material</p>
                                                     </div>
@@ -1523,6 +1784,34 @@ class AddProductDetails extends React.Component {
                                                                 productMaterial: val
                                                             })}
                                                         />
+                                                    </div>
+                                                </div> */}
+
+                                                <div className="inputFormContainer">
+                                                    <div className="formParaSection">
+                                                        <p className="pargraphClass">Material</p>
+                                                    </div>
+                                                    <div className="ProductMaterialSection">
+
+                                                        {this.returnProductMaterials()}
+
+                                                    </div>
+
+                                                    <div className="buttonContainer">
+
+                                                        <WhiteButton
+                                                            runFunction={() => {
+                                                                this.modalClassToggle("show")
+                                                                this.setState({
+                                                                    modalType: "material"
+                                                                })
+                                                            }}
+                                                        >
+                                                            <div className="svgImageContainer">
+                                                                <PlusButtonIcon />
+                                                            </div>
+                                                            Add new material
+                                                        </WhiteButton>
                                                     </div>
                                                 </div>
 
@@ -1919,7 +2208,7 @@ class AddProductDetails extends React.Component {
                                                                             ref="discountInput"
                                                                             maxLength="2"
                                                                             value={this.state.value} 
-                                                                            onChange={(e) => this.handleDiscount(e)}
+                                                                            onChange={(e) => this.checkTypeNumber(e, "discount")}
                                                                         />
                                                                         <p>%</p>
                                                                     </div>
