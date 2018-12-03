@@ -48,6 +48,7 @@ class AddProductDetails extends React.Component {
             modalColor: "modalContentClass",
             modalFinish: "modalFinishClass",
             modalSize: "modalSizeClass",
+            modalMaterial: "modalMaterialClass",
             // dynamincally toggle classes to flip styles //
 
             // minQuantityPara: "minQuantityPara hide",
@@ -1208,7 +1209,7 @@ class AddProductDetails extends React.Component {
                                     className="deleteIcon"
                                     onClick={() => this.removeTags(i)}
                                 >
-                                    <SmallCloseButton />
+                                    <CloseButton />
                                 </div>
                             </div>
 
@@ -1560,19 +1561,24 @@ class AddProductDetails extends React.Component {
                                     </div>
                                 </div> */}
 
-                                <div className="switch-container">
-                                    <label>
-                                        <p>Is there an extra cost over base price ?</p>
-                                        <input
-                                            ref="switch"
-                                            checked={this.state.isChecked}
-                                            onChange={() => this.onToggleSwitch()}
-                                            className="switch"
-                                            type="checkbox" />
-                                        <div>
-                                            {this.returnExtraCost("material")}
+                                <div className="switchContainer">
+                                    <div className="labelUpperColumn">
+                                        <div className="switchContainerParagraph">
+                                            <p>Is there an extra cost over base price ?</p>
                                         </div>
-                                    </label>
+                                        <label class="switch">
+                                            <input 
+                                                ref="switch"
+                                                checked={this.state.isChecked}
+                                                onChange={() => this.onToggleSwitch()}
+                                                className="switch"
+                                                type="checkbox"/>
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                    <div className="returnInputColumn">
+                                        {this.returnExtraCost("material")}
+                                    </div>
                                 </div>
 
                                 <div className="errorContent">
@@ -1610,10 +1616,13 @@ class AddProductDetails extends React.Component {
                                         <div className="modalContentContainerInnerLayer">
                                             <div className="content">
                                                 <h3>Please provide the following details</h3>
-                                                {/* <div className="detailsToInput"> */}
-                                                    {/* <div className="detailsInputLayer"> */}
-                                                        <h3>{this.state.emptyField
-                                                            .map((item, i) =>
+                                                <div className="detailsToInput">
+                                                    <div className="detailsInputLayer">
+                                                        <div className="notFilledSection">
+                                                            {this
+                                                                .state
+                                                                .emptyField
+                                                                .map((item, i) =>
                                                                 <div
                                                                     className="errorFieldMessage"
                                                                     key={i}>
@@ -1622,9 +1631,9 @@ class AddProductDetails extends React.Component {
                                                                         </ul>
                                                                 </div>
                                                             )}
-                                                        </h3>
-                                                    {/* </div> */}
-                                                {/* </div> */}
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -2022,12 +2031,6 @@ class AddProductDetails extends React.Component {
                                                     </div>
 
                                                     <div className="colorSelectionContainer">
-                                                        {/* <HtmlSlider
-                                                            categoryData={this.returnVariationColors()} // format of Item 
-                                                            numberOfSlides={4} // Change the css grid properties for responsiveness
-                                                            textOnRibbon={"TRENDING NOW"} // All caps
-                                                            runFunction={(data) => this.getData(data)}
-                                                        /> */}
                                                         <div className="addColorDummyContainer">
                                                             <div className="addColorDummyContainerInnerLayer">
                                                                 <div 
@@ -2040,25 +2043,13 @@ class AddProductDetails extends React.Component {
                                                                             }
                                                                         )}
                                                                     }
-                                                                    >
-                                                                            {/* <WhiteButton */}
-                                                                            {/* runFunction={() => {
-                                                                                // console.log('hit')
-                                                                                    this.modalClassToggle("show")
-                                                                                    this.setState({
-                                                                                        modalType : "color"
-                                                                                    }
-                                                                                )}
-                                                                            } */}
+                                                                >
 
+                                                                    <div className="svgImageContainer">
+                                                                        <PlusButtonIcon />
+                                                                    </div>
 
-                                                                        
-                                                                        <div className="svgImageContainer">
-                                                                            <PlusButtonIcon />
-                                                                        </div>
-
-                                                                        <p>Add new</p>
-                                                                    {/* </WhiteButton> */}
+                                                                    <p>Add new</p>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -2281,28 +2272,32 @@ class AddProductDetails extends React.Component {
                                                         <p className="pargraphClass"> Add tags for your product </p>
                                                     </div>
 
-                                                    <div className="inputCategorySection">
-                                                        <div className="materialInfoColumn">
-                                                            <input
-                                                                placeholder="For Ex. Sofa"
-                                                                ref="tagInput"
-                                                                type="text"
-                                                                maxLength="20"
-                                                                onChange={e => this.setTagName(e)}
-                                                                onKeyPress={e => {
-                                                                    if (e.key === "Enter") {
-                                                                        this.setTagName(e)
-                                                                        this.addTagName()
-                                                                    }
-                                                                }}
-                                                            />
-                                                            <span className="InputSeparatorLine"> </span>
-                                                        </div>
+                                                    <div className="inputCategoryTagSection">
+                                                        <div className="tagInputContainer">
 
-                                                        <div className="charCount">
-                                                            <p ref="charCount">
-                                                                {this.state.charCount}
-                                                            </p>
+                                                            <div className="materialInfoColumn">
+                                                                <input
+                                                                    placeholder="For Ex. Sofa"
+                                                                    ref="tagInput"
+                                                                    type="text"
+                                                                    maxLength="20"
+                                                                    onChange={e => this.setTagName(e)}
+                                                                    onKeyPress={e => {
+                                                                        if (e.key === "Enter") {
+                                                                            this.setTagName(e)
+                                                                            this.addTagName()
+                                                                        }
+                                                                    }}
+                                                                />
+                                                                <span className="InputSeparatorLine"> </span>
+                                                            </div>
+
+                                                            <div className="charCount">
+                                                                <p ref="charCount">
+                                                                    {this.state.charCount}
+                                                                </p>
+                                                            </div>
+
                                                         </div>
 
 
@@ -2443,10 +2438,6 @@ class AddProductDetails extends React.Component {
 
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 440167d87d8c89a6b8661349a32a284458eccf84
 const mapStateToProps = (state) => {
     return ({ 
             userData: state.userData,
