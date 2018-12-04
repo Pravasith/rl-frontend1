@@ -1543,7 +1543,11 @@ class AddProductDetails extends React.Component {
                             </div>
                             <div className="imageUploaderContainer">
                                 <div className="imageUploaderInnerLayer">
-                                    <ImageUploader />
+                                    <ImageUploader
+                                        type = "regularImage" // regularImage || profileImage
+                                        resultData = {(data) => console.log(data)}
+                                        showInitialImage = "" // image src link // optional
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -1553,7 +1557,11 @@ class AddProductDetails extends React.Component {
                                 <div className="line"></div>
                                 <div className="uploadedImgThumbnail">
                                     <img className="uploadedImage" src="" alt="" />
-                                    <ImageUploader />
+                                    <ImageUploader
+                                        type = "regularImage" // regularImage || profileImage
+                                        resultData = {(data) => console.log(data)}
+                                        showInitialImage = "" // image src link // optional
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -1644,23 +1652,30 @@ class AddProductDetails extends React.Component {
                                                 </div> 
                                             </div>
 
+                                            <div className="switchContainer">
+                                                <div className="labelUpperColumn">
+                                                    <div className="switchContainerParagraph">
+                                                        <p>Is there an extra cost over base price ?</p>
+                                                    </div>
+                                                    <label class="switch">
+                                                        <input 
+                                                            ref="switch"
+                                                            checked={this.state.isChecked}
+                                                            onChange={() => this.onToggleSwitch()}
+                                                            className="switch"
+                                                            type="checkbox"/>
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </div>
+                                                <div className="returnInputColumn">
+                                                    {this.returnExtraCost("color")}
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
 
-                                    <div className="switch-container">
-                                        <label>
-                                            <p>Is there an extra cost over base price ?</p>
-                                            <input
-                                                ref="switch"
-                                                checked={this.state.isChecked}
-                                                onChange={() => this.onToggleSwitch()}
-                                                className="switch"
-                                                type="checkbox" />
-                                            <div>
-                                                {this.returnExtraCost("color")}
-                                            </div>
-                                        </label>
-                                    </div>
+                                    
 
                                     <div className="errorContent">
                                         <p className={this.state.isChecked ? this.state.displayError : "displayError hide"}>
@@ -1751,19 +1766,24 @@ class AddProductDetails extends React.Component {
                                     </div>
                                 </div> */}
 
-                                <div className="switch-container">
-                                    <label>
-                                        <p>Is there an extra cost over base price ?</p>
-                                        <input
-                                            ref="switch"
-                                            checked={this.state.isChecked}
-                                            onChange={() => this.onToggleSwitch()}
-                                            className="switch"
-                                            type="checkbox" />
-                                        <div>
-                                            {this.returnExtraCost("size")}
+                                <div className="switchContainer">
+                                    <div className="labelUpperColumn">
+                                        <div className="switchContainerParagraph">
+                                            <p>Is there an extra cost over base price ?</p>
                                         </div>
-                                    </label>
+                                        <label class="switch">
+                                            <input 
+                                                ref="switch"
+                                                checked={this.state.isChecked}
+                                                onChange={() => this.onToggleSwitch()}
+                                                className="switch"
+                                                type="checkbox"/>
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                    <div className="returnInputColumn">
+                                        {this.returnExtraCost("size")}
+                                    </div>
                                 </div>
 
                                 <div className="errorContent">
@@ -2068,7 +2088,11 @@ class AddProductDetails extends React.Component {
                                                                     <div className="line"></div>
                                                                 </div>
                                                             </header>
-                                                            <ImageUploader />
+                                                            <ImageUploader
+                                                                type = "regularImage" // regularImage || profileImage
+                                                                resultData = {(data) => console.log(data)}
+                                                                showInitialImage = "" // image src link // optional
+                                                            />
                                                         </div>
                                                     </div>
 
@@ -2277,12 +2301,12 @@ class AddProductDetails extends React.Component {
                                                     </div>
 
                                                     <div className="colorVariantSliderContainer">
-                                                        <HtmlSlider
+                                                        {/* <HtmlSlider
                                                             categoryData={this.returnVariationColors()} // format of Item 
                                                             numberOfSlides={4} // Change the css grid properties for responsiveness
                                                             textOnRibbon={"TRENDING NOW"} // All caps
                                                             runFunction={(data) => this.getData(data)}
-                                                        />
+                                                        /> */}
                                                     </div>
 
                                                     <div className="buttonContainer">
