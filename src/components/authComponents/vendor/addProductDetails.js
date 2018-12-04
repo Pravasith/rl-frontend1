@@ -130,9 +130,9 @@ class AddProductDetails extends React.Component {
         }
     }
 
-    // componentDidUpdate() {
-    //     console.log(this.state.displayError)
-    // }
+    componentDidUpdate() {
+        console.log(this.state.productDiscountAvailablity, typeof(this.state.productDiscount))
+    }
 
 
     modalClassToggle = (showOrNot) => {
@@ -853,10 +853,12 @@ class AddProductDetails extends React.Component {
         if (val !== "") {
             if (regEx.test(val) === true) {
                 if (checkFor === "discount") {
-                    this.setState({
-                        productDiscount: val,
-                        displayError: "displayError hide"
-                    })
+                    if (this.state.checkBoxClass1 === "checkBox color") {
+                        this.setState({
+                            productDiscount: val,
+                            displayError: "displayError hide"
+                        })
+                    } 
                 }
 
                 else if (checkFor === "color") {
@@ -1388,7 +1390,7 @@ class AddProductDetails extends React.Component {
 
             dummyTagsArray = dummyTagsArray.map(item => item.toLowerCase())
 
-            if (!dummyTagsArray.includes(temp.toString.toLowerCase())) {
+            if (!dummyTagsArray.includes(temp.toLowerCase())) {
                 this.state.tagsAdded.push(temp)
             }
 
@@ -2004,7 +2006,10 @@ class AddProductDetails extends React.Component {
            { fieldName: 'Product Type', value: this.state.productType },
            { fieldName: 'Product Tags', value: this.state.tagsAdded },
            { fieldName: 'Product Availability', value: this.state.productAvailability },
-           { fieldName: 'Product Discount Value', value: this.state.productDiscount }
+           { fieldName: `${this.state.productDiscountAvailablity === "yes" ? 
+                                (this.state.productDiscount !== 0 ?
+                                    'Product Discount Value'  : "wrks") : 'Product Discount Availability'}`, 
+                                    value: this.state.productDiscount }
        ]
 
        await this.setState({
@@ -2034,16 +2039,18 @@ class AddProductDetails extends React.Component {
         if(yesOrNo === "yes"){
             this.setState({
                 checkBoxClass1 : "checkBox color",
-                checkBoxClass2 : "checkBox"
+                checkBoxClass2: "checkBox",
+                productDiscountAvailablity: "yes"
             })
         }
 
         else if(yesOrNo === "no"){
             this.setState({
+                checkBoxClass1: "checkBox",
                 checkBoxClass2 : "checkBox color",
-                checkBoxClass1 : "checkBox",
                 displayError: "displayError hide",
-                productDiscount: "no"
+                productDiscountAvailablity: "no",
+                productDiscount: 0
             })
 
             this.refs.discountInput.value = "";
@@ -2680,7 +2687,7 @@ class AddProductDetails extends React.Component {
                                                                             type="text" 
                                                                             ref="discountInput"
                                                                             maxLength="2"
-                                                                            value={this.state.value} 
+                                                                            // value={this.state.value} 
                                                                             onChange={(e) => this.checkTypeNumber(e, "discount")}
                                                                         />
                                                                         <p>%</p>
