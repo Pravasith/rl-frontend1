@@ -130,9 +130,9 @@ class AddProductDetails extends React.Component {
         }
     }
 
-    componentDidUpdate() {
-        console.log(this.state.displayError)
-    }
+    // componentDidUpdate() {
+    //     console.log(this.state.displayError)
+    // }
 
 
     modalClassToggle = (showOrNot) => {
@@ -326,10 +326,14 @@ class AddProductDetails extends React.Component {
             return null
         }
     }
+
+
     addFeatureName = () => {
         let temp = this.state.featureName
 
-        if (temp !== "") {
+        // console.log(temp)
+
+        if (temp !== undefined) {
             let dummyArray = [...this.state.featuresAdded]
 
             dummyArray.map(item => item.toLowerCase())
@@ -343,6 +347,9 @@ class AddProductDetails extends React.Component {
             })
 
             this.refs.featureInput.value = ""
+        } 
+        else {
+            return ;
         }
 
     }
@@ -369,9 +376,8 @@ class AddProductDetails extends React.Component {
      }
 
      handleStyleSelection = (styleData) => {
-
         this.state.categoryStylesAdded.push(styleData.styleTitle)
-        let dummyArray = [...this.state.categoryStylesAdded]
+        let dummyArray = [...new Set(this.state.categoryStylesAdded.map(item => item))]
 
         this.setState({
             categoryStylesAdded : dummyArray
@@ -403,6 +409,7 @@ class AddProductDetails extends React.Component {
                         key = {i}
                         onClick = {() => {
                             this.handleStyleSelection(item)
+                            // console.log(item)
                         }}
                         >
                         <header className="productStyleHeadingSection">
@@ -551,7 +558,7 @@ class AddProductDetails extends React.Component {
 
                             <div
                                 className="deleteIcon"
-                                onClick={() => this.removeFeature(index)}
+                                onClick={(i) => this.removeFeature(i)}
                                 >
                                 <CloseButton />
                             </div>
@@ -843,13 +850,18 @@ class AddProductDetails extends React.Component {
         const val = e.target.value;
         const regEx = /^[0-9\b]+$/;
 
-        // console.log(val);
-
-        // if (val !== "") {
+        if (val !== "") {
             if (regEx.test(val) === true) {
                 if (checkFor === "discount") {
                     this.setState({
                         productDiscount: val,
+                        displayError: "displayError hide"
+                    })
+                }
+
+                else if (checkFor === "color") {
+                    this.setState({
+                        colorCost: val,
                         displayError: "displayError hide"
                     })
                 }
@@ -872,19 +884,43 @@ class AddProductDetails extends React.Component {
             }
 
             else if (regEx.test(val) === false) {
-                console.log("wrks")
-                this.setState({
-                    displayError: "displayError",
-                    // materialCostIsValid: false
-                })
-            }
-        // }
+                if (checkFor === "discount") {
+                    this.setState({
+                        productDiscount: "",
+                        displayError: "displayError"
+                    })
+                }
 
-        // else if (val === "") {
-        //     this.setState({
-        //         displayError: "displayError hide"
-        //     })
-        // }
+                else if (checkFor === "color") {
+                    this.setState({
+                        colorCost: "",
+                        displayError: "displayError"
+                    })
+                }
+
+                else if (checkFor === "material") {
+                    this.setState({
+                        materialCost: val,
+                        displayError: "displayError",
+                        materialCostIsValid: false
+                    })
+                }
+
+                else if (checkFor === "size") {
+                    this.setState({
+                        sizeCost: val,
+                        displayError: "displayError",
+                        sizeCostIsValid: false
+                    })
+                }
+            }
+        }
+
+        else if (val === "") {
+            this.setState({
+                displayError: "displayError hide"
+            })
+        }
     }
 
     proceedHandler = (typeOfButtonClicked) => {
@@ -956,7 +992,7 @@ class AddProductDetails extends React.Component {
                         if(isChecked === true){
                             if (colorCost !== "") {
                                 if (!isNaN(colorCost)) {
-                                    console.log(isChecked, colorCost)
+                                    // console.log(isChecked, colorCost)
                                     isColorValid = true
                                     colorArray.push({
                                         colorName: colorName.toLowerCase(),
@@ -975,17 +1011,17 @@ class AddProductDetails extends React.Component {
                                     this.refs.colorCode.value = ""
                                     this.refs.colorCost.value = ""
 
-                                    console.log({
-                                        colorName: colorName.toLowerCase(),
-                                        colorCode: colorCode.toLowerCase(),
-                                        colorCost: parseInt(colorCost)
-                                    })
+                                    // console.log({
+                                    //     colorName: colorName.toLowerCase(),
+                                    //     colorCode: colorCode.toLowerCase(),
+                                    //     colorCost: parseInt(colorCost)
+                                    // })
                                 }
 
                                 else if (isNaN(colorCost)) {
                                     isColorValid = false
                                     emptyField = "colorCost"
-                                    // errorMessage = `Please enter only numbers`
+                                    errorMessage = "Please enter color cost only in numbers"
                                 }
                             }
 
@@ -1043,7 +1079,7 @@ class AddProductDetails extends React.Component {
                             if (isChecked === true) {
                                 if (colorCost !== "") {
                                     if (!isNaN(colorCost)) {
-                                        console.log(isChecked, colorCost)
+                                        // console.log(isChecked, colorCost)
                                         isColorValid = true
                                         colorArray.push({
                                             colorName: colorName.toLowerCase(),
@@ -1062,17 +1098,17 @@ class AddProductDetails extends React.Component {
                                         this.refs.colorCode.value = ""
                                         this.refs.colorCost.value = ""
 
-                                        console.log({
-                                            colorName: colorName.toLowerCase(),
-                                            colorCode: colorCode.toLowerCase(),
-                                            colorCost: parseInt(colorCost)
-                                        })
+                                        // console.log({
+                                        //     colorName: colorName.toLowerCase(),
+                                        //     colorCode: colorCode.toLowerCase(),
+                                        //     colorCost: parseInt(colorCost)
+                                        // })
                                     }
 
                                     else if (isNaN(colorCost)) {
                                         isColorValid = false
                                         emptyField = "colorCost"
-                                        // errorMessage = `Please enter only numbers`
+                                        errorMessage = "Please enter color cost only in numbers"
                                     }
                                 }
 
@@ -1091,11 +1127,11 @@ class AddProductDetails extends React.Component {
                                     colorCost: parseInt(colorCost)
                                 })
 
-                                console.log({
-                                    colorName: colorName.toLowerCase(),
-                                    colorCode: colorCode.toLowerCase(),
-                                    colorCost: parseInt(colorCost)
-                                })
+                                // console.log({
+                                //     colorName: colorName.toLowerCase(),
+                                //     colorCode: colorCode.toLowerCase(),
+                                //     colorCost: parseInt(colorCost)
+                                // })
                             }
 
 
@@ -1204,7 +1240,8 @@ class AddProductDetails extends React.Component {
                     modalType: null,
                     isChecked: false,
                     colorArray: colorArray.length !== 0 ? colorArray : null,
-                    extraCostInput: "extraCostInput hide"
+                    extraCostInput: "extraCostInput hide",
+                    displayError: "displayError hide"
                 })
 
                 // save data
@@ -1220,7 +1257,8 @@ class AddProductDetails extends React.Component {
                 this.setState({
                     colorIsValid: false,
                     emptyFieldInColor: validatedData.emptyField,
-                    errorMessage: validatedData.errorMessage
+                    errorMessage: validatedData.errorMessage,
+                    // displayError: "displayError"
                 })
             }
         }
@@ -1251,7 +1289,8 @@ class AddProductDetails extends React.Component {
                         modalType: null,
                         isChecked: false,
                         productDimensions: productDimensions.length !== 0 ? productDimensions : null,
-                        extraCostInput: "extraCostInput hide"
+                        extraCostInput: "extraCostInput hide",
+                        displayError: "displayError hide"
                     })
                 }
 
@@ -1264,7 +1303,8 @@ class AddProductDetails extends React.Component {
             else {
                 this.setState({
                     sizeIsValid: false,
-                    emptyFieldInSize: validatedData.emptyField
+                    emptyFieldInSize: validatedData.emptyField,
+                    // displayError: "displayError"
                 })
             }
         }
@@ -1282,8 +1322,6 @@ class AddProductDetails extends React.Component {
                     materialName
                 }
 
-                // console.log("temp:", temp)
-
                 if (temp.materialName !== "") {
                     let dummyArray = [...productMaterials]
 
@@ -1296,7 +1334,8 @@ class AddProductDetails extends React.Component {
                             modalType: null,
                             isChecked: false, 
                             productMaterials: productMaterials.length !== 0 ? productMaterials : null,
-                            extraCostInput: "extraCostInput hide"
+                            extraCostInput: "extraCostInput hide",
+                            displayError: "displayError hide"
                         })
                     }
                 }
@@ -1310,7 +1349,8 @@ class AddProductDetails extends React.Component {
             else {
                 this.setState({
                     materialIsValid: false,
-                    emptyFieldInMaterial: validatedData.emptyField
+                    emptyFieldInMaterial: validatedData.emptyField,
+                    // displayError: "displayError"
                 })
             }
         }
@@ -1342,13 +1382,13 @@ class AddProductDetails extends React.Component {
 
         let temp = this.state.tagName;
 
-        if (temp !== "") {
+        if (temp !== undefined) {
 
             let dummyTagsArray = [...this.state.tagsAdded]
 
             dummyTagsArray = dummyTagsArray.map(item => item.toLowerCase())
 
-            if (!dummyTagsArray.includes(temp.toLowerCase())) {
+            if (!dummyTagsArray.includes(temp.toString.toLowerCase())) {
                 this.state.tagsAdded.push(temp)
             }
 
@@ -1581,7 +1621,7 @@ class AddProductDetails extends React.Component {
                                             <div className="inputFormContainer">
                                                 <div className="formParaSection">
                                                     <p className="pargraphClass">
-                                                        Enter the color hex-code (<a href="https://www.google.co.in/search?q=color+selector&rlz=1C1CHBF_enIN822IN822&oq=color+selector&aqs=chrome..69i57.641j0j1&sourceid=chrome&ie=UTF-8" target="_blank">click here</a> to get one)
+                                                        Enter the color hex-code (<a href="https://www.google.co.in/search?rlz=1C1CHBF_enIN822IN822&ei=aE0GXKaEO4norQG06bjgAw&q=color+selector+tool&oq=color+selector+&gs_l=psy-ab.1.0.0j0i67j0l8.1356.1356..2888...0.0..0.168.168.0j1......0....1..gws-wiz.......0i71.SepRdDVz0P4" target="_blank">click here</a> to get one)
                                                     </p>
                                                 </div>
                                                 <div className="productInputInfoSection">
@@ -1622,16 +1662,19 @@ class AddProductDetails extends React.Component {
                                         </label>
                                     </div>
 
-                                    {/* <div className="errorContent">
-                                        <p className={this.state.displayerror}>
+                                    <div className="errorContent">
+                                        <p className={this.state.isChecked ? this.state.displayError : "displayError hide"}>
                                             Numbers Only
                                         </p>
-                                    </div> */}
+                                    </div>
 
                                     <div className="proceedOrNotCheck">
                                         <GradientButton
                                             runFunction={() => {
                                                 this.proceedHandler("color")
+                                                // this.setState({ 
+                                                //     displayError: "displayError hide"
+                                                // })
                                             }}>
                                             Proceed
                                         </GradientButton>
@@ -1724,7 +1767,7 @@ class AddProductDetails extends React.Component {
                                 </div>
 
                                 <div className="errorContent">
-                                    <p className = {this.state.displayError}>
+                                    <p className={this.state.isChecked ? this.state.displayError : "displayError hide"}>
                                         Numbers Only
                                     </p>
                                 </div>
@@ -1816,11 +1859,11 @@ class AddProductDetails extends React.Component {
                                     </div>
                                 </div>
 
-                                {/* <div className="errorContent">
-                                    <p className={this.state.displayerror}>
+                                <div className="errorContent">
+                                    <p className={this.state.isChecked ? this.state.displayError : "displayError hide"}>
                                         Numbers Only
                                     </p>
-                                </div> */}
+                                </div>
 
                                 <div className="proceedOrNotCheck">
                                     <GradientButton
@@ -1937,9 +1980,9 @@ class AddProductDetails extends React.Component {
            { fieldName: 'Sizes Available', value: this.state.productDimensions },
            { fieldName: 'Min. quantity', value: this.state.productMinQuantity },
            { fieldName: 'Max. quantity', value: this.state.productMaxQuantity },
-           { fieldName: 'Product Design', value: this.state.productDesign },
+           { fieldName: 'Product Design', value: this.state.categoryStylesAdded },
            { fieldName: 'Product Type', value: this.state.productType },
-           { fieldName: 'Product Tags', value: this.state.productTags },
+           { fieldName: 'Product Tags', value: this.state.tagsAdded },
            { fieldName: 'Product Availability', value: this.state.productAvailability },
            { fieldName: 'Product Discount Value', value: this.state.productDiscount }
        ]
@@ -1951,7 +1994,7 @@ class AddProductDetails extends React.Component {
        fieldNames.map(item => {
         //    console.log(item.fieldName, typeof(item.value))
            if (item.value === undefined || item.value === null || item.value.length === 0) {
-               console.log(`${item.fieldName} is in-valid`)
+            //    console.log(`${item.fieldName} is in-valid`)
                if (!this.state.emptyField.includes(item.fieldName))
                    this.state.emptyField.push(item.fieldName)
            }
@@ -1980,7 +2023,7 @@ class AddProductDetails extends React.Component {
                 checkBoxClass2 : "checkBox color",
                 checkBoxClass1 : "checkBox",
                 displayError: "displayError hide",
-                productDiscount: ""
+                productDiscount: "no"
             })
 
             this.refs.discountInput.value = "";
@@ -2532,12 +2575,17 @@ class AddProductDetails extends React.Component {
                                                                 <span className="InputSeparatorLine"> </span>
                                                             </div>
 
-                                                            <div className="charCount">
+                                                            {/* <div className="charCount">
                                                                 <p ref="charCount">
                                                                     {this.state.charCount}
                                                                 </p>
-                                                            </div>
+                                                            </div> */}
 
+                                                            <WhiteButton
+                                                                runFunction={this.addTagName}
+                                                            >
+                                                                Add
+                                                            </WhiteButton>
                                                         </div>
 
 
@@ -2615,7 +2663,7 @@ class AddProductDetails extends React.Component {
                                                                     </div>
                                                                 </div>
                                                                 <div className="errorContent">
-                                                                    <p className={this.state.displayerror}>
+                                                                    <p className={this.state.displayError}>
                                                                         Numbers Only
                                                                     </p>
                                                                 </div>
