@@ -1614,23 +1614,30 @@ class AddProductDetails extends React.Component {
                                                 </div> 
                                             </div>
 
+                                            <div className="switchContainer">
+                                                <div className="labelUpperColumn">
+                                                    <div className="switchContainerParagraph">
+                                                        <p>Is there an extra cost over base price ?</p>
+                                                    </div>
+                                                    <label class="switch">
+                                                        <input 
+                                                            ref="switch"
+                                                            checked={this.state.isChecked}
+                                                            onChange={() => this.onToggleSwitch()}
+                                                            className="switch"
+                                                            type="checkbox"/>
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </div>
+                                                <div className="returnInputColumn">
+                                                    {this.returnExtraCost("color")}
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
 
-                                    <div className="switch-container">
-                                        <label>
-                                            <p>Is there an extra cost over base price ?</p>
-                                            <input
-                                                ref="switch"
-                                                checked={this.state.isChecked}
-                                                onChange={() => this.onToggleSwitch()}
-                                                className="switch"
-                                                type="checkbox" />
-                                            <div>
-                                                {this.returnExtraCost("color")}
-                                            </div>
-                                        </label>
-                                    </div>
+                                    
 
                                     <div className="errorContent">
                                         <p className={this.state.displayError}>
@@ -1718,19 +1725,24 @@ class AddProductDetails extends React.Component {
                                     </div>
                                 </div> */}
 
-                                <div className="switch-container">
-                                    <label>
-                                        <p>Is there an extra cost over base price ?</p>
-                                        <input
-                                            ref="switch"
-                                            checked={this.state.isChecked}
-                                            onChange={() => this.onToggleSwitch()}
-                                            className="switch"
-                                            type="checkbox" />
-                                        <div>
-                                            {this.returnExtraCost("size")}
+                                <div className="switchContainer">
+                                    <div className="labelUpperColumn">
+                                        <div className="switchContainerParagraph">
+                                            <p>Is there an extra cost over base price ?</p>
                                         </div>
-                                    </label>
+                                        <label class="switch">
+                                            <input 
+                                                ref="switch"
+                                                checked={this.state.isChecked}
+                                                onChange={() => this.onToggleSwitch()}
+                                                className="switch"
+                                                type="checkbox"/>
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                    <div className="returnInputColumn">
+                                        {this.returnExtraCost("size")}
+                                    </div>
                                 </div>
 
                                 <div className="errorContent">

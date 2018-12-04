@@ -1051,6 +1051,9 @@ input{
                                                 .labelUpperColumn{
                                                     @include flexCentreRow;
                                                     width: 100%;
+                                                    p{
+                                                        font-size: 0.8em;
+                                                    }
                                                 }
 
                                                 .returnInputColumn{
@@ -1261,8 +1264,8 @@ input{
 .switch {
     position: relative;
     display: inline-block;
-    width: 5em;
-    height: 1.5em;
+    width: 4em;
+    height: 1.4em;
     margin-left: 0.5em;
   }
   
@@ -1318,7 +1321,7 @@ input{
    transform: translate(-50%,-50%);
    top: 50%;
    left: 50%;
-   font-size: 0.9em;
+   font-size: 0.8em;
    font-family: Verdana, sans-serif;
   }
   
