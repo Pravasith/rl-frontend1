@@ -681,17 +681,17 @@ class AddProductDetails extends React.Component {
                         >
                             <div className="productMaterialDescriptionInnerLayer">
                                 <div className="productMaterialDetails">
-                                    <div className="MaterialCostCartWrap">
+                                    <div className="materialCostCartWrap">
                                         <h3>Material nomenclature</h3>
                                         <p key={i}
                                         >{item.materialName}</p>
                                     </div>
-                                    <div className="MaterialCostCartWrap">
+                                    <div className="materialCostCartWrap">
                                         <h3>Cost over base price</h3>
                                         <p key={i}>Rs. {item.materialCost}</p>
                                     </div>
                                 </div>
-                                <div className="MaterialEditingButtons">
+                                <div className="materialEditingButtons">
                                     <div className="editButton">
                                         <WhiteButton
                                             runFunction={() => this.editProductMaterials(i)}
@@ -1929,7 +1929,7 @@ class AddProductDetails extends React.Component {
                                                     <div className="formParaSection">
                                                         <p className="pargraphClass">Material</p>
                                                     </div>
-                                                    <div className="ProductMaterialSection">
+                                                    <div className="productMaterialSection">
 
                                                         {this.returnProductMaterials()}
 

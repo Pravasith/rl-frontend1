@@ -313,6 +313,7 @@ input{
                                                 width: 100%;
                                                 margin: 1em 0;
 
+
                                                 .inputCategoryTagSection{
                                                     @include flexCentreCol;
                                                    .tagInputContainer{
@@ -356,6 +357,57 @@ input{
                                                     .pargraphClass{
                                                         font-size: 1em;
                                                         color: $darkerGrey;
+                                                    }
+                                                }
+
+                                                .productMaterialSection{
+                                                    width: 100%;
+                                                    .productMaterialDescriptionOuterLayer{
+                                                        width: 100%;
+                                                        margin: 0.5em 0;
+                                                        .productMaterialDescriptionInnerLayer{
+                                                            @include flexCentreRow;
+                                                            justify-content: space-between;
+                                                            padding: 0.5em 1em;
+                                                            background: $lightGrey;
+                                                            margin: 0.5em 0;
+                                                            .productMaterialDetails{
+                                                                @include flexCentreCol;
+                                                                width: 50%;
+                                                                align-items: flex-start;
+                                                                .materialCostCartWrap{
+                                                                    @include flexCentreRow;
+                                                                    justify-content: space-between;
+                                                                    width: 100%;
+                                                                    h3{
+                                                                        font-size: 0.8em;
+                                                                    }
+                                                                    p{
+                                                                        width: 35%;
+                                                                        font-size: 0.9em;
+                                                                        font-weight: 600;
+                                                                    }
+                                                                }
+                                                                .materialCostCartWrap{
+                                                                    @include flexCentreRow;
+                                                                    justify-content: space-between;
+                                                                    width: 100%;
+                                                                    h3{
+                                                                        font-size: 0.8em;
+                                                                    }
+                                                                    p{
+                                                                        width: 35%;
+                                                                        font-size: 0.9em;
+                                                                        font-weight: 600;
+                                                                    }
+                                                                }
+                                                            }
+                                                            .materialEditingButtons{
+                                                                @include flexCentreRow;
+                                                                .editButton{}
+                                                                .deleteButton{}
+                                                            }
+                                                        }
                                                     }
                                                 }
 
@@ -1223,7 +1275,7 @@ input{
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: $red;
+    background-color: $primaryMagenta;
     -webkit-transition: .4s;
     transition: .4s;
     border-radius: 1em;
