@@ -14,6 +14,7 @@ import {
     BigCloseButton,
     ModalCloseButton,
     ErrorMsgSign,
+    TickSmallWhite,
     SmallCloseButton,
     SmallModalCloseButton,
     MinusImageIcon,
@@ -47,6 +48,7 @@ class AddProductDetails extends React.Component {
             modalColor: "modalContentClass",
             modalFinish: "modalFinishClass",
             modalSize: "modalSizeClass",
+            modalMaterial: "modalMaterialClass",
             // dynamincally toggle classes to flip styles //
 
             // minQuantityPara: "minQuantityPara hide",
@@ -79,6 +81,37 @@ class AddProductDetails extends React.Component {
             productDiscount: undefined,
 
             isProceedClicked: false,
+
+            // my code
+            checkBoxSelect: "checkBoxSelect",
+            categoryStylesAdded: [],
+
+            categoryArray: [
+                {
+                    styleId: 1,
+                    styleTitle: "Modern",
+                    styleImageUrl: "https://cf.ltkcdn.net/interiordesign/images/std/203112-662x450-moderninterior.jpg",
+                    styleContent: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+                },
+                {
+                    styleId: 2,
+                    styleTitle: "Contemporary",
+                    styleImageUrl: "data:image/jpeg;base64,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",
+                    styleContent: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+                },
+                {
+                    styleId: 3,
+                    styleTitle: "Classic",
+                    styleImageUrl: "https://antonovich-design.ae/uploads/page/2017/4/2017A0m7AWXJpFHR.jpg",
+                    styleContent: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+                },
+                {
+                    styleId: 4,
+                    styleTitle: "Traditional",
+                    styleImageUrl: "https://i.pinimg.com/originals/33/e1/08/33e10894bfb64043f3004561b081d157.jpg",
+                    styleContent: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+                },
+            ],
 
             erorrs: {},
 
@@ -293,7 +326,6 @@ class AddProductDetails extends React.Component {
             return null
         }
     }
-
     addFeatureName = () => {
         let temp = this.state.featureName
 
@@ -315,6 +347,7 @@ class AddProductDetails extends React.Component {
 
     }
 
+
     removeFeature = (index) => {
         this
             .state
@@ -333,8 +366,114 @@ class AddProductDetails extends React.Component {
         this.setState({
             featureName: val
         })
+     }
+
+     handleStyleSelection = (styleData) => {
+
+        this.state.categoryStylesAdded.push(styleData.styleTitle)
+        let dummyArray = [...this.state.categoryStylesAdded]
+
+        this.setState({
+            categoryStylesAdded : dummyArray
+        })
     }
 
+    removeCategory = (index) => {
+        this
+            .state
+            .categoryStylesAdded
+            .splice(index, 1)
+
+            this.setState({
+                categoryStylesAdded: this.state.categoryStylesAdded.length !== 0 ? this.state.categoryStylesAdded : []
+            })
+    }
+
+
+
+    returnCategoryContent = () => {
+        return (
+            this.
+                state.
+                categoryArray.
+                map((item , i) => {
+                return(                    
+                    <div 
+                        className="productStyleContainer"
+                        key = {i}
+                        onClick = {() => {
+                            this.handleStyleSelection(item)
+                        }}
+                        >
+                        <header className="productStyleHeadingSection">
+                            <div className="titleCategory">
+                                <h3>
+                                    {item.styleTitle}
+                                </h3>
+                                <div className="line"></div>
+                            </div>
+
+                            <div
+                                className= {this.state.checkBoxSelect}
+                                >
+                                <div className="iconWrap">
+                                    <TickSmallWhite/>
+                                </div>
+                            </div>
+                        </header>
+                        
+                        <div className="productStyleContentSection">
+                            <div className="productStyleContentSectionInnerLayer">
+                                <div className="imageCategorySection">
+                                    <img          
+                                        src={item.styleImageUrl} 
+                                        alt=""
+                                    />
+                                </div>
+                                <div className="styleCategorySection">
+                                    <p>
+                                        {item.styleContent}
+                                    </p>             
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+                )
+            })
+        )
+    }
+
+    returnStyleContentAdded = () => {
+        return(
+            this
+                .state
+                .categoryStylesAdded
+                .map((item,i) => {
+                    return(
+                        <div 
+                            className="tagContainer"
+                            key = {i}
+                            >
+                            <div 
+                                className="tagConatinerInnerLayer">
+                                <p>
+                                    {item}
+                                </p>
+
+                                <div 
+                                    className ="svgImageSection"
+                                    onClick = {() => this.removeCategory(i)}
+                                    >
+                                    <SmallCloseButton />
+                                </div>
+                            </div>
+                        </div> 
+                    )
+                })
+           )
+    }
+ 
     returnProductType = () => {
         return(
              [{
@@ -543,17 +682,17 @@ class AddProductDetails extends React.Component {
                         >
                             <div className="productMaterialDescriptionInnerLayer">
                                 <div className="productMaterialDetails">
-                                    <div className="MaterialCostCartWrap">
+                                    <div className="materialCostCartWrap">
                                         <h3>Material nomenclature</h3>
                                         <p key={i}
                                         >{item.materialName}</p>
                                     </div>
-                                    <div className="MaterialCostCartWrap">
+                                    <div className="materialCostCartWrap">
                                         <h3>Cost over base price</h3>
                                         <p key={i}>Rs. {item.materialCost}</p>
                                     </div>
                                 </div>
-                                <div className="MaterialEditingButtons">
+                                <div className="materialEditingButtons">
                                     <div className="editButton">
                                         <WhiteButton
                                             runFunction={() => this.editProductMaterials(i)}
@@ -1245,7 +1384,7 @@ class AddProductDetails extends React.Component {
                                     className="deleteIcon"
                                     onClick={() => this.removeTags(i)}
                                 >
-                                    <SmallCloseButton />
+                                    <CloseButton />
                                 </div>
                             </div>
 
@@ -1657,19 +1796,24 @@ class AddProductDetails extends React.Component {
                                     </div>
                                 </div> */}
 
-                                <div className="switch-container">
-                                    <label>
-                                        <p>Is there an extra cost over base price ?</p>
-                                        <input
-                                            ref="switch"
-                                            checked={this.state.isChecked}
-                                            onChange={() => this.onToggleSwitch()}
-                                            className="switch"
-                                            type="checkbox" />
-                                        <div>
-                                            {this.returnExtraCost("material")}
+                                <div className="switchContainer">
+                                    <div className="labelUpperColumn">
+                                        <div className="switchContainerParagraph">
+                                            <p>Is there an extra cost over base price ?</p>
                                         </div>
-                                    </label>
+                                        <label class="switch">
+                                            <input 
+                                                ref="switch"
+                                                checked={this.state.isChecked}
+                                                onChange={() => this.onToggleSwitch()}
+                                                className="switch"
+                                                type="checkbox"/>
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                    <div className="returnInputColumn">
+                                        {this.returnExtraCost("material")}
+                                    </div>
                                 </div>
 
                                 {/* <div className="errorContent">
@@ -1707,10 +1851,13 @@ class AddProductDetails extends React.Component {
                                         <div className="modalContentContainerInnerLayer">
                                             <div className="content">
                                                 <h3>Please provide the following details</h3>
-                                                {/* <div className="detailsToInput"> */}
-                                                    {/* <div className="detailsInputLayer"> */}
-                                                        <h3>{this.state.emptyField
-                                                            .map((item, i) =>
+                                                <div className="detailsToInput">
+                                                    <div className="detailsInputLayer">
+                                                        <div className="notFilledSection">
+                                                            {this
+                                                                .state
+                                                                .emptyField
+                                                                .map((item, i) =>
                                                                 <div
                                                                     className="errorFieldMessage"
                                                                     key={i}>
@@ -1719,9 +1866,9 @@ class AddProductDetails extends React.Component {
                                                                         </ul>
                                                                 </div>
                                                             )}
-                                                        </h3>
-                                                    {/* </div> */}
-                                                {/* </div> */}
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -1861,6 +2008,7 @@ class AddProductDetails extends React.Component {
                     <div className="vendorDummyContainer">
                         <article className={this.state.vendorDashboardOuterClass}>
                             <section className="vendorDashboardInnerLayer">
+
                                 <div className="uploadSectionLeftWrapper">
                                     <article className="leftWrapperInnerLayer">
                                         <section className="imageUploadBigContainer">
@@ -1869,9 +2017,6 @@ class AddProductDetails extends React.Component {
                                                 <div className="imageUploadInnerLayer">
 
                                                     <div className="imageContainerInnerSection">
-                                                        {/* <div className="productUploadHeaderSection">
-                                                            <p>Please upload an image with size lesser than 500kb </p>
-                                                        </div> */}
 
                                                         <div className="imageUploadComponent">
                                                             <header className="vendorImageUploadHeaderComponent">
@@ -1885,15 +2030,6 @@ class AddProductDetails extends React.Component {
                                                     </div>
 
                                                 </div>
-                                                {/* <div className="upperSectionInnerLayer">
-                                                <img
-                                                    src="https://i.pinimg.com/originals/50/69/bd/5069bd3b995a9e7b50e42ad1c08d1e8e.jpg"
-                                                    alt=""
-                                                    className="imageContainer"
-                                                />
-                                                </div> */}
-
-
                                             </div>
 
                                             <div className="imageUploadDownSection">
@@ -1923,6 +2059,7 @@ class AddProductDetails extends React.Component {
 
                                 <div className="uploadSectionRightWrapper">
                                     <article className="rightWrapperInnerLayer">
+
                                         <header className="vendorFormHeading">
 
                                             <div className="headingArea">
@@ -1935,6 +2072,7 @@ class AddProductDetails extends React.Component {
 
                                         <section className="vendorUploadFormSection">
                                             <div className="vendorUploadFormInnerContainer">
+                                                
                                                 <div className="inputFormContainer">
                                                     <div className="formParaSection">
                                                         <p className="pargraphClass">Name of the product</p>
@@ -2031,7 +2169,7 @@ class AddProductDetails extends React.Component {
                                                     <div className="formParaSection">
                                                         <p className="pargraphClass">Material</p>
                                                     </div>
-                                                    <div className="ProductMaterialSection">
+                                                    <div className="productMaterialSection">
 
                                                         {this.returnProductMaterials()}
 
@@ -2133,29 +2271,25 @@ class AddProductDetails extends React.Component {
                                                     </div>
 
                                                     <div className="colorSelectionContainer">
-                                                        {/* <HtmlSlider
-                                                            categoryData={this.returnVariationColors()} // format of Item 
-                                                            numberOfSlides={4} // Change the css grid properties for responsiveness
-                                                            textOnRibbon={"TRENDING NOW"} // All caps
-                                                            runFunction={(data) => this.getData(data)}
-                                                        /> */}
                                                         <div className="addColorDummyContainer">
                                                             <div className="addColorDummyContainerInnerLayer">
-                                                                <div className="addButtonContainer">
-                                                                            <WhiteButton
-                                                                        runFunction={() => {
-                                                                                // console.log('hit')
-                                                                                this.modalClassToggle("show")
-                                                                                this.setState({
-                                                                                    modalType : "color"
-                                                                                }
-                                                                            )}
-                                                                        }
-                                                                    >
-                                                                        <div className="svgImageContainer">
-                                                                            <PlusButtonIcon />
-                                                                        </div>
-                                                                    </WhiteButton>
+                                                                <div 
+                                                                    className="addButtonContainer"
+                                                                    onClick={() => {
+                                                                        // console.log('hit')
+                                                                            this.modalClassToggle("show")
+                                                                            this.setState({
+                                                                                modalType : "color"
+                                                                            }
+                                                                        )}
+                                                                    }
+                                                                >
+
+                                                                    <div className="svgImageContainer">
+                                                                        <PlusButtonIcon />
+                                                                    </div>
+
+                                                                    <p>Add new</p>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -2331,6 +2465,7 @@ class AddProductDetails extends React.Component {
                                                 </div>
 
                                                 <div className="inputFormContainer">
+
                                                     <div className="formParaSection">
                                                         <p className="pargraphClass"> Features / specifications of the product </p>
                                                     </div>
@@ -2349,34 +2484,60 @@ class AddProductDetails extends React.Component {
                                                     </div>
 
                                                 </div>
+                                           
+                                                
+                                                <div className="inputFormContainer">
+                                                        
+                                                    <div className="formParaSection">
+                                                        <h3 className="pargraphClass"> Choose the product’s design style </h3>
+                                                    </div>
+
+                                                    <div className="designStyleCategoryTagsContainer">
+                                                        <div className="designStyleTagsInnerLayer">
+                                                            {this.returnStyleContentAdded()}
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="designStylesOuterLayer">
+                                                        <div className="designStylesInnerLayer">
+                                                            {this.returnCategoryContent()} 
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
 
                                                 <div className="inputFormContainer">
                                                     <div className="formParaSection">
                                                         <p className="pargraphClass"> Add tags for your product </p>
                                                     </div>
 
-                                                    <div className="inputCategorySection">
-                                                        <div className="materialInfoColumn">
-                                                            <input
-                                                                placeholder="For Ex. Sofa"
-                                                                ref="tagInput"
-                                                                type="text"
-                                                                maxLength="20"
-                                                                onChange={e => this.setTagName(e)}
-                                                                onKeyPress={e => {
-                                                                    if (e.key === "Enter") {
-                                                                        this.setTagName(e)
-                                                                        this.addTagName()
-                                                                    }
-                                                                }}
-                                                            />
-                                                            <span className="InputSeparatorLine"> </span>
-                                                        </div>
+                                                    <div className="inputCategoryTagSection">
+                                                        <div className="tagInputContainer">
 
-                                                        <div className="charCount">
-                                                            <p ref="charCount">
-                                                                {this.state.charCount}
-                                                            </p>
+                                                            <div className="materialInfoColumn">
+                                                                <input
+                                                                    placeholder="For Ex. Sofa"
+                                                                    ref="tagInput"
+                                                                    type="text"
+                                                                    maxLength="20"
+                                                                    onChange={e => this.setTagName(e)}
+                                                                    onKeyPress={e => {
+                                                                        if (e.key === "Enter") {
+                                                                            this.setTagName(e)
+                                                                            this.addTagName()
+                                                                        }
+                                                                    }}
+                                                                />
+                                                                <span className="InputSeparatorLine"> </span>
+                                                            </div>
+
+                                                            <div className="charCount">
+                                                                <p ref="charCount">
+                                                                    {this.state.charCount}
+                                                                </p>
+                                                            </div>
+
                                                         </div>
 
 
@@ -2478,6 +2639,7 @@ class AddProductDetails extends React.Component {
                                                 </div>
                                             </div>
                                         </section>
+
                                         <div className="formButtonContainer">
                                             <div className="buttonContainer">
                                                 <GradientButton
@@ -2492,14 +2654,19 @@ class AddProductDetails extends React.Component {
                                                 </GradientButton>
                                             </div>
                                         </div>
+
                                     </article>
+
                                 </div>
+
                             </section>
+
                         </article>
 
                         {
                             this.returnModal()
                         }
+
                     </div>
                 </div>
             </div>

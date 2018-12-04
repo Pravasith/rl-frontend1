@@ -1,6 +1,6 @@
 import React from "react"
 
-import "../../../assets/sass/vendor_form.scss"
+import "../../../assets/sass/profile_details.scss"
 
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
