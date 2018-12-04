@@ -2514,15 +2514,24 @@ class AddProductDetails extends React.Component {
                                                         <h3 className="pargraphClass"> Choose the product’s design style </h3>
                                                     </div>
 
-                                                    <div className="designStyleCategoryTagsContainer">
+                                                    {/* <div className="designStyleCategoryTagsContainer">
                                                         <div className="designStyleTagsInnerLayer">
                                                             {this.returnStyleContentAdded()}
                                                         </div>
-                                                    </div>
+                                                    </div> */}
 
                                                     <div className="designStylesOuterLayer">
+
+                                                        <div className="designStyleCategoryTagsContainer">
+                                                            <div className="designStyleTagsInnerLayer">
+                                                                {this.returnStyleContentAdded()}
+                                                            </div>
+                                                        </div>
+
                                                         <div className="designStylesInnerLayer">
-                                                            {this.returnCategoryContent()} 
+                                                            <div className="dummyInnerLayer">
+                                                                 {this.returnCategoryContent()} 
+                                                            </div>
                                                         </div>
                                                     </div>
 

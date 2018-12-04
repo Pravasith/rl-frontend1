@@ -411,10 +411,13 @@ input{
                                                     }
                                                 }
 
-                                                .designStyleCategoryTagsContainer{
+
+                                                .designStylesOuterLayer{
+                                                    width: 100%;
+                                                    margin-bottom: 1em;
+                                                    .designStyleCategoryTagsContainer{
                                                         width: 94%;
-                                                        height: 5em;
-                                                        margin-top: 0.5em;
+                                                        margin: 0.5em;
                                                         overflow-y: auto;
                                                     .designStyleTagsInnerLayer{
                                                         display: inline-block;
@@ -441,16 +444,20 @@ input{
                                                         }
                                                     }
                                                 }
-
-                                                .designStylesOuterLayer{
-                                                    width: 100%;
-                                                    height: 20em;
-                                                    overflow-y: auto;
-                                                    margin-bottom: 1em;
                                                     .designStylesInnerLayer{
-                                                        @include flexCentreCol;
-                                                        width: 95%;
-                                                        padding: 0.2em;
+                                                        width: 100%;
+                                                            height: 20em;
+                                                            overflow-y: auto;
+                                                            margin-bottom: 1em;
+                                                        .dummyInnerLayer{
+                                                            // width: 100%;
+                                                            // height: 20em;
+                                                            // overflow-y: auto;
+                                                            margin-bottom: 1em;
+                                                            @include flexCentreCol;
+                                                            width: 95%;
+                                                            padding: 0.2em;
+                                                        }
                                                         .productStyleContainer{
                                                             @include flexCentreCol;
                                                             width: 100%;
@@ -949,11 +956,14 @@ input{
                 .dummyXClass{
                     
                     .whiteSquareForModal{
+
                         .addProductDetailsModal{
+
                             .svgImageContainer{
                                 @include flexCentreRow;
                                 margin-top: 0.5em;
                             }
+
                             .modalContentContainer{
                                 margin: 0.5em 0 ;
                                 .modalContentContainerInnerLayer{
@@ -981,10 +991,12 @@ input{
                                     }
                                 }
                             }
+
                             .closeModalContainer{
                                 @include flexCentreRow;
                                 margin-top: 1em;
                             }
+
                         }
                     }
                 }
@@ -1066,6 +1078,7 @@ input{
                                                 }
                                                 
                                             }
+
                                             .errorContent{
                                                 p{
                                                     text-align: center;
@@ -1129,6 +1142,7 @@ input{
                                                         }
                                                     }
                                                 }
+
                                                 .formParaSection{
                                                     margin-bottom: 0.3em;
                                                     .pargraphClass{
@@ -1264,7 +1278,7 @@ input{
 .switch {
     position: relative;
     display: inline-block;
-    width: 4em;
+    width: 5em;
     height: 1.4em;
     margin-left: 0.5em;
   }
@@ -1287,10 +1301,10 @@ input{
   .slider:before {
     position: absolute;
     content: "";
-    height: 1em;
-    width: 1em;
+    height: 0.8em;
+    width: 0.8em;
     left: 0.25em;
-    bottom: 0.25em;
+    bottom: 0.30em;
     background-color: white;
     -webkit-transition: .4s;
     transition: .4s;
