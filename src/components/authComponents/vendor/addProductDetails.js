@@ -1298,7 +1298,11 @@ class AddProductDetails extends React.Component {
                             </div>
                             <div className="imageUploaderContainer">
                                 <div className="imageUploaderInnerLayer">
-                                    <ImageUploader />
+                                    <ImageUploader
+                                        type = "regularImage" // regularImage || profileImage
+                                        resultData = {(data) => console.log(data)}
+                                        showInitialImage = "" // image src link // optional
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -1308,7 +1312,11 @@ class AddProductDetails extends React.Component {
                                 <div className="line"></div>
                                 <div className="uploadedImgThumbnail">
                                     <img className="uploadedImage" src="" alt="" />
-                                    <ImageUploader />
+                                    <ImageUploader
+                                        type = "regularImage" // regularImage || profileImage
+                                        resultData = {(data) => console.log(data)}
+                                        showInitialImage = "" // image src link // optional
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -1785,7 +1793,11 @@ class AddProductDetails extends React.Component {
                                                                     <div className="line"></div>
                                                                 </div>
                                                             </header>
-                                                            <ImageUploader />
+                                                            <ImageUploader
+                                                                type = "regularImage" // regularImage || profileImage
+                                                                resultData = {(data) => console.log(data)}
+                                                                showInitialImage = "" // image src link // optional
+                                                            />
                                                         </div>
                                                     </div>
 
@@ -1994,12 +2006,12 @@ class AddProductDetails extends React.Component {
                                                     </div>
 
                                                     <div className="colorVariantSliderContainer">
-                                                        <HtmlSlider
+                                                        {/* <HtmlSlider
                                                             categoryData={this.returnVariationColors()} // format of Item 
                                                             numberOfSlides={4} // Change the css grid properties for responsiveness
                                                             textOnRibbon={"TRENDING NOW"} // All caps
                                                             runFunction={(data) => this.getData(data)}
-                                                        />
+                                                        /> */}
                                                     </div>
 
                                                     <div className="buttonContainer">
