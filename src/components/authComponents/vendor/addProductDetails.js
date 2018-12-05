@@ -9,6 +9,7 @@ import { getUserData } from "../../../actions/userActions"
 import { hitApi, navBarLoadingAnimationShowHide } from "../../../actions/generalActions";
 
 import {
+    LargePlusButtonIcon,
     PlusButtonIcon,
     CloseButton,
     BigCloseButton,
@@ -571,18 +572,31 @@ class AddProductDetails extends React.Component {
                         key={i}
                     >
                         <div className="colorDescriptionInnerLayer">
-                            <div 
-                                className="colorDetails"
-                                style = {{background : item.colorCode}}
-                            >
-                                <div className="closeButtonContainer"
+                            <div className="contentColorContainer">
+                                <div 
+                                    className="colorDetails"
+                                    style={{background : item.colorCode}}
+                                >
+                                </div>
+                                <div 
+                                    className="closeButtonContainer"
                                     onClick={() => {
                                         this.removeColor(i)
                                     }}
                                 >
                                     <CloseButton />
                                 </div>
-                                <p>{item.colorCode}</p>
+                            </div>
+                            <div className="contentColorValuesContainer">
+                                <div className="colorNameContainer">
+                                    <p>Color: <span>{item.colorName}</span> </p>
+                                </div>
+                                <div className="colorHexCodeContainer">
+                                    <p>Color code: <span>{item.colorCode}</span> </p>
+                                </div>
+                                <div className="colorExtraCostContainer">
+                                    <p key={i}>Rs. <span>{item.colorCost}</span> extra cost over base price</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1328,6 +1342,7 @@ class AddProductDetails extends React.Component {
         })
     }
 
+
     setTagName = (e) => {
         const val = e.target.value
 
@@ -1551,7 +1566,7 @@ class AddProductDetails extends React.Component {
                                             className="selectedColorSection"
                                             ref = "colorPreview"
                                             style = {{background : this.state.colorPreview}}
-                                            >
+                                        >
                                         </div>
                                         <div className="colorInputFormSection">
 
@@ -2289,7 +2304,9 @@ class AddProductDetails extends React.Component {
                                                         <p 
                                                             className="pargraphClass"
                                                             // onClick = {() => console.log(this.state.colorArray)}
-                                                            > Color options </p>
+                                                        >
+                                                            Color options 
+                                                        </p>
                                                     </div>
 
                                                     <div className="colorSelectionContainer">
@@ -2308,10 +2325,10 @@ class AddProductDetails extends React.Component {
                                                                 >
 
                                                                     <div className="svgImageContainer">
-                                                                        <PlusButtonIcon />
+                                                                        <LargePlusButtonIcon />
                                                                     </div>
 
-                                                                    <p>Add new</p>
+                                                                    <p>Add new color</p>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -2581,6 +2598,7 @@ class AddProductDetails extends React.Component {
                                                 </div>
 
                                                 <div className="inputFormContainer">
+
                                                     <div className="formParaSection">
                                                         <p className="pargraphClass"> Choose the product type </p>
                                                     </div>
@@ -2598,6 +2616,7 @@ class AddProductDetails extends React.Component {
                                                 </div>
 
                                                 <div className="inputFormContainer">
+
                                                     <div className="formParaSection">
                                                         <p className="pargraphClass"> Is the product available? </p>
                                                     </div>
@@ -2690,11 +2709,9 @@ class AddProductDetails extends React.Component {
                                         </div>
 
                                     </article>
-
                                 </div>
 
                             </section>
-
                         </article>
 
                         {

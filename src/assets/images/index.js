@@ -531,6 +531,17 @@ export const PlusButtonIcon = () => {
     )
 }
 
+export const LargePlusButtonIcon = () => {
+
+    return (
+        <svg id='plusSymbol' xmlns='http://www.w3.org/2000/svg' width='40' height='40'
+            viewBox='0 0 14 14'>
+            <polygon id="polygon" fill='#CCC' points='13,5 9,5 9,1 5,1 5,5 1,5 1,9 5,9 5,13 9,13 9,9 13,9'
+            />
+        </svg>
+    )
+}
+
 export const PlusButtonIconWhite = () => {
 
     return (

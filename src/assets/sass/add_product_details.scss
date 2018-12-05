@@ -844,14 +844,13 @@ input{
                                                 }
 
                                                 .colorSelectionContainer{
-                                                    width: 50%;
                                                     margin-bottom: 0.5em;
                                                     display: grid;
-                                                    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+                                                    grid-template-columns: 1fr 1fr 1fr;
 
                                                     .addColorDummyContainer{
-                                                        width: 4em;
-                                                        height: 4em;
+                                                        width: 12em;
+                                                        height: 12em;
                                                         padding: 0.2em;
                                                         margin: 0.3em;
                                                         @include box_shadow;
@@ -873,30 +872,61 @@ input{
                                                         }
                                                     }
                                                     .colorDescriptionOuterLayer{
+                                                        width: 12em;
                                                         margin: 0.3em;
+                                                        padding: 0.5em;
+                                                        @include box_shadow;
                                                         .colorDescriptionInnerLayer{
-                                                            @include flexCentreRow;
-
-                                                            .colorDetails{
-                                                                width: 4em;
-                                                                height: 4em;
-                                                                padding: 0.2em;
-                                                                @include box_shadow;
-                                                                @include flexCentreCol;
+                                                            @include flexCentreCol;
+                                                            .contentColorContainer{
+                                                                @include flexCentreRow;
+                                                                width: 100%;
+                                                                align-items: flex-start;
                                                                 justify-content: space-between;
-
+                                                                .colorDetails{
+                                                                    width: 4em;
+                                                                    height: 4em;
+                                                                    padding: 0.2em;
+                                                                    @include box_shadow;
+                                                                }
                                                                 .closeButtonContainer{
-                                                                    @include flexCentreRow;
-                                                                    justify-content: flex-end;
-                                                                    width: 100%;
+
+                                                                }
+                                                            }
+                                                            .contentColorValuesContainer{
+                                                                @include flexCentreCol;
+                                                                width: 100%;
+                                                                align-items: flex-start;
+                                                                margin-top: 0.5em;
+                                                                .colorNameContainer{
+                                                                    margin: 0.3em 0;
+                                                                    p{
+                                                                        font-size: 0.8em;
+                                                                        span{
+                                                                            color: $primaryMagenta;
+                                                                        }
+                                                                    }
+                                                                }
+                                                                .colorHexCodeContainer{
+                                                                    margin: 0.3em 0;
+                                                                    p{
+                                                                        font-size: 0.8em;
+                                                                        span{
+                                                                            color: $primaryMagenta;
+                                                                        }
+                                                                    }
+                                                                }
+                                                                .colorExtraCostContainer{
+                                                                    margin: 0.2em 0;
+                                                                    max-width: 10em;
+                                                                    p{
+                                                                        font-size: 0.8em;
+                                                                        span{
+                                                                            color: $primaryMagenta;
+                                                                        }
+                                                                    }
                                                                 }
 
-                                                                p{
-                                                                    width: 100%;
-                                                                    text-align: center;
-                                                                    color: $darkGrey;
-                                                                    background: $white;
-                                                                }
                                                             }
                                                         }
                                                     }
