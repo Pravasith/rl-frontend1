@@ -130,9 +130,9 @@ class AddProductDetails extends React.Component {
         }
     }
 
-    componentDidUpdate() {
-        console.log(this.state.productDiscountAvailablity, typeof(this.state.productDiscount))
-    }
+    // componentDidUpdate() {
+    //     console.log(this.state.productDiscountAvailablity, typeof(this.state.productDiscount))
+    // }
 
 
     modalClassToggle = (showOrNot) => {
@@ -852,13 +852,11 @@ class AddProductDetails extends React.Component {
 
         if (val !== "") {
             if (regEx.test(val) === true) {
-                if (checkFor === "discount") {
-                    if (this.state.checkBoxClass1 === "checkBox color") {
-                        this.setState({
-                            productDiscount: val,
-                            displayError: "displayError hide"
-                        })
-                    } 
+                if (checkFor === "discount") { 
+                    this.setState({
+                        productDiscount: val,
+                        displayError: "displayError hide"
+                    })
                 }
 
                 else if (checkFor === "color") {
@@ -2007,8 +2005,8 @@ class AddProductDetails extends React.Component {
            { fieldName: 'Product Tags', value: this.state.tagsAdded },
            { fieldName: 'Product Availability', value: this.state.productAvailability },
            { fieldName: `${this.state.productDiscountAvailablity === "yes" ? 
-                                (this.state.productDiscount !== 0 ?
-                                    'Product Discount Value'  : "wrks") : 'Product Discount Availability'}`, 
+                                (this.state.productDiscount === undefined ?
+                                    'Product Discount Value'  : null) : 'Product Discount Availability'}`, 
                                     value: this.state.productDiscount }
        ]
 
@@ -2040,7 +2038,8 @@ class AddProductDetails extends React.Component {
             this.setState({
                 checkBoxClass1 : "checkBox color",
                 checkBoxClass2: "checkBox",
-                productDiscountAvailablity: "yes"
+                productDiscountAvailablity: "yes",
+                productDiscount: undefined
             })
         }
 
