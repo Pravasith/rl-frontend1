@@ -44,17 +44,6 @@ class ProfileDetailsVendor extends React.Component {
             monthCount: 0,
             experienceCount: '',
 
-            // state of chechAnswered
-            // inputCountOne: 0,
-            // inputCountTwo: 0,
-            // inputCountThree: 0,
-            // inputCountFour: 0,
-            // inputCountFive: 0, 
-            // inputCountSix: 0,
-            // inputCountSeven: 0,
-            // inputCountEight: 0,
-            // inputCountNine: 0,
-
             emptyField: [],
 
             companyName: null,
@@ -120,9 +109,6 @@ class ProfileDetailsVendor extends React.Component {
                                 getIndividualGSTINs()
                             }
 
-
-                            // console.log(decryptedData)
-
                             this.setState({
 
                                 companyName: decryptedData.companyName,
@@ -152,167 +138,6 @@ class ProfileDetailsVendor extends React.Component {
             .catch(e => console.error(e))
             
     }
-
-    // decreaseValue = (yearOrMonth) => {
-    //     if (yearOrMonth === "year" && this.state.yearCount > 0){
-    //         this.updateVendorData("experience.years", this.state.yearCount - 1)
-    //         this.setState({
-    //             yearCount : this.state.yearCount - 1
-    //         })
-    //     }
-
-    //     if (yearOrMonth === "month" && this.state.monthCount > 0) {
-    //         this.updateVendorData("experience.months", this.state.monthCount - 1)
-    //         this.setState({
-    //             monthCount: this.state.monthCount - 1
-    //         })
-    //     }
-    // }
-
-    // increaseValue = (yearOrMonth) => {
-    //     if (yearOrMonth === "year" && this.state.yearCount < 100) {
-    //         this.updateVendorData("experience.years", this.state.yearCount + 1)
-    //         this.setState({
-    //             yearCount: this.state.yearCount + 1
-    //         })
-    //     }
-
-    //     if (yearOrMonth === "month" && this.state.monthCount < 12) {
-    //         this.updateVendorData("experience.months", this.state.monthCount + 1)
-    //         this.setState({
-    //             monthCount: this.state.monthCount + 1
-    //         })
-    //     }
-    // }
-
-    // my code for checking answered questions
-    // checkAnsweredOne = () => {
-    //     if (this.state.firstName !== null && this.state.lastName !== null && this.state.inputCountOne !== 1) {
-    //         console.log("Name wrks")
-    //         this.setState({
-    //             inputCountOne: this.state.inputCountOne + 1
-    //         })
-    //     } 
-        
-    //     return this.state.inputCountOne;
-    // }
-
-    // checkAnsweredTwo = () => {
-    //     if (this.state.companyName !== null && this.state.inputCountTwo !== 1) {
-    //         console.log("Comapny wrks")
-    //         this.setState({
-    //             inputCountTwo: this.state.inputCountTwo + 1
-    //         })
-    //     }
-
-    //     return this.state.inputCountTwo;
-    // }
-
-    // checkAnsweredThree = () => {
-    //     if (this.state.mobileNo !== null && this.state.inputCountThree !== 1) {
-    //         console.log("Contact wrks")
-    //         this.setState({
-    //             inputCountThree: this.state.inputCountThree + 1
-    //         })
-    //     } 
-        
-    //     return this.state.inputCountThree;
-    // }
-
-    // checkAnsweredFour = () => {
-    //     if (this.state.hNo !== null 
-    //             && this.state.stNo !== null 
-    //             && this.state.detailedAddressLine1 !== null 
-    //             && this.state.state !== null
-    //             && this.state.city !== null
-    //             && this.state.pincode !== 0
-    //             && this.state.inputCountFour !== 1) {
-
-    //         console.log("Address wrks")
-    //         this.setState({
-    //             inputCountFour: this.state.inputCountFour + 1
-    //         })
-    //     } 
-        
-    //     return this.state.inputCountFour;
-    // }
-
-    // checkAnsweredFive = () => {
-    //     if (this.state.companyDescriptionLine1 !== null && this.state.inputCountFive !== 1) {
-    //         console.log("Company Desc wrks")
-    //         this.setState({
-    //             inputCountFive: this.state.inputCountFive + 1
-    //         })
-    //     } 
-        
-    //     return this.state.inputCountFive;
-    // }
-
-    // checkAnsweredSix = () => {
-    //     if (this.state.yearCount !== 0 && this.state.monthCount !== 0 && this.state.inputCountSix !== 1) {
-    //         console.log("Exp wrks")
-    //         this.setState({
-    //             inputCountSix: this.state.inputCountSix + 1
-    //         })
-    //     } 
-        
-    //     return this.state.inputCountSix;
-    // }
-
-    // checkAnsweredSeven = () => {
-    //     if (this.state.gstIn !== null && this.state.inputCountSeven !== 1) {
-    //         console.log("GST wrks")
-    //         this.setState({
-    //             inputCountSeven: this.state.inputCountSeven + 1
-    //         })
-    //     } 
-        
-    //     return this.state.inputCountSeven;
-    // }
-
-    // checkAnsweredEight = () => {
-    //     if (this.state.pan !== null && this.state.inputCountEight !== 1) {
-    //         console.log("Pan wrks")
-    //         this.setState({
-    //             inputCountEight: this.state.inputCountEight + 1
-    //         })
-    //     } 
-        
-    //     return this.state.inputCountEight;
-    // }
-
-    // checkAnsweredNine = () => {
-    //     if (this.state.companyProfilePicture !== null && this.state.inputCountNine !== 1) {
-    //         console.log("CompanyPP wrks")
-    //         this.setState({
-    //             inputCountNine: this.state.inputCountNine + 1
-    //         })
-    //     } 
-        
-    //     return this.state.inputCountNine;
-    // }
-
-    // my code
-    // returnInputCount = () => {
-    //     const {
-    //         inputCountOne,
-    //         inputCountTwo,
-    //         inputCountThree,
-    //         inputCountFour,
-    //         inputCountFive,
-    //         inputCountSix, 
-    //         inputCountSeven,
-    //         inputCountEight, 
-    //         inputCountNine 
-    //         } = this.state;
-        
-    //     let totalAnswered = inputCountOne + inputCountTwo + inputCountThree 
-    //                         + inputCountFour + inputCountFive + inputCountSix 
-    //                         + inputCountSeven + inputCountEight + inputCountNine ;
-
-    //     return totalAnswered;
-    // }
-
 
     returnNavBarData = () => {
         if (this.props.userData.responseData) {
@@ -567,8 +392,6 @@ class ProfileDetailsVendor extends React.Component {
                 // Decrypt data
                 //
 
-                // console.log(decryptedData)
-
                 this.setState({
 
                     companyName: decryptedData.companyName,
@@ -597,7 +420,6 @@ class ProfileDetailsVendor extends React.Component {
     returnImageUploader = () => {
 
         if(this.state.companyProfilePicture){
-            // console.log("is not empty", this.state.companyProfilePicture)
             return (
                 <ImageUploader
                     imageType = "regularImage" // regularImage || profileImage
@@ -608,7 +430,6 @@ class ProfileDetailsVendor extends React.Component {
         }
 
         else{
-            // console.log("is empty", this.state.companyProfilePicture)
             return (
                 <div>
                     <ImageUploader
@@ -670,8 +491,6 @@ class ProfileDetailsVendor extends React.Component {
 
     proceedHandler = async () => {
 
-        const { gstIn } =  this.state
-
         const fieldNames =  [
             { fieldName: 'first name', value: this.state.firstName },
             { fieldName: 'last name', value: this.state.lastName },
@@ -687,9 +506,6 @@ class ProfileDetailsVendor extends React.Component {
             { fieldName: "your company's PAN number", value: this.state.pan },
             { fieldName: "your company's logo", value: this.state.companyProfilePicture }
         ]
-
-
-        // console.log(fieldNames)
 
 
         await this.setState({
@@ -781,25 +597,12 @@ class ProfileDetailsVendor extends React.Component {
                     // Decrypt data
                     // 
 
-                    // console.log(decryptedVendorData)
-
                     window.open("/vendor-main-dashboard", "_self")
                 })
                 .catch (e => console.error(e))
-
-                // this.setState({
-                //     mainClass : "mainClass",
-                //     loadingClass : "loadingClass hide"
-                // })
-                
             })
-            .catch (e => console.error(e))
-
-            // console.log(finalUserDataToSend, finalVendorDataToSend)          
-            
+            .catch (e => console.error(e))      
         }
-        
-
     }
 
     modalClassToggle = (showOrNot) => {
@@ -896,20 +699,10 @@ class ProfileDetailsVendor extends React.Component {
 
                                 <div className="vendorInnerSection">
                                     <div className="leftSection">
-                                            <div className="leftSectionInnerLayer">
-                                                <div className="iconWrapper">
-                                                    <TableIcon />
-                                                </div>
-
-                                            {/* <div className="formCompletionInfoSection">
-                                                <div className="outerLayer">
-                                                    <h3
-                                                        
-                                                    >
-                                                        <span>{this.returnInputCount()}/9</span>Questions answered
-                                                    </h3>
-                                                </div>
-                                            </div> */}
+                                        <div className="leftSectionInnerLayer">
+                                            <div className="iconWrapper">
+                                                <TableIcon />
+                                            </div>
                                         </div>
                                     </div>
 
@@ -920,7 +713,6 @@ class ProfileDetailsVendor extends React.Component {
 
                                             <div 
                                                 className="formInputContainer"
-                                                // onBlur={() => this.checkAnsweredOne()}
                                             >
                                                 <div className="formInputInnerLayer">
                                                     <div className="formParaSection">
@@ -958,7 +750,6 @@ class ProfileDetailsVendor extends React.Component {
 
                                             <div 
                                                 className="formInputContainer"
-                                                // onBlur={() => this.checkAnsweredTwo()}
                                             >
                                                 <div className="formInputInnerLayer">
                                                         <div className="formParaSection">
@@ -983,12 +774,8 @@ class ProfileDetailsVendor extends React.Component {
 
                                             <div 
                                                 className="formInputContainer"
-                                                // onBlur={() => this.checkAnsweredThree()}
                                             >
                                                 <div className="formInputInnerLayer">
-
-                                                {/* <div className="formInputContainer">
-                                                    <div className="formInputInnerLayer"> */}
 
                                                         <div className="formParaSection">
                                                             <h3>3</h3>
@@ -1031,45 +818,12 @@ class ProfileDetailsVendor extends React.Component {
 
                                             <div 
                                                 className="formInputContainer"
-                                                // onBlur={() => this.checkAnsweredFour()}
                                             >
                                                 <div className="formInputInnerLayer">
                                                     <div className="formParaSection">
                                                         <h3>4</h3>
                                                         <p>Tell us your company address. We’ll bill the customer with this address</p>
                                                     </div>
-                                                
-
-                                                {/* <div className="formInputContainer">
-                                                    <div className="formInputInnerLayer">
-                                                        <div className="formParaSection">
-                                                            <h3>4</h3>
-                                                            <p>Tell us your company address. We’ll bill the customer with this address</p>
-                                                        </div> */}
-
-                                                        {/* <div className="houseNoWrap">
-                                                            <InputForm
-                                                                refName="houseNo"
-                                                                placeholder="H.No/Flat no."
-                                                                isMandatory={true}
-                                                                validationType="alphabetsSpecialCharactersAndNumbers"
-                                                                characterCount="15"
-                                                                value={this.state.hNo ? this.state.hNo : null}
-                                                                result={val => this.updateVendorData("address.hNo", val)}
-                                                            />
-                                                        </div>
-
-                                                        <div className="StreetNoWrap">
-                                                            <InputForm
-                                                                refName="streetNo"
-                                                                placeholder="Street No."
-                                                                isMandatory={true}
-                                                                validationType="alphabetsSpecialCharactersAndNumbers"
-                                                                characterCount="15"
-                                                                value={this.state.stNo ? this.state.stNo : null}
-                                                                result={val => this.updateVendorData("address.stNo", val)}
-                                                            />
-                                                        </div> */}
 
                                                         <div className="detailedAddressLineWrap">
                                                             <InputForm
@@ -1140,7 +894,6 @@ class ProfileDetailsVendor extends React.Component {
                                                                 characterCount="6"
                                                                 value={this.state.pincode ? this.state.pincode : null}
                                                                 result={val => {
-                                                                    // console.log(typeof(val))
                                                                     this.updateVendorData("address.pincode", val)
                                                                 }}
                                                             />
@@ -1151,7 +904,6 @@ class ProfileDetailsVendor extends React.Component {
 
                                             <div 
                                                 className="formInputContainer"
-                                                // onBlur={() => this.checkAnsweredFive()}
                                             >
                                                 <div className="formInputInnerLayer">
                                                     <div className="formParaSection">
@@ -1185,7 +937,6 @@ class ProfileDetailsVendor extends React.Component {
 
                                             <div 
                                                 className="formInputContainer"
-                                                // onClick={() => this.checkAnsweredSix()}
                                             >
                                                 <div className="formInputInnerLayer">
                                                     <div className="formParaSection">
@@ -1210,78 +961,11 @@ class ProfileDetailsVendor extends React.Component {
                                                         </div>  
                                                     </div>
 
-                                                        
-                                                        {/* <div className="industryTimeWrap">
-                                                            <div className="timeWrap inputCategorySection">
-                                                                <div className="mandatorySection">
-                                                                    <p>Mandatory</p>
-                                                                </div>
-
-                                                                <div className="inputColumn">
-                                                                    <div className="numberInputSection inputColumnInnerLayer">
-                                                                        <div
-                                                                            className="plusAndMinusWrap"
-                                                                            onClick={() => this.decreaseValue("year")}
-                                                                            >
-                                                                            <MinusImageIcon />
-                                                                        </div>
-
-                                                                        <div className="numberSection">
-                                                                            <p>{this.state.yearCount}</p>
-                                                                        </div>
-
-                                                                        <div
-                                                                            className="plusAndMinusWrap"
-                                                                            onClick={() => this.increaseValue("year")}
-                                                                            >
-                                                                            <PlusImageIcon />
-                                                                        </div>
-
-                                                                        <div className="yearSelectionCategory">
-                                                                            <p>Years</p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div className="timeWrap inputCategorySection">
-
-                                                                <div className="inputColumn monthsColumn">
-                                                                    <div className="numberInputSection inputColumnInnerLayer">
-                                                                        <div
-                                                                            className="plusAndMinusWrap"
-                                                                            onClick={() => this.decreaseValue("month")}
-                                                                        >
-                                                                            <MinusImageIcon />
-                                                                        </div>
-
-                                                                        <div className="numberSection">
-                                                                            <p>{this.state.monthCount}</p>
-                                                                        </div>
-
-                                                                        <div
-                                                                            className="plusAndMinusWrap"
-                                                                            onClick={() => this.increaseValue("month")}
-                                                                        >
-                                                                            <PlusImageIcon />
-                                                                        </div>
-
-                                                                        <div className="yearSelectionCategory">
-                                                                            <p>Months</p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                            </div>
-
-                                                        </div> */}
-
                                                     </div>
                                                 </div>
 
                                             <div 
                                                     className="formInputContainer"
-                                                    // onToggle={() => this.checkAnsweredSeven()}
                                                 >
                                                     <div className="formInputInnerLayer">
                                                         <div className="cardInstructionPara formParaSection">
@@ -1312,7 +996,6 @@ class ProfileDetailsVendor extends React.Component {
 
                                                             <div className="inputColumn inputColumn2">
                                                                 <input 
-                                                                    // autoFocus="autofocus"
                                                                     defaultValue = {this.state.gstIn2}
                                                                     type="text" 
                                                                     id="2"
@@ -1394,7 +1077,6 @@ class ProfileDetailsVendor extends React.Component {
 
                                                 <div 
                                                     className="formInputContainer"
-                                                    // onBlur={() => this.checkAnsweredEight()}
                                                 >
                                                     <div className="formInputInnerLayer">
                                                         <div className="formParaSection">
@@ -1410,7 +1092,6 @@ class ProfileDetailsVendor extends React.Component {
                                                                 validationType="alphabetsAndNumbers"
                                                                 characterCount="10"
                                                                 value={this.state.pan ? this.state.pan : null}
-                                                                // onKeyUp={(e) => this.noSpaces(e)}
                                                                 result={val => this.updateVendorData("PAN", val)}
                                                             />
                                                         </div>
@@ -1420,7 +1101,6 @@ class ProfileDetailsVendor extends React.Component {
                                             
 
                                             <div className="formInputContainer"
-                                            //    onLoad={() => this.checkAnsweredNine()} 
                                             >
                                                 <div className="formInputInnerLayer">
                                                     <div className="formParaSection">
@@ -1443,15 +1123,12 @@ class ProfileDetailsVendor extends React.Component {
                             <div className="proceedButtonHandler">
                                 <div className="formParaSection">
                                     <GradientButton
-                                        // runFunction = {() => window.open('/vendor-main-dashboard', '_self')}
                                         runFunction = {() => this.proceedHandler()}
                                         >
                                         Save & Proceed
                                     </GradientButton>
                                 </div>
                             </div>
-                        
-                            {/* {this.returnModal()} */}
                         </article>
 
                         <Footer />

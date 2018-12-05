@@ -108,11 +108,9 @@ class VendorMainDashboard extends React.Component {
                 else
                     console.error(err)
             })
-        // console.log('DM',this.state.modalDeleteClass)
     }
 
     onSelect = (e) => {
-        // console.log(e.target.value)
         this.setState({
             categoryName: e.target.value
         })
@@ -220,8 +218,6 @@ class VendorMainDashboard extends React.Component {
     returnContent = () => {
         let { contentType } = this.state;
 
-        // {this.returnDataFromBackendAndShow()}
-
         if (contentType === 'uploadedProducts'){
 
             {
@@ -231,7 +227,6 @@ class VendorMainDashboard extends React.Component {
             return(
                     <div className="add">
                         <div className={this.state.contentWrapper}>
-                        {/* <div className={this.state.mainContentWrap}> */}
                             <div className="addProductButton">
                                 <GradientButton
                                     runFunction={() => {
@@ -249,9 +244,6 @@ class VendorMainDashboard extends React.Component {
                             </div>
                             <div className={this.state.vendorInitialGraphic}>
                                 <div className="svgImageContainer">
-                                    {/* <div className="arrowSvgImageContainer">
-                                        <ArrowMarkLong/>
-                                    </div> */}
                                     <div className="graphicSvgImageContainer">
                                         <VendorGraphic/>
                                         <div className="vendorGraphicInnerContainer">
