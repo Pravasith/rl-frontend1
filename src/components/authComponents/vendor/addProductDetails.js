@@ -437,7 +437,6 @@ class AddProductDetails extends React.Component {
 
         this.refs.sizeName.value = sizeName
         this.refs.sizeCost.value = sizeCost
-
     }
 
     removeProductDimensions = (index) => {
@@ -1208,7 +1207,7 @@ class AddProductDetails extends React.Component {
                                                     </div>
                                                     <div className="productCode">
                                                         <InputForm
-                                                            refName="productName"
+                                                            refName="productCode"
                                                             placeholder="Type here"
                                                             isMandatory={true}
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
@@ -1248,7 +1247,7 @@ class AddProductDetails extends React.Component {
                                                             placeholder="Type here (in Rupees)"
                                                             isMandatory={true}
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
-                                                            characterCount="30"
+                                                            characterCount="10"
                                                             result={(val) => this.setState({
                                                                 productPrice: val
                                                             })}
