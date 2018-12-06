@@ -1191,6 +1191,8 @@ input{
 
                                                 .productInputInfoSection{
                                                     @include flexCentreRow;
+                                                    justify-content: flex-start;
+                                                    width: 100%;
                                                     .modalMandatorySection{
                                                         background: $secondaryMagenta;
                                                         padding: 0.2em;
@@ -1200,6 +1202,7 @@ input{
                                                     }
                                                     .modalInputCategory{
                                                         margin-left: 1em;
+                                                        width: 100%;
                                                         input{
                                                             border: none;
                                                             // border-bottom: 0.2em solid $black;
