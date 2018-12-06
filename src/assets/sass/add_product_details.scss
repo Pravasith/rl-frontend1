@@ -650,6 +650,57 @@ input{
                                                     }
                                                 }
 
+                                                .productFinishSection{
+                                                    width: 100%;
+                                                    margin: 0.5em 0;
+                                                    .productFinishDescriptionOuterLayer{
+                                                         @include flexCentreRow;
+                                                        justify-content: space-between;
+                                                        padding: 0.5em 1em;
+                                                        background: $lightGrey;
+                                                        margin: 0.5em 0;
+                                                        .productFinishDescriptionInnerLayer{
+                                                            @include flexCentreRow;
+                                                            justify-content: flex-start;
+                                                            align-items: flex-start;
+                                                            width: 100%;
+                                                            .finishImageContainer{
+                                                                img{
+                                                                     width: 5em;
+                                                                     height: 5em;
+                                                                }
+                                                            }
+                                                            .productFinishDetails{
+                                                                margin: 0 1em;
+                                                                .finishCostCartWrap{
+                                                                    @include flexCentreRow;
+                                                                    justify-content: flex-start;
+                                                                    p{  
+                                                                        font-size: 0.9em;
+                                                                        margin-left: 0.5em;
+                                                                        color: $primaryMagenta;
+                                                                    }
+                                                                }
+                                                                .finishCodecartwrap{
+                                                                    .finishCodeCartWrapReturn{
+                                                                         @include flexCentreRow;
+                                                                         justify-content: flex-start;
+                                                                        p{
+                                                                            font-size: 0.9em;
+                                                                            margin-left: 0.5em;
+                                                                            color: $primaryMagenta;
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                            .finishEditingButtons{
+                                                                @include flexCentreRow;
+                                                                height: 5em;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+
                                                 .productSizeDescriptionOuterLayer{
                                                     width: 100%;
                                                     margin: 0.5em 0;
@@ -846,23 +897,25 @@ input{
                                                 .colorSelectionContainer{
                                                     margin-bottom: 0.5em;
                                                     display: grid;
-                                                    grid-template-columns: 1fr 1fr 1fr;
+                                                    grid-template-columns: 1fr 1fr;
 
                                                     .addColorDummyContainer{
-                                                        width: 12em;
-                                                        height: 12em;
+                                                        width: 16.5em;
+                                                        height: 7em;
                                                         padding: 0.2em;
                                                         margin: 0.3em;
                                                         @include box_shadow;
 
                                                         .addColorDummyContainerInnerLayer{
                                                             @include flexCentreRow;
+                                                            align-items: flex-start;
                                                             width: 100%;
                                                             height: 100%;
                                                             background: $veryLightGrey;
                                                             cursor: pointer;                                                            
                                                             .addButtonContainer{
                                                             @include flexCentreCol;
+                                                            height: 100%;
                                                                 .whiteButtonWrapper{
                                                                     border-radius: 50%;
                                                                     margin: 0.1em;
@@ -872,15 +925,17 @@ input{
                                                         }
                                                     }
                                                     .colorDescriptionOuterLayer{
-                                                        width: 12em;
+                                                        width: 16em;
                                                         margin: 0.3em;
                                                         padding: 0.5em;
                                                         @include box_shadow;
                                                         .colorDescriptionInnerLayer{
                                                             @include flexCentreRow;
+                                                            align-items: flex-start;
                                                             .contentColorContainer{
                                                                 @include flexCentreRow;
-                                                                width: 100%;
+                                                                // width: 100%;
+                                                                margin-right: 0.8em;
                                                                 align-items: flex-start;
                                                                 justify-content: space-between;
                                                                 .colorDetails{
@@ -897,9 +952,9 @@ input{
                                                                 @include flexCentreCol;
                                                                 width: 100%;
                                                                 align-items: flex-start;
-                                                                margin-top: 0.5em;
+                                                                // margin-top: 0.5em;
                                                                 .colorNameContainer{
-                                                                    margin: 0.3em 0;
+                                                                    // margin: 0.3em 0;
                                                                     p{
                                                                         font-size: 0.8em;
                                                                         span{
@@ -1070,7 +1125,7 @@ input{
                             padding: 0.8em;
                             @include box_shadow;
                             .modalContentWrap{
-                                .modalContentClass,.modalFinishClass,.modalSizeClass,.modalMaterialClass{
+                                .modalContentClass,.modalFinishClass,.modalSizeClass,.modalMaterialClass,.modalFinishDetailsClass{
                                     .dummyXClass{
 
                                         
@@ -1104,6 +1159,24 @@ input{
                                                 }
                                             }
 
+                                            .imageUploaderContainer{
+                                                .imageUploaderInnerLayerContainer{
+                                                    width: 100%;
+                                                }
+                                            }
+
+                                            .finishEndModal{
+                                                @include flexCentreRow;
+                                                align-items: flex-start;
+                                                .finsihingDetails{
+                                                    margin-left: 0.8em;
+                                                    .inputFormContainer{
+                                                        .modalInputCategory{
+                                                            width: 100%;
+                                                        }
+                                                    }
+                                                }
+                                            }
                                             
 
                                             .switchContainer{
