@@ -1487,10 +1487,10 @@ class AddProductDetails extends React.Component {
                             </div>
                             <div className="inputFormContainer">
                                 <div className="formParaSection finishInputParaContainer">
-                                    <p className="pargraphClass">Example: The image thumbnail for Pinewood finish looks like this</p>
                                     <div className="exampleUploadedImgThumbnail">
                                         <img className="uploadedImage" src="https://res.cloudinary.com/wnbcloud/image/upload/h_300,w_400/v1467638340/ash2_wqnx4x.jpg" alt="" />
                                     </div>
+                                    <p className="pargraphClass">Example: The image thumbnail for Pinewood finish looks like this</p>
                                 </div>
                             </div>
                             <div className="imageUploaderContainer">
@@ -1626,8 +1626,6 @@ class AddProductDetails extends React.Component {
 
                                         </div>
                                     </div>
-
-                                    
 
                                     <div className="errorContent">
                                         <p className={this.state.displayError}>

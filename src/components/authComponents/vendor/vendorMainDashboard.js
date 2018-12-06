@@ -646,7 +646,71 @@ class VendorMainDashboard extends React.Component {
                         />
 
                         <div className="productManagerWrapperClass">
-                            <article className="vendorProductOuterLayer">
+                            <div className="productManagerWrapperInnerLayerClass">
+                            
+                                <div className="vendorDetailsLeftContainer">
+                                    <div className="vendorInformationInnerLayer">
+
+                                        <div className="vendorDashboardInfoConatiner">
+
+                                            <div className="vendorDashboardCompanyLogo">
+                                                <div className="logoImageContainer">
+                                                    <div className="logoImageContainerInnerLayer">
+                                                        <img src="https://rocheledecorating.com.au/website-images/hamptons_design.jpg" alt=""/>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="vendorDashboardCompanyInfoConatiner">
+                                                <div className="companyInfoContainer">
+                                                    <div className="companyInfoUpperConatiner">
+                                                        <div className="companyTitleConatiner">
+                                                            <h3>Patio furniture</h3>
+                                                        </div>
+                                                        <div className="companyCaptionConatiner">
+                                                            <p>Outdoor living. Since 1990.</p>
+                                                        </div>
+                                                        <div className="line"></div>
+                                                    </div>
+                                                    <div className="companyInfoLowerContainer">
+                                                        <p>
+                                                        how are you how are you how are you how are youhow are youhow are youhow are youhow are youhow are u
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div className="vendorInfoConatiner">
+                                                    <div className="vendorTitleContainer">
+                                                        <h3>Proprietor</h3>
+                                                        <div className="line"></div>
+                                                    </div>
+                                                    <div className="vendorInfoDownContainer">
+                                                        <div className="vendorPictureContainer">
+                                                            <div className="vendorProfilePicture">
+                                                                <div className="vendorProfilePictureInnerLayer">
+                                                                    <img src="https://rocheledecorating.com.au/website-images/hamptons_design.jpg" alt=""/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="vendorPersonalInfoContainer">
+                                                            <h3>Mr. Chengappa</h3>
+                                                            <div className="industryExperienceContainer">
+                                                                <h3>Work experience:</h3>
+                                                                <span> 2 - 4 years</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                            <div className="profileEditContainer">
+                                                <WhiteButton>
+                                                    Edit profile details
+                                                </WhiteButton>
+                                            </div>
+                                    </div>
+                                </div>
+
+                                <article className="vendorProductOuterLayer">
 
                                 <header className="productHeadingSection">
 
@@ -691,10 +755,11 @@ class VendorMainDashboard extends React.Component {
                                 </section>
 
                             </article>
-
+                            
+                            </div>
                         </div>
                         
-                        <Footer />
+                        {/* <Footer /> */}
 
                         {this.returnModal()}
 

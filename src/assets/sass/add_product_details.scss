@@ -1167,7 +1167,7 @@ input{
 
 
                                                 .finishInputParaContainer{
-                                                    @include flexCentreCol;
+                                                    @include flexCentreRow;
                                                     text-align: center;
                                                     width: 100%;
                                                     .pargraphClass{
