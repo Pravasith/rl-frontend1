@@ -118,9 +118,9 @@ class AddProductDetails extends React.Component {
         }
     }
 
-    componentDidUpdate () {
-        console.log(this.state.productFinishes)
-    }
+    // componentDidUpdate () {
+    //     console.log(this.state.productFinishes)
+    // }
 
     modalClassToggle = (showOrNot) => {
         if(showOrNot === "show")
@@ -2398,13 +2398,6 @@ class AddProductDetails extends React.Component {
                                                             refName="productPrice"
                                                             placeholder="Type here (in Rupees)"
                                                             isMandatory={true}
-<<<<<<< HEAD
-                                                            validationType="alphabetsSpecialCharactersAndNumbers"
-                                                            characterCount="10"
-                                                            result={(val) => this.setState({
-                                                                productPrice: val
-                                                            })}
-=======
                                                             validationType="onlyNumbers"
                                                             characterCount="30"
                                                             result={(val) => {
@@ -2412,7 +2405,6 @@ class AddProductDetails extends React.Component {
                                                                     productPrice: val
                                                                 })
                                                             }}
->>>>>>> db2a31eb5dd044a0e3faca510d3335a996b2d9da
                                                         />
                                                     </div>
                                                 </div>
