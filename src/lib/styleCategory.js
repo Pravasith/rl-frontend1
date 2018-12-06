@@ -73,11 +73,11 @@ const architectureStyles =
       "styleImageUrl": "https://www.laurelandwolf.com/blog/wp-content/uploads/2015/06/ivory-sectional-black-hermes-avalon-blanket-brass-rams-head-coffee-table-600x420.jpg"
     },
     {
-      "styleId": "13",
-      "styleTitle": "Coastal",
-      "styleContent": " This style includes light, airy colour palettes with cool neutral shades paired with blues and greens.The room can contain elements of wood and accessories are often inspired by the sea.",
-      "styleImageUrl": "https://rocheledecorating.com.au/website-images/hamptons_design.jpg"
+        "styleId": "13",
+        "styleTitle": "Coastal",
+        "styleContent": " This style includes light, airy colour palettes with cool neutral shades paired with blues and greens.The room can contain elements of wood and accessories are often inspired by the sea.",
+        "styleImageUrl": "https://rocheledecorating.com.au/website-images/hamptons_design.jpg"
     }
-   ]
+]
 
-   export default architectureStyles 
+export default architectureStyles 

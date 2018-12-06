@@ -368,11 +368,11 @@ class AddProductDetails extends React.Component {
 
     returnCategoryContent = () => {
 
-        const array = [ ...architectureStyles ]
+        const styleArray = [ ...architectureStyles ]
 
         return (
-                array.
-                map((item , i) => {
+                styleArray
+                .map((item , i) => {
                 return(                    
                     <div 
                         className="productStyleContainer"
@@ -1877,7 +1877,9 @@ class AddProductDetails extends React.Component {
                                                                     className="errorFieldMessage"
                                                                     key={i}>
                                                                         <ul>
-                                                                            <li>{item}</li>
+                                                                            <li>
+                                                                                <p>{item}</p>
+                                                                            </li>
                                                                         </ul>
                                                                 </div>
                                                             )}
