@@ -111,7 +111,7 @@ input{
                     }
 
                     .dummyContainer{
-                        height: 14em;
+                        height: 15em;
                         overflow-y: auto;
                         width: 98%;
 
@@ -642,9 +642,161 @@ input{
                 position: relative;
                 width: 100%;
 
+                .productManagerWrapperInnerLayerClass{
+                    @include flexCentreRow;
+                    justify-content: flex-start;
+                    align-items: flex-start;
+                    width: 100%;
+
+                    .vendorDetailsLeftContainer{
+                        @include flexCentreRow;
+                        height: 88vh;
+                        width: 22%;
+                        margin-top: 1em;
+                        .vendorInformationInnerLayer{
+                            @include flexCentreCol;
+                            justify-content: space-between;
+                            width: 90%;
+                            height: 100%;
+                            background: $veryLightGrey;
+                            margin: 0.5em;
+                            .vendorDashboardInfoConatiner{
+                                @include flexCentreCol;
+                                width: 100%;
+                                padding: 1em 0;
+
+                                .vendorDashboardCompanyLogo{
+                                    @include flexCentreRow;
+                                    justify-content: flex-start;
+                                    width: 90%;
+                                    margin: 0.5em 0 0.5em 0;
+                                    .logoImageContainer{
+                                        @include flexCentreCol;
+                                        width: 7em;
+                                        height: 7em;
+                                        background: $white;
+                                        @include box_shadow;
+                                        .logoImageContainerInnerLayer{
+                                            width: 6em;
+                                            height: 6em;
+                                            padding: 0.5em;
+                                            img{
+                                                width: 6em;
+                                                height: 6em;
+                                                object-fit: cover;
+                                            }
+                                        }
+                                    }
+                                }
+                                .vendorDashboardCompanyInfoConatiner{
+                                    @include flexCentreCol;
+                                    align-items: flex-start;
+                                    width: 90%;
+                                    .companyInfoContainer{
+                                        @include flexCentreCol;
+                                        align-items: flex-start;
+                                        width: 100%;
+                                        .companyInfoUpperConatiner{
+                                            @include flexCentreCol;
+                                            align-items: flex-start;
+                                            .companyTitleConatiner{
+                                                @include flexCentreCol;
+                                                h3{
+                                                    font-size: 1.3em;
+                                                    color: $darkerGrey;
+                                                }
+                                            }
+                                            .companyCaptionConatiner{
+                                                @include flexCentreCol;
+                                                p{
+                                                    color: $darkerGrey;
+                                                }
+                                            }
+                                            .line{
+                                                width: 50%;
+                                                background: $secondaryMagenta;
+                                            }
+                                        }
+                                        .companyInfoLowerContainer{
+                                            p{
+                                                font-size: 0.85em;
+                                            }
+                                        }
+                                    }
+                                    .vendorInfoConatiner{
+                                        @include flexCentreCol;
+                                        align-items: flex-start;
+                                        margin-top: 1em;
+                                        .vendorTitleContainer{
+                                            h3{
+
+                                            }
+                                            .line{
+                                                width: 100%;
+                                                background: $mediumGrey;
+                                            }   
+                                        }
+                                        .vendorInfoDownContainer{
+                                            @include flexCentreRow;
+                                            align-items: flex-start;
+                                            margin-top: 0.5em;
+                                            .vendorPictureContainer{
+                                                .vendorProfilePicture{
+                                                    @include flexCentreRow;
+                                                    .vendorProfilePictureInnerLayer{
+                                                        width: 4em;
+                                                        height: 4em;
+                                                        border-radius: 50%;
+                                                        background: $white;
+                                                        padding: 0.3em;
+                                                        @include box_shadow;
+                                                        img{
+                                                            width: 4em;
+                                                            height: 4em;
+                                                            border-radius: 50%;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            .vendorPersonalInfoContainer{
+                                                @include flexCentreCol;
+                                                align-items: flex-start;
+                                                margin-left: 1em;
+                                                h3{
+                                                    color: $darkerGrey;
+                                                }
+                                                .industryExperienceContainer{
+                                                    @include flexCentreCol;
+                                                    align-items: flex-start;
+                                                    h3{
+                                                        color: $darkGrey;
+                                                    }
+                                                    span{
+                                                        font-size: 1em;
+                                                        font-weight: 500;
+                                                        color: $secondaryMagenta;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            .profileEditContainer{
+                                @include flexCentreRow;
+                                justify-content: flex-start;
+                                width: 100%;
+                                background: $lightGrey;
+                                .whiteButtonWrapper{
+                                    margin: 1em 0.5em;
+                                }
+                            }
+                        }
+                    }
+
                 .vendorProductOuterLayer{
                     @include flexCentreCol;
-                    width: 100%;
+                    width: 76.5%;
                     // background: $highLightBlue;
                     // margin-top: 1em;
 
@@ -856,6 +1008,8 @@ input{
 
                         }      
                 }
+            }
+
             }
         }
     .add{
