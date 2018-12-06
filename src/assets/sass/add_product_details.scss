@@ -877,7 +877,7 @@ input{
                                                         padding: 0.5em;
                                                         @include box_shadow;
                                                         .colorDescriptionInnerLayer{
-                                                            @include flexCentreCol;
+                                                            @include flexCentreRow;
                                                             .contentColorContainer{
                                                                 @include flexCentreRow;
                                                                 width: 100%;

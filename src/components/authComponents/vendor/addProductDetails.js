@@ -511,14 +511,6 @@ class AddProductDetails extends React.Component {
                                     style={{background : item.colorCode}}
                                 >
                                 </div>
-                                <div 
-                                    className="closeButtonContainer"
-                                    onClick={() => {
-                                        this.removeColor(i)
-                                    }}
-                                >
-                                    <CloseButton />
-                                </div>
                             </div>
                             <div className="contentColorValuesContainer">
                                 <div className="colorNameContainer">
@@ -530,6 +522,14 @@ class AddProductDetails extends React.Component {
                                 <div className="colorExtraCostContainer">
                                     <p key={i}>Rs. <span>{item.colorCost}</span> extra cost over base price</p>
                                 </div>
+                            </div>
+                            <div
+                                className="closeButtonContainer"
+                                onClick={() => {
+                                    this.removeColor(i)
+                                }}
+                            >
+                                <CloseButton />
                             </div>
                         </div>
                     </div>
@@ -1930,7 +1930,7 @@ class AddProductDetails extends React.Component {
                                         </GradientButton>
                                     </div>
                                     
-                                    {this.displayError("color")}
+                                    {this.displayErrorModal("color")}
 
                                 </div>
                             </div>
