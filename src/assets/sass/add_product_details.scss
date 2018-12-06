@@ -411,11 +411,14 @@ input{
                                                     }
                                                 }
 
-                                                .designStyleCategoryTagsContainer{
+
+                                                .designStylesOuterLayer{
+                                                    width: 100%;
+                                                    margin-bottom: 1em;
+                                                    .designStyleCategoryTagsContainer{
                                                         width: 94%;
-                                                        height: 5em;
-                                                        margin-top: 0.5em;
-                                                        overflow-y: auto;
+                                                        margin: 0.5em;
+                                                        // overflow-y: auto;
                                                     .designStyleTagsInnerLayer{
                                                         display: inline-block;
                                                          margin-top: 0.5em;
@@ -441,16 +444,20 @@ input{
                                                         }
                                                     }
                                                 }
-
-                                                .designStylesOuterLayer{
-                                                    width: 100%;
-                                                    height: 20em;
-                                                    overflow-y: auto;
-                                                    margin-bottom: 1em;
                                                     .designStylesInnerLayer{
-                                                        @include flexCentreCol;
-                                                        width: 95%;
-                                                        padding: 0.2em;
+                                                        width: 100%;
+                                                            height: 20em;
+                                                            overflow-y: auto;
+                                                            margin-bottom: 1em;
+                                                        .dummyInnerLayer{
+                                                            // width: 100%;
+                                                            // height: 20em;
+                                                            // overflow-y: auto;
+                                                            margin-bottom: 1em;
+                                                            @include flexCentreCol;
+                                                            width: 95%;
+                                                            padding: 0.2em;
+                                                        }
                                                         .productStyleContainer{
                                                             @include flexCentreCol;
                                                             width: 100%;
@@ -555,7 +562,7 @@ input{
                                                     .optionDiv{
 
                                                         @include flexCentreRow;
-                                                        align-items: flex-start;
+                                                        // align-items: flex-start;
                                                         margin-bottom: 0.5em;
 
                                                         &:hover{
@@ -572,11 +579,11 @@ input{
                                                         
                                                         .checkBox{
                                                             transition: 0.2s;
-                                                            border-radius: 2em;
-                                                            min-width: 0.8em;
-                                                            min-height: 0.8em;
+                                                            border-radius: 50%;
+                                                            height: 0.6em;
+                                                            width: 0.6em;
                                                             background: $white;
-                                                            border: 0.2em solid $mediumGrey;
+                                                            border: 0.15em solid $darkGrey;
                                                             margin: 0.2em;
                                                             margin-right: 0.5em;
                                                             cursor: pointer;
@@ -837,14 +844,13 @@ input{
                                                 }
 
                                                 .colorSelectionContainer{
-                                                    width: 50%;
                                                     margin-bottom: 0.5em;
                                                     display: grid;
-                                                    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+                                                    grid-template-columns: 1fr 1fr 1fr;
 
                                                     .addColorDummyContainer{
-                                                        width: 4em;
-                                                        height: 4em;
+                                                        width: 12em;
+                                                        height: 12em;
                                                         padding: 0.2em;
                                                         margin: 0.3em;
                                                         @include box_shadow;
@@ -866,30 +872,61 @@ input{
                                                         }
                                                     }
                                                     .colorDescriptionOuterLayer{
+                                                        width: 12em;
                                                         margin: 0.3em;
+                                                        padding: 0.5em;
+                                                        @include box_shadow;
                                                         .colorDescriptionInnerLayer{
-                                                            @include flexCentreRow;
-
-                                                            .colorDetails{
-                                                                width: 4em;
-                                                                height: 4em;
-                                                                padding: 0.2em;
-                                                                @include box_shadow;
-                                                                @include flexCentreCol;
+                                                            @include flexCentreCol;
+                                                            .contentColorContainer{
+                                                                @include flexCentreRow;
+                                                                width: 100%;
+                                                                align-items: flex-start;
                                                                 justify-content: space-between;
-
+                                                                .colorDetails{
+                                                                    width: 4em;
+                                                                    height: 4em;
+                                                                    padding: 0.2em;
+                                                                    @include box_shadow;
+                                                                }
                                                                 .closeButtonContainer{
-                                                                    @include flexCentreRow;
-                                                                    justify-content: flex-end;
-                                                                    width: 100%;
+
+                                                                }
+                                                            }
+                                                            .contentColorValuesContainer{
+                                                                @include flexCentreCol;
+                                                                width: 100%;
+                                                                align-items: flex-start;
+                                                                margin-top: 0.5em;
+                                                                .colorNameContainer{
+                                                                    margin: 0.3em 0;
+                                                                    p{
+                                                                        font-size: 0.8em;
+                                                                        span{
+                                                                            color: $primaryMagenta;
+                                                                        }
+                                                                    }
+                                                                }
+                                                                .colorHexCodeContainer{
+                                                                    margin: 0.3em 0;
+                                                                    p{
+                                                                        font-size: 0.8em;
+                                                                        span{
+                                                                            color: $primaryMagenta;
+                                                                        }
+                                                                    }
+                                                                }
+                                                                .colorExtraCostContainer{
+                                                                    margin: 0.2em 0;
+                                                                    max-width: 10em;
+                                                                    p{
+                                                                        font-size: 0.8em;
+                                                                        span{
+                                                                            color: $primaryMagenta;
+                                                                        }
+                                                                    }
                                                                 }
 
-                                                                p{
-                                                                    width: 100%;
-                                                                    text-align: center;
-                                                                    color: $darkGrey;
-                                                                    background: $white;
-                                                                }
                                                             }
                                                         }
                                                     }
@@ -949,11 +986,14 @@ input{
                 .dummyXClass{
                     
                     .whiteSquareForModal{
+
                         .addProductDetailsModal{
+
                             .svgImageContainer{
                                 @include flexCentreRow;
                                 margin-top: 0.5em;
                             }
+
                             .modalContentContainer{
                                 margin: 0.5em 0 ;
                                 .modalContentContainerInnerLayer{
@@ -963,7 +1003,7 @@ input{
                                         }
                                         .detailsToInput{
                                             width: 100%;
-                                            height: 7em;
+                                            // height: 7em;
                                             margin: 1em 0;
                                             overflow-y: auto;
                                             .detailsInputLayer{
@@ -975,16 +1015,29 @@ input{
                                                     grid-template-columns: 1fr 1fr;
                                                     text-align: left;
                                                     color: $primaryMagenta;
+                                                    .errorFieldMessage{
+                                                        ul{
+                                                            margin: 0.3em;
+                                                            li{
+                                                                p{
+                                                                    color: $primaryMagenta;
+                                                                    font-size: 0.8em;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }
                                     }
                                 }
                             }
+
                             .closeModalContainer{
                                 @include flexCentreRow;
                                 margin-top: 1em;
                             }
+
                         }
                     }
                 }
@@ -1075,6 +1128,7 @@ input{
                                                 }
                                                 
                                             }
+
                                             .errorContent{
                                                 p{
                                                     text-align: center;
@@ -1122,7 +1176,7 @@ input{
 
 
                                                 .finishInputParaContainer{
-                                                    @include flexCentreCol;
+                                                    @include flexCentreRow;
                                                     text-align: center;
                                                     width: 100%;
                                                     .pargraphClass{
@@ -1138,6 +1192,7 @@ input{
                                                         }
                                                     }
                                                 }
+
                                                 .formParaSection{
                                                     margin-bottom: 0.3em;
                                                     .pargraphClass{
@@ -1156,6 +1211,8 @@ input{
 
                                                 .productInputInfoSection{
                                                     @include flexCentreRow;
+                                                    justify-content: flex-start;
+                                                    width: 100%;
                                                     .modalMandatorySection{
                                                         background: $secondaryMagenta;
                                                         padding: 0.2em;
@@ -1165,6 +1222,7 @@ input{
                                                     }
                                                     .modalInputCategory{
                                                         margin-left: 1em;
+                                                        width: 100%;
                                                         input{
                                                             border: none;
                                                             // border-bottom: 0.2em solid $black;
@@ -1280,7 +1338,7 @@ input{
 .switch {
     position: relative;
     display: inline-block;
-    width: 4em;
+    width: 5em;
     height: 1.4em;
     margin-left: 0.5em;
   }
@@ -1303,10 +1361,10 @@ input{
   .slider:before {
     position: absolute;
     content: "";
-    height: 1em;
-    width: 1em;
+    height: 0.8em;
+    width: 0.8em;
     left: 0.25em;
-    bottom: 0.25em;
+    bottom: 0.30em;
     background-color: white;
     -webkit-transition: .4s;
     transition: .4s;

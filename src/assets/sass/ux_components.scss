@@ -233,6 +233,20 @@
     }
 }
 
+.radio-outline{
+    .radio-mid{
+        .radio-inline{
+            .checkmark{
+                margin-top: 0;
+            }
+            p{
+                font-size: 0.9em;
+                margin-top: 0.8em;
+            }
+        }
+    }
+}
+
 
 .radio-inline {
     display: block;
