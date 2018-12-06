@@ -74,6 +74,7 @@ class ProfileDetailsVendor extends React.Component {
 
                     firstName: decryptedData.firstName,
                     lastName: decryptedData.lastName,
+                    profilePicture: decryptedData.profilePicture,
                     mobileNo: decryptedData.mobileNo,
                     whatsappNo: decryptedData.whatsappNo
                 })
@@ -417,14 +418,17 @@ class ProfileDetailsVendor extends React.Component {
     }
 
 
-    returnImageUploader = () => {
+    returnCompanyLogoUploader = () => {
 
         if(this.state.companyProfilePicture){
             return (
                 <ImageUploader
                     imageType = "regularImage" // regularImage || profileImage
-                    resultData = {val => this.updateVendorData("companyProfilePicture", val.imageURL)}
+                    resultData={val => {
+                        this.updateVendorData("profilePicture", val.imageURL)
+                    }}
                     showInitialImage = {this.state.companyProfilePicture}
+                    imageClassName= "companyProfilePictureClass"
                 />
             )
         }
@@ -434,13 +438,49 @@ class ProfileDetailsVendor extends React.Component {
                 <div>
                     <ImageUploader
                         imageType = "regularImage" // regularImage || profileImage
-                        resultData = {val => this.updateVendorData("companyProfilePicture", val.imageURL)}
+                        resultData={val => {
+                            this.updateVendorData("profilePicture", val.imageURL)
+                        }}
                         showInitialImage = {this.state.companyProfilePicture}
+                        imageClassName="companyProfilePictureClass"
                     />
                 </div>
             )
         }
         
+    }
+
+    returnProfileImageUploader = () => {
+
+        if (this.state.profilePicture) {
+            console.log("wrks")
+            return (
+                <ImageUploader
+                    imageType="regularImage" // regularImage || profileImage
+                    resultData={val => {
+                        this.updateVendorData("profilePicture", val.imageURL)
+                    }}
+                    showInitialImage={this.state.profilePicture}
+                    imageClassName="profilePictureClass"
+                />
+            )
+        }
+
+        else {
+            return (
+                <div>
+                    <ImageUploader
+                        imageType="regularImage" // regularImage || profileImage
+                        resultData={val => {
+                            this.updateVendorData("profilePicture", val.imageURL)
+                        }}
+                        showInitialImage={this.state.profilePicture}
+                        imageClassName="profilePictureClass"
+                    />
+                </div>
+            )
+        }
+
     }
 
     returnExperienceOptions = () => {
@@ -494,6 +534,7 @@ class ProfileDetailsVendor extends React.Component {
         const fieldNames =  [
             { fieldName: 'first name', value: this.state.firstName },
             { fieldName: 'last name', value: this.state.lastName },
+            { fieldName: "your profile picture", value: this.state.profilePicture },
             { fieldName: 'mobile number', value: this.state.mobileNo },
             { fieldName: 'company name', value: this.state.companyName }, 
             { fieldName: "your company address", value: this.state.detailedAddressLine1 },
@@ -513,7 +554,7 @@ class ProfileDetailsVendor extends React.Component {
         })
 
         fieldNames.map(item => {
-            console.log(item.fieldName, typeof(item.value))
+            console.log(item.fieldName)
             if (item.value === null || item.value === "" || item.value === 0 || item.value === undefined) {
                 if(!this.state.emptyField.includes(item.fieldName))
                         this.state.emptyField.push(item.fieldName)
@@ -747,13 +788,27 @@ class ProfileDetailsVendor extends React.Component {
                                                     </div>
                                                 </div>
                                                 
+                                                <div className="formInputContainer"
+                                                >
+                                                    <div className="formInputInnerLayer">
+                                                        <div className="formParaSection">
+                                                            <h3>2</h3>
+                                                            <p>Upload your profile picture here. Max size 1mb.</p>
+                                                        </div>
+
+                                                        <div className="imageOuterLayer">
+                                                            {this.returnProfileImageUploader()}
+                                                        </div>
+                                                    </div>
+                                                </div>
+
 
                                             <div 
                                                 className="formInputContainer"
                                             >
                                                 <div className="formInputInnerLayer">
                                                         <div className="formParaSection">
-                                                            <h3> 2 </h3>
+                                                            <h3>3</h3>
                                                             <p> What should we call your company as? </p>
                                                         </div>
 
@@ -778,7 +833,7 @@ class ProfileDetailsVendor extends React.Component {
                                                 <div className="formInputInnerLayer">
 
                                                         <div className="formParaSection">
-                                                            <h3>3</h3>
+                                                            <h3>4</h3>
                                                             <p>Your phone number</p>
                                                         </div>
 
@@ -821,7 +876,7 @@ class ProfileDetailsVendor extends React.Component {
                                             >
                                                 <div className="formInputInnerLayer">
                                                     <div className="formParaSection">
-                                                        <h3>4</h3>
+                                                        <h3>5</h3>
                                                         <p>Tell us your company address. We’ll bill the customer with this address</p>
                                                     </div>
 
@@ -907,7 +962,7 @@ class ProfileDetailsVendor extends React.Component {
                                             >
                                                 <div className="formInputInnerLayer">
                                                     <div className="formParaSection">
-                                                        <h3>5</h3>
+                                                        <h3>6</h3>
                                                         <p>Small Description about your company</p>
                                                     </div>
                                                     <div className="companyDescriptionWrap">
@@ -940,7 +995,7 @@ class ProfileDetailsVendor extends React.Component {
                                             >
                                                 <div className="formInputInnerLayer">
                                                     <div className="formParaSection">
-                                                        <h3>6</h3>
+                                                        <h3>7</h3>
                                                         <p>How long have you been in this industry?</p>
                                                     </div>
                                                     <div className="experienceSection inputCategorySection">
@@ -969,7 +1024,7 @@ class ProfileDetailsVendor extends React.Component {
                                                 >
                                                     <div className="formInputInnerLayer">
                                                         <div className="cardInstructionPara formParaSection">
-                                                            <h3>7</h3>
+                                                            <h3>8</h3>
                                                             <p>Your company’s GST Identication number. <a href="https://cleartax.in/s/know-your-gstin#what"  target="_blank" >Click here</a>  if you want to know more about this.</p>
                                                         </div>
 
@@ -1065,6 +1120,7 @@ class ProfileDetailsVendor extends React.Component {
                                                                 Clear
                                                             </WhiteButton>
                                                         </div>
+
                                                         <div className="gstInputSection warningSection">
                                                             <p 
                                                                 className={this.state.warningClass}
@@ -1080,7 +1136,7 @@ class ProfileDetailsVendor extends React.Component {
                                                 >
                                                     <div className="formInputInnerLayer">
                                                         <div className="formParaSection">
-                                                            <h3>8</h3>
+                                                            <h3>9</h3>
                                                             <p>Your company's PAN number</p>
                                                         </div>
 
@@ -1104,12 +1160,12 @@ class ProfileDetailsVendor extends React.Component {
                                             >
                                                 <div className="formInputInnerLayer">
                                                     <div className="formParaSection">
-                                                        <h3>9</h3>
+                                                        <h3>10</h3>
                                                         <p>Upload your company logo here. Max size 1mb.</p>
                                                     </div>
                                                     
                                                     <div className="imageOuterLayer">
-                                                        {this.returnImageUploader()}
+                                                        {this.returnCompanyLogoUploader()}
                                                     </div>
                                                 </div>
                                             </div>

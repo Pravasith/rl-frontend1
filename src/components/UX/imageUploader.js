@@ -21,6 +21,7 @@ import { TimelineLite } from "gsap";
 //     type = "regularImage" // regularImage || profileImage
 //     resultData = {(data) => console.log(data)}
 //     showInitialImage = "" // image src link // optional
+//     imageClassName = "companyProfilePictureClass" // unique name for each instance
 // />
 
 class ImageUploader extends React.Component {
@@ -202,7 +203,7 @@ class ImageUploader extends React.Component {
                 width : 0 + "%"
             })
 
-            this.props.resultData(res.data)
+            // this.props.resultData(res.data)
 
         })
         .catch(err => {
@@ -213,7 +214,7 @@ class ImageUploader extends React.Component {
 
     render() {
         return (
-            <div className="imageUploaderWrap">
+            <div className={"imageUploaderWrap " + this.props.imageClassName}>
                 <div className="pictureUpload">
 
                     <div className="inputContainer">
@@ -226,12 +227,12 @@ class ImageUploader extends React.Component {
                             style={{display: "none"}}
                             type="file"
                             name="uploadImage"
-                            id="uploadImageInput"
+                            id={"uploadImageInput" + this.props.imageClassName}
                             accept="image/*"
                         />
 
                         <label 
-                            htmlFor="uploadImageInput" 
+                            htmlFor={"uploadImageInput" + this.props.imageClassName}
                             className={this.state.pictureClass}
                             >
 
