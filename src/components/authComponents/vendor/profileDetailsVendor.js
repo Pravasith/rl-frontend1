@@ -97,6 +97,8 @@ class ProfileDetailsVendor extends React.Component {
                             // DECRYPT REQUEST DATA
                             //
 
+                            console.log(decryptedData)
+
                             let gstInState = {}
 
                             const getIndividualGSTINs = () => {
@@ -139,6 +141,10 @@ class ProfileDetailsVendor extends React.Component {
             .catch(e => console.error(e))
             
     }
+
+    // componentDidUpdate() {
+    //     console.log(this.state.profilePicture, this.state.companyProfilePicture)
+    // }
 
     returnNavBarData = () => {
         if (this.props.userData.responseData) {
@@ -348,7 +354,8 @@ class ProfileDetailsVendor extends React.Component {
                     firstName: decryptedData.firstName,
                     lastName: decryptedData.lastName,
                     mobileNo: decryptedData.mobileNo,
-                    whatsappNo: decryptedData.whatsappNo
+                    whatsappNo: decryptedData.whatsappNo,
+                    profilePicture: decryptedData.profilePicture
                 })
             })
 
@@ -411,7 +418,10 @@ class ProfileDetailsVendor extends React.Component {
                     gstIn: decryptedData.GSTIN,
                     pan: decryptedData.PAN,
 
-                    companyProfilePicture: decryptedData.companyProfilePicture
+
+
+                    companyProfilePicture: decryptedData.companyProfilePicture,
+                    
                 })
             })
             .catch(e => console.error(e))
@@ -425,7 +435,10 @@ class ProfileDetailsVendor extends React.Component {
                 <ImageUploader
                     imageType = "regularImage" // regularImage || profileImage
                     resultData={val => {
-                        this.updateVendorData("profilePicture", val.imageURL)
+                        this.updateVendorData("companyProfilePicture", val.imageURL)
+                        // this.setState({
+                        //     companyProfilePicture: val.imageURL
+                        // })
                     }}
                     showInitialImage = {this.state.companyProfilePicture}
                     imageClassName= "companyProfilePictureClass"
@@ -439,7 +452,10 @@ class ProfileDetailsVendor extends React.Component {
                     <ImageUploader
                         imageType = "regularImage" // regularImage || profileImage
                         resultData={val => {
-                            this.updateVendorData("profilePicture", val.imageURL)
+                            this.updateVendorData("companyProfilePicture", val.imageURL)
+                            // this.setState({
+                            //     companyProfilePicture: val.imageURL
+                            // })
                         }}
                         showInitialImage = {this.state.companyProfilePicture}
                         imageClassName="companyProfilePictureClass"
@@ -453,12 +469,15 @@ class ProfileDetailsVendor extends React.Component {
     returnProfileImageUploader = () => {
 
         if (this.state.profilePicture) {
-            console.log("wrks")
             return (
                 <ImageUploader
-                    imageType="regularImage" // regularImage || profileImage
+                    imageType="profileImage" // regularImage || profileImage
                     resultData={val => {
-                        this.updateVendorData("profilePicture", val.imageURL)
+                        console.log(val.imageURL)
+                        // this.hitTheAPI("profilePicture", val.imageURL)
+                        // this.setState({
+                        //     profilePicture: val.imageURL
+                        // })
                     }}
                     showInitialImage={this.state.profilePicture}
                     imageClassName="profilePictureClass"
@@ -470,11 +489,15 @@ class ProfileDetailsVendor extends React.Component {
             return (
                 <div>
                     <ImageUploader
-                        imageType="regularImage" // regularImage || profileImage
+                        imageType="profileImage" // regularImage || profileImage
                         resultData={val => {
-                            this.updateVendorData("profilePicture", val.imageURL)
+                            console.log(val.imageURL)
+                            // this.hitTheAPI("profilePicture", val.imageURL)
+                            // this.setState({
+                            //     profilePicture: val.imageURL
+                            // })
                         }}
-                        showInitialImage={this.state.profilePicture}
+                        // showInitialImage={this.state.profilePicture}
                         imageClassName="profilePictureClass"
                     />
                 </div>

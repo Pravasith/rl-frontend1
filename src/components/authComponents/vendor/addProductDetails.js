@@ -47,6 +47,7 @@ class AddProductDetails extends React.Component {
             modalClassToggle: "modalBackgroundMainOuterWrap hide",
             modalColor: "modalContentClass",
             modalFinish: "modalFinishClass",
+            modalFinishDetails: "modalFinishDetailsClass",
             modalSize: "modalSizeClass",
             modalMaterial: "modalMaterialClass",
             // dynamincally toggle classes to flip styles //
@@ -67,6 +68,7 @@ class AddProductDetails extends React.Component {
 
             productDimensions: [],
             productMaterials: [],
+            productFinishes: [],
 
             tagsAdded: [],
 
@@ -81,7 +83,11 @@ class AddProductDetails extends React.Component {
 
             productDiscount: undefined,
 
+            productFinishImage: "",
+
             isProceedClicked: false,
+            inputFormContainer: "inputFormContainer",
+            proceedOrNotCheck: "proceedOrNotCheck hide",
 
             // my code
             checkBoxSelect: "checkBoxSelect",
@@ -128,11 +134,18 @@ class AddProductDetails extends React.Component {
 
             materialCostIsValid: false,
             sizeCostIsValid: false,
+            finishCostIsValid: false,
 
-            spliceOnEdit: true
+            spliceOnEdit: true,
+            finishModalTitle: "Add a close-up image thumbnail for this finish",
+
+            finishModalContentPart: 1,
         }
     }
 
+    componentDidUpdate () {
+        console.log(this.state.productFinishes)
+    }
 
     modalClassToggle = (showOrNot) => {
         if(showOrNot === "show")
@@ -268,7 +281,6 @@ class AddProductDetails extends React.Component {
                     console.error(err)
             })
     }
-
 
     returnNavBarData = () => {
         if (this.props.userData.responseData) {
@@ -719,6 +731,116 @@ class AddProductDetails extends React.Component {
         })
     }
 
+    returnFinishCode = (finish) => {
+        if (finish.finishCode !== "") {
+            return (
+                <div className="finishCodeCartWrapReturn">
+                    <h3>Finish code </h3>
+                    <p>{finish.finishCode}</p>
+                </div>
+            )
+        }
+    }
+
+    returnProductFinishes = () => {
+
+        return (
+            this
+                .state
+                .productFinishes
+                .map((item, i) => {
+                    return (
+                        <div
+                            className="productFinishDescriptionOuterLayer"
+                            key={i}
+                        >
+                            <div className="productFinishDescriptionInnerLayer">
+                                <div className="productFinishDetails">
+                                    <div className="finishCostCartWrap">
+                                        <h3>Finish nomenclature</h3>
+                                        <p key={i}
+                                        >{item.finishName}</p>
+                                    </div>
+                                    <div className="finishCostCartWrap">
+                                        <h3>Cost over base price</h3>
+                                        <p key={i}>Rs. {item.finishCost}</p>
+                                    </div>
+                                </div> 
+
+                                <img
+                                    key={i}
+                                    src={item.finishImage}
+                                    alt=""
+                                    style={{ width: "5em", height: "5em" }}
+                                />
+
+                                <div className="finishCodecartwrap" >
+                                    {this.returnFinishCode(item)}
+                                </div>
+
+                                <div className="finishEditingButtons">
+                                   
+                                    {/* <div className="editButton">
+                                        <WhiteButton
+                                            runFunction={() => this.editproductFinishes(i)}
+                                        >
+                                            Edit
+                                        </WhiteButton>
+                                    </div> */}
+                                    <div
+                                        className="deleteButton"
+                                        onClick={() => this.removeproductFinishes(i)}
+                                    >
+                                        <WhiteButton>
+                                            Delete
+                                        </WhiteButton>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                })
+        )
+    }
+
+    // editproductFinishes = async (index) => {
+    //     const finishName = this.state.productFinishes[index].finishName;
+    //     const finishCost = this.state.productFinishes[index].finishCost;
+
+    //     const setSyncState = async () => {
+    //         await this.setState({
+    //             modalType: "finish",
+    //         })
+    //     }
+
+    //     await setSyncState()
+
+    //     this
+    //         .state
+    //         .productFinishes
+    //         .splice(index, 1)
+
+    //     await this.setState({
+    //         productFinishes: this.state.productFinishes.length !== 0 ? this.state.productFinishes : []
+    //     })
+
+    //     this.modalClassToggle("show")
+
+    //     this.refs.finishName.value = finishName
+    //     this.refs.finishCost.value = finishCost
+    // }
+
+    removeproductFinishes = (index) => {
+        this
+            .state
+            .productFinishes
+            .splice(index, 1)
+
+        this.setState({
+            productFinishes: this.state.productFinishes.length !== 0 ? this.state.productFinishes : []
+        })
+    }
+
     removeColor = (index) => {
         this.state.colorArray.splice(index, 1)
 
@@ -783,6 +905,16 @@ class AddProductDetails extends React.Component {
                 )
             }
         }
+
+        else if (modalType === "finish") {
+            if (this.state.finishDetailsIsValid === false) {
+                return (
+                    <div className="errorMessage">
+                        <p>Please enter the {this.state.emptyFieldInFinishDetails}</p>
+                    </div>
+                )
+            }
+        }
     }
 
     checkTypeNumber = (e, checkFor) => {
@@ -821,6 +953,14 @@ class AddProductDetails extends React.Component {
                         sizeCostIsValid: true
                     })
                 }
+
+                else if (checkFor === "finish") {
+                    this.setState({
+                        finishCost: val,
+                        displayError: "displayError hide",
+                        finishCostIsValid: true
+                    })
+                }
             }
 
             else if (regEx.test(val) === false) {
@@ -853,6 +993,14 @@ class AddProductDetails extends React.Component {
                         sizeCostIsValid: false
                     })
                 }
+
+                else if (checkFor === "finish") {
+                    this.setState({
+                        finishCost: "",
+                        displayError: "displayError",
+                        finishCostIsValid: false
+                    })
+                }
             }
         }
 
@@ -867,14 +1015,17 @@ class AddProductDetails extends React.Component {
 
         const { colorArray,
                 isChecked, 
-                materialCostIsValid, 
                 productDimensions,
-                productMaterials, 
-                sizeCostIsValid } = this.state;
+                productFinishes,
+                productMaterials,
+                materialCostIsValid,  
+                sizeCostIsValid,
+                finishCostIsValid } = this.state;
 
         let isMaterialValid = false
         let isColorValid = false
         let isSizeValid = false
+        let isFinishDetailsValid = false
         let emptyField
         let errorMessage
 
@@ -1121,6 +1272,42 @@ class AddProductDetails extends React.Component {
             return validationData;
         }
 
+        const validateFinishModal = (finishName, finishCost) => {
+            if (finishName !== "") {
+                if (isChecked) {
+                    if (finishCost !== "") {
+                        if (finishCostIsValid) {
+                            isFinishDetailsValid = true;
+                        }
+                        else {
+                            emptyField = "Finish Cost in Numbers";
+                        }
+                    }
+
+                    else {
+                        emptyField = "Finish Cost";
+                    }
+                }
+
+                else {
+                    if (finishCost === 0) {
+                        isFinishDetailsValid = true;
+                    }
+                }
+            }
+
+            else if (finishName === "") {
+                emptyField = "Finish Name"
+            }
+
+            const validationData = {
+                isFinishDetailsValid,
+                emptyField
+            }
+
+            return validationData;
+        }
+
         if (typeOfButtonClicked === "color") {
             const colorCode = this.refs.colorCode.value
             const colorName = this.refs.colorName.value
@@ -1244,6 +1431,58 @@ class AddProductDetails extends React.Component {
                 this.setState({
                     materialIsValid: false,
                     emptyFieldInMaterial: validatedData.emptyField
+                })
+            }
+        }
+
+        else if (typeOfButtonClicked === "finish") {
+            const finishName = this.refs.finishName.value;
+            const finishCost = isChecked ? this.refs.finishCost.value : 0;
+            const finishImage =  this.state.productFinishImage;
+            const finishCode = this.refs.finishCode.value;
+
+            let validatedData = validateFinishModal(finishName, finishCost);
+
+            if (validatedData.isFinishDetailsValid) {
+                let temp = {
+                    finishName,
+                    finishCost,
+                    finishImage,
+                    finishCode
+                }
+
+                if (temp !== "") {
+                    let dummyArray = [...productFinishes]
+
+                    if (!dummyArray.includes(temp)) {
+                        productFinishes.push(temp)
+                    }
+
+                    this.setState({
+                        finishDetailsIsValid: true,
+                        emptyFieldInFinishDetails: null,
+                        modalType: null,
+                        isChecked: false,
+                        productFinishes: productFinishes.length !== 0 ? productFinishes : null,
+                        extraCostInput: "extraCostInput hide",
+                        displayError: "displayError hide",
+                        productFinishImage: "",
+                        finishModalTitle: "Add a close - up image thumbnail for this finish",
+                        finishModalContentPart: 1
+                    })
+                }
+
+                this.refs.finishCost.value = ""
+                this.refs.finishName.value = ""
+                this.refs.finishCode.value = ""
+
+                this.modalClassToggle("dontShow")
+            }
+
+            else {
+                this.setState({
+                    finishDetailsIsValid: false,
+                    emptyFieldInFinishDetails: validatedData.emptyField
                 })
             }
         }
@@ -1397,67 +1636,199 @@ class AddProductDetails extends React.Component {
                 </div>
             )
         }
+
+        else if (type === "finish") {
+            return (
+                <div className={extraCostInput}>
+                    <input
+                        type="text"
+                        name="finishCost"
+                        placeholder="Ex. 20"
+                        onChange={(e) => this.checkTypeNumber(e, "finish")}
+                        ref="finishCost"
+                    />
+                    <span className="InputSeparatorLine"> </span>
+                </div>
+            )
+        }
+    }
+
+    returnProductFinishUploadedImage = () => {
+        return (
+            <div className="whiteSquareForModal">
+                <div className="vendorDashboardModal">
+                    <div className="modalHeader finsihModalHeader">
+                        <h3>{this.state.finishModalTitle}</h3>
+                        <div className="line"></div>
+                    </div>
+                </div>
+
+                <div className={this.state.inputFormContainer}>
+                    <div className="formParaSection finishInputParaContainer">
+                        <p className="pargraphClass">Example: The image thumbnail for Pinewood finish looks like this</p>
+                        <div className="exampleUploadedImgThumbnail">
+                            <img className="uploadedImage" src="https://res.cloudinary.com/wnbcloud/image/upload/h_300,w_400/v1467638340/ash2_wqnx4x.jpg" alt="" />
+                        </div>
+                    </div>
+                </div>
+
+                <div className="imageUploaderContainer">
+                    <div className="imageUploaderInnerLayer">
+                        <ImageUploader
+                            imageType="regularImage" // regularImage || profileImage
+                            resultData={(data) => {
+                                this.setState({ 
+                                    productFinishImage: data.imageURL,
+                                    inputFormContainer: "inputFormContainer hide",
+                                    proceedOrNotCheck: "proceedOrNotCheck",
+                                    finishModalTitle: "Image preview"
+                                })
+                            }}
+                            showInitialImage={this.state.productFinishImage} // image src link // optional
+                            imageClassName="productFinishImageClass"
+                        />
+
+                        <div className={this.state.proceedOrNotCheck}>
+                            <GradientButton
+                                runFunction={() => {
+                                    this.modalClassToggle("show")
+                                    this.setState({
+                                        finishModalContentPart: 2,
+                                        inputFormContainer: "inputFormContainer",
+                                        proceedOrNotCheck: "proceedOrNotCheck hide",
+                                        finishModalTitle: "Image preview"
+                                        
+                                    })
+                                }}
+                            >
+                                Proceed
+                            </GradientButton>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        )
     }
 
     returnModal = () => {
-        const { modalType } = this.state;
+        const { modalType, finishModalContentPart } = this.state;
 
         const returnModalContent = () => {
             if(modalType === "finish") {
-                return (
-                <div className={this.state.modalFinish}>
-                    <div className="dummyXClass">
-                        <div className="whiteSquareForModal">
-                            {/* <div className="closeUpImg">
-                                <h3>Add a close-up image thumbnail for this finish</h3>
-                                <div className="line"></div>
-                                <p>Example: The image thumbnail for Pinewood finish looks like this</p>
-                                <div className="uploadedImgThumbnail">
-                                    <img className="uploadedImage" src="" alt="" />
-                                    <ImageUploader />
-                                </div>
-                            </div> */}
-                            <div className="vendorDashboardModal">
-                                <div className="modalHeader finsihModalHeader">
-                                    <h3>Add a close-up image thumbnail for this finish</h3>
-                                    <div className="line"></div>
-                                </div>
+
+                if (finishModalContentPart === 1){
+                    return (
+                        <div className={this.state.modalFinish}>
+                            <div className="dummyXClass">
+                                {this.returnProductFinishUploadedImage()}
                             </div>
-                            <div className="inputFormContainer">
-                                <div className="formParaSection finishInputParaContainer">
-                                    <p className="pargraphClass">Example: The image thumbnail for Pinewood finish looks like this</p>
-                                    <div className="exampleUploadedImgThumbnail">
-                                        <img className="uploadedImage" src="https://res.cloudinary.com/wnbcloud/image/upload/h_300,w_400/v1467638340/ash2_wqnx4x.jpg" alt="" />
+                        </div>
+                    )     
+                }
+
+                else if (finishModalContentPart === 2){
+                    return (
+                        <div className={this.state.modalFinishDetails}>
+                            <div className="dummyXClass">
+                                <div className="whiteSquareForModal">
+                                    <div>
+                                        <img
+                                            src={this.state.productFinishImage}
+                                            alt=""
+                                            style={{ width: "5em", height: "5em" }}
+                                        />
                                     </div>
-                                </div>
-                            </div>
-                            <div className="imageUploaderContainer">
-                                <div className="imageUploaderInnerLayer">
-                                    <ImageUploader
-                                        type = "regularImage" // regularImage || profileImage
-                                        resultData = {(data) => console.log(data)}
-                                        showInitialImage = "" // image src link // optional
-                                    />
+                                    <div className="vendorDashboardModal">
+                                        <div className="modalHeader">
+                                            <h3>Finish details</h3>
+                                            <div className="line"></div>
+                                        </div>
+                                    </div>
+
+                                    <div className="inputFormContainer">
+                                        <div className="formParaSection">
+                                            <p className="pargraphClass">Name of the finish</p>
+                                        </div>
+                                        <div className="productInputInfoSection productFinishName">
+                                            <div className="modalMandatorySection">
+                                                <p className="madatoryHighlight">Mandatory</p>
+                                            </div>
+                                            <div className="modalInputCategory">
+                                                <input
+                                                    type="text"
+                                                    name="finishName"
+                                                    placeholder="Ex. Glass reinforced concrete"
+                                                    onChange={this.onChangeHandler}
+                                                    ref="finishName"
+                                                />
+                                                <span className="InputSeparatorLine"> </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="switchContainer">
+                                        <div className="labelUpperColumn">
+                                            <div className="switchContainerParagraph">
+                                                <p>Is there an extra cost over base price ?</p>
+                                            </div>
+                                            <label class="switch">
+                                                <input
+                                                    ref="switch"
+                                                    checked={this.state.isChecked}
+                                                    onChange={() => this.onToggleSwitch()}
+                                                    className="switch"
+                                                    type="checkbox" />
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+                                        <div className="returnInputColumn">
+                                            {this.returnExtraCost("finish")}
+                                        </div>
+                                    </div>
+
+                                    <div className="errorContent">
+                                        <p className={this.state.isChecked ? this.state.displayError : "displayError hide"}>
+                                            Numbers Only
+                                        </p>
+                                    </div>
+
+                                    <div className="inputFormContainer">
+                                        <div className="formParaSection">
+                                            <p className="pargraphClass">Finish code (if any)</p>
+                                        </div>
+                                        <div className="modalInputCategory">
+                                            <input
+                                                type="text"
+                                                name="finishCode"
+                                                placeholder="Ex. #4erfd, 8fds@ etc."
+                                                onChange={this.onChangeHandler}
+                                                ref="finishCode"
+                                            />
+                                            <span className="InputSeparatorLine"> </span>
+                                        </div>
+                                    </div>
+
+                                    <div className="proceedOrNotCheck">
+                                        <GradientButton
+                                            runFunction={() => this.proceedHandler("finish")}
+                                        >
+                                            Proceed
+                                    </GradientButton>
+                                    </div>
+                                    {this.displayErrorModal("finish")}
                                 </div>
                             </div>
                         </div>
-                        <div className="whiteSquareForModal">
-                            <div className="uploadedImg">
-                                <h3>You have uploaded this image</h3>
-                                <div className="line"></div>
-                                <div className="uploadedImgThumbnail">
-                                    <img className="uploadedImage" src="" alt="" />
-                                    <ImageUploader
-                                        type = "regularImage" // regularImage || profileImage
-                                        resultData = {(data) => console.log(data)}
-                                        showInitialImage = "" // image src link // optional
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>  
-                )       
+                    )
+                }
+
+                  
+            }
+
+            else if (modalType === "finish details") {
+                
             }
 
             else if (modalType === "color") {
@@ -1656,7 +2027,6 @@ class AddProductDetails extends React.Component {
 
             else if (modalType === "material") {
                 return (
-
                     <div className={this.state.modalMaterial}>
                         <div className="dummyXClass">
                             <div className="whiteSquareForModal">
@@ -1824,7 +2194,7 @@ class AddProductDetails extends React.Component {
            { fieldName: 'Product Code', value: this.state.productCode },
            { fieldName: 'Base price of this product', value: this.state.productPrice },
            { fieldName: 'Material', value: this.state.productMaterials },
-           { fieldName: 'Finishing Otpions', value: this.state.finishArray },
+           { fieldName: 'Finishing Otpions', value: this.state.productFinishes },
            { fieldName: 'Color Options', value: this.state.colorArray },
            { fieldName: 'Sizes Available', value: this.state.productDimensions },
            { fieldName: 'Min. quantity', value: this.state.productMinQuantity },
@@ -1920,10 +2290,12 @@ class AddProductDetails extends React.Component {
                                                                     <div className="line"></div>
                                                                 </div>
                                                             </header>
+
                                                             <ImageUploader
-                                                                type = "regularImage" // regularImage || profileImage
+                                                                imageType = "regularImage" // regularImage || profileImage
                                                                 resultData = {(data) => console.log(data)}
                                                                 showInitialImage = "" // image src link // optional
+                                                                imageClassName="productImage" // unique name for each instance
                                                             />
                                                         </div>
                                                     </div>
@@ -2112,6 +2484,12 @@ class AddProductDetails extends React.Component {
                                                 <div className="inputFormContainer">
                                                     <div className="formParaSection">
                                                         <p className="pargraphClass"> Finishing options </p>
+                                                    </div>
+
+                                                    <div className="productMaterialSection">
+
+                                                        {this.returnProductFinishes()}
+
                                                     </div>
 
                                                     <div className="buttonContainer">

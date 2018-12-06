@@ -18,7 +18,7 @@ import { TimelineLite } from "gsap";
 // use this component like this
 //
 // <ImageUploader
-//     type = "regularImage" // regularImage || profileImage
+//     imageType = "regularImage" // regularImage || profileImage
 //     resultData = {(data) => console.log(data)}
 //     showInitialImage = "" // image src link // optional
 //     imageClassName = "companyProfilePictureClass" // unique name for each instance
@@ -132,6 +132,7 @@ class ImageUploader extends React.Component {
                     }
     
                     const generateRandomString = () => {
+
                         let text = ""
                         let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
     
@@ -203,7 +204,7 @@ class ImageUploader extends React.Component {
                 width : 0 + "%"
             })
 
-            // this.props.resultData(res.data)
+            this.props.resultData(res.data)
 
         })
         .catch(err => {

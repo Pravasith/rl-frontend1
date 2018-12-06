@@ -1019,7 +1019,14 @@ input{
                             .modalContentWrap{
                                 .modalContentClass,.modalFinishClass,.modalSizeClass,.modalMaterialClass{
                                     .dummyXClass{
+
+                                        
+
                                         .whiteSquareForModal{
+
+                                            .hide{
+                                                display: none;
+                                            }
 
                                             .vendorDashboardModal{
                                                 @include flexCentreCol;
@@ -1043,6 +1050,8 @@ input{
                                                     
                                                 }
                                             }
+
+                                            
 
                                             .switchContainer{
                                                 @include flexCentreCol;
@@ -1203,12 +1212,19 @@ input{
                                                 }
                                             }
 
+                                            .hide{
+                                                display: none
+                                            }
+
                                             .imageUploaderContainer{
-                                                @include flexCentreRow;
+                                                @include flexCentreCol;
                                                 width: 100%;
                                                 margin-bottom: 1em;
+                                                .hide{
+                                                display: none
+                                            }
                                                 .imageUploaderInnerLayer{
-                                                    @include flexCentreRow;
+                                                    @include flexCentreCol;
                                                     width: 50%;
                                                 }
                                                 
