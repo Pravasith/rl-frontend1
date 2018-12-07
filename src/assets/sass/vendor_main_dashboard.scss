@@ -50,7 +50,7 @@ input{
 .line{
 
     width: 90%;
-    height: 0.2em;
+    height: 0.1em;
     border-radius: 0.2em;
     background: $lightGrey;
     margin: 0.4em 0;
@@ -69,6 +69,10 @@ input{
             height: 100%;
             position: relative;
 
+            // .blurClass{
+            //     filter: blur(0.3em);
+            // }
+
             .modalClass{
                 width: 100%;
                 height: 91vh;
@@ -80,7 +84,7 @@ input{
                 margin-top: 4%;
                 .modalOuterLayer{
                    @include flexCentreRow;
-                   height: 100%;
+                   height: 85%;
                 .modalInnerLayer{
                     @include flexCentreCol;
                     justify-content: flex-start;
@@ -102,6 +106,7 @@ input{
                             }
                             .line{
                                 width: 30%;
+                                height: 0.1em;
                                 background: $secondaryMagenta;
                             }
                         }
@@ -183,7 +188,8 @@ input{
 
                                                 p{
                                                     margin: 0.5em 0.2em;
-                                                    font-size: 0.8em;
+                                                    font-size: 0.79em;
+                                                    font-weight: 500;
                                                 }
                                             }
     
@@ -377,7 +383,7 @@ input{
                             margin-right: 0.5em;
                         }
                         p{
-                            margin-top: 0.8em;
+                            margin-top: 0.79em;
                         }
                     }
 
@@ -479,6 +485,7 @@ input{
                                 .line{
                                     background: $secondaryMagenta;
                                     width: 30%;
+                                    height: 0.1em;
                                 }
                             }
                             .deleteButton{
@@ -506,7 +513,7 @@ input{
                                 h3{
                                     // width: 80%;
                                     color: $darkerGrey;
-                                    font-size: 0.8em;
+                                    font-size: 0.79em;
                                     .vendorHeaderSpanClass{
                                         color: $darkerGrey;
                                     }
@@ -570,7 +577,7 @@ input{
                                     .tagWrap{
                                         display: inline-flex;
                                         margin: 0.3em;
-                                        padding: 0 0.8em 0 0;
+                                        padding: 0 0.79em 0 0;
                                         background: $darkerGrey;
                                         .tagWrapInnerLayer{
                                             @include flexCentreRow;
@@ -650,20 +657,23 @@ input{
 
                     .vendorDetailsLeftContainer{
                         @include flexCentreRow;
-                        height: 88vh;
+                        
+                        height: 89vh;
                         width: 22%;
-                        margin-top: 1em;
+                        margin-top: 0.5em;
                         .vendorInformationInnerLayer{
                             @include flexCentreCol;
                             justify-content: space-between;
+                            align-items: flex-start;
                             width: 90%;
                             height: 100%;
-                            background: $veryLightGrey;
+                            background: $veryVeryLightGrey;
                             margin: 0.5em;
                             .vendorDashboardInfoConatiner{
                                 @include flexCentreCol;
-                                width: 100%;
-                                padding: 1em 0;
+                                align-items: flex-start;
+                                // width: 100%;
+                                padding: 1em;
 
                                 .vendorDashboardCompanyLogo{
                                     @include flexCentreRow;
@@ -677,12 +687,12 @@ input{
                                         background: $white;
                                         @include box_shadow;
                                         .logoImageContainerInnerLayer{
-                                            width: 6em;
-                                            height: 6em;
-                                            padding: 0.5em;
+                                            width: 6.2em;
+                                            height: 6.2em;
+                                            // padding: 0.5em;
                                             img{
-                                                width: 6em;
-                                                height: 6em;
+                                                width: 6.2em;
+                                                height: 6.2em;
                                                 object-fit: cover;
                                             }
                                         }
@@ -710,16 +720,18 @@ input{
                                                 @include flexCentreCol;
                                                 p{
                                                     color: $darkerGrey;
+                                                    font-size: 0.79em;
                                                 }
                                             }
                                             .line{
                                                 width: 50%;
                                                 background: $secondaryMagenta;
+                                                height: 0.1em;
                                             }
                                         }
                                         .companyInfoLowerContainer{
                                             p{
-                                                font-size: 0.85em;
+                                                font-size: 0.8em;
                                             }
                                         }
                                     }
@@ -729,11 +741,13 @@ input{
                                         margin-top: 1em;
                                         .vendorTitleContainer{
                                             h3{
-
+                                                font-size: 0.9em;
+                                                color: $darkerGrey;
                                             }
                                             .line{
                                                 width: 100%;
                                                 background: $mediumGrey;
+                                                height: 0.1em;
                                             }   
                                         }
                                         .vendorInfoDownContainer{
@@ -761,8 +775,11 @@ input{
                                             .vendorPersonalInfoContainer{
                                                 @include flexCentreCol;
                                                 align-items: flex-start;
-                                                margin-left: 1em;
+                                                margin-left: 0.7em;
+                                                margin-top: 0.2em;
+                                                // max-width: 60%;
                                                 h3{
+                                                    font-size: 0.79em;
                                                     color: $darkerGrey;
                                                 }
                                                 .industryExperienceContainer{
@@ -770,12 +787,15 @@ input{
                                                     align-items: flex-start;
                                                     h3{
                                                         color: $darkGrey;
+                                                        font-size: 0.79em;
+
+                                                        span{
+                                                            // font-size: 0.79em;
+                                                            font-weight: 500;
+                                                            color: $secondaryMagenta;
+                                                        }
                                                     }
-                                                    span{
-                                                        font-size: 1em;
-                                                        font-weight: 500;
-                                                        color: $secondaryMagenta;
-                                                    }
+                                                    
                                                 }
                                             }
                                         }
@@ -786,9 +806,19 @@ input{
                                 @include flexCentreRow;
                                 justify-content: flex-start;
                                 width: 100%;
-                                background: $lightGrey;
+                                background: $veryLightGrey;
+                                font-weight: 500;
+                                font-size: 0.8em;
+                                color: $mediumGrey;
+                                // transition: 0.2s;
+
+
+                                &:hover{
+                                    color: $darkGrey;
+                                }
                                 .whiteButtonWrapper{
-                                    margin: 1em 0.5em;
+                                    margin: 0.5em;
+                                    box-shadow: none;
                                 }
                             }
                         }
@@ -798,7 +828,7 @@ input{
                     @include flexCentreCol;
                     width: 76.5%;
                     // background: $highLightBlue;
-                    // margin-top: 1em;
+                    margin-top: 0.5em;
 
                     .productHeadingSection{
                         @include flexCentreRow;
@@ -813,24 +843,31 @@ input{
                                     width: 100%;
                                     background: $highLightBlue;
                                     transition: 0.2s;
+                                    height: 0.1em;
                                 }
                             }
                             .line{
                                 width: 100%;
-                                height: 0.2em;
+                                height: 0.1em;
                                 border-radius: 0.2em;
                                 background: $lightGrey;
                                 margin: 0.4em 0;
                                 transition: 0.2s;
+
                             }
                     }
+
+                    .headingClass{
+                        color: $mediumGrey;
+                    }
                     .active{
-                            .headingClass{
-                                color: $darkerGrey;
-                            }
+                        .headingClass{
+                            color: $darkerGrey;
+                        }
 
                             .line{
                                 background: $darkerGrey;
+                                height: 0.1em;
                             }
                         }
                     }
@@ -852,6 +889,7 @@ input{
                                 .gradientButtonWrapper{
                                     .svgImageContainer{
                                         margin-right: 0.5em;
+                                        margin-top: 0.2em;
                                     }
                                 }
                             }
@@ -900,6 +938,7 @@ input{
                                                 }
                                                 .line{
                                                     width: 5%;
+                                                    height: 0.1em;
                                                 }
                                                 .gradientButtonOuterLayer{
                                                     @include flexCentreRow;
@@ -954,6 +993,7 @@ input{
                                             }
                                             .line{
                                                 width: 7%;
+                                                height: 0.1em;
                                             }
                                         }
                                         
@@ -1011,7 +1051,12 @@ input{
             }
 
             }
-        }
+            }
+
+            .blurClass{
+                filter: blur(0.3em);
+                // filter: grayscale(1);
+            }
     .add{
       .contentWrapper{
             @include flexCentreCol;
@@ -1025,6 +1070,7 @@ input{
                 .gradientButtonWrapper{
                     .svgImageContainer{
                         margin-right: 0.5em;
+                        margin-top: 0.2em;
                     }
                 }
             }
@@ -1044,6 +1090,7 @@ input{
                     .svgImageContainer{
                         @include flexCentreRow;
                         width: 100%;
+                        margin-top: 0.2em;
                         .graphicSvgImageContainer{
                             position: relative;
                             text-align: center;
@@ -1051,12 +1098,14 @@ input{
                             .vendorGraphicInnerContainer{
                                 position: absolute;
                                 text-align: center;
-                                bottom: 10%;
+                                bottom: 17%;
                                 width: 100%;
                                 .vendorGraphicParaInnerLayer{
                                     @include flexCentreRow;
                                     h3{
-                                        width: 35%;
+                                        width: 37%;
+                                        font-weight: 500;
+                                        font-size: 0.85em;
                                         span{
                                             color: $primaryMagenta;
                                         }
@@ -1065,6 +1114,7 @@ input{
                             }
                         }
                     }
+                    
                     .hide{
                         display: none;
                     }

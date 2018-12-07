@@ -126,13 +126,9 @@ class AddProductDetails extends React.Component {
         }
     }
 
-    componentDidUpdate () {
-        console.log(
-            // "product Image", this.state.productImageThumbnail,
-            "Quantity Error", this.state.productQuantityErrorMessage,
-            "product max", this.state.productMaxQuantity
-            ) 
-    }
+    // componentDidUpdate () {
+    //     console.log(this.state.productFinishes)
+    // }
 
     modalClassToggle = (showOrNot) => {
         if(showOrNot === "show")
@@ -2519,7 +2515,7 @@ class AddProductDetails extends React.Component {
                                                     </div>
                                                     <div className="productCode">
                                                         <InputForm
-                                                            refName="productName"
+                                                            refName="productCode"
                                                             placeholder="Type here"
                                                             isMandatory={true}
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
