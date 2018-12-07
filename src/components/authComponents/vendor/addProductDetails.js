@@ -2312,34 +2312,25 @@ class AddProductDetails extends React.Component {
         )
     }
 
-    checkForValue = () => {
-        const { productMinQuantity, productMaxQuantity } = this.state;
+    // checkForValue = () => {
+    //     const { productMinQuantity, productMaxQuantity } = this.state;
 
-        if (productMaxQuantity) {
-            console.log("productMaxQuantity", productMaxQuantity)
-            if (productMaxQuantity !== 0){
-                if (productMinQuantity > productMaxQuantity) {
-                    this.setState({
-                        productQuantityErrorMessage: "productQuantityErrorMessage"
-                    })
-                }
-                else if (productMinQuantity < productMaxQuantity) {
-                    this.setState({
-                        productQuantityErrorMessage: "productQuantityErrorMessage hide"
-                    })
-                }
-            }
-
-            else if (productMaxQuantity === 0) {
-                console.log("Wrks")
-                this.setState({
-                    productQuantityErrorMessage: "productQuantityErrorMessage hide"
-                })
-            }
-        }
-
-        
-    }
+    //     if (productMaxQuantity) {
+    //         if (productMaxQuantity !== 0){
+    //             if (productMinQuantity > productMaxQuantity) {
+    //                 this.setState({
+    //                     productQuantityErrorMessage: "productQuantityErrorMessage",
+    //                     modalType: "Product Quantity Error"
+    //                 })
+    //             }
+    //             else if (productMinQuantity < productMaxQuantity) {
+    //                 this.setState({
+    //                     productQuantityErrorMessage: "productQuantityErrorMessage hide"
+    //                 })
+    //             }
+    //         }
+    //     }
+    // }
 
     onToggleSwitch = async () => {
         await this.setState({ isChecked: !this.state.isChecked });
@@ -2358,9 +2349,7 @@ class AddProductDetails extends React.Component {
            { fieldName: 'Color Options', value: this.state.colorArray },
            { fieldName: 'Sizes Available', value: this.state.productDimensions },
            { fieldName: 'Min. quantity', value: this.state.productMinQuantity },
-        //    { fieldName: 'Max. quantity', value: this.state.productMaxQuantity },
-           { fieldName: `${this.state.productQuantityErrorMessage !== "productQuantityErrorMessage" ?
-                                    'Max. quantity' : 'Max. quantity value'}`, value: this.state.productMaxQuantity },
+           { fieldName: 'Max. quantity', value: this.state.productMaxQuantity },
            { fieldName: 'Product Design', value: this.state.categoryStylesAdded },
            { fieldName: 'Product Tags', value: this.state.tagsAdded },
            { fieldName: 'Product Type', value: this.state.productType },
@@ -2755,7 +2744,6 @@ class AddProductDetails extends React.Component {
                                                                 this.setState({
                                                                     productMinQuantity: val
                                                                 })
-                                                                this.checkForValue()
                                                             }}
                                                         />
                                                     </div>
@@ -2776,7 +2764,6 @@ class AddProductDetails extends React.Component {
                                                                 this.setState({
                                                                     productMaxQuantity: val
                                                                 })
-                                                                this.checkForValue()
                                                         }}
                                                         />
                                                     </div>
@@ -2994,7 +2981,9 @@ class AddProductDetails extends React.Component {
                                             <div className="buttonContainer">
                                                 <GradientButton
                                                     runFunction={() => 
-                                                        { this.validateProceedHandler()
+                                                        {   
+                                                            // this.checkForValue()
+                                                            this.validateProceedHandler()
                                                             this.modalClassToggle("show")
                                                             this.setState({
                                                                 modalType : "validation"
