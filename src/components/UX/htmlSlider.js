@@ -3,7 +3,7 @@ import React from "react"
 import "../../assets/sass/html_slider.scss"
 
 import LogoAnimation from "../animations/logoAnimation";
-import { WhiteArrowLeft, WhiteArrowRight } from "../../assets/images/index";
+import { WhiteArrowLeft, WhiteArrowRight } from "../../assets/images";
 
 // Use component like this 
 
@@ -11,6 +11,7 @@ import { WhiteArrowLeft, WhiteArrowRight } from "../../assets/images/index";
 //     categoryData = { item } // format of Item 
 //     numberOfSlides = { 4 } // Change the css grid properties for responsiveness
 //     textOnRibbon = { "TRENDING NOW" } // All caps
+//     runFunction={(data) => ///} // onClick function
 // />
 
 // Format of Item
@@ -65,13 +66,14 @@ export default class HtmlSlider extends React.Component{
 
     componentDidMount = () => {
 
-        if(this.props.categoryData.imagesInCategory.length - this.state.imageNumberCount + 1
+        if(
+            this.props.categoryData.imagesInCategory.length - this.state.imageNumberCount + 1
             <= 
             this.props.numberOfSlides + 1
             ){
 
             this.setState({
-                rightArrowClass : "hide",
+                // rightArrowClass : "hide",
             })
         }
     }
