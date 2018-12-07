@@ -37,6 +37,8 @@ class VendorMainDashboard extends React.Component {
             sectionClass: 'newCategorySection hide',
             vendorInitialGraphic: 'vendorGraphicCenter',
 
+            productManagerWrapperClass : "productManagerWrapperClass",
+
             // my code
             mainHeadingClass1: 'uploadedProducts active',
             mainHeadingClass2: 'clientData',
@@ -232,7 +234,8 @@ class VendorMainDashboard extends React.Component {
                                 <GradientButton
                                     runFunction={() => {
                                         this.setState({
-                                            modalClass: 'modalClass',
+                                            modalClass: 'modalClass ',
+                                            productManagerWrapperClass : "productManagerWrapperClass blurClass",
                                             vendorInitialGraphic: 'hide',
                                         })
                                     }}
@@ -250,7 +253,7 @@ class VendorMainDashboard extends React.Component {
                                         <div className="vendorGraphicInnerContainer">
                                             <div className="vendorGraphicParaInnerLayer">
                                                 <h3>Hey <span>{this.state.firstName}</span>, show your amazing products to your clients, start
-                                                by clicking Add new category button on the top.</h3>
+                                                by clicking "Add new category" button on the top.</h3>
                                             </div>
                                         </div>
                                     </div>
@@ -480,6 +483,7 @@ class VendorMainDashboard extends React.Component {
                             className="close"
                             onClick={() => this.setState({
                                 modalClass: "modalClass hide",
+                                productManagerWrapperClass : "productManagerWrapperClass",
                                 mainContentWrap: "mainContentWrap",
                                 vendorInitialGraphic: 'vendorGraphicCenter',
                             })
@@ -638,7 +642,7 @@ class VendorMainDashboard extends React.Component {
                             userData={this.returnNavBarData()}
                         />
 
-                        <div className="productManagerWrapperClass">
+                        <div className={this.state.productManagerWrapperClass}>
                             <div className="productManagerWrapperInnerLayerClass">
                             
                                 <div className="vendorDetailsLeftContainer">
@@ -687,8 +691,8 @@ class VendorMainDashboard extends React.Component {
                                                         <div className="vendorPersonalInfoContainer">
                                                             <h3>Mr. Chengappa</h3>
                                                             <div className="industryExperienceContainer">
-                                                                <h3>Work experience:</h3>
-                                                                <span> 2 - 4 years</span>
+                                                                <h3>has been in this business for<span> 2 - 4 years</span></h3>
+                                                                
                                                             </div>
                                                         </div>
                                                     </div>
@@ -696,7 +700,11 @@ class VendorMainDashboard extends React.Component {
                                             </div>
                                         </div>
                                             <div className="profileEditContainer">
-                                                <WhiteButton>
+                                                <WhiteButton
+                                                    runFunction = {() => {
+                                                        window.open("/vendor/profile-details", "_self")
+                                                    }}
+                                                    >
                                                     Edit profile details
                                                 </WhiteButton>
                                             </div>
