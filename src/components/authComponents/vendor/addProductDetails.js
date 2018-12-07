@@ -402,7 +402,8 @@ class AddProductDetails extends React.Component {
                         >
                         <header className="productStyleHeadingSection">
                             <div className="titleCategory">
-                                <h3>
+                                <h3
+                                >
                                     {item.styleTitle}
                                 </h3>
                                 <div className="line"></div>
@@ -2241,9 +2242,10 @@ class AddProductDetails extends React.Component {
                                             <div className="modalContentContainerInnerLayer">
                                                 <div className="content">
                                                     <h3>Please choose product image thumbnail</h3>
+                                                    <div className="line"></div>
                                                     <div className="detailsToInput">
-                                                        <div className="detailsInputLayer">
-                                                            <div className="notFilledSection">
+                                                        {/* <div className="detailsInputLayer">
+                                                            <div className="notFilledSection"> */}
                                                                 {/* {this
                                                                     .state
                                                                     .productImagesObject
@@ -2279,8 +2281,8 @@ class AddProductDetails extends React.Component {
                                                                         })
                                                                     }}
                                                                 />
-                                                            </div>
-                                                        </div>
+                                                            {/* </div> */}
+                                                        {/* </div> */}
                                                     </div>
                                                 </div>
                                             </div>

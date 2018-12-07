@@ -439,7 +439,7 @@ input{
                                                         margin: 0.5em;
                                                         // overflow-y: auto;
                                                     .designStyleTagsInnerLayer{
-                                                        display: inline-block;
+                                                        // display: inline-block;
                                                          margin-top: 0.5em;
                                                         .tagContainer{
                                                             display: inline-flex;
@@ -610,7 +610,7 @@ input{
 
                                                             p{
                                                                 cursor: pointer;
-                                                                font-size: 1em;
+                                                                font-size: 0.9em;
                                                                 color: $darkGrey;
                                                                 font-weight: 500;
                                                                 font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -619,6 +619,9 @@ input{
                                                             .nonErrorContent{
                                                                 @include flexCentreRow;
                                                                 // align-items: flex-start;
+                                                                p{
+                                                                    font-size: 0.9em;
+                                                                }
 
                                                                 .inputSection{
                                                                     @include flexCentreRow;
@@ -1069,14 +1072,51 @@ input{
                                 margin: 0.5em 0 ;
                                 .modalContentContainerInnerLayer{
                                     .content{
+                                        @include flexCentreCol;
                                         h3{
                                             text-align: center;
+                                        }
+                                        .line{
+                                            background: $secondaryMagenta;
+                                            width: 20%;
                                         }
                                         .detailsToInput{
                                             width: 100%;
                                             // height: 7em;
                                             margin: 1em 0;
                                             overflow-y: auto;
+                                            .innerViewProductLayer{
+                                                width: 100%;
+                                                height: 5em;
+                                                .imageContainerMiddleLayer{
+                                                    display: grid;
+                                                    grid-template-columns: 1fr 1fr 1fr;
+                                                    height: 100%;
+                                                    .outerMostLayer{
+                                                        width: 100%;
+                                                        margin: 0.2em;
+                                                        .innerWrapperImage{
+                                                            height: 100%;
+                                                            .productCatalogueImage{
+                                                                height: 100%;
+                                                                .outerProductImageLayer{
+                                                                    padding: 0.2em 0.1em;
+                                                                    height: 86%;
+                                                                    .innerImageLayer{
+                                                                         height: 100%;
+                                                                        .imgConatiner{
+                                                                            height: 100%;
+                                                                            .imgOuterLayer{
+                                                                                padding-bottom: 100%;
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
                                             .detailsInputLayer{
                                                 height: 100%;
                                                 margin-top: 0.5em;
@@ -1101,6 +1141,15 @@ input{
                                             }
                                         }
                                     }
+                                }
+                            }
+
+                            .showFinalProceed{
+                                @include flexCentreCol;
+                                img{
+                                    width: 5em;
+                                    height: 5em;
+                                    object-fit: cover;
                                 }
                             }
 
