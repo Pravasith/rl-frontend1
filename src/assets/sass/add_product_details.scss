@@ -164,7 +164,7 @@ input{
 
                             .uploadSectionLeftWrapper{
                                 @include flexCentreRow;
-                                min-width: 35%;
+                                min-width: 28%;
                                 // margin: 0 auto;
                                 padding: 0.3em;
 
@@ -187,7 +187,7 @@ input{
                                             .imageUploadInnerLayer{
                                                 // position: relative;
                                                 width: 100%;
-                                                height: 25em;
+                                                height: 20em;
                                                 .imageContainerInnerSection{
                                                     @include flexCentreCol;
                                                     height: 100%;
@@ -215,6 +215,14 @@ input{
                                                                 }
                                                             }
                                                         }
+
+                                                        .productImageUploaderRender{
+                                                            .productImageUploaderClass{
+                                                                width: 12em;
+                                                                height: 12em;
+                                                                @include flexCentreCol;
+                                                            }
+                                                        }
                                                     }
                                                 }
                                                 
@@ -239,6 +247,10 @@ input{
                                             width: 100%;
                                             margin-top: 1em;
 
+                                            .imageSliderParentWrap{
+                                                width: 100%;
+                                            }
+
                                             .uploadedHeaderSection{
                                                 @include flexCentreRow;
                                                 justify-content: flex-start;
@@ -262,6 +274,13 @@ input{
 
                                             .downSectionInnerLayer{
                                                 width: 100%;
+                                                .productView{
+                                                    .innerViewProductLayer{
+                                                        .imageContainerMiddleLayer{
+                                                                grid-template-columns: 1fr 1fr 1fr;
+                                                        }
+                                                    }
+                                                }
                                             }
                                         }
                                     }
@@ -270,7 +289,7 @@ input{
                             }
 
                             .uploadSectionRightWrapper{
-                                width: 60%;
+                                width: 70%;
                                 // margin: 0 auto;
                                 padding: 0.3em;
                                 padding-left: 2em;
