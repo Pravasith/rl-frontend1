@@ -323,16 +323,10 @@ class AddProductDetails extends React.Component {
         })
      }
 
-     handleStyleSelection = (styleData) => {
-        this.state.categoryStylesAdded.push(styleData.styleTitle)
-        let dummyArray = [...new Set(this.state.categoryStylesAdded.map(item => item))]
+    
 
-        this.setState({
-            categoryStylesAdded : dummyArray
-        })
-    }
+    removeStyles = (index) => {
 
-    removeCategory = (index) => {
         this
             .state
             .categoryStylesAdded
@@ -343,33 +337,57 @@ class AddProductDetails extends React.Component {
             })
     }
 
+    handleStyleSelection = (styleDataIndex,styleData) => {
+
+        const animationTimeLine = new TimelineLite()
+
+        console.log(styleDataIndex)
+
+        animationTimeLine.set(
+            ".checkBoxNumber" + styleDataIndex,
+            {
+                "background" : "#ff2c6b"
+            }
+        )
+
+        console.log(this.state.categoryStylesAdded)
+
+        this.state.categoryStylesAdded.push(styleData.styleTitle)
+        let dummyArray = [...new Set(this.state.categoryStylesAdded.map(item => item))]
+        
+        this.setState({
+            categoryStylesAdded : dummyArray
+        })
+       
+    }
 
 
     returnCategoryContent = () => {
 
         const styleArray = [ ...architectureStyles ]
-
         return (
                 styleArray
                 .map((item , i) => {
                 return(                    
                     <div 
-                        className="productStyleContainer"
+                        className={"productStyleContainer " + i }
                         key = {i}
                         onClick = {() => {
-                            this.handleStyleSelection(item)
+                            this.handleStyleSelection(i,item)
                         }}
                         >
-                        <header className="productStyleHeadingSection">
+                        <header 
+                            className="productStyleHeadingSection"
+                        >
                             <div className="titleCategory">
                                 <h3>
                                     {item.styleTitle}
                                 </h3>
                                 <div className="line"></div>
                             </div>
-
                             <div
-                                className= {this.state.checkBoxSelect}
+                                key = {i}
+                                className= {"checkBoxSelect " + "checkBoxNumber" + i}
                                 >
                                 <div className="iconWrap">
                                     <TickSmallWhite/>
@@ -377,7 +395,11 @@ class AddProductDetails extends React.Component {
                             </div>
                         </header>
                         
-                        <div className="productStyleContentSection">
+                        <div className="productStyleContentSection"
+                                // onClick = {() => {
+                                //     selectThisCheckBoxAndDeselectOtherCheckBox(i)
+                                // }}
+                            >
                             <div className="productStyleContentSectionInnerLayer">
                                 <div className="imageCategorySection">
                                     <img          
@@ -418,7 +440,7 @@ class AddProductDetails extends React.Component {
 
                                 <div 
                                     className ="svgImageSection"
-                                    onClick = {() => this.removeCategory(i)}
+                                    onClick = {() => this.removeStyles(i)}
                                     >
                                     <SmallCloseButton />
                                 </div>
@@ -1655,19 +1677,21 @@ class AddProductDetails extends React.Component {
 
                 <div className="imageUploaderContainer">
                     <div className="imageUploaderInnerLayerContainer">
-                        <ImageUploader
-                            imageType="regularImage" // regularImage || profileImage
-                            resultData={(data) => {
-                                this.setState({ 
-                                    productFinishImage: data.imageURL,
-                                    inputFormContainer: "inputFormContainer hide",
-                                    proceedOrNotCheck: "proceedOrNotCheck",
-                                    finishModalTitle: "Image preview"
-                                })
-                            }}
-                            showInitialImage={this.state.productFinishImage} // image src link // optional
-                            imageClassName="productFinishImageClass"
-                        />
+                        <div className="imageUploaderOuterLayer">
+                            <ImageUploader
+                                imageType="regularImage" // regularImage || profileImage
+                                resultData={(data) => {
+                                    this.setState({ 
+                                        productFinishImage: data.imageURL,
+                                        inputFormContainer: "inputFormContainer hide",
+                                        proceedOrNotCheck: "proceedOrNotCheck",
+                                        finishModalTitle: "Image preview"
+                                    })
+                                }}
+                                showInitialImage={this.state.productFinishImage} // image src link // optional
+                                imageClassName="productFinishImageClass"
+                            />
+                        </div>
 
                         <div className={this.state.proceedOrNotCheck}>
                             <GradientButton
@@ -2848,3 +2872,14 @@ const matchDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(AddProductDetails)
+
+
+
+    // handleStyleSelection = (styleData) => {
+    //     this.state.categoryStylesAdded.push(styleData.styleTitle)
+    //     let dummyArray = [...new Set(this.state.categoryStylesAdded.map(item => item))]
+
+    //     this.setState({
+    //         categoryStylesAdded : dummyArray
+    //     })
+    // }

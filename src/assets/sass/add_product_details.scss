@@ -464,34 +464,13 @@ input{
                                                             background: $veryLightGrey;
                                                             padding: 0.2em 0.3em 0.2em 0;
                                                             margin: 0.5em 0;
+                                                            transition: 0.2s;
+
                                                             &:hover{
                                                                 background: $white;
                                                                 @include box_shadow;
                                                                 cursor: pointer;
-                                                                .productStyleHeadingSection{
-                                                                    .checkBoxSelect{
-                                                                        background: $mediumGrey;
-                                                                        width: 1.4em;
-                                                                        height: 1.4em;
-                                                                        border-radius: 1.5em;
-                                                                        @include flexCentreRow;
-                                                                        .iconWrap{
-                                                                            @include flexCentreRow;
-                                    
-                                                                        }
-                                                                    }
-                                                                    .checkBoxSelected{
-                                                                        background: $secondaryMagenta;
-                                                                        width: 1.4em;
-                                                                        height: 1.4em;
-                                                                        border-radius: 1.5em;
-                                                                        @include flexCentreRow;
-                                                                        .iconWrap{
-                                                                            @include flexCentreRow;
-                                    
-                                                                        }
-                                                                    }
-                                                                }
+                                                                
                                                                 
                                                             }
                                                             .productStyleContentSection{
@@ -540,6 +519,17 @@ input{
                                                                     @include flexCentreRow;
                                                                     .iconWrap{
                                                                         @include flexCentreRow;
+                                                                    }
+                                                                }
+                                                                .checkBoxSelected{
+                                                                    background: $secondaryMagenta;
+                                                                    width: 1.4em;
+                                                                    height: 1.4em;
+                                                                    border-radius: 1.5em;
+                                                                    @include flexCentreRow;
+                                                                    .iconWrap{
+                                                                        @include flexCentreRow;
+                                
                                                                     }
                                                                 }
                                                             }
@@ -601,7 +591,7 @@ input{
 
                                                             p{
                                                                 cursor: pointer;
-                                                                font-size: 0.8em;
+                                                                font-size: 1em;
                                                                 color: $darkGrey;
                                                                 font-weight: 500;
                                                                 font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -651,7 +641,7 @@ input{
                                                 }
 
                                                 .productFinishSection{
-                                                    width: 100%;
+                                                    // width: 100%;
                                                     margin: 0.5em 0;
                                                     .productFinishDescriptionOuterLayer{
                                                          @include flexCentreRow;
@@ -668,6 +658,7 @@ input{
                                                                 img{
                                                                      width: 5em;
                                                                      height: 5em;
+                                                                     object-fit: cover;
                                                                 }
                                                             }
                                                             .productFinishDetails{
@@ -675,6 +666,9 @@ input{
                                                                 .finishCostCartWrap{
                                                                     @include flexCentreRow;
                                                                     justify-content: flex-start;
+                                                                    h3{
+                                                                        font-size: 0.9em;
+                                                                    }
                                                                     p{  
                                                                         font-size: 0.9em;
                                                                         margin-left: 0.5em;
@@ -685,6 +679,9 @@ input{
                                                                     .finishCodeCartWrapReturn{
                                                                          @include flexCentreRow;
                                                                          justify-content: flex-start;
+                                                                         h3{
+                                                                            font-size: 0.9em;
+                                                                        }
                                                                         p{
                                                                             font-size: 0.9em;
                                                                             margin-left: 0.5em;
@@ -911,7 +908,7 @@ input{
                                                             align-items: flex-start;
                                                             width: 100%;
                                                             height: 100%;
-                                                            background: $veryLightGrey;
+                                                            // background: $veryLightGrey;
                                                             cursor: pointer;                                                            
                                                             .addButtonContainer{
                                                             @include flexCentreCol;
@@ -1162,6 +1159,13 @@ input{
                                             .imageUploaderContainer{
                                                 .imageUploaderInnerLayerContainer{
                                                     width: 100%;
+                                                    .imageUploaderOuterLayer{
+                                                        @include flexCentreRow;
+                                                        width: 100%;
+                                                        .imageUploaderWrap{
+                                                            width: 65%;
+                                                        }
+                                                    }
                                                 }
                                             }
 
