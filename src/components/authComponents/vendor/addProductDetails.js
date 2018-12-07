@@ -337,10 +337,22 @@ class AddProductDetails extends React.Component {
 
     removeStyles = (index) => {
 
+        const styleArray = [ ...architectureStyles ]
+
+        const animationTimeLine = new TimelineLite()
+
         this
             .state
             .categoryStylesAdded
             .splice(index, 1)
+
+            
+            animationTimeLine.set(
+                ".checkBoxNumber" + index,
+                {
+                    "background" : "#FFFFFF"
+                }
+            )
 
             this.setState({
                 categoryStylesAdded: this.state.categoryStylesAdded.length !== 0 ? this.state.categoryStylesAdded : []
@@ -386,9 +398,7 @@ class AddProductDetails extends React.Component {
                             this.handleStyleSelection(i,item)
                         }}
                         >
-                        <header 
-                            className="productStyleHeadingSection"
-                        >
+                        <header className="productStyleHeadingSection">
                             <div className="titleCategory">
                                 <h3>
                                     {item.styleTitle}
@@ -405,11 +415,7 @@ class AddProductDetails extends React.Component {
                             </div>
                         </header>
                         
-                        <div className="productStyleContentSection"
-                                // onClick = {() => {
-                                //     selectThisCheckBoxAndDeselectOtherCheckBox(i)
-                                // }}
-                            >
+                        <div className="productStyleContentSection">
                             <div className="productStyleContentSectionInnerLayer">
                                 <div className="imageCategorySection">
                                     <img          
