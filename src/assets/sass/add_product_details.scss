@@ -337,6 +337,14 @@ input{
                                                     @include flexCentreCol;
                                                    .tagInputContainer{
                                                        @include flexCentreRow;
+                                                       .modalMandatorySection{
+                                                        background: $secondaryMagenta;
+                                                        padding: 0.2em;
+                                                        margin-right: 1em;
+                                                        .madatoryHighlight{
+                                                            color: $white;
+                                                        }
+                                                    }
                                                        .charCount{
                                                            margin-left: 0.5em;
                                                        }
@@ -1058,6 +1066,7 @@ input{
                 height: 100%;
 
                 .dummyXClass{
+
                     
                     .whiteSquareForModal{
 
@@ -1085,29 +1094,38 @@ input{
                                             // height: 7em;
                                             margin: 1em 0;
                                             overflow-y: auto;
-                                            .innerViewProductLayer{
+                                            .imageInput{
+                                                width: 23em;
+                                            .productView{
+
                                                 width: 100%;
-                                                height: 5em;
-                                                .imageContainerMiddleLayer{
-                                                    display: grid;
-                                                    grid-template-columns: 1fr 1fr 1fr;
-                                                    height: 100%;
-                                                    .outerMostLayer{
-                                                        width: 100%;
-                                                        margin: 0.2em;
-                                                        .innerWrapperImage{
-                                                            height: 100%;
-                                                            .productCatalogueImage{
+                                            
+                                                .innerViewProductLayer{
+                                                    width: 100%;
+                                                    height: 5em;
+                                                    .imageContainerMiddleLayer{
+                                                        display: grid;
+                                                        grid-template-columns: 1fr 1fr 1fr;
+                                                        height: 100%;
+                                                        .outerMostLayer{
+                                                            width: 90%;
+                                                            margin: 0.2em;
+                                                            border: 0.1em solid $darkGrey;
+                                                            .innerWrapperImage{
                                                                 height: 100%;
-                                                                .outerProductImageLayer{
-                                                                    padding: 0.2em 0.1em;
-                                                                    height: 86%;
-                                                                    .innerImageLayer{
-                                                                         height: 100%;
-                                                                        .imgConatiner{
+                                                                .productCatalogueImage{
+                                                                    height: 100%;
+                                                                    .outerProductImageLayer{
+                                                                        padding: 0.2em 0.1em;
+                                                                        height: 86%;
+                                                                        width: 89%;
+                                                                        .innerImageLayer{
                                                                             height: 100%;
-                                                                            .imgOuterLayer{
-                                                                                padding-bottom: 100%;
+                                                                            .imgConatiner{
+                                                                                height: 100%;
+                                                                                .imgOuterLayer{
+                                                                                    padding-bottom: 80%;
+                                                                                }
                                                                             }
                                                                         }
                                                                     }
@@ -1116,7 +1134,9 @@ input{
                                                         }
                                                     }
                                                 }
+
                                             }
+                                        }
                                             .detailsInputLayer{
                                                 height: 100%;
                                                 margin-top: 0.5em;
@@ -1190,6 +1210,7 @@ input{
                             padding: 0.8em;
                             @include box_shadow;
                             .modalContentWrap{
+                                // width: 23em;
                                 .modalContentClass,.modalFinishClass,.modalSizeClass,.modalMaterialClass,.modalFinishDetailsClass{
                                     .dummyXClass{
 
@@ -1328,8 +1349,8 @@ input{
                                                         width: 50%;
                                                     }
                                                     .exampleUploadedImgThumbnail{
-                                                        width: 10%;
-                                                        margin-top: 0.5em;
+                                                        width: 17%;
+                                                        margin-right: 0.5em;
                                                         img{
                                                             width: 3em;
                                                             height: 3em;

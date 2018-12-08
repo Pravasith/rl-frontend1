@@ -1858,7 +1858,7 @@ class AddProductDetails extends React.Component {
                                                             onChange={() => this.onToggleSwitch()}
                                                             className="switch"
                                                             type="checkbox" />
-                                                        <span class="slider round"></span>
+                                                        <span className="slider round"></span>
                                                     </label>
                                                 </div>
                                                 <div className="returnInputColumn">
@@ -1991,7 +1991,7 @@ class AddProductDetails extends React.Component {
                                                             onChange={() => this.onToggleSwitch()}
                                                             className="switch"
                                                             type="checkbox"/>
-                                                        <span class="slider round"></span>
+                                                        <span className="slider round"></span>
                                                     </label>
                                                 </div>
                                                 <div className="returnInputColumn">
@@ -2072,7 +2072,7 @@ class AddProductDetails extends React.Component {
                                                 onChange={() => this.onToggleSwitch()}
                                                 className="switch"
                                                 type="checkbox"/>
-                                            <span class="slider round"></span>
+                                            <span className="slider round"></span>
                                         </label>
                                     </div>
                                     <div className="returnInputColumn">
@@ -2146,7 +2146,7 @@ class AddProductDetails extends React.Component {
                                                 onChange={() => this.onToggleSwitch()}
                                                 className="switch"
                                                 type="checkbox"/>
-                                            <span class="slider round"></span>
+                                            <span className="slider round"></span>
                                         </label>
                                     </div>
                                     <div className="returnInputColumn">
@@ -2240,6 +2240,7 @@ class AddProductDetails extends React.Component {
                                                     <h3>Please choose product image thumbnail</h3>
                                                     <div className="line"></div>
                                                     <div className="detailsToInput">
+                                                        <div className="imageInput">
                                                         {/* <div className="detailsInputLayer">
                                                             <div className="notFilledSection"> */}
                                                                 {/* {this
@@ -2277,6 +2278,7 @@ class AddProductDetails extends React.Component {
                                                                         })
                                                                     }}
                                                                 />
+                                                                </div>
                                                             {/* </div> */}
                                                         {/* </div> */}
                                                     </div>
@@ -2889,8 +2891,11 @@ class AddProductDetails extends React.Component {
 
                                                     <div className="inputCategoryTagSection">
                                                         <div className="tagInputContainer">
-
+                                                        <div className="modalMandatorySection">
+                                                            <p className="madatoryHighlight">Mandatory</p>
+                                                        </div>
                                                             <div className="materialInfoColumn">
+            
                                                                 <input
                                                                     placeholder="For Ex. Sofa"
                                                                     ref="tagInput"
@@ -3009,8 +3014,7 @@ class AddProductDetails extends React.Component {
                                                                 <p>No, there is no discount</p>
                                                             </div>
                                                         </div>
-                                                    </div>
-    
+                                                    </div>    
                                                 </div>
                                             </div>
                                         </section>
@@ -3025,9 +3029,9 @@ class AddProductDetails extends React.Component {
                                                                 modalType : "validation"
                                                             })                  
                                                         }}>
-                                                    Proceed
+                                                    Save and Proceed
                                                 </GradientButton>
-                                            </div>
+                                            </div>      
                                         </div>
 
                                     </article>
