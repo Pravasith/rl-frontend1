@@ -128,9 +128,44 @@ class AddProductDetails extends React.Component {
         }
     }
 
-    // componentDidUpdate () {
-    //     console.log(this.state.productFinishes)
-    // }
+
+    componentDidMount = () => {
+
+
+
+        this
+            .props
+            .getUserData()
+
+            .then((data) => {
+                let { userData } = this.props
+
+                //
+                // DECRYPT REQUEST DATA
+                //
+                let decryptedData = decryptData(userData.responseData)
+                //
+                // DECRYPT REQUEST DATA
+                //
+
+                this.setState({
+                    loadingClass: 'loadingAnim hide',
+                    mainClass: 'mainClass',
+                })
+
+                console.log(this.props.qParams)
+            })
+
+            .catch((err) => {
+                if (err.response) {
+                    if (err.response.status === 401)
+                        window.open('/log-in', "_self")
+                }
+
+                else
+                    console.error(err)
+            })
+    }
 
     modalClassToggle = (showOrNot) => {
         if(showOrNot === "show")
@@ -234,38 +269,6 @@ class AddProductDetails extends React.Component {
         )
     }
 
-    componentDidMount = () => {
-        this
-            .props
-            .getUserData()
-
-            .then((data) => {
-                let { userData } = this.props
-
-                //
-                // DECRYPT REQUEST DATA
-                //
-                let decryptedData = decryptData(userData.responseData)
-                //
-                // DECRYPT REQUEST DATA
-                //
-
-                this.setState({
-                    loadingClass: 'loadingAnim hide',
-                    mainClass: 'mainClass',
-                })
-            })
-
-            .catch((err) => {
-                if (err.response) {
-                    if (err.response.status === 401)
-                        window.open('/log-in', "_self")
-                }
-
-                else
-                    console.error(err)
-            })
-    }
 
     returnNavBarData = () => {
         if (this.props.userData.responseData) {
@@ -2568,7 +2571,7 @@ class AddProductDetails extends React.Component {
                                         <header className="vendorFormHeading">
 
                                             <div className="headingArea">
-                                                <h3 className="headingClass">Add new product</h3>
+                                                <h3 className="headingClass">Product Manager</h3>
 
                                                 <div className="line"></div>
                                             </div>

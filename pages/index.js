@@ -7,12 +7,27 @@ import routeLinks from "../src/config/routeLinks"
 import store from "../src/store"
 
 const PostLink = (props) => (
-    <Link 
-        as= {`/vendor/profile-details`}
-        href= {`/vendor-profile-details`}
-        >
-        <a></a>
-    </Link>
+    <div>
+        <Link 
+            as= {`/vendor/profile-details`}
+            href= {`/vendor-profile-details`}
+            >
+            <a></a>
+        </Link>
+        <Link 
+            as= {`/vendor/add-product/${props.sc}`}
+            href= {`/vendor-add-product-details?sc=${props.sc}`}
+            >
+            <a></a>
+        </Link>
+        <Link 
+            as= {`/vendor/dashboard`}
+            href= {`/vendor-main-dashboard`}
+            >
+            <a></a>
+        </Link>
+    </div>
+    
 )
 
 const Index = () => (
@@ -24,7 +39,9 @@ const Index = () => (
                 <StartPage />
 
                 <ul>
-                    <PostLink id={routeLinks.VENDOR_DASHBOARD} />
+                    <PostLink 
+                        // id={routeLinks.VENDOR_DASHBOARD} 
+                    />
                 </ul>
             </div>
         </section>

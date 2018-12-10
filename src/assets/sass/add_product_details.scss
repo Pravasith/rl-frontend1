@@ -301,6 +301,7 @@ input{
 
                                     .vendorFormHeading{
                                         @include flexCentreRow;
+                                        width: 100%;
                                         .headingArea{
                                             @include flexCentreCol;
                                             align-items: flex-start;
@@ -311,7 +312,8 @@ input{
                                             }
                                             .line{
                                                 background: $secondaryMagenta;
-                                                width: 40%;
+                                                width: 5%;
+                                                height: 0.1em;
                                             }
                                         }
                                     }
@@ -321,6 +323,7 @@ input{
                                         height: 28em;
                                         overflow-y: auto;
                                         margin-top: 0.5em;
+                                        background: $white;
 
                                         .vendorUploadFormInnerContainer{
                                             @include flexCentreCol;

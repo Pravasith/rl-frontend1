@@ -250,13 +250,15 @@ class VendorMainDashboard extends React.Component {
                 // DECRYPT REQUEST DATA
                 //
 
-
                 this.setState({
                     loadingClass: 'loadingAnim hide',
                     mainClass: 'mainClass',
 
                     firstName: decryptedData.firstName,
+                    professionalTitle : decryptedData.professionalTitle,
+                    profilePicture : decryptedData.profilePicture,
                 })
+
                 this.props.hitApi(api.GET_VENDOR_DATA, "GET")
                 .then((data) => {
                     let { responseData } = this.props
@@ -284,6 +286,15 @@ class VendorMainDashboard extends React.Component {
                         //
                         // DECRYPT REQUEST DATA
                         //
+
+                        console.log(decryptedData)
+
+                        this.setState({
+                            responseCompanyName : decryptedData.companyName,
+                            responseCompanyDescription : decryptedData.companyDescriptionLine1 + " " + decryptedData.companyDescriptionLine2,
+                            responseExperience : decryptedData.experience.years,
+                            companyProfilePicture : decryptedData.companyProfilePicture
+                        })
                     }
                 })
             })
@@ -969,7 +980,9 @@ class VendorMainDashboard extends React.Component {
                                             <div className="vendorDashboardCompanyLogo">
                                                 <div className="logoImageContainer">
                                                     <div className="logoImageContainerInnerLayer">
-                                                        <img src="https://rocheledecorating.com.au/website-images/hamptons_design.jpg" alt=""/>
+                                                        <img src={
+                                                            this.state.companyProfilePicture ? this.state.companyProfilePicture : ""
+                                                        } alt=""/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -978,16 +991,16 @@ class VendorMainDashboard extends React.Component {
                                                 <div className="companyInfoContainer">
                                                     <div className="companyInfoUpperConatiner">
                                                         <div className="companyTitleConatiner">
-                                                            <h3>Patio furniture</h3>
+                                                            <h3>{this.state.responseCompanyName}</h3>
                                                         </div>
                                                         <div className="companyCaptionConatiner">
-                                                            <p>Outdoor living. Since 1990.</p>
+                                                            <p>{this.state.professionalTitle}</p>
                                                         </div>
                                                         <div className="line"></div>
                                                     </div>
                                                     <div className="companyInfoLowerContainer">
                                                         <p>
-                                                        how are you how are you how are you how are youhow are youhow are youhow are youhow are youhow are u
+                                                        {this.state.responseCompanyDescription}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -1000,14 +1013,16 @@ class VendorMainDashboard extends React.Component {
                                                         <div className="vendorPictureContainer">
                                                             <div className="vendorProfilePicture">
                                                                 <div className="vendorProfilePictureInnerLayer">
-                                                                    <img src="https://rocheledecorating.com.au/website-images/hamptons_design.jpg" alt=""/>
+                                                                    <img src={
+                                                                        this.state.profilePicture ? this.state.profilePicture : ""
+                                                                    } alt=""/>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div className="vendorPersonalInfoContainer">
-                                                            <h3>Mr. Chengappa</h3>
+                                                            <h3>{this.state.firstName}</h3>
                                                             <div className="industryExperienceContainer">
-                                                                <h3>has been in this business for<span> 2 - 4 years</span></h3>
+                                                                <h3>has been in this business for<span> {this.state.responseExperience} years</span></h3>
                                                                 
                                                             </div>
                                                         </div>
