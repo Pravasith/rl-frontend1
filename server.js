@@ -20,6 +20,12 @@ app.prepare()
             app.render(req, res, actualPage)
         })
 
+        server.get('/vendor/add-product/:sc', (req, res) => {
+            const actualPage = '/vendor-add-product-details'
+            const queryParams = { sc: req.params.sc }
+            app.render(req, res, actualPage, queryParams)
+        })
+
         server.get('*', (req, res) => {
             return handle(req, res)
         })

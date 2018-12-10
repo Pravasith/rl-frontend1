@@ -792,6 +792,7 @@ class VendorMainDashboard extends React.Component {
                             onClick={() => this.setState({
                                 modalClass: "modalClass hide",
                                 mainContentWrap: "mainContentWrap",
+                                productManagerWrapperClass : "productManagerWrapperClass",
                                 vendorInitialGraphic: 'vendorGraphicCenter',
                             })
                         }
