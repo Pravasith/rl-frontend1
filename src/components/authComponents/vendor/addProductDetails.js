@@ -122,7 +122,9 @@ class AddProductDetails extends React.Component {
             finishModalTitle: "Add a close-up image thumbnail for this finish",
 
             finishModalContentPart: 1,
-            showFinalProceed: "showFinalProceed hide"
+            showFinalProceed: "showFinalProceed hide",
+
+            architectureStyles : architectureStyles,
         }
     }
 
@@ -336,20 +338,37 @@ class AddProductDetails extends React.Component {
 
     
 
-    removeStyles = (index) => {
+    removeStyles = (styleId) => {
 
-        const styleArray = [ ...architectureStyles ]
+        const styleArray = [ ...this.state.categoryStylesAdded ]
+        let indexOfStyle, styleName, indexToRemove
 
         const animationTimeLine = new TimelineLite()
+
+        styleArray.map((item, i) => {
+            if(item.styleId === styleId){
+                indexOfStyle = i
+                styleName = item.styleName
+            }
+            
+        })
 
         this
             .state
             .categoryStylesAdded
-            .splice(index, 1)
+            .splice(indexOfStyle, 1)
+
+
+            this.state.architectureStyles.map((item, i) => {
+                
+                    if (item.styleTitle === styleName)
+                        indexToRemove = i
+                
+            })
 
             
             animationTimeLine.set(
-                ".checkBoxNumber" + index,
+                ".checkBoxNumber" + indexToRemove,
                 {
                     "background" : "#FFFFFF"
                 }
@@ -364,7 +383,8 @@ class AddProductDetails extends React.Component {
 
         const animationTimeLine = new TimelineLite()
 
-        console.log(styleDataIndex)
+        let { categoryStylesAdded } = this.state
+        let styleDoesntExist = true
 
         animationTimeLine.set(
             ".checkBoxNumber" + styleDataIndex,
@@ -373,10 +393,32 @@ class AddProductDetails extends React.Component {
             }
         )
 
-        console.log(this.state.categoryStylesAdded)
+        console.log(categoryStylesAdded)
 
-        this.state.categoryStylesAdded.push(styleData.styleTitle)
-        let dummyArray = [...new Set(this.state.categoryStylesAdded.map(item => item))]
+        if(categoryStylesAdded.length === 0){
+            styleDoesntExist = true
+        }
+        
+        // if(categoryStylesAdded.length !== 0){
+            else
+            categoryStylesAdded.map((item, i) => {
+
+                console.log(item.styleName, styleData.styleTitle)
+                if(item.styleName === styleData.styleTitle){
+                    styleDoesntExist = false
+                }
+            })
+        // }
+        
+        if(styleDoesntExist){
+            categoryStylesAdded.push({
+                styleName: styleData.styleTitle,
+                styleId: styleDataIndex
+            })
+        }
+        
+
+        let dummyArray = [...categoryStylesAdded]
         
         this.setState({
             categoryStylesAdded : dummyArray
@@ -387,9 +429,9 @@ class AddProductDetails extends React.Component {
 
     returnCategoryContent = () => {
 
-        const styleArray = [ ...architectureStyles ]
+        const {architectureStyles} = this.state
         return (
-                styleArray
+            architectureStyles
                 .map((item , i) => {
                 return(                    
                     <div 
@@ -453,12 +495,12 @@ class AddProductDetails extends React.Component {
                             <div 
                                 className="tagConatinerInnerLayer">
                                 <p>
-                                    {item}
+                                    {item.styleName}
                                 </p>
 
                                 <div 
                                     className ="svgImageSection"
-                                    onClick = {() => this.removeStyles(i)}
+                                    onClick = {() => this.removeStyles(item.styleId)}
                                     >
                                     <SmallCloseButton />
                                 </div>
@@ -2342,34 +2384,25 @@ class AddProductDetails extends React.Component {
         )
     }
 
-    checkForValue = () => {
-        const { productMinQuantity, productMaxQuantity } = this.state;
+    // checkForValue = () => {
+    //     const { productMinQuantity, productMaxQuantity } = this.state;
 
-        if (productMaxQuantity) {
-            console.log("productMaxQuantity", productMaxQuantity)
-            if (productMaxQuantity !== 0){
-                if (productMinQuantity > productMaxQuantity) {
-                    this.setState({
-                        productQuantityErrorMessage: "productQuantityErrorMessage"
-                    })
-                }
-                else if (productMinQuantity < productMaxQuantity) {
-                    this.setState({
-                        productQuantityErrorMessage: "productQuantityErrorMessage hide"
-                    })
-                }
-            }
-
-            else if (productMaxQuantity === 0) {
-                console.log("Wrks")
-                this.setState({
-                    productQuantityErrorMessage: "productQuantityErrorMessage hide"
-                })
-            }
-        }
-
-        
-    }
+    //     if (productMaxQuantity) {
+    //         if (productMaxQuantity !== 0){
+    //             if (productMinQuantity > productMaxQuantity) {
+    //                 this.setState({
+    //                     productQuantityErrorMessage: "productQuantityErrorMessage",
+    //                     modalType: "Product Quantity Error"
+    //                 })
+    //             }
+    //             else if (productMinQuantity < productMaxQuantity) {
+    //                 this.setState({
+    //                     productQuantityErrorMessage: "productQuantityErrorMessage hide"
+    //                 })
+    //             }
+    //         }
+    //     }
+    // }
 
     onToggleSwitch = async () => {
         await this.setState({ isChecked: !this.state.isChecked });
@@ -2388,9 +2421,7 @@ class AddProductDetails extends React.Component {
            { fieldName: 'Color Options', value: this.state.colorArray },
            { fieldName: 'Sizes Available', value: this.state.productDimensions },
            { fieldName: 'Min. quantity', value: this.state.productMinQuantity },
-        //    { fieldName: 'Max. quantity', value: this.state.productMaxQuantity },
-           { fieldName: `${this.state.productQuantityErrorMessage !== "productQuantityErrorMessage" ?
-                                    'Max. quantity' : 'Max. quantity value'}`, value: this.state.productMaxQuantity },
+           { fieldName: 'Max. quantity', value: this.state.productMaxQuantity },
            { fieldName: 'Product Design', value: this.state.categoryStylesAdded },
            { fieldName: 'Product Tags', value: this.state.tagsAdded },
            { fieldName: 'Product Type', value: this.state.productType },
@@ -2785,7 +2816,6 @@ class AddProductDetails extends React.Component {
                                                                 this.setState({
                                                                     productMinQuantity: val
                                                                 })
-                                                                this.checkForValue()
                                                             }}
                                                         />
                                                     </div>
@@ -2806,7 +2836,6 @@ class AddProductDetails extends React.Component {
                                                                 this.setState({
                                                                     productMaxQuantity: val
                                                                 })
-                                                                this.checkForValue()
                                                         }}
                                                         />
                                                     </div>
@@ -3026,7 +3055,9 @@ class AddProductDetails extends React.Component {
                                             <div className="buttonContainer">
                                                 <GradientButton
                                                     runFunction={() => 
-                                                        { this.validateProceedHandler()
+                                                        {   
+                                                            // this.checkForValue()
+                                                            this.validateProceedHandler()
                                                             this.modalClassToggle("show")
                                                             this.setState({
                                                                 modalType : "validation"
