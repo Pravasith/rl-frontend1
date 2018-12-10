@@ -26,9 +26,9 @@ app.prepare()
             app.render(req, res, actualPage)
         })
 
-        server.get('/vendor/add-product/:sc', (req, res) => {
+        server.get('/vendor/add-product/:pId', (req, res) => {
             const actualPage = '/vendor-add-product-details'
-            const queryParams = { sc: req.params.sc }
+            const queryParams = { pId: req.params.pId }
             app.render(req, res, actualPage, queryParams)
         })
 
