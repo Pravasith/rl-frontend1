@@ -118,7 +118,16 @@ input{
                     .dummyContainer{
                         height: 15em;
                         overflow-y: auto;
-                        width: 98%;
+                        width: 95%;
+
+                        .subCategoryLoader{
+                            // max-width: 10em;
+                            // max-height: 10em;
+
+                            .architectureBuildingAnimationWrapper{
+                                height: 23em;
+                            }
+                        }
 
                         .categoryPopulation{
                             display: grid;
@@ -126,23 +135,29 @@ input{
 
                             .categorySelectionContainer{
 
+                                // height: 100%;
+
                                 .categorySelectionInnerLayer{
+                                    height: 65%;
+                                    margin: 0.5em 0.3em 0.3em 0;
                                     .inputCategoryValue{
                                         @include flexCentreRow;
                                         justify-content: space-between;
                                         align-items: flex-start;
                                         // width: 83%;
                                         padding: 0.3em;
-                                        margin: 0.5em 0.3em 0.3em 0;
-                                        background: $veryLightGrey;
+                                        
+                                        background: $white;
                                         cursor: pointer;
                                         transition: 0.2s;
-                                        border: 0.2em solid $veryLightGrey ;
+                                        // border: 0.1em solid $veryLightGrey ;
+                                        height: 100%;
 
                                         &:hover{
-                                            background: $white;
-                                            border-color: $white;
-                                            @include box_shadow;
+                                            // background: $white;
+                                            // border-color: $veryLightGrey;
+                                            background: $veryLightGrey;
+                                            // @include box_shadow;
                                             // .categoryCheckBox{
                                             //     .checkBoxSelect{
                                             //         @include flexCentreRow;
@@ -192,6 +207,142 @@ input{
                                                     font-weight: 500;
                                                 }
                                             }
+    
+                                        }
+
+                                        .subCategoryImageAndText{
+                                            @include flexCentreRow;
+                                            justify-content: space-between;
+                                                align-items: flex-start;
+                                            width: 100%;
+
+                                            .categoryHeadingSection{
+                                                @include flexCentreRow;
+                                                width: 100%;
+                                                align-items: flex-start;
+                                                justify-content: flex-start;
+
+                                                p{
+                                                    margin: 0.5em 0.2em;
+                                                    font-size: 0.79em;
+                                                    font-weight: 500;
+                                                }
+
+                                                
+                                            }
+
+                                            .subCategoryCheckBox{
+                                                    @include flexCentreRow;
+                                                    // align-items: flex-start;
+                                                    // justify-content: space-between;
+                                                    // height: 3em;
+                                                    // position: relative;
+                                                    
+                                                    margin: 0 0.2em;
+                                                    // width: 100%;
+        
+                                                    .checkBoxDummyWrap{
+                                                        // width: 100%;
+                                                        // position: absolute;
+                                                        // right: 0.2em;
+                                                        // top: 0.1em;
+        
+                                                        .checkBoxSelect{
+                                                            @include flexCentreRow;
+                                                            transition: 0.2s;
+                                                            background: $white;
+                                                            width: 1.2em;
+                                                            height: 1.2em;
+                                                            border: 0.2em solid $white;
+                                                            min-width: 1.2em;
+                                                            min-height: 1.2em;
+                                                            border-radius: 1.5em;
+                                                            margin: 0.2em;
+            
+                                                            .iconWrap{
+                                                                @include flexCentreRow;
+                                                            }
+                                                        }
+                                                    }
+        
+                                                    
+        
+                                                    .highLight{
+                                                        background: $secondaryMagenta;
+                                                    }
+        
+                                                    .categoryCheckBoxInnerLayer{
+        
+                                                        .container {
+                                                            display: block;
+                                                            position: relative;
+                                                            padding-left: 0.5em;
+                                                            cursor: pointer;
+                                                            font-size: 1.5em;
+                                                            -webkit-user-select: none;
+                                                            -moz-user-select: none;
+                                                            -ms-user-select: none;
+                                                            user-select: none;
+        
+                                                            input {
+                                                                position: absolute;
+                                                                opacity: 0;
+                                                                cursor: pointer;
+                                                            }
+        
+                                                        }
+        
+                                                        /* Create a custom radio button */
+                                                        .checkmark {
+                                                            position: absolute;
+                                                            top: 0;
+                                                            left: 0;
+                                                            height: 0.45em;
+                                                            width: 0.45em;
+                                                            background-color: $white;
+                                                            border: 0.1em solid $semiLightGrey;
+                                                            border-radius: 50%;
+                                                            transition: 0.2s;
+                                                        }
+        
+                                                        /* On mouse-over, add a grey background color */
+                                                        .container:hover input ~ .checkmark {
+                                                            background-color: $primaryGreen;
+                                                        }
+        
+                                                        /* When the radio button is checked, add a blue background */
+                                                        .container input:checked ~ .checkmark {
+                                                            background-color: $primaryGreen;
+                                                            border-color: $primaryGreen;
+                                                        }
+        
+                                                        .checkmark:after {
+                                                            content: "";
+                                                            position: absolute;
+                                                            display: none;
+                                                        }
+        
+                                                        /* Show the checkmark when checked */
+                                                            .container input:checked ~ .checkmark:after {
+                                                                display: block;
+                                                            }
+        
+                                                            /* Style the checkmark/indicator */
+                                                            .container .checkmark:after {
+                                                                left: 0.1em;
+                                                                bottom: 0.1em;
+                                                                width: 0.1em;
+                                                                height: 0.3em;
+                                                                border: solid white;
+                                                                border-width: 0 0.1em 0.1em 0;
+                                                                -webkit-transform: rotate(45deg);
+                                                                -ms-transform: rotate(45deg);
+                                                                transform: rotate(45deg);
+                                                            }
+                                                        
+                                                        
+                                                    }   
+                                                }
     
                                         }
 
@@ -312,8 +463,12 @@ input{
                                         }
                                     }
 
+                                    .subInputCategoryValue{
+                                        background: $veryVeryLightGrey;
+                                    }
+
                                     .highLight{
-                                        background: yellow;
+                                        // background: yellow;
                                         .categoryCheckBox{
                                             .checkBoxSelect{
                                                 @include flexCentreRow;
@@ -357,6 +512,14 @@ input{
 
                         }
 
+                    }
+
+                    .dummySub{
+                        // overflow-y: hidden;
+                        .subCategoryLoader{
+                            @include flexCentreRow;
+                            height: 13em;
+                        }
                     }
 
                     .errorMessageWrap{
@@ -841,7 +1004,7 @@ input{
                                 cursor: pointer;
                                 .line{
                                     width: 100%;
-                                    background: $highLightBlue;
+                                    background: $secondaryMagenta;
                                     transition: 0.2s;
                                     height: 0.1em;
                                 }
@@ -858,7 +1021,7 @@ input{
                     }
 
                     .headingClass{
-                        color: $mediumGrey;
+                        color: $semiLightGrey;
                     }
                     .active{
                         .headingClass{
