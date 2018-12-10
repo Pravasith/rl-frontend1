@@ -333,24 +333,62 @@ class AddProductDetails extends React.Component {
 
     
 
+    // removeStyles = (index) => {
+
+    //     const styleArray = [ ...architectureStyles ]
+
+    //     const animationTimeLine = new TimelineLite()
+
+    //     this
+    //         .state
+    //         .categoryStylesAdded
+    //         .splice(index, 1)
+
+            
+    //         animationTimeLine.set(
+    //             ".checkBoxNumber" + index,
+    //             {
+    //                 "background" : "#FFFFFF"
+    //             }
+    //         )
+
+    //         this.setState({
+    //             categoryStylesAdded: this.state.categoryStylesAdded.length !== 0 ? this.state.categoryStylesAdded : []
+    //         })
+    // }
     removeStyles = (index) => {
 
         const styleArray = [ ...architectureStyles ]
 
         const animationTimeLine = new TimelineLite()
 
+        const {categoryStylesAdded} =  this.state
+
         this
             .state
             .categoryStylesAdded
             .splice(index, 1)
 
-            
-            animationTimeLine.set(
-                ".checkBoxNumber" + index,
-                {
-                    "background" : "#FFFFFF"
+            categoryStylesAdded.map((item, i) => {
+                if( item.styleid ===  ){
+                    tl.set(
+                        ".checkBoxNumber" + i,
+                        {
+                            background : "#FFFFFF"
+                        }
+                    )
                 }
-            )
+            })
+
+            // if(this
+            //     .state
+            //     .categoryStylesAdded.map(item,index))
+            // animationTimeLine.set(
+            //     ".checkBoxNumber" + index,
+            //     {
+            //         "background" : "#FFFFFF"
+            //     }
+            // )
 
             this.setState({
                 categoryStylesAdded: this.state.categoryStylesAdded.length !== 0 ? this.state.categoryStylesAdded : []
@@ -372,7 +410,12 @@ class AddProductDetails extends React.Component {
 
         console.log(this.state.categoryStylesAdded)
 
-        this.state.categoryStylesAdded.push(styleData.styleTitle)
+
+        // this.state.categoryStylesAdded.push(styleData.styleTitle)
+        this.state.categoryStylesAdded.push({
+            styleid: styleData.styleId,
+            stylename: styleData.styleTitle
+        })
         let dummyArray = [...new Set(this.state.categoryStylesAdded.map(item => item))]
         
         this.setState({
@@ -450,7 +493,7 @@ class AddProductDetails extends React.Component {
                             <div 
                                 className="tagConatinerInnerLayer">
                                 <p>
-                                    {item}
+                                    {item.stylename}
                                 </p>
 
                                 <div 
