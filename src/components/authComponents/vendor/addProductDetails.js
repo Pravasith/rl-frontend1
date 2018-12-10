@@ -19,7 +19,8 @@ import {
     SmallCloseButton,
     SmallModalCloseButton,
     MinusImageIcon,
-    PlusImageIcon
+    PlusImageIcon,
+    LogoLoadingAnimation
 } from "../../../assets/images";
 
 import LogoAnimation from "../../animations/logoAnimation"
@@ -125,13 +126,13 @@ class AddProductDetails extends React.Component {
             showFinalProceed: "showFinalProceed hide",
 
             architectureStyles : architectureStyles,
+
+            finalProceed : "saveAndProceed"
         }
     }
 
 
     componentDidMount = () => {
-
-
 
         this
             .props
@@ -153,7 +154,7 @@ class AddProductDetails extends React.Component {
                     mainClass: 'mainClass',
                 })
 
-                console.log(this.props.qParams)
+                // console.log(this.props.pId)
             })
 
             .catch((err) => {
@@ -181,93 +182,6 @@ class AddProductDetails extends React.Component {
             })
     }
 
-
-    returnVariationColors = () => {
-        return (
-
-            {
-                categoryName: "Water bodies",
-                imagesInCategory: [
-                    {
-                        itemCode: "CL12",
-                        textOnRibbonSatisfied: false,
-                        imageURL: "https://www.hcsupplies.co.uk/public/images/products/3/clear-maple.jpg"
-                    },
-
-                    {
-                        itemCode: "WB13",
-                        textOnRibbonSatisfied: false,
-                        imageURL: "https://images.pexels.com/photos/935875/pexels-photo-935875.jpeg?auto=compress&cs=tinysrgb&h=350"
-                    },
-
-                    {
-                        itemCode: "WB14",
-                        textOnRibbonSatisfied: false,
-                        imageURL: "https://image.freepik.com/free-vector/wood-texture_1083-21.jpg"
-                    },
-
-                    {
-                        itemCode: "WB15",
-                        textOnRibbonSatisfied: false,
-                        imageURL: "https://www.hcsupplies.co.uk/public/images/products/3/clear-maple.jpg"
-                    },
-
-                    {
-                        itemCode: "WB14",
-                        textOnRibbonSatisfied: false,
-                        imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPFxp7lUM2L4lF4aGcpv4K0ToCdZGXJHxwCzHsrV0ro-sGkN5evQ"
-                    },
-
-                    {
-                        itemCode: "WB15",
-                        textOnRibbonSatisfied: false,
-                        imageURL: "https://i.ebayimg.com/images/g/xe0AAOSwiBJaAuOT/s-l300.jpg"
-                    }
-                ]
-            }
-        )
-    }
-
-    returnVariationImages = () => {
-        return (
-            {
-                categoryName: "Water bodies",
-                imagesInCategory: [
-                    {
-                        itemCode: "WB12",
-                        textOnRibbonSatisfied: false,
-                        imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXk1JV3DCwbJU_lNhIur-A3jZD8NnU89SN8WY_7h5B0zdqRbYceg"
-                    },
-                    {
-                        itemCode: "WB13",
-                        textOnRibbonSatisfied: false,
-                        imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRlNZc4WlFWnRym1Gpz9mzE8T-VpG_SqrKI2Ju1Ej6b0bmzjYrww"
-                    },
-                    {
-                        itemCode: "WB14",
-                        textOnRibbonSatisfied: false,
-                        imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnFm-l4w9PMzZ_m-o60l7aL0YSb-xcs_xRh74aaVU_avdYgc0s7g"
-                    },
-                    {
-                        itemCode: "WB15",
-                        textOnRibbonSatisfied: false,
-                        imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLJk1dKAanCmnxn8w5mEsGWKgFRUwP1rXQNtiaJLe4-AjLM7OEYQ"
-                    },
-
-                    {
-                        itemCode: "WB14",
-                        textOnRibbonSatisfied: false,
-                        imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnFm-l4w9PMzZ_m-o60l7aL0YSb-xcs_xRh74aaVU_avdYgc0s7g"
-                    },
-                    {
-                        itemCode: "WB15",
-                        textOnRibbonSatisfied: false,
-                        imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLJk1dKAanCmnxn8w5mEsGWKgFRUwP1rXQNtiaJLe4-AjLM7OEYQ"
-                    }
-                ]
-            }
-        )
-    }
 
 
     returnNavBarData = () => {
@@ -1827,13 +1741,58 @@ class AddProductDetails extends React.Component {
         )
     }
 
-    // productImageThumbnail = () => {
-    //     if(this.state.emptyField.length === 0) {
-    //         this.setState({
-    //             modalType: "productImageThumbnail"
-    //         })
-    //     }
-    // }
+    sendProductsDataToBackend = () => {
+        console.log("works")
+    }
+
+    returnProductsContent = () => {
+        if(this.state.finalProceed === "saveAndProceed")
+        return (
+            <div className="content">
+                <h3>Final step - Choose a thumb image for your product</h3>
+                <div className="line"></div>
+                <div className="detailsToInput">
+                    <div className="imageInput">
+                        <HtmlSlider
+                            categoryData={this.state.productImagesObject} // format of Item 
+                            numberOfSlides={3} // Change the css grid properties for responsiveness
+                            textOnRibbon={""} // All caps
+                            runFunction={(data) => {
+                                this.setState({
+                                    productImageThumbnail: data.imageURL,
+                                    showFinalProceed: "showFinalProceed",
+                                    finalProceed: "sendRequest"
+                                })
+                            }}
+                        />
+                    </div>
+                </div>
+
+                <div className={this.state.showFinalProceed}>
+                    <img 
+                        src={this.state.productImageThumbnail} 
+                        alt=""
+                        style={{ width: "5em", height: "5em" }}
+                    />
+
+                    <GradientButton
+                        runFunction={() => {
+                            this.sendProductsDataToBackend()
+                        }}>
+                        Proceed
+                    </GradientButton>
+                </div>
+            </div>
+        )
+
+        else if(this.state.finalProceed === "sendRequest"){
+            return(
+                <LogoLoadingAnimation
+                    text = "Saving your product..."
+                />
+            )
+        }
+    }
 
     returnModal = () => {
         const { modalType, finishModalContentPart } = this.state;
@@ -1947,10 +1906,6 @@ class AddProductDetails extends React.Component {
                 }
 
                   
-            }
-
-            else if (modalType === "finish details") {
-                
             }
 
             else if (modalType === "color") {
@@ -2145,7 +2100,6 @@ class AddProductDetails extends React.Component {
                 )
             }
 
-
             else if (modalType === "material") {
                 return (
                     <div className={this.state.modalMaterial}>
@@ -2220,7 +2174,6 @@ class AddProductDetails extends React.Component {
                 )
             }
 
-
             else if (modalType === "validation") {
                 if (this.state.emptyField.length !== 0) {
                     return (
@@ -2281,68 +2234,11 @@ class AddProductDetails extends React.Component {
                                     <div className="addProductDetailsModal">
                                         <div className="modalContentContainer">
                                             <div className="modalContentContainerInnerLayer">
-                                                <div className="content">
-                                                    <h3>Please choose product image thumbnail</h3>
-                                                    <div className="line"></div>
-                                                    <div className="detailsToInput">
-                                                        <div className="imageInput">
-                                                        {/* <div className="detailsInputLayer">
-                                                            <div className="notFilledSection"> */}
-                                                                {/* {this
-                                                                    .state
-                                                                    .productImagesObject
-                                                                    .imagesInCategory
-                                                                    .map((item, i) => {
-                                                                        return (
-                                                                            <div
-                                                                                className="productImagesForThumbnail"
-                                                                                key={i}
-                                                                            >
-                                                                                <img
-                                                                                    src={item.imageURL}
-                                                                                    alt=""
-                                                                                    style={{ width: "3em", height: "3em" }}
-                                                                                    onClick={() => {
-                                                                                        this.setState({
-                                                                                            productImageThumbnail: item.imageURL
-                                                                                        })
-                                                                                    }}
-                                                                                />
-                                                                            </div>
-                                                                        )
-                                                                    }
-                                                                    )} */}
-                                                                <HtmlSlider
-                                                                    categoryData={this.state.productImagesObject} // format of Item 
-                                                                    numberOfSlides={3} // Change the css grid properties for responsiveness
-                                                                    textOnRibbon={"TRENDING NOW"} // All caps
-                                                                    runFunction={(data) => {
-                                                                        this.setState({
-                                                                            productImageThumbnail: data.imageURL,
-                                                                            showFinalProceed: "showFinalProceed"
-                                                                        })
-                                                                    }}
-                                                                />
-                                                                </div>
-                                                            {/* </div> */}
-                                                        {/* </div> */}
-                                                    </div>
-                                                </div>
+                                                {this.returnProductsContent()}
                                             </div>
                                         </div>
 
-                                        <div className={this.state.showFinalProceed}>
-                                            <img 
-                                                src={this.state.productImageThumbnail} 
-                                                alt=""
-                                                style={{ width: "5em", height: "5em" }}
-                                            />
-
-                                            <GradientButton
-                                                runFunction={() => console.log("wrks")}>
-                                                Proceed
-                                            </GradientButton>
-                                        </div>
+                                        
 
                                     </div>
                                 </div>
@@ -2384,25 +2280,6 @@ class AddProductDetails extends React.Component {
         )
     }
 
-    // checkForValue = () => {
-    //     const { productMinQuantity, productMaxQuantity } = this.state;
-
-    //     if (productMaxQuantity) {
-    //         if (productMaxQuantity !== 0){
-    //             if (productMinQuantity > productMaxQuantity) {
-    //                 this.setState({
-    //                     productQuantityErrorMessage: "productQuantityErrorMessage",
-    //                     modalType: "Product Quantity Error"
-    //                 })
-    //             }
-    //             else if (productMinQuantity < productMaxQuantity) {
-    //                 this.setState({
-    //                     productQuantityErrorMessage: "productQuantityErrorMessage hide"
-    //                 })
-    //             }
-    //         }
-    //     }
-    // }
 
     onToggleSwitch = async () => {
         await this.setState({ isChecked: !this.state.isChecked });

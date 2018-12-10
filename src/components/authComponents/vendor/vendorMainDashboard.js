@@ -287,7 +287,7 @@ class VendorMainDashboard extends React.Component {
                         // DECRYPT REQUEST DATA
                         //
 
-                        console.log(decryptedData)
+                        // console.log(decryptedData)
 
                         this.setState({
                             responseCompanyName : decryptedData.companyName,
@@ -308,10 +308,6 @@ class VendorMainDashboard extends React.Component {
                 else
                     console.error(err)
             })
-    }
-
-    componentDidUpdate() {
-        console.log(this.state.mainCategorySelection, this.state.subCategorySelection)
     }
 
     onSelect = (e) => {
@@ -543,8 +539,16 @@ class VendorMainDashboard extends React.Component {
     }
 
     returnCategoryNames = () => {
-        const {categoryArray} =  this.state
-        
+        const {categoryArray, mainCategorySelection} =  this.state
+        let catIndex
+
+        if(mainCategorySelection){
+            categoryArray.map((item, i) => {
+                if(item.categoryId === mainCategorySelection.categoryId){
+                    catIndex = i
+                }
+            })
+        }        
 
         const selectThisCheckBoxAndDeselectOtherCheckBox = (i) => {
             const tl = new TimelineLite()
@@ -597,6 +601,7 @@ class VendorMainDashboard extends React.Component {
                                     <div className="checkBoxDummyWrap">
                                         <div 
                                             className={"checkBoxSelect " + "CAT" + i}
+                                            style = {{background : catIndex === i ? "#ff2c6b" : "#ffffff"}}
                                             >
                                             <div className="iconWrap">
                                                 <TickSmallWhite/>
@@ -615,6 +620,8 @@ class VendorMainDashboard extends React.Component {
 
     returnSubCategoryNames = () => {
         const {subCategoryArray} = this.state
+
+
 
         const selectThisCheckBoxAndDeselectOtherCheckBox = (i) => {
             const tl = new TimelineLite()
