@@ -442,6 +442,7 @@ class AddProductDetails extends React.Component {
                 .state
                 .categoryStylesAdded
                 .map((item,i) => {
+                    console.log(item)
                     return(
                         <div 
                             className="tagContainer"
