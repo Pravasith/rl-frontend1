@@ -32,4 +32,6 @@ export const api = {
     REGISTER_GOOGLE_USER : API_URL + 'user/login-google-user',
 
     UPLOAD_IMAGE : API_URL + 'common/upload-image',
+
+    GET_SUB_CATEGORIES : API_URL + 'categories/get-sub-categories',
 }
