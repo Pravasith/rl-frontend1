@@ -836,7 +836,7 @@ input{
                                 @include flexCentreCol;
                                 align-items: flex-start;
                                 // width: 100%;
-                                padding: 1em;
+                                padding: 1em 0 1em 1em;
 
                                 .vendorDashboardCompanyLogo{
                                     @include flexCentreRow;
@@ -864,7 +864,7 @@ input{
                                 .vendorDashboardCompanyInfoConatiner{
                                     @include flexCentreCol;
                                     align-items: flex-start;
-                                    width: 90%;
+                                    width: 97%;
                                     .companyInfoContainer{
                                         @include flexCentreCol;
                                         align-items: flex-start;
@@ -872,6 +872,7 @@ input{
                                         .companyInfoUpperConatiner{
                                             @include flexCentreCol;
                                             align-items: flex-start;
+                                            width: 100%;
                                             .companyTitleConatiner{
                                                 @include flexCentreCol;
                                                 h3{
@@ -893,6 +894,9 @@ input{
                                             }
                                         }
                                         .companyInfoLowerContainer{
+                                            width: 100%;
+                                            height: 10em;
+                                            overflow-y: auto;
                                             p{
                                                 font-size: 0.8em;
                                             }
@@ -1250,6 +1254,67 @@ input{
                 .vendorGraphicCenter{
                     @include flexCentreCol;
                     width: 100%;
+                    margin-top: 1em;
+                    .categorisedProductsDisplay{
+                        @include flexCentreRow;
+                        width: 100%;
+                        background: $veryLightGrey;
+                        margin: 1em 0;
+                        .categorisedProductDisplayInnerLayer{
+                            @include flexCentreCol;
+                            align-items: flex-start;
+                            padding: 0.5em;
+                            width: 95%;
+                            .mainCategoryHead{
+                                @include flexCentreRow;
+                                justify-content: space-between;
+                                width: 24%;
+                                .categoryMainHeaderContainer{
+                                    @include flexCentreCol;
+                                    .line{
+                                        background: $primaryMagenta;
+                                    }
+                                }
+                            }
+                            .subCategoryHead{
+                                @include flexCentreRow;
+                                width: 100%;
+                                .subCategoryHeadInnerSection{
+                                    @include flexCentreCol;
+                                    align-items: flex-start;
+                                    width: 100%;
+                                    .subCategoryHeaderSection{
+                                        .line{
+                                            width: 50%;
+                                        }
+                                    }
+                                    .addProductCategorySection{
+                                        .addNewProductButton{
+                                            width: 10em;
+                                            height: 10em;
+                                            background: $white;
+                                            padding: 0.5em;
+                                            @include box_shadow;
+                                            .addNewProductButtonInnerLayer{
+                                                @include flexCentreCol;
+                                                background: $lightGrey;
+                                                height: 100%;
+                                                .svgImageSection{
+
+                                                }
+                                                h3{
+
+                                                }
+                                            }
+                                        }
+                                        .subCategoryProductSection{
+
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                     .svgImageContainer{
                         @include flexCentreRow;
                         width: 100%;
