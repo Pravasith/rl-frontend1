@@ -66,11 +66,15 @@ class AddProductDetails extends React.Component {
             colorArray: [],
 
             // productMinQuantity: undefined,
-            // productMaxQuantity: undefined,
+            // productMaxQuantity: "",
 
             productDimensions: [],
             productMaterials: [],
             productFinishes: [],
+            productImagesObject: {
+                categoryName: "Water bodies",
+                imagesInCategory: []
+            },
 
             tagsAdded: [],
 
@@ -86,6 +90,7 @@ class AddProductDetails extends React.Component {
             productDiscount: undefined,
 
             productFinishImage: "",
+            productImage: "",
 
             isProceedClicked: false,
             inputFormContainer: "inputFormContainer",
@@ -106,6 +111,8 @@ class AddProductDetails extends React.Component {
 
             // displayError: "displayError",
             displayError: "displayError hide",
+            productQuantityErrorMessage: "productQuantityErrorMessage hide",
+            productMinQuantityError: "productMinQuantityError hide",
 
             materialCostIsValid: false,
             sizeCostIsValid: false,
@@ -115,6 +122,7 @@ class AddProductDetails extends React.Component {
             finishModalTitle: "Add a close-up image thumbnail for this finish",
 
             finishModalContentPart: 1,
+            showFinalProceed: "showFinalProceed hide"
         }
     }
 
@@ -326,53 +334,82 @@ class AddProductDetails extends React.Component {
         })
      }
 
-     handleStyleSelection = (styleData) => {
-        this.state.categoryStylesAdded.push(styleData.styleTitle)
-        let dummyArray = [...new Set(this.state.categoryStylesAdded.map(item => item))]
+    
 
-        this.setState({
-            categoryStylesAdded : dummyArray
-        })
-    }
+    removeStyles = (index) => {
 
-    removeCategory = (index) => {
+        const styleArray = [ ...architectureStyles ]
+
+        const animationTimeLine = new TimelineLite()
+
         this
             .state
             .categoryStylesAdded
             .splice(index, 1)
+
+            
+            animationTimeLine.set(
+                ".checkBoxNumber" + index,
+                {
+                    "background" : "#FFFFFF"
+                }
+            )
 
             this.setState({
                 categoryStylesAdded: this.state.categoryStylesAdded.length !== 0 ? this.state.categoryStylesAdded : []
             })
     }
 
+    handleStyleSelection = (styleDataIndex,styleData) => {
+
+        const animationTimeLine = new TimelineLite()
+
+        console.log(styleDataIndex)
+
+        animationTimeLine.set(
+            ".checkBoxNumber" + styleDataIndex,
+            {
+                "background" : "#ff2c6b"
+            }
+        )
+
+        console.log(this.state.categoryStylesAdded)
+
+        this.state.categoryStylesAdded.push(styleData.styleTitle)
+        let dummyArray = [...new Set(this.state.categoryStylesAdded.map(item => item))]
+        
+        this.setState({
+            categoryStylesAdded : dummyArray
+        })
+       
+    }
 
 
     returnCategoryContent = () => {
 
         const styleArray = [ ...architectureStyles ]
-
         return (
                 styleArray
                 .map((item , i) => {
                 return(                    
                     <div 
-                        className="productStyleContainer"
+                        className={"productStyleContainer " + i }
                         key = {i}
                         onClick = {() => {
-                            this.handleStyleSelection(item)
+                            this.handleStyleSelection(i,item)
                         }}
                         >
                         <header className="productStyleHeadingSection">
                             <div className="titleCategory">
-                                <h3>
+                                <h3
+                                >
                                     {item.styleTitle}
                                 </h3>
                                 <div className="line"></div>
                             </div>
-
                             <div
-                                className= {this.state.checkBoxSelect}
+                                key = {i}
+                                className= {"checkBoxSelect " + "checkBoxNumber" + i}
                                 >
                                 <div className="iconWrap">
                                     <TickSmallWhite/>
@@ -421,7 +458,7 @@ class AddProductDetails extends React.Component {
 
                                 <div 
                                     className ="svgImageSection"
-                                    onClick = {() => this.removeCategory(i)}
+                                    onClick = {() => this.removeStyles(i)}
                                     >
                                     <SmallCloseButton />
                                 </div>
@@ -747,38 +784,29 @@ class AddProductDetails extends React.Component {
                             key={i}
                         >
                             <div className="productFinishDescriptionInnerLayer">
+                                <div className="finishImageContainer">
+                                    <img
+                                        key={i}
+                                        src={item.finishImage}
+                                        alt=""
+                                    />
+                                </div>
+
                                 <div className="productFinishDetails">
                                     <div className="finishCostCartWrap">
                                         <h3>Finish nomenclature</h3>
-                                        <p key={i}
-                                        >{item.finishName}</p>
+                                        <p key={i}>{item.finishName}</p>
                                     </div>
                                     <div className="finishCostCartWrap">
                                         <h3>Cost over base price</h3>
                                         <p key={i}>Rs. {item.finishCost}</p>
                                     </div>
+                                    <div className="finishCodecartwrap" >
+                                        {this.returnFinishCode(item)}
+                                    </div>
                                 </div> 
 
-                                <img
-                                    key={i}
-                                    src={item.finishImage}
-                                    alt=""
-                                    style={{ width: "5em", height: "5em" }}
-                                />
-
-                                <div className="finishCodecartwrap" >
-                                    {this.returnFinishCode(item)}
-                                </div>
-
                                 <div className="finishEditingButtons">
-                                   
-                                    {/* <div className="editButton">
-                                        <WhiteButton
-                                            runFunction={() => this.editproductFinishes(i)}
-                                        >
-                                            Edit
-                                        </WhiteButton>
-                                    </div> */}
                                     <div
                                         className="deleteButton"
                                         onClick={() => this.removeproductFinishes(i)}
@@ -1000,6 +1028,57 @@ class AddProductDetails extends React.Component {
             this.setState({
                 displayError: "displayError hide"
             })
+        }
+    }
+
+    productImageUpload = () => {
+        let { productImage, productImagesObject } = this.state;
+
+        let temp = {
+            itemCode: this.state.productCode,
+            textOnRibbonSatisfied: false,
+            imageURL: productImage
+        }
+
+        if (temp.imageURL !== "") {
+            let dummyArray = productImagesObject.imagesInCategory ? productImagesObject.imagesInCategory : [];
+
+            if(!dummyArray.includes(temp)) {
+                dummyArray.push(temp)
+            }
+
+            this.setState({
+                productImagesObject: {
+                        categoryName : "Water bodies",
+                        imagesInCategory : [...dummyArray]
+                },
+                productImage: ""
+            })
+        }
+    }
+
+    returnHtmlSliderforproductImagesObject = () => {
+        if(this.state.productImagesObject.imagesInCategory.length !== 0) {
+            return (
+                <div className ="imageSliderParentWrap" >
+                    {/* <header className="uploadedHeaderSection">
+                        <div className="headingArea">
+                            <h3 className="headingColumn">Uploaded images</h3>
+
+                            <div className="line"></div>
+                        </div>
+                    </header> */}
+
+                    <div className="downSectionInnerLayer">
+                        <HtmlSlider
+                            categoryData={this.state.productImagesObject} // format of Item 
+                            numberOfSlides={3} // Change the css grid properties for responsiveness
+                            textOnRibbon={"TRENDING NOW"} // All caps
+                            runFunction={(data) => this.getData(data)}
+                        />
+                    </div>
+                </div>
+            )
         }
     }
 
@@ -1658,28 +1737,30 @@ class AddProductDetails extends React.Component {
 
                 <div className={this.state.inputFormContainer}>
                     <div className="formParaSection finishInputParaContainer">
-                        <p className="pargraphClass">Example: The image thumbnail for Pinewood finish looks like this</p>
                         <div className="exampleUploadedImgThumbnail">
                             <img className="uploadedImage" src="https://res.cloudinary.com/wnbcloud/image/upload/h_300,w_400/v1467638340/ash2_wqnx4x.jpg" alt="" />
                         </div>
+                        <p className="pargraphClass">Example: The image thumbnail for Pinewood finish looks like this</p>
                     </div>
                 </div>
 
                 <div className="imageUploaderContainer">
-                    <div className="imageUploaderInnerLayer">
-                        <ImageUploader
-                            imageType="regularImage" // regularImage || profileImage
-                            resultData={(data) => {
-                                this.setState({ 
-                                    productFinishImage: data.imageURL,
-                                    inputFormContainer: "inputFormContainer hide",
-                                    proceedOrNotCheck: "proceedOrNotCheck",
-                                    finishModalTitle: "Image preview"
-                                })
-                            }}
-                            showInitialImage={this.state.productFinishImage} // image src link // optional
-                            imageClassName="productFinishImageClass"
-                        />
+                    <div className="imageUploaderInnerLayerContainer">
+                        <div className="imageUploaderOuterLayer">
+                            <ImageUploader
+                                imageType="regularImage" // regularImage || profileImage
+                                resultData={(data) => {
+                                    this.setState({ 
+                                        productFinishImage: data.imageURL,
+                                        inputFormContainer: "inputFormContainer hide",
+                                        proceedOrNotCheck: "proceedOrNotCheck",
+                                        finishModalTitle: "Image preview"
+                                    })
+                                }}
+                                showInitialImage={this.state.productFinishImage} // image src link // optional
+                                imageClassName="productFinishImageClass"
+                            />
+                        </div>
 
                         <div className={this.state.proceedOrNotCheck}>
                             <GradientButton
@@ -1690,7 +1771,6 @@ class AddProductDetails extends React.Component {
                                         inputFormContainer: "inputFormContainer",
                                         proceedOrNotCheck: "proceedOrNotCheck hide",
                                         finishModalTitle: "Image preview"
-                                        
                                     })
                                 }}
                             >
@@ -1704,6 +1784,14 @@ class AddProductDetails extends React.Component {
             </div>
         )
     }
+
+    // productImageThumbnail = () => {
+    //     if(this.state.emptyField.length === 0) {
+    //         this.setState({
+    //             modalType: "productImageThumbnail"
+    //         })
+    //     }
+    // }
 
     returnModal = () => {
         const { modalType, finishModalContentPart } = this.state;
@@ -1726,91 +1814,90 @@ class AddProductDetails extends React.Component {
                         <div className={this.state.modalFinishDetails}>
                             <div className="dummyXClass">
                                 <div className="whiteSquareForModal">
-                                    <div>
-                                        <img
-                                            src={this.state.productFinishImage}
-                                            alt=""
-                                            style={{ width: "5em", height: "5em" }}
-                                        />
-                                    </div>
                                     <div className="vendorDashboardModal">
                                         <div className="modalHeader">
                                             <h3>Finish details</h3>
                                             <div className="line"></div>
                                         </div>
                                     </div>
-
-                                    <div className="inputFormContainer">
-                                        <div className="formParaSection">
-                                            <p className="pargraphClass">Name of the finish</p>
-                                        </div>
-                                        <div className="productInputInfoSection productFinishName">
-                                            <div className="modalMandatorySection">
-                                                <p className="madatoryHighlight">Mandatory</p>
-                                            </div>
-                                            <div className="modalInputCategory">
-                                                <input
-                                                    type="text"
-                                                    name="finishName"
-                                                    placeholder="Ex. Glass reinforced concrete"
-                                                    onChange={this.onChangeHandler}
-                                                    ref="finishName"
-                                                />
-                                                <span className="InputSeparatorLine"> </span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="switchContainer">
-                                        <div className="labelUpperColumn">
-                                            <div className="switchContainerParagraph">
-                                                <p>Is there an extra cost over base price ?</p>
-                                            </div>
-                                            <label class="switch">
-                                                <input
-                                                    ref="switch"
-                                                    checked={this.state.isChecked}
-                                                    onChange={() => this.onToggleSwitch()}
-                                                    className="switch"
-                                                    type="checkbox" />
-                                                <span class="slider round"></span>
-                                            </label>
-                                        </div>
-                                        <div className="returnInputColumn">
-                                            {this.returnExtraCost("finish")}
-                                        </div>
-                                    </div>
-
-                                    <div className="errorContent">
-                                        <p className={this.state.isChecked ? this.state.displayError : "displayError hide"}>
-                                            Numbers Only
-                                        </p>
-                                    </div>
-
-                                    <div className="inputFormContainer">
-                                        <div className="formParaSection">
-                                            <p className="pargraphClass">Finish code (if any)</p>
-                                        </div>
-                                        <div className="modalInputCategory">
-                                            <input
-                                                type="text"
-                                                name="finishCode"
-                                                placeholder="Ex. #4erfd, 8fds@ etc."
-                                                onChange={this.onChangeHandler}
-                                                ref="finishCode"
+                                    <div className="finishEndModal">
+                                        <div>
+                                            <img
+                                                src={this.state.productFinishImage}
+                                                alt=""
+                                                style={{ width: "5em", height: "5em" }}
                                             />
-                                            <span className="InputSeparatorLine"> </span>
+                                        </div>
+                                        <div className="finsihingDetails">
+                                            <div className="inputFormContainer">
+                                                <div className="formParaSection">
+                                                    <p className="pargraphClass">Name of the finish</p>
+                                                </div>
+                                                <div className="productInputInfoSection productFinishName">
+                                                    <div className="modalMandatorySection">
+                                                        <p className="madatoryHighlight">Mandatory</p>
+                                                    </div>
+                                                    <div className="modalInputCategory">
+                                                        <input
+                                                            type="text"
+                                                            name="finishName"
+                                                            placeholder="Ex. Glass reinforced concrete"
+                                                            onChange={this.onChangeHandler}
+                                                            ref="finishName"
+                                                        />
+                                                        <span className="InputSeparatorLine"> </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="switchContainer">
+                                                <div className="labelUpperColumn">
+                                                    <div className="switchContainerParagraph">
+                                                        <p>Is there an extra cost over base price ?</p>
+                                                    </div>
+                                                    <label className="switch">
+                                                        <input
+                                                            ref="switch"
+                                                            checked={this.state.isChecked}
+                                                            onChange={() => this.onToggleSwitch()}
+                                                            className="switch"
+                                                            type="checkbox" />
+                                                        <span className="slider round"></span>
+                                                    </label>
+                                                </div>
+                                                <div className="returnInputColumn">
+                                                    {this.returnExtraCost("finish")}
+                                                </div>
+                                            </div>
+                                            <div className="errorContent">
+                                                <p className={this.state.isChecked ? this.state.displayError : "displayError hide"}>
+                                                    Numbers Only
+                                                </p>
+                                            </div>
+                                            <div className="inputFormContainer">
+                                                <div className="formParaSection">
+                                                    <p className="pargraphClass">Finish code (if any)</p>
+                                                </div>
+                                                <div className="modalInputCategory">
+                                                    <input
+                                                        type="text"
+                                                        name="finishCode"
+                                                        placeholder="Ex. #4erfd, 8fds@ etc."
+                                                        onChange={this.onChangeHandler}
+                                                        ref="finishCode"
+                                                    />
+                                                    <span className="InputSeparatorLine"> </span>
+                                                </div>
+                                            </div>
+                                            <div className="proceedOrNotCheck">
+                                                <GradientButton
+                                                    runFunction={() => this.proceedHandler("finish")}
+                                                >
+                                                    Proceed
+                                                </GradientButton>
+                                            </div>
+                                            {this.displayErrorModal("finish")}
                                         </div>
                                     </div>
-
-                                    <div className="proceedOrNotCheck">
-                                        <GradientButton
-                                            runFunction={() => this.proceedHandler("finish")}
-                                        >
-                                            Proceed
-                                    </GradientButton>
-                                    </div>
-                                    {this.displayErrorModal("finish")}
                                 </div>
                             </div>
                         </div>
@@ -1900,14 +1987,14 @@ class AddProductDetails extends React.Component {
                                                     <div className="switchContainerParagraph">
                                                         <p>Is there an extra cost over base price ?</p>
                                                     </div>
-                                                    <label class="switch">
+                                                    <label className="switch">
                                                         <input 
                                                             ref="switch"
                                                             checked={this.state.isChecked}
                                                             onChange={() => this.onToggleSwitch()}
                                                             className="switch"
                                                             type="checkbox"/>
-                                                        <span class="slider round"></span>
+                                                        <span className="slider round"></span>
                                                     </label>
                                                 </div>
                                                 <div className="returnInputColumn">
@@ -1981,14 +2068,14 @@ class AddProductDetails extends React.Component {
                                         <div className="switchContainerParagraph">
                                             <p>Is there an extra cost over base price ?</p>
                                         </div>
-                                        <label class="switch">
+                                        <label className="switch">
                                             <input 
                                                 ref="switch"
                                                 checked={this.state.isChecked}
                                                 onChange={() => this.onToggleSwitch()}
                                                 className="switch"
                                                 type="checkbox"/>
-                                            <span class="slider round"></span>
+                                            <span className="slider round"></span>
                                         </label>
                                     </div>
                                     <div className="returnInputColumn">
@@ -2055,14 +2142,14 @@ class AddProductDetails extends React.Component {
                                         <div className="switchContainerParagraph">
                                             <p>Is there an extra cost over base price ?</p>
                                         </div>
-                                        <label class="switch">
+                                        <label className="switch">
                                             <input 
                                                 ref="switch"
                                                 checked={this.state.isChecked}
                                                 onChange={() => this.onToggleSwitch()}
                                                 className="switch"
                                                 type="checkbox"/>
-                                            <span class="slider round"></span>
+                                            <span className="slider round"></span>
                                         </label>
                                     </div>
                                     <div className="returnInputColumn">
@@ -2093,54 +2180,134 @@ class AddProductDetails extends React.Component {
 
 
             else if (modalType === "validation") {
-                return (
-                    <div className={this.state.modalClassToggle}>
-                        <div className="dummyXClass">
-                            <div className="whiteSquareForModal">
-                                <div className="addProductDetailsModal">
-                                    <div className="svgImageContainer">
-                                        <ErrorMsgSign />
-                                    </div>
-                                    <div className="modalContentContainer">
-                                        <div className="modalContentContainerInnerLayer">
-                                            <div className="content">
-                                                <h3>Please provide the following details</h3>
-                                                <div className="detailsToInput">
-                                                    <div className="detailsInputLayer">
-                                                        <div className="notFilledSection">
-                                                            {this
-                                                                .state
-                                                                .emptyField
-                                                                .map((item, i) =>
-                                                                <div
-                                                                    className="errorFieldMessage"
-                                                                    key={i}>
-                                                                        <ul>
-                                                                            <li>
-                                                                                <p>{item}</p>
-                                                                            </li>
-                                                                        </ul>
-                                                                </div>
-                                                            )}
+                if (this.state.emptyField.length !== 0) {
+                    return (
+                        <div className={this.state.modalClassToggle}>
+                            <div className="dummyXClass">
+                                <div className="whiteSquareForModal">
+                                    <div className="addProductDetailsModal">
+                                        <div className="svgImageContainer">
+                                            <ErrorMsgSign />
+                                        </div>
+                                        <div className="modalContentContainer">
+                                            <div className="modalContentContainerInnerLayer">
+                                                <div className="content">
+                                                    <h3>Please provide the following details</h3>
+                                                    <div className="detailsToInput">
+                                                        <div className="detailsInputLayer">
+                                                            <div className="notFilledSection">
+                                                                {this
+                                                                    .state
+                                                                    .emptyField
+                                                                    .map((item, i) =>
+                                                                        <div
+                                                                            className="errorFieldMessage"
+                                                                            key={i}>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <p>{item}</p>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    )}
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className="closeModalContainer">
-                                        <WhiteButton
-                                            runFunction={() => this.modalClassToggle("dontShow")}
-                                        >
-                                            Sure, I’ll do that
+                                        <div className="closeModalContainer">
+                                            <WhiteButton
+                                                runFunction={() => this.modalClassToggle("dontShow")}
+                                            >
+                                                Sure, I’ll do that
                                         </WhiteButton>
-                                    </div>
+                                        </div>
 
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                )
+                    )
+                }
+
+                else if (this.state.emptyField.length === 0) {
+                    return (
+                        <div className={this.state.modalClassToggle}>
+                            <div className="dummyXClass">
+                                <div className="whiteSquareForModal">
+                                    <div className="addProductDetailsModal">
+                                        <div className="modalContentContainer">
+                                            <div className="modalContentContainerInnerLayer">
+                                                <div className="content">
+                                                    <h3>Please choose product image thumbnail</h3>
+                                                    <div className="line"></div>
+                                                    <div className="detailsToInput">
+                                                        <div className="imageInput">
+                                                        {/* <div className="detailsInputLayer">
+                                                            <div className="notFilledSection"> */}
+                                                                {/* {this
+                                                                    .state
+                                                                    .productImagesObject
+                                                                    .imagesInCategory
+                                                                    .map((item, i) => {
+                                                                        return (
+                                                                            <div
+                                                                                className="productImagesForThumbnail"
+                                                                                key={i}
+                                                                            >
+                                                                                <img
+                                                                                    src={item.imageURL}
+                                                                                    alt=""
+                                                                                    style={{ width: "3em", height: "3em" }}
+                                                                                    onClick={() => {
+                                                                                        this.setState({
+                                                                                            productImageThumbnail: item.imageURL
+                                                                                        })
+                                                                                    }}
+                                                                                />
+                                                                            </div>
+                                                                        )
+                                                                    }
+                                                                    )} */}
+                                                                <HtmlSlider
+                                                                    categoryData={this.state.productImagesObject} // format of Item 
+                                                                    numberOfSlides={3} // Change the css grid properties for responsiveness
+                                                                    textOnRibbon={"TRENDING NOW"} // All caps
+                                                                    runFunction={(data) => {
+                                                                        this.setState({
+                                                                            productImageThumbnail: data.imageURL,
+                                                                            showFinalProceed: "showFinalProceed"
+                                                                        })
+                                                                    }}
+                                                                />
+                                                                </div>
+                                                            {/* </div> */}
+                                                        {/* </div> */}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className={this.state.showFinalProceed}>
+                                            <img 
+                                                src={this.state.productImageThumbnail} 
+                                                alt=""
+                                                style={{ width: "5em", height: "5em" }}
+                                            />
+
+                                            <GradientButton
+                                                runFunction={() => console.log("wrks")}>
+                                                Proceed
+                                            </GradientButton>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                }
             }
         }
 
@@ -2175,6 +2342,35 @@ class AddProductDetails extends React.Component {
         )
     }
 
+    checkForValue = () => {
+        const { productMinQuantity, productMaxQuantity } = this.state;
+
+        if (productMaxQuantity) {
+            console.log("productMaxQuantity", productMaxQuantity)
+            if (productMaxQuantity !== 0){
+                if (productMinQuantity > productMaxQuantity) {
+                    this.setState({
+                        productQuantityErrorMessage: "productQuantityErrorMessage"
+                    })
+                }
+                else if (productMinQuantity < productMaxQuantity) {
+                    this.setState({
+                        productQuantityErrorMessage: "productQuantityErrorMessage hide"
+                    })
+                }
+            }
+
+            else if (productMaxQuantity === 0) {
+                console.log("Wrks")
+                this.setState({
+                    productQuantityErrorMessage: "productQuantityErrorMessage hide"
+                })
+            }
+        }
+
+        
+    }
+
     onToggleSwitch = async () => {
         await this.setState({ isChecked: !this.state.isChecked });
 
@@ -2192,7 +2388,9 @@ class AddProductDetails extends React.Component {
            { fieldName: 'Color Options', value: this.state.colorArray },
            { fieldName: 'Sizes Available', value: this.state.productDimensions },
            { fieldName: 'Min. quantity', value: this.state.productMinQuantity },
-           { fieldName: 'Max. quantity', value: this.state.productMaxQuantity },
+        //    { fieldName: 'Max. quantity', value: this.state.productMaxQuantity },
+           { fieldName: `${this.state.productQuantityErrorMessage !== "productQuantityErrorMessage" ?
+                                    'Max. quantity' : 'Max. quantity value'}`, value: this.state.productMaxQuantity },
            { fieldName: 'Product Design', value: this.state.categoryStylesAdded },
            { fieldName: 'Product Tags', value: this.state.tagsAdded },
            { fieldName: 'Product Type', value: this.state.productType },
@@ -2201,7 +2399,8 @@ class AddProductDetails extends React.Component {
                                 (this.state.productDiscount === undefined ?
                                     'Product Discount Value'  : null) : 
                                     'Product Discount Availability'}`, 
-                                        value: this.state.productDiscount }
+                                        value: this.state.productDiscount },
+           { fieldName: 'Product Image', value: this.state.productImagesObject.imagesInCategory }
        ]
 
        await this.setState({
@@ -2285,37 +2484,36 @@ class AddProductDetails extends React.Component {
                                                                 </div>
                                                             </header>
 
-                                                            <ImageUploader
-                                                                imageType = "regularImage" // regularImage || profileImage
-                                                                resultData = {(data) => console.log(data)}
-                                                                showInitialImage = "" // image src link // optional
-                                                                imageClassName="productImage" // unique name for each instance
-                                                            />
+                                                            <div className="productImageUploaderRender">
+                                                                {
+                                                                    this.state.productImage === "" 
+                                                                    ? 
+                                                                    <div className="productImageUploaderClass">
+                                                                        <ImageUploader
+                                                                            imageType="regularImage" // regularImage || profileImage
+                                                                            resultData={(data) => {
+                                                                                this.setState({
+                                                                                    productImage: data.imageURL
+                                                                                })
+                                                                                this.productImageUpload();
+                                                                            }}
+                                                                            showInitialImage={this.state.productImage !== "" ? this.state.productImage : ""}
+                                                                            imageClassName="productImageClass"
+                                                                        />
+                                                                    </div>
+                                                                    :
+                                                                    <div className="productImageUploaderClass"></div>
+                                                                
+                                                                }
+                                                            </div>
                                                         </div>
                                                     </div>
 
                                                 </div>
                                             </div>
-
+                                            
                                             <div className="imageUploadDownSection">
-
-                                                <header className="uploadedHeaderSection">
-                                                    <div className="headingArea">
-                                                        <h3 className="headingColumn">Uploaded images</h3>
-
-                                                        <div className="line"></div>
-                                                    </div>
-                                                </header>
-
-                                                <div className="downSectionInnerLayer">
-                                                    <HtmlSlider
-                                                        categoryData={this.returnVariationImages()} // format of Item 
-                                                        numberOfSlides={4} // Change the css grid properties for responsiveness
-                                                        textOnRibbon={"TRENDING NOW"} // All caps
-                                                        runFunction={(data) => this.getData(data)}
-                                                    />
-                                                </div>
-
+                                                {this.returnHtmlSliderforproductImagesObject()}
                                             </div>
 
                                         </section>
@@ -2480,7 +2678,7 @@ class AddProductDetails extends React.Component {
                                                         <p className="pargraphClass"> Finishing options </p>
                                                     </div>
 
-                                                    <div className="productMaterialSection">
+                                                    <div className="productFinishSection">
 
                                                         {this.returnProductFinishes()}
 
@@ -2583,9 +2781,12 @@ class AddProductDetails extends React.Component {
                                                             validationType="onlyNumbers"
                                                             characterCount="20"
                                                             value={this.state.productMinQuantity ? this.state.productMinQuantity : null}
-                                                            result={(val) => this.setState({
-                                                                productMinQuantity: val
-                                                            })}
+                                                            result={(val) => {
+                                                                this.setState({
+                                                                    productMinQuantity: val
+                                                                })
+                                                                this.checkForValue()
+                                                            }}
                                                         />
                                                     </div>
                                                 </div> 
@@ -2601,11 +2802,18 @@ class AddProductDetails extends React.Component {
                                                             isMandatory={true}
                                                             validationType="onlyNumbers"
                                                             characterCount="20"
-                                                            result={(val) => this.setState({
-                                                                productMaxQuantity: val
-                                                            })}
+                                                            result={(val) => {
+                                                                this.setState({
+                                                                    productMaxQuantity: val
+                                                                })
+                                                                this.checkForValue()
+                                                        }}
                                                         />
                                                     </div>
+                                                </div>
+
+                                                <div className={this.state.productQuantityErrorMessage}>
+                                                    <p>Max. quantity should be greater than Min. quantity</p>
                                                 </div>
 
                                                 <div className="inputFormContainer">
@@ -2686,8 +2894,11 @@ class AddProductDetails extends React.Component {
 
                                                     <div className="inputCategoryTagSection">
                                                         <div className="tagInputContainer">
-
+                                                        <div className="modalMandatorySection">
+                                                            <p className="madatoryHighlight">Mandatory</p>
+                                                        </div>
                                                             <div className="materialInfoColumn">
+            
                                                                 <input
                                                                     placeholder="For Ex. Sofa"
                                                                     ref="tagInput"
@@ -2806,8 +3017,7 @@ class AddProductDetails extends React.Component {
                                                                 <p>No, there is no discount</p>
                                                             </div>
                                                         </div>
-                                                    </div>
-    
+                                                    </div>    
                                                 </div>
                                             </div>
                                         </section>
@@ -2820,11 +3030,11 @@ class AddProductDetails extends React.Component {
                                                             this.modalClassToggle("show")
                                                             this.setState({
                                                                 modalType : "validation"
-                                                            })                    
+                                                            })                  
                                                         }}>
-                                                    Proceed
+                                                    Save and Proceed
                                                 </GradientButton>
-                                            </div>
+                                            </div>      
                                         </div>
 
                                     </article>
@@ -2861,3 +3071,14 @@ const matchDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(AddProductDetails)
+
+
+
+    // handleStyleSelection = (styleData) => {
+    //     this.state.categoryStylesAdded.push(styleData.styleTitle)
+    //     let dummyArray = [...new Set(this.state.categoryStylesAdded.map(item => item))]
+
+    //     this.setState({
+    //         categoryStylesAdded : dummyArray
+    //     })
+    // }

@@ -76,12 +76,18 @@ export class InputForm extends React.Component {
             })
 
             if (this.props.isMandatory) {
-                if (val === "")
+                if (val === ""){
                     this.setState({
                         warningText: "This information is required",
                         warningClass: "warningClass",
                         fieldIsValid: false,
                     })
+
+                    this
+                        .props
+                        .result(val)
+                }
+                    
             }
 
             if (!/^[a-zA-Z]*$/g.test(val))
@@ -112,12 +118,18 @@ export class InputForm extends React.Component {
             })
 
             if (this.props.isMandatory) {
-                if (val === "")
+                if (val === ""){
                     this.setState({
                         warningText: "This information is required",
                         warningClass: "warningClass",
                         fieldIsValid: false,
                     })
+
+                    this
+                        .props
+                        .result(val)
+                }
+                    
             }
 
             if (!/^[0-9a-zA-Z]*$/g.test(val))
@@ -234,6 +246,10 @@ export class InputForm extends React.Component {
                         warningClass: "warningClass",
                         fieldIsValid: false,
                     })
+
+                    this
+                        .props
+                        .result(0)
                 }
 
 
@@ -244,6 +260,10 @@ export class InputForm extends React.Component {
                         warningClass: "warningClass hide",
                         fieldIsValid: true,
                     })
+
+                    this
+                        .props
+                        .result(0)
                 }
 
 
@@ -270,13 +290,21 @@ export class InputForm extends React.Component {
                 charCount: Number(this.props.characterCount) - val.length
             })
 
-            if (this.props.isMandatory)
-                if (val === "")
+            if (this.props.isMandatory){
+                if (val === ""){
                     this.setState({
                         warningText: "This information is required",
                         warningClass: "warningClass",
                         fieldIsValid: false,
                     })
+
+                    this
+                        .props
+                        .result(val)
+                }
+                    
+            }
+                
 
 
             if (val !== "") {
