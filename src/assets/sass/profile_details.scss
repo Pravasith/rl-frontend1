@@ -231,11 +231,13 @@ input[type=number]::-webkit-outer-spin-button {
                                                         padding: 0.2em 0.5em;
                                                     }
                                                 }
+                                                
                                                 .radioButtonSelection{
                                                     @include flexCentreRow;
                                                     justify-content: flex-start;
                                                     align-items: flex-start;
                                                     width: 70%;
+                                                    margin-left: 1em;
                                                     .radioButtonSelectionInnerLayer{
                                                         @include flexCentreRow;
                                                         width: 100%;
@@ -247,18 +249,18 @@ input[type=number]::-webkit-outer-spin-button {
                                                                 margin-left: 0.5em;
                                                                 width: 70%;
                                                                 .radio-inline{
-                                                                    @include flexCentreRow;
-                                                                    margin: 0.5em;
-                                                                    input{
-                                                                        width: 10%;
-                                                                        cursor: pointer;
-                                                                    }
-                                                                    p{
-                                                                        width: 80%;
-                                                                        font-size: 1em;
-                                                                    }
+                                                                //     @include flexCentreRow;
+                                                                //     margin: 0.5em;
+                                                                //     input{
+                                                                //         width: 10%;
+                                                                //         cursor: pointer;
+                                                                //     }
+                                                                //     p{
+                                                                //         width: 80%;
+                                                                //         font-size: 1em;
+                                                                //     }
                                                                     .checkmark{
-                                                                        margin-top: 1em;
+                                                                        margin-top: 0.4em;
                                                                     }
                                                                 }
                                                             }
