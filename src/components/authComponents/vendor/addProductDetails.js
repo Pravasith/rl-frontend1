@@ -1851,7 +1851,7 @@ class AddProductDetails extends React.Component {
                                                     <div className="switchContainerParagraph">
                                                         <p>Is there an extra cost over base price ?</p>
                                                     </div>
-                                                    <label class="switch">
+                                                    <label className="switch">
                                                         <input
                                                             ref="switch"
                                                             checked={this.state.isChecked}
@@ -1984,7 +1984,7 @@ class AddProductDetails extends React.Component {
                                                     <div className="switchContainerParagraph">
                                                         <p>Is there an extra cost over base price ?</p>
                                                     </div>
-                                                    <label class="switch">
+                                                    <label className="switch">
                                                         <input 
                                                             ref="switch"
                                                             checked={this.state.isChecked}
@@ -2065,7 +2065,7 @@ class AddProductDetails extends React.Component {
                                         <div className="switchContainerParagraph">
                                             <p>Is there an extra cost over base price ?</p>
                                         </div>
-                                        <label class="switch">
+                                        <label className="switch">
                                             <input 
                                                 ref="switch"
                                                 checked={this.state.isChecked}
@@ -2139,7 +2139,7 @@ class AddProductDetails extends React.Component {
                                         <div className="switchContainerParagraph">
                                             <p>Is there an extra cost over base price ?</p>
                                         </div>
-                                        <label class="switch">
+                                        <label className="switch">
                                             <input 
                                                 ref="switch"
                                                 checked={this.state.isChecked}
