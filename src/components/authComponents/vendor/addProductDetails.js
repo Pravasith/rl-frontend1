@@ -331,56 +331,82 @@ class AddProductDetails extends React.Component {
         })
      }
 
-     handleStyleSelection = (styleData) => {
-        this.state.categoryStylesAdded.push(styleData.styleTitle)
-        let dummyArray = [...new Set(this.state.categoryStylesAdded.map(item => item))]
+    
 
-        this.setState({
-            categoryStylesAdded : dummyArray
-        })
-    }
+    removeStyles = (index) => {
 
-    removeCategory = (index) => {
+        const styleArray = [ ...architectureStyles ]
+
+        const animationTimeLine = new TimelineLite()
+
         this
             .state
             .categoryStylesAdded
             .splice(index, 1)
+
+            
+            animationTimeLine.set(
+                ".checkBoxNumber" + index,
+                {
+                    "background" : "#FFFFFF"
+                }
+            )
 
             this.setState({
                 categoryStylesAdded: this.state.categoryStylesAdded.length !== 0 ? this.state.categoryStylesAdded : []
             })
     }
 
+    handleStyleSelection = (styleDataIndex,styleData) => {
+
+        const animationTimeLine = new TimelineLite()
+
+        console.log(styleDataIndex)
+
+        animationTimeLine.set(
+            ".checkBoxNumber" + styleDataIndex,
+            {
+                "background" : "#ff2c6b"
+            }
+        )
+
+        console.log(this.state.categoryStylesAdded)
+
+        this.state.categoryStylesAdded.push(styleData.styleTitle)
+        let dummyArray = [...new Set(this.state.categoryStylesAdded.map(item => item))]
+        
+        this.setState({
+            categoryStylesAdded : dummyArray
+        })
+       
+    }
 
 
     returnCategoryContent = () => {
 
         const styleArray = [ ...architectureStyles ]
-
         return (
                 styleArray
                 .map((item , i) => {
                 return(                    
                     <div 
-                        className="productStyleContainer"
+                        className={"productStyleContainer " + i }
                         key = {i}
                         onClick = {() => {
-                            this.handleStyleSelection(item)
-                            this.setState({
-                                checkBoxSelect: "checkBoxSelected"
-                            })
+                            this.handleStyleSelection(i,item)
                         }}
                         >
                         <header className="productStyleHeadingSection">
                             <div className="titleCategory">
-                                <h3>
+                                <h3
+                                >
                                     {item.styleTitle}
                                 </h3>
                                 <div className="line"></div>
                             </div>
-
                             <div
-                                className= {this.state.checkBoxSelect}
+                                key = {i}
+                                className= {"checkBoxSelect " + "checkBoxNumber" + i}
                                 >
                                 <div className="iconWrap">
                                     <TickSmallWhite/>
@@ -429,7 +455,7 @@ class AddProductDetails extends React.Component {
 
                                 <div 
                                     className ="svgImageSection"
-                                    onClick = {() => this.removeCategory(i)}
+                                    onClick = {() => this.removeStyles(i)}
                                     >
                                     <SmallCloseButton />
                                 </div>
@@ -1717,19 +1743,21 @@ class AddProductDetails extends React.Component {
 
                 <div className="imageUploaderContainer">
                     <div className="imageUploaderInnerLayerContainer">
-                        <ImageUploader
-                            imageType="regularImage" // regularImage || profileImage
-                            resultData={(data) => {
-                                this.setState({ 
-                                    productFinishImage: data.imageURL,
-                                    inputFormContainer: "inputFormContainer hide",
-                                    proceedOrNotCheck: "proceedOrNotCheck",
-                                    finishModalTitle: "Image preview"
-                                })
-                            }}
-                            showInitialImage={this.state.productFinishImage} // image src link // optional
-                            imageClassName="productFinishImageClass"
-                        />
+                        <div className="imageUploaderOuterLayer">
+                            <ImageUploader
+                                imageType="regularImage" // regularImage || profileImage
+                                resultData={(data) => {
+                                    this.setState({ 
+                                        productFinishImage: data.imageURL,
+                                        inputFormContainer: "inputFormContainer hide",
+                                        proceedOrNotCheck: "proceedOrNotCheck",
+                                        finishModalTitle: "Image preview"
+                                    })
+                                }}
+                                showInitialImage={this.state.productFinishImage} // image src link // optional
+                                imageClassName="productFinishImageClass"
+                            />
+                        </div>
 
                         <div className={this.state.proceedOrNotCheck}>
                             <GradientButton
@@ -1830,7 +1858,7 @@ class AddProductDetails extends React.Component {
                                                             onChange={() => this.onToggleSwitch()}
                                                             className="switch"
                                                             type="checkbox" />
-                                                        <span class="slider round"></span>
+                                                        <span className="slider round"></span>
                                                     </label>
                                                 </div>
                                                 <div className="returnInputColumn">
@@ -1963,7 +1991,7 @@ class AddProductDetails extends React.Component {
                                                             onChange={() => this.onToggleSwitch()}
                                                             className="switch"
                                                             type="checkbox"/>
-                                                        <span class="slider round"></span>
+                                                        <span className="slider round"></span>
                                                     </label>
                                                 </div>
                                                 <div className="returnInputColumn">
@@ -2044,7 +2072,7 @@ class AddProductDetails extends React.Component {
                                                 onChange={() => this.onToggleSwitch()}
                                                 className="switch"
                                                 type="checkbox"/>
-                                            <span class="slider round"></span>
+                                            <span className="slider round"></span>
                                         </label>
                                     </div>
                                     <div className="returnInputColumn">
@@ -2118,7 +2146,7 @@ class AddProductDetails extends React.Component {
                                                 onChange={() => this.onToggleSwitch()}
                                                 className="switch"
                                                 type="checkbox"/>
-                                            <span class="slider round"></span>
+                                            <span className="slider round"></span>
                                         </label>
                                     </div>
                                     <div className="returnInputColumn">
@@ -2210,9 +2238,11 @@ class AddProductDetails extends React.Component {
                                             <div className="modalContentContainerInnerLayer">
                                                 <div className="content">
                                                     <h3>Please choose product image thumbnail</h3>
+                                                    <div className="line"></div>
                                                     <div className="detailsToInput">
-                                                        <div className="detailsInputLayer">
-                                                            <div className="notFilledSection">
+                                                        <div className="imageInput">
+                                                        {/* <div className="detailsInputLayer">
+                                                            <div className="notFilledSection"> */}
                                                                 {/* {this
                                                                     .state
                                                                     .productImagesObject
@@ -2248,8 +2278,9 @@ class AddProductDetails extends React.Component {
                                                                         })
                                                                     }}
                                                                 />
-                                                            </div>
-                                                        </div>
+                                                                </div>
+                                                            {/* </div> */}
+                                                        {/* </div> */}
                                                     </div>
                                                 </div>
                                             </div>
@@ -2847,8 +2878,11 @@ class AddProductDetails extends React.Component {
 
                                                     <div className="inputCategoryTagSection">
                                                         <div className="tagInputContainer">
-
+                                                        <div className="modalMandatorySection">
+                                                            <p className="madatoryHighlight">Mandatory</p>
+                                                        </div>
                                                             <div className="materialInfoColumn">
+            
                                                                 <input
                                                                     placeholder="For Ex. Sofa"
                                                                     ref="tagInput"
@@ -2967,8 +3001,7 @@ class AddProductDetails extends React.Component {
                                                                 <p>No, there is no discount</p>
                                                             </div>
                                                         </div>
-                                                    </div>
-    
+                                                    </div>    
                                                 </div>
                                             </div>
                                         </section>
@@ -2985,9 +3018,9 @@ class AddProductDetails extends React.Component {
                                                                 modalType : "validation"
                                                             })                  
                                                         }}>
-                                                    Proceed
+                                                    Save and Proceed
                                                 </GradientButton>
-                                            </div>
+                                            </div>      
                                         </div>
 
                                     </article>
@@ -3024,3 +3057,14 @@ const matchDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(AddProductDetails)
+
+
+
+    // handleStyleSelection = (styleData) => {
+    //     this.state.categoryStylesAdded.push(styleData.styleTitle)
+    //     let dummyArray = [...new Set(this.state.categoryStylesAdded.map(item => item))]
+
+    //     this.setState({
+    //         categoryStylesAdded : dummyArray
+    //     })
+    // }

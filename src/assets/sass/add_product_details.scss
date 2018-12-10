@@ -337,6 +337,14 @@ input{
                                                     @include flexCentreCol;
                                                    .tagInputContainer{
                                                        @include flexCentreRow;
+                                                       .modalMandatorySection{
+                                                        background: $secondaryMagenta;
+                                                        padding: 0.2em;
+                                                        margin-right: 1em;
+                                                        .madatoryHighlight{
+                                                            color: $white;
+                                                        }
+                                                    }
                                                        .charCount{
                                                            margin-left: 0.5em;
                                                        }
@@ -439,7 +447,7 @@ input{
                                                         margin: 0.5em;
                                                         // overflow-y: auto;
                                                     .designStyleTagsInnerLayer{
-                                                        display: inline-block;
+                                                        // display: inline-block;
                                                          margin-top: 0.5em;
                                                         .tagContainer{
                                                             display: inline-flex;
@@ -483,34 +491,13 @@ input{
                                                             background: $veryLightGrey;
                                                             padding: 0.2em 0.3em 0.2em 0;
                                                             margin: 0.5em 0;
+                                                            transition: 0.2s;
+
                                                             &:hover{
                                                                 background: $white;
                                                                 @include box_shadow;
                                                                 cursor: pointer;
-                                                                .productStyleHeadingSection{
-                                                                    .checkBoxSelect{
-                                                                        background: $mediumGrey;
-                                                                        width: 1.4em;
-                                                                        height: 1.4em;
-                                                                        border-radius: 1.5em;
-                                                                        @include flexCentreRow;
-                                                                        .iconWrap{
-                                                                            @include flexCentreRow;
-                                    
-                                                                        }
-                                                                    }
-                                                                    .checkBoxSelected{
-                                                                        background: $secondaryMagenta;
-                                                                        width: 1.4em;
-                                                                        height: 1.4em;
-                                                                        border-radius: 1.5em;
-                                                                        @include flexCentreRow;
-                                                                        .iconWrap{
-                                                                            @include flexCentreRow;
-                                    
-                                                                        }
-                                                                    }
-                                                                }
+                                                                
                                                                 
                                                             }
                                                             .productStyleContentSection{
@@ -559,6 +546,17 @@ input{
                                                                     @include flexCentreRow;
                                                                     .iconWrap{
                                                                         @include flexCentreRow;
+                                                                    }
+                                                                }
+                                                                .checkBoxSelected{
+                                                                    background: $secondaryMagenta;
+                                                                    width: 1.4em;
+                                                                    height: 1.4em;
+                                                                    border-radius: 1.5em;
+                                                                    @include flexCentreRow;
+                                                                    .iconWrap{
+                                                                        @include flexCentreRow;
+                                
                                                                     }
                                                                 }
                                                             }
@@ -620,7 +618,7 @@ input{
 
                                                             p{
                                                                 cursor: pointer;
-                                                                font-size: 0.8em;
+                                                                font-size: 0.9em;
                                                                 color: $darkGrey;
                                                                 font-weight: 500;
                                                                 font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -629,6 +627,9 @@ input{
                                                             .nonErrorContent{
                                                                 @include flexCentreRow;
                                                                 // align-items: flex-start;
+                                                                p{
+                                                                    font-size: 0.9em;
+                                                                }
 
                                                                 .inputSection{
                                                                     @include flexCentreRow;
@@ -670,7 +671,7 @@ input{
                                                 }
 
                                                 .productFinishSection{
-                                                    width: 100%;
+                                                    // width: 100%;
                                                     margin: 0.5em 0;
                                                     .productFinishDescriptionOuterLayer{
                                                          @include flexCentreRow;
@@ -687,6 +688,7 @@ input{
                                                                 img{
                                                                      width: 5em;
                                                                      height: 5em;
+                                                                     object-fit: cover;
                                                                 }
                                                             }
                                                             .productFinishDetails{
@@ -694,6 +696,9 @@ input{
                                                                 .finishCostCartWrap{
                                                                     @include flexCentreRow;
                                                                     justify-content: flex-start;
+                                                                    h3{
+                                                                        font-size: 0.9em;
+                                                                    }
                                                                     p{  
                                                                         font-size: 0.9em;
                                                                         margin-left: 0.5em;
@@ -704,6 +709,9 @@ input{
                                                                     .finishCodeCartWrapReturn{
                                                                          @include flexCentreRow;
                                                                          justify-content: flex-start;
+                                                                         h3{
+                                                                            font-size: 0.9em;
+                                                                        }
                                                                         p{
                                                                             font-size: 0.9em;
                                                                             margin-left: 0.5em;
@@ -930,7 +938,7 @@ input{
                                                             align-items: flex-start;
                                                             width: 100%;
                                                             height: 100%;
-                                                            background: $veryLightGrey;
+                                                            // background: $veryLightGrey;
                                                             cursor: pointer;                                                            
                                                             .addButtonContainer{
                                                             @include flexCentreCol;
@@ -1058,6 +1066,7 @@ input{
                 height: 100%;
 
                 .dummyXClass{
+
                     
                     .whiteSquareForModal{
 
@@ -1072,14 +1081,62 @@ input{
                                 margin: 0.5em 0 ;
                                 .modalContentContainerInnerLayer{
                                     .content{
+                                        @include flexCentreCol;
                                         h3{
                                             text-align: center;
+                                        }
+                                        .line{
+                                            background: $secondaryMagenta;
+                                            width: 20%;
                                         }
                                         .detailsToInput{
                                             width: 100%;
                                             // height: 7em;
                                             margin: 1em 0;
                                             overflow-y: auto;
+                                            .imageInput{
+                                                width: 23em;
+                                            .productView{
+
+                                                width: 100%;
+                                            
+                                                .innerViewProductLayer{
+                                                    width: 100%;
+                                                    height: 5em;
+                                                    .imageContainerMiddleLayer{
+                                                        display: grid;
+                                                        grid-template-columns: 1fr 1fr 1fr;
+                                                        height: 100%;
+                                                        .outerMostLayer{
+                                                            width: 90%;
+                                                            margin: 0.2em;
+                                                            border: 0.1em solid $darkGrey;
+                                                            .innerWrapperImage{
+                                                                height: 100%;
+                                                                .productCatalogueImage{
+                                                                    height: 100%;
+                                                                    .outerProductImageLayer{
+                                                                        padding: 0.2em 0.1em;
+                                                                        height: 86%;
+                                                                        width: 89%;
+                                                                        .innerImageLayer{
+                                                                            height: 100%;
+                                                                            .imgConatiner{
+                                                                                height: 100%;
+                                                                                .imgOuterLayer{
+                                                                                    padding-bottom: 80%;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+
+                                            }
+                                        }
                                             .detailsInputLayer{
                                                 height: 100%;
                                                 margin-top: 0.5em;
@@ -1104,6 +1161,15 @@ input{
                                             }
                                         }
                                     }
+                                }
+                            }
+
+                            .showFinalProceed{
+                                @include flexCentreCol;
+                                img{
+                                    width: 5em;
+                                    height: 5em;
+                                    object-fit: cover;
                                 }
                             }
 
@@ -1144,6 +1210,7 @@ input{
                             padding: 0.8em;
                             @include box_shadow;
                             .modalContentWrap{
+                                // width: 23em;
                                 .modalContentClass,.modalFinishClass,.modalSizeClass,.modalMaterialClass,.modalFinishDetailsClass{
                                     .dummyXClass{
 
@@ -1181,6 +1248,13 @@ input{
                                             .imageUploaderContainer{
                                                 .imageUploaderInnerLayerContainer{
                                                     width: 100%;
+                                                    .imageUploaderOuterLayer{
+                                                        @include flexCentreRow;
+                                                        width: 100%;
+                                                        .imageUploaderWrap{
+                                                            width: 65%;
+                                                        }
+                                                    }
                                                 }
                                             }
 
@@ -1275,8 +1349,8 @@ input{
                                                         width: 50%;
                                                     }
                                                     .exampleUploadedImgThumbnail{
-                                                        width: 10%;
-                                                        margin-top: 0.5em;
+                                                        width: 17%;
+                                                        margin-right: 0.5em;
                                                         img{
                                                             width: 3em;
                                                             height: 3em;
