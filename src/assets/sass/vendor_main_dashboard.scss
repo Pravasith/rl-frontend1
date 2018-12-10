@@ -848,7 +848,7 @@ input{
                                         width: 7em;
                                         height: 7em;
                                         background: $white;
-                                        @include box_shadow;
+                                        // @include box_shadow;
                                         .logoImageContainerInnerLayer{
                                             width: 6.2em;
                                             height: 6.2em;
@@ -926,7 +926,7 @@ input{
                                                         border-radius: 50%;
                                                         background: $white;
                                                         padding: 0.3em;
-                                                        @include box_shadow;
+                                                        // @include box_shadow;
                                                         img{
                                                             width: 4em;
                                                             height: 4em;

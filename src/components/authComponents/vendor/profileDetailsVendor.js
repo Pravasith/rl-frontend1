@@ -994,7 +994,7 @@ class ProfileDetailsVendor extends React.Component {
                                                             placeholder="You can show off a little here, write something great about your company"
                                                             isMandatory={true}
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
-                                                            characterCount="100"
+                                                            characterCount="300"
                                                             value={this.state.companyDescriptionLine1 ? this.state.companyDescriptionLine1 : null}
                                                             result={val => this.updateVendorData("companyDescriptionLine1", val)}
                                                         />
@@ -1005,7 +1005,7 @@ class ProfileDetailsVendor extends React.Component {
                                                             placeholder="For example - We sell the toughest and most transparent glass panels in India"
                                                             isMandatory={false}
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
-                                                            characterCount="100"
+                                                            characterCount="300"
                                                             value={this.state.companyDescriptionLine2 ? this.state.companyDescriptionLine2 : null}
                                                             result={val => this.updateVendorData("companyDescriptionLine2", val)}
                                                         />
