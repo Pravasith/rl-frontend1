@@ -1254,7 +1254,6 @@ input{
                 .vendorGraphicCenter{
                     @include flexCentreCol;
                     width: 100%;
-                    margin-top: 1em;
                     .categorisedProductsDisplay{
                         @include flexCentreRow;
                         width: 100%;
@@ -1268,33 +1267,52 @@ input{
                             .mainCategoryHead{
                                 @include flexCentreRow;
                                 justify-content: space-between;
-                                width: 24%;
+                                // width: 30%;
                                 .categoryMainHeaderContainer{
                                     @include flexCentreCol;
+                                    align-items: flex-start;
+                                    h3{
+                                        font-size: 1.2em;
+                                        color: $darkerGrey;
+                                    }
                                     .line{
                                         background: $primaryMagenta;
+                                        // width: 34%;
                                     }
+                                }
+                                .deleteCategoryContainer{
+                                    cursor: pointer;
+                                    margin-left: 1em;
                                 }
                             }
                             .subCategoryHead{
                                 @include flexCentreRow;
                                 width: 100%;
+                                margin: 0.5em 0 1em 0;
                                 .subCategoryHeadInnerSection{
                                     @include flexCentreCol;
                                     align-items: flex-start;
-                                    width: 100%;
+                                    width: 95%;
                                     .subCategoryHeaderSection{
+                                        h3{
+                                            color: $darkerGrey;
+                                        }
                                         .line{
                                             width: 50%;
                                         }
                                     }
                                     .addProductCategorySection{
+                                        @include flexCentreRow;
+                                        justify-content: flex-start;
+                                        width: 100%;
+                                        margin-top: 0.5em;
                                         .addNewProductButton{
                                             width: 10em;
                                             height: 10em;
                                             background: $white;
                                             padding: 0.5em;
                                             @include box_shadow;
+                                            cursor: pointer;
                                             .addNewProductButtonInnerLayer{
                                                 @include flexCentreCol;
                                                 background: $lightGrey;
@@ -1308,7 +1326,10 @@ input{
                                             }
                                         }
                                         .subCategoryProductSection{
+                                            @include flexCentreRow;
+                                            .subCategoryProductSectionInnerLayer{
 
+                                            }
                                         }
                                     }
                                 }

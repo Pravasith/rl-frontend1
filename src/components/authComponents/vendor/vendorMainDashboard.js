@@ -292,7 +292,7 @@ class VendorMainDashboard extends React.Component {
                         this.setState({
                             responseCompanyName : decryptedData.companyName,
                             responseCompanyDescription : decryptedData.companyDescriptionLine1 + " " + decryptedData.companyDescriptionLine2,
-                            responseExperience : decryptedData.experience.years,
+                            responseExperience : decryptedData.experience ? decryptedData.experience.years : "",
                             companyProfilePicture : decryptedData.companyProfilePicture
                         })
                     }
