@@ -312,6 +312,10 @@ class VendorMainDashboard extends React.Component {
             })
     }
 
+    componentDidUpdate() {
+        console.log(this.state.categoriesSelected)
+    }
+
     onSelect = (e) => {
         this.setState({
             categoryName: e.target.value
@@ -405,6 +409,14 @@ class VendorMainDashboard extends React.Component {
         }
     }
 
+    deleteCategory = (index) => {
+        this.state.categoriesSelected.splice(index, 1)
+
+        let dummyArray = [...this.state.categoriesSelected]
+        this.setState({
+            categoriesSelected: dummyArray
+        })
+    }
 
     returnCategorisedProducts = () => {
         const { categoriesSelected } = this.state
@@ -431,7 +443,7 @@ class VendorMainDashboard extends React.Component {
 
                                 <div className="subCategoryProductSection">
                                     <div className="subCategoryProductSectionInnerLayer">
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -457,7 +469,10 @@ class VendorMainDashboard extends React.Component {
                                         <div className="line"></div>
                                     </div>
 
-                                    <div className="deleteCategoryContainer">
+                                    <div 
+                                        className="deleteCategoryContainer"
+                                        onClick={() => this.deleteCategory(i)}
+                                        >
                                         <CloseButton />
                                     </div>
                                 </div>
@@ -838,8 +853,6 @@ class VendorMainDashboard extends React.Component {
         
 
         let dummyArray = [...categoriesSelected]
-
-        console.log(dummyArray)
 
         this.setState({
             categoriesSelected: dummyArray,
