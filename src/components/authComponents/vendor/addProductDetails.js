@@ -124,7 +124,7 @@ class AddProductDetails extends React.Component {
             finishModalTitle: "Add a close-up image thumbnail for this finish",
 
             finishModalContentPart: 1,
-            showFinalProceed: "showFinalProceed hide",
+            showFinalProceed: "hide",
 
             architectureStyles : architectureStyles,
 
@@ -134,6 +134,9 @@ class AddProductDetails extends React.Component {
         }
     }
 
+    componentDidUpdate() {
+        console.log(this.state.showFinalProceed, this.state.productImageThumbnail)
+    }
 
     componentDidMount = () => {
 
@@ -1824,17 +1827,18 @@ class AddProductDetails extends React.Component {
                             numberOfSlides={3} // Change the css grid properties for responsiveness
                             textOnRibbon={""} // All caps
                             runFunction={(data) => {
+                                console.log( data)
                                 this.setState({
                                     productImageThumbnail: data.imageURL,
-                                    showFinalProceed: "showFinalProceed",
-                                    finalProceed: "sendRequest"
+                                    showFinalProceed : "showFinalProceed",
+                                    // finalProceed: "sendRequest"
                                 })
                             }}
                         />
                     </div>
                 </div>
 
-                <div className={this.state.showFinalProceed}>
+                <div className= {this.state.showFinalProceed}>
                     <img 
                         src={this.state.productImageThumbnail} 
                         alt=""

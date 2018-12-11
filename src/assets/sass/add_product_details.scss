@@ -1108,6 +1108,11 @@ input{
                             .modalContentContainer{
                                 margin: 0.5em 0 ;
                                 .modalContentContainerInnerLayer{
+
+                                    .hide {
+                                        display: none;
+                                    }
+
                                     .content{
                                         @include flexCentreCol;
                                         h3{
@@ -1117,6 +1122,11 @@ input{
                                             background: $secondaryMagenta;
                                             width: 20%;
                                         }
+
+                                        .hide {
+                                        display: none;
+                                        }
+                                        
                                         .detailsToInput{
                                             width: 100%;
                                             // height: 7em;
@@ -1188,18 +1198,23 @@ input{
                                                 }
                                             }
                                         }
+
+                                        .showFinalProceed{
+                                        @include flexCentreCol;
+                                            img{
+                                                width: 5em;
+                                                height: 5em;
+                                                object-fit: cover;
+                                            }
+
+                                             .hide {
+                                                display: none;
+                                                }
+                                        }
                                     }
                                 }
                             }
 
-                            .showFinalProceed{
-                                @include flexCentreCol;
-                                img{
-                                    width: 5em;
-                                    height: 5em;
-                                    object-fit: cover;
-                                }
-                            }
 
                             .closeModalContainer{
                                 @include flexCentreRow;
