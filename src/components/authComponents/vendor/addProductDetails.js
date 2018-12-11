@@ -20,7 +20,8 @@ import {
     SmallModalCloseButton,
     MinusImageIcon,
     PlusImageIcon,
-    LogoLoadingAnimation
+    LogoLoadingAnimation,
+    NavBarLoadingIcon
 } from "../../../assets/images";
 
 import LogoAnimation from "../../animations/logoAnimation"
@@ -134,9 +135,7 @@ class AddProductDetails extends React.Component {
         }
     }
 
-    componentDidUpdate() {
-        console.log(this.state.showFinalProceed, this.state.productImageThumbnail)
-    }
+
 
     componentDidMount = () => {
 
@@ -156,7 +155,7 @@ class AddProductDetails extends React.Component {
                 //
 
                 const rawData = { sCId }
-                console.log(rawData)
+                // console.log(rawData)
                 
                 //
                 // Encrypt data
@@ -185,8 +184,6 @@ class AddProductDetails extends React.Component {
                     //
                     // DECRYPT REQUEST DATA
                     //
-
-                    // console.log(decryptedData)
 
                     this.setState({
                         loadingClass: 'loadingAnim hide',
@@ -1093,7 +1090,7 @@ class AddProductDetails extends React.Component {
                             categoryData={this.state.productImagesObject} // format of Item 
                             numberOfSlides={3} // Change the css grid properties for responsiveness
                             textOnRibbon={"TRENDING NOW"} // All caps
-                            runFunction={(data) => this.getData(data)}
+                            runFunction={(data) => {}}
                         />
                     </div>
                 </div>
@@ -1813,7 +1810,10 @@ class AddProductDetails extends React.Component {
     }
 
     sendProductsDataToBackend = () => {
-        console.log("works")
+        // console.log("works")
+        this.setState({
+            finalProceed : "sendRequest"
+        })
     }
 
     returnProductsContent = () => {
@@ -1829,7 +1829,7 @@ class AddProductDetails extends React.Component {
                             numberOfSlides={3} // Change the css grid properties for responsiveness
                             textOnRibbon={""} // All caps
                             runFunction={(data) => {
-                                console.log( data)
+                                // console.log( data)
                                 this.setState({
                                     productImageThumbnail: data.imageURL,
                                     showFinalProceed : "showFinalProceed",
@@ -1859,9 +1859,12 @@ class AddProductDetails extends React.Component {
 
         else if(this.state.finalProceed === "sendRequest"){
             return(
-                <LogoLoadingAnimation
-                    text = "Saving your product..."
-                />
+                <div className="loadingWrapperProducts">
+                    <NavBarLoadingIcon/>
+                    <h3 className="loadingHeader">
+                        {this.props.userData.firstName}, we are saving your product...
+                    </h3>
+                </div>
             )
         }
     }
