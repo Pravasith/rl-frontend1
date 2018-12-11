@@ -8,10 +8,10 @@ import { bindActionCreators } from "redux"
 import Navbar from "../../navbar/navbar"
 import { hitApi, navBarLoadingAnimationShowHide } from "../../../actions/generalActions";
 import { getUserData } from "../../../actions/userActions"
-import { encryptData, decryptData } from "../../../factories/encryptDecrypt";
+import { decryptData } from "../../../factories/encryptDecrypt";
 import { Footer } from "../../footer/footer"
 
-import { CloseButton, LogoLoadingAnimation, BigAnimatedCloseButton, TickSmallWhite, NavBarLoadingIcon } from "../../../assets/images"
+import { CloseButton, LogoLoadingAnimation, BigAnimatedCloseButton, TickSmallWhite } from "../../../assets/images"
 import { WhiteArrowLeft, WhiteArrowRight, UploadImageIcon, PlusButtonIconWhite, AddNewProduct, VendorGraphic, ArrowMarkLong, BigCloseButton, SmallCloseButton } from "../../../assets/images";
 import LogoAnimation from "../../animations/logoAnimation";
 import { GradientButton, InputForm, SelectList, WhiteButton } from "../../UX/uxComponents";
@@ -40,11 +40,11 @@ class VendorMainDashboard extends React.Component {
             productManagerWrapperClass : "productManagerWrapperClass",
 
             // my code
-            mainHeadingClass1: 'productManager active',
-            mainHeadingClass2: 'salesManager',
+            mainHeadingClass1: 'uploadedProducts active',
+            mainHeadingClass2: 'clientData',
             firstName: null,
 
-            contentType: "productManager",
+            contentType: "uploadedProducts",
 
             categoryErrorClass : "errorMessageWrap hide",
             categoryErrorMessage : "",
@@ -55,180 +55,6 @@ class VendorMainDashboard extends React.Component {
 
             activeModalType : "categoryModal",
 
-            categoryArray:  [
-                {   
-                    categoryName: 'Barrier free products', 
-                    categoryId:    "CAT0000", 
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/barrier-free-products.jpg"
-                },
-    
-                {
-                    categoryName: 'Bathroom products',
-                    categoryId:    "CAT0001",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/bathroom-products.jpg"
-                },
-    
-                {
-                    categoryName: 'Ceiling related',
-                    categoryId:    "CAT0002",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/ceiling.jpg",
-                },
-                {
-                    categoryName: 'Construction site equipment',
-                    categoryId:    "CAT0003",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/construction-site-equipment.jpg",
-                },
-                {
-                    categoryName: 'Décor',
-                    categoryId:   "CAT0004",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/decor.jpeg",
-                },
-                {
-                    categoryName: 'Doors',
-                    categoryId:   "CAT0005",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/doors.JPG",
-                },
-    
-                {
-                    categoryName: 'Electricals',
-                    categoryId: "CAT0006",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/electricals.jpg",
-                },
-                {
-                    categoryName: 'External facades and fenestration',
-                    categoryId: "CAT0007",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/external-facades-and-fenestration.jpg",
-                },
-                {
-                    categoryName: 'Fences and perimeter enclosures',
-                    categoryId: "CAT0008",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/fences-and-perimeter-enclosures.jpg",
-                },
-                {
-                    categoryName: 'Finishing',
-                    categoryId: "CAT0009",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/finishing.jpg",
-                },
-                {
-                    categoryName: 'Fire prevention and safety', 
-                    categoryId: "CAT0010",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/fire-prevention-and-safety.png",
-                   
-                },
-                {
-                    categoryName: 'Flooring', 
-                    categoryId: "CAT0011",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/flooring.PNG",
-                },
-                {
-                    categoryName: 'Furniture', 
-                    categoryId: "CAT0012",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/furniture.jpg",
-                },
-                {
-                    categoryName: 'Hardware and fastners', 
-                    categoryId: "CAT0013",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/hardware-and-fastners.jpg",
-                },
-                {
-                    categoryName: 'Heating ventillation and air conditioning', 
-                    categoryId: "CAT0014",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/heating-ventillation-and-air-conditioning.jpg",
-                },
-                {
-                    categoryName: 'Home automations', 
-                    categoryId: "CAT0015",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/home-automation.jpg",
-                },
-                {
-                    categoryName: 'Insulation', 
-                    categoryId: "CAT0016",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/insulation.jpg",
-                },
-                {
-                    categoryName: 'Kitchen', 
-                    categoryId: "CAT0017",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/kitchen.jpg",
-                },
-                {
-                    categoryName: 'Lifts and escalators', 
-                    categoryId: "CAT0018",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/lifts-and-escalators.jpg",
-                },
-                {
-                    categoryName: 'Lighting', 
-                    categoryId: "CAT0019",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/lighting.jpg",
-                },
-                {
-                    categoryName: 'Office', 
-                    categoryId: "CAT0020",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/office.jpg",
-                },
-                {
-                    categoryName: 'Outdoor', 
-                    categoryId: "CAT0021",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/outdoor.jpg",
-                },
-                {
-                    categoryName: 'Partitions', 
-                    categoryId: "CAT0022",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/partitions.jpg",
-                },
-                {
-                    categoryName: 'Plumbing', 
-                    categoryId: "CAT0023",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/plumbing.jpg",
-                },
-                {
-                    categoryName: 'Renewable energy system', 
-                    categoryId: "CAT0024",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/renewable-energy-system.jpg",
-                },
-                {
-                    categoryName: 'Roofs', 
-                    categoryId: "CAT0025",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/roofs.jpg",
-                },
-                {
-                    categoryName: 'Safety and security', 
-                    categoryId: "CAT0026",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/safety-and-security.jpg",
-                },
-                {
-                    categoryName: 'Stairs', 
-                    categoryId: "CAT0027",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/stairs.jpg",
-                },
-                {
-                    categoryName: 'Waterproofing', 
-                    categoryId: "CAT0028",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/waterproofing.jpg",
-                },
-                {
-                    categoryName: 'Water system', 
-                    categoryId: "CAT0029",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/water-system.jpg",
-                },
-                {
-                    categoryName: 'Wellness', 
-                    categoryId: "CAT0030",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/wellness.jpg",
-                },
-                {
-                    categoryName: 'Windows', 
-                    categoryId: "CAT0031",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/windows.jpg",
-                },
-                {
-                    categoryName: 'Wood', 
-                    categoryId: "CAT0032",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/wood.jpg",
-                },
-            ],
-
-
-            subCategoryArray: []
         }
 
     }
@@ -261,18 +87,6 @@ class VendorMainDashboard extends React.Component {
                 .then((data) => {
                     let { responseData } = this.props
 
-                    /// fake request
-                    setTimeout(() => {
-                        this.setState({
-                            // recievedData: "Hello",
-                            mainContentWrap: 'mainContentWrap',
-                            internalLoaderClass: 'contentLoader hide',
-                            sectionClass: 'newCategorySection',
-                            contentWrapper: 'contentWrapper',
-                        })
-                    }, 1000)
-                    /// fake request
-
                     if (responseData.responsePayload.message !== "User credentials not found") {
 
                         //
@@ -297,10 +111,6 @@ class VendorMainDashboard extends React.Component {
                 else
                     console.error(err)
             })
-    }
-
-    componentDidUpdate() {
-        console.log(this.state.mainCategorySelection, this.state.subCategorySelection)
     }
 
     onSelect = (e) => {
@@ -368,11 +178,11 @@ class VendorMainDashboard extends React.Component {
     }
 
     toggleHeaderClass = (type) => {
-        if (type === 'productManager') {
+        if (type === 'uploadedProducts') {
             if (this.state.mainHeadingClass1 === type) {
                 this.setState({
                     mainHeadingClass1: type + ' active',
-                    mainHeadingClass2: 'salesManager',
+                    mainHeadingClass2: 'clientData',
                 })
             }
             else if (this.state.mainHeadingClass1 === type + ' active') {
@@ -381,11 +191,11 @@ class VendorMainDashboard extends React.Component {
                 })
             }
         }
-        else if (type === 'salesManager') {
+        else if (type === 'clientData') {
             if (this.state.mainHeadingClass2 === type) {
                 this.setState({
                     mainHeadingClass2: type + ' active',
-                    mainHeadingClass1: 'productManager',
+                    mainHeadingClass1: 'uploadedProducts',
                 })
             }
             else if (this.state.mainHeadingClass2 === type + ' active') {
@@ -396,51 +206,26 @@ class VendorMainDashboard extends React.Component {
         }
     }
 
-
-    returnCategorisedProducts = () => {
-        const { mainCategorySelection, subCategorySelection } = this.state;
-
-        if (mainCategorySelection) {
-            if (subCategorySelection) {
-                return (
-                    <div className="categorisedProductsDisplay">
-                        <div className="mainCategoryHead">
-                            <h3>{mainCategorySelection.categoryName}</h3>
-                        </div>
-                        <div className="subCategoryHead">
-                            <h3>{subCategorySelection.subCategoryName}</h3>
-                        </div>
-                    </div>
-                )
-            }
-        }
-
-        else {
-            return (
-                <div className="svgImageContainer">
-                    <div className="graphicSvgImageContainer">
-                        <VendorGraphic />
-                        <div className="vendorGraphicInnerContainer">
-                            <div className="vendorGraphicParaInnerLayer">
-                                <h3>Hey <span>{this.state.firstName}</span>, show your amazing products to your clients, start
-                            by clicking "Add new category" button on the top.</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )
-        }
+    returnDataFromBackendAndShow = () => {
+        setTimeout(() => {
+            this.setState({
+                recievedData: "Hello",
+                mainContentWrap: 'mainContentWrap',
+                internalLoaderClass: 'contentLoader hide',
+                sectionClass: 'newCategorySection',
+                contentWrapper:'contentWrapper',
+            })
+        }, 1000)
     }
-
 
     returnContent = () => {
         let { contentType } = this.state;
 
-        if (contentType === 'productManager'){
+        if (contentType === 'uploadedProducts'){
 
-            // {
-            //     this.returnDataFromBackendAndShow()
-            // }
+            {
+                this.returnDataFromBackendAndShow()
+            }
 
             return(
                     <div className="add">
@@ -448,8 +233,6 @@ class VendorMainDashboard extends React.Component {
                             <div className="addProductButton">
                                 <GradientButton
                                     runFunction={() => {
-
-                                        // this.selectCategoryAndSubCategory()
                                         this.setState({
                                             modalClass: 'modalClass ',
                                             productManagerWrapperClass : "productManagerWrapperClass blurClass",
@@ -464,7 +247,7 @@ class VendorMainDashboard extends React.Component {
                                 </GradientButton>
                             </div>
                             <div className={this.state.vendorInitialGraphic}>
-                                {/* <div className="svgImageContainer">
+                                <div className="svgImageContainer">
                                     <div className="graphicSvgImageContainer">
                                         <VendorGraphic/>
                                         <div className="vendorGraphicInnerContainer">
@@ -474,8 +257,7 @@ class VendorMainDashboard extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                </div> */}
-                                {this.returnCategorisedProducts()}
+                                </div>
                             </div>
                         
                         </div>
@@ -487,7 +269,7 @@ class VendorMainDashboard extends React.Component {
                     </div>
             )
         }
-        else if (contentType === 'salesManager') {
+        else if (contentType === 'clientData') {
             return (
                     <div className="clientProductWrap">
                         <div className="clientSectionInnerWrap">
@@ -532,7 +314,72 @@ class VendorMainDashboard extends React.Component {
     }
 
     returnCategoryNames = () => {
-        const {categoryArray} =  this.state
+        const categoryArray = [
+            {   
+                categoryName: 'Lighting', 
+                categoryId: "CAT-1", 
+                categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/lighting.jpg"
+            },
+
+            {
+                categoryName: 'Furniture',
+                categoryId: "CAT-2",
+                categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/furniture.jpg"
+            },
+
+            {
+                categoryName: 'Outdoor',
+                categoryId: "CAT-3",
+                categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/outdoor.png",
+            },
+            {
+                categoryName: 'Bathroom',
+                categoryId: "CAT-4",
+                categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/bathroom.jpg",
+            },
+            {
+                categoryName: 'Kitchen',
+                categoryId: "CAT-5",
+                categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/kitchen.jpg",
+            },
+            {
+                categoryName: 'Office',
+                categoryId: "CAT-6",
+                categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/office.jpg",
+            },
+
+            {
+                categoryName: 'Wellness',
+                categoryId: "CAT-7",
+                categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/wellness.jpg",
+            },
+            {
+                categoryName: 'Decor',
+                categoryId: "CAT-8",
+                categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/decor.jpg",
+            },
+            {
+                categoryName: 'Finishes',
+                categoryId: "CAT-9",
+                categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/finishes.jpg",
+            },
+            {
+                categoryName: 'Construction',
+                categoryId: "CAT-10",
+                categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/construction.jpg",
+            },
+            {
+                categoryName: 'Safety and security', 
+                categoryId: "CAT-11",
+                categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/safety-and-security.jpg",
+               
+            },
+            {
+                categoryName: 'Home automation', 
+                categoryId: "CAT-12",
+                categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/home-automation.jpg",
+            },
+        ]
         
 
         const selectThisCheckBoxAndDeselectOtherCheckBox = (i) => {
@@ -594,6 +441,7 @@ class VendorMainDashboard extends React.Component {
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -601,87 +449,9 @@ class VendorMainDashboard extends React.Component {
         })
 
     }
-
-    returnSubCategoryNames = () => {
-        const {subCategoryArray} = this.state
-
-        const selectThisCheckBoxAndDeselectOtherCheckBox = (i) => {
-            const tl = new TimelineLite()
-
-            subCategoryArray.map((item, j) => {
-                if( i !== j ){
-                    tl.set(
-                        ".SUB-CAT" + j,
-                        {
-                            background : "#FFFFFF"
-                        }
-                    )
-                }
-            })
-
-            tl.set(".SUB-CAT" + i,
-            {
-                background : "#ff2c6b"
-            })
-
-            this.setState({
-                subCategorySelection : subCategoryArray[i]
-            })
-        }
-
-
-
-  
-        return subCategoryArray.map((item, i) => {
-            return (
-                <div 
-                    className="categorySelectionContainer"
-                    key = {i}
-                    onClick = {() => {
-                        selectThisCheckBoxAndDeselectOtherCheckBox(i)
-                    }}
-                    >
-                    <div className="categorySelectionInnerLayer">
-                        <div 
-                            className="inputCategoryValue subInputCategoryValue"
-                            >
-
-                            <div className="subCategoryImageAndText">
-                                {/* <div className="svgCategoryImageContainer">
-                                    <img src={item.categoryImage} alt=""/>
-                                </div> */}
-
-                                <div className="categoryHeadingSection">
-                                    <p>{item.subCategoryName}</p>
-                                </div>
-
-                                <div className="subCategoryCheckBox">
-                                    <div className="checkBoxDummyWrap">
-                                        <div 
-                                            className={"checkBoxSelect " + "SUB-CAT" + i}
-                                            >
-                                            <div className="iconWrap">
-                                                <TickSmallWhite/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            )
-        })
-    }
-
 
     handleCategorySelections = () => {
         const { mainCategorySelection } = this.state
-
-        this.setState({
-            subCategoryArray : []
-        })
 
         if(mainCategorySelection === undefined || mainCategorySelection === null ){
             this.setState({
@@ -691,46 +461,6 @@ class VendorMainDashboard extends React.Component {
         }
 
         else if(mainCategorySelection !== undefined && mainCategorySelection !== null ){
-
-            const theData = {
-                categoryId : mainCategorySelection.categoryId
-            }
-
-            // 
-            // Encrypt data
-            // 
-            const encryptedData = encryptData(theData)
-            // 
-            // Encrypt data
-            // 
-
-
-            // send request
-            this.props.hitApi(api.GET_SUB_CATEGORIES, "POST", 
-                {
-                    requestData : encryptedData,
-                    message : "Requesting dispatch sub-categories"
-                }
-            )
-            .then(() => {
-                // 
-                // Decrypt data
-                // 
-                const responseData = decryptData(this.props.responseData.responsePayload.responseData)
-                // 
-                // Decrypt data
-                // 
-
-                // console.log(responseData)
-                this.setState({
-                    subCategoryArray : responseData.subCategoriesArray
-                })
-
-            })
-            .catch(e => {
-                console.error(e)
-            })
-
             this.setState({
                 categoryErrorClass : "errorMessageWrap hide",
                 activeModalType : "subcategoryModal"
@@ -741,31 +471,6 @@ class VendorMainDashboard extends React.Component {
     returnModalContent = (categoryModalOrSubcategoryModal) => {
 
         if(categoryModalOrSubcategoryModal === "categoryModal"){
-
-            let tl = new TimelineLite()
-
-            let { categoryArray, mainCategorySelection } = this.state
-            let i
-
-            // console.log(this.state.categoryName)
-            if(mainCategorySelection){
-                // console.log(mainCategorySelection)
-                categoryArray.map((item, j) => {
-                    // console.log(item)
-                    if(item.categoryId === mainCategorySelection.categoryId){
-                        i = j
-                        
-                        // console.log(categoryName)
-                    }
-                })
-    
-                tl.set(".CAT" + i,
-                {
-                    background : "#ff2c6b"
-                })
-            }
-            
-
             return (
                 <div className="modalInnerLayer">
                     <div className="modalHeaderCloserSection">
@@ -781,8 +486,9 @@ class VendorMainDashboard extends React.Component {
                                 productManagerWrapperClass : "productManagerWrapperClass",
                                 mainContentWrap: "mainContentWrap",
                                 vendorInitialGraphic: 'vendorGraphicCenter',
-                            })}
-                            >
+                            })
+                        }
+                        >
                             <BigCloseButton />
                         </div>
                     </div>
@@ -831,7 +537,6 @@ class VendorMainDashboard extends React.Component {
                             onClick={() => this.setState({
                                 modalClass: "modalClass hide",
                                 mainContentWrap: "mainContentWrap",
-                                productManagerWrapperClass: "productManagerWrapperClass",
                                 vendorInitialGraphic: 'vendorGraphicCenter',
                             })
                         }
@@ -839,53 +544,32 @@ class VendorMainDashboard extends React.Component {
                             <BigCloseButton />
                         </div>
                     </div>
-
                     <div className="subHeadingSection">
                         <h3>2/4</h3>
                         <p>Choose sub-category</p>
                     </div>
-
-                    <div className="dummyContainer dummySub">
-
-                        {
-                            this.state.subCategoryArray.length !== 0 
-                            ?
-                            <div className="categoryPopulation">
-                                {this.returnSubCategoryNames()}
+                    <div className="categorySelectionContainer">
+                        <div className="categorySelectionInnerLayer">
+                            <div className="inputCategoryValue">
+                                <div className="categoryCheckSecondBox">
+                                    <div className="categoryCheckBoxInnerLayer">
+                                        <label className="container">
+                                            <input type="checkbox"/>
+                                            <span className="checkmark"></span>
+                                        </label>
+                                    </div>
+                                </div> 
+                                <div className="categoryHeadingSection">
+                                    <p>Interior Lighting</p>
+                                </div>
                             </div>
-                            :
-                            <div className="subCategoryLoader">
-                                {/* <LogoAnimation
-                                    text = "Getting subcategories"
-                                /> */}
-                                <NavBarLoadingIcon/>
-                            </div>
-                            
-                        }
-                        
+                        </div>
                     </div>
-    
-                    <div className={this.state.categoryErrorClass}>
-                        <p>{this.state.categoryErrorMessage}</p>
-                    </div>
-    
-                    
                     <div className="proceedButton">
-                        <WhiteButton
-                            runFunction = {() => this.setState({
-                                activeModalType : "categoryModal"
-                            })}
-                            >
+                        <WhiteButton>
                             Go back
                         </WhiteButton>
-                        <GradientButton
-                            runFunction = {() => {
-                                console.log("Wrks")
-                            //     this.setState({
-                            //         mainCategorySelection
-                            //     })
-                            }}
-                        >
+                        <GradientButton>
                             Proceed
                         </GradientButton>
                     </div>
@@ -1034,12 +718,9 @@ class VendorMainDashboard extends React.Component {
                                     <div
                                         className={"firstHeadingComponent " + this.state.mainHeadingClass1}
                                         onClick={() => {
-                                            if(this.state.mainHeadingClass1 !== "productManager active"){
-                                                this.toggleHeaderClass('productManager')
-                                            }
-
+                                            this.toggleHeaderClass('uploadedProducts')
                                             this.setState({
-                                                contentType: 'productManager'
+                                                contentType: 'uploadedProducts'
                                             })
                                         }}
                                         >
@@ -1052,12 +733,9 @@ class VendorMainDashboard extends React.Component {
                                     <div
                                         className={"firstHeadingComponent " + this.state.mainHeadingClass2}
                                         onClick={() => {
-                                            if(this.state.mainHeadingClass2 !== "salesManager active"){
-                                                this.toggleHeaderClass('salesManager')
-                                            }
-
+                                            this.toggleHeaderClass('clientData')
                                             this.setState({
-                                                contentType: 'salesManager'
+                                                contentType: 'clientData'
                                             })
                                         }}
                                     >
