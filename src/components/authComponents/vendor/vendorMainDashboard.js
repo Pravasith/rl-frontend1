@@ -228,7 +228,9 @@ class VendorMainDashboard extends React.Component {
             ],
 
 
-            subCategoryArray: []
+            subCategoryArray: [],
+
+            categoriesSelected: []
         }
 
     }
@@ -405,49 +407,68 @@ class VendorMainDashboard extends React.Component {
 
 
     returnCategorisedProducts = () => {
-        const { mainCategorySelection, subCategorySelection } = this.state;
+        const { categoriesSelected } = this.state
 
-        if (mainCategorySelection) {
-            if (subCategorySelection) {
+        const returnSubCategories = (subcategories) => {
+            return subcategories.subCategory.map((subcategory, i) => {
                 return (
-                    <div className="categorisedProductsDisplay">
-                        <div className="categorisedProductDisplayInnerLayer">
-                            <div className="mainCategoryHead">
-                                <div className="categoryMainHeaderContainer">
-                                    <h3>{"categoryName"}</h3>
-                                    <div className="line"></div>
-                                </div>
-                                <div className="deleteCategoryContainer">
-                                    <CloseButton />
-                                </div>
+                    < div className="subCategoryHead" >
+                        <div className="subCategoryHeadInnerSection">
+                            <div className="subCategoryHeaderSection">
+                                <h3>{subcategory.subCategoryName}</h3>
+                                <div className="line"></div>
                             </div>
-                            <div className="subCategoryHead">
-                                <div className="subCategoryHeadInnerSection">
-                                    <div className="subCategoryHeaderSection">
-                                        <h3>{"subCategoryName"}</h3>
-                                        <div className="line"></div>
-                                    </div>
-                                    <div className="addProductCategorySection">
-                                        <div className="addNewProductButton">
-                                            <div className="addNewProductButtonInnerLayer">
-                                                <div className="svgImageSection">
-                                                    <AddNewProduct />
-                                                </div>
-                                                <h3>Add new product</h3>
-                                            </div>
-                                        </div>
-                                        <div className="subCategoryProductSection">
-                                            <div className="subCategoryProductSectionInnerLayer">
 
-                                            </div>
+                            <div className="addProductCategorySection">
+                                <div className="addNewProductButton">
+                                    <div className="addNewProductButtonInnerLayer">
+                                        <div className="svgImageSection">
+                                            <AddNewProduct />
                                         </div>
+                                        <h3>Add new product</h3>
+                                    </div>
+                                </div>
+
+                                <div className="subCategoryProductSection">
+                                    <div className="subCategoryProductSectionInnerLayer">
+                                        
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div >
                 )
-            }
+            })
+        }
+
+
+            
+
+        if (categoriesSelected.length !== 0) {
+            return(
+                categoriesSelected.map((item, i) => {
+                    // console.log(item)
+                    return (
+                        <div key = {i} className="categorisedProductsDisplay">
+                            <div className="categorisedProductDisplayInnerLayer">
+                                <div className="mainCategoryHead">
+                                    <div className="categoryMainHeaderContainer">
+                                        <h3>{item.category.categoryName}</h3>
+                                        <div className="line"></div>
+                                    </div>
+
+                                    <div className="deleteCategoryContainer">
+                                        <CloseButton />
+                                    </div>
+                                </div>
+
+                                {returnSubCategories(item)}
+                            </div>
+                        </div>
+                    )
+                
+                })
+            )
         }
 
         else {
@@ -459,7 +480,7 @@ class VendorMainDashboard extends React.Component {
                             <div className="vendorGraphicInnerContainer">
                                 <div className="vendorGraphicParaInnerLayer">
                                     <h3>Hey <span>{this.state.firstName}</span>, show your amazing products to your clients, start
- by clicking "Add new category" button on the top.</h3>
+                                        by clicking "Add new category" button on the top.</h3>
                                 </div>
                             </div>
                         </div>
@@ -494,22 +515,22 @@ class VendorMainDashboard extends React.Component {
                                     <PlusButtonIconWhite />
                                 </div>
                                 Add new category
- </GradientButton>
+                        </GradientButton>
                         </div>
 
                         {/* <div className={this.state.vendorInitialGraphic}>
- <div className="svgImageContainer">
- <div className="graphicSvgImageContainer">
- <VendorGraphic/>
- <div className="vendorGraphicInnerContainer">
- <div className="vendorGraphicParaInnerLayer">
- <h3>Hey <span>{this.state.firstName}</span>, show your amazing products to your clients, start
- by clicking "Add new category" button on the top.</h3>
- </div>
- </div>
- </div>
- </div> 
- </div> */}
+                                <div className="svgImageContainer">
+                                    <div className="graphicSvgImageContainer">
+                                    <VendorGraphic/>
+                                        <div className="vendorGraphicInnerContainer">
+                                            <div className="vendorGraphicParaInnerLayer">
+                                                <h3>Hey <span>{this.state.firstName}</span>, show your amazing products to your clients, start
+                                                by clicking "Add new category" button on the top.</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div> */}
 
                         <div className="populatedCategories">
                             {this.returnCategorisedProducts()}
@@ -530,7 +551,7 @@ class VendorMainDashboard extends React.Component {
                 <div className="clientProductWrap">
                     <div className="clientSectionInnerWrap">
                         Coming Soon
- </div>
+                    </div>
                 </div>
             )
         }
@@ -697,8 +718,8 @@ class VendorMainDashboard extends React.Component {
 
                             <div className="subCategoryImageAndText">
                                 {/* <div className="svgCategoryImageContainer">
- <img src={item.categoryImage} alt=""/>
- </div> */}
+                                    <img src={item.categoryImage} alt=""/>
+                                    </div> */}
 
                                 <div className="categoryHeadingSection">
                                     <p>{item.subCategoryName}</p>
@@ -787,6 +808,56 @@ class VendorMainDashboard extends React.Component {
         }
     }
 
+    handleProceedForNewProduct = async () => {
+        const { mainCategorySelection, subCategorySelection, categoriesSelected } = this.state
+        let categoryAlreadySelected = false
+
+        categoriesSelected.map((item, i) => {
+            if(item.category.categoryId === mainCategorySelection.categoryId){
+                categoryAlreadySelected = true
+
+                item.subCategory.push(subCategorySelection)
+                
+            }
+        })
+        
+        if(!categoryAlreadySelected){
+            categoriesSelected.push({
+                category: mainCategorySelection,
+                subCategory: [subCategorySelection]
+            })
+        }
+
+        // else{
+        //     let dummyCategoryArray = [...categoriesSelected]
+
+        //     dummyCategoryArray.map((item, i) => {
+                
+        //     })
+        // }
+        
+
+        let dummyArray = [...categoriesSelected]
+
+        console.log(dummyArray)
+
+        this.setState({
+            categoriesSelected: dummyArray,
+        })
+
+        // await categoriesSelected.map((item, i) => {
+        //     // console.log(item.mainCategorySelection.categoryName, mainCategorySelection)
+        //     if(item.mainCategorySelection.categoryId === mainCategorySelection.categoryId) {
+        //         console.log(item.subCategorySelection.subCategoryName);
+                
+        //     }
+
+        //     else {
+        //         // console.log(item);
+        //     }
+        // })
+    }
+
     returnModalContent = (categoryModalOrSubcategoryModal) => {
 
         if (categoryModalOrSubcategoryModal === "categoryModal") {
@@ -796,15 +867,10 @@ class VendorMainDashboard extends React.Component {
             let { categoryArray, mainCategorySelection } = this.state
             let i
 
-            // console.log(this.state.categoryName)
             if (mainCategorySelection) {
-                // console.log(mainCategorySelection)
                 categoryArray.map((item, j) => {
-                    // console.log(item)
                     if (item.categoryId === mainCategorySelection.categoryId) {
                         i = j
-
-                        // console.log(categoryName)
                     }
                 })
 
@@ -856,18 +922,13 @@ class VendorMainDashboard extends React.Component {
                             runFunction={() => this.handleCategorySelections()}
                         >
                             Proceed
- </GradientButton>
+                        </GradientButton>
                     </div>
                 </div>
             )
         }
 
         else if (categoryModalOrSubcategoryModal === "subcategoryModal") {
-
-            // this.props.hitApi(api.REGISTER_GOOGLE_USER, "GET", {
-
-            // })
-
             return (
                 <div className="modalInnerLayer">
                     <div className="modalHeaderCloserSection">
@@ -905,8 +966,8 @@ class VendorMainDashboard extends React.Component {
                                 :
                                 <div className="subCategoryLoader">
                                     {/* <LogoAnimation
- text = "Getting subcategories"
- /> */}
+                                            text = "Getting subcategories"
+                                        /> */}
                                     <NavBarLoadingIcon />
                                 </div>
 
@@ -924,19 +985,21 @@ class VendorMainDashboard extends React.Component {
                             runFunction={() => this.setState({
                                 activeModalType: "categoryModal"
                             })}
-                        >
+                            >
                             Go back
- </WhiteButton>
+                        </WhiteButton>
                         <GradientButton
                             runFunction={() => {
-                                console.log("Wrks")
-                                // this.setState({
-                                // mainCategorySelection
-                                // })
-                            }}
-                        >
+                                this.setState({
+                                    modalClass: "modalClass hide",
+                                    productManagerWrapperClass: "productManagerWrapperClass",
+                                })
+
+                                this.handleProceedForNewProduct()
+                             }}
+                            >
                             Proceed
- </GradientButton>
+                        </GradientButton>
                     </div>
                 </div>
             )
@@ -944,7 +1007,6 @@ class VendorMainDashboard extends React.Component {
     }
 
     returnModal = () => {
-
         return (
             <div className={this.state.modalClass}>
                 <div className="modalOuterLayer">
@@ -960,8 +1022,6 @@ class VendorMainDashboard extends React.Component {
         this.setState({
             charCount: 20 - val.length
         })
-
-
 
         this.setState({
             tagName: val
@@ -1075,7 +1135,7 @@ class VendorMainDashboard extends React.Component {
                                                 }}
                                             >
                                                 Edit profile details
- </WhiteButton>
+                                            </WhiteButton>
                                         </div>
                                     </div>
                                 </div>
@@ -1098,7 +1158,7 @@ class VendorMainDashboard extends React.Component {
                                         >
                                             <h3 className="headingClass">
                                                 Simple Product Manager
- </h3>
+                                            </h3>
                                             <div className="line"></div>
                                         </div>
 
@@ -1116,7 +1176,7 @@ class VendorMainDashboard extends React.Component {
                                         >
                                             <h3 className="headingClass">
                                                 Simple Sales Manager
- </h3>
+                                            </h3>
                                             <div className="line"></div>
                                         </div>
 
