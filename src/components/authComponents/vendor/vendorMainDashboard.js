@@ -287,11 +287,17 @@ class VendorMainDashboard extends React.Component {
                         // DECRYPT REQUEST DATA
                         //
 
-                        // console.log(decryptedData)
-
                         this.setState({
                             responseCompanyName : decryptedData.companyName,
-                            responseCompanyDescription : decryptedData.companyDescriptionLine1 + " " + decryptedData.companyDescriptionLine2,
+                            responseCompanyDescription : decryptedData.companyDescriptionLine1 
+                                                            + " " +
+                                                         (
+                                                            decryptedData.companyDescriptionLine2 
+                                                                ?
+                                                            decryptedData.companyDescriptionLine2 
+                                                                :
+                                                            ""
+                                                         ),
                             responseExperience : decryptedData.experience ? decryptedData.experience.years : "",
                             companyProfilePicture : decryptedData.companyProfilePicture
                         })
@@ -474,10 +480,6 @@ class VendorMainDashboard extends React.Component {
         let { contentType } = this.state;
 
         if (contentType === 'productManager'){
-
-            // {
-            //     this.returnDataFromBackendAndShow()
-            // }
 
             return(
                     <div className="add">
