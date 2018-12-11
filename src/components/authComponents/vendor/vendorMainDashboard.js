@@ -424,7 +424,7 @@ class VendorMainDashboard extends React.Component {
         const returnSubCategories = (subcategories) => {
             return subcategories.subCategory.map((subcategory, i) => {
                 return (
-                    < div className="subCategoryHead" >
+                    <div className="subCategoryHead">
                         <div className="subCategoryHeadInnerSection">
                             <div className="subCategoryHeaderSection">
                                 <h3>{subcategory.subCategoryName}</h3>
@@ -533,22 +533,10 @@ class VendorMainDashboard extends React.Component {
                         </GradientButton>
                         </div>
 
-                        {/* <div className={this.state.vendorInitialGraphic}>
-                                <div className="svgImageContainer">
-                                    <div className="graphicSvgImageContainer">
-                                    <VendorGraphic/>
-                                        <div className="vendorGraphicInnerContainer">
-                                            <div className="vendorGraphicParaInnerLayer">
-                                                <h3>Hey <span>{this.state.firstName}</span>, show your amazing products to your clients, start
-                                                by clicking "Add new category" button on the top.</h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> 
-                            </div> */}
-
                         <div className="populatedCategories">
-                            {this.returnCategorisedProducts()}
+                            <div className="populatedCategoriesInnerLayer">
+                                {this.returnCategorisedProducts()}
+                            </div>
                         </div>
 
                     </div>
@@ -687,8 +675,6 @@ class VendorMainDashboard extends React.Component {
 
     returnSubCategoryNames = () => {
         const { subCategoryArray } = this.state
-
-
 
         const selectThisCheckBoxAndDeselectOtherCheckBox = (i) => {
             const tl = new TimelineLite()
@@ -943,7 +929,7 @@ class VendorMainDashboard extends React.Component {
                     </div>
 
                     <div className="subHeadingSection">
-                        <h3>2/4</h3>
+                        <h3>2/2</h3>
                         <p>Choose sub-category</p>
                     </div>
 
@@ -1131,7 +1117,6 @@ class VendorMainDashboard extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-
                                 <article className="vendorProductOuterLayer">
 
                                     <header className="productHeadingSection">
