@@ -15,8 +15,8 @@ const PostLink = (props) => (
             <a></a>
         </Link>
         <Link 
-            as= {`/vendor/add-product/${props.pId}`}
-            href= {`/vendor-add-product-details?pId=${props.pId}`}
+            as= {`/vendor/add-product/${props.sCId}`}
+            href= {`/vendor-add-product-details?sCId=${props.sCId}`}
             >
             <a></a>
         </Link>

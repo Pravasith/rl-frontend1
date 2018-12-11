@@ -262,43 +262,49 @@ class VendorMainDashboard extends React.Component {
                 })
 
                 this.props.hitApi(api.GET_VENDOR_DATA, "GET")
-                    .then((data) => {
-                        let { responseData } = this.props
+                .then((data) => {
+                    let { responseData } = this.props
 
-                        /// fake request
-                        setTimeout(() => {
-                            this.setState({
-                                // recievedData: "Hello",
-                                mainContentWrap: 'mainContentWrap',
-                                internalLoaderClass: 'contentLoader hide',
-                                sectionClass: 'newCategorySection',
-                                contentWrapper: 'contentWrapper',
-                            })
-                        }, 1000)
-                        /// fake request
+                    /// fake request
+                    setTimeout(() => {
+                        this.setState({
+                            // recievedData: "Hello",
+                            mainContentWrap: 'mainContentWrap',
+                            internalLoaderClass: 'contentLoader hide',
+                            sectionClass: 'newCategorySection',
+                            contentWrapper: 'contentWrapper',
+                        })
+                    }, 1000)
+                    /// fake request
 
-                        if (responseData.responsePayload.message !== "User credentials not found") {
+                    if (responseData.responsePayload.message !== "User credentials not found") {
 
-                            //
-                            // DECRYPT REQUEST DATA
-                            //
-                            let decryptedData = decryptData(
-                                responseData.responsePayload.responseData
-                            )
-                            //
-                            // DECRYPT REQUEST DATA
-                            //
+                        //
+                        // DECRYPT REQUEST DATA
+                        //
+                        let decryptedData = decryptData(
+                            responseData.responsePayload.responseData
+                        )
+                        //
+                        // DECRYPT REQUEST DATA
+                        //
 
-                            // console.log(decryptedData)
-
-                            this.setState({
-                                responseCompanyName: decryptedData.companyName,
-                                responseCompanyDescription: decryptedData.companyDescriptionLine1 + " " + decryptedData.companyDescriptionLine2,
-                                responseExperience: decryptedData.experience ? decryptedData.experience.years : "",
-                                companyProfilePicture: decryptedData.companyProfilePicture
-                            })
-                        }
-                    })
+                        this.setState({
+                            responseCompanyName : decryptedData.companyName,
+                            responseCompanyDescription : decryptedData.companyDescriptionLine1 
+                                                            + " " +
+                                                         (
+                                                            decryptedData.companyDescriptionLine2 
+                                                                ?
+                                                            decryptedData.companyDescriptionLine2 
+                                                                :
+                                                            ""
+                                                         ),
+                            responseExperience : decryptedData.experience ? decryptedData.experience.years : "",
+                            companyProfilePicture : decryptedData.companyProfilePicture
+                        })
+                    }
+                })
             })
 
             .catch((err) => {
@@ -509,7 +515,29 @@ class VendorMainDashboard extends React.Component {
     returnContent = () => {
         let { contentType } = this.state;
 
-        if (contentType === 'productManager') {
+        if (contentType === 'productManager'){
+
+            // return(
+            //         <div className="add">
+            //             <div className={this.state.contentWrapper}>
+            //                 <div className="addProductButton">
+            //                     <GradientButton
+            //                         runFunction={() => {
+
+            //                             // this.selectCategoryAndSubCategory()
+            //                             this.setState({
+            //                                 modalClass: 'modalClass ',
+            //                                 productManagerWrapperClass : "productManagerWrapperClass blurClass",
+            //                                 vendorInitialGraphic: 'hide',
+            //                             })
+            //                         }}
+            //                         >
+            //                         <div className="svgImageContainer">
+            //                             <PlusButtonIconWhite />
+            //                         </div>
+            //                         Add new category
+            //                     </GradientButton>
+            //                 </div>
 
             return (
                 <div className="add">

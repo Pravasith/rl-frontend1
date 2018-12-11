@@ -28,8 +28,9 @@ import architectureStyles from "../../../lib/styleCategory"
 import { GradientButton, InputForm, WhiteButton, RadioButton } from "../../UX/uxComponents"
 import HtmlSlider from "../../UX/htmlSlider"
 import Navbar from "../../navbar/navbar"
-import { decryptData } from "../../../factories/encryptDecrypt"
+import { decryptData, encryptData } from "../../../factories/encryptDecrypt"
 import ImageUploader from "../../UX/imageUploader"
+import { api } from "../../../actions/apiLinks";
 
 class AddProductDetails extends React.Component {
 
@@ -127,7 +128,9 @@ class AddProductDetails extends React.Component {
 
             architectureStyles : architectureStyles,
 
-            finalProceed : "saveAndProceed"
+            finalProceed : "saveAndProceed",
+            productTypes : []
+            
         }
     }
 
@@ -139,7 +142,7 @@ class AddProductDetails extends React.Component {
             .getUserData()
 
             .then((data) => {
-                let { userData } = this.props
+                let { userData, sCId } = this.props
 
                 //
                 // DECRYPT REQUEST DATA
@@ -149,12 +152,69 @@ class AddProductDetails extends React.Component {
                 // DECRYPT REQUEST DATA
                 //
 
-                this.setState({
-                    loadingClass: 'loadingAnim hide',
-                    mainClass: 'mainClass',
+                const rawData = { sCId }
+                console.log(rawData)
+                
+                //
+                // Encrypt data
+                //
+                const encryptedData = encryptData(rawData)
+                //
+                // Encrypt data
+                //
+ 
+
+                // GET PRODUCT TYPES
+                this.props.hitApi(api.GET_PRODUCT_TYPES,"POST",
+                    {
+                        requestData : encryptedData,
+                        message : "Requesting dispatch product types"
+                    }
+                )
+                .then(() => {
+
+                    //
+                    // DECRYPT REQUEST DATA
+                    //
+                    let decryptedData = decryptData(
+                        this.props.responseData.responsePayload.responseData
+                    )
+                    //
+                    // DECRYPT REQUEST DATA
+                    //
+
+                    // console.log(decryptedData)
+
+                    this.setState({
+                        loadingClass: 'loadingAnim hide',
+                        mainClass: 'mainClass',
+                        productTypes : decryptedData
+                    })
+    
+                    // console.log(this.props.sCId)
                 })
 
-                // console.log(this.props.pId)
+                .catch((err) => {
+                    if (err.response) {
+
+                        // console.log(err.response)
+                        if (err.response.status === 401)
+                            window.open('/log-in', "_self")
+
+                        else{
+                            // window.open('/vendor/dashboard', "_self")
+                        }
+                    }
+    
+                    else{
+                        console.error(err)
+                        // window.open('/vendor/dashboard', "_self")
+                    }
+                        
+                })
+
+
+                
             })
 
             .catch((err) => {
@@ -434,24 +494,12 @@ class AddProductDetails extends React.Component {
     }
  
     returnProductType = () => {
-        return(
-             [{
-                id: 1,
-                value: "Pendant lamps 1"
-            },
-            {
-                id: 2,
-                value: "Pendant lamps 2"
-            },
-            {
-                id: 3,
-                value: "Pendant lamps 3"
-            },
-            {
-                id: 4,
-                value: "Pendant lamps 4"
-            }]
-        )
+        return this.state.productTypes.map((item, i) => {
+            return {
+                id : item.productTypeId,
+                value : item.productType,
+            }
+        })
     }
 
     returnProductAvailability = () => {

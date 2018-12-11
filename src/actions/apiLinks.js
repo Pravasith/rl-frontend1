@@ -34,4 +34,5 @@ export const api = {
     UPLOAD_IMAGE : API_URL + 'common/upload-image',
 
     GET_SUB_CATEGORIES : API_URL + 'categories/get-sub-categories',
+    GET_PRODUCT_TYPES : API_URL + 'categories/get-product-types'
 }
