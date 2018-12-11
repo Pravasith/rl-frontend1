@@ -1666,6 +1666,7 @@ class AddProductDetails extends React.Component {
     }
 
     handleRadiobutton = async (e, type) => {
+        const { productTypes } = this.state;
         const val = e.target.value;
 
         if (type === "productAvailability") {
@@ -1673,8 +1674,14 @@ class AddProductDetails extends React.Component {
         }
 
         else if(type === "productType") {
-            console.log(val)
-            this.setState({ productType: val })
+            productTypes.map((item, i) => {
+                if (item.productType === val) {
+                    this.setState({ 
+                        productType: item.productTypeId,
+                        productTypeChecked: val
+                    })
+                }
+            })
         }
     }
 
@@ -2909,7 +2916,7 @@ class AddProductDetails extends React.Component {
                                                             title="Product Design"
                                                             name={'productType'}
                                                             options={this.returnProductType()}
-                                                            selectedOption={this.state.productType}
+                                                            selectedOption={this.state.productTypeChecked}
                                                             onChange={(e) => this.handleRadiobutton(e, "productType")}
                                                         />
                                                     </div>
