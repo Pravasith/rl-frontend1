@@ -20,6 +20,18 @@ app.prepare()
             app.render(req, res, actualPage)
         })
 
+        server.get('/vendor/dashboard', (req, res) => {
+            const actualPage = '/vendor-main-dashboard'
+            // const queryParams = { title: req.params.id }
+            app.render(req, res, actualPage)
+        })
+
+        server.get('/vendor/add-product/:pId', (req, res) => {
+            const actualPage = '/vendor-add-product-details'
+            const queryParams = { pId: req.params.pId }
+            app.render(req, res, actualPage, queryParams)
+        })
+
         server.get('*', (req, res) => {
             return handle(req, res)
         })

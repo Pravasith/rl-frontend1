@@ -76,13 +76,15 @@ class VendorMainDashboard extends React.Component {
                 // DECRYPT REQUEST DATA
                 //
 
-
                 this.setState({
                     loadingClass: 'loadingAnim hide',
                     mainClass: 'mainClass',
 
                     firstName: decryptedData.firstName,
+                    professionalTitle : decryptedData.professionalTitle,
+                    profilePicture : decryptedData.profilePicture,
                 })
+
                 this.props.hitApi(api.GET_VENDOR_DATA, "GET")
                 .then((data) => {
                     let { responseData } = this.props
@@ -98,6 +100,15 @@ class VendorMainDashboard extends React.Component {
                         //
                         // DECRYPT REQUEST DATA
                         //
+
+                        // console.log(decryptedData)
+
+                        this.setState({
+                            responseCompanyName : decryptedData.companyName,
+                            responseCompanyDescription : decryptedData.companyDescriptionLine1 + " " + decryptedData.companyDescriptionLine2,
+                            responseExperience : decryptedData.experience.years,
+                            companyProfilePicture : decryptedData.companyProfilePicture
+                        })
                     }
                 })
             })
@@ -314,73 +325,16 @@ class VendorMainDashboard extends React.Component {
     }
 
     returnCategoryNames = () => {
-        const categoryArray = [
-            {   
-                categoryName: 'Lighting', 
-                categoryId: "CAT-1", 
-                categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/lighting.jpg"
-            },
+        const {categoryArray, mainCategorySelection} =  this.state
+        let catIndex
 
-            {
-                categoryName: 'Furniture',
-                categoryId: "CAT-2",
-                categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/furniture.jpg"
-            },
-
-            {
-                categoryName: 'Outdoor',
-                categoryId: "CAT-3",
-                categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/outdoor.png",
-            },
-            {
-                categoryName: 'Bathroom',
-                categoryId: "CAT-4",
-                categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/bathroom.jpg",
-            },
-            {
-                categoryName: 'Kitchen',
-                categoryId: "CAT-5",
-                categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/kitchen.jpg",
-            },
-            {
-                categoryName: 'Office',
-                categoryId: "CAT-6",
-                categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/office.jpg",
-            },
-
-            {
-                categoryName: 'Wellness',
-                categoryId: "CAT-7",
-                categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/wellness.jpg",
-            },
-            {
-                categoryName: 'Decor',
-                categoryId: "CAT-8",
-                categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/decor.jpg",
-            },
-            {
-                categoryName: 'Finishes',
-                categoryId: "CAT-9",
-                categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/finishes.jpg",
-            },
-            {
-                categoryName: 'Construction',
-                categoryId: "CAT-10",
-                categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/construction.jpg",
-            },
-            {
-                categoryName: 'Safety and security', 
-                categoryId: "CAT-11",
-                categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/safety-and-security.jpg",
-               
-            },
-            {
-                categoryName: 'Home automation', 
-                categoryId: "CAT-12",
-                categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/home-automation.jpg",
-            },
-        ]
-        
+        if(mainCategorySelection){
+            categoryArray.map((item, i) => {
+                if(item.categoryId === mainCategorySelection.categoryId){
+                    catIndex = i
+                }
+            })
+        }        
 
         const selectThisCheckBoxAndDeselectOtherCheckBox = (i) => {
             const tl = new TimelineLite()
@@ -433,6 +387,82 @@ class VendorMainDashboard extends React.Component {
                                     <div className="checkBoxDummyWrap">
                                         <div 
                                             className={"checkBoxSelect " + "CAT" + i}
+                                            style = {{background : catIndex === i ? "#ff2c6b" : "#ffffff"}}
+                                            >
+                                            <div className="iconWrap">
+                                                <TickSmallWhite/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        })
+
+    }
+
+    returnSubCategoryNames = () => {
+        const {subCategoryArray} = this.state
+
+
+
+        const selectThisCheckBoxAndDeselectOtherCheckBox = (i) => {
+            const tl = new TimelineLite()
+
+            subCategoryArray.map((item, j) => {
+                if( i !== j ){
+                    tl.set(
+                        ".SUB-CAT" + j,
+                        {
+                            background : "#FFFFFF"
+                        }
+                    )
+                }
+            })
+
+            tl.set(".SUB-CAT" + i,
+            {
+                background : "#ff2c6b"
+            })
+
+            this.setState({
+                subCategorySelection : subCategoryArray[i]
+            })
+        }
+
+
+
+  
+        return subCategoryArray.map((item, i) => {
+            return (
+                <div 
+                    className="categorySelectionContainer"
+                    key = {i}
+                    onClick = {() => {
+                        selectThisCheckBoxAndDeselectOtherCheckBox(i)
+                    }}
+                    >
+                    <div className="categorySelectionInnerLayer">
+                        <div 
+                            className="inputCategoryValue subInputCategoryValue"
+                            >
+
+                            <div className="subCategoryImageAndText">
+                                {/* <div className="svgCategoryImageContainer">
+                                    <img src={item.categoryImage} alt=""/>
+                                </div> */}
+
+                                <div className="categoryHeadingSection">
+                                    <p>{item.subCategoryName}</p>
+                                </div>
+
+                                <div className="subCategoryCheckBox">
+                                    <div className="checkBoxDummyWrap">
+                                        <div 
+                                            className={"checkBoxSelect " + "SUB-CAT" + i}
                                             >
                                             <div className="iconWrap">
                                                 <TickSmallWhite/>
@@ -653,7 +683,9 @@ class VendorMainDashboard extends React.Component {
                                             <div className="vendorDashboardCompanyLogo">
                                                 <div className="logoImageContainer">
                                                     <div className="logoImageContainerInnerLayer">
-                                                        <img src="https://rocheledecorating.com.au/website-images/hamptons_design.jpg" alt=""/>
+                                                        <img src={
+                                                            this.state.companyProfilePicture ? this.state.companyProfilePicture : ""
+                                                        } alt=""/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -662,16 +694,16 @@ class VendorMainDashboard extends React.Component {
                                                 <div className="companyInfoContainer">
                                                     <div className="companyInfoUpperConatiner">
                                                         <div className="companyTitleConatiner">
-                                                            <h3>Patio furniture</h3>
+                                                            <h3>{this.state.responseCompanyName}</h3>
                                                         </div>
                                                         <div className="companyCaptionConatiner">
-                                                            <p>Outdoor living. Since 1990.</p>
+                                                            <p>{this.state.professionalTitle}</p>
                                                         </div>
                                                         <div className="line"></div>
                                                     </div>
                                                     <div className="companyInfoLowerContainer">
                                                         <p>
-                                                        how are you how are you how are you how are youhow are youhow are youhow are youhow are youhow are u
+                                                        {this.state.responseCompanyDescription}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -684,14 +716,16 @@ class VendorMainDashboard extends React.Component {
                                                         <div className="vendorPictureContainer">
                                                             <div className="vendorProfilePicture">
                                                                 <div className="vendorProfilePictureInnerLayer">
-                                                                    <img src="https://rocheledecorating.com.au/website-images/hamptons_design.jpg" alt=""/>
+                                                                    <img src={
+                                                                        this.state.profilePicture ? this.state.profilePicture : ""
+                                                                    } alt=""/>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div className="vendorPersonalInfoContainer">
-                                                            <h3>Mr. Chengappa</h3>
+                                                            <h3>{this.state.firstName}</h3>
                                                             <div className="industryExperienceContainer">
-                                                                <h3>has been in this business for<span> 2 - 4 years</span></h3>
+                                                                <h3>has been in this business for<span> {this.state.responseExperience} years</span></h3>
                                                                 
                                                             </div>
                                                         </div>
