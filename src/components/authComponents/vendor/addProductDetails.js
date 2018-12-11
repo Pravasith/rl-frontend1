@@ -21,7 +21,8 @@ import {
     MinusImageIcon,
     PlusImageIcon,
     LogoLoadingAnimation,
-    NavBarLoadingIcon
+    NavBarLoadingIcon,
+    SadFace
 } from "../../../assets/images";
 
 import LogoAnimation from "../../animations/logoAnimation"
@@ -376,7 +377,7 @@ class AddProductDetails extends React.Component {
             }
         )
 
-        console.log(categoryStylesAdded)
+        // console.log(categoryStylesAdded)
 
         if(categoryStylesAdded.length === 0){
             styleDoesntExist = true
@@ -1814,6 +1815,13 @@ class AddProductDetails extends React.Component {
         this.setState({
             finalProceed : "sendRequest"
         })
+
+        const finalDataToSend = {
+            productName : this.state.productName,
+            secondaryProductCode : this.state.secondaryProductCode,
+            basePrice : this.state.basePrice,
+            
+        }
     }
 
     returnProductsContent = () => {
@@ -1867,6 +1875,26 @@ class AddProductDetails extends React.Component {
                 </div>
             )
         }
+
+        else if(this.state.finalProceed === "errorScreen"){
+            return(
+                <div className="loadingWrapperProducts">
+                    <SadFace/>
+                    <h3 className="loadingHeader">
+                        Oops, there has been an error in saving your product, 
+                        <span
+                            onClick = {() => {
+                                this.setState({
+                                    finalProceed : "saveAndProceed"
+                                })
+                            }}
+                            >click here</span> to try again
+                    </h3>
+                </div>
+            )
+        }
+
+        
     }
 
     returnModal = () => {
