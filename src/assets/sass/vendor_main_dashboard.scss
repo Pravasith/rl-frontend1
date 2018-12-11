@@ -1263,7 +1263,7 @@ input{
                             @include flexCentreCol;
                             align-items: flex-start;
                             padding: 0.5em;
-                            width: 95%;
+                            width: 96%;
                             .mainCategoryHead{
                                 @include flexCentreRow;
                                 justify-content: space-between;
@@ -1276,13 +1276,14 @@ input{
                                         color: $darkerGrey;
                                     }
                                     .line{
-                                        background: $primaryMagenta;
-                                        // width: 34%;
+                                        background: $highLightBlue;
+                                        height: 0.1em;
                                     }
                                 }
                                 .deleteCategoryContainer{
                                     cursor: pointer;
                                     margin-left: 1em;
+                                    margin-bottom: 0.2em;
                                 }
                             }
                             .subCategoryHead{
@@ -1292,13 +1293,14 @@ input{
                                 .subCategoryHeadInnerSection{
                                     @include flexCentreCol;
                                     align-items: flex-start;
-                                    width: 95%;
+                                    width: 97%;
                                     .subCategoryHeaderSection{
                                         h3{
                                             color: $darkerGrey;
                                         }
                                         .line{
                                             width: 50%;
+                                            background: $lightGrey;
                                         }
                                     }
                                     .addProductCategorySection{
@@ -1315,7 +1317,7 @@ input{
                                             cursor: pointer;
                                             .addNewProductButtonInnerLayer{
                                                 @include flexCentreCol;
-                                                background: $lightGrey;
+                                                background: $veryLightGrey;
                                                 height: 100%;
                                                 .svgImageSection{
 
