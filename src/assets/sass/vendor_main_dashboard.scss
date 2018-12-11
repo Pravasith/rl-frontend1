@@ -1241,19 +1241,13 @@ input{
                     }
                 }
             }
-    
-            // .mainContentWrap{
-            //     @include flexCentreCol;
-            //     width: 100%;
-            //     align-items: flex-start;
-            //     .gradientButtonWrapper{
-            //         .svgImageContainer{
-            //             margin-right: 0.5em;
-            //         }
-            //     }
-                .vendorGraphicCenter{
+            .populatedCategories{
+                height: 30em;
+                width: 100%;
+                overflow-y: auto;
+                .populatedCategoriesInnerLayer{
                     @include flexCentreCol;
-                    width: 100%;
+                    width: 96%;
                     .categorisedProductsDisplay{
                         @include flexCentreRow;
                         width: 100%;
@@ -1320,17 +1314,17 @@ input{
                                                 background: $veryLightGrey;
                                                 height: 100%;
                                                 .svgImageSection{
-
+    
                                                 }
                                                 h3{
-
+    
                                                 }
                                             }
                                         }
                                         .subCategoryProductSection{
                                             @include flexCentreRow;
                                             .subCategoryProductSectionInnerLayer{
-
+    
                                             }
                                         }
                                     }
@@ -1338,6 +1332,12 @@ input{
                             }
                         }
                     }
+                }
+            }
+    
+                .vendorInitialGraphic{
+                    @include flexCentreCol;
+                    width: 100%;
                     .svgImageContainer{
                         @include flexCentreRow;
                         width: 100%;
