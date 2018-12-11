@@ -292,7 +292,7 @@ class VendorMainDashboard extends React.Component {
                         this.setState({
                             responseCompanyName : decryptedData.companyName,
                             responseCompanyDescription : decryptedData.companyDescriptionLine1 + " " + decryptedData.companyDescriptionLine2,
-                            responseExperience : decryptedData.experience.years,
+                            responseExperience : decryptedData.experience ? decryptedData.experience.years : "",
                             companyProfilePicture : decryptedData.companyProfilePicture
                         })
                     }
@@ -411,11 +411,39 @@ class VendorMainDashboard extends React.Component {
             if (subCategorySelection) {
                 return (
                     <div className="categorisedProductsDisplay">
-                        <div className="mainCategoryHead">
-                            <h3>{mainCategorySelection.categoryName}</h3>
-                        </div>
-                        <div className="subCategoryHead">
-                            <h3>{subCategorySelection.subCategoryName}</h3>
+                        <div className="categorisedProductDisplayInnerLayer">
+                            <div className="mainCategoryHead">
+                                <div className="categoryMainHeaderContainer">
+                                    <h3>{"categoryName"}</h3>
+                                    <div className="line"></div>
+                                </div>
+                                <div className="deleteCategoryContainer">
+                                    <CloseButton />
+                                </div>
+                            </div>
+                            <div className="subCategoryHead">
+                                <div className="subCategoryHeadInnerSection">
+                                    <div className="subCategoryHeaderSection">
+                                        <h3>{"subCategoryName"}</h3>
+                                        <div className="line"></div>
+                                    </div>
+                                    <div className="addProductCategorySection">
+                                        <div className="addNewProductButton">
+                                            <div className="addNewProductButtonInnerLayer">
+                                                <div className="svgImageSection">
+                                                    <AddNewProduct />
+                                                </div>
+                                                <h3>Add new product</h3>
+                                            </div>
+                                        </div>
+                                        <div className="subCategoryProductSection">
+                                            <div className="subCategoryProductSectionInnerLayer">
+                                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 )
@@ -424,13 +452,15 @@ class VendorMainDashboard extends React.Component {
 
         else {
             return (
-                <div className="svgImageContainer">
-                    <div className="graphicSvgImageContainer">
-                        <VendorGraphic />
-                        <div className="vendorGraphicInnerContainer">
-                            <div className="vendorGraphicParaInnerLayer">
-                                <h3>Hey <span>{this.state.firstName}</span>, show your amazing products to your clients, start
-                            by clicking "Add new category" button on the top.</h3>
+                <div className="vendorInitialGraphic">
+                    <div className="svgImageContainer">
+                        <div className="graphicSvgImageContainer">
+                            <VendorGraphic />
+                            <div className="vendorGraphicInnerContainer">
+                                <div className="vendorGraphicParaInnerLayer">
+                                    <h3>Hey <span>{this.state.firstName}</span>, show your amazing products to your clients, start
+                                        by clicking "Add new category" button on the top.</h3>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -471,8 +501,8 @@ class VendorMainDashboard extends React.Component {
                                 </GradientButton>
                             </div>
 
-                            <div className={this.state.vendorInitialGraphic}>
-                                {/* <div className="svgImageContainer">
+                            {/* <div className={this.state.vendorInitialGraphic}>
+                                <div className="svgImageContainer">
                                     <div className="graphicSvgImageContainer">
                                         <VendorGraphic/>
                                         <div className="vendorGraphicInnerContainer">
@@ -482,8 +512,13 @@ class VendorMainDashboard extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                </div> */}                               
-                            </div> 
+                                </div>                               
+                            </div>  */}
+                            
+                            <div className="populatedCategories">
+                                {this.returnCategorisedProducts()}
+                            </div>
+                            
                         </div>
 
                         <div

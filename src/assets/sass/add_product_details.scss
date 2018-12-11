@@ -338,6 +338,7 @@ input{
 
                                                 .inputCategoryTagSection{
                                                     @include flexCentreCol;
+                                                    align-items: flex-start;
                                                    .tagInputContainer{
                                                        @include flexCentreRow;
                                                        .modalMandatorySection{
@@ -358,22 +359,27 @@ input{
                                                            width: 100%;
 
                                                          .tagWrap{
+                                                            display: inline-flex;
+                                                            margin: 0.3em;
+                                                            padding: 0.2em;
+                                                            background: $darkerGrey;
                                                              
                                                              .tagWrapInnerLayer{
                                                                  @include flexCentreRow;
-                                                                 justify-content: flex-start;
+                                                                //  justify-content: flex-start;
                                                                  ul{
-                                                                    margin: 0;
-                                                                    padding-left: 2em;
-                                                                    padding-top: 0.1em;
-                                                                    margin-right: 0.5em;
+                                                                    margin: 0 0.5em;
+                                                                    padding: 0;
+                                                                    list-style-type: none;
                                                                     li{
                                                                         p{
                                                                             font-size: 0.8em;
-                                                                            padding-right: 0.5em;
-                                                                            padding-bottom: 0.5em;
+                                                                            color: $white;
                                                                         }
                                                                     }
+                                                                 }
+                                                                 .deleteIcon{
+                                                                     cursor: pointer;
                                                                  }
                                                              }
                                                          }
@@ -416,6 +422,7 @@ input{
                                                                         width: 35%;
                                                                         font-size: 0.9em;
                                                                         font-weight: 600;
+                                                                        color: $primaryMagenta;
                                                                     }
                                                                 }
                                                                 .materialCostCartWrap{
@@ -429,6 +436,7 @@ input{
                                                                         width: 35%;
                                                                         font-size: 0.9em;
                                                                         font-weight: 600;
+                                                                        color: $primaryMagenta;
                                                                     }
                                                                 }
                                                             }
@@ -674,7 +682,7 @@ input{
                                                 }
 
                                                 .productFinishSection{
-                                                    // width: 100%;
+                                                    width: 100%;
                                                     margin: 0.5em 0;
                                                     .productFinishDescriptionOuterLayer{
                                                          @include flexCentreRow;
@@ -695,37 +703,53 @@ input{
                                                                 }
                                                             }
                                                             .productFinishDetails{
-                                                                margin: 0 1em;
-                                                                .finishCostCartWrap{
+                                                                margin: 0 1em 0 1.8em;
+                                                                width: 97%;
+                                                                .productFinishDetailsInnerLayer{
                                                                     @include flexCentreRow;
-                                                                    justify-content: flex-start;
-                                                                    h3{
-                                                                        font-size: 0.9em;
+                                                                    justify-content: space-between;
+                                                                    width: 100%;
+                                                                    .finsihingOptionContent{
+                                                                        @include flexCentreCol;
+                                                                        align-items: flex-start;
+                                                                        width: 50%;
+                                                                        .finishCostCartWrap{
+                                                                            @include flexCentreRow;
+                                                                            justify-content: space-between;
+                                                                            width: 100%;
+                                                                            h3{
+                                                                                font-size: 0.9em;
+                                                                            }
+                                                                            p{  
+                                                                                width: 30%;
+                                                                                font-size: 0.9em;
+                                                                                margin-left: 0.5em;
+                                                                                color: $primaryMagenta;
+                                                                            }
+                                                                        }
+                                                                        .finishCodecartwrap{
+                                                                            width: 100%;
+                                                                            .finishCodeCartWrapReturn{
+                                                                                @include flexCentreRow;
+                                                                                justify-content: space-between;
+                                                                                width: 100%;
+                                                                                h3{
+                                                                                    font-size: 0.9em;
+                                                                                }
+                                                                                p{
+                                                                                    width: 30%;
+                                                                                    font-size: 0.9em;
+                                                                                    margin-left: 0.5em;
+                                                                                    color: $primaryMagenta;
+                                                                                }
+                                                                            }
+                                                                        }
                                                                     }
-                                                                    p{  
-                                                                        font-size: 0.9em;
-                                                                        margin-left: 0.5em;
-                                                                        color: $primaryMagenta;
+                                                                    .finishEditingButtons{
+                                                                        @include flexCentreRow;
+                                                                        height: 5em;
                                                                     }
                                                                 }
-                                                                .finishCodecartwrap{
-                                                                    .finishCodeCartWrapReturn{
-                                                                         @include flexCentreRow;
-                                                                         justify-content: flex-start;
-                                                                         h3{
-                                                                            font-size: 0.9em;
-                                                                        }
-                                                                        p{
-                                                                            font-size: 0.9em;
-                                                                            margin-left: 0.5em;
-                                                                            color: $primaryMagenta;
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                            .finishEditingButtons{
-                                                                @include flexCentreRow;
-                                                                height: 5em;
                                                             }
                                                         }
                                                     }
@@ -755,6 +779,7 @@ input{
                                                                     width: 35%;
                                                                     font-size: 0.9em;
                                                                     font-weight: 600;
+                                                                    color: $primaryMagenta;
                                                                 }
                                                             }
                                                             .costCart{
