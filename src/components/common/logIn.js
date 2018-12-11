@@ -112,11 +112,25 @@ export default class LogIn extends React.Component {
                     if (decryptedData.passwordRight && decryptedData.registered) {
                         localStorage.setItem('loginThrough', 'form')
 
-                        if (decryptedData.userType === "vendor")
-                        window.open('/vendor/profile-details', '_self')
+                        if (decryptedData.userType === "vendor"){
 
-                        else
-                        window.open('/register')
+                            this.setState({
+                                loadingClass: 'loadingAnim',
+                                mainClass: 'mainClass hide',
+                            })
+                            window.open('/vendor/profile-details', '_self')
+                        }
+                        
+
+                        else{
+                            this.setState({
+                                loadingClass: 'loadingAnim',
+                                mainClass: 'mainClass hide',
+                            })
+
+                            window.open('/register')
+                        }
+
 
                         // if(res.data.userType === "faculty")
                         // window.open('/faculty/profile-details', '_self')
@@ -238,7 +252,10 @@ export default class LogIn extends React.Component {
                     <div className="signUpWrapper">
 
                         <div className="menuLogin">
-                            <div className="logo flexRow" onClick={() => window.open('/', '_self')}>
+                            <div className="logo flexRow" onClick={() => {
+                                window.open('/', '_self')
+                                
+                                }}>
                                 <div className="iconWrap" >
                                     <RollingLogsTextLogoSmall />
                                 </div>
@@ -308,7 +325,7 @@ export default class LogIn extends React.Component {
                                 <div
                                     className="letsGoButton"
                                     onClick={() => this.validateAndSubmit()}
-                                >
+                                    >
                                     <GradientButton>
                                         Let me in!
                                     </GradientButton>

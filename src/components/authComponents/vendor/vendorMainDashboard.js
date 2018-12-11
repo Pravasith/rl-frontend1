@@ -420,7 +420,11 @@ class VendorMainDashboard extends React.Component {
 
         let dummyArray = [...this.state.categoriesSelected]
         this.setState({
-            categoriesSelected: dummyArray
+            categoriesSelected: dummyArray,
+            modalClass: "modalClass hide",
+            productManagerWrapperClass: "productManagerWrapperClass",
+            mainContentWrap: "mainContentWrap",
+            vendorInitialGraphic: 'vendorGraphicCenter',
         })
     }
 
@@ -557,6 +561,7 @@ class VendorMainDashboard extends React.Component {
                                         modalClass: 'modalClass ',
                                         productManagerWrapperClass: "productManagerWrapperClass blurClass",
                                         vendorInitialGraphic: 'hide',
+                                        activeModalType: 'categoryModal'
                                     })
                                 }}
                             >
@@ -941,51 +946,6 @@ class VendorMainDashboard extends React.Component {
             )
         }
 
-        else if (categoryModalOrSubcategoryModal === "delete"){
-           const  deleteCategory = (index) => {
-                this.state.categoriesSelected.splice(index, 1)
-
-                let dummyArray = [...this.state.categoriesSelected]
-                this.setState({
-                    categoriesSelected: dummyArray,
-                    modalClass: "modalClass hide",
-                    productManagerWrapperClass: "productManagerWrapperClass",
-                    mainContentWrap: "mainContentWrap",
-                    vendorInitialGraphic: 'vendorGraphicCenter',
-                })
-            }
-            return(
-                <div className="modalInnerLayer">
-                    <div className="modalHeaderCloserSection">
-                        <div className="modalHeaderContainer">
-                            <h3>Are you sure you want to delete this?</h3>
-                            <div className="line"></div>
-                        </div>
-                        <div className="confirmationButtonContainer">
-                            <div className="closeButtonContainer">
-                                <WhiteButton
-                                    runFunction={() => this.setState({
-                                    modalClass: "modalClass hide",
-                                    productManagerWrapperClass: "productManagerWrapperClass",
-                                    mainContentWrap: "mainContentWrap",
-                                    vendorInitialGraphic: 'vendorGraphicCenter',
-                                    })}
-                                >
-                                    No
-                                </WhiteButton>
-                            </div>
-                            <div className="yesContainer"
-                                onClick={() => deleteCategory(i)}>
-                                <WhiteButton>
-                                    Yes
-                                </WhiteButton>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )
-        }
-
         else if (categoryModalOrSubcategoryModal === "subcategoryModal") {
             return (
                 <div className="modalInnerLayer">
@@ -1058,6 +1018,51 @@ class VendorMainDashboard extends React.Component {
                             >
                             Proceed
                         </GradientButton>
+                    </div>
+                </div>
+            )
+        }
+
+        else if (categoryModalOrSubcategoryModal === "delete") {
+            // deleteCategory = (index) => {
+            //     this.state.categoriesSelected.splice(index, 1)
+
+            //     let dummyArray = [...this.state.categoriesSelected]
+            //     this.setState({
+            //         categoriesSelected: dummyArray,
+            //         modalClass: "modalClass hide",
+            //         productManagerWrapperClass: "productManagerWrapperClass",
+            //         mainContentWrap: "mainContentWrap",
+            //         vendorInitialGraphic: 'vendorGraphicCenter',
+            //     })
+            // }
+            return (
+                <div className="modalCategoryDeleteConatiner">
+                    <div className="modalHeaderCloserSection">
+                        <div className="modalHeaderContainer">
+                            <h3>Are you sure you want to delete this?</h3>
+                            <div className="line"></div>
+                        </div>
+                    </div>
+                    <div className="confirmationButtonContainer">
+                        <div className="closeButtonContainer">
+                            <WhiteButton
+                                runFunction={() => this.setState({
+                                    modalClass: "modalClass hide",
+                                    productManagerWrapperClass: "productManagerWrapperClass",
+                                    mainContentWrap: "mainContentWrap",
+                                    vendorInitialGraphic: 'vendorGraphicCenter',
+                                })}
+                            >
+                                No
+                                </WhiteButton>
+                        </div>
+                        <div className="yesContainer"
+                            onClick={() => this.deleteCategory(i)}>
+                            <WhiteButton>
+                                Yes
+                             </WhiteButton>
+                        </div>
                     </div>
                 </div>
             )
