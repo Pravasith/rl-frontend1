@@ -1626,6 +1626,7 @@ class AddProductDetails extends React.Component {
         }
 
         else if(type === "productType") {
+            console.log(val)
             this.setState({ productType: val })
         }
     }

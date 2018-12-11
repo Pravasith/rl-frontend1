@@ -843,32 +843,11 @@ class VendorMainDashboard extends React.Component {
             })
         }
 
-        // else{
-        //     let dummyCategoryArray = [...categoriesSelected]
-
-        //     dummyCategoryArray.map((item, i) => {
-                
-        //     })
-        // }
-        
-
         let dummyArray = [...categoriesSelected]
 
         this.setState({
             categoriesSelected: dummyArray,
         })
-
-        // await categoriesSelected.map((item, i) => {
-        //     // console.log(item.mainCategorySelection.categoryName, mainCategorySelection)
-        //     if(item.mainCategorySelection.categoryId === mainCategorySelection.categoryId) {
-        //         console.log(item.subCategorySelection.subCategoryName);
-                
-        //     }
-
-        //     else {
-        //         // console.log(item);
-        //     }
-        // })
     }
 
     returnModalContent = (categoryModalOrSubcategoryModal) => {
