@@ -263,8 +263,7 @@ class AddProductDetails extends React.Component {
             if(item.styleId === styleId){
                 indexOfStyle = i
                 styleName = item.styleName
-            }
-            
+            }    
         })
 
         this
@@ -2267,20 +2266,20 @@ class AddProductDetails extends React.Component {
             <div className={this.state.modalClassToggle}>
                 <div className="modalBackgroundDummyClass">
                     <div className="modalBackgroundInnerWrap">
-                            <header className="closeHeaderSection">
-                                <div className="closeButtonContainer"
-                                    onClick = {() => {
-                                        this.modalClassToggle("dontShow")
-                                        this.setState({ 
-                                            spliceOnEdit: false,
-                                            isChecked: false, 
-                                            extraCostInput: "extraCostInput hide" 
-                                        })
-                                    }}
-                                    >
-                                        <ModalCloseButton />
-                                </div>
-                            </header>
+                        <header className="closeHeaderSection">
+                            <div className="closeButtonContainer"
+                                onClick = {() => {
+                                    this.modalClassToggle("dontShow")
+                                    this.setState({ 
+                                        spliceOnEdit: false,
+                                        isChecked: false, 
+                                        extraCostInput: "extraCostInput hide" 
+                                    })
+                                }}
+                                >
+                                    <ModalCloseButton />
+                            </div>
+                        </header>
                         <div className="modalOuterWrap">
                             
                             <article className="modalContentWrap">

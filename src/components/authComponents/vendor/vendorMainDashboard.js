@@ -649,8 +649,6 @@ class VendorMainDashboard extends React.Component {
     returnSubCategoryNames = () => {
         const {subCategoryArray} = this.state
 
-
-
         const selectThisCheckBoxAndDeselectOtherCheckBox = (i) => {
             const tl = new TimelineLite()
 
@@ -887,7 +885,7 @@ class VendorMainDashboard extends React.Component {
                     </div>
 
                     <div className="subHeadingSection">
-                        <h3>2/4</h3>
+                        <h3>2/2</h3>
                         <p>Choose sub-category</p>
                     </div>
 
@@ -1065,18 +1063,17 @@ class VendorMainDashboard extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-                                            <div className="profileEditContainer">
-                                                <WhiteButton
-                                                    runFunction = {() => {
-                                                        window.open("/vendor/profile-details", "_self")
-                                                    }}
-                                                    >
-                                                    Edit profile details
-                                                </WhiteButton>
-                                            </div>
+                                        <div className="profileEditContainer">
+                                            <WhiteButton
+                                                runFunction = {() => {
+                                                    window.open("/vendor/profile-details", "_self")
+                                                }}
+                                                >
+                                                Edit profile details
+                                            </WhiteButton>
+                                        </div>
                                     </div>
                                 </div>
-
                                 <article className="vendorProductOuterLayer">
 
                                 <header className="productHeadingSection">
