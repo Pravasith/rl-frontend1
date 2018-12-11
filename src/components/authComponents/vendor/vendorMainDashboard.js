@@ -470,6 +470,7 @@ class VendorMainDashboard extends React.Component {
                                     Add new category
                                 </GradientButton>
                             </div>
+
                             <div className={this.state.vendorInitialGraphic}>
                                 {/* <div className="svgImageContainer">
                                     <div className="graphicSvgImageContainer">
@@ -481,11 +482,10 @@ class VendorMainDashboard extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                </div> */}
-                                {this.returnCategorisedProducts()}
-                            </div>
-                        
+                                </div> */}                               
+                            </div> 
                         </div>
+
                         <div
                             className= {this.state.internalLoaderClass}
                             >
