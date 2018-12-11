@@ -1862,7 +1862,7 @@ class AddProductDetails extends React.Component {
                 <div className="loadingWrapperProducts">
                     <NavBarLoadingIcon/>
                     <h3 className="loadingHeader">
-                        {this.props.userData.firstName}, we are saving your product...
+                        Saving your product...
                     </h3>
                 </div>
             )

@@ -1216,8 +1216,8 @@ input{
                                     .loadingWrapperProducts{
                                         @include flexCentreCol;
                                         padding: 1em;
-                                        width: 10em;
-                                        height: 10em;
+                                        width: 20em;
+                                        height: 20em;
                                         .loadingHeader{
                                             margin-top: 0.5em;
                                             font-size: 0.8em;
@@ -1406,13 +1406,19 @@ input{
                                                         width: 50%;
                                                     }
                                                     .exampleUploadedImgThumbnail{
-                                                        width: 17%;
-                                                        margin-right: 0.5em;
+                                                        // width: 17%;
+                                                        // margin-right: 0.5em;
                                                         img{
                                                             width: 3em;
                                                             height: 3em;
                                                             object-fit: cover;
                                                         }
+                                                        
+                                                    }
+
+                                                    p{
+                                                        margin-left: 1em;
+                                                        text-align: left;
                                                     }
                                                 }
 
@@ -1420,6 +1426,7 @@ input{
                                                     margin-bottom: 0.3em;
                                                     .pargraphClass{
                                                         // color: green;
+                                                        // text-align: center;
                                                         font-size: 0.8em;
                                                     }
                                                 }
