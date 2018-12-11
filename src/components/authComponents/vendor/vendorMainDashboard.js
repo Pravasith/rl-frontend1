@@ -474,11 +474,17 @@ class VendorMainDashboard extends React.Component {
                                         <h3>{item.category.categoryName}</h3>
                                         <div className="line"></div>
                                     </div>
-
                                     <div 
                                         className="deleteCategoryContainer"
-                                        onClick={() => this.deleteCategory(i)}
-                                        >
+                                        // onClick={() => this.deleteCategory(i)}
+                                        onClick={() => {
+                                            this.setState({
+                                                modalClass: 'modalClass',
+                                                productManagerWrapperClass: "productManagerWrapperClass blurClass",
+                                                activeModalType: "delete"
+                                            })
+                                        }}
+                                    >
                                         <CloseButton />
                                     </div>
                                 </div>
@@ -833,6 +839,7 @@ class VendorMainDashboard extends React.Component {
             this.setState({
                 categoryErrorClass: "errorMessageWrap hide",
                 activeModalType: "subcategoryModal"
+               
             })
         }
     }
@@ -929,6 +936,51 @@ class VendorMainDashboard extends React.Component {
                         >
                             Proceed
                         </GradientButton>
+                    </div>
+                </div>
+            )
+        }
+
+        else if (categoryModalOrSubcategoryModal === "delete"){
+           const  deleteCategory = (index) => {
+                this.state.categoriesSelected.splice(index, 1)
+
+                let dummyArray = [...this.state.categoriesSelected]
+                this.setState({
+                    categoriesSelected: dummyArray,
+                    modalClass: "modalClass hide",
+                    productManagerWrapperClass: "productManagerWrapperClass",
+                    mainContentWrap: "mainContentWrap",
+                    vendorInitialGraphic: 'vendorGraphicCenter',
+                })
+            }
+            return(
+                <div className="modalInnerLayer">
+                    <div className="modalHeaderCloserSection">
+                        <div className="modalHeaderContainer">
+                            <h3>Are you sure you want to delete this?</h3>
+                            <div className="line"></div>
+                        </div>
+                        <div className="confirmationButtonContainer">
+                            <div className="closeButtonContainer">
+                                <WhiteButton
+                                    runFunction={() => this.setState({
+                                    modalClass: "modalClass hide",
+                                    productManagerWrapperClass: "productManagerWrapperClass",
+                                    mainContentWrap: "mainContentWrap",
+                                    vendorInitialGraphic: 'vendorGraphicCenter',
+                                    })}
+                                >
+                                    No
+                                </WhiteButton>
+                            </div>
+                            <div className="yesContainer"
+                                onClick={() => deleteCategory(i)}>
+                                <WhiteButton>
+                                    Yes
+                                </WhiteButton>
+                            </div>
+                        </div>
                     </div>
                 </div>
             )
