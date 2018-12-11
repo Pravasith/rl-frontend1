@@ -8,10 +8,10 @@ import { bindActionCreators } from "redux"
 import Navbar from "../../navbar/navbar"
 import { hitApi, navBarLoadingAnimationShowHide } from "../../../actions/generalActions";
 import { getUserData } from "../../../actions/userActions"
-import { decryptData } from "../../../factories/encryptDecrypt";
+import { encryptData, decryptData } from "../../../factories/encryptDecrypt";
 import { Footer } from "../../footer/footer"
 
-import { CloseButton, LogoLoadingAnimation, BigAnimatedCloseButton, TickSmallWhite } from "../../../assets/images"
+import { CloseButton, LogoLoadingAnimation, BigAnimatedCloseButton, TickSmallWhite, NavBarLoadingIcon } from "../../../assets/images"
 import { WhiteArrowLeft, WhiteArrowRight, UploadImageIcon, PlusButtonIconWhite, AddNewProduct, VendorGraphic, ArrowMarkLong, BigCloseButton, SmallCloseButton } from "../../../assets/images";
 import LogoAnimation from "../../animations/logoAnimation";
 import { GradientButton, InputForm, SelectList, WhiteButton } from "../../UX/uxComponents";
@@ -33,28 +33,202 @@ class VendorMainDashboard extends React.Component {
             internalLoaderClass: 'contentLoader',
             modalClass: 'modalClass hide',
             mainContentWrap: 'mainContentWrap hide',
-            contentWrapper:'contentWrapper hide',
+            contentWrapper: 'contentWrapper hide',
             sectionClass: 'newCategorySection hide',
             vendorInitialGraphic: 'vendorGraphicCenter',
 
-            productManagerWrapperClass : "productManagerWrapperClass",
+            productManagerWrapperClass: "productManagerWrapperClass",
 
             // my code
-            mainHeadingClass1: 'uploadedProducts active',
-            mainHeadingClass2: 'clientData',
+            mainHeadingClass1: 'productManager active',
+            mainHeadingClass2: 'salesManager',
             firstName: null,
 
-            contentType: "uploadedProducts",
+            contentType: "productManager",
 
-            categoryErrorClass : "errorMessageWrap hide",
-            categoryErrorMessage : "",
+            categoryErrorClass: "errorMessageWrap hide",
+            categoryErrorMessage: "",
 
             categoryName: '',
             tagName: '',
             tagsAdded: [],
 
-            activeModalType : "categoryModal",
+            activeModalType: "categoryModal",
 
+            categoryArray: [
+                {
+                    categoryName: 'Barrier free products',
+                    categoryId: "CAT0000",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/barrier-free-products.jpg"
+                },
+
+                {
+                    categoryName: 'Bathroom products',
+                    categoryId: "CAT0001",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/bathroom-products.jpg"
+                },
+
+                {
+                    categoryName: 'Ceiling related',
+                    categoryId: "CAT0002",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/ceiling.jpg",
+                },
+                {
+                    categoryName: 'Construction site equipment',
+                    categoryId: "CAT0003",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/construction-site-equipment.jpg",
+                },
+                {
+                    categoryName: 'Décor',
+                    categoryId: "CAT0004",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/decor.jpeg",
+                },
+                {
+                    categoryName: 'Doors',
+                    categoryId: "CAT0005",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/doors.JPG",
+                },
+
+                {
+                    categoryName: 'Electricals',
+                    categoryId: "CAT0006",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/electricals.jpg",
+                },
+                {
+                    categoryName: 'External facades and fenestration',
+                    categoryId: "CAT0007",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/external-facades-and-fenestration.jpg",
+                },
+                {
+                    categoryName: 'Fences and perimeter enclosures',
+                    categoryId: "CAT0008",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/fences-and-perimeter-enclosures.jpg",
+                },
+                {
+                    categoryName: 'Finishing',
+                    categoryId: "CAT0009",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/finishing.jpg",
+                },
+                {
+                    categoryName: 'Fire prevention and safety',
+                    categoryId: "CAT0010",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/fire-prevention-and-safety.png",
+
+                },
+                {
+                    categoryName: 'Flooring',
+                    categoryId: "CAT0011",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/flooring.PNG",
+                },
+                {
+                    categoryName: 'Furniture',
+                    categoryId: "CAT0012",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/furniture.jpg",
+                },
+                {
+                    categoryName: 'Hardware and fastners',
+                    categoryId: "CAT0013",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/hardware-and-fastners.jpg",
+                },
+                {
+                    categoryName: 'Heating ventillation and air conditioning',
+                    categoryId: "CAT0014",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/heating-ventillation-and-air-conditioning.jpg",
+                },
+                {
+                    categoryName: 'Home automations',
+                    categoryId: "CAT0015",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/home-automation.jpg",
+                },
+                {
+                    categoryName: 'Insulation',
+                    categoryId: "CAT0016",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/insulation.jpg",
+                },
+                {
+                    categoryName: 'Kitchen',
+                    categoryId: "CAT0017",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/kitchen.jpg",
+                },
+                {
+                    categoryName: 'Lifts and escalators',
+                    categoryId: "CAT0018",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/lifts-and-escalators.jpg",
+                },
+                {
+                    categoryName: 'Lighting',
+                    categoryId: "CAT0019",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/lighting.jpg",
+                },
+                {
+                    categoryName: 'Office',
+                    categoryId: "CAT0020",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/office.jpg",
+                },
+                {
+                    categoryName: 'Outdoor',
+                    categoryId: "CAT0021",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/outdoor.jpg",
+                },
+                {
+                    categoryName: 'Partitions',
+                    categoryId: "CAT0022",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/partitions.jpg",
+                },
+                {
+                    categoryName: 'Plumbing',
+                    categoryId: "CAT0023",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/plumbing.jpg",
+                },
+                {
+                    categoryName: 'Renewable energy system',
+                    categoryId: "CAT0024",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/renewable-energy-system.jpg",
+                },
+                {
+                    categoryName: 'Roofs',
+                    categoryId: "CAT0025",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/roofs.jpg",
+                },
+                {
+                    categoryName: 'Safety and security',
+                    categoryId: "CAT0026",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/safety-and-security.jpg",
+                },
+                {
+                    categoryName: 'Stairs',
+                    categoryId: "CAT0027",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/stairs.jpg",
+                },
+                {
+                    categoryName: 'Waterproofing',
+                    categoryId: "CAT0028",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/waterproofing.jpg",
+                },
+                {
+                    categoryName: 'Water system',
+                    categoryId: "CAT0029",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/water-system.jpg",
+                },
+                {
+                    categoryName: 'Wellness',
+                    categoryId: "CAT0030",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/wellness.jpg",
+                },
+                {
+                    categoryName: 'Windows',
+                    categoryId: "CAT0031",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/windows.jpg",
+                },
+                {
+                    categoryName: 'Wood',
+                    categoryId: "CAT0032",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/wood.jpg",
+                },
+            ],
+
+
+            subCategoryArray: []
         }
 
     }
@@ -81,36 +255,48 @@ class VendorMainDashboard extends React.Component {
                     mainClass: 'mainClass',
 
                     firstName: decryptedData.firstName,
-                    professionalTitle : decryptedData.professionalTitle,
-                    profilePicture : decryptedData.profilePicture,
+                    professionalTitle: decryptedData.professionalTitle,
+                    profilePicture: decryptedData.profilePicture,
                 })
 
                 this.props.hitApi(api.GET_VENDOR_DATA, "GET")
-                .then((data) => {
-                    let { responseData } = this.props
+                    .then((data) => {
+                        let { responseData } = this.props
 
-                    if (responseData.responsePayload.message !== "User credentials not found") {
+                        /// fake request
+                        setTimeout(() => {
+                            this.setState({
+                                // recievedData: "Hello",
+                                mainContentWrap: 'mainContentWrap',
+                                internalLoaderClass: 'contentLoader hide',
+                                sectionClass: 'newCategorySection',
+                                contentWrapper: 'contentWrapper',
+                            })
+                        }, 1000)
+                        /// fake request
 
-                        //
-                        // DECRYPT REQUEST DATA
-                        //
-                        let decryptedData = decryptData(
-                            responseData.responsePayload.responseData
-                        )
-                        //
-                        // DECRYPT REQUEST DATA
-                        //
+                        if (responseData.responsePayload.message !== "User credentials not found") {
 
-                        // console.log(decryptedData)
+                            //
+                            // DECRYPT REQUEST DATA
+                            //
+                            let decryptedData = decryptData(
+                                responseData.responsePayload.responseData
+                            )
+                            //
+                            // DECRYPT REQUEST DATA
+                            //
 
-                        this.setState({
-                            responseCompanyName : decryptedData.companyName,
-                            responseCompanyDescription : decryptedData.companyDescriptionLine1 + " " + decryptedData.companyDescriptionLine2,
-                            responseExperience : decryptedData.experience ? decryptedData.experience.years : "",
-                            companyProfilePicture : decryptedData.companyProfilePicture
-                        })
-                    }
-                })
+                            // console.log(decryptedData)
+
+                            this.setState({
+                                responseCompanyName: decryptedData.companyName,
+                                responseCompanyDescription: decryptedData.companyDescriptionLine1 + " " + decryptedData.companyDescriptionLine2,
+                                responseExperience: decryptedData.experience ? decryptedData.experience.years : "",
+                                companyProfilePicture: decryptedData.companyProfilePicture
+                            })
+                        }
+                    })
             })
 
             .catch((err) => {
@@ -189,11 +375,11 @@ class VendorMainDashboard extends React.Component {
     }
 
     toggleHeaderClass = (type) => {
-        if (type === 'uploadedProducts') {
+        if (type === 'productManager') {
             if (this.state.mainHeadingClass1 === type) {
                 this.setState({
                     mainHeadingClass1: type + ' active',
-                    mainHeadingClass2: 'clientData',
+                    mainHeadingClass2: 'salesManager',
                 })
             }
             else if (this.state.mainHeadingClass1 === type + ' active') {
@@ -202,11 +388,11 @@ class VendorMainDashboard extends React.Component {
                 })
             }
         }
-        else if (type === 'clientData') {
+        else if (type === 'salesManager') {
             if (this.state.mainHeadingClass2 === type) {
                 this.setState({
                     mainHeadingClass2: type + ' active',
-                    mainHeadingClass1: 'uploadedProducts',
+                    mainHeadingClass1: 'productManager',
                 })
             }
             else if (this.state.mainHeadingClass2 === type + ' active') {
@@ -252,7 +438,7 @@ class VendorMainDashboard extends React.Component {
                                         </div>
                                         <div className="subCategoryProductSection">
                                             <div className="subCategoryProductSectionInnerLayer">
-                                            
+
                                             </div>
                                         </div>
                                     </div>
@@ -273,7 +459,7 @@ class VendorMainDashboard extends React.Component {
                             <div className="vendorGraphicInnerContainer">
                                 <div className="vendorGraphicParaInnerLayer">
                                     <h3>Hey <span>{this.state.firstName}</span>, show your amazing products to your clients, start
-                                        by clicking "Add new category" button on the top.</h3>
+ by clicking "Add new category" button on the top.</h3>
                                 </div>
                             </div>
                         </div>
@@ -283,70 +469,69 @@ class VendorMainDashboard extends React.Component {
         }
     }
 
+
     returnContent = () => {
         let { contentType } = this.state;
 
-        if (contentType === 'uploadedProducts'){
+        if (contentType === 'productManager') {
 
-            {
-                this.returnDataFromBackendAndShow()
-            }
+            return (
+                <div className="add">
+                    <div className={this.state.contentWrapper}>
+                        <div className="addProductButton">
+                            <GradientButton
+                                runFunction={() => {
 
-            return(
-                    <div className="add">
-                        <div className={this.state.contentWrapper}>
-                            <div className="addProductButton">
-                                <GradientButton
-                                    runFunction={() => {
-                                        this.setState({
-                                            modalClass: 'modalClass ',
-                                            productManagerWrapperClass : "productManagerWrapperClass blurClass",
-                                            vendorInitialGraphic: 'hide',
-                                        })
-                                    }}
-                                    >
-                                    <div className="svgImageContainer">
-                                        <PlusButtonIconWhite />
-                                    </div>
-                                    Add new category
-                                </GradientButton>
-                            </div>
-
-                            {/* <div className={this.state.vendorInitialGraphic}>
+                                    // this.selectCategoryAndSubCategory()
+                                    this.setState({
+                                        modalClass: 'modalClass ',
+                                        productManagerWrapperClass: "productManagerWrapperClass blurClass",
+                                        vendorInitialGraphic: 'hide',
+                                    })
+                                }}
+                            >
                                 <div className="svgImageContainer">
-                                    <div className="graphicSvgImageContainer">
-                                        <VendorGraphic/>
-                                        <div className="vendorGraphicInnerContainer">
-                                            <div className="vendorGraphicParaInnerLayer">
-                                                <h3>Hey <span>{this.state.firstName}</span>, show your amazing products to your clients, start
-                                                by clicking "Add new category" button on the top.</h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>                               
-                            </div>  */}
-                            
-                            <div className="populatedCategories">
-                                {this.returnCategorisedProducts()}
-                            </div>
-                            
+                                    <PlusButtonIconWhite />
+                                </div>
+                                Add new category
+ </GradientButton>
                         </div>
 
-                        <div
-                            className= {this.state.internalLoaderClass}
-                            >
-                            <LogoLoadingAnimation />
-                        </div> 
+                        {/* <div className={this.state.vendorInitialGraphic}>
+ <div className="svgImageContainer">
+ <div className="graphicSvgImageContainer">
+ <VendorGraphic/>
+ <div className="vendorGraphicInnerContainer">
+ <div className="vendorGraphicParaInnerLayer">
+ <h3>Hey <span>{this.state.firstName}</span>, show your amazing products to your clients, start
+ by clicking "Add new category" button on the top.</h3>
+ </div>
+ </div>
+ </div>
+ </div> 
+ </div> */}
+
+                        <div className="populatedCategories">
+                            {this.returnCategorisedProducts()}
+                        </div>
+
                     </div>
+
+                    <div
+                        className={this.state.internalLoaderClass}
+                    >
+                        <LogoLoadingAnimation />
+                    </div>
+                </div>
             )
         }
-        else if (contentType === 'clientData') {
+        else if (contentType === 'salesManager') {
             return (
-                    <div className="clientProductWrap">
-                        <div className="clientSectionInnerWrap">
-                            Coming Soon
-                        </div>
-                    </div>
+                <div className="clientProductWrap">
+                    <div className="clientSectionInnerWrap">
+                        Coming Soon
+ </div>
+                </div>
             )
         }
     }
@@ -359,25 +544,25 @@ class VendorMainDashboard extends React.Component {
         const tags = this.state.tagsAdded.map((item, i) => {
             return (
                 <div
-                    className= "tagsContainer" 
-                    key= {i}
-                    >
+                    className="tagsContainer"
+                    key={i}
+                >
                     <div className="tagWrapInnerLayer">
                         <p>
                             {item}
                         </p>
 
-                        <div 
+                        <div
                             className="closeTagContainer"
-                            onClick = {() => this.closeTag(i)}
-                            >
+                            onClick={() => this.closeTag(i)}
+                        >
                             <SmallCloseButton />
                         </div>
                     </div>
                 </div>
             )
         })
-        return tags  
+        return tags
     }
 
     removeTag = (i) => {
@@ -385,58 +570,58 @@ class VendorMainDashboard extends React.Component {
     }
 
     returnCategoryNames = () => {
-        const {categoryArray, mainCategorySelection} =  this.state
+        const { categoryArray, mainCategorySelection } = this.state
         let catIndex
 
-        if(mainCategorySelection){
+        if (mainCategorySelection) {
             categoryArray.map((item, i) => {
-                if(item.categoryId === mainCategorySelection.categoryId){
+                if (item.categoryId === mainCategorySelection.categoryId) {
                     catIndex = i
                 }
             })
-        }        
+        }
 
         const selectThisCheckBoxAndDeselectOtherCheckBox = (i) => {
             const tl = new TimelineLite()
 
             categoryArray.map((item, j) => {
-                if( i !== j ){
+                if (i !== j) {
                     tl.set(
                         ".CAT" + j,
                         {
-                            background : "#FFFFFF"
+                            background: "#FFFFFF"
                         }
                     )
                 }
             })
 
             tl.set(".CAT" + i,
-            {
-                background : "#ff2c6b"
-            })
+                {
+                    background: "#ff2c6b"
+                })
 
             this.setState({
-                mainCategorySelection : categoryArray[i]
+                mainCategorySelection: categoryArray[i]
             })
         }
 
         return categoryArray.map((item, i) => {
             return (
-                <div 
+                <div
                     className="categorySelectionContainer"
-                    key = {i}
-                    onClick = {() => {
+                    key={i}
+                    onClick={() => {
                         selectThisCheckBoxAndDeselectOtherCheckBox(i)
                     }}
-                    >
+                >
                     <div className="categorySelectionInnerLayer">
-                        <div 
+                        <div
                             className="inputCategoryValue"
-                            >
+                        >
 
                             <div className="categoryImageAndText">
                                 <div className="svgCategoryImageContainer">
-                                    <img src={item.categoryImage} alt=""/>
+                                    <img src={item.categoryImage} alt="" />
                                 </div>
 
                                 <div className="categoryHeadingSection">
@@ -445,12 +630,12 @@ class VendorMainDashboard extends React.Component {
 
                                 <div className="categoryCheckBox">
                                     <div className="checkBoxDummyWrap">
-                                        <div 
+                                        <div
                                             className={"checkBoxSelect " + "CAT" + i}
-                                            style = {{background : catIndex === i ? "#ff2c6b" : "#ffffff"}}
-                                            >
+                                            style={{ background: catIndex === i ? "#ff2c6b" : "#ffffff" }}
+                                        >
                                             <div className="iconWrap">
-                                                <TickSmallWhite/>
+                                                <TickSmallWhite />
                                             </div>
                                         </div>
                                     </div>
@@ -465,7 +650,7 @@ class VendorMainDashboard extends React.Component {
     }
 
     returnSubCategoryNames = () => {
-        const {subCategoryArray} = this.state
+        const { subCategoryArray } = this.state
 
 
 
@@ -473,47 +658,47 @@ class VendorMainDashboard extends React.Component {
             const tl = new TimelineLite()
 
             subCategoryArray.map((item, j) => {
-                if( i !== j ){
+                if (i !== j) {
                     tl.set(
                         ".SUB-CAT" + j,
                         {
-                            background : "#FFFFFF"
+                            background: "#FFFFFF"
                         }
                     )
                 }
             })
 
             tl.set(".SUB-CAT" + i,
-            {
-                background : "#ff2c6b"
-            })
+                {
+                    background: "#ff2c6b"
+                })
 
             this.setState({
-                subCategorySelection : subCategoryArray[i]
+                subCategorySelection: subCategoryArray[i]
             })
         }
 
 
 
-  
+
         return subCategoryArray.map((item, i) => {
             return (
-                <div 
+                <div
                     className="categorySelectionContainer"
-                    key = {i}
-                    onClick = {() => {
+                    key={i}
+                    onClick={() => {
                         selectThisCheckBoxAndDeselectOtherCheckBox(i)
                     }}
-                    >
+                >
                     <div className="categorySelectionInnerLayer">
-                        <div 
+                        <div
                             className="inputCategoryValue subInputCategoryValue"
-                            >
+                        >
 
                             <div className="subCategoryImageAndText">
                                 {/* <div className="svgCategoryImageContainer">
-                                    <img src={item.categoryImage} alt=""/>
-                                </div> */}
+ <img src={item.categoryImage} alt=""/>
+ </div> */}
 
                                 <div className="categoryHeadingSection">
                                     <p>{item.subCategoryName}</p>
@@ -521,11 +706,11 @@ class VendorMainDashboard extends React.Component {
 
                                 <div className="subCategoryCheckBox">
                                     <div className="checkBoxDummyWrap">
-                                        <div 
+                                        <div
                                             className={"checkBoxSelect " + "SUB-CAT" + i}
-                                            >
+                                        >
                                             <div className="iconWrap">
-                                                <TickSmallWhite/>
+                                                <TickSmallWhite />
                                             </div>
                                         </div>
                                     </div>
@@ -537,30 +722,99 @@ class VendorMainDashboard extends React.Component {
                 </div>
             )
         })
-
     }
+
 
     handleCategorySelections = () => {
         const { mainCategorySelection } = this.state
 
-        if(mainCategorySelection === undefined || mainCategorySelection === null ){
+        this.setState({
+            subCategoryArray: []
+        })
+
+        if (mainCategorySelection === undefined || mainCategorySelection === null) {
             this.setState({
-                categoryErrorClass : "errorMessageWrap",
-                categoryErrorMessage : "You have to select one category",
+                categoryErrorClass: "errorMessageWrap",
+                categoryErrorMessage: "You have to select one category",
             })
         }
 
-        else if(mainCategorySelection !== undefined && mainCategorySelection !== null ){
+        else if (mainCategorySelection !== undefined && mainCategorySelection !== null) {
+
+            const theData = {
+                categoryId: mainCategorySelection.categoryId
+            }
+
+            // 
+            // Encrypt data
+            // 
+            const encryptedData = encryptData(theData)
+            // 
+            // Encrypt data
+            // 
+
+
+            // send request
+            this.props.hitApi(api.GET_SUB_CATEGORIES, "POST",
+                {
+                    requestData: encryptedData,
+                    message: "Requesting dispatch sub-categories"
+                }
+            )
+                .then(() => {
+                    // 
+                    // Decrypt data
+                    // 
+                    const responseData = decryptData(this.props.responseData.responsePayload.responseData)
+                    // 
+                    // Decrypt data
+                    // 
+
+                    // console.log(responseData)
+                    this.setState({
+                        subCategoryArray: responseData.subCategoriesArray
+                    })
+
+                })
+                .catch(e => {
+                    console.error(e)
+                })
+
             this.setState({
-                categoryErrorClass : "errorMessageWrap hide",
-                activeModalType : "subcategoryModal"
+                categoryErrorClass: "errorMessageWrap hide",
+                activeModalType: "subcategoryModal"
             })
         }
     }
 
     returnModalContent = (categoryModalOrSubcategoryModal) => {
 
-        if(categoryModalOrSubcategoryModal === "categoryModal"){
+        if (categoryModalOrSubcategoryModal === "categoryModal") {
+
+            let tl = new TimelineLite()
+
+            let { categoryArray, mainCategorySelection } = this.state
+            let i
+
+            // console.log(this.state.categoryName)
+            if (mainCategorySelection) {
+                // console.log(mainCategorySelection)
+                categoryArray.map((item, j) => {
+                    // console.log(item)
+                    if (item.categoryId === mainCategorySelection.categoryId) {
+                        i = j
+
+                        // console.log(categoryName)
+                    }
+                })
+
+                tl.set(".CAT" + i,
+                    {
+                        background: "#ff2c6b"
+                    })
+            }
+
+
             return (
                 <div className="modalInnerLayer">
                     <div className="modalHeaderCloserSection">
@@ -568,53 +822,52 @@ class VendorMainDashboard extends React.Component {
                             <h3>Select one category</h3>
                             <div className="line"></div>
                         </div>
-    
-                        <div 
+
+                        <div
                             className="close"
                             onClick={() => this.setState({
                                 modalClass: "modalClass hide",
-                                productManagerWrapperClass : "productManagerWrapperClass",
+                                productManagerWrapperClass: "productManagerWrapperClass",
                                 mainContentWrap: "mainContentWrap",
                                 vendorInitialGraphic: 'vendorGraphicCenter',
-                            })
-                        }
+                            })}
                         >
                             <BigCloseButton />
                         </div>
                     </div>
-    
+
                     <div className="subHeadingSection">
                         <h3>1/2</h3>
                         <p>Pick one from the options given below</p>
                     </div>
-    
+
                     <div className="dummyContainer">
                         <div className="categoryPopulation">
                             {this.returnCategoryNames()}
                         </div>
                     </div>
-    
+
                     <div className={this.state.categoryErrorClass}>
                         <p>{this.state.categoryErrorMessage}</p>
                     </div>
-    
+
                     <div className="proceedButton">
                         <GradientButton
-                            runFunction = {() => this.handleCategorySelections()}
-                            >
+                            runFunction={() => this.handleCategorySelections()}
+                        >
                             Proceed
-                        </GradientButton>
+ </GradientButton>
                     </div>
                 </div>
             )
         }
 
-        else if(categoryModalOrSubcategoryModal === "subcategoryModal"){
+        else if (categoryModalOrSubcategoryModal === "subcategoryModal") {
 
             // this.props.hitApi(api.REGISTER_GOOGLE_USER, "GET", {
 
             // })
-            
+
             return (
                 <div className="modalInnerLayer">
                     <div className="modalHeaderCloserSection">
@@ -622,46 +875,68 @@ class VendorMainDashboard extends React.Component {
                             <h3>Details about the category</h3>
                             <div className="line"></div>
                         </div>
-                        <div 
+                        <div
                             className="close"
                             onClick={() => this.setState({
                                 modalClass: "modalClass hide",
                                 mainContentWrap: "mainContentWrap",
+                                productManagerWrapperClass: "productManagerWrapperClass",
                                 vendorInitialGraphic: 'vendorGraphicCenter',
                             })
-                        }
+                            }
                         >
                             <BigCloseButton />
                         </div>
                     </div>
+
                     <div className="subHeadingSection">
                         <h3>2/4</h3>
                         <p>Choose sub-category</p>
                     </div>
-                    <div className="categorySelectionContainer">
-                        <div className="categorySelectionInnerLayer">
-                            <div className="inputCategoryValue">
-                                <div className="categoryCheckSecondBox">
-                                    <div className="categoryCheckBoxInnerLayer">
-                                        <label className="container">
-                                            <input type="checkbox"/>
-                                            <span className="checkmark"></span>
-                                        </label>
-                                    </div>
-                                </div> 
-                                <div className="categoryHeadingSection">
-                                    <p>Interior Lighting</p>
+
+                    <div className="dummyContainer dummySub">
+
+                        {
+                            this.state.subCategoryArray.length !== 0
+                                ?
+                                <div className="categoryPopulation">
+                                    {this.returnSubCategoryNames()}
                                 </div>
-                            </div>
-                        </div>
+                                :
+                                <div className="subCategoryLoader">
+                                    {/* <LogoAnimation
+ text = "Getting subcategories"
+ /> */}
+                                    <NavBarLoadingIcon />
+                                </div>
+
+                        }
+
                     </div>
+
+                    <div className={this.state.categoryErrorClass}>
+                        <p>{this.state.categoryErrorMessage}</p>
+                    </div>
+
+
                     <div className="proceedButton">
-                        <WhiteButton>
+                        <WhiteButton
+                            runFunction={() => this.setState({
+                                activeModalType: "categoryModal"
+                            })}
+                        >
                             Go back
-                        </WhiteButton>
-                        <GradientButton>
+ </WhiteButton>
+                        <GradientButton
+                            runFunction={() => {
+                                console.log("Wrks")
+                                // this.setState({
+                                // mainCategorySelection
+                                // })
+                            }}
+                        >
                             Proceed
-                        </GradientButton>
+ </GradientButton>
                     </div>
                 </div>
             )
@@ -734,7 +1009,7 @@ class VendorMainDashboard extends React.Component {
 
                         <div className={this.state.productManagerWrapperClass}>
                             <div className="productManagerWrapperInnerLayerClass">
-                            
+
                                 <div className="vendorDetailsLeftContainer">
                                     <div className="vendorInformationInnerLayer">
 
@@ -745,7 +1020,7 @@ class VendorMainDashboard extends React.Component {
                                                     <div className="logoImageContainerInnerLayer">
                                                         <img src={
                                                             this.state.companyProfilePicture ? this.state.companyProfilePicture : ""
-                                                        } alt=""/>
+                                                        } alt="" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -763,7 +1038,7 @@ class VendorMainDashboard extends React.Component {
                                                     </div>
                                                     <div className="companyInfoLowerContainer">
                                                         <p>
-                                                        {this.state.responseCompanyDescription}
+                                                            {this.state.responseCompanyDescription}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -778,7 +1053,7 @@ class VendorMainDashboard extends React.Component {
                                                                 <div className="vendorProfilePictureInnerLayer">
                                                                     <img src={
                                                                         this.state.profilePicture ? this.state.profilePicture : ""
-                                                                    } alt=""/>
+                                                                    } alt="" />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -786,74 +1061,80 @@ class VendorMainDashboard extends React.Component {
                                                             <h3>{this.state.firstName}</h3>
                                                             <div className="industryExperienceContainer">
                                                                 <h3>has been in this business for<span> {this.state.responseExperience} years</span></h3>
-                                                                
+
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                            <div className="profileEditContainer">
-                                                <WhiteButton
-                                                    runFunction = {() => {
-                                                        window.open("/vendor/profile-details", "_self")
-                                                    }}
-                                                    >
-                                                    Edit profile details
-                                                </WhiteButton>
-                                            </div>
+                                        <div className="profileEditContainer">
+                                            <WhiteButton
+                                                runFunction={() => {
+                                                    window.open("/vendor/profile-details", "_self")
+                                                }}
+                                            >
+                                                Edit profile details
+ </WhiteButton>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <article className="vendorProductOuterLayer">
 
-                                <header className="productHeadingSection">
+                                    <header className="productHeadingSection">
 
-                                    <div
-                                        className={"firstHeadingComponent " + this.state.mainHeadingClass1}
-                                        onClick={() => {
-                                            this.toggleHeaderClass('uploadedProducts')
-                                            this.setState({
-                                                contentType: 'uploadedProducts'
-                                            })
-                                        }}
+                                        <div
+                                            className={"firstHeadingComponent " + this.state.mainHeadingClass1}
+                                            onClick={() => {
+                                                if (this.state.mainHeadingClass1 !== "productManager active") {
+                                                    this.toggleHeaderClass('productManager')
+                                                }
+
+                                                this.setState({
+                                                    contentType: 'productManager'
+                                                })
+                                            }}
                                         >
-                                        <h3 className="headingClass">
-                                            Simple Product Manager
-                                        </h3>
-                                        <div className="line"></div>
-                                    </div>
+                                            <h3 className="headingClass">
+                                                Simple Product Manager
+ </h3>
+                                            <div className="line"></div>
+                                        </div>
 
-                                    <div
-                                        className={"firstHeadingComponent " + this.state.mainHeadingClass2}
-                                        onClick={() => {
-                                            this.toggleHeaderClass('clientData')
-                                            this.setState({
-                                                contentType: 'clientData'
-                                            })
-                                        }}
-                                    >
-                                        <h3 className="headingClass">
-                                            Simple Sales Manager
-                                        </h3>
-                                        <div className="line"></div>
-                                    </div>
+                                        <div
+                                            className={"firstHeadingComponent " + this.state.mainHeadingClass2}
+                                            onClick={() => {
+                                                if (this.state.mainHeadingClass2 !== "salesManager active") {
+                                                    this.toggleHeaderClass('salesManager')
+                                                }
 
-                                </header>
+                                                this.setState({
+                                                    contentType: 'salesManager'
+                                                })
+                                            }}
+                                        >
+                                            <h3 className="headingClass">
+                                                Simple Sales Manager
+ </h3>
+                                            <div className="line"></div>
+                                        </div>
 
-                                <section className={this.state.sectionClass}>
+                                    </header>
 
-                                      {
-                                          this.returnContent()
-                                      }   
+                                    <section className={this.state.sectionClass}>
 
-                                </section>
+                                        {
+                                            this.returnContent()
+                                        }
 
-                            </article>
-                            
+                                    </section>
+
+                                </article>
+
                             </div>
                         </div>
-                        
+
                         {/* <Footer /> */}
 
                         {this.returnModal()}
