@@ -1037,18 +1037,6 @@ class VendorMainDashboard extends React.Component {
         }
 
         else if (categoryModalOrSubcategoryModal === "delete") {
-            // deleteCategory = (index) => {
-            //     this.state.categoriesSelected.splice(index, 1)
-
-            //     let dummyArray = [...this.state.categoriesSelected]
-            //     this.setState({
-            //         categoriesSelected: dummyArray,
-            //         modalClass: "modalClass hide",
-            //         productManagerWrapperClass: "productManagerWrapperClass",
-            //         mainContentWrap: "mainContentWrap",
-            //         vendorInitialGraphic: 'vendorGraphicCenter',
-            //     })
-            // }
             return (
                 <div className="modalCategoryDeleteConatiner">
                     <div className="modalHeaderCloserSection">
