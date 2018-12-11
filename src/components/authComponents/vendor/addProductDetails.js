@@ -1752,58 +1752,58 @@ class AddProductDetails extends React.Component {
     returnProductFinishUploadedImage = () => {
         return (
             <div className="whiteSquareForModal">
-                <div className="vendorDashboardModal">
-                    <div className="modalHeader finsihModalHeader">
-                        <h3>{this.state.finishModalTitle}</h3>
-                        <div className="line"></div>
+                <div className="whiteSquareModalUpperContainer">
+                    <div className="vendorDashboardModal">
+                        <div className="modalHeader finsihModalHeader">
+                            <h3>{this.state.finishModalTitle}</h3>
+                            <div className="line"></div>
+                        </div>
+                    </div>
+
+                    <div className={this.state.inputFormContainer}>
+                        <div className="formParaSection finishInputParaContainer">
+                            <div className="exampleUploadedImgThumbnail">
+                                <img className="uploadedImage" src="https://res.cloudinary.com/wnbcloud/image/upload/h_300,w_400/v1467638340/ash2_wqnx4x.jpg" alt="" />
+                            </div>
+                            <p className="pargraphClass">Example: The image thumbnail for Pinewood finish looks like this</p>
+                        </div>
+                    </div>
+
+                    <div className="imageUploaderContainer">
+                        <div className="imageUploaderInnerLayerContainer">
+                            <div className="imageUploaderOuterLayer">
+                                <ImageUploader
+                                    imageType="regularImage" // regularImage || profileImage
+                                    resultData={(data) => {
+                                        this.setState({ 
+                                            productFinishImage: data.imageURL,
+                                            inputFormContainer: "inputFormContainer hide",
+                                            proceedOrNotCheck: "proceedOrNotCheck",
+                                            finishModalTitle: "Image preview"
+                                        })
+                                    }}
+                                    showInitialImage={this.state.productFinishImage} // image src link // optional
+                                    imageClassName="productFinishImageClass"
+                                />
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-
-                <div className={this.state.inputFormContainer}>
-                    <div className="formParaSection finishInputParaContainer">
-                        <div className="exampleUploadedImgThumbnail">
-                            <img className="uploadedImage" src="https://res.cloudinary.com/wnbcloud/image/upload/h_300,w_400/v1467638340/ash2_wqnx4x.jpg" alt="" />
-                        </div>
-                        <p className="pargraphClass">Example: The image thumbnail for Pinewood finish looks like this</p>
-                    </div>
-                </div>
-
-                <div className="imageUploaderContainer">
-                    <div className="imageUploaderInnerLayerContainer">
-                        <div className="imageUploaderOuterLayer">
-                            <ImageUploader
-                                imageType="regularImage" // regularImage || profileImage
-                                resultData={(data) => {
-                                    this.setState({ 
-                                        productFinishImage: data.imageURL,
-                                        inputFormContainer: "inputFormContainer hide",
-                                        proceedOrNotCheck: "proceedOrNotCheck",
-                                        finishModalTitle: "Image preview"
-                                    })
-                                }}
-                                showInitialImage={this.state.productFinishImage} // image src link // optional
-                                imageClassName="productFinishImageClass"
-                            />
-                        </div>
-
-                        <div className={this.state.proceedOrNotCheck}>
-                            <GradientButton
-                                runFunction={() => {
-                                    this.modalClassToggle("show")
-                                    this.setState({
-                                        finishModalContentPart: 2,
-                                        inputFormContainer: "inputFormContainer",
-                                        proceedOrNotCheck: "proceedOrNotCheck hide",
-                                        finishModalTitle: "Image preview"
-                                    })
-                                }}
-                            >
-                                Proceed
-                            </GradientButton>
-                        </div>
-
-                    </div>
-
+                <div className={this.state.proceedOrNotCheck}>
+                    <GradientButton
+                        runFunction={() => {
+                            this.modalClassToggle("show")
+                            this.setState({
+                                finishModalContentPart: 2,
+                                inputFormContainer: "inputFormContainer",
+                                proceedOrNotCheck: "proceedOrNotCheck hide",
+                                finishModalTitle: "Image preview"
+                            })
+                        }}
+                    >
+                        Proceed
+                    </GradientButton>
                 </div>
             </div>
         )
@@ -1890,89 +1890,91 @@ class AddProductDetails extends React.Component {
                         <div className={this.state.modalFinishDetails}>
                             <div className="dummyXClass">
                                 <div className="whiteSquareForModal">
-                                    <div className="vendorDashboardModal">
-                                        <div className="modalHeader">
-                                            <h3>Finish details</h3>
-                                            <div className="line"></div>
+                                    <div className="whiteSquareModalUpperContainer">
+                                        <div className="vendorDashboardModal">
+                                            <div className="modalHeader">
+                                                <h3>Finish details</h3>
+                                                <div className="line"></div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="finishEndModal">
-                                        <div>
-                                            <img
-                                                src={this.state.productFinishImage}
-                                                alt=""
-                                                style={{ width: "5em", height: "5em" }}
-                                            />
-                                        </div>
-                                        <div className="finsihingDetails">
-                                            <div className="inputFormContainer">
-                                                <div className="formParaSection">
-                                                    <p className="pargraphClass">Name of the finish</p>
+                                        <div className="finishEndModal">
+                                            <div>
+                                                <img
+                                                    src={this.state.productFinishImage}
+                                                    alt=""
+                                                    style={{ width: "5em", height: "5em" }}
+                                                />
+                                            </div>
+                                            <div className="finsihingDetails">
+                                                <div className="inputFormContainer">
+                                                    <div className="formParaSection">
+                                                        <p className="pargraphClass">Name of the finish</p>
+                                                    </div>
+                                                    <div className="productInputInfoSection productFinishName">
+                                                        <div className="modalMandatorySection">
+                                                            <p className="madatoryHighlight">Mandatory</p>
+                                                        </div>
+                                                        <div className="modalInputCategory">
+                                                            <input
+                                                                type="text"
+                                                                name="finishName"
+                                                                placeholder="Ex. Glass reinforced concrete"
+                                                                onChange={this.onChangeHandler}
+                                                                ref="finishName"
+                                                            />
+                                                            <span className="InputSeparatorLine"> </span>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div className="productInputInfoSection productFinishName">
-                                                    <div className="modalMandatorySection">
-                                                        <p className="madatoryHighlight">Mandatory</p>
+                                                <div className="switchContainer">
+                                                    <div className="labelUpperColumn">
+                                                        <div className="switchContainerParagraph">
+                                                            <p>Is there an extra cost over base price ?</p>
+                                                        </div>
+                                                        <label className="switch">
+                                                            <input
+                                                                ref="switch"
+                                                                checked={this.state.isChecked}
+                                                                onChange={() => this.onToggleSwitch()}
+                                                                className="switch"
+                                                                type="checkbox" />
+                                                            <span className="slider round"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div className="returnInputColumn">
+                                                        {this.returnExtraCost("finish")}
+                                                    </div>
+                                                </div>
+                                                <div className="errorContent">
+                                                    <p className={this.state.isChecked ? this.state.displayError : "displayError hide"}>
+                                                        Numbers Only
+                                                    </p>
+                                                </div>
+                                                <div className="inputFormContainer">
+                                                    <div className="formParaSection">
+                                                        <p className="pargraphClass">Finish code (if any)</p>
                                                     </div>
                                                     <div className="modalInputCategory">
                                                         <input
                                                             type="text"
-                                                            name="finishName"
-                                                            placeholder="Ex. Glass reinforced concrete"
+                                                            name="finishCode"
+                                                            placeholder="Ex. #4erfd, 8fds@ etc."
                                                             onChange={this.onChangeHandler}
-                                                            ref="finishName"
+                                                            ref="finishCode"
                                                         />
                                                         <span className="InputSeparatorLine"> </span>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="switchContainer">
-                                                <div className="labelUpperColumn">
-                                                    <div className="switchContainerParagraph">
-                                                        <p>Is there an extra cost over base price ?</p>
-                                                    </div>
-                                                    <label className="switch">
-                                                        <input
-                                                            ref="switch"
-                                                            checked={this.state.isChecked}
-                                                            onChange={() => this.onToggleSwitch()}
-                                                            className="switch"
-                                                            type="checkbox" />
-                                                        <span className="slider round"></span>
-                                                    </label>
-                                                </div>
-                                                <div className="returnInputColumn">
-                                                    {this.returnExtraCost("finish")}
-                                                </div>
-                                            </div>
-                                            <div className="errorContent">
-                                                <p className={this.state.isChecked ? this.state.displayError : "displayError hide"}>
-                                                    Numbers Only
-                                                </p>
-                                            </div>
-                                            <div className="inputFormContainer">
-                                                <div className="formParaSection">
-                                                    <p className="pargraphClass">Finish code (if any)</p>
-                                                </div>
-                                                <div className="modalInputCategory">
-                                                    <input
-                                                        type="text"
-                                                        name="finishCode"
-                                                        placeholder="Ex. #4erfd, 8fds@ etc."
-                                                        onChange={this.onChangeHandler}
-                                                        ref="finishCode"
-                                                    />
-                                                    <span className="InputSeparatorLine"> </span>
-                                                </div>
-                                            </div>
-                                            <div className="proceedOrNotCheck">
-                                                <GradientButton
-                                                    runFunction={() => this.proceedHandler("finish")}
-                                                >
-                                                    Proceed
-                                                </GradientButton>
-                                            </div>
-                                            {this.displayErrorModal("finish")}
                                         </div>
+                                    </div>
+                                    <div className="proceedOrNotCheck">
+                                        <GradientButton
+                                            runFunction={() => this.proceedHandler("finish")}
+                                        >
+                                            Proceed
+                                        </GradientButton>
+                                        {this.displayErrorModal("finish")}
                                     </div>
                                 </div>
                             </div>
@@ -1988,112 +1990,113 @@ class AddProductDetails extends React.Component {
                     <div className={this.state.modalColor}>
                         <div className="dummyXClass">
                             <div className="whiteSquareForModal">
-                                <div className="vendorDashboardModal">
-                                    <div className="modalHeader">
-                                        <h3>Enter a color code</h3>
-                                        <div className="line"></div>
+                                <div className="whiteSquareModalUpperContainer">
+                                    <div className="vendorDashboardModal">
+                                        <div className="modalHeader">
+                                            <h3>Enter a color code</h3>
+                                            <div className="line"></div>
+                                        </div>
+                                    </div>
+
+                                    <div className="colorCategorySection">
+
+                                        <div className="colorCategoryInnerLayerContainer">
+                                            <div 
+                                                className="selectedColorSection"
+                                                ref = "colorPreview"
+                                                style = {{background : this.state.colorPreview}}
+                                            >
+                                            </div>
+                                            <div className="colorInputFormSection">
+
+                                                <div className="inputFormContainer">
+                                                    <div className="formParaSection">
+                                                        <p className="pargraphClass">Name of the color</p>
+                                                    </div>
+                                                    <div className="productInputInfoSection">
+                                                        <div className="modalMandatorySection">
+                                                            <p className="madatoryHighlight">Mandatory</p>
+                                                        </div>
+                                                        <div className="modalInputCategory">
+                                                            <input 
+                                                                type="text"
+                                                                name="colorName"
+                                                                placeholder="Ex. Orange"
+                                                                ref = "colorName"
+                                                                maxLength = "30"
+                                                                onChange={this.onChangeHandler}
+                                                            />
+                                                            <span className="InputSeparatorLine"> </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div className="inputFormContainer">
+                                                    <div className="formParaSection">
+                                                        <p className="pargraphClass">
+                                                            Enter the color hex-code (<a href="https://www.google.co.in/search?rlz=1C1CHBF_enIN822IN822&ei=aE0GXKaEO4norQG06bjgAw&q=color+selector+tool&oq=color+selector+&gs_l=psy-ab.1.0.0j0i67j0l8.1356.1356..2888...0.0..0.168.168.0j1......0....1..gws-wiz.......0i71.SepRdDVz0P4" target="_blank">click here</a> to get one)
+                                                        </p>
+                                                    </div>
+                                                    <div className="productInputInfoSection">
+                                                        <div className="modalMandatorySection">
+                                                            <p className="madatoryHighlight">Mandatory</p>
+                                                        </div>
+                                                        <div className="modalInputCategory">
+                                                            <input
+                                                                type="text"
+                                                                name="colorCode"
+                                                                placeholder="Ex. #29abe2"
+                                                                onChange={(e) => this.handleColorInput(e, "colorCode")}
+                                                                maxLength = "7"
+                                                                ref = "colorCode"
+                                                            />
+                                                            <span className="InputSeparatorLine"> </span>
+
+                                                            <p>Don't forget the # before the code</p> 
+                                                        </div>
+                                                    </div> 
+                                                </div>
+
+                                                <div className="switchContainer">
+                                                    <div className="labelUpperColumn">
+                                                        <div className="switchContainerParagraph">
+                                                            <p>Is there an extra cost over base price ?</p>
+                                                        </div>
+                                                        <label className="switch">
+                                                            <input 
+                                                                ref="switch"
+                                                                checked={this.state.isChecked}
+                                                                onChange={() => this.onToggleSwitch()}
+                                                                className="switch"
+                                                                type="checkbox"/>
+                                                            <span className="slider round"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div className="returnInputColumn">
+                                                        {this.returnExtraCost("color")}
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div className="errorContent">
+                                            <p className={this.state.isChecked ? this.state.displayError : "displayError hide"}>
+                                                Numbers Only
+                                            </p>
+                                        </div>
+
                                     </div>
                                 </div>
+                                <div className="proceedOrNotCheck">
+                                    <GradientButton
+                                        runFunction={() => {
+                                            this.proceedHandler("color")
+                                        }}>
+                                        Proceed
+                                    </GradientButton>
 
-                                <div className="colorCategorySection">
-
-                                    <div className="colorCategoryInnerLayerContainer">
-                                        <div 
-                                            className="selectedColorSection"
-                                            ref = "colorPreview"
-                                            style = {{background : this.state.colorPreview}}
-                                        >
-                                        </div>
-                                        <div className="colorInputFormSection">
-
-                                            <div className="inputFormContainer">
-                                                <div className="formParaSection">
-                                                    <p className="pargraphClass">Name of the color</p>
-                                                </div>
-                                                <div className="productInputInfoSection">
-                                                    <div className="modalMandatorySection">
-                                                        <p className="madatoryHighlight">Mandatory</p>
-                                                    </div>
-                                                    <div className="modalInputCategory">
-                                                        <input 
-                                                            type="text"
-                                                            name="colorName"
-                                                            placeholder="Ex. Orange"
-                                                            ref = "colorName"
-                                                            maxLength = "30"
-                                                            onChange={this.onChangeHandler}
-                                                        />
-                                                        <span className="InputSeparatorLine"> </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
-                                            <div className="inputFormContainer">
-                                                <div className="formParaSection">
-                                                    <p className="pargraphClass">
-                                                        Enter the color hex-code (<a href="https://www.google.co.in/search?rlz=1C1CHBF_enIN822IN822&ei=aE0GXKaEO4norQG06bjgAw&q=color+selector+tool&oq=color+selector+&gs_l=psy-ab.1.0.0j0i67j0l8.1356.1356..2888...0.0..0.168.168.0j1......0....1..gws-wiz.......0i71.SepRdDVz0P4" target="_blank">click here</a> to get one)
-                                                    </p>
-                                                </div>
-                                                <div className="productInputInfoSection">
-                                                    <div className="modalMandatorySection">
-                                                        <p className="madatoryHighlight">Mandatory</p>
-                                                    </div>
-                                                    <div className="modalInputCategory">
-                                                        <input
-                                                            type="text"
-                                                            name="colorCode"
-                                                            placeholder="Ex. #29abe2"
-                                                            onChange={(e) => this.handleColorInput(e, "colorCode")}
-                                                            maxLength = "7"
-                                                            ref = "colorCode"
-                                                        />
-                                                        <span className="InputSeparatorLine"> </span>
-
-                                                        <p>Don't forget the # before the code</p> 
-                                                    </div>
-                                                </div> 
-                                            </div>
-
-                                            <div className="switchContainer">
-                                                <div className="labelUpperColumn">
-                                                    <div className="switchContainerParagraph">
-                                                        <p>Is there an extra cost over base price ?</p>
-                                                    </div>
-                                                    <label className="switch">
-                                                        <input 
-                                                            ref="switch"
-                                                            checked={this.state.isChecked}
-                                                            onChange={() => this.onToggleSwitch()}
-                                                            className="switch"
-                                                            type="checkbox"/>
-                                                        <span className="slider round"></span>
-                                                    </label>
-                                                </div>
-                                                <div className="returnInputColumn">
-                                                    {this.returnExtraCost("color")}
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-                                    <div className="errorContent">
-                                        <p className={this.state.isChecked ? this.state.displayError : "displayError hide"}>
-                                            Numbers Only
-                                        </p>
-                                    </div>
-
-                                    <div className="proceedOrNotCheck">
-                                        <GradientButton
-                                            runFunction={() => {
-                                                this.proceedHandler("color")
-                                            }}>
-                                            Proceed
-                                        </GradientButton>
-                                    </div>
-                                    
                                     {this.displayErrorModal("color")}
-
                                 </div>
                             </div>
                          </div>
@@ -2107,67 +2110,68 @@ class AddProductDetails extends React.Component {
                     <div className={this.state.modalSize}>
                         <div className="dummyXClass">
                             <div className="whiteSquareForModal">
-                                <div className="vendorDashboardModal">
-                                    <div className="modalHeader">
-                                        <h3>Size details</h3>
-                                        <div className="line"></div>
-                                    </div>
-                                </div>
-
-                                <div className="inputFormContainer">
-                                    <div className="formParaSection">
-                                        <p className="pargraphClass">Size name</p>
-                                    </div>
-                                    <div className="productInputInfoSection productSizeName">
-                                        <div className="modalMandatorySection">
-                                            <p className="madatoryHighlight">Mandatory</p>
-                                        </div>
-                                        <div className="modalInputCategory">
-                                            <input
-                                                type="text"
-                                                name="sizeName"
-                                                placeholder="Ex. Small / Extralarge / 2ftx3ft / any custon name"
-                                                onChange={this.onChangeHandler}
-                                                ref="sizeName"
-                                            />
-                                            <span className="InputSeparatorLine"> </span>
+                                <div className="whiteSquareModalUpperContainer">
+                                    <div className="vendorDashboardModal">
+                                        <div className="modalHeader">
+                                            <h3>Size details</h3>
+                                            <div className="line"></div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div className="switchContainer">
-                                    <div className="labelUpperColumn">
-                                        <div className="switchContainerParagraph">
-                                            <p>Is there an extra cost over base price ?</p>
+                                    <div className="inputFormContainer">
+                                        <div className="formParaSection">
+                                            <p className="pargraphClass">Size name</p>
                                         </div>
-                                        <label className="switch">
-                                            <input 
-                                                ref="switch"
-                                                checked={this.state.isChecked}
-                                                onChange={() => this.onToggleSwitch()}
-                                                className="switch"
-                                                type="checkbox"/>
-                                            <span className="slider round"></span>
-                                        </label>
+                                        <div className="productInputInfoSection productSizeName">
+                                            <div className="modalMandatorySection">
+                                                <p className="madatoryHighlight">Mandatory</p>
+                                            </div>
+                                            <div className="modalInputCategory">
+                                                <input
+                                                    type="text"
+                                                    name="sizeName"
+                                                    placeholder="Ex. Small / Extralarge / 2ftx3ft / any custon name"
+                                                    onChange={this.onChangeHandler}
+                                                    ref="sizeName"
+                                                />
+                                                <span className="InputSeparatorLine"> </span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="returnInputColumn">
-                                        {this.returnExtraCost("size")}
-                                    </div>
-                                </div>
 
-                                <div className="errorContent">
+                                    <div className="switchContainer">
+                                        <div className="labelUpperColumn">
+                                            <div className="switchContainerParagraph">
+                                                <p>Is there an extra cost over base price ?</p>
+                                            </div>
+                                            <label className="switch">
+                                                <input 
+                                                    ref="switch"
+                                                    checked={this.state.isChecked}
+                                                    onChange={() => this.onToggleSwitch()}
+                                                    className="switch"
+                                                    type="checkbox"/>
+                                                <span className="slider round"></span>
+                                            </label>
+                                        </div>
+                                        <div className="returnInputColumn">
+                                            {this.returnExtraCost("size")}
+                                        </div>
+                                    </div>
+
+                                    <div className="errorContent">
                                     <p className={this.state.isChecked ? this.state.displayError : "displayError hide"}>
                                         Numbers Only
                                     </p>
                                 </div>
-
+                                </div>
                                 <div className="proceedOrNotCheck">
                                     <GradientButton
                                         runFunction={() => this.proceedHandler("size")}>
                                         Proceed
                                     </GradientButton> 
+                                    {this.displayErrorModal("size")}
                                 </div>
-                                {this.displayErrorModal("size")}
                             </div>
                         </div>
                     </div>
@@ -2180,68 +2184,69 @@ class AddProductDetails extends React.Component {
                     <div className={this.state.modalMaterial}>
                         <div className="dummyXClass">
                             <div className="whiteSquareForModal">
-                                <div className="vendorDashboardModal">
-                                    <div className="modalHeader">
-                                        <h3>Material details</h3>
-                                        <div className="line"></div>
-                                    </div>
-                                </div>
-
-                                <div className="inputFormContainer">
-                                    <div className="formParaSection">
-                                        <p className="pargraphClass">Material name</p>
-                                    </div>
-                                    <div className="productInputInfoSection productMaterialName">
-                                        <div className="modalMandatorySection">
-                                            <p className="madatoryHighlight">Mandatory</p>
-                                        </div>
-                                        <div className="modalInputCategory">
-                                            <input
-                                                type="text"
-                                                name="materialName"
-                                                placeholder="Ex. Glass reinforced concrete"
-                                                onChange={this.onChangeHandler}
-                                                ref="materialName"
-                                            />
-                                            <span className="InputSeparatorLine"> </span>
+                                <div className="whiteSquareModalUpperContainer">
+                                    <div className="vendorDashboardModal">
+                                        <div className="modalHeader">
+                                            <h3>Material details</h3>
+                                            <div className="line"></div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div className="switchContainer">
-                                    <div className="labelUpperColumn">
-                                        <div className="switchContainerParagraph">
-                                            <p>Is there an extra cost over base price ?</p>
+                                    <div className="inputFormContainer">
+                                        <div className="formParaSection">
+                                            <p className="pargraphClass">Material name</p>
                                         </div>
-                                        <label className="switch">
-                                            <input 
-                                                ref="switch"
-                                                checked={this.state.isChecked}
-                                                onChange={() => this.onToggleSwitch()}
-                                                className="switch"
-                                                type="checkbox"/>
-                                            <span className="slider round"></span>
-                                        </label>
+                                        <div className="productInputInfoSection productMaterialName">
+                                            <div className="modalMandatorySection">
+                                                <p className="madatoryHighlight">Mandatory</p>
+                                            </div>
+                                            <div className="modalInputCategory">
+                                                <input
+                                                    type="text"
+                                                    name="materialName"
+                                                    placeholder="Ex. Glass reinforced concrete"
+                                                    onChange={this.onChangeHandler}
+                                                    ref="materialName"
+                                                />
+                                                <span className="InputSeparatorLine"> </span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="returnInputColumn">
-                                        {this.returnExtraCost("material")}
-                                    </div>
-                                </div>
 
-                                <div className="errorContent">
+                                    <div className="switchContainer">
+                                        <div className="labelUpperColumn">
+                                            <div className="switchContainerParagraph">
+                                                <p>Is there an extra cost over base price ?</p>
+                                            </div>
+                                            <label className="switch">
+                                                <input 
+                                                    ref="switch"
+                                                    checked={this.state.isChecked}
+                                                    onChange={() => this.onToggleSwitch()}
+                                                    className="switch"
+                                                    type="checkbox"/>
+                                                <span className="slider round"></span>
+                                            </label>
+                                        </div>
+                                        <div className="returnInputColumn">
+                                            {this.returnExtraCost("material")}
+                                        </div>
+                                    </div>
+
+                                    <div className="errorContent">
                                     <p className={this.state.isChecked ? this.state.displayError : "displayError hide"}>
                                         Numbers Only
                                     </p>
                                 </div>
-
+                                </div>
                                 <div className="proceedOrNotCheck">
                                     <GradientButton
                                         runFunction={() => this.proceedHandler("material")}
                                         >
                                         Proceed
                                     </GradientButton>
+                                    {this.displayErrorModal("material")}
                                 </div>
-                                {this.displayErrorModal("material")}
                             </div>
                         </div>
                     </div>
@@ -2312,9 +2317,6 @@ class AddProductDetails extends React.Component {
                                                 {this.returnProductsContent()}
                                             </div>
                                         </div>
-
-                                        
-
                                     </div>
                                 </div>
                             </div>

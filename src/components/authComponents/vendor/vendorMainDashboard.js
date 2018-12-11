@@ -1041,7 +1041,7 @@ class VendorMainDashboard extends React.Component {
                 <div className="modalCategoryDeleteConatiner">
                     <div className="modalHeaderCloserSection">
                         <div className="modalHeaderContainer">
-                            <h3>Are you sure you want to delete this?</h3>
+                            <h3>Are you sure you want to delete this ?</h3>
                             <div className="line"></div>
                         </div>
                     </div>

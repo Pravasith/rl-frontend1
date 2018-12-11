@@ -1130,7 +1130,7 @@ input{
                                         .detailsToInput{
                                             width: 100%;
                                             // height: 7em;
-                                            margin: 1em 0;
+                                            margin: 1em 0 0 0;
                                             overflow-y: auto;
                                             .imageInput{
                                                 width: 23em;
@@ -1186,7 +1186,7 @@ input{
                                                     color: $primaryMagenta;
                                                     .errorFieldMessage{
                                                         ul{
-                                                            margin: 0.3em;
+                                                            margin: 0em;
                                                             li{
                                                                 p{
                                                                     color: $primaryMagenta;
@@ -1230,7 +1230,7 @@ input{
 
                             .closeModalContainer{
                                 @include flexCentreRow;
-                                margin-top: 1em;
+                                // margin-top: 1em;
                             }
 
                         }
@@ -1254,7 +1254,7 @@ input{
                         .closeHeaderSection{
                             position: absolute;
                             cursor: pointer;
-                            right: 4em;
+                            right: 3em;
                             top: 3em;
                         }
 
@@ -1264,16 +1264,22 @@ input{
                             background: $white;
                             padding: 1em;
                             @include box_shadow;
-                            min-height: 21em;
+                            min-height: 24em;
                             min-width: 22em;
                             .modalContentWrap{
                                 // width: 23em;
+                                height: 24em;
                                 .modalContentClass,.modalFinishClass,.modalSizeClass,.modalMaterialClass,.modalFinishDetailsClass{
+                                        height: 100%;
                                     .dummyXClass{
 
-                                        
+                                        height: 100%;
 
                                         .whiteSquareForModal{
+                                            @include flexCentreCol;
+                                            justify-content: space-between;
+                                            height: 100%;
+                                            .whiteSquareModalUpperContainer{
 
                                             .hide{
                                                 display: none;
@@ -1517,8 +1523,10 @@ input{
                                                 }
                                                 
                                             }
+
+                                        }
                                             .proceedOrNotCheck{
-                                                @include flexCentreRow;
+                                                @include flexCentreCol;
                                                 width: 100%;
 
                                             }
