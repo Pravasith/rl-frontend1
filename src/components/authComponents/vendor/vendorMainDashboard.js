@@ -106,7 +106,7 @@ class VendorMainDashboard extends React.Component {
                         this.setState({
                             responseCompanyName : decryptedData.companyName,
                             responseCompanyDescription : decryptedData.companyDescriptionLine1 + " " + decryptedData.companyDescriptionLine2,
-                            responseExperience : decryptedData.experience.years,
+                            responseExperience : decryptedData.experience ? decryptedData.experience.years : "",
                             companyProfilePicture : decryptedData.companyProfilePicture
                         })
                     }
@@ -217,16 +217,70 @@ class VendorMainDashboard extends React.Component {
         }
     }
 
-    returnDataFromBackendAndShow = () => {
-        setTimeout(() => {
-            this.setState({
-                recievedData: "Hello",
-                mainContentWrap: 'mainContentWrap',
-                internalLoaderClass: 'contentLoader hide',
-                sectionClass: 'newCategorySection',
-                contentWrapper:'contentWrapper',
-            })
-        }, 1000)
+
+    returnCategorisedProducts = () => {
+        const { mainCategorySelection, subCategorySelection } = this.state;
+
+        if (mainCategorySelection) {
+            if (subCategorySelection) {
+                return (
+                    <div className="categorisedProductsDisplay">
+                        <div className="categorisedProductDisplayInnerLayer">
+                            <div className="mainCategoryHead">
+                                <div className="categoryMainHeaderContainer">
+                                    <h3>{"categoryName"}</h3>
+                                    <div className="line"></div>
+                                </div>
+                                <div className="deleteCategoryContainer">
+                                    <CloseButton />
+                                </div>
+                            </div>
+                            <div className="subCategoryHead">
+                                <div className="subCategoryHeadInnerSection">
+                                    <div className="subCategoryHeaderSection">
+                                        <h3>{"subCategoryName"}</h3>
+                                        <div className="line"></div>
+                                    </div>
+                                    <div className="addProductCategorySection">
+                                        <div className="addNewProductButton">
+                                            <div className="addNewProductButtonInnerLayer">
+                                                <div className="svgImageSection">
+                                                    <AddNewProduct />
+                                                </div>
+                                                <h3>Add new product</h3>
+                                            </div>
+                                        </div>
+                                        <div className="subCategoryProductSection">
+                                            <div className="subCategoryProductSectionInnerLayer">
+                                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
+        }
+
+        else {
+            return (
+                <div className="vendorInitialGraphic">
+                    <div className="svgImageContainer">
+                        <div className="graphicSvgImageContainer">
+                            <VendorGraphic />
+                            <div className="vendorGraphicInnerContainer">
+                                <div className="vendorGraphicParaInnerLayer">
+                                    <h3>Hey <span>{this.state.firstName}</span>, show your amazing products to your clients, start
+                                        by clicking "Add new category" button on the top.</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
     }
 
     returnContent = () => {
@@ -257,7 +311,8 @@ class VendorMainDashboard extends React.Component {
                                     Add new category
                                 </GradientButton>
                             </div>
-                            <div className={this.state.vendorInitialGraphic}>
+
+                            {/* <div className={this.state.vendorInitialGraphic}>
                                 <div className="svgImageContainer">
                                     <div className="graphicSvgImageContainer">
                                         <VendorGraphic/>
@@ -268,10 +323,15 @@ class VendorMainDashboard extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div>                               
+                            </div>  */}
+                            
+                            <div className="populatedCategories">
+                                {this.returnCategorisedProducts()}
                             </div>
-                        
+                            
                         </div>
+
                         <div
                             className= {this.state.internalLoaderClass}
                             >

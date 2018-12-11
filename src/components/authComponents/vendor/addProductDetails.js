@@ -288,6 +288,16 @@ class AddProductDetails extends React.Component {
                 }
             )
 
+            // if(this
+            //     .state
+            //     .categoryStylesAdded.map(item,index))
+            // animationTimeLine.set(
+            //     ".checkBoxNumber" + index,
+            //     {
+            //         "background" : "#FFFFFF"
+            //     }
+            // )
+
             this.setState({
                 categoryStylesAdded: this.state.categoryStylesAdded.length !== 0 ? this.state.categoryStylesAdded : []
             })
@@ -749,29 +759,33 @@ class AddProductDetails extends React.Component {
                                 </div>
 
                                 <div className="productFinishDetails">
-                                    <div className="finishCostCartWrap">
-                                        <h3>Finish nomenclature</h3>
-                                        <p key={i}>{item.finishName}</p>
-                                    </div>
-                                    <div className="finishCostCartWrap">
-                                        <h3>Cost over base price</h3>
-                                        <p key={i}>Rs. {item.finishCost}</p>
-                                    </div>
-                                    <div className="finishCodecartwrap" >
-                                        {this.returnFinishCode(item)}
+                                    <div className="productFinishDetailsInnerLayer">
+                                        <div className="finsihingOptionContent">
+                                            <div className="finishCostCartWrap">
+                                                <h3>Finish nomenclature</h3>
+                                                <p key={i}>{item.finishName}</p>
+                                            </div>
+                                            <div className="finishCostCartWrap">
+                                                <h3>Cost over base price</h3>
+                                                <p key={i}>Rs. {item.finishCost}</p>
+                                            </div>
+                                            <div className="finishCodecartwrap" >
+                                                {this.returnFinishCode(item)}
+                                            </div>
+                                        </div>
+                                    
+                                        <div className="finishEditingButtons">
+                                            <div
+                                                className="deleteButton"
+                                                onClick={() => this.removeproductFinishes(i)}
+                                            >
+                                                <WhiteButton>
+                                                    Delete
+                                                </WhiteButton>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div> 
-
-                                <div className="finishEditingButtons">
-                                    <div
-                                        className="deleteButton"
-                                        onClick={() => this.removeproductFinishes(i)}
-                                    >
-                                        <WhiteButton>
-                                            Delete
-                                        </WhiteButton>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     )
@@ -1581,7 +1595,7 @@ class AddProductDetails extends React.Component {
                                     className="deleteIcon"
                                     onClick={() => this.removeTags(i)}
                                 >
-                                    <CloseButton />
+                                    <SmallCloseButton />
                                 </div>
                             </div>
 
@@ -2548,7 +2562,7 @@ class AddProductDetails extends React.Component {
 
                                                 <div className="inputFormContainer">
                                                     <div className="formParaSection">
-                                                        <p className="pargraphClass"> Features </p>
+                                                        <p className="pargraphClass"> Features / specifications of the product </p>
                                                     </div>
 
                                                     <div className="featureHolder" >
@@ -2741,7 +2755,7 @@ class AddProductDetails extends React.Component {
                                                     </div>
                                                 </div>
 
-                                                <div className="inputFormContainer">
+                                                {/* <div className="inputFormContainer">
 
                                                     <div className="formParaSection">
                                                         <p className="pargraphClass"> Features / specifications of the product </p>
@@ -2760,7 +2774,7 @@ class AddProductDetails extends React.Component {
                                                         />
                                                     </div>
 
-                                                </div>
+                                                </div> */}
                                            
                                                 
                                                 <div className="inputFormContainer">
