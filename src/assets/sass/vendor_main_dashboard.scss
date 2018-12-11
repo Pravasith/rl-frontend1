@@ -842,20 +842,21 @@ input{
                                     @include flexCentreRow;
                                     justify-content: flex-start;
                                     width: 90%;
-                                    margin: 0.5em 0 0.5em 0;
+                                    margin: 0 0 0.5em 0;
+
                                     .logoImageContainer{
                                         @include flexCentreCol;
-                                        width: 7em;
-                                        height: 7em;
+                                        width: 6em;
+                                        height: 6em;
                                         background: $white;
                                         // @include box_shadow;
                                         .logoImageContainerInnerLayer{
-                                            width: 6.2em;
-                                            height: 6.2em;
+                                            width: 5.2em;
+                                            height: 5.2em;
                                             // padding: 0.5em;
                                             img{
-                                                width: 6.2em;
-                                                height: 6.2em;
+                                                width: 5.2em;
+                                                height: 5.2em;
                                                 object-fit: cover;
                                             }
                                         }
@@ -875,30 +876,29 @@ input{
                                             width: 100%;
                                             .companyTitleConatiner{
                                                 @include flexCentreCol;
+                                                margin-right: 0.5em;
+
                                                 h3{
-                                                    font-size: 1.3em;
+                                                    font-size: 1em;
                                                     color: $darkerGrey;
                                                 }
                                             }
-                                            .companyCaptionConatiner{
-                                                @include flexCentreCol;
-                                                p{
-                                                    color: $darkerGrey;
-                                                    font-size: 0.79em;
-                                                }
-                                            }
+                                            
                                             .line{
-                                                width: 50%;
+                                                width: 20%;
                                                 background: $secondaryMagenta;
                                                 height: 0.1em;
                                             }
                                         }
                                         .companyInfoLowerContainer{
                                             width: 100%;
-                                            height: 10em;
+                                            max-height: 10em;
                                             overflow-y: auto;
+                                            margin-top: 0.3em;
                                             p{
-                                                font-size: 0.8em;
+                                                font-size: 0.75em;
+                                                margin-right: 1em;
+                                                font-weight: 400;  
                                             }
                                         }
                                     }
@@ -906,6 +906,18 @@ input{
                                         @include flexCentreCol;
                                         align-items: flex-start;
                                         margin-top: 1em;
+                                        margin-right: 0.5em;
+
+                                        .companyCaptionConatiner{
+                                            @include flexCentreCol;
+                                            margin-top: 0.5em;
+                                            p{
+                                                color: $darkGrey;
+                                                font-size: 0.75em;
+                                                font-weight: 400;  
+                                            }
+                                        }
+                                        
                                         .vendorTitleContainer{
                                             h3{
                                                 font-size: 0.9em;
@@ -925,15 +937,15 @@ input{
                                                 .vendorProfilePicture{
                                                     @include flexCentreRow;
                                                     .vendorProfilePictureInnerLayer{
-                                                        width: 4em;
-                                                        height: 4em;
+                                                        width: 3.5em;
+                                                        height: 3.5em;
                                                         border-radius: 50%;
                                                         background: $white;
                                                         padding: 0.3em;
                                                         // @include box_shadow;
                                                         img{
-                                                            width: 4em;
-                                                            height: 4em;
+                                                            width: 3.5em;
+                                                            height: 3.5em;
                                                             border-radius: 50%;
                                                         }
                                                     }
@@ -942,8 +954,8 @@ input{
                                             .vendorPersonalInfoContainer{
                                                 @include flexCentreCol;
                                                 align-items: flex-start;
-                                                margin-left: 0.7em;
-                                                margin-top: 0.2em;
+                                                margin-left: 0.5em;
+                                                margin-top: 0.5em;
                                                 // max-width: 60%;
                                                 h3{
                                                     font-size: 0.79em;
@@ -1045,15 +1057,18 @@ input{
 
                         .add{
                             @include flexCentreCol;
-                            width: 97%;
-                            padding: 0.5em;
+                            width: 100%;
+                            padding: 0.5em 0 ;
 
                             .addProductButton{
                                 @include flexCentreRow;
                                 justify-content: flex-start;
                                 width: 100%;
+                                margin-bottom: 0.5em;
 
                                 .gradientButtonWrapper{
+                                    margin-left: 0;
+                                    margin-top: 0;
                                     .svgImageContainer{
                                         margin-right: 0.5em;
                                         margin-top: 0.2em;
@@ -1242,17 +1257,17 @@ input{
                 }
             }
             .populatedCategories{
-                height: 30em;
+                height: 29.6em;
                 width: 100%;
                 overflow-y: auto;
                 .populatedCategoriesInnerLayer{
                     @include flexCentreCol;
-                    width: 96%;
+                    width: 99%;
                     .categorisedProductsDisplay{
                         @include flexCentreRow;
                         width: 100%;
-                        background: $veryLightGrey;
-                        margin: 1em 0;
+                        background: $white;
+                        margin-bottom: 1em;                        
                         .categorisedProductDisplayInnerLayer{
                             @include flexCentreCol;
                             align-items: flex-start;
@@ -1261,27 +1276,33 @@ input{
                             .mainCategoryHead{
                                 @include flexCentreRow;
                                 justify-content: space-between;
+                                align-items: flex-start;
                                 // width: 30%;
                                 .categoryMainHeaderContainer{
                                     @include flexCentreCol;
                                     align-items: flex-start;
                                     h3{
-                                        font-size: 1.2em;
+                                        font-size: 1em;
                                         color: $darkerGrey;
                                     }
                                     .line{
                                         background: $highLightBlue;
+                                        min-height: 0.1em;
                                         height: 0.1em;
+                                        width: 20%;
                                     }
                                 }
                                 .deleteCategoryContainer{
                                     cursor: pointer;
                                     margin-left: 1em;
                                     margin-bottom: 0.2em;
+                                    margin-top: 0.25em;
                                 }
                             }
                             .subCategoryHead{
                                 @include flexCentreRow;
+                                justify-content: flex-start;
+                                padding-left: 1.2em;
                                 width: 100%;
                                 margin: 0.5em 0 1em 0;
                                 .subCategoryHeadInnerSection{
@@ -1291,9 +1312,13 @@ input{
                                     .subCategoryHeaderSection{
                                         h3{
                                             color: $darkerGrey;
+                                            font-size: 0.8em;
+                                            font-weight: 500;
                                         }
                                         .line{
-                                            width: 50%;
+                                            width: 20%;
+                                            min-height: 0.1em;
+                                            height: 0.1em;
                                             background: $lightGrey;
                                         }
                                     }
@@ -1307,8 +1332,14 @@ input{
                                             height: 10em;
                                             background: $white;
                                             padding: 0.5em;
-                                            @include box_shadow;
                                             cursor: pointer;
+                                            @include box_shadow;
+                                            transition: 0.2s;
+
+                                            &:hover{
+                                                @include box_shadow_dark;
+                                            }
+
                                             .addNewProductButtonInnerLayer{
                                                 @include flexCentreCol;
                                                 background: $veryLightGrey;
@@ -1317,7 +1348,8 @@ input{
     
                                                 }
                                                 h3{
-    
+                                                    margin-top: 0.5em;
+                                                    font-size: 0.8em;
                                                 }
                                             }
                                         }
@@ -1349,10 +1381,11 @@ input{
                             .vendorGraphicInnerContainer{
                                 position: absolute;
                                 text-align: center;
-                                bottom: 17%;
+                                bottom: 14%;
                                 width: 100%;
                                 .vendorGraphicParaInnerLayer{
                                     @include flexCentreRow;
+                                    // margin-top: 2em;
                                     h3{
                                         width: 37%;
                                         font-weight: 500;

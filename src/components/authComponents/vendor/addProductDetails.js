@@ -153,7 +153,7 @@ class AddProductDetails extends React.Component {
                 //
 
                 const rawData = { sCId }
-                console.log(rawData)
+                // console.log(rawData)
                 
                 //
                 // Encrypt data
@@ -182,8 +182,6 @@ class AddProductDetails extends React.Component {
                     //
                     // DECRYPT REQUEST DATA
                     //
-
-                    // console.log(decryptedData)
 
                     this.setState({
                         loadingClass: 'loadingAnim hide',

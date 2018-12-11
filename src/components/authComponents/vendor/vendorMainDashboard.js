@@ -318,9 +318,9 @@ class VendorMainDashboard extends React.Component {
             })
     }
 
-    componentDidUpdate() {
-        console.log(this.state.categoriesSelected)
-    }
+    // componentDidUpdate() {
+    //     console.log(this.state.categoriesSelected)
+    // }
 
     onSelect = (e) => {
         this.setState({
@@ -430,7 +430,10 @@ class VendorMainDashboard extends React.Component {
         const returnSubCategories = (subcategories) => {
             return subcategories.subCategory.map((subcategory, i) => {
                 return (
-                    <div className="subCategoryHead">
+                    <div 
+                        className="subCategoryHead"
+                        key = { "subCat" + i }
+                        >
                         <div className="subCategoryHeadInnerSection">
                             <div className="subCategoryHeaderSection">
                                 <h3>{subcategory.subCategoryName}</h3>
@@ -438,7 +441,17 @@ class VendorMainDashboard extends React.Component {
                             </div>
 
                             <div className="addProductCategorySection">
-                                <div className="addNewProductButton">
+                                <div 
+                                    className="addNewProductButton"
+                                    onClick = {() => {
+                                        this.setState({
+                                            mainClass : "mainClass hide",
+                                            loadingClass : "loadingAnim"
+                                        })
+
+                                        window.open("/vendor/add-product/" + subcategory.subCategoryId.toLowerCase(), "_self")
+                                    }}
+                                    >
                                     <div className="addNewProductButtonInnerLayer">
                                         <div className="svgImageSection">
                                             <AddNewProduct />
@@ -1097,9 +1110,7 @@ class VendorMainDashboard extends React.Component {
                                                         <div className="companyTitleConatiner">
                                                             <h3>{this.state.responseCompanyName}</h3>
                                                         </div>
-                                                        <div className="companyCaptionConatiner">
-                                                            <p>{this.state.professionalTitle}</p>
-                                                        </div>
+                                                        
                                                         <div className="line"></div>
                                                     </div>
                                                     <div className="companyInfoLowerContainer">
@@ -1130,6 +1141,10 @@ class VendorMainDashboard extends React.Component {
 
                                                             </div>
                                                         </div>
+                                                    </div>
+
+                                                    <div className="companyCaptionConatiner">
+                                                        <p>{this.state.professionalTitle}</p>
                                                     </div>
                                                 </div>
                                             </div>
