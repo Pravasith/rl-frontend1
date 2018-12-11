@@ -888,10 +888,44 @@ export const TickSmallWhite = () => {
 
 }
 
+
+
+
+export const SadFace = () => {
+
+    return (
+        <svg id="sadFuck" xmlns="http://www.w3.org/2000/svg" width="124.647" height="108.565"
+            viewBox="0 0 124.647 108.565">
+                <path fill="#FFF" stroke="gray" strokeWidth="3" strokeLinecap="round"
+                strokeLinejoin="round" strokeMiterlimit="10" d="M18.515,72.886V37.57c0,0-1.442-6.307,5.227-8.649c6.665-2.344,38.378-11.174,38.378-11.174s7.568-3.483,14.296,0 c6.728,3.486,26.425,15.391,26.425,15.391s3.425,1.548,3.425,5.875c0,4.322-1.081,33.874-1.081,33.874s-0.06,4.445-3.664,6.847 c-3.603,2.401-23.364,11.352-23.364,11.352s-1.262,2.884-15.136,0c-13.875-2.881-40.541-9.55-40.541-9.55 S18.515,80.454,18.515,72.886z"
+                />
+                <path fill="#FFF" stroke="gray" strokeWidth="3" strokeLinecap="round"
+                strokeLinejoin="round" strokeMiterlimit="10" d="M23.961,41.025c0,0,5.954-1.587,9.176-1.092"
+                />
+                <path fill="#FFF" stroke="gray" strokeWidth="3" strokeLinecap="round"
+                strokeLinejoin="round" strokeMiterlimit="10" d="M39.447,38.935c0,0,10.811-0.419,19.821,0.063"
+                />
+                <polygon fill="#F2F2F2" stroke="#F2F2F2" strokeWidth="3" strokeLinecap="round"
+                strokeLinejoin="round" strokeMiterlimit="10" points="80.453,80.068 80.939,29.858 100.184,41.444 99.752,69.438"
+                />
+                <circle fill="#B3B3B3" cx="30.955" cy="50.817" r="1.932" />
+                <circle fill="#B3B3B3" cx="46.231" cy="50.817" r="1.933" />
+                <path fill="none" stroke="#B3B3B3" strokeWidth="3" strokeLinecap="round"
+                strokeLinejoin="round" strokeMiterlimit="10" d="M49.138,63.711c0,0-6.759-7.359-17.984,0"
+                />
+        </svg>
+    )
+
+}
+
+
 export const YourImageName = () => {
 
     return
 
 }
+
+
+
 
 
