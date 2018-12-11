@@ -595,7 +595,7 @@ input{
 
                                                         &:hover{
                                                             .checkBox{
-                                                                background: $mediumGrey;                                                               
+                                                                background: $darkGrey;                                                               
                                                             }
 
                                                             .color{
@@ -1212,6 +1212,18 @@ input{
                                                 }
                                         }
                                     }
+
+                                    .loadingWrapperProducts{
+                                        @include flexCentreCol;
+                                        padding: 1em;
+                                        width: 10em;
+                                        height: 10em;
+                                        .loadingHeader{
+                                            margin-top: 0.5em;
+                                            font-size: 0.8em;
+                                            margin-bottom: 0.5em;
+                                        }
+                                    }
                                 }
                             }
 
@@ -1250,8 +1262,10 @@ input{
                             @include flexCentreRow;
                             align-items: flex-start;
                             background: $white;
-                            padding: 0.8em;
+                            padding: 1em;
                             @include box_shadow;
+                            min-height: 21em;
+                            min-width: 22em;
                             .modalContentWrap{
                                 // width: 23em;
                                 .modalContentClass,.modalFinishClass,.modalSizeClass,.modalMaterialClass,.modalFinishDetailsClass{
