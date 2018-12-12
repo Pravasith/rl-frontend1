@@ -2043,7 +2043,7 @@ class AddProductDetails extends React.Component {
                                             </div>
                                         </div>
                                         <div className="finishEndModal">
-                                            <div>
+                                            <div className="finishImageContainer">
                                                 <img
                                                     src={this.state.productFinishImage}
                                                     alt=""

@@ -1207,6 +1207,9 @@ input{
                                                 height: 5em;
                                                 object-fit: cover;
                                             }
+                                            .gradientButtonWrapper{
+                                                margin-top: 1em;
+                                            }
 
                                              .hide {
                                                 display: none;
@@ -1330,6 +1333,11 @@ input{
                                             .finishEndModal{
                                                 @include flexCentreRow;
                                                 align-items: flex-start;
+                                                .finishImageContainer{
+                                                    img{
+                                                        object-fit: cover;
+                                                    }
+                                                }
                                                 .finsihingDetails{
                                                     margin-left: 0.8em;
                                                     .inputFormContainer{
