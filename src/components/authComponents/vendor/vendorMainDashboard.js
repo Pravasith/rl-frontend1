@@ -1057,7 +1057,7 @@ class VendorMainDashboard extends React.Component {
 
         else if (categoryModalOrSubcategoryModal === "delete") {
             return (
-                <div className="modalCategoryDeleteConatiner">
+                <div className="modalCategoryDeleteContainer">
                     <div className="modalHeaderCloserSection">
                         <div className="modalHeaderContainer">
                             <h3>Are you sure you want to delete this ?</h3>
@@ -1066,7 +1066,7 @@ class VendorMainDashboard extends React.Component {
                     </div>
                     <div className="confirmationButtonContainer">
                         <div className="closeButtonContainer">
-                            <WhiteButton
+                            <WhiteButton    
                                 runFunction={() => this.setState({
                                     modalClass: "modalClass hide",
                                     productManagerWrapperClass: "productManagerWrapperClass",
@@ -1090,10 +1090,10 @@ class VendorMainDashboard extends React.Component {
 
         else if (categoryModalOrSubcategoryModal === "subCategoryExistWarning") {
             return (
-                <div className="modalsubCategoryDeleteConatiner">
+                <div className="modalCategoryDeleteContainer">
                     <div className="modalHeaderCloserSection">
                         <div className="modalHeaderContainer">
-                            <h3>Sub-category you chose already exists in your dashboard, check it ...</h3>
+                            <h3>Sub-category you chose already exists in your dashboard, please check...</h3>
                             <div className="line"></div>
                         </div>
                     </div>
