@@ -1047,7 +1047,7 @@ class VendorMainDashboard extends React.Component {
                     </div>
                     <div className="confirmationButtonContainer">
                         <div className="closeButtonContainer">
-                            <WhiteButton
+                            <WhiteButton    
                                 runFunction={() => this.setState({
                                     modalClass: "modalClass hide",
                                     productManagerWrapperClass: "productManagerWrapperClass",
