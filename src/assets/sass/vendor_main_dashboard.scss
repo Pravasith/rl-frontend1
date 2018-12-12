@@ -85,11 +85,11 @@ input{
                 .modalOuterLayer{
                    @include flexCentreRow;
                    height: 85%;
-                   .modalCategoryDeleteConatiner{
+                   .modalCategoryDeleteContainer{
                        @include flexCentreCol;
                         justify-content: flex-start;
                         width: 30%;
-                        height: 7em;
+                        height: 8em;
                         margin: 0.5em;
                         background: $white;
                         @include box_shadow;
@@ -99,7 +99,7 @@ input{
                             margin-top: 0.5em;
                             // width: 85%;
                             h3{
-    
+                                text-align: center;
                             }
                             .line{
                                 width: 30%;

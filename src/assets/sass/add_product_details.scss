@@ -1148,7 +1148,7 @@ input{
                                                         .outerMostLayer{
                                                             width: 90%;
                                                             margin: 0.2em;
-                                                            border: 0.1em solid $darkGrey;
+                                                            border: 0.1em solid $mediumGrey;
                                                             .innerWrapperImage{
                                                                 height: 100%;
                                                                 .productCatalogueImage{
@@ -1201,6 +1201,7 @@ input{
 
                                         .showFinalProceed{
                                         @include flexCentreCol;
+                                        margin-top: 1.5em;
                                             img{
                                                 width: 5em;
                                                 height: 5em;
