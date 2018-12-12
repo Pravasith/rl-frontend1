@@ -318,10 +318,6 @@ class VendorMainDashboard extends React.Component {
             })
     }
 
-    componentDidUpdate() {
-        console.log(this.state.categoriesSelected)
-    }
-
     onSelect = (e) => {
         this.setState({
             categoryName: e.target.value
