@@ -1251,7 +1251,7 @@ input{
                     .categorisedProductsDisplay{
                         @include flexCentreRow;
                         width: 100%;
-                        background: $veryLightGrey;
+                        background: $veryVeryLightGrey;
                         margin: 1em 0;
                         .categorisedProductDisplayInnerLayer{
                             @include flexCentreCol;
@@ -1277,7 +1277,7 @@ input{
                                 .deleteCategoryContainer{
                                     cursor: pointer;
                                     margin-left: 1em;
-                                    margin-bottom: 0.2em;
+                                    margin-bottom: 0.5em;
                                 }
                             }
                             .subCategoryHead{
