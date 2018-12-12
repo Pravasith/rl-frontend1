@@ -473,11 +473,11 @@ class ProfileDetailsVendor extends React.Component {
                 <ImageUploader
                     imageType="profileImage" // regularImage || profileImage
                     resultData={val => {
-                        console.log(val.imageURL)
-                        // this.hitTheAPI("profilePicture", val.imageURL)
-                        // this.setState({
-                        //     profilePicture: val.imageURL
-                        // })
+                        // console.log(val.imageURL)
+                        this.hitTheAPI("profilePicture", val.imageURL)
+                        this.setState({
+                            profilePicture: val.imageURL
+                        })
                     }}
                     showInitialImage={this.state.profilePicture}
                     imageClassName="profilePictureClass"
@@ -491,11 +491,11 @@ class ProfileDetailsVendor extends React.Component {
                     <ImageUploader
                         imageType="profileImage" // regularImage || profileImage
                         resultData={val => {
-                            console.log(val.imageURL)
-                            // this.hitTheAPI("profilePicture", val.imageURL)
-                            // this.setState({
-                            //     profilePicture: val.imageURL
-                            // })
+                            // console.log(val.imageURL)
+                            this.hitTheAPI("profilePicture", val.imageURL)
+                            this.setState({
+                                profilePicture: val.imageURL
+                            })
                         }}
                         // showInitialImage={this.state.profilePicture}
                         imageClassName="profilePictureClass"
@@ -661,7 +661,7 @@ class ProfileDetailsVendor extends React.Component {
                     // Decrypt data
                     // 
 
-                    window.open("/vendor-main-dashboard", "_self")
+                    window.open("/vendor/dashboard", "_self")
                 })
                 .catch (e => console.error(e))
             })

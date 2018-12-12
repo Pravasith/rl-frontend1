@@ -262,43 +262,49 @@ class VendorMainDashboard extends React.Component {
                 })
 
                 this.props.hitApi(api.GET_VENDOR_DATA, "GET")
-                    .then((data) => {
-                        let { responseData } = this.props
+                .then((data) => {
+                    let { responseData } = this.props
 
-                        /// fake request
-                        setTimeout(() => {
-                            this.setState({
-                                // recievedData: "Hello",
-                                mainContentWrap: 'mainContentWrap',
-                                internalLoaderClass: 'contentLoader hide',
-                                sectionClass: 'newCategorySection',
-                                contentWrapper: 'contentWrapper',
-                            })
-                        }, 1000)
-                        /// fake request
+                    /// fake request
+                    setTimeout(() => {
+                        this.setState({
+                            // recievedData: "Hello",
+                            mainContentWrap: 'mainContentWrap',
+                            internalLoaderClass: 'contentLoader hide',
+                            sectionClass: 'newCategorySection',
+                            contentWrapper: 'contentWrapper',
+                        })
+                    }, 1000)
+                    /// fake request
 
-                        if (responseData.responsePayload.message !== "User credentials not found") {
+                    if (responseData.responsePayload.message !== "User credentials not found") {
 
-                            //
-                            // DECRYPT REQUEST DATA
-                            //
-                            let decryptedData = decryptData(
-                                responseData.responsePayload.responseData
-                            )
-                            //
-                            // DECRYPT REQUEST DATA
-                            //
+                        //
+                        // DECRYPT REQUEST DATA
+                        //
+                        let decryptedData = decryptData(
+                            responseData.responsePayload.responseData
+                        )
+                        //
+                        // DECRYPT REQUEST DATA
+                        //
 
-                            // console.log(decryptedData)
-
-                            this.setState({
-                                responseCompanyName: decryptedData.companyName,
-                                responseCompanyDescription: decryptedData.companyDescriptionLine1 + " " + decryptedData.companyDescriptionLine2,
-                                responseExperience: decryptedData.experience ? decryptedData.experience.years : "",
-                                companyProfilePicture: decryptedData.companyProfilePicture
-                            })
-                        }
-                    })
+                        this.setState({
+                            responseCompanyName : decryptedData.companyName,
+                            responseCompanyDescription : decryptedData.companyDescriptionLine1 
+                                                            + " " +
+                                                         (
+                                                            decryptedData.companyDescriptionLine2 
+                                                                ?
+                                                            decryptedData.companyDescriptionLine2 
+                                                                :
+                                                            ""
+                                                         ),
+                            responseExperience : decryptedData.experience ? decryptedData.experience.years : "",
+                            companyProfilePicture : decryptedData.companyProfilePicture
+                        })
+                    }
+                })
             })
 
             .catch((err) => {
@@ -311,6 +317,10 @@ class VendorMainDashboard extends React.Component {
                     console.error(err)
             })
     }
+
+    // componentDidUpdate() {
+    //     console.log(this.state.categoriesSelected)
+    // }
 
     onSelect = (e) => {
         this.setState({
@@ -405,6 +415,18 @@ class VendorMainDashboard extends React.Component {
         }
     }
 
+    deleteCategory = (index) => {
+        this.state.categoriesSelected.splice(index, 1)
+
+        let dummyArray = [...this.state.categoriesSelected]
+        this.setState({
+            categoriesSelected: dummyArray,
+            modalClass: "modalClass hide",
+            productManagerWrapperClass: "productManagerWrapperClass",
+            mainContentWrap: "mainContentWrap",
+            vendorInitialGraphic: 'vendorGraphicCenter',
+        })
+    }
 
     returnCategorisedProducts = () => {
         const { categoriesSelected } = this.state
@@ -412,7 +434,10 @@ class VendorMainDashboard extends React.Component {
         const returnSubCategories = (subcategories) => {
             return subcategories.subCategory.map((subcategory, i) => {
                 return (
-                    <div className="subCategoryHead">
+                    <div 
+                        className="subCategoryHead"
+                        key = { "subCat" + i }
+                        >
                         <div className="subCategoryHeadInnerSection">
                             <div className="subCategoryHeaderSection">
                                 <h3>{subcategory.subCategoryName}</h3>
@@ -420,7 +445,17 @@ class VendorMainDashboard extends React.Component {
                             </div>
 
                             <div className="addProductCategorySection">
-                                <div className="addNewProductButton">
+                                <div 
+                                    className="addNewProductButton"
+                                    onClick = {() => {
+                                        this.setState({
+                                            mainClass : "mainClass hide",
+                                            loadingClass : "loadingAnim"
+                                        })
+
+                                        window.open("/vendor/add-product/" + subcategory.subCategoryId.toLowerCase(), "_self")
+                                    }}
+                                    >
                                     <div className="addNewProductButtonInnerLayer">
                                         <div className="svgImageSection">
                                             <AddNewProduct />
@@ -431,7 +466,7 @@ class VendorMainDashboard extends React.Component {
 
                                 <div className="subCategoryProductSection">
                                     <div className="subCategoryProductSectionInnerLayer">
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -456,8 +491,17 @@ class VendorMainDashboard extends React.Component {
                                         <h3>{item.category.categoryName}</h3>
                                         <div className="line"></div>
                                     </div>
-
-                                    <div className="deleteCategoryContainer">
+                                    <div 
+                                        className="deleteCategoryContainer"
+                                        // onClick={() => this.deleteCategory(i)}
+                                        onClick={() => {
+                                            this.setState({
+                                                modalClass: 'modalClass',
+                                                productManagerWrapperClass: "productManagerWrapperClass blurClass",
+                                                activeModalType: "delete"
+                                            })
+                                        }}
+                                    >
                                         <CloseButton />
                                     </div>
                                 </div>
@@ -494,7 +538,29 @@ class VendorMainDashboard extends React.Component {
     returnContent = () => {
         let { contentType } = this.state;
 
-        if (contentType === 'productManager') {
+        if (contentType === 'productManager'){
+
+            // return(
+            //         <div className="add">
+            //             <div className={this.state.contentWrapper}>
+            //                 <div className="addProductButton">
+            //                     <GradientButton
+            //                         runFunction={() => {
+
+            //                             // this.selectCategoryAndSubCategory()
+            //                             this.setState({
+            //                                 modalClass: 'modalClass ',
+            //                                 productManagerWrapperClass : "productManagerWrapperClass blurClass",
+            //                                 vendorInitialGraphic: 'hide',
+            //                             })
+            //                         }}
+            //                         >
+            //                         <div className="svgImageContainer">
+            //                             <PlusButtonIconWhite />
+            //                         </div>
+            //                         Add new category
+            //                     </GradientButton>
+            //                 </div>
 
             return (
                 <div className="add">
@@ -508,6 +574,7 @@ class VendorMainDashboard extends React.Component {
                                         modalClass: 'modalClass ',
                                         productManagerWrapperClass: "productManagerWrapperClass blurClass",
                                         vendorInitialGraphic: 'hide',
+                                        activeModalType: 'categoryModal'
                                     })
                                 }}
                             >
@@ -790,6 +857,7 @@ class VendorMainDashboard extends React.Component {
             this.setState({
                 categoryErrorClass: "errorMessageWrap hide",
                 activeModalType: "subcategoryModal"
+               
             })
         }
     }
@@ -814,34 +882,11 @@ class VendorMainDashboard extends React.Component {
             })
         }
 
-        // else{
-        //     let dummyCategoryArray = [...categoriesSelected]
-
-        //     dummyCategoryArray.map((item, i) => {
-                
-        //     })
-        // }
-        
-
         let dummyArray = [...categoriesSelected]
-
-        console.log(dummyArray)
 
         this.setState({
             categoriesSelected: dummyArray,
         })
-
-        // await categoriesSelected.map((item, i) => {
-        //     // console.log(item.mainCategorySelection.categoryName, mainCategorySelection)
-        //     if(item.mainCategorySelection.categoryId === mainCategorySelection.categoryId) {
-        //         console.log(item.subCategorySelection.subCategoryName);
-                
-        //     }
-
-        //     else {
-        //         // console.log(item);
-        //     }
-        // })
     }
 
     returnModalContent = (categoryModalOrSubcategoryModal) => {
@@ -990,6 +1035,39 @@ class VendorMainDashboard extends React.Component {
                 </div>
             )
         }
+
+        else if (categoryModalOrSubcategoryModal === "delete") {
+            return (
+                <div className="modalCategoryDeleteConatiner">
+                    <div className="modalHeaderCloserSection">
+                        <div className="modalHeaderContainer">
+                            <h3>Are you sure you want to delete this ?</h3>
+                            <div className="line"></div>
+                        </div>
+                    </div>
+                    <div className="confirmationButtonContainer">
+                        <div className="closeButtonContainer">
+                            <WhiteButton
+                                runFunction={() => this.setState({
+                                    modalClass: "modalClass hide",
+                                    productManagerWrapperClass: "productManagerWrapperClass",
+                                    mainContentWrap: "mainContentWrap",
+                                    vendorInitialGraphic: 'vendorGraphicCenter',
+                                })}
+                            >
+                                No
+                                </WhiteButton>
+                        </div>
+                        <div className="yesContainer"
+                            onClick={() => this.deleteCategory(i)}>
+                            <WhiteButton>
+                                Yes
+                             </WhiteButton>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
     }
 
     returnModal = () => {
@@ -1077,9 +1155,7 @@ class VendorMainDashboard extends React.Component {
                                                         <div className="companyTitleConatiner">
                                                             <h3>{this.state.responseCompanyName}</h3>
                                                         </div>
-                                                        <div className="companyCaptionConatiner">
-                                                            <p>{this.state.professionalTitle}</p>
-                                                        </div>
+                                                        
                                                         <div className="line"></div>
                                                     </div>
                                                     <div className="companyInfoLowerContainer">
@@ -1110,6 +1186,10 @@ class VendorMainDashboard extends React.Component {
 
                                                             </div>
                                                         </div>
+                                                    </div>
+
+                                                    <div className="companyCaptionConatiner">
+                                                        <p>{this.state.professionalTitle}</p>
                                                     </div>
                                                 </div>
                                             </div>

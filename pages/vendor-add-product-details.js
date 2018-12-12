@@ -8,7 +8,7 @@ import AddProductDetails from "../src/components/authComponents/vendor/addProduc
 const Content = withRouter((props) => (
     <div>
       <AddProductDetails
-        pId = {props.router.query.pId}
+        sCId = {props.router.query.sCId}
       />
     </div>
   ))

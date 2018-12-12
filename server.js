@@ -14,21 +14,20 @@ app.prepare()
         //     const queryParams = { title: req.params.id }
         //     app.render(req, res, actualPage, queryParams)
         // })
+
         server.get('/vendor/profile-details', (req, res) => {
             const actualPage = '/vendor-profile-details'
-            // const queryParams = { title: req.params.id }
             app.render(req, res, actualPage)
         })
 
         server.get('/vendor/dashboard', (req, res) => {
             const actualPage = '/vendor-main-dashboard'
-            // const queryParams = { title: req.params.id }
             app.render(req, res, actualPage)
         })
 
-        server.get('/vendor/add-product/:pId', (req, res) => {
+        server.get('/vendor/add-product/:sCId', (req, res) => {
             const actualPage = '/vendor-add-product-details'
-            const queryParams = { pId: req.params.pId }
+            const queryParams = { sCId: req.params.sCId }
             app.render(req, res, actualPage, queryParams)
         })
 
