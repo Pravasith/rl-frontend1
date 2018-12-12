@@ -318,9 +318,9 @@ class VendorMainDashboard extends React.Component {
             })
     }
 
-    // componentDidUpdate() {
-    //     console.log(this.state.categoriesSelected)
-    // }
+    componentDidUpdate() {
+        console.log(this.state.categoriesSelected)
+    }
 
     onSelect = (e) => {
         this.setState({
@@ -864,31 +864,35 @@ class VendorMainDashboard extends React.Component {
     }
 
     handleProceedForNewProduct = async () => {
-        const { mainCategorySelection, subCategorySelection, categoriesSelected } = this.state
-        let categoryAlreadySelected = false
+        const { mainCategorySelection, subCategorySelection, categoriesSelected } = this.state;
 
-        // console.log(subCategorySelection)
+        let categoryAlreadySelected = false;
+        let subCategoryAlreadySelected = false;
 
         categoriesSelected.map((item, i) => {
-            console.log(item)
+
             if (item.category.categoryId === mainCategorySelection.categoryId) {
+
                 categoryAlreadySelected = true;
+
                 item.subCategory.map((subItem, i) => {
-                    if (subItem.subCategoryId !== subCategorySelection.subCategoryId) {
-                        console.log("Wrks")
-                        categoryAlreadySelected = true
 
-                        item.subCategory.push(subCategorySelection)
-                    }
+                    if (subItem.subCategoryId === subCategorySelection.subCategoryId) {
 
-                    else {
+                        subCategoryAlreadySelected = true
+
                         this.setState({
                             modalClass: 'modalClass',
                             productManagerWrapperClass: "productManagerWrapperClass blurClass",
                             activeModalType: "subCategoryExistWarning"
                         })
+
                     }
                 })
+
+                if (subCategoryAlreadySelected === false) {
+                    item.subCategory.push(subCategorySelection)
+                }
             }
         })
         
