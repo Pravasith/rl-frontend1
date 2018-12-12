@@ -33,6 +33,7 @@ import Navbar from "../../navbar/navbar"
 import { decryptData, encryptData } from "../../../factories/encryptDecrypt"
 import ImageUploader from "../../UX/imageUploader"
 import { api } from "../../../actions/apiLinks";
+import { createClient } from "http";
 
 class AddProductDetails extends React.Component {
 
@@ -230,6 +231,10 @@ class AddProductDetails extends React.Component {
                 else
                     console.error(err)
             })
+    }
+
+    componentDidUpdate = () => {
+        console.log(this.state.materialCost, this.state.sizeCost, this.state.finishCost)
     }
 
     modalClassToggle = (showOrNot) => {
@@ -962,6 +967,8 @@ class AddProductDetails extends React.Component {
         const val = e.target.value;
         const regEx = /^[0-9\b]+$/;
 
+        console.log(val)
+
         if (val !== "") {
             if (regEx.test(val) === true) {
                 if (checkFor === "discount") { 
@@ -1062,17 +1069,15 @@ class AddProductDetails extends React.Component {
 
         if (temp.imageURL !== "") {
             let dummyArray = productImagesObject.imagesInCategory ? productImagesObject.imagesInCategory : [];
-            // let dummyArray2 = productImagesObject.imagesInCategory ? productImagesObject.imagesInCategory : [];
 
             if(!dummyArray.includes(temp)) {
                 dummyArray.push(temp)
-                // dummyArray2.push(temp.imageURL)
             }
 
             this.setState({
                 productImagesObject: {
-                        categoryName : "",
-                        imagesInCategory : [...dummyArray]
+                    categoryName : "",
+                    imagesInCategory : [...dummyArray]
                 },
                 productImage: ""
             })
@@ -1083,13 +1088,16 @@ class AddProductDetails extends React.Component {
         if(this.state.productImagesObject.imagesInCategory.length !== 0) {
             return (
                 <div className ="imageSliderParentWrap" >
-                    {/* <header className="uploadedHeaderSection">
-                        <div className="headingArea">
-                            <h3 className="headingColumn">Uploaded images</h3>
-
-                            <div className="line"></div>
-                        </div>
-                    </header> */}
+                    {
+                        /* 
+                        <header className="uploadedHeaderSection">
+                            <div className="headingArea">
+                                <h3 className="headingColumn">Uploaded images</h3>
+                                <div className="line"></div>
+                            </div>
+                        </header>
+                        */
+                    }
 
                     <div className="downSectionInnerLayer">
                         <HtmlSlider
@@ -1133,11 +1141,13 @@ class AddProductDetails extends React.Component {
                         else {
                             emptyField = "Material Cost in Numbers";
                         }
-                    } 
+                    }
+
                     else {
                         emptyField = "Material Cost";
                     }
                 }
+
                 else if (materialCost === 0) {
                     isMaterialValid = true;
                 }
@@ -1837,7 +1847,7 @@ class AddProductDetails extends React.Component {
 
         const finalDataToSend = {
             productName : this.state.productName,
-            secondaryProductCode : this.state.productCode,
+            productCode : this.state.productCode,
             basePrice : this.state.productPrice,
             productMaterials : this.state.productMaterials,
             finishingOptions : this.state.productFinishes,
@@ -1850,26 +1860,86 @@ class AddProductDetails extends React.Component {
             designStyles : this.state.categoryStylesAdded,
             productTypeId : this.state.productType,
             tags : this.state.tagsAdded,
-            availability : this.state.productAvailability,
-//             productImages : 
+            availability : this.state.productAvailabilityBool,
+            discount : this.state.productDiscount,
+            productImages : this.state.productImagesObject.imagesInCategory,
+            productThumbImage : this.state.productImageThumbnail
 
-//             this.state.productName
-// this.state.productCode
-// this.state.productPrice
-// this.state.productMaterials
-// this.state.productFinishes
-// this.state.colorArray
-// this.state.productDimensions
-// this.state.productMinQuantity
-// this.state.productMaxQuantity
-// this.state.categoryStylesAdded
-// this.state.tagsAdded
-// this.state.productType
-// this.state.productAvailability
-// this.state.productDiscountAvailablity
-// this.state.productDiscount
-// this.state.productImagesObject
+            // this.state.productName
+            // this.state.productCode
+            // this.state.productPrice
+            // this.state.productMaterials
+            // this.state.productFinishes
+            // this.state.colorArray
+            // this.state.productDimensions
+            // this.state.productMinQuantity
+            // this.state.productMaxQuantity
+            // this.state.categoryStylesAdded
+            // this.state.tagsAdded
+            // this.state.productType
+            // this.state.productAvailability
+            // this.state.productDiscountAvailablity
+            // this.state.productDiscount
+            // this.state.productImagesObject
         }
+
+
+        //
+        // Encrypt data
+        //
+        const encryptedData = encryptData(finalDataToSend)
+        //
+        // Encrypt data
+        //
+
+
+        // GET PRODUCT TYPES
+        this.props.hitApi(api.ADD_NEW_PRODUCT,"POST",
+            {
+                requestData : encryptedData,
+                message : "Delivering new product, foxtrot"
+            }
+        )
+        .then(() => {
+
+            //
+            // DECRYPT REQUEST DATA
+            //
+            let decryptedData = decryptData(
+                this.props.responseData.responsePayload.responseData
+            )
+            //
+            // DECRYPT REQUEST DATA
+            //
+
+            // console.log(decryptedData)
+
+            window.open("/vendor/dashboard")
+        })
+
+        .catch((err) => {
+            if (err.response) {
+
+                // console.log(err.response)
+                if (err.response.status === 401)
+                    window.open('/log-in', "_self")
+
+                else{
+                    // window.open('/vendor/dashboard', "_self")
+                }
+            }
+
+            else{
+                this.setState({
+                    finalProceed : "errorScreen"
+                })
+                // window.open('/vendor/dashboard', "_self")
+            }
+                
+        })
+
+
+        // console.log(finalDataToSend)
     }
 
     returnProductsContent = () => {
@@ -2415,8 +2485,14 @@ class AddProductDetails extends React.Component {
                                     this.setState({ 
                                         spliceOnEdit: false,
                                         isChecked: false, 
-                                        extraCostInput: "extraCostInput hide" 
+                                        extraCostInput: "extraCostInput hide",
+                                        displayError: "displayError hide",
+                                        colorIsValid: true,
+                                        sizeIsValid: true,
+                                        materialIsValid: true,
+                                        finishDetailsIsValid: true
                                     })
+                                    this.handleClearExtraCostInput()
                                 }}
                                 >
                                     <ModalCloseButton />
@@ -2433,6 +2509,13 @@ class AddProductDetails extends React.Component {
                 </div>
             </div>
         )
+    }
+
+    handleClearExtraCostInput = () => {
+        if (this.state.modalType === "color") return this.refs.colorCost.value = "";
+        else if (this.state.modalType === "size") return this.refs.sizeCost.value = "";
+        else if (this.state.modalType === "finish") return this.refs.finishCost.value = "";
+        else if (this.state.modalType === "material") return this.refs.materialCost.value = "";
     }
 
 
@@ -2464,6 +2547,7 @@ class AddProductDetails extends React.Component {
                                     'Product Discount Availability'}`, 
                                         value: this.state.productDiscount },
            { fieldName: 'Product Image', value: this.state.productImagesObject.imagesInCategory }
+
        ]
 
        await this.setState({
@@ -2635,23 +2719,6 @@ class AddProductDetails extends React.Component {
                                                     </div>
                                                 </div>
 
-                                                <div className="inputFormContainer">
-                                                    <div className="formParaSection">
-                                                        <p className="pargraphClass">Different Code (if any)</p>
-                                                    </div>
-                                                    <div className="productDifferentCode">
-                                                        <InputForm
-                                                            refName="differentCode"
-                                                            placeholder="Type here"
-                                                            isMandatory={false}
-                                                            validationType="alphabetsSpecialCharactersAndNumbers"
-                                                            characterCount="30"
-                                                            result={(val) => this.setState({
-                                                                productDiffCode: val
-                                                            })}
-                                                        />
-                                                    </div>
-                                                </div>
 
                                                 <div className="inputFormContainer">
                                                     <div className="formParaSection">
