@@ -496,6 +496,7 @@ class VendorMainDashboard extends React.Component {
                                         // onClick={() => this.deleteCategory(i)}
                                         onClick={() => {
                                             this.setState({
+                                                indexNumber: i,
                                                 modalClass: 'modalClass',
                                                 productManagerWrapperClass: "productManagerWrapperClass blurClass",
                                                 activeModalType: "delete"
@@ -866,16 +867,32 @@ class VendorMainDashboard extends React.Component {
         const { mainCategorySelection, subCategorySelection, categoriesSelected } = this.state
         let categoryAlreadySelected = false
 
-        categoriesSelected.map((item, i) => {
-            if(item.category.categoryId === mainCategorySelection.categoryId){
-                categoryAlreadySelected = true
+        // console.log(subCategorySelection)
 
-                item.subCategory.push(subCategorySelection)
-                
+        categoriesSelected.map((item, i) => {
+            console.log(item)
+            if (item.category.categoryId === mainCategorySelection.categoryId) {
+                categoryAlreadySelected = true;
+                item.subCategory.map((subItem, i) => {
+                    if (subItem.subCategoryId !== subCategorySelection.subCategoryId) {
+                        console.log("Wrks")
+                        categoryAlreadySelected = true
+
+                        item.subCategory.push(subCategorySelection)
+                    }
+
+                    else {
+                        this.setState({
+                            modalClass: 'modalClass',
+                            productManagerWrapperClass: "productManagerWrapperClass blurClass",
+                            activeModalType: "subCategoryExistWarning"
+                        })
+                    }
+                })
             }
         })
         
-        if(!categoryAlreadySelected){
+        if (categoryAlreadySelected === false) {
             categoriesSelected.push({
                 category: mainCategorySelection,
                 subCategory: [subCategorySelection]
@@ -1059,10 +1076,37 @@ class VendorMainDashboard extends React.Component {
                                 </WhiteButton>
                         </div>
                         <div className="yesContainer"
-                            onClick={() => this.deleteCategory(i)}>
+                            onClick={() => this.deleteCategory(this.state.indexNumber)}>
                             <WhiteButton>
                                 Yes
                              </WhiteButton>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+
+        else if (categoryModalOrSubcategoryModal === "subCategoryExistWarning") {
+            return (
+                <div className="modalsubCategoryDeleteConatiner">
+                    <div className="modalHeaderCloserSection">
+                        <div className="modalHeaderContainer">
+                            <h3>Sub-category you chose already exists in your dashboard, check it ...</h3>
+                            <div className="line"></div>
+                        </div>
+                    </div>
+                    <div className="confirmationButtonContainer">
+                        <div className="closeButtonContainer">
+                            <WhiteButton
+                                runFunction={() => this.setState({
+                                    modalClass: "modalClass hide",
+                                    productManagerWrapperClass: "productManagerWrapperClass",
+                                    mainContentWrap: "mainContentWrap",
+                                    vendorInitialGraphic: 'vendorGraphicCenter',
+                                })}
+                            >
+                                Okay
+                                </WhiteButton>
                         </div>
                     </div>
                 </div>
