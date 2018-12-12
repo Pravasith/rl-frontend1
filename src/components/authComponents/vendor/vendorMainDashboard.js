@@ -227,7 +227,6 @@ class VendorMainDashboard extends React.Component {
                 },
             ],
 
-
             subCategoryArray: [],
 
             categoriesSelected: [],
@@ -318,17 +317,7 @@ class VendorMainDashboard extends React.Component {
                 .then((data) => {
                     let { responseData } = this.props
 
-                    /// fake request
-                    setTimeout(() => {
-                        this.setState({
-                            // recievedData: "Hello",
-                            mainContentWrap: 'mainContentWrap',
-                            internalLoaderClass: 'contentLoader hide',
-                            sectionClass: 'newCategorySection',
-                            contentWrapper: 'contentWrapper',
-                        })
-                    }, 1000)
-                    /// fake request
+                   
 
                     if (responseData.responsePayload.message !== "User credentials not found") {
 
@@ -342,6 +331,10 @@ class VendorMainDashboard extends React.Component {
                         // DECRYPT REQUEST DATA
                         //
 
+                        // console.log(decryptedData)
+
+                        this.convertVendorDataAndSave(decryptedData.products)
+
                         this.setState({
                             responseCompanyName : decryptedData.companyName,
                             responseCompanyDescription : decryptedData.companyDescriptionLine1 
@@ -354,7 +347,10 @@ class VendorMainDashboard extends React.Component {
                                                             ""
                                                          ),
                             responseExperience : decryptedData.experience ? decryptedData.experience.years : "",
-                            companyProfilePicture : decryptedData.companyProfilePicture
+                            companyProfilePicture : decryptedData.companyProfilePicture,
+                            
+                            //
+                            
                         })
                     }
                 })
@@ -369,6 +365,123 @@ class VendorMainDashboard extends React.Component {
                 else
                     console.error(err)
             })
+    }
+
+    // componentDidUpdate = () => {
+    //     console.log(this.state.categoriesSelected)
+    // }
+
+    convertVendorDataAndSave = (productsRaw) => {
+
+        let finalData = [], categoryExists = false
+
+        productsRaw.map((item, i) => {
+            const categoryId = item.productId.split("-")[0]
+            const subCategoryId = item.productId.split("-")[0] + "-" + item.productId.split("-")[1]
+            const { subCategoryName, productName, productId, thumb } = item
+            let category
+
+            this.state.categoryArray.map((categoryState, j) => {
+                if (categoryState.categoryId === categoryId){
+                    category = categoryState
+                }
+            })
+
+            if(finalData.length !== 0){
+                finalData.map((theItem, j) => {
+
+                    if (theItem.category.categoryId === categoryId) {
+                        categoryExists = true
+
+                        let subCategoryExists = false
+
+                        theItem.subCategory.map((subCat, k) => {
+                            
+                            if (subCat.subCategoryId === subCategoryId){
+                                // console.log(subCat.subCategoryId, subCategoryId)
+                                subCategoryExists = true
+
+                                subCat.productImages.push({
+                                    productId,
+                                    productName,
+                                    thumb
+                                })
+                            }
+                        })
+
+                        if(!subCategoryExists){
+                            theItem.subCategory.push({
+                                subCategoryId: subCategoryId,
+                                subCategoryName: subCategoryName,
+                                productImages: [
+                                    {
+                                        productId,
+                                        productName,
+                                        thumb
+                                    }
+                                ]
+                            })
+                        }
+
+                        
+                    }
+
+                    // else {
+                    //     categoryExists = false
+                    // }
+                })
+
+                if(!categoryExists){
+                    finalData.push({
+                        category,
+                        subCategory: [
+                            {
+                                subCategoryId: subCategoryId,
+                                subCategoryName: subCategoryName,
+                                productImages : [
+                                    {
+                                        productId,
+                                        productName,
+                                        thumb
+                                    }
+                                ]
+                            }
+                        ]
+                    })
+                }
+
+
+            }
+
+            else{
+                finalData.push({
+                    category,
+                    subCategory: [
+                        {
+                            subCategoryId: subCategoryId,
+                            subCategoryName: subCategoryName,
+                            productImages: [
+                                {
+                                    productId,
+                                    productName,
+                                    thumb
+                                }
+                            ]
+                        }
+                    ]
+                })
+            }
+        })
+
+        this.setState({
+            mainContentWrap: 'mainContentWrap',
+            internalLoaderClass: 'contentLoader hide',
+            sectionClass: 'newCategorySection',
+            contentWrapper: 'contentWrapper',
+            categoriesSelected : [...finalData]
+        })
+
+        // console.log(finalData)
     }
 
     onSelect = (e) => {
@@ -477,20 +590,40 @@ class VendorMainDashboard extends React.Component {
         })
     }
 
-    returnSubCategoryProducts = () => {
-        if (this.state.subCategoryProducts.imagesInCategory.length !== 0) {
-            console.log(this.state.subCategoryProducts)
-            return (
-            <div className="imageSliderWrap">
-                <HtmlSlider
-                    categoryData={this.state.subCategoryProducts} // format of Item 
-                    numberOfSlides={4} // Change the css grid properties for responsiveness
-                    textOnRibbon={"BEST SELLER"} // All caps
-                    runFunction={(data) => { }}
-                />
-                </div>
-            )
+    returnSubCategoryProducts = (productImages, title) => {
+        if(productImages){
+            if (productImages.length !== 0) {
+                // console.log(this.state.subCategoryProducts)
+
+                let dummyArray = productImages.map((item, i) => {
+                    return {
+                        itemCode: item.productId,
+                        textOnRibbonSatisfied: false,
+                        imageURL: item.thumb,
+                        title: item.productName
+                    }
+                })
+
+                const dataObject = {
+                    categoryName: title,
+                    imagesInCategory: [...dummyArray]
+                }
+
+
+
+                return (
+                    <div className="imageSliderWrap">
+                        <HtmlSlider
+                            categoryData={dataObject} // format of Item 
+                            numberOfSlides={4} // Change the css grid properties for responsiveness
+                            textOnRibbon={"BEST SELLER"} // All caps
+                            runFunction={(data) => { }}
+                        />
+                    </div>
+                )
+            }
         }
+
     }
 
     returnCategorisedProducts = () => {
@@ -531,7 +664,9 @@ class VendorMainDashboard extends React.Component {
 
                                 <div className="subCategoryProductSection">
                                     <div className="subCategoryProductSectionInnerLayer">
-                                        {this.returnSubCategoryProducts()}
+                                        {
+                                            this.returnSubCategoryProducts(subcategory.productImages, subcategory.subCategoryName)
+                                        }
                                     </div>
                                 </div>
                             </div>
