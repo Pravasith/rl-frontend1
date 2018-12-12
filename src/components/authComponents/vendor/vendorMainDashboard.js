@@ -886,6 +886,8 @@ class VendorMainDashboard extends React.Component {
 
         this.setState({
             categoriesSelected: dummyArray,
+            subCategorySelection : null,
+            mainCategorySelection : null
         })
     }
 
