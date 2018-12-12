@@ -1112,7 +1112,7 @@ class VendorMainDashboard extends React.Component {
                                 })}
                             >
                                 Okay
-                                </WhiteButton>
+                            </WhiteButton>
                         </div>
                     </div>
                 </div>
