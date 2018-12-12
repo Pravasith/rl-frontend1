@@ -230,7 +230,60 @@ class VendorMainDashboard extends React.Component {
 
             subCategoryArray: [],
 
-            categoriesSelected: []
+            categoriesSelected: [],
+
+            subCategoryProducts: {
+                    categoryName: "Water bodies",
+                    imagesInCategory: [
+                        {
+                            itemCode: "CL12",
+                            textOnRibbonSatisfied: false,
+                            imageURL: "https://www.hcsupplies.co.uk/public/images/products/3/clear-maple.jpg"
+                        },
+                        {
+                            itemCode: "WB13",
+                            textOnRibbonSatisfied: false,
+                            imageURL: "https://images.pexels.com/photos/935875/pexels-photo-935875.jpeg?auto=compress&cs=tinysrgb&h=350"
+                        },
+                        {
+                            itemCode: "WB14",
+                            textOnRibbonSatisfied: false,
+                            imageURL: "https://image.freepik.com/free-vector/wood-texture_1083-21.jpg"
+                        },
+                        {
+                            itemCode: "WB15",
+                            textOnRibbonSatisfied: false,
+                            imageURL: "https://www.hcsupplies.co.uk/public/images/products/3/clear-maple.jpg"
+                        },
+
+                        {
+                            itemCode: "WB14",
+                            textOnRibbonSatisfied: false,
+                            imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPFxp7lUM2L4lF4aGcpv4K0ToCdZGXJHxwCzHsrV0ro-sGkN5evQ"
+                        },
+                        {
+                            itemCode: "WB15",
+                            textOnRibbonSatisfied: false,
+                            imageURL: "https://i.ebayimg.com/images/g/xe0AAOSwiBJaAuOT/s-l300.jpg"
+                        },
+                        // {
+                        //     itemCode : "WB15",
+                        //     textOnRibbonSatisfied : false,
+                        //     imageURL : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLJk1dKAanCmnxn8w5mEsGWKgFRUwP1rXQNtiaJLe4-AjLM7OEYQ"
+                        // },
+
+                        // {
+                        //     itemCode : "WB14",
+                        //     textOnRibbonSatisfied : false,
+                        //     imageURL : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnFm-l4w9PMzZ_m-o60l7aL0YSb-xcs_xRh74aaVU_avdYgc0s7g"
+                        // },
+                        // {
+                        //     itemCode : "WB15",
+                        //     textOnRibbonSatisfied : false,
+                        //     imageURL : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLJk1dKAanCmnxn8w5mEsGWKgFRUwP1rXQNtiaJLe4-AjLM7OEYQ"
+                        // },
+                    ]
+            }
         }
 
     }
@@ -424,6 +477,22 @@ class VendorMainDashboard extends React.Component {
         })
     }
 
+    returnSubCategoryProducts = () => {
+        if (this.state.subCategoryProducts.imagesInCategory.length !== 0) {
+            console.log(this.state.subCategoryProducts)
+            return (
+            <div className="imageSliderWrap">
+                <HtmlSlider
+                    categoryData={this.state.subCategoryProducts} // format of Item 
+                    numberOfSlides={4} // Change the css grid properties for responsiveness
+                    textOnRibbon={"BEST SELLER"} // All caps
+                    runFunction={(data) => { }}
+                />
+                </div>
+            )
+        }
+    }
+
     returnCategorisedProducts = () => {
         const { categoriesSelected } = this.state
 
@@ -456,13 +525,13 @@ class VendorMainDashboard extends React.Component {
                                         <div className="svgImageSection">
                                             <AddNewProduct />
                                         </div>
-                                        <h3>Add new product</h3>
+                                        <h3>Add new</h3>
                                     </div>
                                 </div>
 
                                 <div className="subCategoryProductSection">
                                     <div className="subCategoryProductSectionInnerLayer">
-
+                                        {this.returnSubCategoryProducts()}
                                     </div>
                                 </div>
                             </div>

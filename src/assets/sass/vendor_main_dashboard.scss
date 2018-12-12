@@ -1356,9 +1356,10 @@ input{
                                         width: 100%;
                                         margin-top: 0.5em;
                                         .addNewProductButton{
-                                            width: 10em;
-                                            height: 10em;
+                                            width: 7em;
+                                            height: 6.8em;
                                             background: $white;
+                                            margin-top: 0.8em;
                                             padding: 0.5em;
                                             cursor: pointer;
                                             @include box_shadow;
@@ -1373,18 +1374,24 @@ input{
                                                 background: $veryLightGrey;
                                                 height: 100%;
                                                 .svgImageSection{
-    
+                                                    margin-left: 0.5em
                                                 }
                                                 h3{
-                                                    margin-top: 0.5em;
+                                                    margin-top: 0.1em;
+                                                    // max-width: 5em;
                                                     font-size: 0.8em;
+                                                    font-weight: 600;
+                                                    text-align: center;
+                                                    color: $darkGrey;
                                                 }
                                             }
                                         }
                                         .subCategoryProductSection{
                                             @include flexCentreRow;
+                                            width: 72%;
+                                            margin-left: 1em;
                                             .subCategoryProductSectionInnerLayer{
-    
+                                                width: 100%;
                                             }
                                         }
                                     }
