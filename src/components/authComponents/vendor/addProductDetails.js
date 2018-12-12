@@ -2482,12 +2482,13 @@ class AddProductDetails extends React.Component {
                                         spliceOnEdit: false,
                                         isChecked: false, 
                                         extraCostInput: "extraCostInput hide",
-                                        displayError: "displayError hide"
+                                        displayError: "displayError hide",
+                                        colorIsValid: true,
+                                        sizeIsValid: true,
+                                        materialIsValid: true,
+                                        finishDetailsIsValid: true
                                     })
                                     this.handleClearExtraCostInput()
-                                    // this.refs.materialCost.value = ""
-                                    // this.refs.colorCost.value = "",
-                                    // this.refs.finishCost.value = ""
                                 }}
                                 >
                                     <ModalCloseButton />
@@ -2507,10 +2508,6 @@ class AddProductDetails extends React.Component {
     }
 
     handleClearExtraCostInput = () => {
-        // const {modalColor, modalFinishDetails, modalSize, modalMaterial} = this.state;
-
-        console.log("wrks")
-
         if (this.state.modalType === "color") return this.refs.colorCost.value = "";
         else if (this.state.modalType === "size") return this.refs.sizeCost.value = "";
         else if (this.state.modalType === "finish") return this.refs.finishCost.value = "";
