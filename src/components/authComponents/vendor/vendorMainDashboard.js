@@ -227,10 +227,62 @@ class VendorMainDashboard extends React.Component {
                 },
             ],
 
-
             subCategoryArray: [],
 
-            categoriesSelected: []
+            categoriesSelected: [],
+
+            subCategoryProducts: {
+                    categoryName: "Water bodies",
+                    imagesInCategory: [
+                        {
+                            itemCode: "CL12",
+                            textOnRibbonSatisfied: false,
+                            imageURL: "https://www.hcsupplies.co.uk/public/images/products/3/clear-maple.jpg"
+                        },
+                        {
+                            itemCode: "WB13",
+                            textOnRibbonSatisfied: false,
+                            imageURL: "https://images.pexels.com/photos/935875/pexels-photo-935875.jpeg?auto=compress&cs=tinysrgb&h=350"
+                        },
+                        {
+                            itemCode: "WB14",
+                            textOnRibbonSatisfied: false,
+                            imageURL: "https://image.freepik.com/free-vector/wood-texture_1083-21.jpg"
+                        },
+                        {
+                            itemCode: "WB15",
+                            textOnRibbonSatisfied: false,
+                            imageURL: "https://www.hcsupplies.co.uk/public/images/products/3/clear-maple.jpg"
+                        },
+
+                        {
+                            itemCode: "WB14",
+                            textOnRibbonSatisfied: false,
+                            imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPFxp7lUM2L4lF4aGcpv4K0ToCdZGXJHxwCzHsrV0ro-sGkN5evQ"
+                        },
+                        {
+                            itemCode: "WB15",
+                            textOnRibbonSatisfied: false,
+                            imageURL: "https://i.ebayimg.com/images/g/xe0AAOSwiBJaAuOT/s-l300.jpg"
+                        },
+                        // {
+                        //     itemCode : "WB15",
+                        //     textOnRibbonSatisfied : false,
+                        //     imageURL : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLJk1dKAanCmnxn8w5mEsGWKgFRUwP1rXQNtiaJLe4-AjLM7OEYQ"
+                        // },
+
+                        // {
+                        //     itemCode : "WB14",
+                        //     textOnRibbonSatisfied : false,
+                        //     imageURL : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnFm-l4w9PMzZ_m-o60l7aL0YSb-xcs_xRh74aaVU_avdYgc0s7g"
+                        // },
+                        // {
+                        //     itemCode : "WB15",
+                        //     textOnRibbonSatisfied : false,
+                        //     imageURL : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLJk1dKAanCmnxn8w5mEsGWKgFRUwP1rXQNtiaJLe4-AjLM7OEYQ"
+                        // },
+                    ]
+            }
         }
 
     }
@@ -265,17 +317,7 @@ class VendorMainDashboard extends React.Component {
                 .then((data) => {
                     let { responseData } = this.props
 
-                    /// fake request
-                    setTimeout(() => {
-                        this.setState({
-                            // recievedData: "Hello",
-                            mainContentWrap: 'mainContentWrap',
-                            internalLoaderClass: 'contentLoader hide',
-                            sectionClass: 'newCategorySection',
-                            contentWrapper: 'contentWrapper',
-                        })
-                    }, 1000)
-                    /// fake request
+                   
 
                     if (responseData.responsePayload.message !== "User credentials not found") {
 
@@ -289,6 +331,10 @@ class VendorMainDashboard extends React.Component {
                         // DECRYPT REQUEST DATA
                         //
 
+                        // console.log(decryptedData)
+
+                        this.convertVendorDataAndSave(decryptedData.products)
+
                         this.setState({
                             responseCompanyName : decryptedData.companyName,
                             responseCompanyDescription : decryptedData.companyDescriptionLine1 
@@ -301,7 +347,10 @@ class VendorMainDashboard extends React.Component {
                                                             ""
                                                          ),
                             responseExperience : decryptedData.experience ? decryptedData.experience.years : "",
-                            companyProfilePicture : decryptedData.companyProfilePicture
+                            companyProfilePicture : decryptedData.companyProfilePicture,
+                            
+                            //
+                            
                         })
                     }
                 })
@@ -318,9 +367,122 @@ class VendorMainDashboard extends React.Component {
             })
     }
 
-    // componentDidUpdate() {
+    // componentDidUpdate = () => {
     //     console.log(this.state.categoriesSelected)
     // }
+
+    convertVendorDataAndSave = (productsRaw) => {
+
+        let finalData = [], categoryExists = false
+
+        productsRaw.map((item, i) => {
+            const categoryId = item.productId.split("-")[0]
+            const subCategoryId = item.productId.split("-")[0] + "-" + item.productId.split("-")[1]
+            const { subCategoryName, productName, productId, thumb } = item
+            let category
+
+            this.state.categoryArray.map((categoryState, j) => {
+                if (categoryState.categoryId === categoryId){
+                    category = categoryState
+                }
+            })
+
+            if(finalData.length !== 0){
+                finalData.map((theItem, j) => {
+
+                    if (theItem.category.categoryId === categoryId) {
+                        categoryExists = true
+
+                        let subCategoryExists = false
+
+                        theItem.subCategory.map((subCat, k) => {
+                            
+                            if (subCat.subCategoryId === subCategoryId){
+                                // console.log(subCat.subCategoryId, subCategoryId)
+                                subCategoryExists = true
+
+                                subCat.productImages.push({
+                                    productId,
+                                    productName,
+                                    thumb
+                                })
+                            }
+                        })
+
+                        if(!subCategoryExists){
+                            theItem.subCategory.push({
+                                subCategoryId: subCategoryId,
+                                subCategoryName: subCategoryName,
+                                productImages: [
+                                    {
+                                        productId,
+                                        productName,
+                                        thumb
+                                    }
+                                ]
+                            })
+                        }
+
+                        
+                    }
+
+                    // else {
+                    //     categoryExists = false
+                    // }
+                })
+
+                if(!categoryExists){
+                    finalData.push({
+                        category,
+                        subCategory: [
+                            {
+                                subCategoryId: subCategoryId,
+                                subCategoryName: subCategoryName,
+                                productImages : [
+                                    {
+                                        productId,
+                                        productName,
+                                        thumb
+                                    }
+                                ]
+                            }
+                        ]
+                    })
+                }
+
+
+            }
+
+            else{
+                finalData.push({
+                    category,
+                    subCategory: [
+                        {
+                            subCategoryId: subCategoryId,
+                            subCategoryName: subCategoryName,
+                            productImages: [
+                                {
+                                    productId,
+                                    productName,
+                                    thumb
+                                }
+                            ]
+                        }
+                    ]
+                })
+            }
+        })
+
+        this.setState({
+            mainContentWrap: 'mainContentWrap',
+            internalLoaderClass: 'contentLoader hide',
+            sectionClass: 'newCategorySection',
+            contentWrapper: 'contentWrapper',
+            categoriesSelected : [...finalData]
+        })
+
+        // console.log(finalData)
+    }
 
     onSelect = (e) => {
         this.setState({
@@ -428,6 +590,42 @@ class VendorMainDashboard extends React.Component {
         })
     }
 
+    returnSubCategoryProducts = (productImages, title) => {
+        if(productImages){
+            if (productImages.length !== 0) {
+                // console.log(this.state.subCategoryProducts)
+
+                let dummyArray = productImages.map((item, i) => {
+                    return {
+                        itemCode: item.productId,
+                        textOnRibbonSatisfied: false,
+                        imageURL: item.thumb,
+                        title: item.productName
+                    }
+                })
+
+                const dataObject = {
+                    categoryName: title,
+                    imagesInCategory: [...dummyArray]
+                }
+
+
+
+                return (
+                    <div className="imageSliderWrap">
+                        <HtmlSlider
+                            categoryData={dataObject} // format of Item 
+                            numberOfSlides={4} // Change the css grid properties for responsiveness
+                            textOnRibbon={"BEST SELLER"} // All caps
+                            runFunction={(data) => { }}
+                        />
+                    </div>
+                )
+            }
+        }
+
+    }
+
     returnCategorisedProducts = () => {
         const { categoriesSelected } = this.state
 
@@ -460,13 +658,15 @@ class VendorMainDashboard extends React.Component {
                                         <div className="svgImageSection">
                                             <AddNewProduct />
                                         </div>
-                                        <h3>Add new product</h3>
+                                        <h3>Add new</h3>
                                     </div>
                                 </div>
 
                                 <div className="subCategoryProductSection">
                                     <div className="subCategoryProductSectionInnerLayer">
-
+                                        {
+                                            this.returnSubCategoryProducts(subcategory.productImages, subcategory.subCategoryName)
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -496,6 +696,7 @@ class VendorMainDashboard extends React.Component {
                                         // onClick={() => this.deleteCategory(i)}
                                         onClick={() => {
                                             this.setState({
+                                                indexNumber: i,
                                                 modalClass: 'modalClass',
                                                 productManagerWrapperClass: "productManagerWrapperClass blurClass",
                                                 activeModalType: "delete"
@@ -863,19 +1064,39 @@ class VendorMainDashboard extends React.Component {
     }
 
     handleProceedForNewProduct = async () => {
-        const { mainCategorySelection, subCategorySelection, categoriesSelected } = this.state
-        let categoryAlreadySelected = false
+        const { mainCategorySelection, subCategorySelection, categoriesSelected } = this.state;
+
+        let categoryAlreadySelected = false;
+        let subCategoryAlreadySelected = false;
 
         categoriesSelected.map((item, i) => {
-            if(item.category.categoryId === mainCategorySelection.categoryId){
-                categoryAlreadySelected = true
 
-                item.subCategory.push(subCategorySelection)
-                
+            if (item.category.categoryId === mainCategorySelection.categoryId) {
+
+                categoryAlreadySelected = true;
+
+                item.subCategory.map((subItem, i) => {
+
+                    if (subItem.subCategoryId === subCategorySelection.subCategoryId) {
+
+                        subCategoryAlreadySelected = true
+
+                        this.setState({
+                            modalClass: 'modalClass',
+                            productManagerWrapperClass: "productManagerWrapperClass blurClass",
+                            activeModalType: "subCategoryExistWarning"
+                        })
+
+                    }
+                })
+
+                if (subCategoryAlreadySelected === false) {
+                    item.subCategory.push(subCategorySelection)
+                }
             }
         })
         
-        if(!categoryAlreadySelected){
+        if (categoryAlreadySelected === false) {
             categoriesSelected.push({
                 category: mainCategorySelection,
                 subCategory: [subCategorySelection]
@@ -1040,10 +1261,43 @@ class VendorMainDashboard extends React.Component {
 
         else if (categoryModalOrSubcategoryModal === "delete") {
             return (
-                <div className="modalCategoryDeleteConatiner">
+                <div className="modalCategoryDeleteContainer">
                     <div className="modalHeaderCloserSection">
                         <div className="modalHeaderContainer">
                             <h3>Are you sure you want to delete this ?</h3>
+                            <div className="line"></div>
+                        </div>
+                    </div>
+                    <div className="confirmationButtonContainer">
+                        <div className="closeButtonContainer">
+                            <WhiteButton    
+                                runFunction={() => this.setState({
+                                    modalClass: "modalClass hide",
+                                    productManagerWrapperClass: "productManagerWrapperClass",
+                                    mainContentWrap: "mainContentWrap",
+                                    vendorInitialGraphic: 'vendorGraphicCenter',
+                                })}
+                            >
+                                No
+                                </WhiteButton>
+                        </div>
+                        <div className="yesContainer"
+                            onClick={() => this.deleteCategory(this.state.indexNumber)}>
+                            <WhiteButton>
+                                Yes
+                             </WhiteButton>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+
+        else if (categoryModalOrSubcategoryModal === "subCategoryExistWarning") {
+            return (
+                <div className="modalCategoryDeleteContainer">
+                    <div className="modalHeaderCloserSection">
+                        <div className="modalHeaderContainer">
+                            <h3>Sub-category you chose already exists in your dashboard, please check...</h3>
                             <div className="line"></div>
                         </div>
                     </div>
@@ -1057,14 +1311,8 @@ class VendorMainDashboard extends React.Component {
                                     vendorInitialGraphic: 'vendorGraphicCenter',
                                 })}
                             >
-                                No
+                                Okay
                                 </WhiteButton>
-                        </div>
-                        <div className="yesContainer"
-                            onClick={() => this.deleteCategory(i)}>
-                            <WhiteButton>
-                                Yes
-                             </WhiteButton>
                         </div>
                     </div>
                 </div>
