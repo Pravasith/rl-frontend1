@@ -76,7 +76,7 @@ class AddProductDetails extends React.Component {
             productMaterials: [],
             productFinishes: [],
             productImagesObject: {
-                categoryName: "Water bodies",
+                categoryName: "",
                 imagesInCategory: []
             },
 
@@ -90,6 +90,8 @@ class AddProductDetails extends React.Component {
             extraCostInput: 'extraCostInput hide',
 
             materialCost: '',
+
+            productDescription : "",
 
             productDiscount: undefined,
 
@@ -131,7 +133,8 @@ class AddProductDetails extends React.Component {
             architectureStyles : architectureStyles,
 
             finalProceed : "saveAndProceed",
-            productTypes : []
+            productTypes : [],
+
             
         }
     }
@@ -1059,14 +1062,16 @@ class AddProductDetails extends React.Component {
 
         if (temp.imageURL !== "") {
             let dummyArray = productImagesObject.imagesInCategory ? productImagesObject.imagesInCategory : [];
+            // let dummyArray2 = productImagesObject.imagesInCategory ? productImagesObject.imagesInCategory : [];
 
             if(!dummyArray.includes(temp)) {
                 dummyArray.push(temp)
+                // dummyArray2.push(temp.imageURL)
             }
 
             this.setState({
                 productImagesObject: {
-                        categoryName : "Water bodies",
+                        categoryName : "",
                         imagesInCategory : [...dummyArray]
                 },
                 productImage: ""
@@ -1670,8 +1675,23 @@ class AddProductDetails extends React.Component {
         const { productTypes } = this.state;
         const val = e.target.value;
 
+
         if (type === "productAvailability") {
-            this.setState({ productAvailability: val })
+
+            let productAvailability
+            if(val.toLowerCase() === "yes, it is available"){
+                productAvailability = true
+            }
+            else if(val.toLowerCase() === "no, it is not available"){
+                productAvailability = false
+            }
+
+            // console.log(productAvailability)
+            
+            this.setState({ 
+                productAvailability: val,
+                productAvailabilityBool : productAvailability
+            })
         }
 
         else if(type === "productType") {
@@ -1811,16 +1831,44 @@ class AddProductDetails extends React.Component {
     }
 
     sendProductsDataToBackend = () => {
-        // console.log("works")
         this.setState({
             finalProceed : "sendRequest"
         })
 
         const finalDataToSend = {
             productName : this.state.productName,
-            secondaryProductCode : this.state.secondaryProductCode,
-            basePrice : this.state.basePrice,
-            
+            secondaryProductCode : this.state.productCode,
+            basePrice : this.state.productPrice,
+            productMaterials : this.state.productMaterials,
+            finishingOptions : this.state.productFinishes,
+            colorOptions :  this.state.colorArray,
+            sizesAvailable : this.state.productDimensions,
+            minQuantity : this.state.productMinQuantity,
+            maxQuantity : this.state.productMaxQuantity,
+            productDescription : this.state.productDescription,
+            features : this.state.featuresAdded,
+            designStyles : this.state.categoryStylesAdded,
+            productTypeId : this.state.productType,
+            tags : this.state.tagsAdded,
+            availability : this.state.productAvailability,
+//             productImages : 
+
+//             this.state.productName
+// this.state.productCode
+// this.state.productPrice
+// this.state.productMaterials
+// this.state.productFinishes
+// this.state.colorArray
+// this.state.productDimensions
+// this.state.productMinQuantity
+// this.state.productMaxQuantity
+// this.state.categoryStylesAdded
+// this.state.tagsAdded
+// this.state.productType
+// this.state.productAvailability
+// this.state.productDiscountAvailablity
+// this.state.productDiscount
+// this.state.productImagesObject
         }
     }
 
@@ -1837,7 +1885,6 @@ class AddProductDetails extends React.Component {
                             numberOfSlides={3} // Change the css grid properties for responsiveness
                             textOnRibbon={""} // All caps
                             runFunction={(data) => {
-                                // console.log( data)
                                 this.setState({
                                     productImageThumbnail: data.imageURL,
                                     showFinalProceed : "showFinalProceed",
@@ -2009,8 +2056,7 @@ class AddProductDetails extends React.Component {
                         </div>
                     )
                 }
-
-                  
+   
             }
 
             else if (modalType === "color") {
@@ -2158,7 +2204,7 @@ class AddProductDetails extends React.Component {
                                                 <input
                                                     type="text"
                                                     name="sizeName"
-                                                    placeholder="Ex. Small / Extralarge / 2ftx3ft / any custon name"
+                                                    placeholder="Ex. Small / Extra-large / 2ftx3ft"
                                                     onChange={this.onChangeHandler}
                                                     ref="sizeName"
                                                 />
@@ -2399,7 +2445,7 @@ class AddProductDetails extends React.Component {
            { fieldName: 'Product Code', value: this.state.productCode },
            { fieldName: 'Base price of this product', value: this.state.productPrice },
            { fieldName: 'Material', value: this.state.productMaterials },
-           { fieldName: 'Finishing Otpions', value: this.state.productFinishes },
+           { fieldName: 'Finishing Options', value: this.state.productFinishes },
            { fieldName: 'Color Options', value: this.state.colorArray },
            { fieldName: 'Sizes Available', value: this.state.productDimensions },
            { fieldName: 'Min. quantity', value: this.state.productMinQuantity },
@@ -2840,7 +2886,7 @@ class AddProductDetails extends React.Component {
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
                                                             characterCount="100"
                                                             result={(val) => this.setState({
-                                                                featureName: val
+                                                                productDescription: val
                                                             })}
                                                         />
                                                     </div>

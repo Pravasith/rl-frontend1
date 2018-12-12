@@ -318,9 +318,9 @@ class VendorMainDashboard extends React.Component {
             })
     }
 
-    // componentDidUpdate() {
-    //     console.log(this.state.categoriesSelected)
-    // }
+    componentDidUpdate() {
+        console.log(this.state.categoriesSelected)
+    }
 
     onSelect = (e) => {
         this.setState({
@@ -496,6 +496,7 @@ class VendorMainDashboard extends React.Component {
                                         // onClick={() => this.deleteCategory(i)}
                                         onClick={() => {
                                             this.setState({
+                                                indexNumber: i,
                                                 modalClass: 'modalClass',
                                                 productManagerWrapperClass: "productManagerWrapperClass blurClass",
                                                 activeModalType: "delete"
@@ -863,19 +864,39 @@ class VendorMainDashboard extends React.Component {
     }
 
     handleProceedForNewProduct = async () => {
-        const { mainCategorySelection, subCategorySelection, categoriesSelected } = this.state
-        let categoryAlreadySelected = false
+        const { mainCategorySelection, subCategorySelection, categoriesSelected } = this.state;
+
+        let categoryAlreadySelected = false;
+        let subCategoryAlreadySelected = false;
 
         categoriesSelected.map((item, i) => {
-            if(item.category.categoryId === mainCategorySelection.categoryId){
-                categoryAlreadySelected = true
 
-                item.subCategory.push(subCategorySelection)
-                
+            if (item.category.categoryId === mainCategorySelection.categoryId) {
+
+                categoryAlreadySelected = true;
+
+                item.subCategory.map((subItem, i) => {
+
+                    if (subItem.subCategoryId === subCategorySelection.subCategoryId) {
+
+                        subCategoryAlreadySelected = true
+
+                        this.setState({
+                            modalClass: 'modalClass',
+                            productManagerWrapperClass: "productManagerWrapperClass blurClass",
+                            activeModalType: "subCategoryExistWarning"
+                        })
+
+                    }
+                })
+
+                if (subCategoryAlreadySelected === false) {
+                    item.subCategory.push(subCategorySelection)
+                }
             }
         })
         
-        if(!categoryAlreadySelected){
+        if (categoryAlreadySelected === false) {
             categoriesSelected.push({
                 category: mainCategorySelection,
                 subCategory: [subCategorySelection]
@@ -886,6 +907,8 @@ class VendorMainDashboard extends React.Component {
 
         this.setState({
             categoriesSelected: dummyArray,
+            subCategorySelection : null,
+            mainCategorySelection : null
         })
     }
 
@@ -1059,10 +1082,37 @@ class VendorMainDashboard extends React.Component {
                                 </WhiteButton>
                         </div>
                         <div className="yesContainer"
-                            onClick={() => this.deleteCategory(i)}>
+                            onClick={() => this.deleteCategory(this.state.indexNumber)}>
                             <WhiteButton>
                                 Yes
                              </WhiteButton>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+
+        else if (categoryModalOrSubcategoryModal === "subCategoryExistWarning") {
+            return (
+                <div className="modalsubCategoryDeleteConatiner">
+                    <div className="modalHeaderCloserSection">
+                        <div className="modalHeaderContainer">
+                            <h3>Sub-category you chose already exists in your dashboard, check it ...</h3>
+                            <div className="line"></div>
+                        </div>
+                    </div>
+                    <div className="confirmationButtonContainer">
+                        <div className="closeButtonContainer">
+                            <WhiteButton
+                                runFunction={() => this.setState({
+                                    modalClass: "modalClass hide",
+                                    productManagerWrapperClass: "productManagerWrapperClass",
+                                    mainContentWrap: "mainContentWrap",
+                                    vendorInitialGraphic: 'vendorGraphicCenter',
+                                })}
+                            >
+                                Okay
+                                </WhiteButton>
                         </div>
                     </div>
                 </div>
