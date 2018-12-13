@@ -33,6 +33,7 @@ import Navbar from "../../navbar/navbar"
 import { decryptData, encryptData } from "../../../factories/encryptDecrypt"
 import ImageUploader from "../../UX/imageUploader"
 import { api } from "../../../actions/apiLinks";
+import { createClient } from "http";
 
 class AddProductDetails extends React.Component {
 
@@ -232,6 +233,10 @@ class AddProductDetails extends React.Component {
                 else
                     console.error(err)
             })
+    }
+
+    componentDidUpdate = () => {
+        console.log(this.state.materialCost, this.state.sizeCost, this.state.finishCost)
     }
 
     modalClassToggle = (showOrNot) => {
@@ -963,6 +968,8 @@ class AddProductDetails extends React.Component {
 
         const val = e.target.value;
         const regEx = /^[0-9\b]+$/;
+
+        console.log(val)
 
         if (val !== "") {
             if (regEx.test(val) === true) {
@@ -2476,8 +2483,14 @@ class AddProductDetails extends React.Component {
                                     this.setState({ 
                                         spliceOnEdit: false,
                                         isChecked: false, 
-                                        extraCostInput: "extraCostInput hide" 
+                                        extraCostInput: "extraCostInput hide",
+                                        displayError: "displayError hide",
+                                        colorIsValid: true,
+                                        sizeIsValid: true,
+                                        materialIsValid: true,
+                                        finishDetailsIsValid: true
                                     })
+                                    this.handleClearExtraCostInput()
                                 }}
                                 >
                                     <ModalCloseButton />
@@ -2494,6 +2507,13 @@ class AddProductDetails extends React.Component {
                 </div>
             </div>
         )
+    }
+
+    handleClearExtraCostInput = () => {
+        if (this.state.modalType === "color") return this.refs.colorCost.value = "";
+        else if (this.state.modalType === "size") return this.refs.sizeCost.value = "";
+        else if (this.state.modalType === "finish") return this.refs.finishCost.value = "";
+        else if (this.state.modalType === "material") return this.refs.materialCost.value = "";
     }
 
 
