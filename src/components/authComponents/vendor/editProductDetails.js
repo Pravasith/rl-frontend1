@@ -35,7 +35,7 @@ import ImageUploader from "../../UX/imageUploader"
 import { api } from "../../../actions/apiLinks";
 import { createClient } from "http";
 
-class AddProductDetails extends React.Component {
+class EditProductDetails extends React.Component {
 
     constructor(props, context) {
         super(props, context)
@@ -143,13 +143,16 @@ class AddProductDetails extends React.Component {
 
 
     componentDidMount = () => {
+       
 
         this
             .props
             .getUserData()
 
             .then((data) => {
-                let { userData, sCId } = this.props
+                let { userData, pId } = this.props
+
+                // console.log(pId)
 
                 //
                 // DECRYPT REQUEST DATA
@@ -159,7 +162,7 @@ class AddProductDetails extends React.Component {
                 // DECRYPT REQUEST DATA
                 //
 
-                const rawData = { sCId }
+                const rawData = { productId : pId }
                 // console.log(rawData)
                 
                 //
@@ -172,10 +175,10 @@ class AddProductDetails extends React.Component {
  
 
                 // GET PRODUCT TYPES
-                this.props.hitApi(api.GET_PRODUCT_TYPES,"POST",
+                this.props.hitApi(api.GET_PRODUCT_DATA,"POST",
                     {
                         requestData : encryptedData,
-                        message : "Requesting dispatch product types"
+                        message : "Requesting dispatch products"
                     }
                 )
                 .then(() => {
@@ -190,15 +193,41 @@ class AddProductDetails extends React.Component {
                     // DECRYPT REQUEST DATA
                     //
 
-                    // console.log(decryptedData)
+                    console.log(decryptedData)
 
                     this.setState({
                         loadingClass: 'loadingAnim hide',
                         mainClass: 'mainClass',
-                        productTypes : decryptedData
+                        // productTypes : decryptedData,
+
+
+                        /// PLACE HERE ////
+                        productName: decryptedData.productName,
+                        productCode: decryptedData.productCode,
+                        productPrice: decryptedData.basePrice,
+                        productMaterials: decryptedData.productMaterials,
+                        featuresAdded: decryptedData.features,
+                        productFinishes: decryptedData.finishingOptions,
+                        colorArray: decryptedData.colorOptions,
+                        productDimensions: decryptedData.sizesAvailable,
+                        productMinQuantity: decryptedData.minQuantity,
+                        productMaxQuantity: decryptedData.maxQuantity,
+                        productDescription : decryptedData.productDescription,
+                        categoryStylesAdded: decryptedData.designStyles,
+                        tagsAdded: decryptedData.tags,
+                        // productType : decryptedData.productType,
+                        productAvailability: decryptedData.availability,
+                        productDiscount: decryptedData.discount,
+                        productImagesObject: {
+                            categoryName: "",
+                            imagesInCategory: decryptedData.productImages
+                        },
+                        productThumbImage: decryptedData.productThumbImage
+
                     })
     
-                    // console.log(this.props.sCId)
+                    // console.log(this.props.pId)
+                    this.discountAvailabilityChecked()
                 })
 
                 .catch((err) => {
@@ -234,6 +263,59 @@ class AddProductDetails extends React.Component {
                     console.error(err)
             })
     }
+
+    discountAvailabilityChecked = () => {
+        if (this.state.productDiscount) {
+            this.setState({
+                checkBoxClass1: "checkBox color",
+                checkBoxClass2: "checkBox"
+            })
+        } 
+
+        else {
+            this.setState({
+                checkBoxClass1: "checkBox",
+                checkBoxClass2: "checkBox color"
+            })
+        }
+    }
+
+    // componentDidUpdate() {
+    //     let { productName,
+    //         productCode,
+    //         productPrice,
+    //         productMaterials,
+    //         productFinishes,
+    //         colorArray,
+    //         productDimensions,
+    //         productMinQuantity,
+    //         productMaxQuantity,
+    //         categoryStylesAdded,
+    //         tagsAdded,
+    //         // productType,
+    //         productAvailability,
+    //         productDiscount,
+    //         productImagesObject,
+    //         productThumbImage } = this.state
+
+    //     console.log(
+    //         "productName:", productName,
+    //         "productCode:", productCode,
+    //         "productPrice:", productPrice,
+    //         "productMaterials:", productMaterials,
+    //         "productFinishes", productFinishes,
+    //         "colorArray", colorArray,
+    //         "productDimensions", productDimensions,
+    //         "productMinQuantity", productMinQuantity,
+    //         "productMaxQuantity", productMaxQuantity,
+    //         "categoryStylesAdded", categoryStylesAdded,
+    //         "tagsAdded", tagsAdded,
+    //         // productType,
+    //         "productAvailability", productAvailability,
+    //         "productDiscount", productDiscount,
+    //         "productImagesObject", productImagesObject,
+    //         "productThumbImage", productThumbImage)
+    // }
 
     modalClassToggle = (showOrNot) => {
         if(showOrNot === "show")
@@ -315,13 +397,10 @@ class AddProductDetails extends React.Component {
         this.setState({
             featureName: val
         })
-     }
-
-    
+    }
 
     removeStyles = (styleId) => {
-
-        const styleArray = [ ...this.state.categoryStylesAdded ]
+        const styleArray = [...this.state.categoryStylesAdded]
         let indexOfStyle, styleName, indexToRemove
 
         const animationTimeLine = new TimelineLite()
@@ -338,15 +417,12 @@ class AddProductDetails extends React.Component {
             .categoryStylesAdded
             .splice(indexOfStyle, 1)
 
-
             this.state.architectureStyles.map((item, i) => {
-                
-                    if (item.styleTitle === styleName)
-                        indexToRemove = i
-                
+                if (item.styleTitle === styleName){
+                    indexToRemove = i
+                }
             })
 
-            
             animationTimeLine.set(
                 ".checkBoxNumber" + indexToRemove,
                 {
@@ -525,32 +601,32 @@ class AddProductDetails extends React.Component {
     returnfeaturesAdded = () => {
         return (
             this
-                .state
-                .featuresAdded
+            .state
+            .featuresAdded
 
-                .map((item, i) => {
-                    return (
+            .map((item, i) => {
+                return (
+                    <div
+                        className="featureWrap"
+                        key={i}
+                        >
+                        <ul>
+                            <li>
+                                <p key={i}>
+                                    {item}
+                                </p>
+                            </li>
+                        </ul>
+
                         <div
-                            className="featureWrap"
-                            key={i}
+                            className="deleteIcon"
+                            onClick={(i) => this.removeFeature(i)}
                             >
-                            <ul>
-                                <li>
-                                    <p key={i}>
-                                        {item}
-                                    </p>
-                                </li>
-                            </ul>
-
-                            <div
-                                className="deleteIcon"
-                                onClick={(i) => this.removeFeature(i)}
-                                >
-                                <CloseButton />
-                            </div>
+                            <CloseButton />
                         </div>
-                    )
-                })
+                    </div>
+                )
+            })
         )
     }
 
@@ -957,6 +1033,66 @@ class AddProductDetails extends React.Component {
                     </div>
                 )
             }
+        }
+    }
+
+    handleDefaultValues = (fieldName) => {
+        const { 
+            productName,
+            productCode,
+            productPrice,
+            productMaterials,
+            productFinishes,
+            productMinQuantity,
+            productMaxQuantity,
+            productDescription,
+            // productType,
+            productAvailability,
+            productDiscount,
+            productThumbImage } = this.state
+
+        if(fieldName === "ProductName") {
+            if (productName) return productName;
+        }
+
+        else if (fieldName === "ProductCode") {
+            if (productCode) return productCode;
+        }
+
+        else if (fieldName === "ProductPrice") {
+            if (productPrice) return productPrice;
+        }
+
+        else if (fieldName === "ProductMaterials") {
+            if (productMaterials) return productMaterials;
+        }
+
+        else if (fieldName === "ProductFinishes") {
+            if (productFinishes) return productFinishes;
+        }
+
+        else if (fieldName === "ProductMinQuantity") {
+            if (productMinQuantity) return productMinQuantity;
+        }
+
+        else if (fieldName === "ProductMaxQuantity") {
+            if (productMaxQuantity) return productMaxQuantity;
+        }
+
+        else if (fieldName === "ProductDescription") {
+            if (productDescription) return productDescription;
+        }
+
+        else if (fieldName === "ProductAvailability") {
+            if (productAvailability) return productAvailability;
+        }
+
+        else if (fieldName === "DiscountInput") {
+            if (productDiscount) return productDiscount;
+        }
+
+        else if (fieldName === "ProductThumbImage") {
+            if (productThumbImage) return productThumbImage;
         }
     }
 
@@ -1694,7 +1830,7 @@ class AddProductDetails extends React.Component {
                 productAvailability = false
             }
 
-            console.log(productAvailability)
+            // console.log(productAvailability)
             
             this.setState({ 
                 productAvailability: val,
@@ -2701,6 +2837,7 @@ class AddProductDetails extends React.Component {
                                                             isMandatory={true}
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
                                                             characterCount="30"
+                                                            value={this.handleDefaultValues("ProductName")}
                                                             result={(val) => this.setState({
                                                                 productName: val
                                                             })}
@@ -2719,6 +2856,7 @@ class AddProductDetails extends React.Component {
                                                             isMandatory={true}
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
                                                             characterCount="30"
+                                                            value={this.handleDefaultValues("ProductCode")}
                                                             result={(val) => this.setState({
                                                                 productCode: val
                                                             })}
@@ -2738,6 +2876,7 @@ class AddProductDetails extends React.Component {
                                                             isMandatory={true}
                                                             validationType="onlyNumbers"
                                                             characterCount="30"
+                                                            value={this.handleDefaultValues("ProductPrice")}
                                                             result={(val) => {
                                                                 this.setState({
                                                                     productPrice: val
@@ -2917,7 +3056,8 @@ class AddProductDetails extends React.Component {
                                                             isMandatory={true}
                                                             validationType="onlyNumbers"
                                                             characterCount="20"
-                                                            value={this.state.productMinQuantity ? this.state.productMinQuantity : null}
+                                                            value={this.handleDefaultValues("ProductMinQuantity")}
+                                                            // value={this.state.productMinQuantity ? this.state.productMinQuantity : null}
                                                             result={(val) => {
                                                                 this.setState({
                                                                     productMinQuantity: val
@@ -2938,6 +3078,7 @@ class AddProductDetails extends React.Component {
                                                             isMandatory={true}
                                                             validationType="onlyNumbers"
                                                             characterCount="20"
+                                                            value={this.handleDefaultValues("ProductMaxQuantity")}
                                                             result={(val) => {
                                                                 this.setState({
                                                                     productMaxQuantity: val
@@ -2963,6 +3104,7 @@ class AddProductDetails extends React.Component {
                                                             isMandatory={false}
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
                                                             characterCount="100"
+                                                            value={this.handleDefaultValues("ProductDescription")}
                                                             result={(val) => this.setState({
                                                                 productDescription: val
                                                             })}
@@ -3095,7 +3237,8 @@ class AddProductDetails extends React.Component {
                                                             title="Product Availability"
                                                             name={'availability'}
                                                             options={this.returnProductAvailability()}
-                                                            selectedOption={this.state.productAvailability}
+                                                            selectedOption={this.state.productAvailability === true ? 
+                                                                                    "Yes, it is available" : "No, it is not available"}
                                                             onChange={(e) => this.handleRadiobutton(e, "productAvailability")}
                                                         />
                                                     </div>
@@ -3127,6 +3270,7 @@ class AddProductDetails extends React.Component {
                                                                             type="text" 
                                                                             ref="discountInput"
                                                                             maxLength="2" 
+                                                                            defaultValue={this.handleDefaultValues("DiscountInput")}
                                                                             onChange={(e) => this.checkTypeNumber(e, "discount")}
                                                                         />
                                                                         <p>%</p>
@@ -3207,7 +3351,7 @@ const matchDispatchToProps = (dispatch) => {
     }, dispatch)
 }
 
-export default connect(mapStateToProps, matchDispatchToProps)(AddProductDetails)
+export default connect(mapStateToProps, matchDispatchToProps)(EditProductDetails)
 
 
 
