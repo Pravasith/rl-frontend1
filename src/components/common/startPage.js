@@ -25,20 +25,20 @@ export default class StartPage extends React.Component {
     }
 
 
-    returnDataFromBackendAndShow = () => {
+    componentDidMount = () => {
         setTimeout( () => {
             this.setState({
                 loadingClass: 'loadingAnim hide',
                 mainClass: 'mainClass',
             })
         },4000)
+
+        
     }   
 
 
     render() {
-            {
-            this.returnDataFromBackendAndShow()
-            }
+            
         return (
             <article className="homepageWrapper">
                 <Head>

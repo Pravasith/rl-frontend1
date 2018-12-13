@@ -36,5 +36,6 @@ export const api = {
     GET_SUB_CATEGORIES : API_URL + 'categories/get-sub-categories',
     GET_PRODUCT_TYPES : API_URL + 'categories/get-product-types',
 
-    ADD_NEW_PRODUCT : API_URL + 'categories/add-new-product'
+    ADD_NEW_PRODUCT : API_URL + 'categories/add-new-product',
+    GET_PRODUCT_DATA : API_URL + 'categories/get-product-data',
 }
