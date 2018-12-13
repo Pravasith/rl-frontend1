@@ -1,11 +1,12 @@
 import React from "react"
+import Link from 'next/link'
 
 import { GoogleIcon, LinkedInIcon } from "../../assets/images/socialNetworkIcons";
 import { RollingLogsTextLogoSmall, FurnitureVendorIcon } from "../../assets/images";
 import Axios from "axios";
 import { api } from "../../actions/apiLinks";
 import LogoAnimation from "../animations/logoAnimation";
-import { GradientButton } from "../UX/uxComponents";
+import { GradientButton, WhiteButton } from "../UX/uxComponents";
 
 import "../../assets/sass/sign_up_log_in.scss"
 import { Footer } from "../footer/footer";
@@ -27,8 +28,8 @@ export default class LogIn extends React.Component {
             passwordIsValid: false,
 
             checkingForTheFirstTime: false,
-            loadingClass: 'loadingAnim hide',
-            mainClass: 'mainClass',
+            loadingClass: 'loadingAnim',
+            mainClass: 'mainClass hide',
 
             redirect: false
         }
@@ -228,14 +229,23 @@ export default class LogIn extends React.Component {
 
     }
 
+    returnDataFromBackendAndShow = () => {
+        setTimeout( () => {
+            this.setState({
+                loadingClass: 'loadingAnim hide',
+                mainClass: 'mainClass',
+            })
+        },4000)
+    }
+
 
     render() {
 
-        // const { redirect } = this.state
 
-        // if (redirect) {
-        //     return <Redirect to='create-card/select-color'/>
-        // }
+        {
+             this.returnDataFromBackendAndShow()
+        }
+
 
         return (
 
@@ -252,17 +262,54 @@ export default class LogIn extends React.Component {
                     <div className="signUpWrapper">
 
                         <div className="menuLogin">
-                            <div className="logo flexRow" onClick={() => {
+
+                            <div className="logo flexRow" >
+                                <Link href="/">
+                                    <a
+                                        onClick = {() => {
+                                            this.setstate=({
+                                                loadingClass: 'loadingAnim hide',
+                                                mainClass: 'mainClass'
+                                            })
+                                        }}
+                                    >
+                                        <div className="iconWrap" >
+                                            <RollingLogsTextLogoSmall />
+                                        </div>
+                                    </a>
+                                </Link>
+                            {/* onClick={() => {
+                                    this.setState ({
+                                        loadingClass: 'loadingAnim hide',
+                                        mainClass: 'mainClass',
+                                    })
                                 window.open('/', '_self')
                                 
                                 }}>
                                 <div className="iconWrap" >
                                     <RollingLogsTextLogoSmall />
-                                </div>
+                                </div> */}
                             </div>
 
                             <div className="loginButtons">
-                                <div className="mediumBtn reddish" onClick={() => window.open('/register', '_self')} >Sign up</div>
+
+                                <Link href="/register">
+                                    <a 
+                                        onClick={() => {
+                                            this.setState ({
+                                                loadingClass: 'loadingAnim',
+                                                mainClass: 'mainClass hide',    
+                                            })
+                                        
+                                        
+                                        }}
+                                    >
+                                        <WhiteButton>
+                                            Sign up
+                                        </WhiteButton>
+                                    </a>
+                                </Link>
+                               
                             </div>
 
                         </div>
@@ -333,9 +380,21 @@ export default class LogIn extends React.Component {
 
                                 <div 
                                     className="mediumBtn studentLoginBtn2" 
-                                    onClick={() => window.open('/register', '_self')} 
+                                    // onClick={() => window.open('/register', '_self')} 
                                     >
-                                    If you are not yet registered, sign up by clicking here
+                                    <Link href="/register">
+                                        <a
+                                            onClick={() => {
+                                                this.setState({
+                                                    loadingClass: 'loadingAnim',
+                                                    mainClass: 'mainClass hide',
+                                                })
+                                            }}
+                                        >
+                                            If you are not yet registered, sign up by clicking here
+                                        </a>
+                                    </Link>
+                                    {/* If you are not yet registered, sign up by clicking here */}
                                 </div>
 
                             </div>
@@ -377,7 +436,7 @@ export default class LogIn extends React.Component {
 
                                 </div>
 
-
+                                        
                             </div>
                         </div>
 
@@ -393,3 +452,24 @@ export default class LogIn extends React.Component {
 
 
 
+// {/* <div className="loginButtons">
+// {/* // onClick={() => window.open('/register', '_self')} */}
+//     <Link href="/register">
+//         <a 
+//             onClick={() => {
+//                 this.setState ({
+//                     loadingClass: 'loadingAnim',
+//                     mainClass: 'mainClass hide',    
+//                 })
+            
+            
+//             }}
+//         >
+//         <div className="mediumBtn reddish" 
+//             >
+//             Sign up
+//         </div>
+//         </a>
+//     </Link>
+   
+// </div> */}

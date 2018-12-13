@@ -2041,7 +2041,7 @@ class AddProductDetails extends React.Component {
                                             </div>
                                         </div>
                                         <div className="finishEndModal">
-                                            <div>
+                                            <div className="finishImageContainer">
                                                 <img
                                                     src={this.state.productFinishImage}
                                                     alt=""
@@ -2079,9 +2079,10 @@ class AddProductDetails extends React.Component {
                                                                 ref="switch"
                                                                 checked={this.state.isChecked}
                                                                 onChange={() => this.onToggleSwitch()}
-                                                                className="switch"
+                                                                className="switch-input"
                                                                 type="checkbox" />
-                                                            <span className="slider round"></span>
+                                                            <span className="switch-label" data-on="Yes" data-off="No"></span> 
+                                                            <span className="switch-handle"></span> 
                                                         </label>
                                                     </div>
                                                     <div className="returnInputColumn">
@@ -2209,9 +2210,10 @@ class AddProductDetails extends React.Component {
                                                                 ref="switch"
                                                                 checked={this.state.isChecked}
                                                                 onChange={() => this.onToggleSwitch()}
-                                                                className="switch"
+                                                                className="switch-input"
                                                                 type="checkbox"/>
-                                                            <span className="slider round"></span>
+                                                            <span className="switch-label" data-on="Yes" data-off="No"></span> 
+                                                            <span className="switch-handle"></span> 
                                                         </label>
                                                     </div>
                                                     <div className="returnInputColumn">
@@ -2291,9 +2293,10 @@ class AddProductDetails extends React.Component {
                                                     ref="switch"
                                                     checked={this.state.isChecked}
                                                     onChange={() => this.onToggleSwitch()}
-                                                    className="switch"
+                                                    className="switch-input"
                                                     type="checkbox"/>
-                                                <span className="slider round"></span>
+                                                <span className="switch-label" data-on="Yes" data-off="No"></span> 
+                                                <span className="switch-handle"></span> 
                                             </label>
                                         </div>
                                         <div className="returnInputColumn">
@@ -2365,9 +2368,10 @@ class AddProductDetails extends React.Component {
                                                     ref="switch"
                                                     checked={this.state.isChecked}
                                                     onChange={() => this.onToggleSwitch()}
-                                                    className="switch"
+                                                    className="switch-input"
                                                     type="checkbox"/>
-                                                <span className="slider round"></span>
+                                                <span className="switch-label" data-on="Yes" data-off="No"></span> 
+                                                <span className="switch-handle"></span> 
                                             </label>
                                         </div>
                                         <div className="returnInputColumn">

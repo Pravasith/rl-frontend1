@@ -1,4 +1,5 @@
 import React from "react"
+import Link from 'next/link'
 
 import "../../../assets/sass/vendor_main_dashboard.scss"
 
@@ -1206,6 +1207,11 @@ class VendorMainDashboard extends React.Component {
                         </div>
                     </div>
 
+
+
+
+
+
                     <div className="subHeadingSection">
                         <h3>2/2</h3>
                         <p>Choose sub-category</p>
@@ -1314,7 +1320,7 @@ class VendorMainDashboard extends React.Component {
                                 })}
                             >
                                 Okay
-                                </WhiteButton>
+                            </WhiteButton>
                         </div>
                     </div>
                 </div>
@@ -1447,13 +1453,27 @@ class VendorMainDashboard extends React.Component {
                                             </div>
                                         </div>
                                         <div className="profileEditContainer">
-                                            <WhiteButton
+                                            <Link href = "/vendor/profile-details">
+                                                <a
+                                                    onClick={() => {
+                                                        this.setState=({
+                                                            loadingClass: 'loadingAnim',
+                                                            mainClass: 'mainClass hide'
+                                                        })
+                                                    }}
+                                                >
+                                                    <WhiteButton>
+                                                        Edit profile details
+                                                    </WhiteButton>
+                                                </a>
+                                            </Link>
+                                            {/* <WhiteButton
                                                 runFunction={() => {
                                                     window.open("/vendor/profile-details", "_self")
                                                 }}
                                             >
                                                 Edit profile details
-                                            </WhiteButton>
+                                            </WhiteButton> */}
                                         </div>
                                     </div>
                                 </div>

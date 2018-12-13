@@ -1,4 +1,5 @@
 import React from "react"
+import Link from 'next/link'
 
 import "../../assets/sass/sign_up_log_in.scss"
 
@@ -9,7 +10,7 @@ import { GoogleIcon, LinkedInIcon } from "../../assets/images/socialNetworkIcons
 import { RollingLogsTextLogoSmall, FurnitureVendorIcon } from "../../assets/images"
 import LogoAnimation from "../animations/logoAnimation"
 import { encryptData, decryptData } from "../../factories/encryptDecrypt"
-import { GradientButton } from "../UX/uxComponents"
+import { GradientButton,WhiteButton } from "../UX/uxComponents"
 import { Footer } from "../footer/footer";
 
 
@@ -316,12 +317,35 @@ export default class SignUp extends React.Component{
                             </div>
 
                             <div className="loginButtons">
-                                <div 
+                                <Link href="/log-in">
+                                    <a
+                                        onClick={() => {
+                                            this.setState({
+                                                loadingClass: 'loadingAnim',
+                                                mainClass: 'mainClass hide',
+                                            })
+                                        }}
+                                    >
+                                        <WhiteButton>
+                                            Login
+                                        </WhiteButton>
+                                    </a>
+                                
+                                </Link>
+                                {/* <div 
                                     className = "mediumBtn studentLoginBtn" 
-                                    onClick = {() => window.open('/log-in', '_self')} 
+                                    onClick={() => {
+                                        this.setState ({
+                                            loadingClass: 'loadingAnim',
+                                            mainClass: 'mainClass hide',
+                                        })
+                                        window.open('/log-in', '_self')
+                                    
+                                    }}
+                                    // onClick = {() => window.open('/log-in', '_self')} 
                                     >
                                     Login
-                                </div>
+                                </div> */}
                             </div>
                         </div>
 
@@ -476,9 +500,14 @@ export default class SignUp extends React.Component{
 
                                 <div 
                                     className="mediumBtn studentLoginBtn2" 
-                                    onClick={() => window.open('/log-in', '_self')} 
+                                    // onClick={() => window.open('/log-in', '_self')} 
                                     >
-                                    If you are already have an account, log in here
+                                    <Link href="/log-in">
+                                        <a>
+                                            If you are already have an account, log in here
+                                        </a>
+                                    </Link>
+                                    {/* If you are already have an account, log in here */}
                                 </div>
                             </div>
 
