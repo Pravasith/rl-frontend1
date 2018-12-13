@@ -145,19 +145,20 @@ class Navbar extends Component {
 
                     <section className="signUpButton">
                         <Link href="/register">
-                            <a 
-                                onClick={() => {
-                                    this.setState ({
-                                        loadingClass: 'loadingAnim',
-                                        mainClass: 'mainClass hide',    
-                                    })
-                                
-                                
-                                }}
-                            >
-                                <GradientButton>
-                                    Sign up
-                                </GradientButton>
+                            <a>
+                                <div
+                                    onClick={() => {
+                                        this.setState ({
+                                            loadingClass: 'loadingAnim',
+                                            mainClass: 'mainClass hide',    
+                                        })
+                                    }}
+                                    >
+                                    <GradientButton>
+                                        Sign up
+                                    </GradientButton>
+                                </div>
+                               
                             </a>
                         </Link>
                     </section>
@@ -165,19 +166,20 @@ class Navbar extends Component {
                     <section 
                         className="logInButton">
                         <Link href="/log-in">
-                            <a 
-                                onClick={() => {
-                                    this.setState ({
-                                        loadingClass: 'loadingAnim',
-                                        mainClass: 'mainClass hide',    
-                                    })
-                                
-                                
-                                }}
-                            >
-                                <WhiteButton>
-                                    Log in
-                                </WhiteButton>
+                            <a>
+                                <div
+                                    onClick={() => {
+                                        this.setState ({
+                                            loadingClass: 'loadingAnim',
+                                            mainClass: 'mainClass hide',    
+                                        })
+                                    }}
+                                    >
+                                    <WhiteButton>
+                                        Log in
+                                    </WhiteButton>
+                                </div>
+                               
                             </a>
                         </Link>
                     </section>

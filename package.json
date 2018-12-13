@@ -11,6 +11,7 @@
 	"author": "Pravasith Kumar",
 	"license": "MIT",
 	"dependencies": {
+		"@zeit/next-css": "^1.0.1",
 		"@zeit/next-sass": "^1.0.1",
 		"axios": "^0.18.0",
 		"cross-env": "^5.2.0",

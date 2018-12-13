@@ -135,6 +135,7 @@ class EditProductDetails extends React.Component {
 
             finalProceed : "saveAndProceed",
             productTypes : [],
+            dummyToggle : "x",
 
             
         }
@@ -163,7 +164,6 @@ class EditProductDetails extends React.Component {
                 //
 
                 const rawData = { productId : pId }
-                // console.log(rawData)
                 
                 //
                 // Encrypt data
@@ -172,6 +172,8 @@ class EditProductDetails extends React.Component {
                 //
                 // Encrypt data
                 //
+
+                
  
 
                 // GET PRODUCT TYPES
@@ -193,12 +195,10 @@ class EditProductDetails extends React.Component {
                     // DECRYPT REQUEST DATA
                     //
 
-                    console.log(decryptedData)
+                    
 
                     this.setState({
-                        loadingClass: 'loadingAnim hide',
-                        mainClass: 'mainClass',
-                        // productTypes : decryptedData,
+                        
 
 
                         /// PLACE HERE ////
@@ -215,7 +215,7 @@ class EditProductDetails extends React.Component {
                         productDescription : decryptedData.productDescription,
                         categoryStylesAdded: decryptedData.designStyles,
                         tagsAdded: decryptedData.tags,
-                        // productType : decryptedData.productType,
+                        productType : decryptedData.productType,
                         productAvailability: decryptedData.availability,
                         productDiscount: decryptedData.discount,
                         productImagesObject: {
@@ -228,6 +228,66 @@ class EditProductDetails extends React.Component {
     
                     // console.log(this.props.pId)
                     this.discountAvailabilityChecked()
+
+                    let sCId = pId.split("-")[0] + "-" + pId.split("-")[1]
+
+                    const rawData = { sCId }
+                    
+                    //
+                    // Encrypt data
+                    //
+                    const encryptedData = encryptData(rawData)
+                    //
+                    // Encrypt data
+                    //
+    
+
+                    // GET PRODUCT TYPES
+                    this.props.hitApi(api.GET_PRODUCT_TYPES,"POST",
+                        {
+                            requestData : encryptedData,
+                            message : "Requesting dispatch product types"
+                        }
+                    )
+                    .then(() => {
+
+                        //
+                        // DECRYPT REQUEST DATA
+                        //
+                        let decryptedData = decryptData(
+                            this.props.responseData.responsePayload.responseData
+                        )
+                        //
+                        // DECRYPT REQUEST DATA
+                        //
+
+                        this.setState({
+                            loadingClass: 'loadingAnim hide',
+                            mainClass: 'mainClass',
+                            productTypes : decryptedData
+                        })
+        
+                        // console.log(this.props.sCId)
+                    })
+
+                    .catch((err) => {
+                        if (err.response) {
+
+                            // console.log(err.response)
+                            if (err.response.status === 401)
+                                window.open('/log-in', "_self")
+
+                            else{
+                                // window.open('/vendor/dashboard', "_self")
+                            }
+                        }
+        
+                        else{
+                            console.error(err)
+                            // window.open('/vendor/dashboard', "_self")
+                        }
+                            
+                    })
                 })
 
                 .catch((err) => {
@@ -1192,7 +1252,21 @@ class EditProductDetails extends React.Component {
         }
     }
 
-    productImageUpload = () => {
+    toggleClassDummy = () => {
+        if(this.state.dummyToggle === 'x'){
+            this.setState({
+                dummyToggle : 'y'
+            })
+        }
+
+        else if(this.state.dummyToggle === 'y'){
+            this.setState({
+                dummyToggle : 'x'
+            })
+        }
+    }
+
+    addProductImage = () => {
         let { productImage, productImagesObject } = this.state;
 
         let temp = {
@@ -1204,9 +1278,11 @@ class EditProductDetails extends React.Component {
         if (temp.imageURL !== "") {
             let dummyArray = productImagesObject.imagesInCategory ? productImagesObject.imagesInCategory : [];
 
-            if(!dummyArray.includes(temp)) {
+            // if(!dummyArray.includes(temp)) {
                 dummyArray.push(temp)
-            }
+            // }
+
+            this.toggleClassDummy()
 
             this.setState({
                 productImagesObject: {
@@ -1218,31 +1294,41 @@ class EditProductDetails extends React.Component {
         }
     }
 
+  
+
     returnHtmlSliderforproductImagesObject = () => {
         if(this.state.productImagesObject.imagesInCategory.length !== 0) {
-            return (
-                <div className ="imageSliderParentWrap" >
-                    {
-                        /* 
-                        <header className="uploadedHeaderSection">
-                            <div className="headingArea">
-                                <h3 className="headingColumn">Uploaded images</h3>
-                                <div className="line"></div>
-                            </div>
-                        </header>
-                        */
-                    }
-
-                    <div className="downSectionInnerLayer">
-                        <HtmlSlider
-                            categoryData={this.state.productImagesObject} // format of Item 
-                            numberOfSlides={3} // Change the css grid properties for responsiveness
-                            textOnRibbon={"TRENDING NOW"} // All caps
-                            runFunction={(data) => {}}
-                        />
+            if(this.state.dummyToggle === 'x'){
+                return (
+                    <div className ="imageSliderParentWrap" >
+                        <div className={"downSectionInnerLayer "}>
+                            <HtmlSlider
+                                categoryData={this.state.productImagesObject} // format of Item 
+                                numberOfSlides={3} // Change the css grid properties for responsiveness
+                                textOnRibbon={"TRENDING NOW"} // All caps
+                                runFunction={(data) => {}}
+                            />
+                        </div>
                     </div>
-                </div>
-            )
+                )
+            }
+
+            else if(this.state.dummyToggle === 'y'){
+                return (
+                    <div className = "imageSliderWrap2" >
+                        <div className ="imageSliderParentWrap" >
+                            <div className={"downSectionInnerLayer "}>
+                                <HtmlSlider
+                                    categoryData={this.state.productImagesObject} // format of Item 
+                                    numberOfSlides={3} // Change the css grid properties for responsiveness
+                                    textOnRibbon={"TRENDING NOW"} // All caps
+                                    runFunction={(data) => {}}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
         }
     }
 
@@ -1974,7 +2060,7 @@ class EditProductDetails extends React.Component {
         )
     }
 
-    sendProductsDataToBackend = () => {
+    updateProductsDataInBackend = () => {
         this.setState({
             finalProceed : "sendRequest"
         })
@@ -2027,50 +2113,51 @@ class EditProductDetails extends React.Component {
         //
 
 
-        // GET PRODUCT TYPES
-        this.props.hitApi(api.ADD_NEW_PRODUCT,"POST",
-            {
-                requestData : encryptedData,
-                message : "Delivering new product, foxtrot"
-            }
-        )
-        .then(() => {
+        //  UPDATE PRODUCT 
 
-            //
-            // DECRYPT REQUEST DATA
-            //
-            let decryptedData = decryptData(
-                this.props.responseData.responsePayload.responseData
-            )
-            //
-            // DECRYPT REQUEST DATA
-            //
+        // this.props.hitApi(api.ADD_NEW_PRODUCT,"POST",
+        //     {
+        //         requestData : encryptedData,
+        //         message : "Delivering new product, foxtrot"
+        //     }
+        // )
+        // .then(() => {
 
-            // console.log(decryptedData)
+        //     //
+        //     // DECRYPT REQUEST DATA
+        //     //
+        //     let decryptedData = decryptData(
+        //         this.props.responseData.responsePayload.responseData
+        //     )
+        //     //
+        //     // DECRYPT REQUEST DATA
+        //     //
 
-            window.open("/vendor/dashboard", "_self")
-        })
+        //     // console.log(decryptedData)
 
-        .catch((err) => {
-            if (err.response) {
+        //     window.open("/vendor/dashboard", "_self")
+        // })
 
-                // console.log(err.response)
-                if (err.response.status === 401)
-                    window.open('/log-in', "_self")
+        // .catch((err) => {
+        //     if (err.response) {
 
-                else{
-                    // window.open('/vendor/dashboard', "_self")
-                }
-            }
+        //         // console.log(err.response)
+        //         if (err.response.status === 401)
+        //             window.open('/log-in', "_self")
 
-            else{
-                this.setState({
-                    finalProceed : "errorScreen"
-                })
-                // window.open('/vendor/dashboard', "_self")
-            }
+        //         else{
+        //             // window.open('/vendor/dashboard', "_self")
+        //         }
+        //     }
+
+        //     else{
+        //         this.setState({
+        //             finalProceed : "errorScreen"
+        //         })
+        //         // window.open('/vendor/dashboard', "_self")
+        //     }
                 
-        })
+        // })
 
 
         // console.log(finalDataToSend)
@@ -2108,7 +2195,7 @@ class EditProductDetails extends React.Component {
 
                     <GradientButton
                         runFunction={() => {
-                            this.sendProductsDataToBackend()
+                            this.updateProductsDataInBackend()
                         }}>
                         Proceed
                     </GradientButton>
@@ -2774,25 +2861,25 @@ class EditProductDetails extends React.Component {
                                                                 </div>
                                                             </header>
 
-                                                            <div className="productImageUploaderRender">
+                                                            <div className="addProductImageerRender">
                                                                 {
                                                                     this.state.productImage === "" 
                                                                     ? 
-                                                                    <div className="productImageUploaderClass">
+                                                                    <div className="addProductImageerClass">
                                                                         <ImageUploader
                                                                             imageType="regularImage" // regularImage || profileImage
                                                                             resultData={(data) => {
                                                                                 this.setState({
                                                                                     productImage: data.imageURL
                                                                                 })
-                                                                                this.productImageUpload();
+                                                                                this.addProductImage();
                                                                             }}
                                                                             showInitialImage={this.state.productImage !== "" ? this.state.productImage : ""}
                                                                             imageClassName="productImageClass"
                                                                         />
                                                                     </div>
                                                                     :
-                                                                    <div className="productImageUploaderClass"></div>
+                                                                    <div className="addProductImageerClass"></div>
                                                                 
                                                                 }
                                                             </div>
@@ -3315,7 +3402,17 @@ class EditProductDetails extends React.Component {
                                                         }}>
                                                     Save and Proceed
                                                 </GradientButton>
-                                            </div>      
+                                            </div>     
+
+                                            <div className="buttonContainer">
+                                                <WhiteButton
+                                                    runFunction={() => 
+                                                        {   
+                                                            window.open("/vendor/dashboard", "_self")            
+                                                        }}>
+                                                    Cancel
+                                                </WhiteButton>
+                                            </div>     
                                         </div>
 
                                     </article>

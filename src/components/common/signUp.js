@@ -316,16 +316,17 @@ export default class SignUp extends React.Component{
                                 </div>
                             </div>
 
-                            <div className="loginButtons">
+                            <div 
+                                className="loginButtons"
+                                onClick={() => {
+                                    this.setState({
+                                        loadingClass: 'loadingAnim',
+                                        mainClass: 'mainClass hide',
+                                    })
+                                }}
+                                >
                                 <Link href="/log-in">
-                                    <a
-                                        onClick={() => {
-                                            this.setState({
-                                                loadingClass: 'loadingAnim',
-                                                mainClass: 'mainClass hide',
-                                            })
-                                        }}
-                                    >
+                                    <a>
                                         <WhiteButton>
                                             Login
                                         </WhiteButton>

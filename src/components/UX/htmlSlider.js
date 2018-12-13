@@ -73,7 +73,7 @@ export default class HtmlSlider extends React.Component{
             ){
 
             this.setState({
-                // rightArrowClass : "hide",
+                rightArrowClass : "hide",
             })
         }
     }

@@ -135,6 +135,7 @@ class AddProductDetails extends React.Component {
 
             finalProceed : "saveAndProceed",
             productTypes : [],
+            dummyToggle : "x",
 
             
         }
@@ -160,7 +161,6 @@ class AddProductDetails extends React.Component {
                 //
 
                 const rawData = { sCId }
-                // console.log(rawData)
                 
                 //
                 // Encrypt data
@@ -189,8 +189,6 @@ class AddProductDetails extends React.Component {
                     //
                     // DECRYPT REQUEST DATA
                     //
-
-                    // console.log(decryptedData)
 
                     this.setState({
                         loadingClass: 'loadingAnim hide',
@@ -1056,8 +1054,22 @@ class AddProductDetails extends React.Component {
         }
     }
 
-    productImageUpload = () => {
-        let { productImage, productImagesObject } = this.state;
+    toggleClassDummy = () => {
+        if(this.state.dummyToggle === 'x'){
+            this.setState({
+                dummyToggle : 'y'
+            })
+        }
+
+        else if(this.state.dummyToggle === 'y'){
+            this.setState({
+                dummyToggle : 'x'
+            })
+        }
+    }
+
+    addProductImage = () => {
+        let { productImage, productImagesObject } = this.state
 
         let temp = {
             itemCode: this.state.productCode,
@@ -1065,12 +1077,14 @@ class AddProductDetails extends React.Component {
             imageURL: productImage
         }
 
-        if (temp.imageURL !== "") {
+        // if (temp.imageURL !== "") {
             let dummyArray = productImagesObject.imagesInCategory ? productImagesObject.imagesInCategory : [];
 
-            if(!dummyArray.includes(temp)) {
+        //     // if(!dummyArray.includes(temp)) {
                 dummyArray.push(temp)
-            }
+        //     // }
+
+        this.toggleClassDummy()
 
             this.setState({
                 productImagesObject: {
@@ -1079,34 +1093,47 @@ class AddProductDetails extends React.Component {
                 },
                 productImage: ""
             })
-        }
+        // }
+
+ 
+
+            // console.log(productImage)
     }
 
     returnHtmlSliderforproductImagesObject = () => {
         if(this.state.productImagesObject.imagesInCategory.length !== 0) {
-            return (
-                <div className ="imageSliderParentWrap" >
-                    {
-                        /* 
-                        <header className="uploadedHeaderSection">
-                            <div className="headingArea">
-                                <h3 className="headingColumn">Uploaded images</h3>
-                                <div className="line"></div>
-                            </div>
-                        </header>
-                        */
-                    }
-
-                    <div className="downSectionInnerLayer">
-                        <HtmlSlider
-                            categoryData={this.state.productImagesObject} // format of Item 
-                            numberOfSlides={3} // Change the css grid properties for responsiveness
-                            textOnRibbon={"TRENDING NOW"} // All caps
-                            runFunction={(data) => {}}
-                        />
+            if(this.state.dummyToggle === 'x'){
+                return (
+                    <div className ="imageSliderParentWrap" >
+                        <div className={"downSectionInnerLayer "}>
+                            <HtmlSlider
+                                categoryData={this.state.productImagesObject} // format of Item 
+                                numberOfSlides={3} // Change the css grid properties for responsiveness
+                                textOnRibbon={"TRENDING NOW"} // All caps
+                                runFunction={(data) => {}}
+                            />
+                        </div>
                     </div>
-                </div>
-            )
+                )
+            }
+
+            else if(this.state.dummyToggle === 'y'){
+                return (
+                    <div className = "imageSliderWrap2" >
+                        <div className ="imageSliderParentWrap" >
+                            <div className={"downSectionInnerLayer "}>
+                                <HtmlSlider
+                                    categoryData={this.state.productImagesObject} // format of Item 
+                                    numberOfSlides={3} // Change the css grid properties for responsiveness
+                                    textOnRibbon={"TRENDING NOW"} // All caps
+                                    runFunction={(data) => {}}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
+            
         }
     }
 
@@ -2653,7 +2680,7 @@ class AddProductDetails extends React.Component {
                                                                                 this.setState({
                                                                                     productImage: data.imageURL
                                                                                 })
-                                                                                this.productImageUpload();
+                                                                                this.addProductImage()
                                                                             }}
                                                                             showInitialImage={this.state.productImage !== "" ? this.state.productImage : ""}
                                                                             imageClassName="productImageClass"
