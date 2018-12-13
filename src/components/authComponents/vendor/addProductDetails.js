@@ -190,6 +190,8 @@ class AddProductDetails extends React.Component {
                     // DECRYPT REQUEST DATA
                     //
 
+                    // console.log(decryptedData)
+
                     this.setState({
                         loadingClass: 'loadingAnim hide',
                         mainClass: 'mainClass',
@@ -1914,7 +1916,7 @@ class AddProductDetails extends React.Component {
 
             // console.log(decryptedData)
 
-            window.open("/vendor/dashboard")
+            window.open("/vendor/dashboard", "_self")
         })
 
         .catch((err) => {
