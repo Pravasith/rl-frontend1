@@ -145,7 +145,16 @@ class Navbar extends Component {
 
                     <section className="signUpButton">
                         <Link href="/register">
-                            <a >
+                            <a 
+                                onClick={() => {
+                                    this.setState ({
+                                        loadingClass: 'loadingAnim',
+                                        mainClass: 'mainClass hide',    
+                                    })
+                                
+                                
+                                }}
+                            >
                                 <GradientButton>
                                     Sign up
                                 </GradientButton>
@@ -153,9 +162,19 @@ class Navbar extends Component {
                         </Link>
                     </section>
 
-                    <section className="logInButton">
+                    <section 
+                        className="logInButton">
                         <Link href="/log-in">
-                            <a >
+                            <a 
+                                onClick={() => {
+                                    this.setState ({
+                                        loadingClass: 'loadingAnim',
+                                        mainClass: 'mainClass hide',    
+                                    })
+                                
+                                
+                                }}
+                            >
                                 <WhiteButton>
                                     Log in
                                 </WhiteButton>

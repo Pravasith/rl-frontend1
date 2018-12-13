@@ -105,7 +105,14 @@ export default class StartPage extends React.Component {
                                                 </div>
                                                 <div className="ProceedButtonContainer">
                                                     <Link href="/register">
-                                                        <a >
+                                                        <a 
+                                                            onClick={() => {
+                                                                this.setState ({
+                                                                    loadingClass: 'loadingAnim',
+                                                                    mainClass: 'mainClass hide',    
+                                                                })
+                                                            }}
+                                                        >
                                                             <GradientButton>
                                                                 Get started
                                                             </GradientButton>
