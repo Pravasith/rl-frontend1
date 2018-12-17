@@ -118,8 +118,9 @@ class EditProductDetails extends React.Component {
 
             // displayError: "displayError",
             displayError: "displayError hide",
-            productQuantityErrorMessage: "productQuantityErrorMessage hide",
-            productMinQuantityError: "productMinQuantityError hide",
+            displayValueError: "displayValueError hide",
+            displayDiscountValueError: "displayDiscountValueError hide",
+            displayQuantityValueError: "displayQuantityValueError hide",
 
             materialCostIsValid: false,
             sizeCostIsValid: false,
@@ -324,18 +325,27 @@ class EditProductDetails extends React.Component {
             })
     }
 
+    componentDidUpdate() {
+        console.log(this.state.displayDiscountValueError, 
+                    this.state.displayQuantityValueError, 
+                    this.state.productDiscount, 
+                    this.state.productDiscountAvailablity)
+    }
+
     discountAvailabilityChecked = () => {
-        if (this.state.productDiscount) {
+        if (this.state.productDiscount !== 0) {
             this.setState({
                 checkBoxClass1: "checkBox color",
-                checkBoxClass2: "checkBox"
+                checkBoxClass2: "checkBox",
+                productDiscountAvailablity: "yes"
             })
         } 
 
         else {
             this.setState({
                 checkBoxClass1: "checkBox",
-                checkBoxClass2: "checkBox color"
+                checkBoxClass2: "checkBox color",
+                productDiscountAvailablity: "no"
             })
         }
     }
@@ -1167,7 +1177,7 @@ class EditProductDetails extends React.Component {
             if (regEx.test(val) === true) {
                 if (checkFor === "discount") { 
                     this.setState({
-                        productDiscount: val,
+                        productDiscount: Number(val),
                         displayError: "displayError hide"
                     })
                 }
@@ -2756,21 +2766,35 @@ class EditProductDetails extends React.Component {
         else if(this.state.isChecked === false) this.setState({ extraCostInput: "extraCostInput hide" });
     }
 
-   handleMultiValidation = (fieldName) => {
+    handleMultiValidation = (fieldName) => {
         const { productDiscountAvailablity, productDiscount, productMinQuantity, productMaxQuantity } = this.state;
 
         if (fieldName === "Max. quantity") {
             if (productMaxQuantity !== undefined) {
                 if (productMaxQuantity === productMinQuantity || productMaxQuantity < productMinQuantity) {
-                    return "Max. quantity value"
+                    this.setState({ displayQuantityValueError: "displayQuantityValueError" })
+
+                    return  "Max. quantity value"
                 }
+
+                else this.setState({ displayQuantityValueError: "displayQuantityValueError hide" })
             }
             else return "Max. qunatity"
         } 
 
         else if (fieldName === "Product Discount") {
             if (productDiscountAvailablity === "yes") {
-                if (productDiscount === undefined) {
+                if (productDiscount !== undefined) {
+                    if (productDiscount === 0) {
+                        console.log("Wrks", typeof (this.state.productDiscount))
+
+                        this.setState({ displayDiscountValueError: "displayDiscountValueError" })
+                        return "Product Discount Value"
+                    }
+                    else this.setState({ displayDiscountValueError: "displayDiscountValueError hide" })
+                }
+
+                else if (productDiscount === undefined) {
                     return "Product Discount Value"
                 }
             }
@@ -2803,10 +2827,11 @@ class EditProductDetails extends React.Component {
        })
 
        fieldNames.map(item => {
-           if (item.value === undefined || item.value === null || 
-                item.value.length === 0 || item.fieldName === "Max. quantity value") {
-                if (!this.state.emptyField.includes(item.fieldName))
-                    this.state.emptyField.push(item.fieldName)
+           if (item.value === undefined || item.value === null || item.value.length === 0 || 
+               item.fieldName === "Max. quantity value" || item.fieldName === "Product Discount Value") {
+                    if(!this.state.emptyField.includes(item.fieldName)) {
+                        this.state.emptyField.push(item.fieldName)
+                    }
             }
        })
 
@@ -3187,14 +3212,14 @@ class EditProductDetails extends React.Component {
                                                             value={this.handleDefaultValues("ProductMaxQuantity")}
                                                             result={(val) => {
                                                                 this.setState({
-                                                                    productMaxQuantity: val
+                                                                    productMaxQuantity: Number(val)
                                                                 })
                                                         }}
                                                         />
                                                     </div>
                                                 </div>
 
-                                                <div className={this.state.productQuantityErrorMessage}>
+                                                <div className={this.state.displayQuantityValueError}>
                                                     <p>Max. quantity should be greater than Min. quantity</p>
                                                 </div>
 
@@ -3385,6 +3410,10 @@ class EditProductDetails extends React.Component {
                                                                 <div className="errorContent">
                                                                     <p className={this.state.displayError}>
                                                                         Numbers Only
+                                                                    </p>
+                                                                    <p className={this.state.displayDiscountValueError}>
+                                                                        Discount cannot be zero, If you wish to offer no discount,
+                                                                        please select the option below.
                                                                     </p>
                                                                 </div>
                                                             </div>
