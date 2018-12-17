@@ -3027,11 +3027,11 @@ class AddProductDetails extends React.Component {
                                                                 })
                                                         }}
                                                         />
+                                                                                                            
+                                                    <div className={this.state.displayQuantityValueError}>
+                                                        <p>Max. quantity should be greater than Min. quantity</p>
                                                     </div>
-                                                </div>
-
-                                                <div className={this.state.displayQuantityValueError}>
-                                                    <p>Max. quantity should be greater than Min. quantity</p>
+                                                    </div>
                                                 </div>
 
                                                 <div className="inputFormContainer">
