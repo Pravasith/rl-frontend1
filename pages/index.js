@@ -14,12 +14,21 @@ const PostLink = (props) => (
             >
             <a></a>
         </Link>
+
         <Link 
             as= {`/vendor/add-product/${props.sCId}`}
             href= {`/vendor-add-product-details?sCId=${props.sCId}`}
             >
             <a></a>
         </Link>
+
+        <Link
+            as={`/vendor/edit-product/${props.pId}`}
+            href={`/vendor-edit-product-details?pId=${props.pId}`}
+            >
+            <a></a>
+        </Link>
+
         <Link 
             as= {`/vendor/dashboard`}
             href= {`/vendor-main-dashboard`}
@@ -34,10 +43,9 @@ const Index = () => (
     <Provider store={store} >
         <section
             className="bringingTheArtInArchitectureBigWrap"
-        >
+            >
             <div className="outerWrapperIndexPage">
                 <StartPage />
-
                 <ul>
                     <PostLink 
                         // id={routeLinks.VENDOR_DASHBOARD} 

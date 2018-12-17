@@ -251,6 +251,10 @@ input{
                                                 width: 100%;
                                             }
 
+                                            .imageSliderWrap2{
+                                                width: 100%;
+                                            }
+
                                             .uploadedHeaderSection{
                                                 @include flexCentreRow;
                                                 justify-content: flex-start;
@@ -320,7 +324,7 @@ input{
 
                                     .vendorUploadFormSection{
                                         width: 100%;
-                                        height: 28em;
+                                        height: 29em;
                                         overflow-y: auto;
                                         margin-top: 0.5em;
                                         background: $white;
@@ -1077,10 +1081,16 @@ input{
 
                                     .formButtonContainer{
                                         @include flexCentreRow;
-                                        width: 70%;
+                                        justify-content: flex-start;
+                                        width: 100%;
+                                        margin-top: 0.5em;
+
                                         .buttonContainer{
                                             @include flexCentreRow;
-                                            width: 100%;
+                                            // width: 100%;
+                                            .gradientButtonWrapper{
+                                                margin-left: 0;
+                                            }
                                         }
                                     }
                                 }
@@ -1551,6 +1561,11 @@ input{
                                                 width: 100%;
 
                                             }
+
+                                            .hide{
+                                                display: none;
+                                            }
+
                                             .errorMessage{
                                                 max-width: 20em;
                                                 p{

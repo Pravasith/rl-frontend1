@@ -35,7 +35,7 @@ import ImageUploader from "../../UX/imageUploader"
 import { api } from "../../../actions/apiLinks";
 import { createClient } from "http";
 
-class AddProductDetails extends React.Component {
+class EditProductDetails extends React.Component {
 
     constructor(props, context) {
         super(props, context)
@@ -144,13 +144,16 @@ class AddProductDetails extends React.Component {
 
 
     componentDidMount = () => {
+       
 
         this
             .props
             .getUserData()
 
             .then((data) => {
-                let { userData, sCId } = this.props
+                let { userData, pId } = this.props
+
+                // console.log(pId)
 
                 //
                 // DECRYPT REQUEST DATA
@@ -160,7 +163,7 @@ class AddProductDetails extends React.Component {
                 // DECRYPT REQUEST DATA
                 //
 
-                const rawData = { sCId }
+                const rawData = { productId : pId }
                 
                 //
                 // Encrypt data
@@ -169,13 +172,15 @@ class AddProductDetails extends React.Component {
                 //
                 // Encrypt data
                 //
+
+                
  
 
                 // GET PRODUCT TYPES
-                this.props.hitApi(api.GET_PRODUCT_TYPES,"POST",
+                this.props.hitApi(api.GET_PRODUCT_DATA,"POST",
                     {
                         requestData : encryptedData,
-                        message : "Requesting dispatch product types"
+                        message : "Requesting dispatch products"
                     }
                 )
                 .then(() => {
@@ -190,13 +195,99 @@ class AddProductDetails extends React.Component {
                     // DECRYPT REQUEST DATA
                     //
 
+                    
+
                     this.setState({
-                        loadingClass: 'loadingAnim hide',
-                        mainClass: 'mainClass',
-                        productTypes : decryptedData
+                        
+
+
+                        /// PLACE HERE ////
+                        productName: decryptedData.productName,
+                        productCode: decryptedData.productCode,
+                        productPrice: decryptedData.basePrice,
+                        productMaterials: decryptedData.productMaterials,
+                        featuresAdded: decryptedData.features,
+                        productFinishes: decryptedData.finishingOptions,
+                        colorArray: decryptedData.colorOptions,
+                        productDimensions: decryptedData.sizesAvailable,
+                        productMinQuantity: decryptedData.minQuantity,
+                        productMaxQuantity: decryptedData.maxQuantity,
+                        productDescription : decryptedData.productDescription,
+                        categoryStylesAdded: decryptedData.designStyles,
+                        tagsAdded: decryptedData.tags,
+                        productType : decryptedData.productType,
+                        productAvailability: decryptedData.availability,
+                        productDiscount: decryptedData.discount,
+                        productImagesObject: {
+                            categoryName: "",
+                            imagesInCategory: decryptedData.productImages
+                        },
+                        productThumbImage: decryptedData.productThumbImage
+
                     })
     
-                    // console.log(this.props.sCId)
+                    // console.log(this.props.pId)
+                    this.discountAvailabilityChecked()
+
+                    let sCId = pId.split("-")[0] + "-" + pId.split("-")[1]
+
+                    const rawData = { sCId }
+                    
+                    //
+                    // Encrypt data
+                    //
+                    const encryptedData = encryptData(rawData)
+                    //
+                    // Encrypt data
+                    //
+    
+
+                    // GET PRODUCT TYPES
+                    this.props.hitApi(api.GET_PRODUCT_TYPES,"POST",
+                        {
+                            requestData : encryptedData,
+                            message : "Requesting dispatch product types"
+                        }
+                    )
+                    .then(() => {
+
+                        //
+                        // DECRYPT REQUEST DATA
+                        //
+                        let decryptedData = decryptData(
+                            this.props.responseData.responsePayload.responseData
+                        )
+                        //
+                        // DECRYPT REQUEST DATA
+                        //
+
+                        this.setState({
+                            loadingClass: 'loadingAnim hide',
+                            mainClass: 'mainClass',
+                            productTypes : decryptedData
+                        })
+        
+                        // console.log(this.props.sCId)
+                    })
+
+                    .catch((err) => {
+                        if (err.response) {
+
+                            // console.log(err.response)
+                            if (err.response.status === 401)
+                                window.open('/log-in', "_self")
+
+                            else{
+                                // window.open('/vendor/dashboard', "_self")
+                            }
+                        }
+        
+                        else{
+                            console.error(err)
+                            // window.open('/vendor/dashboard', "_self")
+                        }
+                            
+                    })
                 })
 
                 .catch((err) => {
@@ -232,6 +323,59 @@ class AddProductDetails extends React.Component {
                     console.error(err)
             })
     }
+
+    discountAvailabilityChecked = () => {
+        if (this.state.productDiscount) {
+            this.setState({
+                checkBoxClass1: "checkBox color",
+                checkBoxClass2: "checkBox"
+            })
+        } 
+
+        else {
+            this.setState({
+                checkBoxClass1: "checkBox",
+                checkBoxClass2: "checkBox color"
+            })
+        }
+    }
+
+    // componentDidUpdate() {
+    //     let { productName,
+    //         productCode,
+    //         productPrice,
+    //         productMaterials,
+    //         productFinishes,
+    //         colorArray,
+    //         productDimensions,
+    //         productMinQuantity,
+    //         productMaxQuantity,
+    //         categoryStylesAdded,
+    //         tagsAdded,
+    //         // productType,
+    //         productAvailability,
+    //         productDiscount,
+    //         productImagesObject,
+    //         productThumbImage } = this.state
+
+    //     console.log(
+    //         "productName:", productName,
+    //         "productCode:", productCode,
+    //         "productPrice:", productPrice,
+    //         "productMaterials:", productMaterials,
+    //         "productFinishes", productFinishes,
+    //         "colorArray", colorArray,
+    //         "productDimensions", productDimensions,
+    //         "productMinQuantity", productMinQuantity,
+    //         "productMaxQuantity", productMaxQuantity,
+    //         "categoryStylesAdded", categoryStylesAdded,
+    //         "tagsAdded", tagsAdded,
+    //         // productType,
+    //         "productAvailability", productAvailability,
+    //         "productDiscount", productDiscount,
+    //         "productImagesObject", productImagesObject,
+    //         "productThumbImage", productThumbImage)
+    // }
 
     modalClassToggle = (showOrNot) => {
         if(showOrNot === "show")
@@ -313,13 +457,10 @@ class AddProductDetails extends React.Component {
         this.setState({
             featureName: val
         })
-     }
-
-    
+    }
 
     removeStyles = (styleId) => {
-
-        const styleArray = [ ...this.state.categoryStylesAdded ]
+        const styleArray = [...this.state.categoryStylesAdded]
         let indexOfStyle, styleName, indexToRemove
 
         const animationTimeLine = new TimelineLite()
@@ -336,15 +477,12 @@ class AddProductDetails extends React.Component {
             .categoryStylesAdded
             .splice(indexOfStyle, 1)
 
-
             this.state.architectureStyles.map((item, i) => {
-                
-                    if (item.styleTitle === styleName)
-                        indexToRemove = i
-                
+                if (item.styleTitle === styleName){
+                    indexToRemove = i
+                }
             })
 
-            
             animationTimeLine.set(
                 ".checkBoxNumber" + indexToRemove,
                 {
@@ -523,32 +661,32 @@ class AddProductDetails extends React.Component {
     returnfeaturesAdded = () => {
         return (
             this
-                .state
-                .featuresAdded
+            .state
+            .featuresAdded
 
-                .map((item, i) => {
-                    return (
+            .map((item, i) => {
+                return (
+                    <div
+                        className="featureWrap"
+                        key={i}
+                        >
+                        <ul>
+                            <li>
+                                <p key={i}>
+                                    {item}
+                                </p>
+                            </li>
+                        </ul>
+
                         <div
-                            className="featureWrap"
-                            key={i}
+                            className="deleteIcon"
+                            onClick={(i) => this.removeFeature(i)}
                             >
-                            <ul>
-                                <li>
-                                    <p key={i}>
-                                        {item}
-                                    </p>
-                                </li>
-                            </ul>
-
-                            <div
-                                className="deleteIcon"
-                                onClick={(i) => this.removeFeature(i)}
-                                >
-                                <CloseButton />
-                            </div>
+                            <CloseButton />
                         </div>
-                    )
-                })
+                    </div>
+                )
+            })
         )
     }
 
@@ -958,6 +1096,66 @@ class AddProductDetails extends React.Component {
         }
     }
 
+    handleDefaultValues = (fieldName) => {
+        const { 
+            productName,
+            productCode,
+            productPrice,
+            productMaterials,
+            productFinishes,
+            productMinQuantity,
+            productMaxQuantity,
+            productDescription,
+            // productType,
+            productAvailability,
+            productDiscount,
+            productThumbImage } = this.state
+
+        if(fieldName === "ProductName") {
+            if (productName) return productName;
+        }
+
+        else if (fieldName === "ProductCode") {
+            if (productCode) return productCode;
+        }
+
+        else if (fieldName === "ProductPrice") {
+            if (productPrice) return productPrice;
+        }
+
+        else if (fieldName === "ProductMaterials") {
+            if (productMaterials) return productMaterials;
+        }
+
+        else if (fieldName === "ProductFinishes") {
+            if (productFinishes) return productFinishes;
+        }
+
+        else if (fieldName === "ProductMinQuantity") {
+            if (productMinQuantity) return productMinQuantity;
+        }
+
+        else if (fieldName === "ProductMaxQuantity") {
+            if (productMaxQuantity) return productMaxQuantity;
+        }
+
+        else if (fieldName === "ProductDescription") {
+            if (productDescription) return productDescription;
+        }
+
+        else if (fieldName === "ProductAvailability") {
+            if (productAvailability) return productAvailability;
+        }
+
+        else if (fieldName === "DiscountInput") {
+            if (productDiscount) return productDiscount;
+        }
+
+        else if (fieldName === "ProductThumbImage") {
+            if (productThumbImage) return productThumbImage;
+        }
+    }
+
     checkTypeNumber = (e, checkFor) => {
 
         const val = e.target.value;
@@ -1069,7 +1267,7 @@ class AddProductDetails extends React.Component {
     }
 
     addProductImage = () => {
-        let { productImage, productImagesObject } = this.state
+        let { productImage, productImagesObject } = this.state;
 
         let temp = {
             itemCode: this.state.productCode,
@@ -1077,14 +1275,14 @@ class AddProductDetails extends React.Component {
             imageURL: productImage
         }
 
-        // if (temp.imageURL !== "") {
+        if (temp.imageURL !== "") {
             let dummyArray = productImagesObject.imagesInCategory ? productImagesObject.imagesInCategory : [];
 
-        //     // if(!dummyArray.includes(temp)) {
+            // if(!dummyArray.includes(temp)) {
                 dummyArray.push(temp)
-        //     // }
+            // }
 
-        this.toggleClassDummy()
+            this.toggleClassDummy()
 
             this.setState({
                 productImagesObject: {
@@ -1093,12 +1291,10 @@ class AddProductDetails extends React.Component {
                 },
                 productImage: ""
             })
-        // }
-
- 
-
-            // console.log(productImage)
+        }
     }
+
+  
 
     returnHtmlSliderforproductImagesObject = () => {
         if(this.state.productImagesObject.imagesInCategory.length !== 0) {
@@ -1133,7 +1329,6 @@ class AddProductDetails extends React.Component {
                     </div>
                 )
             }
-            
         }
     }
 
@@ -1721,7 +1916,7 @@ class AddProductDetails extends React.Component {
                 productAvailability = false
             }
 
-            console.log(productAvailability)
+            // console.log(productAvailability)
             
             this.setState({ 
                 productAvailability: val,
@@ -1865,7 +2060,7 @@ class AddProductDetails extends React.Component {
         )
     }
 
-    sendProductsDataToBackend = () => {
+    updateProductsDataInBackend = () => {
         this.setState({
             finalProceed : "sendRequest"
         })
@@ -1918,50 +2113,51 @@ class AddProductDetails extends React.Component {
         //
 
 
-        // GET PRODUCT TYPES
-        this.props.hitApi(api.ADD_NEW_PRODUCT,"POST",
-            {
-                requestData : encryptedData,
-                message : "Delivering new product, foxtrot"
-            }
-        )
-        .then(() => {
+        //  UPDATE PRODUCT 
 
-            //
-            // DECRYPT REQUEST DATA
-            //
-            let decryptedData = decryptData(
-                this.props.responseData.responsePayload.responseData
-            )
-            //
-            // DECRYPT REQUEST DATA
-            //
+        // this.props.hitApi(api.ADD_NEW_PRODUCT,"POST",
+        //     {
+        //         requestData : encryptedData,
+        //         message : "Delivering new product, foxtrot"
+        //     }
+        // )
+        // .then(() => {
 
-            // console.log(decryptedData)
+        //     //
+        //     // DECRYPT REQUEST DATA
+        //     //
+        //     let decryptedData = decryptData(
+        //         this.props.responseData.responsePayload.responseData
+        //     )
+        //     //
+        //     // DECRYPT REQUEST DATA
+        //     //
 
-            window.open("/vendor/dashboard", "_self")
-        })
+        //     // console.log(decryptedData)
 
-        .catch((err) => {
-            if (err.response) {
+        //     window.open("/vendor/dashboard", "_self")
+        // })
 
-                // console.log(err.response)
-                if (err.response.status === 401)
-                    window.open('/log-in', "_self")
+        // .catch((err) => {
+        //     if (err.response) {
 
-                else{
-                    // window.open('/vendor/dashboard', "_self")
-                }
-            }
+        //         // console.log(err.response)
+        //         if (err.response.status === 401)
+        //             window.open('/log-in', "_self")
 
-            else{
-                this.setState({
-                    finalProceed : "errorScreen"
-                })
-                // window.open('/vendor/dashboard', "_self")
-            }
+        //         else{
+        //             // window.open('/vendor/dashboard', "_self")
+        //         }
+        //     }
+
+        //     else{
+        //         this.setState({
+        //             finalProceed : "errorScreen"
+        //         })
+        //         // window.open('/vendor/dashboard', "_self")
+        //     }
                 
-        })
+        // })
 
 
         // console.log(finalDataToSend)
@@ -1999,14 +2195,14 @@ class AddProductDetails extends React.Component {
 
                     <GradientButton
                         runFunction={() => {
-                            this.sendProductsDataToBackend()
+                            this.updateProductsDataInBackend()
                         }}>
                         Proceed
                     </GradientButton>
                 </div>
             </div>
         )
-        
+
         else if(this.state.finalProceed === "sendRequest"){
             return(
                 <div className="loadingWrapperProducts">
@@ -2068,14 +2264,13 @@ class AddProductDetails extends React.Component {
                                             </div>
                                         </div>
                                         <div className="finishEndModal">
-                                            <div className="finishImageContainer">
+                                            <div>
                                                 <img
                                                     src={this.state.productFinishImage}
                                                     alt=""
                                                     style={{ width: "5em", height: "5em" }}
                                                 />
                                             </div>
-
                                             <div className="finsihingDetails">
                                                 <div className="inputFormContainer">
                                                     <div className="formParaSection">
@@ -2107,10 +2302,9 @@ class AddProductDetails extends React.Component {
                                                                 ref="switch"
                                                                 checked={this.state.isChecked}
                                                                 onChange={() => this.onToggleSwitch()}
-                                                                className="switch-input"
+                                                                className="switch"
                                                                 type="checkbox" />
-                                                            <span className="switch-label" data-on="Yes" data-off="No"></span> 
-                                                            <span className="switch-handle"></span> 
+                                                            <span className="slider round"></span>
                                                         </label>
                                                     </div>
                                                     <div className="returnInputColumn">
@@ -2238,10 +2432,9 @@ class AddProductDetails extends React.Component {
                                                                 ref="switch"
                                                                 checked={this.state.isChecked}
                                                                 onChange={() => this.onToggleSwitch()}
-                                                                className="switch-input"
+                                                                className="switch"
                                                                 type="checkbox"/>
-                                                            <span className="switch-label" data-on="Yes" data-off="No"></span> 
-                                                            <span className="switch-handle"></span> 
+                                                            <span className="slider round"></span>
                                                         </label>
                                                     </div>
                                                     <div className="returnInputColumn">
@@ -2321,10 +2514,9 @@ class AddProductDetails extends React.Component {
                                                     ref="switch"
                                                     checked={this.state.isChecked}
                                                     onChange={() => this.onToggleSwitch()}
-                                                    className="switch-input"
+                                                    className="switch"
                                                     type="checkbox"/>
-                                                <span className="switch-label" data-on="Yes" data-off="No"></span> 
-                                                <span className="switch-handle"></span> 
+                                                <span className="slider round"></span>
                                             </label>
                                         </div>
                                         <div className="returnInputColumn">
@@ -2396,10 +2588,9 @@ class AddProductDetails extends React.Component {
                                                     ref="switch"
                                                     checked={this.state.isChecked}
                                                     onChange={() => this.onToggleSwitch()}
-                                                    className="switch-input"
+                                                    className="switch"
                                                     type="checkbox"/>
-                                                <span className="switch-label" data-on="Yes" data-off="No"></span> 
-                                                <span className="switch-handle"></span> 
+                                                <span className="slider round"></span>
                                             </label>
                                         </div>
                                         <div className="returnInputColumn">
@@ -2408,10 +2599,10 @@ class AddProductDetails extends React.Component {
                                     </div>
 
                                     <div className="errorContent">
-                                        <p className={this.state.isChecked ? this.state.displayError : "displayError hide"}>
-                                            Numbers Only
-                                        </p>
-                                    </div>
+                                    <p className={this.state.isChecked ? this.state.displayError : "displayError hide"}>
+                                        Numbers Only
+                                    </p>
+                                </div>
                                 </div>
                                 <div className="proceedOrNotCheck">
                                     <GradientButton
@@ -2434,46 +2625,45 @@ class AddProductDetails extends React.Component {
                         <div className={this.state.modalClassToggle}>
                             <div className="dummyXClass">
                                 <div className="whiteSquareForModal">
-                                    <div className="whiteSquareModalUpperContainer">
-                                        <div className="addProductDetailsModal">
-                                            <div className="svgImageContainer">
-                                                <ErrorMsgSign />
-                                            </div>
-                                            <div className="modalContentContainer">
-                                                <div className="modalContentContainerInnerLayer">
-                                                    <div className="content">
-                                                        <h3>Please provide the following details</h3>
-                                                        <div className="detailsToInput">
-                                                            <div className="detailsInputLayer">
-                                                                <div className="notFilledSection">
-                                                                    {this
-                                                                        .state
-                                                                        .emptyField
-                                                                        .map((item, i) =>
-                                                                            <div
-                                                                                className="errorFieldMessage"
-                                                                                key={i}>
-                                                                                <ul>
-                                                                                    <li>
-                                                                                        <p>{item}</p>
-                                                                                    </li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        )}
-                                                                </div>
+                                    <div className="addProductDetailsModal">
+                                        <div className="svgImageContainer">
+                                            <ErrorMsgSign />
+                                        </div>
+                                        <div className="modalContentContainer">
+                                            <div className="modalContentContainerInnerLayer">
+                                                <div className="content">
+                                                    <h3>Please provide the following details</h3>
+                                                    <div className="detailsToInput">
+                                                        <div className="detailsInputLayer">
+                                                            <div className="notFilledSection">
+                                                                {this
+                                                                    .state
+                                                                    .emptyField
+                                                                    .map((item, i) =>
+                                                                        <div
+                                                                            className="errorFieldMessage"
+                                                                            key={i}>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <p>{item}</p>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    )}
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div> 
-                                    </div>                                       
-                                    <div className="closeModalContainer">
-                                        <WhiteButton
-                                            runFunction={() => this.modalClassToggle("dontShow")}
-                                        >
-                                            Sure, I’ll do that
+                                        </div>
+                                        <div className="closeModalContainer">
+                                            <WhiteButton
+                                                runFunction={() => this.modalClassToggle("dontShow")}
+                                            >
+                                                Sure, I’ll do that
                                         </WhiteButton>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -2486,12 +2676,10 @@ class AddProductDetails extends React.Component {
                         <div className={this.state.modalClassToggle}>
                             <div className="dummyXClass">
                                 <div className="whiteSquareForModal">
-                                    <div className="whiteSquareModalUpperContainer">
-                                        <div className="addProductDetailsModal">
-                                            <div className="modalContentContainer">
-                                                <div className="modalContentContainerInnerLayer">
-                                                    {this.returnProductsContent()}
-                                                </div>
+                                    <div className="addProductDetailsModal">
+                                        <div className="modalContentContainer">
+                                            <div className="modalContentContainerInnerLayer">
+                                                {this.returnProductsContent()}
                                             </div>
                                         </div>
                                     </div>
@@ -2673,25 +2861,25 @@ class AddProductDetails extends React.Component {
                                                                 </div>
                                                             </header>
 
-                                                            <div className="productImageUploaderRender">
+                                                            <div className="addProductImageerRender">
                                                                 {
                                                                     this.state.productImage === "" 
                                                                     ? 
-                                                                    <div className="productImageUploaderClass">
+                                                                    <div className="addProductImageerClass">
                                                                         <ImageUploader
                                                                             imageType="regularImage" // regularImage || profileImage
                                                                             resultData={(data) => {
                                                                                 this.setState({
                                                                                     productImage: data.imageURL
                                                                                 })
-                                                                                this.addProductImage()
+                                                                                this.addProductImage();
                                                                             }}
                                                                             showInitialImage={this.state.productImage !== "" ? this.state.productImage : ""}
                                                                             imageClassName="productImageClass"
                                                                         />
                                                                     </div>
                                                                     :
-                                                                    <div className="productImageUploaderClass"></div>
+                                                                    <div className="addProductImageerClass"></div>
                                                                 
                                                                 }
                                                             </div>
@@ -2736,6 +2924,7 @@ class AddProductDetails extends React.Component {
                                                             isMandatory={true}
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
                                                             characterCount="30"
+                                                            value={this.handleDefaultValues("ProductName")}
                                                             result={(val) => this.setState({
                                                                 productName: val
                                                             })}
@@ -2754,6 +2943,7 @@ class AddProductDetails extends React.Component {
                                                             isMandatory={true}
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
                                                             characterCount="30"
+                                                            value={this.handleDefaultValues("ProductCode")}
                                                             result={(val) => this.setState({
                                                                 productCode: val
                                                             })}
@@ -2773,6 +2963,7 @@ class AddProductDetails extends React.Component {
                                                             isMandatory={true}
                                                             validationType="onlyNumbers"
                                                             characterCount="30"
+                                                            value={this.handleDefaultValues("ProductPrice")}
                                                             result={(val) => {
                                                                 this.setState({
                                                                     productPrice: val
@@ -2952,7 +3143,8 @@ class AddProductDetails extends React.Component {
                                                             isMandatory={true}
                                                             validationType="onlyNumbers"
                                                             characterCount="20"
-                                                            value={this.state.productMinQuantity ? this.state.productMinQuantity : null}
+                                                            value={this.handleDefaultValues("ProductMinQuantity")}
+                                                            // value={this.state.productMinQuantity ? this.state.productMinQuantity : null}
                                                             result={(val) => {
                                                                 this.setState({
                                                                     productMinQuantity: val
@@ -2973,6 +3165,7 @@ class AddProductDetails extends React.Component {
                                                             isMandatory={true}
                                                             validationType="onlyNumbers"
                                                             characterCount="20"
+                                                            value={this.handleDefaultValues("ProductMaxQuantity")}
                                                             result={(val) => {
                                                                 this.setState({
                                                                     productMaxQuantity: val
@@ -2998,6 +3191,7 @@ class AddProductDetails extends React.Component {
                                                             isMandatory={false}
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
                                                             characterCount="100"
+                                                            value={this.handleDefaultValues("ProductDescription")}
                                                             result={(val) => this.setState({
                                                                 productDescription: val
                                                             })}
@@ -3130,7 +3324,8 @@ class AddProductDetails extends React.Component {
                                                             title="Product Availability"
                                                             name={'availability'}
                                                             options={this.returnProductAvailability()}
-                                                            selectedOption={this.state.productAvailability}
+                                                            selectedOption={this.state.productAvailability === true ? 
+                                                                                    "Yes, it is available" : "No, it is not available"}
                                                             onChange={(e) => this.handleRadiobutton(e, "productAvailability")}
                                                         />
                                                     </div>
@@ -3162,6 +3357,7 @@ class AddProductDetails extends React.Component {
                                                                             type="text" 
                                                                             ref="discountInput"
                                                                             maxLength="2" 
+                                                                            defaultValue={this.handleDefaultValues("DiscountInput")}
                                                                             onChange={(e) => this.checkTypeNumber(e, "discount")}
                                                                         />
                                                                         <p>%</p>
@@ -3206,7 +3402,17 @@ class AddProductDetails extends React.Component {
                                                         }}>
                                                     Save and Proceed
                                                 </GradientButton>
-                                            </div>      
+                                            </div>     
+
+                                            <div className="buttonContainer">
+                                                <WhiteButton
+                                                    runFunction={() => 
+                                                        {   
+                                                            window.open("/vendor/dashboard", "_self")            
+                                                        }}>
+                                                    Cancel
+                                                </WhiteButton>
+                                            </div>     
                                         </div>
 
                                     </article>
@@ -3242,7 +3448,7 @@ const matchDispatchToProps = (dispatch) => {
     }, dispatch)
 }
 
-export default connect(mapStateToProps, matchDispatchToProps)(AddProductDetails)
+export default connect(mapStateToProps, matchDispatchToProps)(EditProductDetails)
 
 
 

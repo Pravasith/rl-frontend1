@@ -265,15 +265,16 @@ export default class LogIn extends React.Component {
 
                             <div className="logo flexRow" >
                                 <Link href="/">
-                                    <a
-                                        onClick = {() => {
-                                            this.setstate=({
-                                                loadingClass: 'loadingAnim hide',
-                                                mainClass: 'mainClass'
-                                            })
-                                        }}
-                                    >
-                                        <div className="iconWrap" >
+                                    <a>
+                                        <div
+                                            className="iconWrap"
+                                            onClick = {() => {
+                                                this.setstate=({
+                                                    loadingClass: 'loadingAnim hide',
+                                                    mainClass: 'mainClass'
+                                                })
+                                            }}
+                                            >
                                             <RollingLogsTextLogoSmall />
                                         </div>
                                     </a>
@@ -294,19 +295,19 @@ export default class LogIn extends React.Component {
                             <div className="loginButtons">
 
                                 <Link href="/register">
-                                    <a 
-                                        onClick={() => {
-                                            this.setState ({
-                                                loadingClass: 'loadingAnim',
-                                                mainClass: 'mainClass hide',    
-                                            })
-                                        
-                                        
-                                        }}
-                                    >
-                                        <WhiteButton>
-                                            Sign up
-                                        </WhiteButton>
+                                    <a>
+                                        <div
+                                            onClick={() => {
+                                                this.setState ({
+                                                    loadingClass: 'loadingAnim',
+                                                    mainClass: 'mainClass hide',    
+                                                })
+                                            }}
+                                            >
+                                            <WhiteButton>
+                                                Sign up
+                                            </WhiteButton>
+                                        </div>
                                     </a>
                                 </Link>
                                
@@ -369,28 +370,33 @@ export default class LogIn extends React.Component {
 
                                 <span></span>
 
-                                <div
-                                    className="letsGoButton"
-                                    onClick={() => this.validateAndSubmit()}
-                                    >
-                                    <GradientButton>
-                                        Let me in!
-                                    </GradientButton>
-                                </div>
+                                <Link href="/log-in">
+                                    <a>
+                                        <div
+                                            className="letsGoButton"
+                                            onClick={() => this.validateAndSubmit()}
+                                            >
+                                            <GradientButton>
+                                                Let me in!
+                                            </GradientButton>
+                                        </div>
+                                    </a>
+                                </Link>
+                                
+                                
 
                                 <div 
                                     className="mediumBtn studentLoginBtn2" 
                                     // onClick={() => window.open('/register', '_self')} 
+                                    onClick={() => {
+                                        this.setState({
+                                            loadingClass: 'loadingAnim',
+                                            mainClass: 'mainClass hide',
+                                        })
+                                    }}
                                     >
                                     <Link href="/register">
-                                        <a
-                                            onClick={() => {
-                                                this.setState({
-                                                    loadingClass: 'loadingAnim',
-                                                    mainClass: 'mainClass hide',
-                                                })
-                                            }}
-                                        >
+                                        <a>
                                             If you are not yet registered, sign up by clicking here
                                         </a>
                                     </Link>

@@ -618,7 +618,9 @@ class VendorMainDashboard extends React.Component {
                             categoryData={dataObject} // format of Item 
                             numberOfSlides={4} // Change the css grid properties for responsiveness
                             textOnRibbon={"BEST SELLER"} // All caps
-                            runFunction={(data) => { }}
+                            runFunction={(data) => { 
+                                window.open("/vendor/edit-product/" + data.itemCode, "_self")
+                             }}
                         />
                     </div>
                 )
