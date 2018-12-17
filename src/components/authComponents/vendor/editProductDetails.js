@@ -22,7 +22,8 @@ import {
     PlusImageIcon,
     LogoLoadingAnimation,
     NavBarLoadingIcon,
-    SadFace
+    SadFace,
+    HappyFace
 } from "../../../assets/images";
 
 import LogoAnimation from "../../animations/logoAnimation"
@@ -137,6 +138,8 @@ class EditProductDetails extends React.Component {
             productTypes : [],
             dummyToggle : "x",
 
+            // productAvailabilityBool : true,
+
             
         }
     }
@@ -194,7 +197,7 @@ class EditProductDetails extends React.Component {
                     //
                     // DECRYPT REQUEST DATA
                     //
-
+                        // console.log(decryptedData.availability)
                     
 
                     this.setState({
@@ -217,6 +220,7 @@ class EditProductDetails extends React.Component {
                         tagsAdded: decryptedData.tags,
                         productType : decryptedData.productType,
                         productAvailability: decryptedData.availability,
+                        productAvailabilityBool : decryptedData.availability,
                         productDiscount: decryptedData.discount,
                         productImagesObject: {
                             categoryName: "",
@@ -519,22 +523,19 @@ class EditProductDetails extends React.Component {
             }
         )
 
-        // console.log(categoryStylesAdded)
-
         if(categoryStylesAdded.length === 0){
             styleDoesntExist = true
         }
-        
-        // if(categoryStylesAdded.length !== 0){
-            else
-            categoryStylesAdded.map((item, i) => {
 
-                console.log(item.styleName, styleData.styleTitle)
+        else{
+            categoryStylesAdded.map((item, i) => {
+                // console.log(item.styleName, styleData.styleTitle)
                 if(item.styleName === styleData.styleTitle){
                     styleDoesntExist = false
                 }
             })
-        // }
+        }
+        
         
         if(styleDoesntExist){
             categoryStylesAdded.push({
@@ -2078,7 +2079,8 @@ class EditProductDetails extends React.Component {
             productDescription : this.state.productDescription,
             features : this.state.featuresAdded,
             designStyles : this.state.categoryStylesAdded,
-            productTypeId : this.state.productType,
+            // productTypeId : this.state.productType,
+            productId : this.props.pId,
             tags : this.state.tagsAdded,
             availability : this.state.productAvailabilityBool,
             discount : this.state.productDiscount,
@@ -2115,57 +2117,56 @@ class EditProductDetails extends React.Component {
 
         //  UPDATE PRODUCT 
 
-        // this.props.hitApi(api.UPDATE_PRODUCT, "PUT", 
-        //     {
-        //         requestData : encryptedData,
-        //         message : "Update product, foxtrot"
-        //     } 
-        // )
+        this.props.hitApi(api.UPDATE_PRODUCT, "PUT", 
+            {
+                requestData : encryptedData,
+                message : "Update product, foxtrot"
+            } 
+        )
 
-        // this.props.hitApi(api.ADD_NEW_PRODUCT,"POST",
-        //     {
-        //         requestData : encryptedData,
-        //         message : "Delivering new product, foxtrot"
-        //     }
-        // )
-        // .then(() => {
+        .then(() => {
 
-        //     //
-        //     // DECRYPT REQUEST DATA
-        //     //
-        //     let decryptedData = decryptData(
-        //         this.props.responseData.responsePayload.responseData
-        //     )
-        //     //
-        //     // DECRYPT REQUEST DATA
-        //     //
+            //
+            // DECRYPT REQUEST DATA
+            //
+            let decryptedData = decryptData(
+                this.props.responseData.responsePayload.responseData
+            )
+            //
+            // DECRYPT REQUEST DATA
+            //
 
-        //     // console.log(decryptedData)
+            // console.log(decryptedData)
 
-        //     window.open("/vendor/dashboard", "_self")
-        // })
+            this.setState({
+                finalProceed : "successScreen"
+            })
 
-        // .catch((err) => {
-        //     if (err.response) {
+            // window.open("/vendor/dashboard", "_self")
+        })
 
-        //         // console.log(err.response)
-        //         if (err.response.status === 401)
-        //             window.open('/log-in', "_self")
+        .catch((err) => {
+            if (err.response) {
 
-        //         else{
-        //             // window.open('/vendor/dashboard', "_self")
-        //         }
-        //     }
+                // console.log(err.response)
+                if (err.response.status === 401)
+                    window.open('/log-in', "_self")
 
-        //     else{
-        //         this.setState({
-        //             finalProceed : "errorScreen"
-        //         })
-        //         // window.open('/vendor/dashboard', "_self")
-        //     }
+                else{
+                    // window.open('/vendor/dashboard', "_self")
+                }
+            }
+
+            else{
+                this.setState({
+                    finalProceed : "errorScreen"
+                })
+                // window.open('/vendor/dashboard', "_self")
+            }
                 
-        // })
+        })
 
+        
 
         // console.log(finalDataToSend)
     }
@@ -2238,6 +2239,29 @@ class EditProductDetails extends React.Component {
                 </div>
             )
         }
+
+        
+        else if(this.state.finalProceed === "successScreen"){
+            return(
+                <div className="loadingWrapperProducts">
+                    <HappyFace />
+                    <h3 className="loadingHeader">
+                        Yaayy! The product has been Updated successfully.                        
+                    </h3>
+
+                    <div className="goToDashboard">
+                        <WhiteButton
+                            runFunction={() => {
+                                window.open("/vendor/dashboard", "_self")
+                            }}
+                            >
+                            Go to dashboard
+                        </WhiteButton>
+                    </div>
+                </div>
+            )
+        }
+
 
         
     }
@@ -2776,7 +2800,7 @@ class EditProductDetails extends React.Component {
            { fieldName: 'Max. quantity', value: this.state.productMaxQuantity },
            { fieldName: 'Product Design', value: this.state.categoryStylesAdded },
            { fieldName: 'Product Tags', value: this.state.tagsAdded },
-           { fieldName: 'Product Type', value: this.state.productType },
+        //    { fieldName: 'Product Type', value: this.state.productType },
            { fieldName: 'Product Availability', value: this.state.productAvailability },
            { fieldName: `${this.state.productDiscountAvailablity === "yes" ? 
                                 (this.state.productDiscount === undefined ?
@@ -3302,7 +3326,7 @@ class EditProductDetails extends React.Component {
                                                     </div>
                                                 </div>
 
-                                                <div className="inputFormContainer">
+                                                {/* <div className="inputFormContainer">
 
                                                     <div className="formParaSection">
                                                         <p className="pargraphClass"> Choose the product type </p>
@@ -3318,7 +3342,7 @@ class EditProductDetails extends React.Component {
                                                         />
                                                     </div>
 
-                                                </div>
+                                                </div> */}
 
                                                 <div className="inputFormContainer">
 

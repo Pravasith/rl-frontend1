@@ -2011,7 +2011,7 @@ class AddProductDetails extends React.Component {
                 </div>
             </div>
         )
-
+        
         else if(this.state.finalProceed === "sendRequest"){
             return(
                 <div className="loadingWrapperProducts">
@@ -2101,6 +2101,7 @@ class AddProductDetails extends React.Component {
                                                     style={{ width: "5em", height: "5em" }}
                                                 />
                                             </div>
+
                                             <div className="finsihingDetails">
                                                 <div className="inputFormContainer">
                                                     <div className="formParaSection">
@@ -2358,10 +2359,10 @@ class AddProductDetails extends React.Component {
                                     </div>
 
                                     <div className="errorContent">
-                                    <p className={this.state.isChecked ? this.state.displayError : "displayError hide"}>
-                                        Numbers Only
-                                    </p>
-                                </div>
+                                        <p className={this.state.isChecked ? this.state.displayError : "displayError hide"}>
+                                            Numbers Only
+                                        </p>
+                                    </div>
                                 </div>
                                 <div className="proceedOrNotCheck">
                                     <GradientButton
@@ -2433,10 +2434,10 @@ class AddProductDetails extends React.Component {
                                     </div>
 
                                     <div className="errorContent">
-                                    <p className={this.state.isChecked ? this.state.displayError : "displayError hide"}>
-                                        Numbers Only
-                                    </p>
-                                </div>
+                                        <p className={this.state.isChecked ? this.state.displayError : "displayError hide"}>
+                                            Numbers Only
+                                        </p>
+                                    </div>
                                 </div>
                                 <div className="proceedOrNotCheck">
                                     <GradientButton
@@ -2459,45 +2460,46 @@ class AddProductDetails extends React.Component {
                         <div className={this.state.modalClassToggle}>
                             <div className="dummyXClass">
                                 <div className="whiteSquareForModal">
-                                    <div className="addProductDetailsModal">
-                                        <div className="svgImageContainer">
-                                            <ErrorMsgSign />
-                                        </div>
-                                        <div className="modalContentContainer">
-                                            <div className="modalContentContainerInnerLayer">
-                                                <div className="content">
-                                                    <h3>Please provide the following details</h3>
-                                                    <div className="detailsToInput">
-                                                        <div className="detailsInputLayer">
-                                                            <div className="notFilledSection">
-                                                                {this
-                                                                    .state
-                                                                    .emptyField
-                                                                    .map((item, i) =>
-                                                                        <div
-                                                                            className="errorFieldMessage"
-                                                                            key={i}>
-                                                                            <ul>
-                                                                                <li>
-                                                                                    <p>{item}</p>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    )}
+                                    <div className="whiteSquareModalUpperContainer">
+                                        <div className="addProductDetailsModal">
+                                            <div className="svgImageContainer">
+                                                <ErrorMsgSign />
+                                            </div>
+                                            <div className="modalContentContainer">
+                                                <div className="modalContentContainerInnerLayer">
+                                                    <div className="content">
+                                                        <h3>Please provide the following details</h3>
+                                                        <div className="detailsToInput">
+                                                            <div className="detailsInputLayer">
+                                                                <div className="notFilledSection">
+                                                                    {this
+                                                                        .state
+                                                                        .emptyField
+                                                                        .map((item, i) =>
+                                                                            <div
+                                                                                className="errorFieldMessage"
+                                                                                key={i}>
+                                                                                <ul>
+                                                                                    <li>
+                                                                                        <p>{item}</p>
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        )}
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div className="closeModalContainer">
-                                            <WhiteButton
-                                                runFunction={() => this.modalClassToggle("dontShow")}
-                                            >
-                                                Sure, I’ll do that
+                                        </div> 
+                                    </div>                                       
+                                    <div className="closeModalContainer">
+                                        <WhiteButton
+                                            runFunction={() => this.modalClassToggle("dontShow")}
+                                        >
+                                            Sure, I’ll do that
                                         </WhiteButton>
-                                        </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -2510,10 +2512,12 @@ class AddProductDetails extends React.Component {
                         <div className={this.state.modalClassToggle}>
                             <div className="dummyXClass">
                                 <div className="whiteSquareForModal">
-                                    <div className="addProductDetailsModal">
-                                        <div className="modalContentContainer">
-                                            <div className="modalContentContainerInnerLayer">
-                                                {this.returnProductsContent()}
+                                    <div className="whiteSquareModalUpperContainer">
+                                        <div className="addProductDetailsModal">
+                                            <div className="modalContentContainer">
+                                                <div className="modalContentContainerInnerLayer">
+                                                    {this.returnProductsContent()}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

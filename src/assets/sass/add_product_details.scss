@@ -1104,75 +1104,80 @@ input{
                 height: 100%;
 
                 .dummyXClass{
-
+                    height: 100%;
                     
                     .whiteSquareForModal{
+                        @include flexCentreCol;
+                        justify-content: space-between;
+                        height: 100%;
+                        .whiteSquareModalUpperContainer{
 
-                        .addProductDetailsModal{
+                            .addProductDetailsModal{
 
-                            .svgImageContainer{
-                                @include flexCentreRow;
-                                margin-top: 0.5em;
-                            }
+                                .svgImageContainer{
+                                    @include flexCentreRow;
+                                    margin-top: 0.5em;
+                                }
 
-                            .modalContentContainer{
-                                margin: 0.5em 0 ;
-                                .modalContentContainerInnerLayer{
-
-                                    .hide {
-                                        display: none;
-                                    }
-
-                                    .content{
-                                        @include flexCentreCol;
-                                        h3{
-                                            text-align: center;
-                                        }
-                                        .line{
-                                            background: $secondaryMagenta;
-                                            width: 20%;
-                                        }
+                                .modalContentContainer{
+                                    margin: 0.5em 0 ;
+                                    .modalContentContainerInnerLayer{
 
                                         .hide {
-                                        display: none;
+                                            display: none;
                                         }
-                                        
-                                        .detailsToInput{
-                                            width: 100%;
-                                            // height: 7em;
-                                            margin: 1em 0 0 0;
-                                            overflow-y: auto;
-                                            .imageInput{
-                                                width: 23em;
-                                            .productView{
 
-                                                width: 100%;
+                                        .content{
+                                            @include flexCentreCol;
+                                            h3{
+                                                text-align: center;
+                                            }
+                                            .line{
+                                                background: $secondaryMagenta;
+                                                width: 20%;
+                                            }
+
+                                            .hide {
+                                            display: none;
+                                            }
                                             
-                                                .innerViewProductLayer{
+                                            .detailsToInput{
+                                                width: 100%;
+                                                // height: 7em;
+                                                margin: 1em 0 0 0;
+                                                overflow-y: auto;
+                                                .imageInput{
+                                                    width: 23em;
+                                                .productView{
+
                                                     width: 100%;
-                                                    height: 5em;
-                                                    .imageContainerMiddleLayer{
-                                                        display: grid;
-                                                        grid-template-columns: 1fr 1fr 1fr;
-                                                        height: 100%;
-                                                        .outerMostLayer{
-                                                            width: 90%;
-                                                            margin: 0.2em;
-                                                            border: 0.1em solid $mediumGrey;
-                                                            .innerWrapperImage{
-                                                                height: 100%;
-                                                                .productCatalogueImage{
+                                                
+                                                    .innerViewProductLayer{
+                                                        width: 100%;
+                                                        height: 5em;
+                                                        .imageContainerMiddleLayer{
+                                                            display: grid;
+                                                            grid-template-columns: 1fr 1fr 1fr;
+                                                            height: 100%;
+                                                            .outerMostLayer{
+                                                                width: 90%;
+                                                                margin: 0.2em;
+                                                                border: 0.1em solid $mediumGrey;
+                                                                .innerWrapperImage{
                                                                     height: 100%;
-                                                                    .outerProductImageLayer{
-                                                                        padding: 0.2em 0.1em;
-                                                                        height: 86%;
-                                                                        width: 89%;
-                                                                        .innerImageLayer{
-                                                                            height: 100%;
-                                                                            .imgConatiner{
+                                                                    .productCatalogueImage{
+                                                                        height: 100%;
+                                                                        .outerProductImageLayer{
+                                                                            padding: 0.2em 0.1em;
+                                                                            height: 86%;
+                                                                            width: 89%;
+                                                                            .innerImageLayer{
                                                                                 height: 100%;
-                                                                                .imgOuterLayer{
-                                                                                    padding-bottom: 80%;
+                                                                                .imgConatiner{
+                                                                                    height: 100%;
+                                                                                    .imgOuterLayer{
+                                                                                        padding-bottom: 80%;
+                                                                                    }
                                                                                 }
                                                                             }
                                                                         }
@@ -1181,68 +1186,67 @@ input{
                                                             }
                                                         }
                                                     }
-                                                }
 
+                                                }
                                             }
-                                        }
-                                            .detailsInputLayer{
-                                                height: 100%;
-                                                margin-top: 0.5em;
-                                                padding-right: 0.3em;
-                                                .notFilledSection{ 
-                                                    display: grid;
-                                                    grid-template-columns: 1fr 1fr;
-                                                    text-align: left;
-                                                    color: $primaryMagenta;
-                                                    .errorFieldMessage{
-                                                        ul{
-                                                            margin: 0em;
-                                                            li{
-                                                                p{
-                                                                    color: $primaryMagenta;
-                                                                    font-size: 0.8em;
+                                                .detailsInputLayer{
+                                                    height: 100%;
+                                                    margin-top: 0.5em;
+                                                    padding-right: 0.3em;
+                                                    .notFilledSection{ 
+                                                        display: grid;
+                                                        grid-template-columns: 1fr 1fr;
+                                                        text-align: left;
+                                                        color: $primaryMagenta;
+                                                        .errorFieldMessage{
+                                                            ul{
+                                                                margin: 0em;
+                                                                li{
+                                                                    p{
+                                                                        color: $primaryMagenta;
+                                                                        font-size: 0.8em;
+                                                                    }
                                                                 }
                                                             }
                                                         }
                                                     }
                                                 }
                                             }
-                                        }
 
-                                        .showFinalProceed{
-                                        @include flexCentreCol;
-                                        margin-top: 1.5em;
-                                            img{
-                                                width: 5em;
-                                                height: 5em;
-                                                object-fit: cover;
-                                            }
-                                            .gradientButtonWrapper{
-                                                margin-top: 1em;
-                                            }
-
-                                             .hide {
-                                                display: none;
+                                            .showFinalProceed{
+                                            @include flexCentreCol;
+                                            margin-top: 1.5em;
+                                                img{
+                                                    width: 5em;
+                                                    height: 5em;
+                                                    object-fit: cover;
                                                 }
+                                                .gradientButtonWrapper{
+                                                    margin-top: 1em;
+                                                }
+
+                                                .hide {
+                                                    display: none;
+                                                    }
+                                            }
                                         }
-                                    }
 
-                                    .loadingWrapperProducts{
-                                        @include flexCentreCol;
-                                        padding: 1em;
-                                        width: 20em;
-                                        height: 20em;
-                                        .loadingHeader{
-                                            margin-top: 0.5em;
-                                            font-size: 0.8em;
-                                            margin-bottom: 0.5em;
-                                            // @include flexCentreRow;
-                                            text-align: center;
+                                        .loadingWrapperProducts{
+                                            @include flexCentreCol;
+                                            padding: 1em;
+                                            width: 20em;
+                                            height: 20em;
+                                            .loadingHeader{
+                                                margin-top: 0.5em;
+                                                font-size: 0.8em;
+                                                margin-bottom: 0.5em;
+                                                text-align: center;
 
-
-                                            span{
-                                                text-decoration: underline;
-                                                color: $highLightBlue;
+                                                span{
+                                                    text-decoration: underline;
+                                                    color: $highLightBlue;
+                                                    cursor: pointer;
+                                                }
                                             }
                                         }
 
@@ -1252,14 +1256,14 @@ input{
                                         }
                                     }
                                 }
+
                             }
+                        }
 
-
-                            .closeModalContainer{
-                                @include flexCentreRow;
-                                // margin-top: 1em;
-                            }
-
+                        
+                        .closeModalContainer{
+                            @include flexCentreRow;
+                            // margin-top: 1em;
                         }
                     }
                 }

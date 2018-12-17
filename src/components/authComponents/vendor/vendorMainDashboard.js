@@ -394,8 +394,6 @@ class VendorMainDashboard extends React.Component {
                 }
             })
 
-            
-
             if(finalData.length !== 0){
                 finalData.map((theItem, j) => {
 
@@ -689,7 +687,7 @@ class VendorMainDashboard extends React.Component {
                                 </div>
                             </div>
                         </div>
-                    </div >
+                    </div>
                 )
             })
         }
@@ -1462,7 +1460,7 @@ class VendorMainDashboard extends React.Component {
                                                                     <LocationTag/>
                                                                 </div>
                                                                 <div className="locationContainer">
-                                                                    <p>{this.state.city + ", " + this.state.state}</p>
+                                                                    <h3>{this.state.city + ", " + this.state.state}</h3>
                                                                 </div>
                                                             </div>
                                                         </div>
