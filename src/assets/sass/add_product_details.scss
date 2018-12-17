@@ -339,6 +339,19 @@ input{
                                                 width: 100%;
                                                 margin: 1em 0;
 
+                                                .ProductQuantitySection{
+                                                    .inputCommonWrapper{
+                                                        .inputCategorySection{
+                                                            margin-bottom: 0.3em;
+                                                        }
+                                                    }
+                                                    .displayQuantityValueError{
+                                                        p{
+                                                            color: $red ;
+                                                        }
+                                                    }
+                                                }
+
 
                                                 .inputCategoryTagSection{
                                                     @include flexCentreCol;
@@ -392,11 +405,22 @@ input{
                                                 }
 
                                                 .formParaSection{
+                                                    @include flexCentreRow;
+                                                    // margin-right: 1em;
                                                     margin-bottom: 0.5em;
 
                                                     .pargraphClass{
                                                         font-size: 1em;
+                                                        margin-right: 1em;
                                                         color: $darkerGrey;
+                                                    }
+                                                    .modalMandatorySection{
+                                                        background: $secondaryMagenta;
+                                                        padding: 0.2em;
+                                                        margin-right: 1em;
+                                                        p{
+                                                            color: $white;
+                                                        }
                                                     }
                                                 }
 
@@ -594,7 +618,7 @@ input{
                                                     .optionDiv{
 
                                                         @include flexCentreRow;
-                                                        // align-items: flex-start;
+                                                        align-items: flex-start;
                                                         margin-bottom: 0.5em;
 
                                                         &:hover{
@@ -618,6 +642,7 @@ input{
                                                             border: 0.15em solid $darkGrey;
                                                             margin: 0.2em;
                                                             margin-right: 0.5em;
+                                                            margin-top: 0.5em;
                                                             cursor: pointer;
                                                         }
 
@@ -657,6 +682,12 @@ input{
                                                                     }
                                                                 }
 
+                                                            }
+                                                            .errorContent{
+                                                                p{
+                                                                    font-size: 0.75em;
+                                                                    color: $red;
+                                                                }
                                                             }
 
                                                             .displayError{
@@ -1233,6 +1264,7 @@ input{
 
                                         .loadingWrapperProducts{
                                             @include flexCentreCol;
+                                            // justify-content: space-between;
                                             padding: 1em;
                                             width: 20em;
                                             height: 20em;
@@ -1471,6 +1503,14 @@ input{
                                                         // text-align: center;
                                                         font-size: 0.8em;
                                                     }
+                                                    .mandatorySection{
+                                                        background: $secondaryMagenta;
+                                                        padding: 0.2em;
+                                                        margin-right: 1em;
+                                                        p{
+                                                            color: $white;
+                                                        }
+                                                    }
                                                 }
 
                                                 .productCostForSize{
@@ -1479,6 +1519,19 @@ input{
                                                         width: 100%;
                                                     }
                                                 }
+
+                                                // .ProductQuantitySection{
+                                                //     .inputCommonWrapper{
+                                                //         .inputCategorySection{
+                                                //             margin-bottom: 0.3em;
+                                                //         }
+                                                //     }
+                                                //     .displayQuantityValueError{
+                                                //         p{
+                                                //             color: $red ;
+                                                //         }
+                                                //     }
+                                                // }
 
 
                                                 .productInputInfoSection{

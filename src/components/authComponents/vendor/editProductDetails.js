@@ -2335,7 +2335,8 @@ class EditProductDetails extends React.Component {
                                                                 onChange={() => this.onToggleSwitch()}
                                                                 className="switch"
                                                                 type="checkbox" />
-                                                            <span className="slider round"></span>
+                                                             <span className="switch-label" data-on="Yes" data-off="No"></span> 
+                                                            <span className="switch-handle"></span> 
                                                         </label>
                                                     </div>
                                                     <div className="returnInputColumn">
@@ -2465,7 +2466,8 @@ class EditProductDetails extends React.Component {
                                                                 onChange={() => this.onToggleSwitch()}
                                                                 className="switch"
                                                                 type="checkbox"/>
-                                                            <span className="slider round"></span>
+                                                             <span className="switch-label" data-on="Yes" data-off="No"></span> 
+                                                            <span className="switch-handle"></span> 
                                                         </label>
                                                     </div>
                                                     <div className="returnInputColumn">
@@ -2547,7 +2549,8 @@ class EditProductDetails extends React.Component {
                                                     onChange={() => this.onToggleSwitch()}
                                                     className="switch"
                                                     type="checkbox"/>
-                                                <span className="slider round"></span>
+                                                <span className="switch-label" data-on="Yes" data-off="No"></span> 
+                                                <span className="switch-handle"></span> 
                                             </label>
                                         </div>
                                         <div className="returnInputColumn">
@@ -2621,7 +2624,8 @@ class EditProductDetails extends React.Component {
                                                     onChange={() => this.onToggleSwitch()}
                                                     className="switch"
                                                     type="checkbox"/>
-                                                <span className="slider round"></span>
+                                                <span className="switch-label" data-on="Yes" data-off="No"></span> 
+                                                <span className="switch-handle"></span> 
                                             </label>
                                         </div>
                                         <div className="returnInputColumn">
@@ -2707,10 +2711,12 @@ class EditProductDetails extends React.Component {
                         <div className={this.state.modalClassToggle}>
                             <div className="dummyXClass">
                                 <div className="whiteSquareForModal">
-                                    <div className="addProductDetailsModal">
-                                        <div className="modalContentContainer">
-                                            <div className="modalContentContainerInnerLayer">
-                                                {this.returnProductsContent()}
+                                    <div className="whiteSquareModalUpperContainer">
+                                        <div className="addProductDetailsModal">
+                                            <div className="modalContentContainer">
+                                                <div className="modalContentContainerInnerLayer">
+                                                    {this.returnProductsContent()}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -3275,6 +3281,9 @@ class EditProductDetails extends React.Component {
                                                         
                                                     <div className="formParaSection">
                                                         <h3 className="pargraphClass"> Choose the product’s design style </h3>
+                                                        <div className="modalMandatorySection">
+                                                            <p className="madatoryHighlight">Mandatory</p>
+                                                        </div>
                                                     </div>
 
                                                     {/* <div className="designStyleCategoryTagsContainer">

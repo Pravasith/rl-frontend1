@@ -2069,7 +2069,6 @@ class AddProductDetails extends React.Component {
                             runFunction={() => {
                                 window.open("/vendor/dashboard", "_self")
                             }}>
-                            >
                             Go to dashboard
                         </WhiteButton>
                     </div>
@@ -2475,6 +2474,7 @@ class AddProductDetails extends React.Component {
                         <div className={this.state.modalClassToggle}>
                             <div className="dummyXClass">
                                 <div className="whiteSquareForModal">
+                                    <div className="whiteSquareModalUpperContainer">
                                     <div className="addProductDetailsModal">
                                         <div className="svgImageContainer">
                                             <ErrorMsgSign />
@@ -2508,6 +2508,7 @@ class AddProductDetails extends React.Component {
                                             </div>
                                         </div> 
                                     </div>                                       
+                                    </div>
                                     <div className="closeModalContainer">
                                         <WhiteButton
                                             runFunction={() => this.modalClassToggle("dontShow")}
@@ -3105,6 +3106,9 @@ class AddProductDetails extends React.Component {
                                                         
                                                     <div className="formParaSection">
                                                         <h3 className="pargraphClass"> Choose the product’s design style </h3>
+                                                        <div className="modalMandatorySection">
+                                                            <p className="madatoryHighlight">Mandatory</p>
+                                                        </div>
                                                     </div>
 
                                                     {/* <div className="designStyleCategoryTagsContainer">
