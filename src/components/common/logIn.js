@@ -28,8 +28,8 @@ export default class LogIn extends React.Component {
             passwordIsValid: false,
 
             checkingForTheFirstTime: false,
-            loadingClass: 'loadingAnim',
-            mainClass: 'mainClass hide',
+            loadingClass: 'loadingAnim hide',
+            mainClass: 'mainClass',
 
             redirect: false
         }
@@ -229,22 +229,11 @@ export default class LogIn extends React.Component {
 
     }
 
-    returnDataFromBackendAndShow = () => {
-        setTimeout( () => {
-            this.setState({
-                loadingClass: 'loadingAnim hide',
-                mainClass: 'mainClass',
-            })
-        },4000)
-    }
 
 
     render() {
 
 
-        {
-             this.returnDataFromBackendAndShow()
-        }
 
 
         return (

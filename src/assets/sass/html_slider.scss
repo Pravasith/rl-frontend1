@@ -79,31 +79,7 @@
                    .innerWrapperImage{
                        position: relative;
                        width: 100%;
-                       // background: red;
                        cursor: pointer;
-
-                        &:hover{
-
-                                .tagContainer{
-                                    left: -0.3em;
-                                }
-
-                            .outerProductImageLayer{
-                                transform: scale(1.025);
-                                @include boxShadow;
-
-                                .imgOuterLayer{
-                                    
-                                    img{
-                                        // transform: scale(1.025);
-                                        filter: saturate(1.25);
-                                        // filter: contrast(2);
-                                        // width: 20%;
-                                        // height: 150%;
-                                    }
-                                }
-                            }
-                        }
 
                         .tagContainer{
                             position:absolute;
@@ -156,84 +132,105 @@
                        .productCatalogueImage{
                            @include flexCentreCol;
                            width: 100%;
-                        //    height: 10.25em;
-                           
 
                            .outerProductImageLayer{
                                @include flexCentreCol;
+                               @include box_shadow;
                                width: 97%;
                                padding: 0.4em 0.1em;
-                            //    height: 10.25em;
-                               // height: 100%;
                                background: $white;
-                               @include box_shadow;
                                transition: 0.1s;
-                               // background: $lightGrey;
+
                                .innerImageLayer{
                                    width: 100%;
-                                //    height: 10em;
-                                   // height: 91%;
 
                                    .imgConatiner{
                                        @include flexCentreCol;
                                        align-items: center;
                                        width: 93%;
-                                    //    height: 10em;
-                                       // height: 93%;
                                        margin: 0 auto;
 
                                        .imgOuterLayer{
-                                           width:100%;
-                                           position: relative;
-                                           padding-bottom: 90%;
+                                            width:100%;
+                                            position: relative;
+                                            padding-bottom: 90%;
 
-                                           // height: 10em;
+                                           .imageDetails{
+                                                width:100%;
+                                                height: 100%;
+                                                position: absolute;
+ 
+                                               .imageDetailsDummyWrap{
+                                                    width:100%;
+                                                    height:80%;
+                                                    
+                                                    img{
+                                                        width:100%;
+                                                        height:100%;
+                                                        object-fit: cover;
+                                                        filter: saturate(1.25);
+                                                        transition: 0.1s;
+                                                    }
+                                               }
 
-                                           img{
-                                               width:100%;
-                                               height:100%;
-                                               object-fit: cover;
-                                               position:absolute;
-                                               animation: fadeIn 0.2s ease;
-                                            //    transition: 0.1s;
-                                           }
+                                               .noTitle{
+                                                   height: 100%;
+                                               }
 
-                                           .uponHover{
-                                               width: 100%;
-                                               height: 100%;
-                                               background: #f5f4f4cc;
-                                               position: absolute;
-                                               left: 0;
-                                               top: 0;
-                                               display: none;
+                                               .imageTitleContainer{
+                                                    height: 10%;
+                                                    margin-top: 0.2em;
 
-                                               .viewProjectWrap{
-                                                   @include flexCentreCol;
-                                                   margin-top:30%;
-
-                                                   .viewButtonBlue{
-                                                       padding: 0.4em 3em;
-                                                       // border:none;
-                                                       border: 0.2em solid $darkGrey;
-
-                                                       &:hover{
-                                                           border-color: $secondaryMagenta; 
-                                                       }
-                                                   }
+                                                    p{
+                                                        color: $darkGrey;
+                                                        font-size: 0.8em;
+                                                        font-weight: 500;
+                                                        text-overflow: ellipsis;
+                                                        white-space: nowrap;
+                                                        overflow: hidden;
+                                                        transition: 0.1s; 
+                                                        // opacity: 0.5;                                                   
+                                                    }
                                                }
                                            }
 
-                                           &:hover{
-                                               .uponHover{
-                                                   display: block;
-                                                   animation: fadeIn 0.2s ease;
-                                               }
-                                           }
                                        }
                                    }
                                }
                            }
                        }  
+
+                       
+                       &:hover{
+
+                        .tagContainer{
+                            left: -0.3em;
+                        }
+
+                        .outerProductImageLayer{
+                            @include box_shadow_dark;
+
+                            .imgOuterLayer{
+                                .imageDetails{
+                                    
+                                    .imageDetailsDummyWrap{
+                                        img{
+                                            filter: saturate(1.25);
+                                        }
+                                    }
+
+                                    .imageTitleContainer{
+                                       
+                                        p{
+                                            background: $white;
+                                            opacity: 1;
+                                            // color: yellow;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                }
 
                    }
 

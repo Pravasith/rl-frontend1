@@ -22,7 +22,8 @@ import {
     PlusImageIcon,
     LogoLoadingAnimation,
     NavBarLoadingIcon,
-    SadFace
+    SadFace,
+    HappyFace
 } from "../../../assets/images";
 
 import LogoAnimation from "../../animations/logoAnimation"
@@ -1954,7 +1955,11 @@ class AddProductDetails extends React.Component {
 
             // console.log(decryptedData)
 
-            window.open("/vendor/dashboard", "_self")
+            this.setState({
+                finalProceed : "successScreen"
+            })
+
+            // window.open("/vendor/dashboard", "_self")
         })
 
         .catch((err) => {
@@ -2047,6 +2052,27 @@ class AddProductDetails extends React.Component {
                             }}
                             >click here</span> to try again
                     </h3>
+                </div>
+            )
+        }
+
+        else if(this.state.finalProceed === "successScreen"){
+            return(
+                <div className="loadingWrapperProducts">
+                    <HappyFace/>
+                    <h3 className="loadingHeader">
+                        Yaayy! The product has been added successfully.                        
+                    </h3>
+
+                    <div className="goToDashboard">
+                        <WhiteButton
+                            runFunction={() => {
+                                window.open("/vendor/dashboard", "_self")
+                            }}>
+                            >
+                            Go to dashboard
+                        </WhiteButton>
+                    </div>
                 </div>
             )
         }

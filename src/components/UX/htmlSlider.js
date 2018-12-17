@@ -92,13 +92,62 @@ export default class HtmlSlider extends React.Component{
         }
 
         const returnImagesInCategories = () => {
+
+            
             const imageArray = productDetailObject.imagesInCategory.map((image, j) => {
-                return <img 
-                    key={j} 
-                    src={image.imageURL} 
-                    alt={image.itemCode} 
-                    onClick={() => this.props.runFunction(image)}
-                    />
+
+                if(image.title){
+                    return (
+
+                        //     <img 
+                        //     key={j} 
+                        //     src={image.imageURL} 
+                        //     alt={image.itemCode} 
+                        //     onClick={() => this.props.runFunction(image)}
+                        // />
+                            <div className="imageDetails">
+                                <div className="imageDetailsDummyWrap">
+                                    <img 
+                                        key={j} 
+                                        src={image.imageURL} 
+                                        alt={image.itemCode} 
+                                        onClick={() => this.props.runFunction(image)}
+                                    />
+                                </div>
+        
+                                <div className="imageTitleContainer">
+                                    <p>
+                                        { image.title ? image.title.charAt(0).toUpperCase() + image.title.slice(1) : "" }
+                                    </p>
+                                </div>
+                            </div>
+                        )
+                }
+
+                else
+                return (
+
+                    //     <img 
+                    //     key={j} 
+                    //     src={image.imageURL} 
+                    //     alt={image.itemCode} 
+                    //     onClick={() => this.props.runFunction(image)}
+                    // />
+                        <div className="imageDetails">
+                            <div className="imageDetailsDummyWrap noTitle">
+                                <img 
+                                    key={j} 
+                                    src={image.imageURL} 
+                                    alt={image.itemCode} 
+                                    onClick={() => this.props.runFunction(image)}
+                                />
+                            </div>
+    
+                            
+                        </div>
+                    )
+                // console.log(image)
+                
             })
 
             return imageArray

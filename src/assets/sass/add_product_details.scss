@@ -1249,6 +1249,11 @@ input{
                                                 }
                                             }
                                         }
+
+                                        .goToDashboard{
+                                            width: 100%;
+                                            @include flexCentreRow;
+                                        }
                                     }
                                 }
 
