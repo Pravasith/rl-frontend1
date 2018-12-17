@@ -36,8 +36,8 @@ export default class SignUp extends React.Component{
 
             checkingForTheFirstTime: false,
 
-            loadingClass: 'loadingAnim',
-            mainClass: 'mainClass hide',
+            loadingClass: 'loadingAnim hide',
+            mainClass: 'mainClass',
 
             redirect : false
         }
@@ -276,21 +276,10 @@ export default class SignUp extends React.Component{
         }
     }
 
-    returnDataFromBackendAndShow = () => {
-        setTimeout( () => {
-            this.setState({
-                loadingClass: 'loadingAnim hide',
-                mainClass: 'mainClass',
-            })
-        },4000)
-    }
-
+  
     render(){
 
-            {
-            this.returnDataFromBackendAndShow()
-            }
-
+       
         return(
             <div className="bigWrapper">
 

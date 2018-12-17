@@ -1236,11 +1236,19 @@ input{
                                             margin-top: 0.5em;
                                             font-size: 0.8em;
                                             margin-bottom: 0.5em;
+                                            // @include flexCentreRow;
+                                            text-align: center;
+
 
                                             span{
                                                 text-decoration: underline;
                                                 color: $highLightBlue;
                                             }
+                                        }
+
+                                        .goToDashboard{
+                                            width: 100%;
+                                            @include flexCentreRow;
                                         }
                                     }
                                 }

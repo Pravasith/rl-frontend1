@@ -2115,6 +2115,13 @@ class EditProductDetails extends React.Component {
 
         //  UPDATE PRODUCT 
 
+        // this.props.hitApi(api.UPDATE_PRODUCT, "PUT", 
+        //     {
+        //         requestData : encryptedData,
+        //         message : "Update product, foxtrot"
+        //     } 
+        // )
+
         // this.props.hitApi(api.ADD_NEW_PRODUCT,"POST",
         //     {
         //         requestData : encryptedData,
@@ -2861,11 +2868,11 @@ class EditProductDetails extends React.Component {
                                                                 </div>
                                                             </header>
 
-                                                            <div className="addProductImageerRender">
+                                                            <div className="productImageUploaderRender">
                                                                 {
                                                                     this.state.productImage === "" 
                                                                     ? 
-                                                                    <div className="addProductImageerClass">
+                                                                    <div className="productImageUploaderClass">
                                                                         <ImageUploader
                                                                             imageType="regularImage" // regularImage || profileImage
                                                                             resultData={(data) => {
@@ -2879,7 +2886,7 @@ class EditProductDetails extends React.Component {
                                                                         />
                                                                     </div>
                                                                     :
-                                                                    <div className="addProductImageerClass"></div>
+                                                                    <div className="productImageUploaderClass"></div>
                                                                 
                                                                 }
                                                             </div>
