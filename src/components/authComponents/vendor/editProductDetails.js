@@ -2756,6 +2756,29 @@ class EditProductDetails extends React.Component {
         else if(this.state.isChecked === false) this.setState({ extraCostInput: "extraCostInput hide" });
     }
 
+   handleMultiValidation = (fieldName) => {
+        const { productDiscountAvailablity, productDiscount, productMinQuantity, productMaxQuantity } = this.state;
+
+        if (fieldName === "Max. quantity") {
+            if (productMaxQuantity !== undefined) {
+                if (productMaxQuantity === productMinQuantity || productMaxQuantity < productMinQuantity) {
+                    return "Max. quantity value"
+                }
+            }
+            else return "Max. qunatity"
+        } 
+
+        else if (fieldName === "Product Discount") {
+            if (productDiscountAvailablity === "yes") {
+                if (productDiscount === undefined) {
+                    return "Product Discount Value"
+                }
+            }
+
+            else return "Product Discount Availability"
+        }
+    }
+
     validateProceedHandler = async () => {
        const fieldNames = [
            { fieldName: 'Product Name', value: this.state.productName },
@@ -2766,18 +2789,13 @@ class EditProductDetails extends React.Component {
            { fieldName: 'Color Options', value: this.state.colorArray },
            { fieldName: 'Sizes Available', value: this.state.productDimensions },
            { fieldName: 'Min. quantity', value: this.state.productMinQuantity },
-           { fieldName: 'Max. quantity', value: this.state.productMaxQuantity },
+           { fieldName: `${this.handleMultiValidation("Max. quantity")}`, value: this.state.productMaxQuantity },
            { fieldName: 'Product Design', value: this.state.categoryStylesAdded },
            { fieldName: 'Product Tags', value: this.state.tagsAdded },
            { fieldName: 'Product Type', value: this.state.productType },
            { fieldName: 'Product Availability', value: this.state.productAvailability },
-           { fieldName: `${this.state.productDiscountAvailablity === "yes" ? 
-                                (this.state.productDiscount === undefined ?
-                                    'Product Discount Value'  : null) : 
-                                    'Product Discount Availability'}`, 
-                                        value: this.state.productDiscount },
+           { fieldName: `${this.handleMultiValidation("Product Discount")}`, value: this.state.productDiscount },
            { fieldName: 'Product Image', value: this.state.productImagesObject.imagesInCategory }
-
        ]
 
        await this.setState({
@@ -2785,10 +2803,11 @@ class EditProductDetails extends React.Component {
        })
 
        fieldNames.map(item => {
-           if (item.value === undefined || item.value === null || item.value.length === 0) {
-               if (!this.state.emptyField.includes(item.fieldName))
-                   this.state.emptyField.push(item.fieldName)
-           }
+           if (item.value === undefined || item.value === null || 
+                item.value.length === 0 || item.fieldName === "Max. quantity value") {
+                if (!this.state.emptyField.includes(item.fieldName))
+                    this.state.emptyField.push(item.fieldName)
+            }
        })
 
        this.setState({
