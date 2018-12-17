@@ -118,8 +118,11 @@ class AddProductDetails extends React.Component {
 
             // displayError: "displayError",
             displayError: "displayError hide",
-            productQuantityErrorMessage: "productQuantityErrorMessage hide",
-            productMinQuantityError: "productMinQuantityError hide",
+            displayValueError: "displayValueError hide",
+            displayDiscountValueError: "displayDiscountValueError hide",
+            displayQuantityValueError: "displayQuantityValueError hide",
+            // productQuantityErrorMessage: "displayValueError hide",
+            // productMinQuantityError: "productMinQuantityError hide",
 
             materialCostIsValid: false,
             sizeCostIsValid: false,
@@ -137,7 +140,7 @@ class AddProductDetails extends React.Component {
             productTypes : [],
             dummyToggle : "x",
 
-            
+            emptyField: []
         }
     }
 
@@ -231,6 +234,10 @@ class AddProductDetails extends React.Component {
                 else
                     console.error(err)
             })
+    }
+
+    componentDidUpdate () {
+        console.log(this.state.displayDiscountValueError)
     }
 
     modalClassToggle = (showOrNot) => {
@@ -968,11 +975,18 @@ class AddProductDetails extends React.Component {
         if (val !== "") {
             if (regEx.test(val) === true) {
                 if (checkFor === "discount") { 
-                    this.setState({
-                        productDiscount: val,
-                        displayError: "displayError hide"
-                    })
-                }
+                    // if (/^(?!0*(\.0+)?$)(\d+|\d*\.\d+)$/.test(val)) {
+                        // console.log("wrks")
+                        this.setState({
+                            productDiscount: Number(val),
+                            displayError: "displayError hide",
+                            // displayValueError: "displayValueError hide"
+                        })
+                    }
+                    // else if (!/^(?!0*(\.0+)?$)(\d+|\d*\.\d+)$/.test(val)) {
+                    //     this.setState({ displayValueError: "displayValueError" })
+                    // }
+                // }
 
                 else if (checkFor === "color") {
                     this.setState({
@@ -1049,7 +1063,8 @@ class AddProductDetails extends React.Component {
 
         else if (val === "") {
             this.setState({
-                displayError: "displayError hide"
+                displayError: "displayError hide",
+                displayValueError: "displayValueError hide"
             })
         }
     }
@@ -2434,33 +2449,32 @@ class AddProductDetails extends React.Component {
                         <div className={this.state.modalClassToggle}>
                             <div className="dummyXClass">
                                 <div className="whiteSquareForModal">
-                                    <div className="whiteSquareModalUpperContainer">
-                                        <div className="addProductDetailsModal">
-                                            <div className="svgImageContainer">
-                                                <ErrorMsgSign />
-                                            </div>
-                                            <div className="modalContentContainer">
-                                                <div className="modalContentContainerInnerLayer">
-                                                    <div className="content">
-                                                        <h3>Please provide the following details</h3>
-                                                        <div className="detailsToInput">
-                                                            <div className="detailsInputLayer">
-                                                                <div className="notFilledSection">
-                                                                    {this
-                                                                        .state
-                                                                        .emptyField
-                                                                        .map((item, i) =>
-                                                                            <div
-                                                                                className="errorFieldMessage"
-                                                                                key={i}>
-                                                                                <ul>
-                                                                                    <li>
-                                                                                        <p>{item}</p>
-                                                                                    </li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        )}
-                                                                </div>
+                                    <div className="addProductDetailsModal">
+                                        <div className="svgImageContainer">
+                                            <ErrorMsgSign />
+                                        </div>
+                                        <div className="modalContentContainer">
+                                            <div className="modalContentContainerInnerLayer">
+                                                <div className="content">
+                                                    <h3>Please provide the following details</h3>
+                                                    <div className="detailsToInput">
+                                                        <div className="detailsInputLayer">
+                                                            <div className="notFilledSection">
+                                                                {this
+                                                                    .state
+                                                                    .emptyField
+                                                                    .map((item, i) =>
+                                                                        // console.log(item)
+                                                                        <div
+                                                                            className="errorFieldMessage"
+                                                                            key={i}>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <p>{item}</p>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    )}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2568,6 +2582,43 @@ class AddProductDetails extends React.Component {
         else if(this.state.isChecked === false) this.setState({ extraCostInput: "extraCostInput hide" });
     }
 
+    handleMultiValidation = (fieldName) => {
+        const { productDiscountAvailablity, productDiscount, productMinQuantity, productMaxQuantity } = this.state;
+
+        if (fieldName === "Max. quantity") {
+            if (productMaxQuantity !== undefined) {
+                if (productMaxQuantity === productMinQuantity || productMaxQuantity < productMinQuantity) {
+                    this.setState({ displayQuantityValueError: "displayQuantityValueError" })
+
+                    return  "Max. quantity value"
+                }
+
+                else this.setState({ displayQuantityValueError: "displayQuantityValueError hide" })
+            }
+            else return "Max. qunatity"
+        } 
+
+        else if (fieldName === "Product Discount") {
+            if (productDiscountAvailablity === "yes") {
+                if (productDiscount !== undefined) {
+                    if (productDiscount === 0) {
+                        console.log("Wrks", typeof (this.state.productDiscount))
+
+                        this.setState({ displayDiscountValueError: "displayDiscountValueError" })
+                        return "Product Discount Value"
+                    }
+                    else this.setState({ displayDiscountValueError: "displayDiscountValueError hide" })
+                }
+
+                else if (productDiscount === undefined) {
+                    return "Product Discount Value"
+                }
+            }
+
+            else return "Product Discount Availability"
+        }
+    }
+
     validateProceedHandler = async () => {
        const fieldNames = [
            { fieldName: 'Product Name', value: this.state.productName },
@@ -2578,18 +2629,13 @@ class AddProductDetails extends React.Component {
            { fieldName: 'Color Options', value: this.state.colorArray },
            { fieldName: 'Sizes Available', value: this.state.productDimensions },
            { fieldName: 'Min. quantity', value: this.state.productMinQuantity },
-           { fieldName: 'Max. quantity', value: this.state.productMaxQuantity },
+           { fieldName: `${this.handleMultiValidation("Max. quantity")}`, value: this.state.productMaxQuantity },
            { fieldName: 'Product Design', value: this.state.categoryStylesAdded },
            { fieldName: 'Product Tags', value: this.state.tagsAdded },
            { fieldName: 'Product Type', value: this.state.productType },
            { fieldName: 'Product Availability', value: this.state.productAvailability },
-           { fieldName: `${this.state.productDiscountAvailablity === "yes" ? 
-                                (this.state.productDiscount === undefined ?
-                                    'Product Discount Value'  : null) : 
-                                    'Product Discount Availability'}`, 
-                                        value: this.state.productDiscount },
+           { fieldName: `${this.handleMultiValidation("Product Discount")}`, value: this.state.productDiscount },
            { fieldName: 'Product Image', value: this.state.productImagesObject.imagesInCategory }
-
        ]
 
        await this.setState({
@@ -2597,10 +2643,12 @@ class AddProductDetails extends React.Component {
        })
 
        fieldNames.map(item => {
-           if (item.value === undefined || item.value === null || item.value.length === 0) {
-               if (!this.state.emptyField.includes(item.fieldName))
-                   this.state.emptyField.push(item.fieldName)
-           }
+           if (item.value === undefined || item.value === null || item.value.length === 0 || 
+               item.fieldName === "Max. quantity value" || item.fieldName === "Product Discount Value") {
+                    if(!this.state.emptyField.includes(item.fieldName)) {
+                        this.state.emptyField.push(item.fieldName)
+                    }
+            }
        })
 
        this.setState({
@@ -2955,7 +3003,7 @@ class AddProductDetails extends React.Component {
                                                             value={this.state.productMinQuantity ? this.state.productMinQuantity : null}
                                                             result={(val) => {
                                                                 this.setState({
-                                                                    productMinQuantity: val
+                                                                    productMinQuantity: Number(val)
                                                                 })
                                                             }}
                                                         />
@@ -2975,14 +3023,14 @@ class AddProductDetails extends React.Component {
                                                             characterCount="20"
                                                             result={(val) => {
                                                                 this.setState({
-                                                                    productMaxQuantity: val
+                                                                    productMaxQuantity: Number(val)
                                                                 })
                                                         }}
                                                         />
                                                     </div>
                                                 </div>
 
-                                                <div className={this.state.productQuantityErrorMessage}>
+                                                <div className={this.state.displayQuantityValueError}>
                                                     <p>Max. quantity should be greater than Min. quantity</p>
                                                 </div>
 
@@ -3171,6 +3219,10 @@ class AddProductDetails extends React.Component {
                                                                     <p className={this.state.displayError}>
                                                                         Numbers Only
                                                                     </p>
+                                                                    <p className={this.state.displayDiscountValueError}>
+                                                                        Discount cannot be zero, If you wish to offer no discount, 
+                                                                        please select the option below.
+                                                                    </p>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -3197,7 +3249,6 @@ class AddProductDetails extends React.Component {
                                                 <GradientButton
                                                     runFunction={() => 
                                                         {   
-                                                            // this.checkForValue()
                                                             this.validateProceedHandler()
                                                             this.modalClassToggle("show")
                                                             this.setState({
