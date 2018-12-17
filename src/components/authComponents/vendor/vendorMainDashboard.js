@@ -674,7 +674,7 @@ class VendorMainDashboard extends React.Component {
                                 </div>
                             </div>
                         </div>
-                    </div >
+                    </div>
                 )
             })
         }

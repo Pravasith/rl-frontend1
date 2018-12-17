@@ -2333,10 +2333,10 @@ class AddProductDetails extends React.Component {
                                     </div>
 
                                     <div className="errorContent">
-                                    <p className={this.state.isChecked ? this.state.displayError : "displayError hide"}>
-                                        Numbers Only
-                                    </p>
-                                </div>
+                                        <p className={this.state.isChecked ? this.state.displayError : "displayError hide"}>
+                                            Numbers Only
+                                        </p>
+                                    </div>
                                 </div>
                                 <div className="proceedOrNotCheck">
                                     <GradientButton
