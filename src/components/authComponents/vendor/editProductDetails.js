@@ -325,13 +325,6 @@ class EditProductDetails extends React.Component {
             })
     }
 
-    componentDidUpdate() {
-        console.log(this.state.displayDiscountValueError, 
-                    this.state.displayQuantityValueError, 
-                    this.state.productDiscount, 
-                    this.state.productDiscountAvailablity)
-    }
-
     discountAvailabilityChecked = () => {
         if (this.state.productDiscount !== 0) {
             this.setState({
@@ -1956,6 +1949,7 @@ class EditProductDetails extends React.Component {
                         type="text"
                         name="colorCost"
                         placeholder="Ex. 20"
+                        maxLength="8"
                         onChange={(e) => this.checkTypeNumber(e, "color")}
                         ref="colorCost"
                     />
@@ -1971,6 +1965,7 @@ class EditProductDetails extends React.Component {
                         type="text"
                         name="sizeCost"
                         placeholder="Ex. 20"
+                        maxLength="8"
                         onChange={(e) => this.checkTypeNumber(e, "size")}
                         ref="sizeCost"
                     />
@@ -1986,6 +1981,7 @@ class EditProductDetails extends React.Component {
                         type="text"
                         name="materialCost"
                         placeholder="Ex. 20"
+                        maxLength="8"
                         onChange={(e) => this.checkTypeNumber(e, "material")}
                         ref="materialCost"
                     />
@@ -2001,6 +1997,7 @@ class EditProductDetails extends React.Component {
                         type="text"
                         name="finishCost"
                         placeholder="Ex. 20"
+                        maxLength="8"
                         onChange={(e) => this.checkTypeNumber(e, "finish")}
                         ref="finishCost"
                     />
@@ -2294,6 +2291,7 @@ class EditProductDetails extends React.Component {
                                                             <input
                                                                 type="text"
                                                                 name="finishName"
+                                                                maxLength="30"
                                                                 placeholder="Ex. Glass reinforced concrete"
                                                                 onChange={this.onChangeHandler}
                                                                 ref="finishName"
@@ -2506,6 +2504,7 @@ class EditProductDetails extends React.Component {
                                                     type="text"
                                                     name="sizeName"
                                                     placeholder="Ex. Small / Extra-large / 2ftx3ft"
+                                                    maxLength="30"
                                                     onChange={this.onChangeHandler}
                                                     ref="sizeName"
                                                 />
@@ -2579,6 +2578,7 @@ class EditProductDetails extends React.Component {
                                                 <input
                                                     type="text"
                                                     name="materialName"
+                                                    maxLength="30"
                                                     placeholder="Ex. Glass reinforced concrete"
                                                     onChange={this.onChangeHandler}
                                                     ref="materialName"
@@ -3006,7 +3006,7 @@ class EditProductDetails extends React.Component {
                                                             placeholder="Type here (in Rupees)"
                                                             isMandatory={true}
                                                             validationType="onlyNumbers"
-                                                            characterCount="30"
+                                                            characterCount="8"
                                                             value={this.handleDefaultValues("ProductPrice")}
                                                             result={(val) => {
                                                                 this.setState({
@@ -3061,6 +3061,7 @@ class EditProductDetails extends React.Component {
                                                                 placeholder="Type the value-add features about this product"
                                                                 ref="featureInput"
                                                                 type="text"
+                                                                maxLength="30"
                                                                 onChange={e => this.setfeatureName(e)}
                                                                 onKeyPress={e => {
                                                                     if (e.key === "Enter") {
@@ -3186,7 +3187,7 @@ class EditProductDetails extends React.Component {
                                                             placeholder="Ex. 5"
                                                             isMandatory={true}
                                                             validationType="onlyNumbers"
-                                                            characterCount="20"
+                                                            characterCount="8"
                                                             value={this.handleDefaultValues("ProductMinQuantity")}
                                                             // value={this.state.productMinQuantity ? this.state.productMinQuantity : null}
                                                             result={(val) => {
@@ -3208,7 +3209,7 @@ class EditProductDetails extends React.Component {
                                                             placeholder="Ex. 99999"
                                                             isMandatory={true}
                                                             validationType="onlyNumbers"
-                                                            characterCount="20"
+                                                            characterCount="8"
                                                             value={this.handleDefaultValues("ProductMaxQuantity")}
                                                             result={(val) => {
                                                                 this.setState({
@@ -3234,7 +3235,7 @@ class EditProductDetails extends React.Component {
                                                             placeholder="Type something good about the product"
                                                             isMandatory={false}
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
-                                                            characterCount="100"
+                                                            characterCount="500"
                                                             value={this.handleDefaultValues("ProductDescription")}
                                                             result={(val) => this.setState({
                                                                 productDescription: val

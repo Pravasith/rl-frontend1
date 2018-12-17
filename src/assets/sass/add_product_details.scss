@@ -856,12 +856,19 @@ input{
                                                     .featureWrap{
                                                         @include flexCentreRow;
                                                         justify-content: flex-start;
+                                                        align-items: flex-start;
+                                                        max-width: 80%;
+                                                        
 
                                                         ul{
                                                             margin: 0;
                                                             padding-left: 2em;
                                                             padding-top: 0.1em;
                                                             margin-right: 0.5em;
+                                                        }
+
+                                                        .deleteIcon{
+                                                            margin: 0.25em;
                                                         }
                                                     }
 
