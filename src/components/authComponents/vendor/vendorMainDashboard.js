@@ -7,18 +7,18 @@ import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 
 import Navbar from "../../navbar/navbar"
-import { hitApi, navBarLoadingAnimationShowHide } from "../../../actions/generalActions";
+import { hitApi, navBarLoadingAnimationShowHide } from "../../../actions/generalActions"
 import { getUserData } from "../../../actions/userActions"
-import { encryptData, decryptData } from "../../../factories/encryptDecrypt";
+import { encryptData, decryptData } from "../../../factories/encryptDecrypt"
 import { Footer } from "../../footer/footer"
 
 import { CloseButton, LogoLoadingAnimation, BigAnimatedCloseButton, TickSmallWhite, NavBarLoadingIcon, LocationTag } from "../../../assets/images"
-import { WhiteArrowLeft, WhiteArrowRight, UploadImageIcon, PlusButtonIconWhite, AddNewProduct, VendorGraphic, ArrowMarkLong, BigCloseButton, SmallCloseButton } from "../../../assets/images";
-import LogoAnimation from "../../animations/logoAnimation";
-import { GradientButton, InputForm, SelectList, WhiteButton } from "../../UX/uxComponents";
+import { WhiteArrowLeft, WhiteArrowRight, UploadImageIcon, PlusButtonIconWhite, AddNewProduct, VendorGraphic, ArrowMarkLong, BigCloseButton, SmallCloseButton } from "../../../assets/images"
+import LogoAnimation from "../../animations/logoAnimation"
+import { GradientButton, InputForm, SelectList, WhiteButton } from "../../UX/uxComponents"
 import HtmlSlider from "../../UX/htmlSlider"
-import Axios from "axios";
-import { api } from "../../../actions/apiLinks";
+import Axios from "axios"
+import { api } from "../../../actions/apiLinks"
 
 
 class VendorMainDashboard extends React.Component {
@@ -319,8 +319,6 @@ class VendorMainDashboard extends React.Component {
                 .then((data) => {
                     let { responseData } = this.props
 
-                   
-
                     if (responseData.responsePayload.message !== "User credentials not found") {
 
                         //
@@ -333,29 +331,26 @@ class VendorMainDashboard extends React.Component {
                         // DECRYPT REQUEST DATA
                         //
 
-                        // console.log(decryptedData)
-
                         this.convertVendorDataAndSave(decryptedData.products)
 
                         this.setState({
                             responseCompanyName : decryptedData.companyName,
                             responseCompanyDescription : decryptedData.companyDescriptionLine1 
                                                             + " " +
-                                                         (
+                                                        (
                                                             decryptedData.companyDescriptionLine2 
                                                                 ?
                                                             decryptedData.companyDescriptionLine2 
                                                                 :
                                                             ""
-                                                         ),
+                                                        ),
                             responseExperience : decryptedData.experience ? decryptedData.experience.years : "",
                             companyProfilePicture : decryptedData.companyProfilePicture,
 
                             state: decryptedData.address.state,
                             city: decryptedData.address.city,
-                            
+
                             //
-                            
                         })
                     }
                 })
@@ -372,15 +367,11 @@ class VendorMainDashboard extends React.Component {
             })
     }
 
-    // componentDidUpdate = () => {
-    //     console.log(this.state.categoriesSelected)
-    // }
-
     convertVendorDataAndSave = (productsRaw) => {
 
         let finalData = [], categoryExists = false
 
-        // console.log(productsRaw)
+        console.log("LENGTH = " + productsRaw.length )
 
         productsRaw.map((item, i) => {
             const categoryId = item.productId.split("-")[0]
@@ -399,8 +390,6 @@ class VendorMainDashboard extends React.Component {
 
                     if (theItem.category.categoryId === categoryId) {
                         categoryExists = true
-
-                        // console.log(categoryExists)
 
                         let subCategoryExists = false
 
@@ -432,11 +421,10 @@ class VendorMainDashboard extends React.Component {
                             })
                         }
 
-                        // else {
-                        //     subCategoryExists = false
-                        // }
+                        else {
+                            subCategoryExists = false
+                        }
 
-                        
                     }
 
                     else {
@@ -445,6 +433,16 @@ class VendorMainDashboard extends React.Component {
                 })
 
                 if(!categoryExists){
+
+                    let secondCheckForCategorysExistance = false
+
+                    finalData.map((secondItem) => {
+                        if(secondItem.category.categoryId === categoryId){
+                            secondCheckForCategorysExistance = true
+                        }
+                    })
+
+                    if(!secondCheckForCategorysExistance)
                     finalData.push({
                         category,
                         subCategory: [
@@ -802,7 +800,12 @@ class VendorMainDashboard extends React.Component {
                         </GradientButton>
                         </div>
 
-                        <div className="populatedCategories">
+                        <div 
+                            className="populatedCategories"
+                            // onScroll = {() => {
+                            //     console.log("Scrolled")
+                            // }}
+                            >
                             <div className="populatedCategoriesInnerLayer">
                                 {this.returnCategorisedProducts()}
                             </div>

@@ -3,7 +3,7 @@ import React from "react"
 import "../../assets/sass/html_slider.scss"
 
 import LogoAnimation from "../animations/logoAnimation";
-import { WhiteArrowLeft, WhiteArrowRight } from "../../assets/images";
+import { WhiteArrowLeft, WhiteArrowRight, TinyCloseButton, TinyEditButton } from "../../assets/images";
 
 // Use component like this 
 
@@ -178,6 +178,13 @@ export default class HtmlSlider extends React.Component{
                                     <div className="imgConatiner">
                                         <div className="imgOuterLayer">
                                             { [...returnImagesInCategories()][this.state.imageNumberCount + i] }
+
+                                            <div className="editAndDeleteButtons">
+                                                <div className="editAndDeleteWrap">
+                                                    {/* <TinyEditButton/> */}
+                                                    {/* <TinyCloseButton/> */}
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

@@ -1639,7 +1639,7 @@ class AddProductDetails extends React.Component {
 
     addTagName = () => {
 
-        let temp = this.state.tagName;
+        let temp = this.state.tagName
 
         if (temp !== undefined) {
 
@@ -1670,7 +1670,7 @@ class AddProductDetails extends React.Component {
                         <div
                             className="tagWrap"
                             key={i}
-                        >
+                            >
                             <div className="tagWrapInnerLayer">
                                 <ul>
                                     <li>
@@ -1679,10 +1679,11 @@ class AddProductDetails extends React.Component {
                                         </p>
                                     </li>
                                 </ul>
+
                                 <div
                                     className="deleteIcon"
                                     onClick={() => this.removeTags(i)}
-                                >
+                                    >
                                     <SmallCloseButton />
                                 </div>
                             </div>
@@ -1695,7 +1696,6 @@ class AddProductDetails extends React.Component {
     }
 
     removeTags = (index) => {
-
         this
             .state
             .tagsAdded
@@ -1722,8 +1722,6 @@ class AddProductDetails extends React.Component {
                 productAvailability = false
             }
 
-            console.log(productAvailability)
-            
             this.setState({ 
                 productAvailability: val,
                 productAvailabilityBool : productAvailability
@@ -1844,8 +1842,8 @@ class AddProductDetails extends React.Component {
                                 />
                             </div>
                         </div>
-
                     </div>
+
                 </div>
                 <div className={this.state.proceedOrNotCheck}>
                     <GradientButton
