@@ -100,6 +100,7 @@ class AddProductDetails extends React.Component {
 
             productFinishImage: "",
             productImage: "",
+            productImageThumbnail: "",
 
             isProceedClicked: false,
             inputFormContainer: "inputFormContainer",
@@ -134,6 +135,7 @@ class AddProductDetails extends React.Component {
             finishModalTitle: "Add a close-up image thumbnail for this finish",
 
             finishModalContentPart: 1,
+            showDeleteButton: "hide",
             showFinalProceed: "hide",
 
             architectureStyles : architectureStyles,
@@ -1101,6 +1103,7 @@ class AddProductDetails extends React.Component {
 
             // console.log(productImage)
     }
+
 
     returnHtmlSliderforproductImagesObject = () => {
         if(this.state.productImagesObject.imagesInCategory.length !== 0) {
@@ -2074,7 +2077,13 @@ class AddProductDetails extends React.Component {
     filterByImageURL = (index) => {
         const { imagesInCategory } = this.state.productImagesObject;
 
-        imagesInCategory.splice(index, 1)
+        if (imagesInCategory.length > 1) {
+            imagesInCategory.splice(index, 1)
+        }
+
+        else if (imagesInCategory.length === 1) {
+            this.setState({ modalType: "alertForDelete" })
+        }
 
         this.setState({
             productImageThumbnail: "",
@@ -2581,7 +2590,9 @@ class AddProductDetails extends React.Component {
                                                     textOnRibbon={""} // All caps
                                                     runFunction={(data) => {
                                                         this.setState({
-                                                            productImageThumbnail: data.imageURL
+                                                            productImageThumbnail: data.imageURL,
+                                                            showDeleteButton: "showDeleteButton",
+                                                            // finalProceed: "sendRequest"
                                                         })
                                                     }}
                                                 />
@@ -2590,13 +2601,16 @@ class AddProductDetails extends React.Component {
 
                                         <div className="selectedPreviewImageContainer">
                                             <div className="imgContainer">
-                                                <p>Select the image to delete</p>
+                                                <p className={this.state.productImageThumbnail !== "" ?
+                                                                 "previewImageText hide" : "previewImageText"}>
+                                                    Click on the image to view 
+                                                </p>
                                                 <img
                                                     src={this.state.productImageThumbnail}
                                                     alt=""
                                                 />
                                             </div>
-                                            <div className="deleteButtonContainer">
+                                            <div className={this.state.showDeleteButton}>
                                                 <WhiteButton
                                                     runFunction={() => this.removeProductImage()}
                                                 >
@@ -2604,6 +2618,37 @@ class AddProductDetails extends React.Component {
                                                 </WhiteButton>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
+
+            else if (modalType === "alertForDelete") {
+                return (
+                    <div className={this.state.modalAlertForDelete}>
+                        <div className="dummyXClass">
+                            <div className="whiteSquareForModal">
+                                <div className="whiteSquareModalUpperContainer">
+                                    <div className="vendorDashboardModal">
+                                        <div className="modalHeader">
+                                            <h3>Are you sure, you want to delete this?</h3>
+                                        </div>
+                                        <WhiteButton 
+                                            runFunction={() => {
+                                                                    this.state.productImagesObject.imagesInCategory.splice(0, 1)
+                                                                    this.modalClassToggle("dontShow")    
+                                                                }
+                                             }>
+                                            Yes
+                                        </WhiteButton>
+                                        <WhiteButton
+                                            runFunction={() => this.setState({ modalType: "imagePreview" })}
+                                        >
+                                            No
+                                        </WhiteButton>
                                     </div>
                                 </div>
                             </div>
