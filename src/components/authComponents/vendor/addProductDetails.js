@@ -100,6 +100,7 @@ class AddProductDetails extends React.Component {
 
             productFinishImage: "",
             productImage: "",
+            productImageThumbnail: "",
 
             isProceedClicked: false,
             inputFormContainer: "inputFormContainer",
@@ -2600,15 +2601,17 @@ class AddProductDetails extends React.Component {
 
                                         <div className="selectedPreviewImageContainer">
                                             <div className="imgContainer">
-                                                <p>Select the image to delete</p>
+                                                <p className={this.state.productImageThumbnail !== "" ?
+                                                                 "previewImageText hide" : "previewImageText"}>
+                                                    Click on the image to view 
+                                                </p>
                                                 <img
                                                     src={this.state.productImageThumbnail}
                                                     alt=""
                                                 />
                                             </div>
-                                            <div className="deleteButtonContainer">
+                                            <div className={this.state.showDeleteButton}>
                                                 <WhiteButton
-                                                    className={this.state.showDeleteButton}
                                                     runFunction={() => this.removeProductImage()}
                                                 >
                                                     Delete
