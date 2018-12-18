@@ -38,4 +38,5 @@ export const api = {
 
     ADD_NEW_PRODUCT : API_URL + 'categories/add-new-product',
     GET_PRODUCT_DATA : API_URL + 'categories/get-product-data',
+    UPDATE_PRODUCT : API_URL + 'categories/update-product-data',
 }

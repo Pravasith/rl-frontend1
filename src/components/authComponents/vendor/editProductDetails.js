@@ -22,7 +22,8 @@ import {
     PlusImageIcon,
     LogoLoadingAnimation,
     NavBarLoadingIcon,
-    SadFace
+    SadFace,
+    HappyFace
 } from "../../../assets/images";
 
 import LogoAnimation from "../../animations/logoAnimation"
@@ -138,6 +139,8 @@ class EditProductDetails extends React.Component {
             productTypes : [],
             dummyToggle : "x",
 
+            // productAvailabilityBool : true,
+
             
         }
     }
@@ -195,7 +198,7 @@ class EditProductDetails extends React.Component {
                     //
                     // DECRYPT REQUEST DATA
                     //
-
+                        // console.log(decryptedData.availability)
                     
 
                     this.setState({
@@ -218,6 +221,7 @@ class EditProductDetails extends React.Component {
                         tagsAdded: decryptedData.tags,
                         productType : decryptedData.productType,
                         productAvailability: decryptedData.availability,
+                        productAvailabilityBool : decryptedData.availability,
                         productDiscount: decryptedData.discount,
                         productImagesObject: {
                             categoryName: "",
@@ -522,22 +526,19 @@ class EditProductDetails extends React.Component {
             }
         )
 
-        // console.log(categoryStylesAdded)
-
         if(categoryStylesAdded.length === 0){
             styleDoesntExist = true
         }
-        
-        // if(categoryStylesAdded.length !== 0){
-            else
-            categoryStylesAdded.map((item, i) => {
 
-                console.log(item.styleName, styleData.styleTitle)
+        else{
+            categoryStylesAdded.map((item, i) => {
+                // console.log(item.styleName, styleData.styleTitle)
                 if(item.styleName === styleData.styleTitle){
                     styleDoesntExist = false
                 }
             })
-        // }
+        }
+        
         
         if(styleDoesntExist){
             categoryStylesAdded.push({
@@ -2085,7 +2086,8 @@ class EditProductDetails extends React.Component {
             productDescription : this.state.productDescription,
             features : this.state.featuresAdded,
             designStyles : this.state.categoryStylesAdded,
-            productTypeId : this.state.productType,
+            // productTypeId : this.state.productType,
+            productId : this.props.pId,
             tags : this.state.tagsAdded,
             availability : this.state.productAvailabilityBool,
             discount : this.state.productDiscount,
@@ -2122,50 +2124,56 @@ class EditProductDetails extends React.Component {
 
         //  UPDATE PRODUCT 
 
-        // this.props.hitApi(api.ADD_NEW_PRODUCT,"POST",
-        //     {
-        //         requestData : encryptedData,
-        //         message : "Delivering new product, foxtrot"
-        //     }
-        // )
-        // .then(() => {
+        this.props.hitApi(api.UPDATE_PRODUCT, "PUT", 
+            {
+                requestData : encryptedData,
+                message : "Update product, foxtrot"
+            } 
+        )
 
-        //     //
-        //     // DECRYPT REQUEST DATA
-        //     //
-        //     let decryptedData = decryptData(
-        //         this.props.responseData.responsePayload.responseData
-        //     )
-        //     //
-        //     // DECRYPT REQUEST DATA
-        //     //
+        .then(() => {
 
-        //     // console.log(decryptedData)
+            //
+            // DECRYPT REQUEST DATA
+            //
+            let decryptedData = decryptData(
+                this.props.responseData.responsePayload.responseData
+            )
+            //
+            // DECRYPT REQUEST DATA
+            //
 
-        //     window.open("/vendor/dashboard", "_self")
-        // })
+            // console.log(decryptedData)
 
-        // .catch((err) => {
-        //     if (err.response) {
+            this.setState({
+                finalProceed : "successScreen"
+            })
 
-        //         // console.log(err.response)
-        //         if (err.response.status === 401)
-        //             window.open('/log-in', "_self")
+            // window.open("/vendor/dashboard", "_self")
+        })
 
-        //         else{
-        //             // window.open('/vendor/dashboard', "_self")
-        //         }
-        //     }
+        .catch((err) => {
+            if (err.response) {
 
-        //     else{
-        //         this.setState({
-        //             finalProceed : "errorScreen"
-        //         })
-        //         // window.open('/vendor/dashboard', "_self")
-        //     }
+                // console.log(err.response)
+                if (err.response.status === 401)
+                    window.open('/log-in', "_self")
+
+                else{
+                    // window.open('/vendor/dashboard', "_self")
+                }
+            }
+
+            else{
+                this.setState({
+                    finalProceed : "errorScreen"
+                })
+                // window.open('/vendor/dashboard', "_self")
+            }
                 
-        // })
+        })
 
+        
 
         // console.log(finalDataToSend)
     }
@@ -2240,6 +2248,29 @@ class EditProductDetails extends React.Component {
         }
 
         
+        else if(this.state.finalProceed === "successScreen"){
+            return(
+                <div className="loadingWrapperProducts">
+                    <HappyFace />
+                    <h3 className="loadingHeader">
+                        Yaayy! The product has been Updated successfully.                        
+                    </h3>
+
+                    <div className="goToDashboard">
+                        <WhiteButton
+                            runFunction={() => {
+                                window.open("/vendor/dashboard", "_self")
+                            }}
+                            >
+                            Go to dashboard
+                        </WhiteButton>
+                    </div>
+                </div>
+            )
+        }
+
+
+        
     }
 
     returnModal = () => {
@@ -2312,7 +2343,8 @@ class EditProductDetails extends React.Component {
                                                                 onChange={() => this.onToggleSwitch()}
                                                                 className="switch"
                                                                 type="checkbox" />
-                                                            <span className="slider round"></span>
+                                                             <span className="switch-label" data-on="Yes" data-off="No"></span> 
+                                                            <span className="switch-handle"></span> 
                                                         </label>
                                                     </div>
                                                     <div className="returnInputColumn">
@@ -2442,7 +2474,8 @@ class EditProductDetails extends React.Component {
                                                                 onChange={() => this.onToggleSwitch()}
                                                                 className="switch"
                                                                 type="checkbox"/>
-                                                            <span className="slider round"></span>
+                                                             <span className="switch-label" data-on="Yes" data-off="No"></span> 
+                                                            <span className="switch-handle"></span> 
                                                         </label>
                                                     </div>
                                                     <div className="returnInputColumn">
@@ -2525,7 +2558,8 @@ class EditProductDetails extends React.Component {
                                                     onChange={() => this.onToggleSwitch()}
                                                     className="switch"
                                                     type="checkbox"/>
-                                                <span className="slider round"></span>
+                                                <span className="switch-label" data-on="Yes" data-off="No"></span> 
+                                                <span className="switch-handle"></span> 
                                             </label>
                                         </div>
                                         <div className="returnInputColumn">
@@ -2600,7 +2634,8 @@ class EditProductDetails extends React.Component {
                                                     onChange={() => this.onToggleSwitch()}
                                                     className="switch"
                                                     type="checkbox"/>
-                                                <span className="slider round"></span>
+                                                <span className="switch-label" data-on="Yes" data-off="No"></span> 
+                                                <span className="switch-handle"></span> 
                                             </label>
                                         </div>
                                         <div className="returnInputColumn">
@@ -2686,10 +2721,12 @@ class EditProductDetails extends React.Component {
                         <div className={this.state.modalClassToggle}>
                             <div className="dummyXClass">
                                 <div className="whiteSquareForModal">
-                                    <div className="addProductDetailsModal">
-                                        <div className="modalContentContainer">
-                                            <div className="modalContentContainerInnerLayer">
-                                                {this.returnProductsContent()}
+                                    <div className="whiteSquareModalUpperContainer">
+                                        <div className="addProductDetailsModal">
+                                            <div className="modalContentContainer">
+                                                <div className="modalContentContainerInnerLayer">
+                                                    {this.returnProductsContent()}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -2816,7 +2853,7 @@ class EditProductDetails extends React.Component {
            { fieldName: `${this.handleMultiValidation("Max. quantity")}`, value: this.state.productMaxQuantity },
            { fieldName: 'Product Design', value: this.state.categoryStylesAdded },
            { fieldName: 'Product Tags', value: this.state.tagsAdded },
-           { fieldName: 'Product Type', value: this.state.productType },
+        //    { fieldName: 'Product Type', value: this.state.productType },
            { fieldName: 'Product Availability', value: this.state.productAvailability },
            { fieldName: `${this.handleMultiValidation("Product Discount")}`, value: this.state.productDiscount },
            { fieldName: 'Product Image', value: this.state.productImagesObject.imagesInCategory }
@@ -2905,11 +2942,11 @@ class EditProductDetails extends React.Component {
                                                                 </div>
                                                             </header>
 
-                                                            <div className="addProductImageerRender">
+                                                            <div className="productImageUploaderRender">
                                                                 {
                                                                     this.state.productImage === "" 
                                                                     ? 
-                                                                    <div className="addProductImageerClass">
+                                                                    <div className="productImageUploaderClass">
                                                                         <ImageUploader
                                                                             imageType="regularImage" // regularImage || profileImage
                                                                             resultData={(data) => {
@@ -2923,7 +2960,7 @@ class EditProductDetails extends React.Component {
                                                                         />
                                                                     </div>
                                                                     :
-                                                                    <div className="addProductImageerClass"></div>
+                                                                    <div className="productImageUploaderClass"></div>
                                                                 
                                                                 }
                                                             </div>
@@ -3270,6 +3307,9 @@ class EditProductDetails extends React.Component {
                                                         
                                                     <div className="formParaSection">
                                                         <h3 className="pargraphClass"> Choose the product’s design style </h3>
+                                                        <div className="modalMandatorySection">
+                                                            <p className="madatoryHighlight">Mandatory</p>
+                                                        </div>
                                                     </div>
 
                                                     {/* <div className="designStyleCategoryTagsContainer">
@@ -3340,7 +3380,7 @@ class EditProductDetails extends React.Component {
                                                     </div>
                                                 </div>
 
-                                                <div className="inputFormContainer">
+                                                {/* <div className="inputFormContainer">
 
                                                     <div className="formParaSection">
                                                         <p className="pargraphClass"> Choose the product type </p>
@@ -3356,7 +3396,7 @@ class EditProductDetails extends React.Component {
                                                         />
                                                     </div>
 
-                                                </div>
+                                                </div> */}
 
                                                 <div className="inputFormContainer">
 

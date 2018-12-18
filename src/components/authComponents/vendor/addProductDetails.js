@@ -22,7 +22,8 @@ import {
     PlusImageIcon,
     LogoLoadingAnimation,
     NavBarLoadingIcon,
-    SadFace
+    SadFace,
+    HappyFace
 } from "../../../assets/images";
 
 import LogoAnimation from "../../animations/logoAnimation"
@@ -1948,7 +1949,11 @@ class AddProductDetails extends React.Component {
 
             // console.log(decryptedData)
 
-            window.open("/vendor/dashboard", "_self")
+            this.setState({
+                finalProceed : "successScreen"
+            })
+
+            // window.open("/vendor/dashboard", "_self")
         })
 
         .catch((err) => {
@@ -2015,7 +2020,7 @@ class AddProductDetails extends React.Component {
                 </div>
             </div>
         )
-
+        
         else if(this.state.finalProceed === "sendRequest"){
             return(
                 <div className="loadingWrapperProducts">
@@ -2041,6 +2046,26 @@ class AddProductDetails extends React.Component {
                             }}
                             >click here</span> to try again
                     </h3>
+                </div>
+            )
+        }
+
+        else if(this.state.finalProceed === "successScreen"){
+            return(
+                <div className="loadingWrapperProducts">
+                    <HappyFace/>
+                    <h3 className="loadingHeader">
+                        Yaayy! The product has been added successfully.                        
+                    </h3>
+
+                    <div className="goToDashboard">
+                        <WhiteButton
+                            runFunction={() => {
+                                window.open("/vendor/dashboard", "_self")
+                            }}>
+                            Go to dashboard
+                        </WhiteButton>
+                    </div>
                 </div>
             )
         }
@@ -2106,6 +2131,7 @@ class AddProductDetails extends React.Component {
                                                     style={{ width: "5em", height: "5em" }}
                                                 />
                                             </div>
+
                                             <div className="finsihingDetails">
                                                 <div className="inputFormContainer">
                                                     <div className="formParaSection">
@@ -2366,10 +2392,10 @@ class AddProductDetails extends React.Component {
                                     </div>
 
                                     <div className="errorContent">
-                                    <p className={this.state.isChecked ? this.state.displayError : "displayError hide"}>
-                                        Numbers Only
-                                    </p>
-                                </div>
+                                        <p className={this.state.isChecked ? this.state.displayError : "displayError hide"}>
+                                            Numbers Only
+                                        </p>
+                                    </div>
                                 </div>
                                 <div className="proceedOrNotCheck">
                                     <GradientButton
@@ -2442,10 +2468,10 @@ class AddProductDetails extends React.Component {
                                     </div>
 
                                     <div className="errorContent">
-                                    <p className={this.state.isChecked ? this.state.displayError : "displayError hide"}>
-                                        Numbers Only
-                                    </p>
-                                </div>
+                                        <p className={this.state.isChecked ? this.state.displayError : "displayError hide"}>
+                                            Numbers Only
+                                        </p>
+                                    </div>
                                 </div>
                                 <div className="proceedOrNotCheck">
                                     <GradientButton
@@ -2467,6 +2493,7 @@ class AddProductDetails extends React.Component {
                         <div className={this.state.modalClassToggle}>
                             <div className="dummyXClass">
                                 <div className="whiteSquareForModal">
+                                    <div className="whiteSquareModalUpperContainer">
                                     <div className="addProductDetailsModal">
                                         <div className="svgImageContainer">
                                             <ErrorMsgSign />
@@ -2498,15 +2525,15 @@ class AddProductDetails extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div className="closeModalContainer">
-                                            <WhiteButton
-                                                runFunction={() => this.modalClassToggle("dontShow")}
-                                            >
-                                                Sure, I’ll do that
+                                        </div> 
+                                    </div>                                       
+                                    </div>
+                                    <div className="closeModalContainer">
+                                        <WhiteButton
+                                            runFunction={() => this.modalClassToggle("dontShow")}
+                                        >
+                                            Sure, I’ll do that
                                         </WhiteButton>
-                                        </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -2519,10 +2546,12 @@ class AddProductDetails extends React.Component {
                         <div className={this.state.modalClassToggle}>
                             <div className="dummyXClass">
                                 <div className="whiteSquareForModal">
-                                    <div className="addProductDetailsModal">
-                                        <div className="modalContentContainer">
-                                            <div className="modalContentContainerInnerLayer">
-                                                {this.returnProductsContent()}
+                                    <div className="whiteSquareModalUpperContainer">
+                                        <div className="addProductDetailsModal">
+                                            <div className="modalContentContainer">
+                                                <div className="modalContentContainerInnerLayer">
+                                                    {this.returnProductsContent()}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -3092,11 +3121,11 @@ class AddProductDetails extends React.Component {
                                                                 })
                                                         }}
                                                         />
+                                                                                                            
+                                                    <div className={this.state.displayQuantityValueError}>
+                                                        <p>Max. quantity should be greater than Min. quantity</p>
                                                     </div>
-                                                </div>
-
-                                                <div className={this.state.displayQuantityValueError}>
-                                                    <p>Max. quantity should be greater than Min. quantity</p>
+                                                    </div>
                                                 </div>
 
                                                 <div className="inputFormContainer">
@@ -3144,6 +3173,9 @@ class AddProductDetails extends React.Component {
                                                         
                                                     <div className="formParaSection">
                                                         <h3 className="pargraphClass"> Choose the product’s design style </h3>
+                                                        <div className="modalMandatorySection">
+                                                            <p className="madatoryHighlight">Mandatory</p>
+                                                        </div>
                                                     </div>
 
                                                     {/* <div className="designStyleCategoryTagsContainer">

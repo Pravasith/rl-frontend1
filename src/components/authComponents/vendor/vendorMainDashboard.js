@@ -12,7 +12,7 @@ import { getUserData } from "../../../actions/userActions"
 import { encryptData, decryptData } from "../../../factories/encryptDecrypt";
 import { Footer } from "../../footer/footer"
 
-import { CloseButton, LogoLoadingAnimation, BigAnimatedCloseButton, TickSmallWhite, NavBarLoadingIcon } from "../../../assets/images"
+import { CloseButton, LogoLoadingAnimation, BigAnimatedCloseButton, TickSmallWhite, NavBarLoadingIcon, LocationTag } from "../../../assets/images"
 import { WhiteArrowLeft, WhiteArrowRight, UploadImageIcon, PlusButtonIconWhite, AddNewProduct, VendorGraphic, ArrowMarkLong, BigCloseButton, SmallCloseButton } from "../../../assets/images";
 import LogoAnimation from "../../animations/logoAnimation";
 import { GradientButton, InputForm, SelectList, WhiteButton } from "../../UX/uxComponents";
@@ -310,6 +310,7 @@ class VendorMainDashboard extends React.Component {
                     mainClass: 'mainClass',
 
                     firstName: decryptedData.firstName,
+                    lastName: decryptedData.lastName,
                     professionalTitle: decryptedData.professionalTitle,
                     profilePicture: decryptedData.profilePicture,
                 })
@@ -349,6 +350,9 @@ class VendorMainDashboard extends React.Component {
                                                          ),
                             responseExperience : decryptedData.experience ? decryptedData.experience.years : "",
                             companyProfilePicture : decryptedData.companyProfilePicture,
+
+                            state: decryptedData.address.state,
+                            city: decryptedData.address.city,
                             
                             //
                             
@@ -376,6 +380,8 @@ class VendorMainDashboard extends React.Component {
 
         let finalData = [], categoryExists = false
 
+        // console.log(productsRaw)
+
         productsRaw.map((item, i) => {
             const categoryId = item.productId.split("-")[0]
             const subCategoryId = item.productId.split("-")[0] + "-" + item.productId.split("-")[1]
@@ -393,6 +399,8 @@ class VendorMainDashboard extends React.Component {
 
                     if (theItem.category.categoryId === categoryId) {
                         categoryExists = true
+
+                        // console.log(categoryExists)
 
                         let subCategoryExists = false
 
@@ -424,12 +432,16 @@ class VendorMainDashboard extends React.Component {
                             })
                         }
 
+                        // else {
+                        //     subCategoryExists = false
+                        // }
+
                         
                     }
 
-                    // else {
-                    //     categoryExists = false
-                    // }
+                    else {
+                        categoryExists = false
+                    }
                 })
 
                 if(!categoryExists){
@@ -472,6 +484,7 @@ class VendorMainDashboard extends React.Component {
                     ]
                 })
             }
+
         })
 
         this.setState({
@@ -674,7 +687,7 @@ class VendorMainDashboard extends React.Component {
                                 </div>
                             </div>
                         </div>
-                    </div >
+                    </div>
                 )
             })
         }
@@ -1384,7 +1397,6 @@ class VendorMainDashboard extends React.Component {
 
                 <div className={this.state.mainClass}>
                     <div className="maskLayer">
-
                         <Navbar
                             userData={this.returnNavBarData()}
                         />
@@ -1438,10 +1450,18 @@ class VendorMainDashboard extends React.Component {
                                                             </div>
                                                         </div>
                                                         <div className="vendorPersonalInfoContainer">
-                                                            <h3>{this.state.firstName}</h3>
+                                                            <h3>{this.state.firstName + " " + this.state.lastName } </h3>
                                                             <div className="industryExperienceContainer">
                                                                 <h3>has been in this business for<span> {this.state.responseExperience} years</span></h3>
 
+                                                            </div>
+                                                            <div className="locationData">
+                                                                <div className="locationTagContainer">
+                                                                    <LocationTag/>
+                                                                </div>
+                                                                <div className="locationContainer">
+                                                                    <h3>{this.state.city + ", " + this.state.state}</h3>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>

@@ -339,6 +339,19 @@ input{
                                                 width: 100%;
                                                 margin: 1em 0;
 
+                                                .ProductQuantitySection{
+                                                    .inputCommonWrapper{
+                                                        .inputCategorySection{
+                                                            margin-bottom: 0.3em;
+                                                        }
+                                                    }
+                                                    .displayQuantityValueError{
+                                                        p{
+                                                            color: $red ;
+                                                        }
+                                                    }
+                                                }
+
 
                                                 .inputCategoryTagSection{
                                                     @include flexCentreCol;
@@ -392,11 +405,22 @@ input{
                                                 }
 
                                                 .formParaSection{
+                                                    @include flexCentreRow;
+                                                    // margin-right: 1em;
                                                     margin-bottom: 0.5em;
 
                                                     .pargraphClass{
                                                         font-size: 1em;
+                                                        margin-right: 1em;
                                                         color: $darkerGrey;
+                                                    }
+                                                    .modalMandatorySection{
+                                                        background: $secondaryMagenta;
+                                                        padding: 0.2em;
+                                                        margin-right: 1em;
+                                                        p{
+                                                            color: $white;
+                                                        }
                                                     }
                                                 }
 
@@ -594,7 +618,7 @@ input{
                                                     .optionDiv{
 
                                                         @include flexCentreRow;
-                                                        // align-items: flex-start;
+                                                        align-items: flex-start;
                                                         margin-bottom: 0.5em;
 
                                                         &:hover{
@@ -618,6 +642,7 @@ input{
                                                             border: 0.15em solid $darkGrey;
                                                             margin: 0.2em;
                                                             margin-right: 0.5em;
+                                                            margin-top: 0.5em;
                                                             cursor: pointer;
                                                         }
 
@@ -657,6 +682,12 @@ input{
                                                                     }
                                                                 }
 
+                                                            }
+                                                            .errorContent{
+                                                                p{
+                                                                    font-size: 0.75em;
+                                                                    color: $red;
+                                                                }
                                                             }
 
                                                             .displayError{
@@ -1111,75 +1142,80 @@ input{
                 height: 100%;
 
                 .dummyXClass{
-
+                    height: 100%;
                     
                     .whiteSquareForModal{
+                        @include flexCentreCol;
+                        justify-content: space-between;
+                        height: 100%;
+                        .whiteSquareModalUpperContainer{
 
-                        .addProductDetailsModal{
+                            .addProductDetailsModal{
 
-                            .svgImageContainer{
-                                @include flexCentreRow;
-                                margin-top: 0.5em;
-                            }
+                                .svgImageContainer{
+                                    @include flexCentreRow;
+                                    margin-top: 0.5em;
+                                }
 
-                            .modalContentContainer{
-                                margin: 0.5em 0 ;
-                                .modalContentContainerInnerLayer{
-
-                                    .hide {
-                                        display: none;
-                                    }
-
-                                    .content{
-                                        @include flexCentreCol;
-                                        h3{
-                                            text-align: center;
-                                        }
-                                        .line{
-                                            background: $secondaryMagenta;
-                                            width: 20%;
-                                        }
+                                .modalContentContainer{
+                                    margin: 0.5em 0 ;
+                                    .modalContentContainerInnerLayer{
 
                                         .hide {
-                                        display: none;
+                                            display: none;
                                         }
-                                        
-                                        .detailsToInput{
-                                            width: 100%;
-                                            // height: 7em;
-                                            margin: 1em 0 0 0;
-                                            overflow-y: auto;
-                                            .imageInput{
-                                                width: 23em;
-                                            .productView{
 
-                                                width: 100%;
+                                        .content{
+                                            @include flexCentreCol;
+                                            h3{
+                                                text-align: center;
+                                            }
+                                            .line{
+                                                background: $secondaryMagenta;
+                                                width: 20%;
+                                            }
+
+                                            .hide {
+                                            display: none;
+                                            }
                                             
-                                                .innerViewProductLayer{
+                                            .detailsToInput{
+                                                width: 100%;
+                                                // height: 7em;
+                                                margin: 1em 0 0 0;
+                                                overflow-y: auto;
+                                                .imageInput{
+                                                    width: 23em;
+                                                .productView{
+
                                                     width: 100%;
-                                                    height: 5em;
-                                                    .imageContainerMiddleLayer{
-                                                        display: grid;
-                                                        grid-template-columns: 1fr 1fr 1fr;
-                                                        height: 100%;
-                                                        .outerMostLayer{
-                                                            width: 90%;
-                                                            margin: 0.2em;
-                                                            border: 0.1em solid $mediumGrey;
-                                                            .innerWrapperImage{
-                                                                height: 100%;
-                                                                .productCatalogueImage{
+                                                
+                                                    .innerViewProductLayer{
+                                                        width: 100%;
+                                                        height: 5em;
+                                                        .imageContainerMiddleLayer{
+                                                            display: grid;
+                                                            grid-template-columns: 1fr 1fr 1fr;
+                                                            height: 100%;
+                                                            .outerMostLayer{
+                                                                width: 90%;
+                                                                margin: 0.2em;
+                                                                border: 0.1em solid $mediumGrey;
+                                                                .innerWrapperImage{
                                                                     height: 100%;
-                                                                    .outerProductImageLayer{
-                                                                        padding: 0.2em 0.1em;
-                                                                        height: 86%;
-                                                                        width: 89%;
-                                                                        .innerImageLayer{
-                                                                            height: 100%;
-                                                                            .imgConatiner{
+                                                                    .productCatalogueImage{
+                                                                        height: 100%;
+                                                                        .outerProductImageLayer{
+                                                                            padding: 0.2em 0.1em;
+                                                                            height: 86%;
+                                                                            width: 89%;
+                                                                            .innerImageLayer{
                                                                                 height: 100%;
-                                                                                .imgOuterLayer{
-                                                                                    padding-bottom: 80%;
+                                                                                .imgConatiner{
+                                                                                    height: 100%;
+                                                                                    .imgOuterLayer{
+                                                                                        padding-bottom: 80%;
+                                                                                    }
                                                                                 }
                                                                             }
                                                                         }
@@ -1188,77 +1224,85 @@ input{
                                                             }
                                                         }
                                                     }
-                                                }
 
+                                                }
                                             }
-                                        }
-                                            .detailsInputLayer{
-                                                height: 100%;
-                                                margin-top: 0.5em;
-                                                padding-right: 0.3em;
-                                                .notFilledSection{ 
-                                                    display: grid;
-                                                    grid-template-columns: 1fr 1fr;
-                                                    text-align: left;
-                                                    color: $primaryMagenta;
-                                                    .errorFieldMessage{
-                                                        ul{
-                                                            margin: 0em;
-                                                            li{
-                                                                p{
-                                                                    color: $primaryMagenta;
-                                                                    font-size: 0.8em;
+                                                .detailsInputLayer{
+                                                    height: 100%;
+                                                    margin-top: 0.5em;
+                                                    padding-right: 0.3em;
+                                                    .notFilledSection{ 
+                                                        display: grid;
+                                                        grid-template-columns: 1fr 1fr;
+                                                        text-align: left;
+                                                        color: $primaryMagenta;
+                                                        .errorFieldMessage{
+                                                            ul{
+                                                                margin: 0em;
+                                                                li{
+                                                                    p{
+                                                                        color: $primaryMagenta;
+                                                                        font-size: 0.8em;
+                                                                    }
                                                                 }
                                                             }
                                                         }
                                                     }
                                                 }
                                             }
-                                        }
 
-                                        .showFinalProceed{
-                                        @include flexCentreCol;
-                                        margin-top: 1.5em;
-                                            img{
-                                                width: 5em;
-                                                height: 5em;
-                                                object-fit: cover;
-                                            }
-                                            .gradientButtonWrapper{
-                                                margin-top: 1em;
-                                            }
-
-                                             .hide {
-                                                display: none;
+                                            .showFinalProceed{
+                                            @include flexCentreCol;
+                                            margin-top: 1.5em;
+                                                img{
+                                                    width: 5em;
+                                                    height: 5em;
+                                                    object-fit: cover;
                                                 }
-                                        }
-                                    }
+                                                .gradientButtonWrapper{
+                                                    margin-top: 1em;
+                                                }
 
-                                    .loadingWrapperProducts{
-                                        @include flexCentreCol;
-                                        padding: 1em;
-                                        width: 20em;
-                                        height: 20em;
-                                        .loadingHeader{
-                                            margin-top: 0.5em;
-                                            font-size: 0.8em;
-                                            margin-bottom: 0.5em;
-
-                                            span{
-                                                text-decoration: underline;
-                                                color: $highLightBlue;
+                                                .hide {
+                                                    display: none;
+                                                    }
                                             }
+                                        }
+
+                                        .loadingWrapperProducts{
+                                            @include flexCentreCol;
+                                            // justify-content: space-between;
+                                            padding: 1em;
+                                            width: 20em;
+                                            height: 20em;
+                                            .loadingHeader{
+                                                margin-top: 0.5em;
+                                                font-size: 0.8em;
+                                                margin-bottom: 0.5em;
+                                                text-align: center;
+
+                                                span{
+                                                    text-decoration: underline;
+                                                    color: $highLightBlue;
+                                                    cursor: pointer;
+                                                }
+                                            }
+                                        }
+
+                                        .goToDashboard{
+                                            width: 100%;
+                                            @include flexCentreRow;
                                         }
                                     }
                                 }
+
                             }
+                        }
 
-
-                            .closeModalContainer{
-                                @include flexCentreRow;
-                                // margin-top: 1em;
-                            }
-
+                        
+                        .closeModalContainer{
+                            @include flexCentreRow;
+                            // margin-top: 1em;
                         }
                     }
                 }
@@ -1522,6 +1566,14 @@ input{
                                                         // text-align: center;
                                                         font-size: 0.8em;
                                                     }
+                                                    .mandatorySection{
+                                                        background: $secondaryMagenta;
+                                                        padding: 0.2em;
+                                                        margin-right: 1em;
+                                                        p{
+                                                            color: $white;
+                                                        }
+                                                    }
                                                 }
 
                                                 .productCostForSize{
@@ -1530,6 +1582,19 @@ input{
                                                         width: 100%;
                                                     }
                                                 }
+
+                                                // .ProductQuantitySection{
+                                                //     .inputCommonWrapper{
+                                                //         .inputCategorySection{
+                                                //             margin-bottom: 0.3em;
+                                                //         }
+                                                //     }
+                                                //     .displayQuantityValueError{
+                                                //         p{
+                                                //             color: $red ;
+                                                //         }
+                                                //     }
+                                                // }
 
 
                                                 .productInputInfoSection{

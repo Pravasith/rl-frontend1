@@ -26,12 +26,12 @@ export default class StartPage extends React.Component {
 
 
     componentDidMount = () => {
-        setTimeout( () => {
+        // setTimeout( () => {
             this.setState({
                 loadingClass: 'loadingAnim hide',
                 mainClass: 'mainClass',
             })
-        },4000)
+        // },4000)
 
         
     }   
