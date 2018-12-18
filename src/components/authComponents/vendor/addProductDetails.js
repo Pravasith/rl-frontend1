@@ -58,6 +58,8 @@ class AddProductDetails extends React.Component {
             modalFinishDetails: "modalFinishDetailsClass",
             modalSize: "modalSizeClass",
             modalMaterial: "modalMaterialClass",
+            modalImagePreview: "modalImagePreviewClass",
+            modalAlertForDelete: "modalAlertForDeleteClass",
             // dynamincally toggle classes to flip styles //
 
             modalType : null,
@@ -99,6 +101,7 @@ class AddProductDetails extends React.Component {
 
             productFinishImage: "",
             productImage: "",
+            productImageThumbnail: "",
 
             isProceedClicked: false,
             inputFormContainer: "inputFormContainer",
@@ -119,8 +122,11 @@ class AddProductDetails extends React.Component {
 
             // displayError: "displayError",
             displayError: "displayError hide",
-            productQuantityErrorMessage: "productQuantityErrorMessage hide",
-            productMinQuantityError: "productMinQuantityError hide",
+            displayValueError: "displayValueError hide",
+            displayDiscountValueError: "displayDiscountValueError hide",
+            displayQuantityValueError: "displayQuantityValueError hide",
+            // productQuantityErrorMessage: "displayValueError hide",
+            // productMinQuantityError: "productMinQuantityError hide",
 
             materialCostIsValid: false,
             sizeCostIsValid: false,
@@ -130,6 +136,7 @@ class AddProductDetails extends React.Component {
             finishModalTitle: "Add a close-up image thumbnail for this finish",
 
             finishModalContentPart: 1,
+            showDeleteButton: "hide",
             showFinalProceed: "hide",
 
             architectureStyles : architectureStyles,
@@ -138,7 +145,7 @@ class AddProductDetails extends React.Component {
             productTypes : [],
             dummyToggle : "x",
 
-            
+            emptyField: []
         }
     }
 
@@ -305,7 +312,6 @@ class AddProductDetails extends React.Component {
         this.setState({
             featuresAdded: this.state.featuresAdded.length !== 0 ? this.state.featuresAdded : []
         })
-
     }
 
     setfeatureName = (e) => {
@@ -392,7 +398,6 @@ class AddProductDetails extends React.Component {
             else
             categoryStylesAdded.map((item, i) => {
 
-                console.log(item.styleName, styleData.styleTitle)
                 if(item.styleName === styleData.styleTitle){
                     styleDoesntExist = false
                 }
@@ -964,13 +969,11 @@ class AddProductDetails extends React.Component {
         const val = e.target.value;
         const regEx = /^[0-9\b]+$/;
 
-        console.log(val)
-
         if (val !== "") {
             if (regEx.test(val) === true) {
                 if (checkFor === "discount") { 
                     this.setState({
-                        productDiscount: val,
+                        productDiscount: Number(val),
                         displayError: "displayError hide"
                     })
                 }
@@ -1050,7 +1053,8 @@ class AddProductDetails extends React.Component {
 
         else if (val === "") {
             this.setState({
-                displayError: "displayError hide"
+                displayError: "displayError hide",
+                displayValueError: "displayValueError hide"
             })
         }
     }
@@ -1101,6 +1105,7 @@ class AddProductDetails extends React.Component {
             // console.log(productImage)
     }
 
+
     returnHtmlSliderforproductImagesObject = () => {
         if(this.state.productImagesObject.imagesInCategory.length !== 0) {
             if(this.state.dummyToggle === 'x'){
@@ -1111,7 +1116,10 @@ class AddProductDetails extends React.Component {
                                 categoryData={this.state.productImagesObject} // format of Item 
                                 numberOfSlides={3} // Change the css grid properties for responsiveness
                                 textOnRibbon={"TRENDING NOW"} // All caps
-                                runFunction={(data) => {}}
+                                runFunction={(data) => {
+                                    this.modalClassToggle("show")
+                                    this.setState({ modalType: "imagePreview" })
+                                }}
                             />
                         </div>
                     </div>
@@ -1127,7 +1135,10 @@ class AddProductDetails extends React.Component {
                                     categoryData={this.state.productImagesObject} // format of Item 
                                     numberOfSlides={3} // Change the css grid properties for responsiveness
                                     textOnRibbon={"TRENDING NOW"} // All caps
-                                    runFunction={(data) => {}}
+                                    runFunction={(data) => {
+                                        this.modalClassToggle("show")
+                                        this.setState({ modalType: "imagePreview" })
+                                    }}
                                 />
                             </div>
                         </div>
@@ -1687,8 +1698,6 @@ class AddProductDetails extends React.Component {
                                     <SmallCloseButton />
                                 </div>
                             </div>
-
-
                         </div>
                     )
                 })
@@ -1721,7 +1730,7 @@ class AddProductDetails extends React.Component {
             else if(val.toLowerCase() === "no, it is not available"){
                 productAvailability = false
             }
-
+            
             this.setState({ 
                 productAvailability: val,
                 productAvailabilityBool : productAvailability
@@ -1751,6 +1760,7 @@ class AddProductDetails extends React.Component {
                         name="colorCost"
                         placeholder="Ex. 20"
                         onChange={(e) => this.checkTypeNumber(e, "color")}
+                        maxLength="8"
                         ref="colorCost"
                     />
                     <span className="InputSeparatorLine"> </span>
@@ -1766,6 +1776,7 @@ class AddProductDetails extends React.Component {
                         name="sizeCost"
                         placeholder="Ex. 20"
                         onChange={(e) => this.checkTypeNumber(e, "size")}
+                        maxLength="8"
                         ref="sizeCost"
                     />
                     <span className="InputSeparatorLine"> </span>
@@ -1781,6 +1792,7 @@ class AddProductDetails extends React.Component {
                         name="materialCost"
                         placeholder="Ex. 20"
                         onChange={(e) => this.checkTypeNumber(e, "material")}
+                        maxLength="8"
                         ref="materialCost"
                     />
                     <span className="InputSeparatorLine"> </span>
@@ -1796,6 +1808,7 @@ class AddProductDetails extends React.Component {
                         name="finishCost"
                         placeholder="Ex. 20"
                         onChange={(e) => this.checkTypeNumber(e, "finish")}
+                        maxLength="8"
                         ref="finishCost"
                     />
                     <span className="InputSeparatorLine"> </span>
@@ -2052,7 +2065,6 @@ class AddProductDetails extends React.Component {
                             runFunction={() => {
                                 window.open("/vendor/dashboard", "_self")
                             }}>
-                            >
                             Go to dashboard
                         </WhiteButton>
                     </div>
@@ -2062,6 +2074,34 @@ class AddProductDetails extends React.Component {
 
         
     }
+
+    filterByImageURL = (index) => {
+        const { imagesInCategory } = this.state.productImagesObject;
+
+        if (imagesInCategory.length > 1) {
+            imagesInCategory.splice(index, 1)
+        }
+
+        else if (imagesInCategory.length === 1) {
+            this.setState({ modalType: "alertForDelete" })
+        }
+
+        this.setState({
+            productImageThumbnail: "",
+            productImagesObject: {
+                categoryName: "",
+                imagesInCategory: imagesInCategory.length !== 0 ? imagesInCategory : []
+            }
+        })
+    }
+
+    removeProductImage = () => {
+        this.state.productImagesObject.imagesInCategory.map((item, i) => {
+            if (this.state.productImageThumbnail === item.imageURL) {
+                this.filterByImageURL(i)
+            }
+        })
+    } 
 
     returnModal = () => {
         const { modalType, finishModalContentPart } = this.state;
@@ -2115,6 +2155,7 @@ class AddProductDetails extends React.Component {
                                                                 name="finishName"
                                                                 placeholder="Ex. Glass reinforced concrete"
                                                                 onChange={this.onChangeHandler}
+                                                                maxLength="30"
                                                                 ref="finishName"
                                                             />
                                                             <span className="InputSeparatorLine"> </span>
@@ -2156,6 +2197,7 @@ class AddProductDetails extends React.Component {
                                                             name="finishCode"
                                                             placeholder="Ex. #4erfd, 8fds@ etc."
                                                             onChange={this.onChangeHandler}
+                                                            maxLength="30"
                                                             ref="finishCode"
                                                         />
                                                         <span className="InputSeparatorLine"> </span>
@@ -2217,8 +2259,8 @@ class AddProductDetails extends React.Component {
                                                                 type="text"
                                                                 name="colorName"
                                                                 placeholder="Ex. Orange"
-                                                                ref = "colorName"
-                                                                maxLength = "30"
+                                                                ref="colorName"
+                                                                maxLength="30"
                                                                 onChange={this.onChangeHandler}
                                                             />
                                                             <span className="InputSeparatorLine"> </span>
@@ -2242,7 +2284,7 @@ class AddProductDetails extends React.Component {
                                                                 name="colorCode"
                                                                 placeholder="Ex. #29abe2"
                                                                 onChange={(e) => this.handleColorInput(e, "colorCode")}
-                                                                maxLength = "7"
+                                                                maxLength="7"
                                                                 ref = "colorCode"
                                                             />
                                                             <span className="InputSeparatorLine"> </span>
@@ -2328,6 +2370,7 @@ class AddProductDetails extends React.Component {
                                                     name="sizeName"
                                                     placeholder="Ex. Small / Extra-large / 2ftx3ft"
                                                     onChange={this.onChangeHandler}
+                                                    maxLength="30"
                                                     ref="sizeName"
                                                 />
                                                 <span className="InputSeparatorLine"> </span>
@@ -2403,6 +2446,7 @@ class AddProductDetails extends React.Component {
                                                     name="materialName"
                                                     placeholder="Ex. Glass reinforced concrete"
                                                     onChange={this.onChangeHandler}
+                                                    maxLength="30"
                                                     ref="materialName"
                                                 />
                                                 <span className="InputSeparatorLine"> </span>
@@ -2448,7 +2492,6 @@ class AddProductDetails extends React.Component {
                             </div>
                         </div>
                     </div>
-
                 )
             }
 
@@ -2459,32 +2502,32 @@ class AddProductDetails extends React.Component {
                             <div className="dummyXClass">
                                 <div className="whiteSquareForModal">
                                     <div className="whiteSquareModalUpperContainer">
-                                        <div className="addProductDetailsModal">
-                                            <div className="svgImageContainer">
-                                                <ErrorMsgSign />
-                                            </div>
-                                            <div className="modalContentContainer">
-                                                <div className="modalContentContainerInnerLayer">
-                                                    <div className="content">
-                                                        <h3>Please provide the following details</h3>
-                                                        <div className="detailsToInput">
-                                                            <div className="detailsInputLayer">
-                                                                <div className="notFilledSection">
-                                                                    {this
-                                                                        .state
-                                                                        .emptyField
-                                                                        .map((item, i) =>
-                                                                            <div
-                                                                                className="errorFieldMessage"
-                                                                                key={i}>
-                                                                                <ul>
-                                                                                    <li>
-                                                                                        <p>{item}</p>
-                                                                                    </li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        )}
-                                                                </div>
+                                    <div className="addProductDetailsModal">
+                                        <div className="svgImageContainer">
+                                            <ErrorMsgSign />
+                                        </div>
+                                        <div className="modalContentContainer">
+                                            <div className="modalContentContainerInnerLayer">
+                                                <div className="content">
+                                                    <h3>Please provide the following details</h3>
+                                                    <div className="detailsToInput">
+                                                        <div className="detailsInputLayer">
+                                                            <div className="notFilledSection">
+                                                                {this
+                                                                    .state
+                                                                    .emptyField
+                                                                    .map((item, i) =>
+                                                                        // console.log(item)
+                                                                        <div
+                                                                            className="errorFieldMessage"
+                                                                            key={i}>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <p>{item}</p>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    )}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2492,6 +2535,7 @@ class AddProductDetails extends React.Component {
                                             </div>
                                         </div> 
                                     </div>                                       
+                                    </div>
                                     <div className="closeModalContainer">
                                         <WhiteButton
                                             runFunction={() => this.modalClassToggle("dontShow")}
@@ -2525,6 +2569,100 @@ class AddProductDetails extends React.Component {
                     )
                 }
             }
+
+            else if (modalType === "imagePreview") {
+                return (
+                    <div className={this.state.modalImagePreview}>
+                        <div className="dummyXClass">
+                            <div className="whiteSquareForModal">
+                                <div className="whiteSquareModalUpperContainer">
+                                    <div className="vendorDashboardModal">
+                                        <div className="modalHeader">
+                                            <h3>Image Preview</h3>
+                                            <div className="line"></div>
+                                        </div>
+                                    </div>
+                                    <div className="content">
+                                        <div className="detailsToInput">
+                                            <div className="imageInput">
+                                                <HtmlSlider
+                                                    categoryData={this.state.productImagesObject} // format of Item 
+                                                    numberOfSlides={3} // Change the css grid properties for responsiveness
+                                                    textOnRibbon={""} // All caps
+                                                    runFunction={(data) => {
+                                                        this.setState({
+                                                            productImageThumbnail: data.imageURL,
+                                                            showDeleteButton: "showDeleteButton",
+                                                            // finalProceed: "sendRequest"
+                                                        })
+                                                    }}
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className="selectedPreviewImageContainer">
+                                            <div className="imgContainer">
+                                                <p className={this.state.productImageThumbnail !== "" ?
+                                                             "previewImageText hide" : "previewImageText"}>
+                                                    Click on the image to view 
+                                                </p>
+                                                <img
+                                                    src={this.state.productImageThumbnail}
+                                                    alt=""
+                                                />
+                                            </div>
+                                            <div className={this.state.showDeleteButton}>
+                                                <WhiteButton
+                                                    runFunction={() => this.removeProductImage()}
+                                                >
+                                                    Delete
+                                                </WhiteButton>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
+
+            // }
+
+            // const returnAlertModalContent = () => {
+                if (modalType === "alertForDelete") {
+                    return (
+                        <div className={this.state.modalAlertForDelete}>
+                            {/* <div className="dummyXClass"> */}
+                                {/* <div className="whiteSquareForModal"> */}
+                                    <div className="whiteSquareModalUpperContainer">
+                                        <div className="vendorDashboardModal">
+                                            <div className="modalHeader">
+                                                <h3>Are you sure, you want to delete this?</h3>
+                                                <div className="line"></div>
+                                            </div>
+                                            <div className="confirmationButtonContainer">
+                                                <WhiteButton 
+                                                    runFunction={() => {
+                                                            this.state.productImagesObject.imagesInCategory.splice(0, 1)
+                                                            this.modalClassToggle("dontShow")    
+                                                        }
+                                                    }>
+                                                    Yes
+                                                </WhiteButton>
+                                                <WhiteButton
+                                                    runFunction={() => this.setState({ modalType: "imagePreview" })}
+                                                >
+                                                    No
+                                                </WhiteButton>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {/* </div> */}
+                            {/* </div> */}
+                        </div>
+                    )
+                }
         }
 
         return (
@@ -2558,6 +2696,9 @@ class AddProductDetails extends React.Component {
                             </article>
                             
                         </div>
+                        {/* <div className="deleteCLass">
+                                {returnAlertModalContent()}
+                        </div> */}
                     </div>
                 </div>
             </div>
@@ -2592,6 +2733,42 @@ class AddProductDetails extends React.Component {
         else if(this.state.isChecked === false) this.setState({ extraCostInput: "extraCostInput hide" });
     }
 
+    handleMultiValidation = (fieldName) => {
+        const { productDiscountAvailablity, productDiscount, productMinQuantity, productMaxQuantity } = this.state;
+
+        if (fieldName === "Max. quantity") {
+            if (productMaxQuantity !== undefined) {
+                if (productMaxQuantity === productMinQuantity || productMaxQuantity < productMinQuantity) {
+                    this.setState({ displayQuantityValueError: "displayQuantityValueError" })
+
+                    return  "Max. quantity value"
+                }
+
+                else this.setState({ displayQuantityValueError: "displayQuantityValueError hide" })
+            }
+            else return "Max. qunatity"
+        } 
+
+        else if (fieldName === "Product Discount") {
+            if (productDiscountAvailablity === "yes") {
+                if (productDiscount !== undefined) {
+                    if (productDiscount === 0) {
+
+                        this.setState({ displayDiscountValueError: "displayDiscountValueError" })
+                        return "Product Discount Value"
+                    }
+                    else this.setState({ displayDiscountValueError: "displayDiscountValueError hide" })
+                }
+
+                else if (productDiscount === undefined) {
+                    return "Product Discount Value"
+                }
+            }
+
+            else return "Product Discount Availability"
+        }
+    }
+
     validateProceedHandler = async () => {
        const fieldNames = [
            { fieldName: 'Product Name', value: this.state.productName },
@@ -2602,18 +2779,13 @@ class AddProductDetails extends React.Component {
            { fieldName: 'Color Options', value: this.state.colorArray },
            { fieldName: 'Sizes Available', value: this.state.productDimensions },
            { fieldName: 'Min. quantity', value: this.state.productMinQuantity },
-           { fieldName: 'Max. quantity', value: this.state.productMaxQuantity },
+           { fieldName: `${this.handleMultiValidation("Max. quantity")}`, value: this.state.productMaxQuantity },
            { fieldName: 'Product Design', value: this.state.categoryStylesAdded },
            { fieldName: 'Product Tags', value: this.state.tagsAdded },
            { fieldName: 'Product Type', value: this.state.productType },
            { fieldName: 'Product Availability', value: this.state.productAvailability },
-           { fieldName: `${this.state.productDiscountAvailablity === "yes" ? 
-                                (this.state.productDiscount === undefined ?
-                                    'Product Discount Value'  : null) : 
-                                    'Product Discount Availability'}`, 
-                                        value: this.state.productDiscount },
+           { fieldName: `${this.handleMultiValidation("Product Discount")}`, value: this.state.productDiscount },
            { fieldName: 'Product Image', value: this.state.productImagesObject.imagesInCategory }
-
        ]
 
        await this.setState({
@@ -2621,10 +2793,12 @@ class AddProductDetails extends React.Component {
        })
 
        fieldNames.map(item => {
-           if (item.value === undefined || item.value === null || item.value.length === 0) {
-               if (!this.state.emptyField.includes(item.fieldName))
-                   this.state.emptyField.push(item.fieldName)
-           }
+           if (item.value === undefined || item.value === null || item.value.length === 0 || 
+               item.fieldName === "Max. quantity value" || item.fieldName === "Product Discount Value") {
+                    if(!this.state.emptyField.includes(item.fieldName)) {
+                        this.state.emptyField.push(item.fieldName)
+                    }
+            }
        })
 
        this.setState({
@@ -2796,7 +2970,7 @@ class AddProductDetails extends React.Component {
                                                             placeholder="Type here (in Rupees)"
                                                             isMandatory={true}
                                                             validationType="onlyNumbers"
-                                                            characterCount="30"
+                                                            characterCount="8"
                                                             result={(val) => {
                                                                 this.setState({
                                                                     productPrice: val
@@ -2850,6 +3024,7 @@ class AddProductDetails extends React.Component {
                                                                 placeholder="Type the value-add features about this product"
                                                                 ref="featureInput"
                                                                 type="text"
+                                                                maxLength="30"
                                                                 onChange={e => this.setfeatureName(e)}
                                                                 onKeyPress={e => {
                                                                     if (e.key === "Enter") {
@@ -2975,11 +3150,11 @@ class AddProductDetails extends React.Component {
                                                             placeholder="Ex. 5"
                                                             isMandatory={true}
                                                             validationType="onlyNumbers"
-                                                            characterCount="20"
+                                                            characterCount="8"
                                                             value={this.state.productMinQuantity ? this.state.productMinQuantity : null}
                                                             result={(val) => {
                                                                 this.setState({
-                                                                    productMinQuantity: val
+                                                                    productMinQuantity: Number(val)
                                                                 })
                                                             }}
                                                         />
@@ -2996,18 +3171,18 @@ class AddProductDetails extends React.Component {
                                                             placeholder="Ex. 99999"
                                                             isMandatory={true}
                                                             validationType="onlyNumbers"
-                                                            characterCount="20"
+                                                            characterCount="8"
                                                             result={(val) => {
                                                                 this.setState({
-                                                                    productMaxQuantity: val
+                                                                    productMaxQuantity: Number(val)
                                                                 })
                                                         }}
                                                         />
+                                                                                                            
+                                                    <div className={this.state.displayQuantityValueError}>
+                                                        <p>Max. quantity should be greater than Min. quantity</p>
                                                     </div>
-                                                </div>
-
-                                                <div className={this.state.productQuantityErrorMessage}>
-                                                    <p>Max. quantity should be greater than Min. quantity</p>
+                                                    </div>
                                                 </div>
 
                                                 <div className="inputFormContainer">
@@ -3021,7 +3196,7 @@ class AddProductDetails extends React.Component {
                                                             placeholder="Type something good about the product"
                                                             isMandatory={false}
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
-                                                            characterCount="100"
+                                                            characterCount="500"
                                                             result={(val) => this.setState({
                                                                 productDescription: val
                                                             })}
@@ -3055,6 +3230,9 @@ class AddProductDetails extends React.Component {
                                                         
                                                     <div className="formParaSection">
                                                         <h3 className="pargraphClass"> Choose the product’s design style </h3>
+                                                        <div className="modalMandatorySection">
+                                                            <p className="madatoryHighlight">Mandatory</p>
+                                                        </div>
                                                     </div>
 
                                                     {/* <div className="designStyleCategoryTagsContainer">
@@ -3195,6 +3373,10 @@ class AddProductDetails extends React.Component {
                                                                     <p className={this.state.displayError}>
                                                                         Numbers Only
                                                                     </p>
+                                                                    <p className={this.state.displayDiscountValueError}>
+                                                                        Discount cannot be zero, If you wish to offer no discount, 
+                                                                        please select the option below.
+                                                                    </p>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -3221,7 +3403,6 @@ class AddProductDetails extends React.Component {
                                                 <GradientButton
                                                     runFunction={() => 
                                                         {   
-                                                            // this.checkForValue()
                                                             this.validateProceedHandler()
                                                             this.modalClassToggle("show")
                                                             this.setState({

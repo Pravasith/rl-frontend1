@@ -119,8 +119,9 @@ class EditProductDetails extends React.Component {
 
             // displayError: "displayError",
             displayError: "displayError hide",
-            productQuantityErrorMessage: "productQuantityErrorMessage hide",
-            productMinQuantityError: "productMinQuantityError hide",
+            displayValueError: "displayValueError hide",
+            displayDiscountValueError: "displayDiscountValueError hide",
+            displayQuantityValueError: "displayQuantityValueError hide",
 
             materialCostIsValid: false,
             sizeCostIsValid: false,
@@ -134,7 +135,7 @@ class EditProductDetails extends React.Component {
 
             architectureStyles : architectureStyles,
 
-            finalProceed : "saveAndProceed",
+            finalProceed: "saveAndProceed",
             productTypes : [],
             dummyToggle : "x",
 
@@ -329,17 +330,19 @@ class EditProductDetails extends React.Component {
     }
 
     discountAvailabilityChecked = () => {
-        if (this.state.productDiscount) {
+        if (this.state.productDiscount !== 0) {
             this.setState({
                 checkBoxClass1: "checkBox color",
-                checkBoxClass2: "checkBox"
+                checkBoxClass2: "checkBox",
+                productDiscountAvailablity: "yes"
             })
         } 
 
         else {
             this.setState({
                 checkBoxClass1: "checkBox",
-                checkBoxClass2: "checkBox color"
+                checkBoxClass2: "checkBox color",
+                productDiscountAvailablity: "no"
             })
         }
     }
@@ -1168,7 +1171,7 @@ class EditProductDetails extends React.Component {
             if (regEx.test(val) === true) {
                 if (checkFor === "discount") { 
                     this.setState({
-                        productDiscount: val,
+                        productDiscount: Number(val),
                         displayError: "displayError hide"
                     })
                 }
@@ -1947,6 +1950,7 @@ class EditProductDetails extends React.Component {
                         type="text"
                         name="colorCost"
                         placeholder="Ex. 20"
+                        maxLength="8"
                         onChange={(e) => this.checkTypeNumber(e, "color")}
                         ref="colorCost"
                     />
@@ -1962,6 +1966,7 @@ class EditProductDetails extends React.Component {
                         type="text"
                         name="sizeCost"
                         placeholder="Ex. 20"
+                        maxLength="8"
                         onChange={(e) => this.checkTypeNumber(e, "size")}
                         ref="sizeCost"
                     />
@@ -1977,6 +1982,7 @@ class EditProductDetails extends React.Component {
                         type="text"
                         name="materialCost"
                         placeholder="Ex. 20"
+                        maxLength="8"
                         onChange={(e) => this.checkTypeNumber(e, "material")}
                         ref="materialCost"
                     />
@@ -1992,6 +1998,7 @@ class EditProductDetails extends React.Component {
                         type="text"
                         name="finishCost"
                         placeholder="Ex. 20"
+                        maxLength="8"
                         onChange={(e) => this.checkTypeNumber(e, "finish")}
                         ref="finishCost"
                     />
@@ -2315,6 +2322,7 @@ class EditProductDetails extends React.Component {
                                                             <input
                                                                 type="text"
                                                                 name="finishName"
+                                                                maxLength="30"
                                                                 placeholder="Ex. Glass reinforced concrete"
                                                                 onChange={this.onChangeHandler}
                                                                 ref="finishName"
@@ -2335,7 +2343,8 @@ class EditProductDetails extends React.Component {
                                                                 onChange={() => this.onToggleSwitch()}
                                                                 className="switch"
                                                                 type="checkbox" />
-                                                            <span className="slider round"></span>
+                                                             <span className="switch-label" data-on="Yes" data-off="No"></span> 
+                                                            <span className="switch-handle"></span> 
                                                         </label>
                                                     </div>
                                                     <div className="returnInputColumn">
@@ -2465,7 +2474,8 @@ class EditProductDetails extends React.Component {
                                                                 onChange={() => this.onToggleSwitch()}
                                                                 className="switch"
                                                                 type="checkbox"/>
-                                                            <span className="slider round"></span>
+                                                             <span className="switch-label" data-on="Yes" data-off="No"></span> 
+                                                            <span className="switch-handle"></span> 
                                                         </label>
                                                     </div>
                                                     <div className="returnInputColumn">
@@ -2527,6 +2537,7 @@ class EditProductDetails extends React.Component {
                                                     type="text"
                                                     name="sizeName"
                                                     placeholder="Ex. Small / Extra-large / 2ftx3ft"
+                                                    maxLength="30"
                                                     onChange={this.onChangeHandler}
                                                     ref="sizeName"
                                                 />
@@ -2547,7 +2558,8 @@ class EditProductDetails extends React.Component {
                                                     onChange={() => this.onToggleSwitch()}
                                                     className="switch"
                                                     type="checkbox"/>
-                                                <span className="slider round"></span>
+                                                <span className="switch-label" data-on="Yes" data-off="No"></span> 
+                                                <span className="switch-handle"></span> 
                                             </label>
                                         </div>
                                         <div className="returnInputColumn">
@@ -2600,6 +2612,7 @@ class EditProductDetails extends React.Component {
                                                 <input
                                                     type="text"
                                                     name="materialName"
+                                                    maxLength="30"
                                                     placeholder="Ex. Glass reinforced concrete"
                                                     onChange={this.onChangeHandler}
                                                     ref="materialName"
@@ -2621,7 +2634,8 @@ class EditProductDetails extends React.Component {
                                                     onChange={() => this.onToggleSwitch()}
                                                     className="switch"
                                                     type="checkbox"/>
-                                                <span className="slider round"></span>
+                                                <span className="switch-label" data-on="Yes" data-off="No"></span> 
+                                                <span className="switch-handle"></span> 
                                             </label>
                                         </div>
                                         <div className="returnInputColumn">
@@ -2707,10 +2721,12 @@ class EditProductDetails extends React.Component {
                         <div className={this.state.modalClassToggle}>
                             <div className="dummyXClass">
                                 <div className="whiteSquareForModal">
-                                    <div className="addProductDetailsModal">
-                                        <div className="modalContentContainer">
-                                            <div className="modalContentContainerInnerLayer">
-                                                {this.returnProductsContent()}
+                                    <div className="whiteSquareModalUpperContainer">
+                                        <div className="addProductDetailsModal">
+                                            <div className="modalContentContainer">
+                                                <div className="modalContentContainerInnerLayer">
+                                                    {this.returnProductsContent()}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -2719,6 +2735,54 @@ class EditProductDetails extends React.Component {
                         </div>
                     )
                 }
+            }
+
+            else if (modalType === "imagePreview") {
+                return (
+                    <div className={this.state.modalImagePreview}>
+                        <div className="dummyXClass">
+                            <div className="whiteSquareForModal">
+                                <div className="whiteSquareModalUpperContainer">
+                                    <div className="vendorDashboardModal">
+                                        <div className="modalHeader">
+                                            <h3>Image Preview</h3>
+                                            <div className="line"></div>
+                                        </div>
+                                    </div>
+                                    <div className="content">
+                                        <div className="detailsToInput">
+                                            <div className="imageInput">
+                                                <HtmlSlider
+                                                    categoryData={this.state.productImagesObject} // format of Item 
+                                                    numberOfSlides={4} // Change the css grid properties for responsiveness
+                                                    textOnRibbon={""} // All caps
+                                                    runFunction={(data) => {
+                                                        this.setState({
+                                                            productImageThumbnail: data.imageURL
+                                                        })
+                                                    }}
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className="">
+                                            <img
+                                                src={this.state.productImageThumbnail}
+                                                alt=""
+                                                style={{ width: "10em", height: "10em" }}
+                                            />
+                                            <WhiteButton
+                                                runFunction={() => this.removeProductImage()}
+                                            >
+                                                Delete
+                                            </WhiteButton>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )
             }
         }
 
@@ -2787,6 +2851,43 @@ class EditProductDetails extends React.Component {
         else if(this.state.isChecked === false) this.setState({ extraCostInput: "extraCostInput hide" });
     }
 
+    handleMultiValidation = (fieldName) => {
+        const { productDiscountAvailablity, productDiscount, productMinQuantity, productMaxQuantity } = this.state;
+
+        if (fieldName === "Max. quantity") {
+            if (productMaxQuantity !== undefined) {
+                if (productMaxQuantity === productMinQuantity || productMaxQuantity < productMinQuantity) {
+                    this.setState({ displayQuantityValueError: "displayQuantityValueError" })
+
+                    return  "Max. quantity value"
+                }
+
+                else this.setState({ displayQuantityValueError: "displayQuantityValueError hide" })
+            }
+            else return "Max. qunatity"
+        } 
+
+        else if (fieldName === "Product Discount") {
+            if (productDiscountAvailablity === "yes") {
+                if (productDiscount !== undefined) {
+                    if (productDiscount === 0) {
+                        console.log("Wrks", typeof (this.state.productDiscount))
+
+                        this.setState({ displayDiscountValueError: "displayDiscountValueError" })
+                        return "Product Discount Value"
+                    }
+                    else this.setState({ displayDiscountValueError: "displayDiscountValueError hide" })
+                }
+
+                else if (productDiscount === undefined) {
+                    return "Product Discount Value"
+                }
+            }
+
+            else return "Product Discount Availability"
+        }
+    }
+
     validateProceedHandler = async () => {
        const fieldNames = [
            { fieldName: 'Product Name', value: this.state.productName },
@@ -2797,18 +2898,13 @@ class EditProductDetails extends React.Component {
            { fieldName: 'Color Options', value: this.state.colorArray },
            { fieldName: 'Sizes Available', value: this.state.productDimensions },
            { fieldName: 'Min. quantity', value: this.state.productMinQuantity },
-           { fieldName: 'Max. quantity', value: this.state.productMaxQuantity },
+           { fieldName: `${this.handleMultiValidation("Max. quantity")}`, value: this.state.productMaxQuantity },
            { fieldName: 'Product Design', value: this.state.categoryStylesAdded },
            { fieldName: 'Product Tags', value: this.state.tagsAdded },
         //    { fieldName: 'Product Type', value: this.state.productType },
            { fieldName: 'Product Availability', value: this.state.productAvailability },
-           { fieldName: `${this.state.productDiscountAvailablity === "yes" ? 
-                                (this.state.productDiscount === undefined ?
-                                    'Product Discount Value'  : null) : 
-                                    'Product Discount Availability'}`, 
-                                        value: this.state.productDiscount },
+           { fieldName: `${this.handleMultiValidation("Product Discount")}`, value: this.state.productDiscount },
            { fieldName: 'Product Image', value: this.state.productImagesObject.imagesInCategory }
-
        ]
 
        await this.setState({
@@ -2816,10 +2912,12 @@ class EditProductDetails extends React.Component {
        })
 
        fieldNames.map(item => {
-           if (item.value === undefined || item.value === null || item.value.length === 0) {
-               if (!this.state.emptyField.includes(item.fieldName))
-                   this.state.emptyField.push(item.fieldName)
-           }
+           if (item.value === undefined || item.value === null || item.value.length === 0 || 
+               item.fieldName === "Max. quantity value" || item.fieldName === "Product Discount Value") {
+                    if(!this.state.emptyField.includes(item.fieldName)) {
+                        this.state.emptyField.push(item.fieldName)
+                    }
+            }
        })
 
        this.setState({
@@ -2911,7 +3009,6 @@ class EditProductDetails extends React.Component {
                                                                     </div>
                                                                     :
                                                                     <div className="productImageUploaderClass"></div>
-                                                                
                                                                 }
                                                             </div>
                                                         </div>
@@ -2993,7 +3090,7 @@ class EditProductDetails extends React.Component {
                                                             placeholder="Type here (in Rupees)"
                                                             isMandatory={true}
                                                             validationType="onlyNumbers"
-                                                            characterCount="30"
+                                                            characterCount="8"
                                                             value={this.handleDefaultValues("ProductPrice")}
                                                             result={(val) => {
                                                                 this.setState({
@@ -3048,6 +3145,7 @@ class EditProductDetails extends React.Component {
                                                                 placeholder="Type the value-add features about this product"
                                                                 ref="featureInput"
                                                                 type="text"
+                                                                maxLength="30"
                                                                 onChange={e => this.setfeatureName(e)}
                                                                 onKeyPress={e => {
                                                                     if (e.key === "Enter") {
@@ -3173,7 +3271,7 @@ class EditProductDetails extends React.Component {
                                                             placeholder="Ex. 5"
                                                             isMandatory={true}
                                                             validationType="onlyNumbers"
-                                                            characterCount="20"
+                                                            characterCount="8"
                                                             value={this.handleDefaultValues("ProductMinQuantity")}
                                                             // value={this.state.productMinQuantity ? this.state.productMinQuantity : null}
                                                             result={(val) => {
@@ -3195,18 +3293,18 @@ class EditProductDetails extends React.Component {
                                                             placeholder="Ex. 99999"
                                                             isMandatory={true}
                                                             validationType="onlyNumbers"
-                                                            characterCount="20"
+                                                            characterCount="8"
                                                             value={this.handleDefaultValues("ProductMaxQuantity")}
                                                             result={(val) => {
                                                                 this.setState({
-                                                                    productMaxQuantity: val
+                                                                    productMaxQuantity: Number(val)
                                                                 })
                                                         }}
                                                         />
                                                     </div>
                                                 </div>
 
-                                                <div className={this.state.productQuantityErrorMessage}>
+                                                <div className={this.state.displayQuantityValueError}>
                                                     <p>Max. quantity should be greater than Min. quantity</p>
                                                 </div>
 
@@ -3221,7 +3319,7 @@ class EditProductDetails extends React.Component {
                                                             placeholder="Type something good about the product"
                                                             isMandatory={false}
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
-                                                            characterCount="100"
+                                                            characterCount="500"
                                                             value={this.handleDefaultValues("ProductDescription")}
                                                             result={(val) => this.setState({
                                                                 productDescription: val
@@ -3256,6 +3354,9 @@ class EditProductDetails extends React.Component {
                                                         
                                                     <div className="formParaSection">
                                                         <h3 className="pargraphClass"> Choose the product’s design style </h3>
+                                                        <div className="modalMandatorySection">
+                                                            <p className="madatoryHighlight">Mandatory</p>
+                                                        </div>
                                                     </div>
 
                                                     {/* <div className="designStyleCategoryTagsContainer">
@@ -3397,6 +3498,10 @@ class EditProductDetails extends React.Component {
                                                                 <div className="errorContent">
                                                                     <p className={this.state.displayError}>
                                                                         Numbers Only
+                                                                    </p>
+                                                                    <p className={this.state.displayDiscountValueError}>
+                                                                        Discount cannot be zero, If you wish to offer no discount,
+                                                                        please select the option below.
                                                                     </p>
                                                                 </div>
                                                             </div>

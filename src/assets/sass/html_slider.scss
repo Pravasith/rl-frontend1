@@ -63,109 +63,282 @@
                }
            }
        }
-       }
-       
-
        .imageContainerMiddleLayer{
-           display: grid;
-           grid-template-columns: 1fr 1fr 1fr 1fr;
-           width:84%;
-        
-               .outerMostLayer{
-                   width: 95%;
-                   // background: yellow;
-                   
+        display: grid;
+        // grid-template-columns: 1fr 1fr 1fr 1fr;
+        width:84%;
+     
+            .outerMostLayer{
+                width: 95%;
+                // background: yellow;
+                
 
-                   .innerWrapperImage{
-                       position: relative;
-                       width: 100%;
-                       cursor: pointer;
+                .innerWrapperImage{
+                    position: relative;
+                    width: 100%;
+                    cursor: pointer;
 
-                       
+                     .tagContainer{
+                         position:absolute;
+                         width: 6em;
+                         height: 1em;
+                         top: 1em;
+                         left: -0.2em;
+                         background-color: $highLightBlue;
+                         transition: 0.2s;
 
-                        .tagContainer{
-                            position:absolute;
-                            width: 6em;
-                            height: 1em;
-                            top: 1em;
-                            left: -0.2em;
-                            background-color: $highLightBlue;
-                            transition: 0.2s;
+                         p{
+                             font-size: 0.6em;
+                             color: white;
+                             padding-left: 0.5em;
+                         }
 
-                            p{
-                                font-size: 0.6em;
-                                color: white;
-                                padding-left: 0.5em;
-                            }
+                         .leftTriangle{
 
-                            .leftTriangle{
+                             width: 0;
+                             height: 0;
+                             border-top: 0.3em solid rgb(168, 0, 98);
+                             border-left: 0.3em solid transparent;
+                             margin-top: 0.2em;
+                         }
 
-                                width: 0;
-                                height: 0;
-                                border-top: 0.3em solid rgb(168, 0, 98);
-                                border-left: 0.3em solid transparent;
-                                margin-top: 0.2em;
-                            }
+                         .rightTriangle{
+                             width: 1em;
+                             height: 1em;
+                             position: absolute;
+                             top: 0;
+                             right: -1em;
+                             // background: $white;
 
-                            .rightTriangle{
-                                width: 1em;
-                                height: 1em;
-                                position: absolute;
-                                top: 0;
-                                right: -1em;
-                                // background: $white;
+                             .topTriangle{
+                                 width: 0;
+                                 height: 0;
+                                 border-top: 0.5em solid $highLightBlue;
+                                 border-right: 0.5em solid transparent;
+                             }
 
-                                .topTriangle{
-                                    width: 0;
-                                    height: 0;
-                                    border-top: 0.5em solid $highLightBlue;
-                                    border-right: 0.5em solid transparent;
-                                }
+                             .botTriangle{
+                                 width: 0;
+                                 height: 0;
+                                 border-bottom: 0.5em solid $highLightBlue;
+                                 border-right: 0.5em solid transparent;
+                             }
+                         }
+                     }
+                
+                    .productCatalogueImage{
+                        @include flexCentreCol;
+                        width: 100%;
 
-                                .botTriangle{
-                                    width: 0;
-                                    height: 0;
-                                    border-bottom: 0.5em solid $highLightBlue;
-                                    border-right: 0.5em solid transparent;
+                        .outerProductImageLayer{
+                            @include flexCentreCol;
+                            @include box_shadow;
+                            width: 97%;
+                            padding: 0.4em 0.1em;
+                            background: $white;
+                            transition: 0.1s;
+
+                            .innerImageLayer{
+                                width: 100%;
+
+                                .imgConatiner{
+                                    @include flexCentreCol;
+                                    align-items: center;
+                                    width: 93%;
+                                    margin: 0 auto;
+
+                                    .imgOuterLayer{
+                                         width:100%;
+                                         position: relative;
+                                         padding-bottom: 90%;
+
+                                        .imageDetails{
+                                             width:100%;
+                                             height: 100%;
+                                             position: absolute;
+
+                                            .imageDetailsDummyWrap{
+                                                 width:100%;
+                                                 height:80%;
+                                                 
+                                                 img{
+                                                     width:100%;
+                                                     height:100%;
+                                                     object-fit: cover;
+                                                     filter: saturate(1.25);
+                                                     transition: 0.1s;
+                                                 }
+                                            }
+
+                                            .noTitle{
+                                                height: 100%;
+                                            }
+
+                                            .imageTitleContainer{
+                                                 height: 10%;
+                                                 margin-top: 0.2em;
+
+                                                 p{
+                                                     color: $darkGrey;
+                                                     font-size: 0.8em;
+                                                     font-weight: 500;
+                                                     text-overflow: ellipsis;
+                                                     white-space: nowrap;
+                                                     overflow: hidden;
+                                                     transition: 0.1s; 
+                                                     // opacity: 0.5;                                                   
+                                                 }
+                                            }
+                                        }
+
+                                    }
                                 }
                             }
                         }
+                    }  
+
+                    
+                    &:hover{
+
+                     .tagContainer{
+                         left: -0.3em;
+                     }
+
+                     .outerProductImageLayer{
+                         @include box_shadow_dark;
+
+                         .imgOuterLayer{
+                             .imageDetails{
+                                 
+                                 .imageDetailsDummyWrap{
+                                     img{
+                                         filter: saturate(1.25);
+                                     }
+                                 }
+
+                                 .imageTitleContainer{
+                                    
+                                     p{
+                                         background: $white;
+                                         opacity: 1;
+                                         // color: yellow;
+                                     }
+                                 }
+                             }
+                         }
+                     }
+             }
+
+                }
+
+                
+            
+        }
+        
+       }
+
+       }
+       
+
+    //    .imageContainerMiddleLayer{
+    //        display: grid;
+    //        grid-template-columns: 1fr 1fr 1fr 1fr;
+    //        width:84%;
+        
+    //            .outerMostLayer{
+    //                width: 95%;
+    //                // background: yellow;
                    
-                       .productCatalogueImage{
-                           @include flexCentreCol;
-                           width: 100%;
 
-                           .outerProductImageLayer{
-                               @include flexCentreCol;
-                               @include box_shadow;
-                               width: 97%;
-                               padding: 0.4em 0.1em;
-                               background: $white;
-                               transition: 0.1s;
+    //                .innerWrapperImage{
+    //                    position: relative;
+    //                    width: 100%;
+    //                    cursor: pointer;
 
-                               .innerImageLayer{
-                                   width: 100%;
+    //                     .tagContainer{
+    //                         position:absolute;
+    //                         width: 6em;
+    //                         height: 1em;
+    //                         top: 1em;
+    //                         left: -0.2em;
+    //                         background-color: $highLightBlue;
+    //                         transition: 0.2s;
 
-                                   .imgConatiner{
-                                       @include flexCentreCol;
-                                       align-items: center;
-                                       width: 93%;
-                                       margin: 0 auto;
+    //                         p{
+    //                             font-size: 0.6em;
+    //                             color: white;
+    //                             padding-left: 0.5em;
+    //                         }
 
-                                       .imgOuterLayer{
-                                            width:100%;
-                                            position: relative;
-                                            padding-bottom: 90%;
+    //                         .leftTriangle{
 
-                                           .imageDetails{
-                                                width:100%;
-                                                height: 100%;
-                                                position: absolute;
+    //                             width: 0;
+    //                             height: 0;
+    //                             border-top: 0.3em solid rgb(168, 0, 98);
+    //                             border-left: 0.3em solid transparent;
+    //                             margin-top: 0.2em;
+    //                         }
+
+    //                         .rightTriangle{
+    //                             width: 1em;
+    //                             height: 1em;
+    //                             position: absolute;
+    //                             top: 0;
+    //                             right: -1em;
+    //                             // background: $white;
+
+    //                             .topTriangle{
+    //                                 width: 0;
+    //                                 height: 0;
+    //                                 border-top: 0.5em solid $highLightBlue;
+    //                                 border-right: 0.5em solid transparent;
+    //                             }
+
+    //                             .botTriangle{
+    //                                 width: 0;
+    //                                 height: 0;
+    //                                 border-bottom: 0.5em solid $highLightBlue;
+    //                                 border-right: 0.5em solid transparent;
+    //                             }
+    //                         }
+    //                     }
+                   
+    //                    .productCatalogueImage{
+    //                        @include flexCentreCol;
+    //                        width: 100%;
+
+    //                        .outerProductImageLayer{
+    //                            @include flexCentreCol;
+    //                            @include box_shadow;
+    //                            width: 97%;
+    //                            padding: 0.4em 0.1em;
+    //                            background: $white;
+    //                            transition: 0.1s;
+
+    //                            .innerImageLayer{
+    //                                width: 100%;
+
+    //                                .imgConatiner{
+    //                                    @include flexCentreCol;
+    //                                    align-items: center;
+    //                                    width: 93%;
+    //                                    margin: 0 auto;
+
+    //                                    .imgOuterLayer{
+    //                                         width:100%;
+    //                                         position: relative;
+    //                                         padding-bottom: 90%;
+
+    //                                        .imageDetails{
+    //                                             width:100%;
+    //                                             height: 100%;
+    //                                             position: absolute;
  
-                                               .imageDetailsDummyWrap{
-                                                    width:100%;
-                                                    height:80%;
+    //                                            .imageDetailsDummyWrap{
+    //                                                 width:100%;
+    //                                                 height:80%;
                                                     
+<<<<<<< HEAD
                                                     img{
                                                         width:100%;
                                                         height:100%;
@@ -217,6 +390,43 @@
                                }
                            }
                        }  
+=======
+    //                                                 img{
+    //                                                     width:100%;
+    //                                                     height:100%;
+    //                                                     object-fit: cover;
+    //                                                     filter: saturate(1.25);
+    //                                                     transition: 0.1s;
+    //                                                 }
+    //                                            }
+
+    //                                            .noTitle{
+    //                                                height: 100%;
+    //                                            }
+
+    //                                            .imageTitleContainer{
+    //                                                 height: 10%;
+    //                                                 margin-top: 0.2em;
+
+    //                                                 p{
+    //                                                     color: $darkGrey;
+    //                                                     font-size: 0.8em;
+    //                                                     font-weight: 500;
+    //                                                     text-overflow: ellipsis;
+    //                                                     white-space: nowrap;
+    //                                                     overflow: hidden;
+    //                                                     transition: 0.1s; 
+    //                                                     // opacity: 0.5;                                                   
+    //                                                 }
+    //                                            }
+    //                                        }
+
+    //                                    }
+    //                                }
+    //                            }
+    //                        }
+    //                    }  
+>>>>>>> bc8db472020f54accc99f8b14c797e951f56ff62
 
                        .editAndDeleteButtons{
                             visibility: hidden;
@@ -224,26 +434,27 @@
                             transition: visibility 0s, opacity 0.2s ease;
                         }
                        
-                       &:hover{
+    //                    &:hover{
 
-                        .tagContainer{
-                            left: -0.3em;
-                        }
+    //                     .tagContainer{
+    //                         left: -0.3em;
+    //                     }
 
-                        .outerProductImageLayer{
-                            @include box_shadow_dark;
+    //                     .outerProductImageLayer{
+    //                         @include box_shadow_dark;
 
-                            .imgOuterLayer{
-                                .imageDetails{
+    //                         .imgOuterLayer{
+    //                             .imageDetails{
                                     
-                                    .imageDetailsDummyWrap{
-                                        img{
-                                            filter: saturate(1.25);
-                                        }
-                                    }
+    //                                 .imageDetailsDummyWrap{
+    //                                     img{
+    //                                         filter: saturate(1.25);
+    //                                     }
+    //                                 }
 
-                                    .imageTitleContainer{
+    //                                 .imageTitleContainer{
                                        
+<<<<<<< HEAD
                                         p{
                                             background: $white;
                                             opacity: 1;
@@ -265,12 +476,26 @@
                 }
 
                    }
+=======
+    //                                     p{
+    //                                         background: $white;
+    //                                         opacity: 1;
+    //                                         // color: yellow;
+    //                                     }
+    //                                 }
+    //                             }
+    //                         }
+    //                     }
+    //             }
+
+    //                }
+>>>>>>> bc8db472020f54accc99f8b14c797e951f56ff62
 
                    
                
-           }
+    //        }
            
-       }
+    //    }
 
        
 } 
