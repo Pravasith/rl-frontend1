@@ -135,7 +135,7 @@ class EditProductDetails extends React.Component {
 
             architectureStyles : architectureStyles,
 
-            finalProceed : "saveAndProceed",
+            finalProceed: "saveAndProceed",
             productTypes : [],
             dummyToggle : "x",
 
@@ -2735,6 +2735,54 @@ class EditProductDetails extends React.Component {
                         </div>
                     )
                 }
+            }
+
+            else if (modalType === "imagePreview") {
+                return (
+                    <div className={this.state.modalImagePreview}>
+                        <div className="dummyXClass">
+                            <div className="whiteSquareForModal">
+                                <div className="whiteSquareModalUpperContainer">
+                                    <div className="vendorDashboardModal">
+                                        <div className="modalHeader">
+                                            <h3>Image Preview</h3>
+                                            <div className="line"></div>
+                                        </div>
+                                    </div>
+                                    <div className="content">
+                                        <div className="detailsToInput">
+                                            <div className="imageInput">
+                                                <HtmlSlider
+                                                    categoryData={this.state.productImagesObject} // format of Item 
+                                                    numberOfSlides={4} // Change the css grid properties for responsiveness
+                                                    textOnRibbon={""} // All caps
+                                                    runFunction={(data) => {
+                                                        this.setState({
+                                                            productImageThumbnail: data.imageURL
+                                                        })
+                                                    }}
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className="">
+                                            <img
+                                                src={this.state.productImageThumbnail}
+                                                alt=""
+                                                style={{ width: "10em", height: "10em" }}
+                                            />
+                                            <WhiteButton
+                                                runFunction={() => this.removeProductImage()}
+                                            >
+                                                Delete
+                                            </WhiteButton>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )
             }
         }
 
