@@ -1363,16 +1363,54 @@ input{
                                                 }
                                               }
                                                .content{
-                                                    @include flexCentreCol;
+                                                    @include flexCentreRow;
+                                                    width: 100%;
                                                     .detailsToInput{
                                                         @include flexCentreRow;
-                                                        width: 58%;
+                                                        width: 17%;
                                                         margin: 1em 0;
                                                         .imageInput{
                                                             width: 100%;
                                                             .productView{
                                                                 margin-top: 0;
+                                                                .innerViewProductLayer{
+                                                                    @include flexCentreCol;
+                                                                    .arrowButtonContainer{
+                                                                        .leftArrowButton{
+                                                                            #Left_Arrow{
+                                                                                transform: rotate(90deg);
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                    .imageContainerMiddleLayer{
+                                                                        grid-template-rows: 1fr 1fr 1fr;
+                                                                        width: 48%;
+                                                                    }
+                                                                    .arrowButtonContainer{
+                                                                        .rightArrowButton{
+                                                                            #Right_Arrow{
+                                                                                transform: rotate(90deg);
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
                                                             }
+                                                        }
+                                                    }
+                                                    .selectedPreviewImageContainer{
+                                                        @include flexCentreCol;
+                                                        .imgContainer{
+                                                            width: 10em;
+                                                            height: 10em;
+                                                            border: 0.1em solid $mediumGrey;
+                                                            img{
+                                                                width: 10em;
+                                                                height: 10em;
+                                                                object-fit: cover;
+                                                            }
+                                                        }
+                                                        .deleteButtonContainer{
+                                                            margin-top: 1em;
                                                         }
                                                     }
                                                 }
@@ -1406,6 +1444,28 @@ input{
                                                         width: 100%;
                                                         .productView{
                                                             margin-top: 0;
+                                                            .productView{
+                                                                margin-top: 0;
+                                                                .innerViewProductLayer{
+                                                                    // @include flexCentreCol;
+                                                                    .arrowButtonContainer{
+                                                                        .leftArrowButton{
+                                                                            #Left_Arrow{
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                    .imageContainerMiddleLayer{
+                                                                        grid-template-columns: 1fr 1fr 1fr;
+                                                                        width: 48%;
+                                                                    }
+                                                                    .arrowButtonContainer{
+                                                                        .rightArrowButton{
+                                                                            #Right_Arrow{
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
                                                         }
                                                     }
                                                 }

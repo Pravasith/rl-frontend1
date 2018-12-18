@@ -1695,8 +1695,6 @@ class AddProductDetails extends React.Component {
                                     <SmallCloseButton />
                                 </div>
                             </div>
-
-
                         </div>
                     )
                 })
@@ -2600,20 +2598,22 @@ class AddProductDetails extends React.Component {
                                             </div>
                                         </div>
 
-                                        <div className={this.state.showDeleteButton}>
-                                            <img
-                                                src={this.state.productImageThumbnail}
-                                                alt=""
-                                                style={{ width: "10em", height: "10em" }}
-                                            />
-                                            <WhiteButton
-                                                runFunction={() => {
-                                                    this.removeProductImage()
-                                                    this.setState({ showDeleteButton: "hide" })
-                                                }}
-                                            >
-                                                Delete
-                                            </WhiteButton>
+                                        <div className="selectedPreviewImageContainer">
+                                            <div className="imgContainer">
+                                                <p>Select the image to delete</p>
+                                                <img
+                                                    src={this.state.productImageThumbnail}
+                                                    alt=""
+                                                />
+                                            </div>
+                                            <div className="deleteButtonContainer">
+                                                <WhiteButton
+                                                    className={this.state.showDeleteButton}
+                                                    runFunction={() => this.removeProductImage()}
+                                                >
+                                                    Delete
+                                                </WhiteButton>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
