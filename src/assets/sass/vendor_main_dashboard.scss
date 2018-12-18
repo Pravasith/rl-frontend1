@@ -1416,6 +1416,11 @@ input{
                                                 .imageSliderWrap{
                                                     .productView{
                                                         margin-top: 0.3em;
+                                                        .innerViewProductLayer{
+                                                            .imageContainerMiddleLayer{
+                                                                grid-template-columns: 1fr 1fr 1fr 1fr;
+                                                            }
+                                                        }
                                                     }
                                                 }
                                             }
