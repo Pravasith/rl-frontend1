@@ -2612,7 +2612,10 @@ class AddProductDetails extends React.Component {
                                             </div>
                                             <div className={this.state.showDeleteButton}>
                                                 <WhiteButton
-                                                    runFunction={() => this.removeProductImage()}
+                                                    runFunction={() => {
+                                                        this.removeProductImage()
+                                                        this.setState({ showDeleteButton: "showDeleteButton hide" })
+                                                    }}
                                                 >
                                                     Delete
                                                 </WhiteButton>
