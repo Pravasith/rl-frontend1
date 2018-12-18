@@ -58,6 +58,7 @@ class AddProductDetails extends React.Component {
             modalFinishDetails: "modalFinishDetailsClass",
             modalSize: "modalSizeClass",
             modalMaterial: "modalMaterialClass",
+            modalImagePreview: "modalImagePreviewClass",
             // dynamincally toggle classes to flip styles //
 
             modalType : null,
@@ -237,10 +238,6 @@ class AddProductDetails extends React.Component {
             })
     }
 
-    componentDidUpdate () {
-        console.log(this.state.displayDiscountValueError)
-    }
-
     modalClassToggle = (showOrNot) => {
         if(showOrNot === "show")
             this.setState({
@@ -312,7 +309,6 @@ class AddProductDetails extends React.Component {
         this.setState({
             featuresAdded: this.state.featuresAdded.length !== 0 ? this.state.featuresAdded : []
         })
-
     }
 
     setfeatureName = (e) => {
@@ -399,7 +395,6 @@ class AddProductDetails extends React.Component {
             else
             categoryStylesAdded.map((item, i) => {
 
-                console.log(item.styleName, styleData.styleTitle)
                 if(item.styleName === styleData.styleTitle){
                     styleDoesntExist = false
                 }
@@ -971,23 +966,14 @@ class AddProductDetails extends React.Component {
         const val = e.target.value;
         const regEx = /^[0-9\b]+$/;
 
-        console.log(val)
-
         if (val !== "") {
             if (regEx.test(val) === true) {
                 if (checkFor === "discount") { 
-                    // if (/^(?!0*(\.0+)?$)(\d+|\d*\.\d+)$/.test(val)) {
-                        // console.log("wrks")
-                        this.setState({
-                            productDiscount: Number(val),
-                            displayError: "displayError hide",
-                            // displayValueError: "displayValueError hide"
-                        })
-                    }
-                    // else if (!/^(?!0*(\.0+)?$)(\d+|\d*\.\d+)$/.test(val)) {
-                    //     this.setState({ displayValueError: "displayValueError" })
-                    // }
-                // }
+                    this.setState({
+                        productDiscount: Number(val),
+                        displayError: "displayError hide"
+                    })
+                }
 
                 else if (checkFor === "color") {
                     this.setState({
@@ -1126,7 +1112,10 @@ class AddProductDetails extends React.Component {
                                 categoryData={this.state.productImagesObject} // format of Item 
                                 numberOfSlides={3} // Change the css grid properties for responsiveness
                                 textOnRibbon={"TRENDING NOW"} // All caps
-                                runFunction={(data) => {}}
+                                runFunction={(data) => {
+                                    this.modalClassToggle("show")
+                                    this.setState({ modalType: "imagePreview" })
+                                }}
                             />
                         </div>
                     </div>
@@ -1142,7 +1131,10 @@ class AddProductDetails extends React.Component {
                                     categoryData={this.state.productImagesObject} // format of Item 
                                     numberOfSlides={3} // Change the css grid properties for responsiveness
                                     textOnRibbon={"TRENDING NOW"} // All caps
-                                    runFunction={(data) => {}}
+                                    runFunction={(data) => {
+                                        this.modalClassToggle("show")
+                                        this.setState({ modalType: "imagePreview" })
+                                    }}
                                 />
                             </div>
                         </div>
@@ -1734,8 +1726,6 @@ class AddProductDetails extends React.Component {
             else if(val.toLowerCase() === "no, it is not available"){
                 productAvailability = false
             }
-
-            console.log(productAvailability)
             
             this.setState({ 
                 productAvailability: val,
@@ -1766,6 +1756,7 @@ class AddProductDetails extends React.Component {
                         name="colorCost"
                         placeholder="Ex. 20"
                         onChange={(e) => this.checkTypeNumber(e, "color")}
+                        maxLength="8"
                         ref="colorCost"
                     />
                     <span className="InputSeparatorLine"> </span>
@@ -1781,6 +1772,7 @@ class AddProductDetails extends React.Component {
                         name="sizeCost"
                         placeholder="Ex. 20"
                         onChange={(e) => this.checkTypeNumber(e, "size")}
+                        maxLength="8"
                         ref="sizeCost"
                     />
                     <span className="InputSeparatorLine"> </span>
@@ -1796,6 +1788,7 @@ class AddProductDetails extends React.Component {
                         name="materialCost"
                         placeholder="Ex. 20"
                         onChange={(e) => this.checkTypeNumber(e, "material")}
+                        maxLength="8"
                         ref="materialCost"
                     />
                     <span className="InputSeparatorLine"> </span>
@@ -1811,6 +1804,7 @@ class AddProductDetails extends React.Component {
                         name="finishCost"
                         placeholder="Ex. 20"
                         onChange={(e) => this.checkTypeNumber(e, "finish")}
+                        maxLength="8"
                         ref="finishCost"
                     />
                     <span className="InputSeparatorLine"> </span>
@@ -2077,6 +2071,28 @@ class AddProductDetails extends React.Component {
         
     }
 
+    filterByImageURL = (index) => {
+        const { imagesInCategory } = this.state.productImagesObject;
+
+        imagesInCategory.splice(index, 1)
+
+        this.setState({
+            productImageThumbnail: "",
+            productImagesObject: {
+                categoryName: "",
+                imagesInCategory: imagesInCategory.length !== 0 ? imagesInCategory : []
+            }
+        })
+    }
+
+    removeProductImage = () => {
+        this.state.productImagesObject.imagesInCategory.map((item, i) => {
+            if (this.state.productImageThumbnail === item.imageURL) {
+                this.filterByImageURL(i)
+            }
+        })
+    } 
+
     returnModal = () => {
         const { modalType, finishModalContentPart } = this.state;
 
@@ -2129,6 +2145,7 @@ class AddProductDetails extends React.Component {
                                                                 name="finishName"
                                                                 placeholder="Ex. Glass reinforced concrete"
                                                                 onChange={this.onChangeHandler}
+                                                                maxLength="30"
                                                                 ref="finishName"
                                                             />
                                                             <span className="InputSeparatorLine"> </span>
@@ -2170,6 +2187,7 @@ class AddProductDetails extends React.Component {
                                                             name="finishCode"
                                                             placeholder="Ex. #4erfd, 8fds@ etc."
                                                             onChange={this.onChangeHandler}
+                                                            maxLength="30"
                                                             ref="finishCode"
                                                         />
                                                         <span className="InputSeparatorLine"> </span>
@@ -2231,8 +2249,8 @@ class AddProductDetails extends React.Component {
                                                                 type="text"
                                                                 name="colorName"
                                                                 placeholder="Ex. Orange"
-                                                                ref = "colorName"
-                                                                maxLength = "30"
+                                                                ref="colorName"
+                                                                maxLength="30"
                                                                 onChange={this.onChangeHandler}
                                                             />
                                                             <span className="InputSeparatorLine"> </span>
@@ -2256,7 +2274,7 @@ class AddProductDetails extends React.Component {
                                                                 name="colorCode"
                                                                 placeholder="Ex. #29abe2"
                                                                 onChange={(e) => this.handleColorInput(e, "colorCode")}
-                                                                maxLength = "7"
+                                                                maxLength="7"
                                                                 ref = "colorCode"
                                                             />
                                                             <span className="InputSeparatorLine"> </span>
@@ -2342,6 +2360,7 @@ class AddProductDetails extends React.Component {
                                                     name="sizeName"
                                                     placeholder="Ex. Small / Extra-large / 2ftx3ft"
                                                     onChange={this.onChangeHandler}
+                                                    maxLength="30"
                                                     ref="sizeName"
                                                 />
                                                 <span className="InputSeparatorLine"> </span>
@@ -2417,6 +2436,7 @@ class AddProductDetails extends React.Component {
                                                     name="materialName"
                                                     placeholder="Ex. Glass reinforced concrete"
                                                     onChange={this.onChangeHandler}
+                                                    maxLength="30"
                                                     ref="materialName"
                                                 />
                                                 <span className="InputSeparatorLine"> </span>
@@ -2462,7 +2482,6 @@ class AddProductDetails extends React.Component {
                             </div>
                         </div>
                     </div>
-
                 )
             }
 
@@ -2539,6 +2558,54 @@ class AddProductDetails extends React.Component {
                         </div>
                     )
                 }
+            }
+
+            else if (modalType === "imagePreview") {
+                return (
+                    <div className={this.state.modalImagePreview}>
+                        <div className="dummyXClass">
+                            <div className="whiteSquareForModal">
+                                <div className="whiteSquareModalUpperContainer">
+                                    <div className="vendorDashboardModal">
+                                        <div className="modalHeader">
+                                            <h3>Image Preview</h3>
+                                            <div className="line"></div>
+                                        </div>
+                                    </div>
+                                    <div className="content">
+                                        <div className="detailsToInput">
+                                            <div className="imageInput">
+                                                <HtmlSlider
+                                                    categoryData={this.state.productImagesObject} // format of Item 
+                                                    numberOfSlides={3} // Change the css grid properties for responsiveness
+                                                    textOnRibbon={""} // All caps
+                                                    runFunction={(data) => {
+                                                        this.setState({
+                                                            productImageThumbnail: data.imageURL
+                                                        })
+                                                    }}
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className="">
+                                            <img
+                                                src={this.state.productImageThumbnail}
+                                                alt=""
+                                                style={{ width: "10em", height: "10em" }}
+                                            />
+                                            <WhiteButton
+                                                runFunction={() => this.removeProductImage()}
+                                            >
+                                                Delete
+                                            </WhiteButton>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )
             }
         }
 
@@ -2627,7 +2694,6 @@ class AddProductDetails extends React.Component {
             if (productDiscountAvailablity === "yes") {
                 if (productDiscount !== undefined) {
                     if (productDiscount === 0) {
-                        console.log("Wrks", typeof (this.state.productDiscount))
 
                         this.setState({ displayDiscountValueError: "displayDiscountValueError" })
                         return "Product Discount Value"
@@ -2845,7 +2911,7 @@ class AddProductDetails extends React.Component {
                                                             placeholder="Type here (in Rupees)"
                                                             isMandatory={true}
                                                             validationType="onlyNumbers"
-                                                            characterCount="30"
+                                                            characterCount="8"
                                                             result={(val) => {
                                                                 this.setState({
                                                                     productPrice: val
@@ -2899,6 +2965,7 @@ class AddProductDetails extends React.Component {
                                                                 placeholder="Type the value-add features about this product"
                                                                 ref="featureInput"
                                                                 type="text"
+                                                                maxLength="30"
                                                                 onChange={e => this.setfeatureName(e)}
                                                                 onKeyPress={e => {
                                                                     if (e.key === "Enter") {
@@ -3024,7 +3091,7 @@ class AddProductDetails extends React.Component {
                                                             placeholder="Ex. 5"
                                                             isMandatory={true}
                                                             validationType="onlyNumbers"
-                                                            characterCount="20"
+                                                            characterCount="8"
                                                             value={this.state.productMinQuantity ? this.state.productMinQuantity : null}
                                                             result={(val) => {
                                                                 this.setState({
@@ -3045,7 +3112,7 @@ class AddProductDetails extends React.Component {
                                                             placeholder="Ex. 99999"
                                                             isMandatory={true}
                                                             validationType="onlyNumbers"
-                                                            characterCount="20"
+                                                            characterCount="8"
                                                             result={(val) => {
                                                                 this.setState({
                                                                     productMaxQuantity: Number(val)
@@ -3070,7 +3137,7 @@ class AddProductDetails extends React.Component {
                                                             placeholder="Type something good about the product"
                                                             isMandatory={false}
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
-                                                            characterCount="100"
+                                                            characterCount="500"
                                                             result={(val) => this.setState({
                                                                 productDescription: val
                                                             })}
