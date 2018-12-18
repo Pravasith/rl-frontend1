@@ -59,6 +59,7 @@ class AddProductDetails extends React.Component {
             modalSize: "modalSizeClass",
             modalMaterial: "modalMaterialClass",
             modalImagePreview: "modalImagePreviewClass",
+            modalAlertForDelete: "modalAlertForDeleteClass",
             // dynamincally toggle classes to flip styles //
 
             modalType : null,
@@ -2602,7 +2603,7 @@ class AddProductDetails extends React.Component {
                                         <div className="selectedPreviewImageContainer">
                                             <div className="imgContainer">
                                                 <p className={this.state.productImageThumbnail !== "" ?
-                                                                 "previewImageText hide" : "previewImageText"}>
+                                                             "previewImageText hide" : "previewImageText"}>
                                                     Click on the image to view 
                                                 </p>
                                                 <img
@@ -2626,36 +2627,42 @@ class AddProductDetails extends React.Component {
                 )
             }
 
-            else if (modalType === "alertForDelete") {
-                return (
-                    <div className={this.state.modalAlertForDelete}>
-                        <div className="dummyXClass">
-                            <div className="whiteSquareForModal">
-                                <div className="whiteSquareModalUpperContainer">
-                                    <div className="vendorDashboardModal">
-                                        <div className="modalHeader">
-                                            <h3>Are you sure, you want to delete this?</h3>
+            // }
+
+            // const returnAlertModalContent = () => {
+                if (modalType === "alertForDelete") {
+                    return (
+                        <div className={this.state.modalAlertForDelete}>
+                            {/* <div className="dummyXClass"> */}
+                                {/* <div className="whiteSquareForModal"> */}
+                                    <div className="whiteSquareModalUpperContainer">
+                                        <div className="vendorDashboardModal">
+                                            <div className="modalHeader">
+                                                <h3>Are you sure, you want to delete this?</h3>
+                                                <div className="line"></div>
+                                            </div>
+                                            <div className="confirmationButtonContainer">
+                                                <WhiteButton 
+                                                    runFunction={() => {
+                                                            this.state.productImagesObject.imagesInCategory.splice(0, 1)
+                                                            this.modalClassToggle("dontShow")    
+                                                        }
+                                                    }>
+                                                    Yes
+                                                </WhiteButton>
+                                                <WhiteButton
+                                                    runFunction={() => this.setState({ modalType: "imagePreview" })}
+                                                >
+                                                    No
+                                                </WhiteButton>
+                                            </div>
                                         </div>
-                                        <WhiteButton 
-                                            runFunction={() => {
-                                                                    this.state.productImagesObject.imagesInCategory.splice(0, 1)
-                                                                    this.modalClassToggle("dontShow")    
-                                                                }
-                                             }>
-                                            Yes
-                                        </WhiteButton>
-                                        <WhiteButton
-                                            runFunction={() => this.setState({ modalType: "imagePreview" })}
-                                        >
-                                            No
-                                        </WhiteButton>
                                     </div>
-                                </div>
-                            </div>
+                                {/* </div> */}
+                            {/* </div> */}
                         </div>
-                    </div>
-                )
-            }
+                    )
+                }
         }
 
         return (
@@ -2689,6 +2696,9 @@ class AddProductDetails extends React.Component {
                             </article>
                             
                         </div>
+                        {/* <div className="deleteCLass">
+                                {returnAlertModalContent()}
+                        </div> */}
                     </div>
                 </div>
             </div>
