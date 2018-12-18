@@ -1295,7 +1295,48 @@ input{
                             .modalContentWrap{
                                 // width: 23em;
                                 height: 24em;
-                                .modalContentClass,.modalFinishClass,.modalSizeClass,.modalMaterialClass,.modalFinishDetailsClass{
+                                width: 100%;
+                                .modalImagePreviewClass{
+                                    width: 60em;
+                                    height: 30em;
+                                    .dummyXClass{
+                                        height: 100%;
+                                       .whiteSquareForModal{
+                                           @include flexCentreCol;
+                                            justify-content: space-between;
+                                            height: 100%;
+                                          .whiteSquareModalUpperContainer{
+                                                 width: 100%;
+                                              .vendorDashboardModal{
+                                                @include flexCentreCol;
+                                                .modalHeader{
+                                                    @include flexCentreCol;
+                                                    text-align: center;
+                                                    .line{
+                                                        background: $secondaryMagenta;
+                                                        width: 30%;
+                                                    }
+                                                }
+                                              }
+                                               .content{
+                                                    @include flexCentreCol;
+                                                    .detailsToInput{
+                                                        @include flexCentreRow;
+                                                        width: 58%;
+                                                        margin: 1em 0;
+                                                        .imageInput{
+                                                            width: 100%;
+                                                            .productView{
+                                                                margin-top: 0;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                          } 
+                                       } 
+                                    }
+                                }
+                                .modalContentClass,.modalFinishClass,.modalSizeClass,.modalMaterialClass,.modalFinishDetailsClass,{
                                         height: 100%;
                                     .dummyXClass{
 
@@ -1306,9 +1347,24 @@ input{
                                             justify-content: space-between;
                                             height: 100%;
                                             .whiteSquareModalUpperContainer{
-
+                                                width: 100%;
                                             .hide{
                                                 display: none;
+                                            }
+
+                                            .content{
+                                                @include flexCentreCol;
+                                                .detailsToInput{
+                                                    @include flexCentreRow;
+                                                    width: 100%;
+                                                    margin: 1em 0;
+                                                    .imageInput{
+                                                        width: 100%;
+                                                        .productView{
+                                                            margin-top: 0;
+                                                        }
+                                                    }
+                                                }
                                             }
 
                                             .vendorDashboardModal{

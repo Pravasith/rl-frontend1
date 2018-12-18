@@ -57,6 +57,7 @@ class AddProductDetails extends React.Component {
             modalFinishDetails: "modalFinishDetailsClass",
             modalSize: "modalSizeClass",
             modalMaterial: "modalMaterialClass",
+            modalImagePreview: "modalImagePreviewClass",
             // dynamincally toggle classes to flip styles //
 
             modalType : null,
@@ -307,7 +308,6 @@ class AddProductDetails extends React.Component {
         this.setState({
             featuresAdded: this.state.featuresAdded.length !== 0 ? this.state.featuresAdded : []
         })
-
     }
 
     setfeatureName = (e) => {
@@ -2048,8 +2048,26 @@ class AddProductDetails extends React.Component {
         
     }
 
+    filterByImageURL = (index) => {
+        const { imagesInCategory } = this.state.productImagesObject;
+
+        imagesInCategory.splice(index, 1)
+
+        this.setState({
+            productImageThumbnail: "",
+            productImagesObject: {
+                categoryName: "",
+                imagesInCategory: imagesInCategory.length !== 0 ? imagesInCategory : []
+            }
+        })
+    }
+
     removeProductImage = () => {
-        console.log("Wrks")
+        this.state.productImagesObject.imagesInCategory.map((item, i) => {
+            if (this.state.productImageThumbnail === item.imageURL) {
+                this.filterByImageURL(i)
+            }
+        })
     } 
 
     returnModal = () => {
@@ -2521,9 +2539,13 @@ class AddProductDetails extends React.Component {
                         <div className="dummyXClass">
                             <div className="whiteSquareForModal">
                                 <div className="whiteSquareModalUpperContainer">
+                                    <div className="vendorDashboardModal">
+                                        <div className="modalHeader">
+                                            <h3>Image Preview</h3>
+                                            <div className="line"></div>
+                                        </div>
+                                    </div>
                                     <div className="content">
-                                        <h3>Image Preview</h3>
-                                        <div className="line"></div>
                                         <div className="detailsToInput">
                                             <div className="imageInput">
                                                 <HtmlSlider
@@ -2532,9 +2554,7 @@ class AddProductDetails extends React.Component {
                                                     textOnRibbon={""} // All caps
                                                     runFunction={(data) => {
                                                         this.setState({
-                                                            productImageThumbnail: data.imageURL,
-                                                            // showFinalProceed: "showFinalProceed",
-                                                            // finalProceed: "sendRequest"
+                                                            productImageThumbnail: data.imageURL
                                                         })
                                                     }}
                                                 />
