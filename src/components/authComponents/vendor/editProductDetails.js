@@ -2936,7 +2936,6 @@ class EditProductDetails extends React.Component {
                                                                     </div>
                                                                     :
                                                                     <div className="productImageUploaderClass"></div>
-                                                                
                                                                 }
                                                             </div>
                                                         </div>

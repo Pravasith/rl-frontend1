@@ -1701,8 +1701,6 @@ class AddProductDetails extends React.Component {
                                     <SmallCloseButton />
                                 </div>
                             </div>
-
-
                         </div>
                     )
                 })
