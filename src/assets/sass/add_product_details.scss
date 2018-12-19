@@ -1328,23 +1328,49 @@ input{
                             top: 3em;
                         }
 
+
                         .modalOuterWrap{
                             @include flexCentreRow;
                             align-items: flex-start;
                             background: $white;
                             padding: 1em;
                             @include box_shadow;
-                            min-height: 24em;
-                            min-width: 22em;
+                            // min-height: 24em;
+                            // min-width: 22em;
+                            .hide{
+                                display: none;
+                            }
                             .modalContentWrap{
                                 // width: 23em;
-                                height: 24em;
+                                // height: 24em;
                                 width: 100%;
+                                .modalAlertForDeleteClass{
+                                    height: 100%;
+                                    .whiteSquareModalUpperContainer{
+                                        width: 100%;
+                                        .vendorDashboardModal{
+                                            @include flexCentreCol;
+                                            .modalHeader{
+                                                @include flexCentreCol;
+                                                text-align: center;
+                                                .line{
+                                                    background: $secondaryMagenta;
+                                                    width: 30%;
+                                                }
+                                            }
+                                            .confirmationButtonContainer{
+                                                @include flexCentreRow;
+                                                margin-top: 1em;
+                                            }
+                                          }
+                                    }
+                                }
                                 .modalImagePreviewClass{
-                                    width: 60em;
-                                    height: 30em;
+                                    height: 100%;
                                     .dummyXClass{
                                         height: 100%;
+                                        height: 30em;
+                                        width: 60em;
                                        .whiteSquareForModal{
                                            @include flexCentreCol;
                                             justify-content: space-between;
@@ -1361,13 +1387,19 @@ input{
                                                         width: 30%;
                                                     }
                                                 }
+                                                .confirmationButtonContainer{
+                                                    @include flexCentreRow;
+                                                    margin-top: 1em;
+                                                }
                                               }
                                                .content{
                                                     @include flexCentreRow;
+                                                    align-items: flex-start;
                                                     width: 100%;
+                                                    height: 100%;
                                                     .detailsToInput{
                                                         @include flexCentreRow;
-                                                        width: 17%;
+                                                        width: 15%;
                                                         margin: 1em 0;
                                                         .imageInput{
                                                             width: 100%;
@@ -1384,7 +1416,7 @@ input{
                                                                     }
                                                                     .imageContainerMiddleLayer{
                                                                         grid-template-rows: 1fr 1fr 1fr;
-                                                                        width: 48%;
+                                                                        width: 90%;
                                                                     }
                                                                     .arrowButtonContainer{
                                                                         .rightArrowButton{
@@ -1399,13 +1431,22 @@ input{
                                                     }
                                                     .selectedPreviewImageContainer{
                                                         @include flexCentreCol;
+                                                        width: 70%;
+                                                        height: 27em;
                                                         .imgContainer{
-                                                            width: 10em;
-                                                            height: 10em;
-                                                            border: 0.1em solid $mediumGrey;
+                                                            width: 75%;
+                                                            height: 22em;
+                                                            border: 0.1em solid $lightGrey;
+                                                            p{
+                                                                top: 50%;
+                                                                left: 50%;
+                                                                position: absolute;
+                                                               
+                                                                text-align: center;
+                                                            }
                                                             img{
-                                                                width: 10em;
-                                                                height: 10em;
+                                                                width: 100%;
+                                                                height: 100%;
                                                                 object-fit: cover;
                                                             }
                                                         }
@@ -1423,11 +1464,13 @@ input{
                                     .dummyXClass{
 
                                         height: 100%;
+                                        min-height: 24em;
+                                        min-width: 22em;
 
                                         .whiteSquareForModal{
                                             @include flexCentreCol;
                                             justify-content: space-between;
-                                            height: 100%;
+                                            height: 24em;
                                             .whiteSquareModalUpperContainer{
                                                 width: 100%;
                                             .hide{
@@ -1532,6 +1575,7 @@ input{
                                                 
                                                 .labelUpperColumn{
                                                     @include flexCentreRow;
+                                                    justify-content: flex-start;
                                                     width: 100%;
                                                     p{
                                                         font-size: 0.8em;
