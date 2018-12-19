@@ -49,7 +49,7 @@ class VendorMainDashboard extends React.Component {
 
             categoryErrorClass: "errorMessageWrap hide",
             categoryErrorMessage: "",
-            subCategoryDataExists: "subCategoryDataExists hide",
+            subCategoryDataExists: false,
 
             categoryName: '',
             tagName: '',
@@ -388,10 +388,6 @@ class VendorMainDashboard extends React.Component {
             })
     }
 
-    // componentDidUpdate = () => {
-    //     console.log(this.state.categoriesSelected)
-    // }
-
     convertVendorDataAndSave = (productsRaw) => {
 
         let finalData = [], categoryExists = false
@@ -607,22 +603,31 @@ class VendorMainDashboard extends React.Component {
         }
     }
 
-    deleteCategory = (index) => {
-        this.state.categoriesSelected.splice(index, 1)
+    deleteCategory = (categoryType, index) => {
+        const { categoriesSelected } = this.state;
 
-        let dummyArray = [...this.state.categoriesSelected]
-        this.setState({
-            categoriesSelected: dummyArray,
-            modalClass: "modalClass hide",
-            productManagerWrapperClass: "productManagerWrapperClass",
-            mainContentWrap: "mainContentWrap",
-            vendorInitialGraphic: 'vendorGraphicCenter',
-        })
+        if (categoryType === "main") {
+            categoriesSelected.splice(index, 1)
+
+            let dummyArray = [...categoriesSelected]
+
+
+            this.setState({
+                categoriesSelected: dummyArray,
+                modalClass: "modalClass hide",
+                productManagerWrapperClass: "productManagerWrapperClass",
+                mainContentWrap: "mainContentWrap",
+                vendorInitialGraphic: 'vendorGraphicCenter',
+            })
+        }
+
+        else if (categoryType === "sub") {
+            // console.log(index)
+        }
     }
 
     fetchProductData = (productId) => {
 
-        console.log(productId)
         // create request
 
         const rawData = { productId }
@@ -655,7 +660,6 @@ class VendorMainDashboard extends React.Component {
                 //
                 // DECRYPT RESPONSE DATA
                 //
-                console.log(decryptedData)
 
                 this.setState({
 
@@ -683,7 +687,11 @@ class VendorMainDashboard extends React.Component {
                         categoryName: "",
                         imagesInCategory: decryptedData.productImages
                     },
-                    productThumbImage: decryptedData.productThumbImage
+                    productThumbImage: decryptedData.productThumbImage,
+
+                    subCategoryDataExists: true,
+
+                    // productId
 
                 })
             })
@@ -726,8 +734,7 @@ class VendorMainDashboard extends React.Component {
                     categoryName: title,
                     imagesInCategory: [...dummyArray]
                 }
-
-
+                
 
                 return (
                     <div className="imageSliderWrap">
@@ -744,8 +751,7 @@ class VendorMainDashboard extends React.Component {
                                     modalClass: 'modalClass',
                                     productManagerWrapperClass: "productManagerWrapperClass blurClass",
                                     activeModalType: "subCategoryDetailedPreview",
-                                    itemCode: data.itemCode,
-                                    subCategoryDataExists: "subCategoryDataExists"
+                                    itemCode: data.itemCode
                                 })
                             }}
                         />
@@ -807,12 +813,9 @@ class VendorMainDashboard extends React.Component {
         }
 
 
-            
-
         if (categoriesSelected.length !== 0) {
             return(
                 categoriesSelected.map((item, i) => {
-                    // console.log(item)
                     return (
                         <div key = {i} className="categorisedProductsDisplay">
                             <div className="categorisedProductDisplayInnerLayer">
@@ -826,7 +829,7 @@ class VendorMainDashboard extends React.Component {
                                         // onClick={() => this.deleteCategory(i)}
                                         onClick={() => {
                                             this.setState({
-                                                indexNumber: i,
+                                                mainCategoryIndex: i,
                                                 modalClass: 'modalClass',
                                                 productManagerWrapperClass: "productManagerWrapperClass blurClass",
                                                 activeModalType: "delete"
@@ -841,8 +844,8 @@ class VendorMainDashboard extends React.Component {
                             </div>
                         </div>
                     )
-                
-                })
+                }
+                )
             )
         }
 
@@ -1175,7 +1178,6 @@ class VendorMainDashboard extends React.Component {
                     // Decrypt data
                     // 
 
-                    // console.log(responseData)
                     this.setState({
                         subCategoryArray: responseData.subCategoriesArray
                     })
@@ -1444,6 +1446,27 @@ class VendorMainDashboard extends React.Component {
                     <div className="productImages">
                         <h3>Product Images: </h3> {this.returnArrayFields("images")}
                     </div>
+
+                    <div className="editOrRemoveButtonContainer">
+                        <div className="editButtonContainer">
+                            <WhiteButton
+                                runFunction={() => {
+                                    window.open("/vendor/edit-product/" + this.state.itemCode, "_self")
+                                }}
+                            >
+                                Edit
+                                </WhiteButton>
+                        </div>
+                        <div className="removeButtonContainer">
+                            <WhiteButton
+                                runFunction={() => {
+                                    this.deleteCategory("sub", this.state.productId)
+                                }}
+                            >
+                                Delete
+                                </WhiteButton>
+                        </div>
+                    </div>
                 </div>
             )
         }
@@ -1632,7 +1655,7 @@ class VendorMainDashboard extends React.Component {
                                 </WhiteButton>
                         </div>
                         <div className="yesContainer"
-                            onClick={() => this.deleteCategory(this.state.indexNumber)}>
+                            onClick={() => this.deleteCategory("main", this.state.mainCategoryIndex)}>
                             <WhiteButton>
                                 Yes
                              </WhiteButton>
@@ -1679,17 +1702,7 @@ class VendorMainDashboard extends React.Component {
 
                                 {this.returnSubCategoryDetails()}
                                 
-                        </div>
-                    </div>
-                    <div className="confirmationButtonContainer">
-                        <div className="closeButtonContainer">
-                            <WhiteButton
-                                runFunction={() => { 
-                                    window.open("/vendor/edit-product/" + this.state.itemCode, "_self")
-                                 }}
-                            >
-                                Edit
-                            </WhiteButton>
+                            {/* </div> */}
                         </div>
                     </div>
                 </div>
