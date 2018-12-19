@@ -49,10 +49,26 @@ class VendorMainDashboard extends React.Component {
 
             categoryErrorClass: "errorMessageWrap hide",
             categoryErrorMessage: "",
+            subCategoryDataExists: false,
 
             categoryName: '',
             tagName: '',
             tagsAdded: [],
+
+            colorArray: [],
+
+            // productMinQuantity: undefined,
+            // productMaxQuantity: "",
+
+            productDimensions: [],
+            productMaterials: [],
+            productFinishes: [],
+            productImagesObject: {
+                categoryName: "",
+                imagesInCategory: []
+            },
+            featuresAdded: [],
+            categoryStylesAdded: [],
 
             activeModalType: "categoryModal",
 
@@ -589,17 +605,117 @@ class VendorMainDashboard extends React.Component {
         }
     }
 
-    deleteCategory = (index) => {
-        this.state.categoriesSelected.splice(index, 1)
+    deleteCategory = (categoryType, index) => {
+        const { categoriesSelected } = this.state;
 
-        let dummyArray = [...this.state.categoriesSelected]
-        this.setState({
-            categoriesSelected: dummyArray,
-            modalClass: "modalClass hide",
-            productManagerWrapperClass: "productManagerWrapperClass",
-            mainContentWrap: "mainContentWrap",
-            vendorInitialGraphic: 'vendorGraphicCenter',
-        })
+        if (categoryType === "main") {
+            categoriesSelected.splice(index, 1)
+
+            let dummyArray = [...categoriesSelected]
+
+
+            this.setState({
+                categoriesSelected: dummyArray,
+                modalClass: "modalClass hide",
+                productManagerWrapperClass: "productManagerWrapperClass",
+                mainContentWrap: "mainContentWrap",
+                vendorInitialGraphic: 'vendorGraphicCenter',
+            })
+        }
+
+        else if (categoryType === "sub") {
+            // console.log(index)
+        }
+    }
+
+    fetchProductData = (productId) => {
+
+        // create request
+
+        const rawData = { productId }
+
+        //
+        // Encrypt data
+        //
+        const encryptedData = encryptData(rawData)
+        //
+        // Encrypt data
+        //
+
+
+
+        // GET PRODUCT DATA
+        this.props.hitApi(api.GET_PRODUCT_DATA, "POST",
+            {
+                requestData: encryptedData,
+                message: "Requesting dispatch products"
+            }
+        )
+            .then(() => {
+
+                //
+                // DECRYPT RESPONSE DATA
+                //
+                let decryptedData = decryptData(
+                    this.props.responseData.responsePayload.responseData
+                )
+                //
+                // DECRYPT RESPONSE DATA
+                //
+
+                this.setState({
+
+
+
+                    /// PLACE HERE ////
+                    productName: decryptedData.productName,
+                    productCode: decryptedData.productCode,
+                    productPrice: decryptedData.basePrice,
+                    productMaterials: decryptedData.productMaterials,
+                    featuresAdded: decryptedData.features,
+                    productFinishes: decryptedData.finishingOptions,
+                    colorArray: decryptedData.colorOptions,
+                    productDimensions: decryptedData.sizesAvailable,
+                    productMinQuantity: decryptedData.minQuantity,
+                    productMaxQuantity: decryptedData.maxQuantity,
+                    productDescription: decryptedData.productDescription,
+                    categoryStylesAdded: decryptedData.designStyles,
+                    tagsAdded: decryptedData.tags,
+                    productType: decryptedData.productType,
+                    productAvailability: decryptedData.availability,
+                    productAvailabilityBool: decryptedData.availability,
+                    productDiscount: decryptedData.discount,
+                    productImagesObject: {
+                        categoryName: "",
+                        imagesInCategory: decryptedData.productImages
+                    },
+                    productThumbImage: decryptedData.productThumbImage,
+
+                    subCategoryDataExists: true,
+
+                    // productId
+
+                })
+            })
+
+            .catch((err) => {
+                if (err.response) {
+
+                    // console.log(err.response)
+                    if (err.response.status === 401)
+                        window.open('/log-in', "_self")
+
+                    else {
+                        // window.open('/vendor/dashboard', "_self")
+                    }
+                }
+
+                else {
+                    console.error(err)
+                    // window.open('/vendor/dashboard', "_self")
+                }
+
+            })
     }
 
     returnSubCategoryProducts = (productImages, title) => {
@@ -620,8 +736,7 @@ class VendorMainDashboard extends React.Component {
                     categoryName: title,
                     imagesInCategory: [...dummyArray]
                 }
-
-
+                
 
                 return (
                     <div className="imageSliderWrap">
@@ -629,9 +744,18 @@ class VendorMainDashboard extends React.Component {
                             categoryData={dataObject} // format of Item 
                             numberOfSlides={4} // Change the css grid properties for responsiveness
                             textOnRibbon={"BEST SELLER"} // All caps
-                            runFunction={(data) => { 
-                                window.open("/vendor/edit-product/" + data.itemCode.toLowerCase(), "_self")
-                             }}
+                            // runFunction={(data) => { 
+                            //     window.open("/vendor/edit-product/" + data.itemCode, "_self")
+                            //  }}
+                            runFunction={(data) => {
+                                this.fetchProductData(data.itemCode)
+                                this.setState({
+                                    modalClass: 'modalClass',
+                                    productManagerWrapperClass: "productManagerWrapperClass blurClass",
+                                    activeModalType: "subCategoryDetailedPreview",
+                                    itemCode: data.itemCode
+                                })
+                            }}
                         />
                     </div>
                 )
@@ -691,12 +815,9 @@ class VendorMainDashboard extends React.Component {
         }
 
 
-            
-
         if (categoriesSelected.length !== 0) {
             return(
                 categoriesSelected.map((item, i) => {
-                    // console.log(item)
                     return (
                         <div key = {i} className="categorisedProductsDisplay">
                             <div className="categorisedProductDisplayInnerLayer">
@@ -710,7 +831,7 @@ class VendorMainDashboard extends React.Component {
                                         // onClick={() => this.deleteCategory(i)}
                                         onClick={() => {
                                             this.setState({
-                                                indexNumber: i,
+                                                mainCategoryIndex: i,
                                                 modalClass: 'modalClass',
                                                 productManagerWrapperClass: "productManagerWrapperClass blurClass",
                                                 activeModalType: "delete"
@@ -725,8 +846,8 @@ class VendorMainDashboard extends React.Component {
                             </div>
                         </div>
                     )
-                
-                })
+                }
+                )
             )
         }
 
@@ -1064,7 +1185,6 @@ class VendorMainDashboard extends React.Component {
                     // Decrypt data
                     // 
 
-                    // console.log(responseData)
                     this.setState({
                         subCategoryArray: responseData.subCategoriesArray
                     })
@@ -1129,6 +1249,242 @@ class VendorMainDashboard extends React.Component {
             subCategorySelection : null,
             mainCategorySelection : null
         })
+    }
+
+    returnArrayFields = (fieldName) => {
+        const {
+            productMaterials,
+            featuresAdded,
+            productFinishes,
+            colorArray,
+            productDimensions,
+            categoryStylesAdded,
+            tagsAdded,
+            productImagesObject
+        } = this.state;
+
+        if(fieldName === "materials") {
+            return (
+                productMaterials.map((item, i) => {
+                    return (
+                        <div className="modalContainer" key={i}>
+                            {item.materialName}
+                            Rs. {item.materialCost}
+                        </div>
+                    )
+                })
+            )
+        }
+
+        else if (fieldName === "features") {
+            if (featuresAdded.length !== 0) {
+                return (
+                    featuresAdded.map((item, i) => {
+                        return (
+                            <div className="modalContainer" key={i}>
+                                {item}
+                            </div>
+                        )
+                    })
+                )
+            }
+        }
+
+        else if (fieldName === "finishes") {
+            return (
+                productFinishes.map((item, i) => {
+                    return (
+                        <div className="modalContainer" key={i}>
+                            <img 
+                                src={item.finishImage} 
+                                alt=""
+                                style={{ height: "3em", width: "3em" }}
+                            />
+                            {item.finishName}
+                            {item.finishCode}
+                            Rs. {item.finishCost}
+                        </div>
+                    )
+                })
+            )
+        }
+
+        else if (fieldName === "colors") {
+            return (
+                colorArray.map((item, i) => {
+                    return (
+                        <div 
+                            key={i}
+                            className="modalContainer"  
+                            style={{ background: item.colorCode }}
+                            >
+                                {item.colorName}
+                                Rs. {item.colorCost}
+                        </div>
+                    )
+                })
+            )
+        }
+
+        else if (fieldName === "dimensions") {
+            return (
+                productDimensions.map((item, i) => {
+                    return (
+                        <div className="modalContainer" key={i}>
+                            {item.sizeName}
+                            Rs. {item.sizeCost}
+                        </div>
+                    )
+                })
+            )
+        }
+
+        else if (fieldName === "styles") {
+            return (
+                categoryStylesAdded.map((item, i) => {
+                    return (
+                        <div className="modalContainer" key={i}>
+                           {item.styleName}
+                        </div>
+                    )
+                })
+            )
+        }
+
+        else if (fieldName === "tags") {
+            return (
+                tagsAdded.map((item, i) => {
+                    return (
+                        <div className="modalContainer" key={i}>
+                            {item}
+                        </div>
+                    )
+                })
+            )
+        }
+
+        else if (fieldName === "images") {
+            return (
+                <HtmlSlider
+                    categoryData={productImagesObject} // format of Item 
+                    numberOfSlides={3} // Change the css grid properties for responsiveness
+                    textOnRibbon={"TRENDING NOW"} // All caps
+                    runFunction={(data) => { }}
+                />
+            )
+        }
+    }
+
+    returnSubCategoryDetails = () => {
+
+        const { 
+            productName,
+            productCode,
+            productPrice,
+           
+            productMinQuantity,
+            productMaxQuantity,
+            productDescription,
+            productType,
+            productAvailability,
+            productDiscount,
+            productThumbImage
+        } = this.state;
+
+        if (this.state.subCategoryDataExists) {
+            return (
+                <div className="subCategoryDeatils">
+                    <div className="productThumbImage">
+                        <h3>Product Display: </h3>
+                        <img
+                            src={productThumbImage}
+                            alt=""
+                            style={{ height: "5em", width: "5em" }}
+                        />
+                    </div>
+                    <div className="productName">
+                        <h3>Name: </h3> {productName}
+                    </div>
+                    <div className="productCode">
+                        <h3>Code: </h3> {productCode} 
+                    </div>
+                    <div className="productPrice">
+                        <h3>Price: </h3> {productPrice}
+                    </div>
+                    <div className="productMaterials">
+                        <h3>Material: </h3> {this.returnArrayFields("materials")}
+                    </div>
+                    <div className="productFeatures">
+                        <h3>Features: </h3> {this.returnArrayFields("features")}
+                    </div>
+                    <div className="productFinishes">
+                        <h3>Finishes: </h3> {this.returnArrayFields("finishes")}
+                    </div>
+                    <div className="productColors">
+                        <h3>Colors: </h3> {this.returnArrayFields("colors")}
+                    </div>
+                    <div className="productDimensions">
+                        <h3>Dimensions: </h3> {this.returnArrayFields("dimensions")}
+                    </div>
+                    <div className="productMinQuantity">
+                        <h3>Min Quantity: </h3> {productMinQuantity}
+                    </div>
+                    <div className="productMaxQuantity">
+                        <h3>Max Quantity: </h3> {productMaxQuantity}
+                    </div>
+                    <div className="productDescription">
+                        <h3>Description: </h3> {productDescription}
+                    </div>
+                    <div className="productStyles">
+                        <h3>Styles: </h3> {this.returnArrayFields("styles")}
+                    </div>
+                    <div className="productTags">
+                        <h3>Tags: </h3> {this.returnArrayFields("tags")}
+                    </div>
+                    <div className="productType">
+                        <h3>Type of the Product: </h3> {productType}
+                    </div>
+                    <div className="productAvailability">
+                        <h3>Availability: </h3> {productAvailability === false ? "No" : "Yes"}
+                    </div>
+                    <div className="productDiscount">
+                        <h3>Product Discount: </h3> {productDiscount}%
+                    </div>
+                    <div className="productImages">
+                        <h3>Product Images: </h3> {this.returnArrayFields("images")}
+                    </div>
+
+                    <div className="editOrRemoveButtonContainer">
+                        <div className="editButtonContainer">
+                            <WhiteButton
+                                runFunction={() => {
+                                    window.open("/vendor/edit-product/" + this.state.itemCode, "_self")
+                                }}
+                            >
+                                Edit
+                                </WhiteButton>
+                        </div>
+                        <div className="removeButtonContainer">
+                            <WhiteButton
+                                runFunction={() => {
+                                    this.deleteCategory("sub", this.state.productId)
+                                }}
+                            >
+                                Delete
+                                </WhiteButton>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+
+        else{
+            return (
+                <div className="loadingButton">
+                    <NavBarLoadingIcon />
+                </div>
+            )
+        }
     }
 
     returnModalContent = (categoryModalOrSubcategoryModal) => {
@@ -1306,7 +1662,7 @@ class VendorMainDashboard extends React.Component {
                                 </WhiteButton>
                         </div>
                         <div className="yesContainer"
-                            onClick={() => this.deleteCategory(this.state.indexNumber)}>
+                            onClick={() => this.deleteCategory("main", this.state.mainCategoryIndex)}>
                             <WhiteButton>
                                 Yes
                              </WhiteButton>
@@ -1337,6 +1693,23 @@ class VendorMainDashboard extends React.Component {
                             >
                                 Okay
                             </WhiteButton>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+
+        else if (categoryModalOrSubcategoryModal === "subCategoryDetailedPreview") {
+            return (
+                <div className="modalCategoryDeleteContainer">
+                    <div className="modalHeaderCloserSection">
+                        <div className="modalHeaderContainer">
+                            <h3>Details of the product</h3>
+                            <div className="line"></div>
+
+                                {this.returnSubCategoryDetails()}
+                                
+                            {/* </div> */}
                         </div>
                     </div>
                 </div>

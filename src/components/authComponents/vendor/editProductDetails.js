@@ -160,11 +160,11 @@ class EditProductDetails extends React.Component {
                 // console.log(pId)
 
                 //
-                // DECRYPT REQUEST DATA
+                // DECRYPT RESPONSE DATA
                 //
                 let decryptedData = decryptData(userData.responseData)
                 //
-                // DECRYPT REQUEST DATA
+                // DECRYPT RESPONSE DATA
                 //
 
                 const rawData = { productId : pId.toUpperCase() }
@@ -180,7 +180,7 @@ class EditProductDetails extends React.Component {
                 
  
 
-                // GET PRODUCT TYPES
+                // GET PRODUCT DATA
                 this.props.hitApi(api.GET_PRODUCT_DATA,"POST",
                     {
                         requestData : encryptedData,
