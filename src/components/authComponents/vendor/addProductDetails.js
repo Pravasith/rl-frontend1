@@ -2913,7 +2913,7 @@ class AddProductDetails extends React.Component {
                                         <header className="vendorFormHeading">
 
                                             <div className="headingArea">
-                                                <h3 className="headingClass">Product Manager</h3>
+                                                <h3 className="headingClass">Add new product</h3>
 
                                                 <div className="line"></div>
                                             </div>

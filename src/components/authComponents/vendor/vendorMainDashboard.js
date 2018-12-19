@@ -630,7 +630,7 @@ class VendorMainDashboard extends React.Component {
                             numberOfSlides={4} // Change the css grid properties for responsiveness
                             textOnRibbon={"BEST SELLER"} // All caps
                             runFunction={(data) => { 
-                                window.open("/vendor/edit-product/" + data.itemCode, "_self")
+                                window.open("/vendor/edit-product/" + data.itemCode.toLowerCase(), "_self")
                              }}
                         />
                     </div>
