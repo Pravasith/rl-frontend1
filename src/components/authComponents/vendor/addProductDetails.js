@@ -2696,9 +2696,6 @@ class AddProductDetails extends React.Component {
                             </article>
                             
                         </div>
-                        {/* <div className="deleteCLass">
-                                {returnAlertModalContent()}
-                        </div> */}
                     </div>
                 </div>
             </div>
