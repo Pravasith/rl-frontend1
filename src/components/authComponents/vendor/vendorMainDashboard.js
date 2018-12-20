@@ -1536,7 +1536,7 @@ class VendorMainDashboard extends React.Component {
                         </div>
                    </div>
 
-                    <div className="editOrRemoveButtonContainer">
+                    {/* <div className="editOrRemoveButtonContainer">
                         <div className="editButtonContainer">
                             <WhiteButton
                                 runFunction={() => {
@@ -1555,7 +1555,7 @@ class VendorMainDashboard extends React.Component {
                                 Delete
                              </WhiteButton>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             )
         }
@@ -1814,6 +1814,15 @@ class VendorMainDashboard extends React.Component {
                             >
                                 Edit
                             </WhiteButton>
+                        </div>
+                        <div className="removeButtonContainer">
+                            <WhiteButton
+                                runFunction={() => {
+                                    this.deleteCategory("sub", this.state.productId)
+                                }}
+                            >
+                                Delete
+                             </WhiteButton>
                         </div>
                     </div>
                 </div>

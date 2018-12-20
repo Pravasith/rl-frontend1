@@ -1175,7 +1175,7 @@ input{
                                         }
                                         p{
                                             color: $primaryMagenta; 
-                                            font-size: 1em;
+                                            font-size: 0.9em;
                                         }
                                     }
                                     .productAvailability{
@@ -1186,7 +1186,7 @@ input{
                                         }
                                         p{
                                             color: $primaryMagenta; 
-                                            font-size: 1em;
+                                            font-size: 0.9em;
                                             margin-left: 1em;
                                         }
                                     }
@@ -1198,7 +1198,7 @@ input{
                                         }
                                         p{
                                             color: $primaryMagenta; 
-                                            font-size: 1em;
+                                            font-size: 0.9em;
                                             margin-left: 1em;
                                         }
                                     }
@@ -1220,6 +1220,10 @@ input{
                                 }
                             }
                         }
+                    }
+                    .confirmationButtonContainer{
+                        @include flexCentreRow;
+                        margin: 0.5em 0; 
                     }
                 }
               }
