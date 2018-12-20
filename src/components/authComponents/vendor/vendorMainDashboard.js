@@ -1305,13 +1305,13 @@ class VendorMainDashboard extends React.Component {
                                 </div>
                                 <div className="finishInformation">
                                     <div className="finishName">
-                                        <h3>Finish Name </h3> <p>{item.finishName}</p>
+                                        <h3>Finish Name: </h3> <p>{item.finishName}</p>
                                     </div>
                                     <div className="finishCode">
-                                        <h3>Finish Code </h3>  <p>{item.finishCode}</p>
+                                        <h3>Finish Code: </h3>  <p>{item.finishCode}</p>
                                     </div>
                                     <div className="finishCost">
-                                        <h3>Finish Cost </h3>  <p>Rs. {item.finishCost}</p>
+                                        <h3>Finish Cost: </h3>  <p>Rs. {item.finishCost}</p>
                                     </div>
                                 </div>
                             </div>
@@ -1361,10 +1361,10 @@ class VendorMainDashboard extends React.Component {
                         <div className="productDimensionUpperContainer">
                             <div className="modalContainer" key={i}>
                                 <div className="dimensionSize">
-                                    <h3>Size </h3> <p>{item.sizeName}</p>
+                                    <h3>Size: </h3> <p>{item.sizeName}</p>
                                 </div>
                                 <div className="dimensionCost">
-                                    <h3>Size Cost </h3> <p>Rs. {item.sizeCost}</p>
+                                    <h3>Cost: </h3> <p>Rs. {item.sizeCost}</p>
                                 </div>
                             </div>
                         </div>
@@ -1434,6 +1434,13 @@ class VendorMainDashboard extends React.Component {
                 <div className="subCategoryDeatilsInnerLayer">
                     <div className="productImageCategoryOuterLayer">
                         <div className="productImageCategoryInnerLayer">
+                            <div className="productThumbImage">
+                                <h3>Thumbnail Image: </h3>
+                                <img
+                                    src={productThumbImage}
+                                    alt=""
+                                />
+                            </div>
                             <div className="productThumbImageCategoryContainer">
                                 <div className="productName">
                                     <h3>Name: </h3> 
@@ -1448,13 +1455,7 @@ class VendorMainDashboard extends React.Component {
                                     <p>Rs.{productPrice}</p> 
                                 </div>
                             </div>
-                            <div className="productThumbImage">
-                                <h3>Product Display: </h3>
-                                <img
-                                    src={productThumbImage}
-                                    alt=""
-                                />
-                            </div>
+                            
                         </div>
                     </div>
                     <div className="productMaterialsInformationColumn">
