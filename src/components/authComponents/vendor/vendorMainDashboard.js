@@ -1258,9 +1258,17 @@ class VendorMainDashboard extends React.Component {
             return (
                 productMaterials.map((item, i) => {
                     return (
-                        <div className="modalContainer" key={i}>
-                            {item.materialName}
-                            Rs. {item.materialCost}
+                        <div className="modalContainerUpperContainer">
+                            <div className="modalContainer" key={i}>
+                                <div className="modalContainerInnerLayer">
+                                    <div className="materialName">
+                                        <h3>Name: </h3> <p>{item.materialName}</p>
+                                    </div>
+                                    <div className="materialCost">
+                                        <h3>Price:</h3> <p>Rs. {item.materialCost}</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     )
                 })
@@ -1273,7 +1281,9 @@ class VendorMainDashboard extends React.Component {
                     featuresAdded.map((item, i) => {
                         return (
                             <div className="modalContainer" key={i}>
-                                {item}
+                                <div className="modalContainerInnerLayer">
+                                    <p>{item}</p>
+                                </div>
                             </div>
                         )
                     })
@@ -1285,15 +1295,26 @@ class VendorMainDashboard extends React.Component {
             return (
                 productFinishes.map((item, i) => {
                     return (
-                        <div className="modalContainer" key={i}>
-                            <img 
-                                src={item.finishImage} 
-                                alt=""
-                                style={{ height: "3em", width: "3em" }}
-                            />
-                            {item.finishName}
-                            {item.finishCode}
-                            Rs. {item.finishCost}
+                        <div className="modalContainerUpperContainer">
+                            <div className="modalContainer" key={i}>
+                                <div className="finishImageContainer">
+                                    <img 
+                                        src={item.finishImage} 
+                                        alt=""
+                                    />
+                                </div>
+                                <div className="finishInformation">
+                                    <div className="finishName">
+                                        <h3>Finish Name </h3> <p>{item.finishName}</p>
+                                    </div>
+                                    <div className="finishCode">
+                                        <h3>Finish Code </h3>  <p>{item.finishCode}</p>
+                                    </div>
+                                    <div className="finishCost">
+                                        <h3>Finish Cost </h3>  <p>Rs. {item.finishCost}</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     )
                 })
@@ -1304,13 +1325,29 @@ class VendorMainDashboard extends React.Component {
             return (
                 colorArray.map((item, i) => {
                     return (
-                        <div 
-                            key={i}
-                            className="modalContainer"  
-                            style={{ background: item.colorCode }}
+                        <div className="modalContainer" 
+                             key={i}
                             >
-                                {item.colorName}
-                                Rs. {item.colorCost}
+                            <div className="modalContainerInnerLayer">
+                                <div className="contentColorContainer">
+                                    <div 
+                                        className="colorDetails"
+                                        style={{background : item.colorCode}}
+                                    >
+                                    </div>
+                                </div>
+                                <div className="contentColorValuesContainer">
+                                    <div className="colorNameContainer">
+                                        <h3>Color: </h3> <p>{item.colorName}</p>
+                                    </div>
+                                    <div className="colorHexCodeContainer">
+                                        <h3>Color Code: </h3> <p>{item.colorCode}</p>
+                                    </div>
+                                    <div className="colorExtraCostContainer">
+                                        <h3>Color Cost: </h3> <p>Rs. {item.colorCost}</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     )
                 })
@@ -1321,9 +1358,15 @@ class VendorMainDashboard extends React.Component {
             return (
                 productDimensions.map((item, i) => {
                     return (
-                        <div className="modalContainer" key={i}>
-                            {item.sizeName}
-                            Rs. {item.sizeCost}
+                        <div className="productDimensionUpperContainer">
+                            <div className="modalContainer" key={i}>
+                                <div className="dimensionSize">
+                                    <h3>Size </h3> <p>{item.sizeName}</p>
+                                </div>
+                                <div className="dimensionCost">
+                                    <h3>Size Cost </h3> <p>Rs. {item.sizeCost}</p>
+                                </div>
+                            </div>
                         </div>
                     )
                 })
@@ -1335,7 +1378,9 @@ class VendorMainDashboard extends React.Component {
                 categoryStylesAdded.map((item, i) => {
                     return (
                         <div className="modalContainer" key={i}>
-                           {item.styleName}
+                            <div className="modernContainerInnerLayer">
+                                <p>{item.styleName}</p>
+                            </div>
                         </div>
                     )
                 })
@@ -1347,7 +1392,9 @@ class VendorMainDashboard extends React.Component {
                 tagsAdded.map((item, i) => {
                     return (
                         <div className="modalContainer" key={i}>
-                            {item}
+                            <div className="modalContainerInnerLayer">
+                                <p>{item}</p>
+                            </div>
                         </div>
                     )
                 })
@@ -1384,66 +1431,107 @@ class VendorMainDashboard extends React.Component {
 
         if (this.state.subCategoryDataExists) {
             return (
-                <div className="subCategoryDeatils">
-                    <div className="productThumbImage">
-                        <h3>Product Display: </h3>
-                        <img
-                            src={productThumbImage}
-                            alt=""
-                            style={{ height: "5em", width: "5em" }}
-                        />
+                <div className="subCategoryDeatilsInnerLayer">
+                    <div className="productImageCategoryOuterLayer">
+                        <div className="productImageCategoryInnerLayer">
+                            <div className="productThumbImageCategoryContainer">
+                                <div className="productName">
+                                    <h3>Name: </h3> 
+                                    <p>{productName}</p>
+                                </div>
+                                <div className="productCode">
+                                    <h3>Code: </h3>
+                                    <p>{productCode}</p>
+                                </div>
+                                <div className="productPrice">
+                                    <h3>Price: </h3> 
+                                    <p>Rs.{productPrice}</p> 
+                                </div>
+                            </div>
+                            <div className="productThumbImage">
+                                <h3>Product Display: </h3>
+                                <img
+                                    src={productThumbImage}
+                                    alt=""
+                                />
+                            </div>
+                        </div>
                     </div>
-                    <div className="productName">
-                        <h3>Name: </h3> {productName}
-                    </div>
-                    <div className="productCode">
-                        <h3>Code: </h3> {productCode} 
-                    </div>
-                    <div className="productPrice">
-                        <h3>Price: </h3> {productPrice}
-                    </div>
-                    <div className="productMaterials">
-                        <h3>Material: </h3> {this.returnArrayFields("materials")}
-                    </div>
-                    <div className="productFeatures">
-                        <h3>Features: </h3> {this.returnArrayFields("features")}
-                    </div>
-                    <div className="productFinishes">
-                        <h3>Finishes: </h3> {this.returnArrayFields("finishes")}
-                    </div>
-                    <div className="productColors">
-                        <h3>Colors: </h3> {this.returnArrayFields("colors")}
-                    </div>
-                    <div className="productDimensions">
-                        <h3>Dimensions: </h3> {this.returnArrayFields("dimensions")}
-                    </div>
-                    <div className="productMinQuantity">
-                        <h3>Min Quantity: </h3> {productMinQuantity}
-                    </div>
-                    <div className="productMaxQuantity">
-                        <h3>Max Quantity: </h3> {productMaxQuantity}
-                    </div>
-                    <div className="productDescription">
-                        <h3>Description: </h3> {productDescription}
-                    </div>
-                    <div className="productStyles">
-                        <h3>Styles: </h3> {this.returnArrayFields("styles")}
-                    </div>
-                    <div className="productTags">
-                        <h3>Tags: </h3> {this.returnArrayFields("tags")}
-                    </div>
-                    <div className="productType">
-                        <h3>Type of the Product: </h3> {productType}
-                    </div>
-                    <div className="productAvailability">
-                        <h3>Availability: </h3> {productAvailability === false ? "No" : "Yes"}
-                    </div>
-                    <div className="productDiscount">
-                        <h3>Product Discount: </h3> {productDiscount}%
-                    </div>
-                    <div className="productImages">
-                        <h3>Product Images: </h3> {this.returnArrayFields("images")}
-                    </div>
+                    <div className="productMaterialsInformationColumn">
+                        <div className="productMaterialInformationInnerLayer">
+                            <div className="productMaterialUpperLayer">
+                                <h3>Material </h3>
+                                <div className="productMaterials">
+                                    {this.returnArrayFields("materials")}
+                                </div>                            
+                            </div>
+
+                            <div className="productFeatures">
+                                <h3>Features </h3> 
+                                <div className="productFeaturesOuterLayer">
+                                    {this.returnArrayFields("features")}
+                                </div>
+                            </div>
+                            <div className="productFinishes">
+                                <h3>Finishes </h3>
+                                <div className="productFinishesOuterLayer">
+                                    {this.returnArrayFields("finishes")}
+                                </div>
+                            </div>
+                            <div className="productColors">
+                                <h3>Colors </h3> 
+                                <div className="productColorOuterLayer">
+                                    {this.returnArrayFields("colors")}
+                                </div>
+                            </div>
+                            <div className="productDimensions">
+                                <h3>Dimensions </h3> 
+                                <div className="productDimensionsOuterLayer">
+                                    {this.returnArrayFields("dimensions")}
+                                </div>
+                            </div>
+                            <div className="productMinQuantity">
+                                <h3>Min Quantity </h3> 
+                                <p>{productMinQuantity}</p>   
+                            </div>
+                            <div className="productMaxQuantity">
+                                <h3>Max Quantity </h3>
+                                <p>{productMaxQuantity}</p>
+                            </div>
+                            <div className="productDescription">
+                                <h3>Product description </h3> 
+                                <p>{productDescription}</p>
+                            </div>
+                            <div className="productStyles">
+                                <h3>Design Styles </h3> 
+                                <div className="productStylesOuterLayer">
+                                    {this.returnArrayFields("styles")}
+                                </div>
+                            </div>
+                            <div className="productTags">
+                                <h3>Tags </h3> 
+                                <div className="productTagsOuterLayer">
+                                    {this.returnArrayFields("tags")}
+                                </div>
+                            </div>
+                            <div className="productType">
+                                <h3>Type of the Product </h3>
+                                <p>{productType}</p>
+                            </div>
+                            <div className="productAvailability">
+                                <h3>Product Availability </h3> 
+                                <p>{productAvailability === false ? "No" : "Yes"}</p>
+                            </div>
+                            <div className="productDiscount">
+                                <h3>Product Discount </h3> 
+                                <p>{productDiscount}%</p>  
+                            </div>
+                            <div className="productImages">
+                            <h3>Product Images </h3> 
+                                {this.returnArrayFields("images")}
+                        </div>
+                        </div>
+                   </div>
                 </div>
             )
         }
@@ -1671,15 +1759,27 @@ class VendorMainDashboard extends React.Component {
 
         else if (categoryModalOrSubcategoryModal === "subCategoryDetailedPreview") {
             return (
-                <div className="modalCategoryDeleteContainer">
+                <div className="modalEditCategoryContainer">
                     <div className="modalHeaderCloserSection">
                         <div className="modalHeaderContainer">
                             <h3>Details of the product</h3>
                             <div className="line"></div>
-
-                                {this.returnSubCategoryDetails()}
-                                
                         </div>
+                        <div
+                            className="close"
+                            onClick={() => this.setState({
+                                modalClass: "modalClass hide",
+                                mainContentWrap: "mainContentWrap",
+                                productManagerWrapperClass: "productManagerWrapperClass",
+                                vendorInitialGraphic: 'vendorGraphicCenter',
+                            })
+                            }
+                        >
+                            <BigCloseButton />
+                        </div>
+                    </div>
+                    <div className="productEditInformationContainer">
+                        {this.returnSubCategoryDetails()}
                     </div>
                     <div className="confirmationButtonContainer">
                         <div className="closeButtonContainer">
