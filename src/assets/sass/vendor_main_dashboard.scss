@@ -84,35 +84,38 @@ input{
                 margin-top: 4%;
                 .modalOuterLayer{
                    @include flexCentreRow;
-                   height: 85%;
-                   .modalCategoryDeleteContainer{
-                       @include flexCentreCol;
-                        justify-content: flex-start;
-                        width: 30%;
-                        height: 8em;
-                        margin: 0.5em;
-                        background: $white;
-                        @include box_shadow;
+                //    height: 85%;
+                    height: 100%;
 
-                      .modalHeaderContainer{
-                            @include flexCentreCol;
-                            margin-top: 0.5em;
-                            // width: 85%;
-                            h3{
-                                text-align: center;
-                            }
-                            .line{
-                                width: 30%;
-                                height: 0.1em;
-                                background: $secondaryMagenta;
-                            }
+                .modalCategoryDeleteContainer{
+                    @include flexCentreCol;
+                    justify-content: flex-start;
+                    width: 30%;
+                    height: 8em;
+                    margin: 0.5em;
+                    background: $white;
+                    @include box_shadow;
+
+                    .modalHeaderContainer{
+                        @include flexCentreCol;
+                        margin-top: 0.5em;
+                        // width: 85%;
+                        h3{
+                            text-align: center;
                         }
-                       
-                    .confirmationButtonContainer{
-                        @include flexCentreRow;
-                        margin: 0.5em 0; 
-                    }   
-                   }
+                        .line{
+                            width: 30%;
+                            height: 0.1em;
+                            background: $secondaryMagenta;
+                        }
+                    }
+                    
+                .confirmationButtonContainer{
+                    @include flexCentreRow;
+                    margin: 0.5em 0; 
+                }   
+                }
+
                 .modalInnerLayer{
                     @include flexCentreCol;
                     justify-content: flex-start;
@@ -641,6 +644,588 @@ input{
                         width: 100%;
                     }
                     
+                }
+
+                .modalEditCategoryContainer{
+                    @include flexCentreCol;
+                    justify-content: flex-start;
+                    width: 70%;
+                    height: 35em;
+                    padding: 0.5em;
+                    background: $white;
+                    @include box_shadow;
+
+                    .modalHeaderCloserSection{
+                        @include flexCentreRow;
+                        width: 100%;
+                        .modalHeaderContainer{
+                            @include flexCentreCol;
+                            margin-top: 0.5em;
+                            width: 95%;
+                            h3{
+                                text-align: center;
+                            }
+                            .line{
+                                width: 15%;
+                                height: 0.1em;
+                                background: $secondaryMagenta;
+                            }
+                        }
+                        .close{
+                            cursor: pointer;
+                        }
+                    }
+
+                    .productEditInformationContainer{
+                        @include flexCentreRow;
+                        width: 100%;
+                        margin: 0.5em 0;
+                        .subCategoryDeatilsInnerLayer{
+                            @include flexCentreRow;
+                            align-items: flex-start;
+                            width: 100%;
+                            .productImageCategoryOuterLayer{
+                                @include flexCentreRow;
+                                width: 30%;
+                                .productImageCategoryInnerLayer{
+                                    @include flexCentreCol;
+                                    justify-content: flex-start;
+                                    align-items: flex-start;
+                                    margin-top: 0.7em;
+                                    width: 85%;
+                                    .productThumbImage{
+                                        @include flexCentreCol;
+                                        align-items: flex-start;
+                                        width: 100%;
+                                        h3{
+                                            color :$darkerGrey;
+                                        }
+                                        img{
+                                            height: 10em;
+                                            width: 100%;
+                                            object-fit: cover;
+                                            margin-top: 0.5em;
+                                        }
+                                    }
+                                    .productThumbImageCategoryContainer{
+                                        @include flexCentreCol;
+                                        align-items: flex-start;
+                                        width: 100%;
+                                        margin-top: 0.7em;
+                                        .productName{
+                                            @include flexCentreRow;
+                                            justify-content: space-between;
+                                            width: 100%;
+                                            h3{
+                                                font-size: 0.8em;
+                                            }
+                                            p{
+                                                color: $primaryMagenta;
+                                                font-size: 0.9em;
+                                                width: 80%;
+                                            }
+                                        }
+                                        .productCode{
+                                            @include flexCentreRow;
+                                            justify-content: space-between;
+                                            width: 100%;
+                                            h3{
+                                                font-size: 0.8em;
+                                            }
+                                            p{
+                                                color: $primaryMagenta;
+                                                font-size: 0.9em;
+                                                width: 80%;
+                                            }
+                                        }
+                                        .productPrice{
+                                            @include flexCentreRow;
+                                            justify-content: space-between;
+                                            width: 100%;
+                                            h3{
+                                                font-size: 0.8em;
+                                            }
+                                            p{
+                                                color: $primaryMagenta;
+                                                font-size: 0.9em;
+                                                width: 80%;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            .productMaterialsInformationColumn{
+                                width: 65%;
+                                height: 68vh;
+                                overflow-y: auto;
+                                .productMaterialInformationInnerLayer{
+                                    @include flexCentreCol;
+                                    align-items: flex-start;
+                                    width: 97%;
+
+                                    .productMaterialUpperLayer{
+                                        @include flexCentreCol;
+                                        align-items: flex-start;
+                                        width: 100%;
+                                        margin: 0.7em 0;
+                                        h3{
+                                            color: $darkerGrey;
+                                        }
+                                        .productMaterials{
+                                            display: grid;
+                                            grid-template-columns: 1fr 1fr ;
+                                            width: 100%;
+                                            .modalContainerUpperContainer{
+                                                @include flexCentreRow;
+                                                width: 100%;
+                                                .modalContainer{
+                                                    @include flexCentreRow;
+                                                    width: 100%;
+                                                    .modalContainerInnerLayer{
+                                                        @include flexCentreCol;
+                                                        align-items: flex-start;
+                                                        width: 100%;
+                                                        padding: 0.5em;
+                                                        margin: 0.5em;
+                                                        background: $lightGrey;
+                                                    
+                                                        .materialName{
+                                                            @include flexCentreRow;
+                                                            justify-content: space-between;                                                            width: 100%;
+                                                            h3{
+                                                                color: $darkGrey;
+                                                                font-size: 0.8em;
+                                                                
+                                                            }
+                                                            p{
+                                                                color: $primaryMagenta; 
+                                                                font-size: 0.9em;
+                                                                width: 80%;
+                                                            }
+                                                        }
+                                                        .materialCost{
+                                                            @include flexCentreRow;
+                                                            justify-content: space-between;
+                                                            width: 100%;
+                                                            h3{
+                                                                color: $darkGrey;
+                                                                font-size: 0.8em;
+                                                           
+                                                            }
+                                                            p{
+                                                                color: $primaryMagenta; 
+                                                                font-size: 0.9em;
+                                                                width: 80%;
+                                                            }
+                                                        }
+                                                    
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    .productFeatures{
+                                        width: 100%;
+                                        margin: 0.7em 0;
+                                        h3{
+                                            color: $darkerGrey;
+                                        }
+                                        .productFeaturesOuterLayer{
+                                            width: 94%;
+                                            margin-top: 0.5em;
+                                            padding: 0.2em;
+                                            .modalContainer{
+                                                display: inline-flex;
+                                                background: $darkerGrey;
+                                                margin: 0.5em;
+                                                .modalContainerInnerLayer{
+                                                    @include flexCentreRow;
+                                                    margin: 0.3em;
+                                                    p{
+                                                        color: $white;
+                                                        margin: 0.3em;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    .productFinishes{
+                                        width: 100%;
+                                        margin: 0.7em 0;
+                                        h3{
+                                            color: $darkerGrey;
+                                        }
+                                        .productFinishesOuterLayer{
+                                            width: 100%;
+                                            .modalContainerUpperContainer{
+                                                @include flexCentreRow;
+                                                margin: 0.5em 0;
+                                                background: $lightGrey;
+                                                padding: 0.5em 1em;
+                                                margin: 0.5em 0;
+                                                .modalContainer{
+                                                    @include flexCentreRow;
+                                                    justify-content: flex-start;
+                                                    align-items: flex-start;
+                                                    width: 100%;
+                                                    
+                                                    .finishImageContainer{
+                                                        img{
+                                                            width: 5em;
+                                                            height: 5em;
+                                                            object-fit: cover;
+                                                        }
+                                                    }
+                                                    .finishInformation{
+                                                        @include flexCentreCol;
+                                                        align-items: flex-start;
+                                                        width: 90%;
+                                                        margin-left: 1em;
+                                                        .finishName{
+                                                            @include flexCentreRow;
+                                                            justify-content: space-between;
+                                                            width: 100%;
+                                                            h3{
+                                                                color: $darkGrey;
+                                                                font-size: 0.8em
+                                                            }
+                                                            p{
+                                                                color: $primaryMagenta; 
+                                                                font-size: 0.9em;
+                                                                margin-left: 0.5em;
+                                                                width: 80%;
+                                                            }
+                                                        }
+                                                        .finishCode{
+                                                            @include flexCentreRow;
+                                                            justify-content: space-between;
+                                                            width: 100%;
+                                                            h3{
+                                                                color: $darkGrey;
+                                                                font-size: 0.8em;
+                                                            }
+                                                            p{
+                                                                color: $primaryMagenta; 
+                                                                font-size: 0.9em;
+                                                                margin-left: 0.5em;
+                                                                width: 80%;
+                                                            }
+                                                        }
+                                                        .finishCost{
+                                                            @include flexCentreRow;
+                                                            justify-content: space-between;
+                                                            width: 100%;
+                                                            h3{
+                                                                color: $darkGrey;
+                                                                font-size: 0.8em
+                                                            }
+                                                            p{
+                                                                color: $primaryMagenta; 
+                                                                font-size: 0.9em;
+                                                                margin-left: 0.5em;
+                                                                width: 80%;
+                                                            } 
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    .productColors{
+                                        width: 100%;
+                                        margin: 0.7em 0;
+                                        h3{
+                                            color: $darkerGrey;
+                                        }
+                                        .productColorOuterLayer{
+                                            margin-bottom: 0.5em;
+                                            display: grid;
+                                            grid-template-columns: 1fr 1fr;
+                                            .modalContainer{
+                                                width: 16em;
+                                                margin: 0.3em;
+                                                padding: 0.5em;
+                                                @include box_shadow;
+                                                .modalContainerInnerLayer{
+                                                    @include flexCentreRow;
+                                                    align-items: flex-start;
+                                                    .contentColorContainer{
+                                                        @include flexCentreRow;
+                                                        // width: 100%;
+                                                        margin-right: 0.8em;
+                                                        align-items: flex-start;
+                                                        justify-content: space-between;
+                                                        .colorDetails{
+                                                            width: 4em;
+                                                            height: 4em;
+                                                            padding: 0.2em;
+                                                            @include box_shadow;
+                                                        }
+                                                    }
+                                                    .contentColorValuesContainer{
+                                                        @include flexCentreCol;
+                                                        width: 100%;
+                                                        align-items: flex-start;
+                                                        .colorNameContainer{
+                                                            @include flexCentreRow;
+                                                            // margin: 0.3em 0;
+                                                            h3{
+                                                                color: $darkGrey;
+                                                                font-size: 0.8em;
+                                                            }
+                                                            p{
+                                                                color: $primaryMagenta; 
+                                                                font-size: 0.9em;
+                                                                margin-left: 0.5em;
+                                                            }
+                                                        }
+                                                        .colorHexCodeContainer{
+                                                            @include flexCentreRow;
+                                                            margin: 0.3em 0;
+                                                            h3{
+                                                                color: $darkGrey;
+                                                                font-size: 0.8em;
+                                                            }
+                                                            p{
+                                                                color: $primaryMagenta; 
+                                                                font-size: 0.9em;
+                                                                margin-left: 0.5em;
+                                                            }
+                                                        }
+                                                        .colorExtraCostContainer{
+                                                            @include flexCentreRow;
+                                                            h3{
+                                                                color: $darkGrey;
+                                                                font-size: 0.8em;
+                                                            }
+                                                            p{
+                                                                color: $primaryMagenta; 
+                                                                font-size: 0.9em;
+                                                                margin-left: 0.5em;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        .modalContainer{
+                                            h3{
+                                                color: $darkGrey;
+                                            }
+                                            p{
+                                                color: $primaryMagenta; 
+                                                font-size: 1em;
+                                            }
+                                        }
+                                    }
+
+                                    .productDimensions{
+                                        width: 100%;
+                                        margin: 0.7em 0;
+                                        h3{
+                                            color: $darkerGrey;
+                                        }
+                                        .productDimensionsOuterLayer{
+                                            display: grid;
+                                            grid-template-columns: 1fr 1fr;
+                                            width: 100%;
+                                            .productDimensionUpperContainer{
+                                                @include flexCentreRow;
+                                                width: 80%;
+                                                margin: 0.5em 0;
+                                                background: $lightGrey;
+                                                padding: 0.5em 1em;
+                                                .modalContainer{
+                                                    @include flexCentreCol;
+                                                    justify-content: flex-start;
+                                                    align-items: flex-start;
+                                                    width: 100%;
+                                                    .dimensionSize{
+                                                        @include flexCentreRow;
+                                                        justify-content: space-between;
+                                                        width: 100%;
+                                                        h3{
+                                                            color: $darkGrey;
+                                                            font-size: 0.8em
+                                                        }
+                                                        p{
+                                                            color: $primaryMagenta; 
+                                                            font-size: 0.9em;
+                                                            width: 80%;
+                                                        }
+                                                    }
+                                                    .dimensionCost{
+                                                        @include flexCentreRow;
+                                                        justify-content: space-between;
+                                                        width: 100%;
+                                                        h3{
+                                                            color: $darkGrey;
+                                                            font-size: 0.8em
+                                                        }
+                                                        p{
+                                                            color: $primaryMagenta; 
+                                                            font-size: 0.9em;
+                                                            width: 80%;
+                                                             
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    .productMinQuantity{
+                                        width: 100%;
+                                        margin: 0.7em 0;
+                                        h3{
+                                            color: $darkerGrey;
+                                        }
+                                        p{
+                                            color: $primaryMagenta; 
+                                            font-size: 0.9em;
+                                            margin-left: 1em;
+                                        }
+                                    }
+                                    .productMaxQuantity{
+                                        width: 100%;
+                                        margin: 0.7em 0;
+                                        h3{
+                                            color: $darkerGrey;
+                                        }
+                                        p{
+                                            color: $primaryMagenta; 
+                                            font-size: 0.9em;
+                                            margin-left: 1em;
+                                        }
+
+                                    }
+                                    .productDescription{
+                                        width: 100%;
+                                        margin: 0.7em 0;
+                                        h3{
+                                            color: $darkerGrey;
+                                        }
+                                        p{
+                                            color: $darkGrey; 
+                                            font-size: 0.9em;
+                                            margin-left: 1em;
+                                        }
+
+                                    }
+                                    .productStyles{
+                                        width: 100%;
+                                        margin: 0.7em 0;
+                                        h3{
+                                            color: $darkerGrey;
+                                        }
+                                        .productStylesOuterLayer{
+                                            width: 94%;
+                                            padding: 0.2em;
+                                            margin-top: 0.5em;
+                                                .modalContainer{
+                                                    display: inline-flex;
+                                                    margin: 0.5em;
+                                                    background: $darkerGrey;
+                                                    margin: 0 0.5em;
+                                                    .modernContainerInnerLayer{
+                                                        @include flexCentreRow;
+                                                        margin: 0.3em;
+                                                        p{
+                                                            color: $white;
+                                                            margin: 0.3em;
+                                                        }
+                                                    }
+                                                }
+                                            
+                                        }
+                                    }
+                                    .productTags{
+                                        width: 100%;
+                                        margin: 0.7em 0;
+                                        h3{
+                                            color: $darkerGrey;
+                                        }
+                                        .productTagsOuterLayer{
+                                            width: 94%;
+                                            padding: 0.2em;
+                                            margin-top: 0.5em;
+                                            .modalContainer{
+                                                display: inline-flex;
+                                                margin: 0.5em;
+                                                background: $darkerGrey;
+                                                margin: 0 0.5em;
+                                                .modalContainerInnerLayer{
+                                                    @include flexCentreRow;
+                                                    margin: 0.3em;
+                                                    p{
+                                                        color: $white;
+                                                        margin: 0.3em;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    .productType{
+                                        width: 100%;
+                                        margin: 0.7em 0;
+                                        h3{
+                                            color: $darkerGrey;
+                                        }
+                                        p{
+                                            color: $primaryMagenta; 
+                                            font-size: 0.9em;
+                                        }
+                                    }
+                                    .productAvailability{
+                                        width: 100%;
+                                        margin: 0.7em 0;
+                                        h3{
+                                            color: $darkerGrey;
+                                        }
+                                        p{
+                                            color: $primaryMagenta; 
+                                            font-size: 0.9em;
+                                            margin-left: 1em;
+                                        }
+                                    }
+                                    .productDiscount{
+                                        width: 100%;
+                                        margin: 0.7em 0;
+                                        h3{
+                                            color: $darkerGrey;
+                                        }
+                                        p{
+                                            color: $primaryMagenta; 
+                                            font-size: 0.9em;
+                                            margin-left: 1em;
+                                        }
+                                    }
+                                    .productImages{
+                                        width: 100%;
+                                        margin: 0.7em 0;
+                                        h3{
+                                            color: $darkerGrey;
+                                        }
+                                        .productView{
+                                            .innerViewProductLayer{
+                                                .imageContainerMiddleLayer{
+                                                    display: grid;
+                                                    grid-template-columns: 1fr 1fr 1fr;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .confirmationButtonContainer{
+                        @include flexCentreRow;
+                        margin: 0.5em 0; 
+                    }
                 }
               }
             }
