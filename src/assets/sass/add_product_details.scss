@@ -747,7 +747,7 @@ input{
                                                                     .finsihingOptionContent{
                                                                         @include flexCentreCol;
                                                                         align-items: flex-start;
-                                                                        width: 50%;
+                                                                        width: 70%;
                                                                         .finishCostCartWrap{
                                                                             @include flexCentreRow;
                                                                             justify-content: space-between;
@@ -756,7 +756,7 @@ input{
                                                                                 font-size: 0.9em;
                                                                             }
                                                                             p{  
-                                                                                width: 30%;
+                                                                                width: 55%;
                                                                                 font-size: 0.9em;
                                                                                 margin-left: 0.5em;
                                                                                 color: $primaryMagenta;
@@ -772,7 +772,7 @@ input{
                                                                                     font-size: 0.9em;
                                                                                 }
                                                                                 p{
-                                                                                    width: 30%;
+                                                                                    width: 55%;
                                                                                     font-size: 0.9em;
                                                                                     margin-left: 0.5em;
                                                                                     color: $primaryMagenta;
