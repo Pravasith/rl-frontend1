@@ -577,7 +577,6 @@ class ProfileDetailsVendor extends React.Component {
         })
 
         fieldNames.map(item => {
-            console.log(item.fieldName)
             if (item.value === null || item.value === "" || item.value === 0 || item.value === undefined) {
                 if(!this.state.emptyField.includes(item.fieldName))
                         this.state.emptyField.push(item.fieldName)

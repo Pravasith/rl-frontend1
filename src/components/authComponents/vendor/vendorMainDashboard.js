@@ -387,7 +387,7 @@ class VendorMainDashboard extends React.Component {
 
         let finalData = [], categoryExists = false
 
-        console.log("LENGTH = " + productsRaw.length )
+        // console.log("LENGTH = " + productsRaw.length )
 
         productsRaw.map((item, i) => {
             const categoryId = item.productId.split("-")[0]
