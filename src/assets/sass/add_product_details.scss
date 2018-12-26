@@ -340,7 +340,7 @@ input{
                                                 margin: 1em 0;
 
                                                 .youTubeClass{
-                                                   width: 100%;
+                                                   width: 90%;
                                                    margin-top: 0.5em;
                                                     .youtubeContentInnerLayer{
                                                         display: grid;
@@ -440,14 +440,14 @@ input{
                                                                 p{
                                                                     color: $primaryMagenta;
                                                                     background: $white;
+                                                                    // color: $white;
+                                                                    // background: $primaryMagenta;
                                                                     padding: 0.5em;
                                                                 }
                                                             }
                                                         }
                                                     }
-                                                    .youTubeClass{
-                                                        @include flexCentreRow;
-                                                    }
+                                                    
                                                 }
 
                                                 .formParaSection{
@@ -483,7 +483,7 @@ input{
                                                             margin: 0.5em 0;
                                                             .productMaterialDetails{
                                                                 @include flexCentreCol;
-                                                                width: 50%;
+                                                                width: 100%;
                                                                 align-items: flex-start;
                                                                 .materialCostCartWrap{
                                                                     @include flexCentreRow;
@@ -493,7 +493,7 @@ input{
                                                                         font-size: 0.8em;
                                                                     }
                                                                     p{
-                                                                        width: 35%;
+                                                                        width: 70%;
                                                                         font-size: 0.9em;
                                                                         font-weight: 600;
                                                                         color: $primaryMagenta;

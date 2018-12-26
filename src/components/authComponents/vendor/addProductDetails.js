@@ -975,9 +975,6 @@
         return this.state.youTubeURL.map((item, i) => {
           return (
             <div className="youTubeContainer">
-              {/* <div className="deleteIcon" onClick={() => this.removeyouTubeURL(i)}>
-                <SmallCloseButton />
-              </div> */}
               <YouTube video={this.state.youtubeId} autoplay="0" rel="0" modest="1" />
               <div className="deleteIcon" onClick={() => this.removeyouTubeURL(i)}>
                 <CloseButton />
@@ -3316,6 +3313,7 @@
                                       }
                                     }}
                                   />
+                                  <span className="InputSeparatorLine"> </span>
                                   <div className={this.state.youTubeError}>
                                     <p>{this.state.youTubeUrlErrorStatement}</p>
                                   </div>
@@ -3362,6 +3360,7 @@
                                           this.checkTypeNumber(e, "discount")
                                         }
                                       />
+                                      <span className="InputSeparatorLine"> </span>
                                       <p>%</p>
                                     </div>
                                   </div>
