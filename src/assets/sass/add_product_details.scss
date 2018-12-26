@@ -339,6 +339,25 @@ input{
                                                 width: 100%;
                                                 margin: 1em 0;
 
+                                                .youTubeClass{
+                                                   width: 90%;
+                                                   margin-top: 0.5em;
+                                                    .youtubeContentInnerLayer{
+                                                        display: grid;
+                                                        grid-template-columns: 1fr 1fr;
+                                                        width: 100%;
+                                                        .youTubeContainer{
+                                                            @include flexCentreRow;
+                                                            align-items: flex-start;
+                                                            width: 95%;
+                                                            margin-bottom: 0.5em;
+                                                            .deleteIcon{
+                                                                margin-left: 0.5em;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+
                                                 .ProductQuantitySection{
                                                     .inputCommonWrapper{
                                                         .inputCategorySection{
@@ -404,6 +423,33 @@ input{
                                                    }
                                                 }
 
+                                                .inputCategoryYoutubeSection{
+                                                    @include flexCentreCol;
+                                                    align-items: flex-start;
+                                                    width: 100%;
+                                                    .youtubeUrlInputSection{
+                                                        @include flexCentreRow;
+                                                        align-items: baseline;
+                                                        width: 100%;
+                                                        .urlInputSection{
+                                                            @include flexCentreCol;
+                                                            width: 100%;
+                                                            .youTubeError{
+                                                                width: 100%;
+                                                                text-align: center;
+                                                                p{
+                                                                    color: $primaryMagenta;
+                                                                    background: $white;
+                                                                    // color: $white;
+                                                                    // background: $primaryMagenta;
+                                                                    padding: 0.5em;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    
+                                                }
+
                                                 .formParaSection{
                                                     @include flexCentreRow;
                                                     // margin-right: 1em;
@@ -437,7 +483,7 @@ input{
                                                             margin: 0.5em 0;
                                                             .productMaterialDetails{
                                                                 @include flexCentreCol;
-                                                                width: 50%;
+                                                                width: 100%;
                                                                 align-items: flex-start;
                                                                 .materialCostCartWrap{
                                                                     @include flexCentreRow;
@@ -447,7 +493,7 @@ input{
                                                                         font-size: 0.8em;
                                                                     }
                                                                     p{
-                                                                        width: 35%;
+                                                                        width: 70%;
                                                                         font-size: 0.9em;
                                                                         font-weight: 600;
                                                                         color: $primaryMagenta;
@@ -1637,6 +1683,8 @@ input{
                                                 @include flexCentreCol;
                                                 align-items: flex-start;
                                                 margin: 0.5em 0 1em 0;
+
+                                               
 
 
                                                 .finishInputParaContainer{
