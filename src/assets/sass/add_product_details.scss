@@ -340,7 +340,7 @@ input{
                                                 margin: 1em 0;
 
                                                 .youTubeClass{
-                                                   width: 100%;
+                                                   width: 90%;
                                                    margin-top: 0.5em;
                                                     .youtubeContentInnerLayer{
                                                         display: grid;
@@ -445,9 +445,7 @@ input{
                                                             }
                                                         }
                                                     }
-                                                    .youTubeClass{
-                                                        @include flexCentreRow;
-                                                    }
+                                                    
                                                 }
 
                                                 .formParaSection{
