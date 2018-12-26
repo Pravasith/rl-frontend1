@@ -483,7 +483,7 @@ input{
                                                             margin: 0.5em 0;
                                                             .productMaterialDetails{
                                                                 @include flexCentreCol;
-                                                                width: 50%;
+                                                                width: 100%;
                                                                 align-items: flex-start;
                                                                 .materialCostCartWrap{
                                                                     @include flexCentreRow;
@@ -493,7 +493,7 @@ input{
                                                                         font-size: 0.8em;
                                                                     }
                                                                     p{
-                                                                        width: 35%;
+                                                                        width: 70%;
                                                                         font-size: 0.9em;
                                                                         font-weight: 600;
                                                                         color: $primaryMagenta;
