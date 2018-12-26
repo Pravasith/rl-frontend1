@@ -937,12 +937,13 @@
 
       let dummyArray = [...youTubeURL];
 
-      if (temp !== "") {
-        if (!dummyArray.includes(temp)) {
-          youTubeURL.push(temp);
+      if (youtubeId !== "") {
+        if (!dummyArray.includes(youtubeId)) {
+          youTubeURL.push(youtubeId);
 
           this.setState({
             youTube: "",
+            youtubeId: "",
             youTubeURL: youTubeURL.length !== 0 ? youTubeURL : [],
             youTubeClass: "youTubeClass",
             youTubeError: "youTubeError hide"
@@ -951,19 +952,20 @@
           this.refs.youTube.value = "";
         }
 
-        else if (dummyArray.includes(temp)){
+        else if (dummyArray.includes(youtubeId)){
           this.setState({
             youTube: "",
+            youtubeId: "",
             youTubeError: "youTubeError",
             youTubeUrlErrorStatement: "This video has been already uploaded, please add new."
           })
         }
       }
 
-      else if (temp === "") {
+      else if (youtubeId === "") {
         this.setState({
           youTubeError: "youTubeError",
-          youTubeUrlErrorStatement: "please check and enter valid embeded YouTube URL."
+          youTubeUrlErrorStatement: "please check and enter valid YouTube URL."
         });
       }
     }
