@@ -167,7 +167,7 @@ class EditProductDetails extends React.Component {
                 // DECRYPT RESPONSE DATA
                 //
 
-                const rawData = { productId : pId }
+                const rawData = { productId : pId.toUpperCase() }
                 
                 //
                 // Encrypt data
@@ -3031,7 +3031,7 @@ class EditProductDetails extends React.Component {
                                         <header className="vendorFormHeading">
 
                                             <div className="headingArea">
-                                                <h3 className="headingClass">Product Manager</h3>
+                                                <h3 className="headingClass">Edit product</h3>
 
                                                 <div className="line"></div>
                                             </div>

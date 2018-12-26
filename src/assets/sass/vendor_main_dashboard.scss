@@ -119,8 +119,9 @@ input{
                 .modalInnerLayer{
                     @include flexCentreCol;
                     justify-content: flex-start;
-                    width: 30%;
-                    height: 27em;
+                    width: 40%;
+                    max-height: 30em;
+                    padding: 1em;
                     margin: 0.5em;
                     background: $white;
                     @include box_shadow;
@@ -147,7 +148,7 @@ input{
                     }
 
                     .dummyContainer{
-                        height: 15em;
+                        height: 23em;
                         overflow-y: auto;
                         width: 95%;
 
@@ -162,7 +163,7 @@ input{
 
                         .categoryPopulation{
                             display: grid;
-                            grid-template-columns: 1fr 1fr;
+                            grid-template-columns: 1fr 1fr 1fr;
 
                             .categorySelectionContainer{
 

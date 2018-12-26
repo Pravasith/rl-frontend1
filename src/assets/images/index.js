@@ -969,6 +969,48 @@ export const HappyFace = () => {
 
 
 
+export const TinyCloseButton = () => {
+    return (
+        <svg id="closeSmallButton" xmlns="http://www.w3.org/2000/svg" width="23.75"
+        height="23.75" viewBox="3.125 3.952 23.75 23.75">
+            <circle fill="#FFF" cx="15" cy="15.827" r="11.875" />
+            <circle fill="#FFF" stroke="#999" strokeWidth="2" strokeLinecap="round"
+            strokeLinejoin="round" strokeMiterlimit="10" cx="14.804" cy="15.93" r="9.52"
+            />
+            <g fill="none" stroke="#999" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+            strokeMiterlimit="10">
+                <line x1="10.715" y1="12.037" x2="18.697" y2="20.02" />
+                <line x1="18.697" y1="12.037" x2="10.715" y2="20.02" />
+            </g>
+        </svg>
+    )
+}
+
+
+export const TinyEditButton = () => {
+    return (
+        <svg id="smallEditButton" xmlns="http://www.w3.org/2000/svg" width="23.75"
+        height="23.75" viewBox="0 0 23.75 23.75">
+            <circle fill="#FFF" cx="11.875" cy="11.875" r="11.875" />
+            <circle fill="#FFF" stroke="#999" strokeWidth="2" strokeLinecap="round"
+            strokeLinejoin="round" strokeMiterlimit="10" cx="11.679" cy="11.978" r="9.52"
+            />
+            <g fill="none" stroke="#999" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+            strokeMiterlimit="10">
+                <polyline points="8.423,13.365 12.865,8.924 15.086,11.146 10.644,15.586"
+                />
+                <polyline points="10.644,15.587 7.521,16.489 8.423,13.367" />
+                <rect x="13.238" y="8.025" transform="rotate(45.001 14.809 9.203)" width="3.141"
+                height="2.355" />
+            </g>
+        </svg>
+    )
+
+}
+
+
+
+
 export const YourImageName = () => {
 
     return
