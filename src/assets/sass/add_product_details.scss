@@ -339,6 +339,25 @@ input{
                                                 width: 100%;
                                                 margin: 1em 0;
 
+                                                .youTubeClass{
+                                                   width: 100%;
+                                                   margin-top: 0.5em;
+                                                    .youtubeContentInnerLayer{
+                                                        display: grid;
+                                                        grid-template-columns: 1fr 1fr;
+                                                        width: 100%;
+                                                        .youTubeContainer{
+                                                            @include flexCentreRow;
+                                                            align-items: flex-start;
+                                                            width: 95%;
+                                                            margin-bottom: 0.5em;
+                                                            .deleteIcon{
+                                                                margin-left: 0.5em;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+
                                                 .ProductQuantitySection{
                                                     .inputCommonWrapper{
                                                         .inputCategorySection{
@@ -402,6 +421,33 @@ input{
                                                          }
                                                        }
                                                    }
+                                                }
+
+                                                .inputCategoryYoutubeSection{
+                                                    @include flexCentreCol;
+                                                    align-items: flex-start;
+                                                    width: 100%;
+                                                    .youtubeUrlInputSection{
+                                                        @include flexCentreRow;
+                                                        align-items: baseline;
+                                                        width: 100%;
+                                                        .urlInputSection{
+                                                            @include flexCentreCol;
+                                                            width: 100%;
+                                                            .youTubeError{
+                                                                width: 100%;
+                                                                text-align: center;
+                                                                p{
+                                                                    color: $primaryMagenta;
+                                                                    background: $white;
+                                                                    padding: 0.5em;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    .youTubeClass{
+                                                        @include flexCentreRow;
+                                                    }
                                                 }
 
                                                 .formParaSection{
@@ -1637,6 +1683,8 @@ input{
                                                 @include flexCentreCol;
                                                 align-items: flex-start;
                                                 margin: 0.5em 0 1em 0;
+
+                                               
 
 
                                                 .finishInputParaContainer{
