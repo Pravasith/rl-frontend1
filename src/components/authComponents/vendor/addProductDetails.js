@@ -1805,6 +1805,7 @@
         productTypeId: this.state.productType,
         tags: this.state.tagsAdded,
         availability: this.state.productAvailabilityBool,
+        youtube: this.state.youTubeURL,
         discount: this.state.productDiscount,
         productImages: this.state.productImagesObject.imagesInCategory,
         productThumbImage: this.state.productImageThumbnail
@@ -2726,6 +2727,9 @@
           fieldName: "Product Availability",
           value: this.state.productAvailability
         },
+        // {
+        //   fieldName: "Youtube Url", value: this.state.youTubeURL
+        // },
         {
           fieldName: `${this.handleMultiValidation("Product Discount")}`,
           value: this.state.productDiscount
@@ -3292,32 +3296,38 @@
                               <p className="pargraphClass"> YouTube URL: </p>
                             </div>
                             
-                            <div className="inputWrap">
-                              <input
-                                type="text"
-                                name="youTube"
-                                placeholder="Enter your embeded YouTube URL"
-                                ref="youTube"
-                                maxLength="1000"
-                                onChange={(e) => this.setYouTubeURL(e)}
-                                onKeyUp={e => {
-                                  if (e.key === "Enter") {
-                                    this.addYouTubeURL(e)
-                                  }
-                                }}
-                              />
+                            <div className="inputCategoryYoutubeSection">
+                              <div className="youtubeUrlInputSection">
+                                <div className="urlInputSection">
+                                  <input
+                                    title="youTube Url"
+                                    type="text"
+                                    name="youTube"
+                                    placeholder="Enter your embeded YouTube URL"
+                                    ref="youTube"
+                                    maxLength="1000"
+                                    onChange={(e) => this.setYouTubeURL(e)}
+                                    onKeyUp={e => {
+                                      if (e.key === "Enter") {
+                                        this.addYouTubeURL(e)
+                                      }
+                                    }}
+                                  />
+                                  <div className={this.state.youTubeError}>
+                                    <p>{this.state.youTubeUrlErrorStatement}</p>
+                                  </div>
+                                </div>
 
-                              <WhiteButton runFunction={this.addYouTubeURL}>
-                                Add
-                              </WhiteButton>
+                                <WhiteButton runFunction={this.addYouTubeURL}>
+                                  Add
+                                </WhiteButton>
+                              </div>
                             </div>
-
-                            <div className={this.state.youTubeError}>
-                              <p>{this.state.youTubeUrlErrorStatement}</p>
-                            </div>
-
+                            
                             <div className={this.state.youTubeClass}>
-                              {this.returnYouTubeInput()}
+                                <div className="youtubeContentInnerLayer">
+                                  {this.returnYouTubeInput()}
+                                </div>
                             </div>
                           </div>
 

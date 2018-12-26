@@ -681,27 +681,30 @@ input{
                         width: 100%;
                         margin: 0.5em 0;
                         .subCategoryDeatilsInnerLayer{
-                            @include flexCentreRow;
-                            align-items: flex-start;
+                            @include flexCentreCol;
+                            // align-items: flex-start;
                             width: 100%;
                             .productImageCategoryOuterLayer{
                                 @include flexCentreRow;
-                                width: 30%;
+                                width: 95%;
+                                @include box_shadow;
+                                // width: 30%;
                                 .productImageCategoryInnerLayer{
-                                    @include flexCentreCol;
+                                    @include flexCentreRow;
                                     justify-content: flex-start;
                                     align-items: flex-start;
-                                    margin-top: 0.7em;
-                                    width: 85%;
+                                    margin: 0.7em 0;
+                                    width: 95%;
                                     .productThumbImage{
                                         @include flexCentreCol;
                                         align-items: flex-start;
-                                        width: 100%;
+                                        width: 25%;
                                         h3{
                                             color :$darkerGrey;
                                         }
                                         img{
-                                            height: 10em;
+                                            height: 7em;
+                                            // height: 10em;
                                             width: 100%;
                                             object-fit: cover;
                                             margin-top: 0.5em;
@@ -710,11 +713,11 @@ input{
                                     .productThumbImageCategoryContainer{
                                         @include flexCentreCol;
                                         align-items: flex-start;
-                                        width: 100%;
+                                        width: 70%;
                                         margin-top: 0.7em;
                                         .productName{
                                             @include flexCentreRow;
-                                            justify-content: space-between;
+                                            justify-content: flex-start;
                                             width: 100%;
                                             h3{
                                                 font-size: 0.8em;
@@ -723,11 +726,12 @@ input{
                                                 color: $primaryMagenta;
                                                 font-size: 0.9em;
                                                 width: 80%;
+                                                margin-left: 0.5em;
                                             }
                                         }
                                         .productCode{
                                             @include flexCentreRow;
-                                            justify-content: space-between;
+                                            justify-content: flex-start;
                                             width: 100%;
                                             h3{
                                                 font-size: 0.8em;
@@ -736,11 +740,12 @@ input{
                                                 color: $primaryMagenta;
                                                 font-size: 0.9em;
                                                 width: 80%;
+                                                margin-left: 0.5em;
                                             }
                                         }
                                         .productPrice{
                                             @include flexCentreRow;
-                                            justify-content: space-between;
+                                            justify-content: flex-start;
                                             width: 100%;
                                             h3{
                                                 font-size: 0.8em;
@@ -749,15 +754,19 @@ input{
                                                 color: $primaryMagenta;
                                                 font-size: 0.9em;
                                                 width: 80%;
+                                                margin-left: 0.5em;
                                             }
                                         }
                                     }
                                 }
                             }
                             .productMaterialsInformationColumn{
-                                width: 65%;
-                                height: 68vh;
+                                width: 95%;
+                                height: 37vh;
+                                // width: 65%;
+                                // height: 68vh;
                                 overflow-y: auto;
+                                margin: 1em 0;
                                 .productMaterialInformationInnerLayer{
                                     @include flexCentreCol;
                                     align-items: flex-start;
@@ -773,7 +782,7 @@ input{
                                         }
                                         .productMaterials{
                                             display: grid;
-                                            grid-template-columns: 1fr 1fr ;
+                                            grid-template-columns: 1fr 1fr 1fr 1fr;
                                             width: 100%;
                                             .modalContainerUpperContainer{
                                                 @include flexCentreRow;
@@ -826,25 +835,32 @@ input{
                                     }
 
                                     .productFeatures{
+                                        @include flexCentreRow;
+                                        justify-content: flex-start;
+                                        align-items: flex-start;
                                         width: 100%;
                                         margin: 0.7em 0;
                                         h3{
                                             color: $darkerGrey;
                                         }
                                         .productFeaturesOuterLayer{
-                                            width: 94%;
-                                            margin-top: 0.5em;
-                                            padding: 0.2em;
+                                            width: 90%;
+                                            margin-left: 0.5em;
+                                            // width: 94%;
+                                            // margin-top: 0.5em;
+                                            // padding: 0.2em;
                                             .modalContainer{
                                                 display: inline-flex;
-                                                background: $darkerGrey;
-                                                margin: 0.5em;
+                                                // background: $darkerGrey;
+                                                // margin: 0.5em;
                                                 .modalContainerInnerLayer{
                                                     @include flexCentreRow;
-                                                    margin: 0.3em;
+                                                    margin: 0 0.3em 0.3em 0.3em;
+                                                    // margin: 0.3em;
                                                     p{
-                                                        color: $white;
-                                                        margin: 0.3em;
+                                                        color: $darkGrey;
+                                                        font-size: 0.9em;
+                                                        // margin: 0.3em;
                                                     }
                                                 }
                                             }
@@ -858,18 +874,26 @@ input{
                                             color: $darkerGrey;
                                         }
                                         .productFinishesOuterLayer{
+                                            display: grid;
+                                            grid-template-columns: 1fr 1fr;
                                             width: 100%;
+                                            // width: 100%;
                                             .modalContainerUpperContainer{
                                                 @include flexCentreRow;
-                                                margin: 0.5em 0;
-                                                background: $lightGrey;
-                                                padding: 0.5em 1em;
-                                                margin: 0.5em 0;
+                                                width: 100%;
+                                                // @include flexCentreRow;
+                                                // margin: 0.5em 0;
+                                                // background: $lightGrey;
+                                                // padding: 0.5em 1em;
+                                                // margin: 0.5em 0;
                                                 .modalContainer{
                                                     @include flexCentreRow;
                                                     justify-content: flex-start;
                                                     align-items: flex-start;
                                                     width: 100%;
+                                                    padding: 0.5em;
+                                                    margin: 0.5em;
+                                                    background: $lightGrey;
                                                     
                                                     .finishImageContainer{
                                                         img{
@@ -943,7 +967,7 @@ input{
                                         .productColorOuterLayer{
                                             margin-bottom: 0.5em;
                                             display: grid;
-                                            grid-template-columns: 1fr 1fr;
+                                            grid-template-columns: 1fr 1fr 1fr;
                                             .modalContainer{
                                                 width: 16em;
                                                 margin: 0.3em;
@@ -1030,7 +1054,7 @@ input{
                                         }
                                         .productDimensionsOuterLayer{
                                             display: grid;
-                                            grid-template-columns: 1fr 1fr;
+                                            grid-template-columns: 1fr 1fr 1fr 1fr;
                                             width: 100%;
                                             .productDimensionUpperContainer{
                                                 @include flexCentreRow;
@@ -1078,6 +1102,8 @@ input{
                                     }
 
                                     .productMinQuantity{
+                                        @include flexCentreRow;
+                                        justify-content: flex-start;
                                         width: 100%;
                                         margin: 0.7em 0;
                                         h3{
@@ -1086,10 +1112,12 @@ input{
                                         p{
                                             color: $primaryMagenta; 
                                             font-size: 0.9em;
-                                            margin-left: 1em;
+                                            margin-left: 0.5em;
                                         }
                                     }
                                     .productMaxQuantity{
+                                        @include flexCentreRow;
+                                        justify-content: flex-start;
                                         width: 100%;
                                         margin: 0.7em 0;
                                         h3{
@@ -1098,11 +1126,13 @@ input{
                                         p{
                                             color: $primaryMagenta; 
                                             font-size: 0.9em;
-                                            margin-left: 1em;
+                                            margin-left: 0.5em;
                                         }
 
                                     }
                                     .productDescription{
+                                        @include flexCentreRow;
+                                        justify-content: flex-start;
                                         width: 100%;
                                         margin: 0.7em 0;
                                         h3{
@@ -1116,26 +1146,33 @@ input{
 
                                     }
                                     .productStyles{
+                                        @include flexCentreRow;
+                                        justify-content: flex-start;
+                                        align-items: flex-start;
                                         width: 100%;
                                         margin: 0.7em 0;
                                         h3{
                                             color: $darkerGrey;
                                         }
                                         .productStylesOuterLayer{
-                                            width: 94%;
-                                            padding: 0.2em;
-                                            margin-top: 0.5em;
+                                            width: 75%;
+                                            margin-left: 0.5em;
+                                            // width: 75%;
+                                            // padding: 0.2em;
+                                            // margin-top: 0.5em;
                                                 .modalContainer{
                                                     display: inline-flex;
-                                                    margin: 0.5em;
-                                                    background: $darkerGrey;
-                                                    margin: 0 0.5em;
+                                                    // margin: 0.5em;
+                                                    // background: $darkerGrey;
+                                                    // margin: 0 0.5em;
                                                     .modernContainerInnerLayer{
                                                         @include flexCentreRow;
-                                                        margin: 0.3em;
+                                                        margin: 0 0.3em 0.3em 0.3em;
+                                                        // margin: 0.3em;
                                                         p{
-                                                            color: $white;
-                                                            margin: 0.3em;
+                                                            color: $darkGrey;
+                                                            font-size: 0.9em;
+                                                            // margin: 0.3em;
                                                         }
                                                     }
                                                 }
@@ -1143,32 +1180,41 @@ input{
                                         }
                                     }
                                     .productTags{
+                                        @include flexCentreRow;
+                                        justify-content: flex-start;
+                                        align-items: flex-start;
                                         width: 100%;
                                         margin: 0.7em 0;
                                         h3{
                                             color: $darkerGrey;
                                         }
                                         .productTagsOuterLayer{
-                                            width: 94%;
-                                            padding: 0.2em;
-                                            margin-top: 0.5em;
+                                            width: 95%;
+                                            margin-left: 0.5em;
+                                            // width: 74%;
+                                            // padding: 0.2em;
+                                            // margin-top: 0.5em;
                                             .modalContainer{
                                                 display: inline-flex;
-                                                margin: 0.5em;
-                                                background: $darkerGrey;
-                                                margin: 0 0.5em;
+                                                // margin: 0.5em;
+                                                // background: $darkerGrey;
+                                                // margin: 0 0.5em;
                                                 .modalContainerInnerLayer{
                                                     @include flexCentreRow;
-                                                    margin: 0.3em;
+                                                    margin: 0 0.3em 0.3em 0.3em;
+                                                    // margin: 0.3em;
                                                     p{
-                                                        color: $white;
-                                                        margin: 0.3em;
+                                                        color: $darkGrey;
+                                                        // margin: 0.3em;
+                                                        font-size: 0.9em;
                                                     }
                                                 }
                                             }
                                         }
                                     }
                                     .productType{
+                                        @include flexCentreRow;
+                                        justify-content: flex-start;
                                         width: 100%;
                                         margin: 0.7em 0;
                                         h3{
@@ -1177,9 +1223,12 @@ input{
                                         p{
                                             color: $primaryMagenta; 
                                             font-size: 0.9em;
+                                            margin-left: 1em;
                                         }
                                     }
                                     .productAvailability{
+                                        @include flexCentreRow;
+                                        justify-content: flex-start;
                                         width: 100%;
                                         margin: 0.7em 0;
                                         h3{
@@ -1192,6 +1241,8 @@ input{
                                         }
                                     }
                                     .productDiscount{
+                                        @include flexCentreRow;
+                                        justify-content: flex-start;
                                         width: 100%;
                                         margin: 0.7em 0;
                                         h3{
@@ -1200,7 +1251,7 @@ input{
                                         p{
                                             color: $primaryMagenta; 
                                             font-size: 0.9em;
-                                            margin-left: 1em;
+                                            margin-left: 0.5em;
                                         }
                                     }
                                     .productImages{
@@ -1211,6 +1262,7 @@ input{
                                         }
                                         .productView{
                                             .innerViewProductLayer{
+                                                width: 50%;
                                                 .imageContainerMiddleLayer{
                                                     display: grid;
                                                     grid-template-columns: 1fr 1fr 1fr;

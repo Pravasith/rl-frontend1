@@ -1271,10 +1271,12 @@ class VendorMainDashboard extends React.Component {
                             <div className="modalContainer" key={i}>
                                 <div className="modalContainerInnerLayer">
                                     <div className="materialName">
-                                        <h3>Name: </h3> <p>{item.materialName}</p>
+                                        {/* <h3>Name: </h3> <p>{item.materialName}</p> */}
+                                        <p>{item.materialName}</p>
                                     </div>
                                     <div className="materialCost">
-                                        <h3>Price:</h3> <p>Rs. {item.materialCost}</p>
+                                        {/* <h3>Price:</h3> <p>Rs. {item.materialCost}</p> */}
+                                        <p>Rs. {item.materialCost}</p>
                                     </div>
                                 </div>
                             </div>
@@ -1291,7 +1293,7 @@ class VendorMainDashboard extends React.Component {
                         return (
                             <div className="modalContainer" key={i}>
                                 <div className="modalContainerInnerLayer">
-                                    <p>{item}</p>
+                                    <p>{item},</p>
                                 </div>
                             </div>
                         )
@@ -1314,13 +1316,16 @@ class VendorMainDashboard extends React.Component {
                                 </div>
                                 <div className="finishInformation">
                                     <div className="finishName">
-                                        <h3>Finish Name: </h3> <p>{item.finishName}</p>
+                                        {/* <h3>Finish Name: </h3> <p>{item.finishName}</p> */}
+                                        <p>{item.finishName}</p>
                                     </div>
                                     <div className="finishCode">
-                                        <h3>Finish Code: </h3>  <p>{item.finishCode}</p>
+                                        {/* <h3>Finish Code: </h3>  <p>{item.finishCode}</p> */}
+                                        <p>{item.finishCode}</p>
                                     </div>
                                     <div className="finishCost">
-                                        <h3>Finish Cost: </h3>  <p>Rs. {item.finishCost}</p>
+                                        {/* <h3>Finish Cost: </h3>  <p>Rs. {item.finishCost}</p> */}
+                                        <p>Rs. {item.finishCost}</p>
                                     </div>
                                 </div>
                             </div>
@@ -1370,10 +1375,12 @@ class VendorMainDashboard extends React.Component {
                         <div className="productDimensionUpperContainer">
                             <div className="modalContainer" key={i}>
                                 <div className="dimensionSize">
-                                    <h3>Size: </h3> <p>{item.sizeName}</p>
+                                    {/* <h3>Size: </h3> <p>{item.sizeName}</p> */}
+                                    <p>{item.sizeName}</p>
                                 </div>
                                 <div className="dimensionCost">
-                                    <h3>Cost: </h3> <p>Rs. {item.sizeCost}</p>
+                                    {/* <h3>Cost: </h3> <p>Rs. {item.sizeCost}</p> */}
+                                    <p>Rs. {item.sizeCost}</p>
                                 </div>
                             </div>
                         </div>
@@ -1388,7 +1395,7 @@ class VendorMainDashboard extends React.Component {
                     return (
                         <div className="modalContainer" key={i}>
                             <div className="modernContainerInnerLayer">
-                                <p>{item.styleName}</p>
+                                <p>{item.styleName},</p>
                             </div>
                         </div>
                     )
@@ -1402,7 +1409,7 @@ class VendorMainDashboard extends React.Component {
                     return (
                         <div className="modalContainer" key={i}>
                             <div className="modalContainerInnerLayer">
-                                <p>{item}</p>
+                                <p>{item},</p>
                             </div>
                         </div>
                     )
@@ -1443,13 +1450,6 @@ class VendorMainDashboard extends React.Component {
                 <div className="subCategoryDeatilsInnerLayer">
                     <div className="productImageCategoryOuterLayer">
                         <div className="productImageCategoryInnerLayer">
-                            <div className="productThumbImage">
-                                <h3>Thumbnail Image: </h3>
-                                <img
-                                    src={productThumbImage}
-                                    alt=""
-                                />
-                            </div>
                             <div className="productThumbImageCategoryContainer">
                                 <div className="productName">
                                     <h3>Name: </h3> 
@@ -1464,105 +1464,91 @@ class VendorMainDashboard extends React.Component {
                                     <p>Rs.{productPrice}</p> 
                                 </div>
                             </div>
+                            <div className="productThumbImage">
+                                <h3>Thumbnail Image: </h3>
+                                <img
+                                    src={productThumbImage}
+                                    alt=""
+                                />
+                            </div>
                             
                         </div>
                     </div>
                     <div className="productMaterialsInformationColumn">
                         <div className="productMaterialInformationInnerLayer">
                             <div className="productMaterialUpperLayer">
-                                <h3>Material </h3>
+                                <h3>Material: </h3>
                                 <div className="productMaterials">
                                     {this.returnArrayFields("materials")}
                                 </div>                            
                             </div>
 
                             <div className="productFeatures">
-                                <h3>Features </h3> 
+                                <h3>Features: </h3> 
                                 <div className="productFeaturesOuterLayer">
                                     {this.returnArrayFields("features")}
                                 </div>
                             </div>
                             <div className="productFinishes">
-                                <h3>Finishes </h3>
+                                <h3>Finishes: </h3>
                                 <div className="productFinishesOuterLayer">
                                     {this.returnArrayFields("finishes")}
                                 </div>
                             </div>
                             <div className="productColors">
-                                <h3>Colors </h3> 
+                                <h3>Colors: </h3> 
                                 <div className="productColorOuterLayer">
                                     {this.returnArrayFields("colors")}
                                 </div>
                             </div>
                             <div className="productDimensions">
-                                <h3>Dimensions </h3> 
+                                <h3>Dimensions: </h3> 
                                 <div className="productDimensionsOuterLayer">
                                     {this.returnArrayFields("dimensions")}
                                 </div>
                             </div>
                             <div className="productMinQuantity">
-                                <h3>Min Quantity </h3> 
+                                <h3>Min Quantity: </h3> 
                                 <p>{productMinQuantity}</p>   
                             </div>
                             <div className="productMaxQuantity">
-                                <h3>Max Quantity </h3>
+                                <h3>Max Quantity: </h3>
                                 <p>{productMaxQuantity}</p>
                             </div>
                             <div className="productDescription">
-                                <h3>Product description </h3> 
+                                <h3>Product description: </h3> 
                                 <p>{productDescription}</p>
                             </div>
                             <div className="productStyles">
-                                <h3>Design Styles </h3> 
+                                <h3>Design Styles: </h3> 
                                 <div className="productStylesOuterLayer">
                                     {this.returnArrayFields("styles")}
                                 </div>
                             </div>
                             <div className="productTags">
-                                <h3>Tags </h3> 
+                                <h3>Tags: </h3> 
                                 <div className="productTagsOuterLayer">
                                     {this.returnArrayFields("tags")}
                                 </div>
                             </div>
                             <div className="productType">
-                                <h3>Type of the Product </h3>
+                                <h3>Type of the Product: </h3>
                                 <p>{productType}</p>
                             </div>
                             <div className="productAvailability">
-                                <h3>Product Availability </h3> 
+                                <h3>Product Availability: </h3> 
                                 <p>{productAvailability === false ? "No" : "Yes"}</p>
                             </div>
                             <div className="productDiscount">
-                                <h3>Product Discount </h3> 
+                                <h3>Product Discount: </h3> 
                                 <p>{productDiscount}%</p>  
                             </div>
                             <div className="productImages">
-                            <h3>Product Images </h3> 
+                            <h3>Product Images: </h3> 
                                 {this.returnArrayFields("images")}
                         </div>
                         </div>
                    </div>
-
-                    {/* <div className="editOrRemoveButtonContainer">
-                        <div className="editButtonContainer">
-                            <WhiteButton
-                                runFunction={() => {
-                                    window.open("/vendor/edit-product/" + this.state.itemCode, "_self")
-                                }}
-                            >
-                                Edit
-                                </WhiteButton>
-                        </div>
-                        <div className="removeButtonContainer">
-                            <WhiteButton
-                                runFunction={() => {
-                                    this.deleteCategory("sub", this.state.productId)
-                                }}
-                            >
-                                Delete
-                             </WhiteButton>
-                        </div>
-                    </div> */}
                 </div>
             )
         }

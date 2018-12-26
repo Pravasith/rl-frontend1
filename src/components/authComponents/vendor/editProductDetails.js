@@ -138,7 +138,13 @@ class EditProductDetails extends React.Component {
             finalProceed: "saveAndProceed",
             productTypes : [],
             dummyToggle : "x",
+            
+            youTube: "",
+            youTubeURL: [],
+            youTubeClass: "youTubeClass hide",
+            youTubeError: "youTubeError hide",
 
+            emptyField: []
             // productAvailabilityBool : true,
 
             
@@ -2090,6 +2096,7 @@ class EditProductDetails extends React.Component {
             productId : this.props.pId,
             tags : this.state.tagsAdded,
             availability : this.state.productAvailabilityBool,
+            youtube: this.state.youTubeURL,
             discount : this.state.productDiscount,
             productImages : this.state.productImagesObject.imagesInCategory,
             productThumbImage : this.state.productImageThumbnail
