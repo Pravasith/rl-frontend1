@@ -41,6 +41,7 @@
   import Navbar from "../../navbar/navbar";
   import { decryptData, encryptData } from "../../../factories/encryptDecrypt";
   import ImageUploader from "../../UX/imageUploader";
+  import YouTube from "../../UX/youTubeUploader";
   import { api } from "../../../actions/apiLinks";
   import { createClient } from "http";
 
@@ -883,7 +884,7 @@
 
     setYouTubeURL = (e) => {
       const val = e.target.value;
-      const regEx = /\.youtube\.com\/embed\/\S*$/;
+      const regEx = /^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
 
       if (val !== "") {
         if (regEx.test(val) === true) {
@@ -910,8 +911,29 @@
     addYouTubeURL = async () => {
 
       const { youTube, youTubeURL } = this.state;
+      let isItURL = ""
 
-      let temp = youTube;
+      if (youTube !== "") {
+        isItURL = youTube.split("/")[2].toLowerCase() === "www.youtube.com" ? true : false
+      }
+
+
+      let temp = youTube.split("").reverse().join("")
+      let youtubeId = ""
+
+      if (isItURL) {
+        youtubeId = temp.split("=")[0].split("").reverse().join("")
+
+        this.setState({ youtubeId })
+      }
+
+      else {
+        youtubeId = temp.split("/")[0].split("").reverse().join("")
+
+        this.setState({ youtubeId })
+      }
+
+      console.log(youtubeId)
 
       let dummyArray = [...youTubeURL];
 
@@ -954,15 +976,7 @@
               <div className="deleteIcon" onClick={() => this.removeyouTubeURL(i)}>
                 <SmallCloseButton />
               </div>
-              <iframe
-                key={i}
-                width="100%"
-                height="100%"
-                src={item}
-                frameBorder="0"
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
+              <YouTube video={this.state.youtubeId} autoplay="0" rel="0" modest="1" />
             </div>
           );
         });
@@ -3308,8 +3322,7 @@
                           <div className="inputFormContainer">
                             <div className="formParaSection">
                               <p className="pargraphClass">
-                                {" "}
-                                Is there a discount on this product now?{" "}
+                                Is there a discount on this product now?
                               </p>
                             </div>
 
