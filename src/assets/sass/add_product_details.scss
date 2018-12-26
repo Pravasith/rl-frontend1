@@ -449,6 +449,24 @@ input{
                                                     }
                                                     
                                                 }
+                                                
+                                                .brandNameInputSection{
+                                                    .inputCommonWrapper{
+                                                        .inputCategorySection{
+                                                            .mandatorySection{
+                                                                display: none;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+
+                                                .brandImageUploaderRender{
+                                                    width: 25%;
+                                                    .brandImageUploaderClass{
+                                                        @include flexCentreRow;
+                                                        width: 100%;
+                                                    }
+                                                }
 
                                                 .formParaSection{
                                                     @include flexCentreRow;
