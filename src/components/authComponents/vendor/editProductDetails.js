@@ -33,7 +33,8 @@ import HtmlSlider from "../../UX/htmlSlider"
 import Navbar from "../../navbar/navbar"
 import { decryptData, encryptData } from "../../../factories/encryptDecrypt"
 import ImageUploader from "../../UX/imageUploader"
-import { api } from "../../../actions/apiLinks";
+import YouTube from "../../UX/youTubeUploader"
+import { api } from "../../../actions/apiLinks"
 import { createClient } from "http";
 
 class EditProductDetails extends React.Component {
@@ -99,6 +100,7 @@ class EditProductDetails extends React.Component {
 
             productFinishImage: "",
             productImage: "",
+            productImageThumbnail: "",
 
             isProceedClicked: false,
             inputFormContainer: "inputFormContainer",
@@ -233,7 +235,10 @@ class EditProductDetails extends React.Component {
                             categoryName: "",
                             imagesInCategory: decryptedData.productImages
                         },
-                        productThumbImage: decryptedData.productThumbImage
+                        productThumbImage: decryptedData.productThumbImage,
+                        // youTubeURL: decryptedData.youTubeURL,
+                        brandName: decryptedData.brandName,
+                        brandImage: decryptedData.brandImage 
 
                     })
     
@@ -1166,12 +1171,131 @@ class EditProductDetails extends React.Component {
         }
     }
 
+
+    setYouTubeURL = (e) => {
+      const val = e.target.value;
+      const regEx = /^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
+
+      if (val !== "") {
+        if (regEx.test(val) === true) {
+          this.setState({ 
+            youTube: val,
+            youTubeError: "youTubeError hide"
+           });
+        }
+
+        else if (!regEx.test(val) === true) {
+          this.setState({
+            youTubeError: "youTubeError"
+          });
+        }
+      }
+
+      else if (val === "") {
+        this.setState({
+          youTubeError: "youTubeError hide"
+        });
+      }
+    }
+
+    addYouTubeURL = async () => {
+
+      const { youTube, youTubeURL } = this.state;
+
+      let isItURL = ""
+
+      if (youTube !== "") {
+        isItURL = youTube.split("/")[2].toLowerCase() === "www.youtube.com" ? true : false
+      }
+
+
+      let temp = youTube.split("").reverse().join("")
+      let youtubeId = ""
+
+      if (isItURL) {
+        youtubeId = temp.split("=")[0].split("").reverse().join("")
+
+        this.setState({ youtubeId })
+      }
+
+      else {
+        youtubeId = temp.split("/")[0].split("").reverse().join("")
+
+        this.setState({ youtubeId })
+      }
+
+    //   console.log(youtubeId)
+
+      let dummyArray = [...youTubeURL];
+
+      if (youtubeId !== "") {
+        if (!dummyArray.includes(youtubeId)) {
+            youTubeURL.push(youtubeId);
+
+            this.setState({
+                youTube: "",
+                youtubeId: "",
+                youTubeURL: youTubeURL.length !== 0 ? youTubeURL : [],
+                youTubeClass: "youTubeClass",
+                youTubeError: "youTubeError hide"
+            });
+        
+            this.refs.youTube.value = "";
+        }
+
+        else if (dummyArray.includes(youtubeId)){
+            this.setState({
+                youTube: "",
+                youtubeId: "",
+                youTubeError: "youTubeError",
+                youTubeUrlErrorStatement: "This video has been already uploaded, please add new."
+            })
+        }
+      }
+
+      else if (youtubeId === "") {
+            this.setState({
+                youTubeError: "youTubeError",
+                youTubeUrlErrorStatement: "please check and enter valid YouTube URL."
+            });
+        }
+    }
+
+    returnYouTubeInput = () => {
+        const { youTubeURL } = this.state;
+
+        if (youTubeURL.length !== 0) {
+            return youTubeURL.map((item, i) => {
+                return (
+                    <div className="youTubeContainer" key={i}>
+                        <YouTube 
+                            video={item} 
+                            autoplay="0" 
+                            rel="0" 
+                            modest="1" />
+                        <div className="deleteIcon" onClick={() => this.removeyouTubeURL(i)}>
+                            <CloseButton />
+                        </div>
+                    </div>
+                )
+            })
+        }
+    };
+
+    removeyouTubeURL = (index) => {
+        const { youTubeURL } = this.state;
+
+        youTubeURL.splice(index, 1)
+
+        this.setState({
+            youTubeURL: youTubeURL.length !== 0 ? youTubeURL : []
+        });
+    }
+
     checkTypeNumber = (e, checkFor) => {
 
         const val = e.target.value;
         const regEx = /^[0-9\b]+$/;
-
-        console.log(val)
 
         if (val !== "") {
             if (regEx.test(val) === true) {
@@ -1307,40 +1431,44 @@ class EditProductDetails extends React.Component {
   
 
     returnHtmlSliderforproductImagesObject = () => {
-        if(this.state.productImagesObject.imagesInCategory.length !== 0) {
-            if(this.state.dummyToggle === 'x'){
+        if (this.state.productImagesObject.imagesInCategory.length !== 0) {
+            if (this.state.dummyToggle === "x") {
                 return (
-                    <div className ="imageSliderParentWrap" >
+                    <div className="imageSliderParentWrap">
                         <div className={"downSectionInnerLayer "}>
                             <HtmlSlider
-                                categoryData={this.state.productImagesObject} // format of Item 
+                                categoryData={this.state.productImagesObject} // format of Item
                                 numberOfSlides={3} // Change the css grid properties for responsiveness
                                 textOnRibbon={"TRENDING NOW"} // All caps
-                                runFunction={(data) => {}}
+                                runFunction={data => {
+                                    this.modalClassToggle("show");
+                                    this.setState({ modalType: "imagePreview" });
+                                }}
                             />
                         </div>
                     </div>
-                )
-            }
-
-            else if(this.state.dummyToggle === 'y'){
+                );
+            } else if (this.state.dummyToggle === "y") {
                 return (
-                    <div className = "imageSliderWrap2" >
-                        <div className ="imageSliderParentWrap" >
+                    <div className="imageSliderWrap2">
+                        <div className="imageSliderParentWrap">
                             <div className={"downSectionInnerLayer "}>
                                 <HtmlSlider
-                                    categoryData={this.state.productImagesObject} // format of Item 
+                                    categoryData={this.state.productImagesObject} // format of Item
                                     numberOfSlides={3} // Change the css grid properties for responsiveness
                                     textOnRibbon={"TRENDING NOW"} // All caps
-                                    runFunction={(data) => {}}
+                                    runFunction={data => {
+                                        this.modalClassToggle("show");
+                                        this.setState({ modalType: "imagePreview" });
+                                    }}
                                 />
                             </div>
                         </div>
                     </div>
-                )
+                );
             }
         }
-    }
+    };
 
     proceedHandler = (typeOfButtonClicked) => {
 
@@ -2280,6 +2408,33 @@ class EditProductDetails extends React.Component {
         
     }
 
+
+    filterByImageURL = index => {
+        const { imagesInCategory } = this.state.productImagesObject;
+
+        if (imagesInCategory.length > 1) {
+            imagesInCategory.splice(index, 1);
+        } else if (imagesInCategory.length === 1) {
+            this.setState({ modalType: "alertForDelete" });
+        }
+
+        this.setState({
+            productImageThumbnail: "",
+            productImagesObject: {
+                categoryName: "",
+                imagesInCategory: imagesInCategory.length !== 0 ? imagesInCategory : []
+            }
+        });
+    };
+
+    removeProductImage = () => {
+        this.state.productImagesObject.imagesInCategory.map((item, i) => {
+            if (this.state.productImageThumbnail === item.imageURL) {
+                this.filterByImageURL(i);
+            }
+        });
+    };
+
     returnModal = () => {
         const { modalType, finishModalContentPart } = this.state;
 
@@ -2747,49 +2902,99 @@ class EditProductDetails extends React.Component {
             else if (modalType === "imagePreview") {
                 return (
                     <div className={this.state.modalImagePreview}>
-                        <div className="dummyXClass">
-                            <div className="whiteSquareForModal">
-                                <div className="whiteSquareModalUpperContainer">
-                                    <div className="vendorDashboardModal">
-                                        <div className="modalHeader">
-                                            <h3>Image Preview</h3>
-                                            <div className="line"></div>
-                                        </div>
-                                    </div>
-                                    <div className="content">
-                                        <div className="detailsToInput">
-                                            <div className="imageInput">
-                                                <HtmlSlider
-                                                    categoryData={this.state.productImagesObject} // format of Item 
-                                                    numberOfSlides={4} // Change the css grid properties for responsiveness
-                                                    textOnRibbon={""} // All caps
-                                                    runFunction={(data) => {
-                                                        this.setState({
-                                                            productImageThumbnail: data.imageURL
-                                                        })
-                                                    }}
-                                                />
-                                            </div>
-                                        </div>
+                    <div className="dummyXClass">
+                        <div className="whiteSquareForModal">
+                        <div className="whiteSquareModalUpperContainer">
+                            <div className="vendorDashboardModal">
+                            <div className="modalHeader">
+                                <h3>Image Preview</h3>
+                                <div className="line" />
+                            </div>
+                            </div>
+                            <div className="content">
+                            <div className="detailsToInput">
+                                <div className="imageInput">
+                                <HtmlSlider
+                                    categoryData={this.state.productImagesObject} // format of Item
+                                    numberOfSlides={3} // Change the css grid properties for responsiveness
+                                    textOnRibbon={""} // All caps
+                                    runFunction={data => {
+                                    this.setState({
+                                        productImageThumbnail: data.imageURL,
+                                        showDeleteButton: "showDeleteButton"
+                                        // finalProceed: "sendRequest"
+                                    });
+                                    }}
+                                />
+                                </div>
+                            </div>
 
-                                        <div className="">
-                                            <img
-                                                src={this.state.productImageThumbnail}
-                                                alt=""
-                                                style={{ width: "10em", height: "10em" }}
-                                            />
-                                            <WhiteButton
-                                                runFunction={() => this.removeProductImage()}
-                                            >
-                                                Delete
-                                            </WhiteButton>
-                                        </div>
-                                    </div>
+                            <div className="selectedPreviewImageContainer">
+                                <div className="imgContainer">
+                                <p
+                                    className={
+                                    this.state.productImageThumbnail !== ""
+                                        ? "previewImageText hide"
+                                        : "previewImageText"
+                                    }
+                                >
+                                    Click on the image to view
+                                </p>
+                                <img 
+                                    src={this.state.productImageThumbnail} 
+                                    alt=""
+                                    style={{  height: "5em", weight: "5em" }}
+                                    />
+                                </div>
+                                <div className={this.state.showDeleteButton}>
+                                <WhiteButton
+                                    runFunction={() => {
+                                    this.removeProductImage();
+                                    this.setState({
+                                        showDeleteButton: "showDeleteButton hide"
+                                    });
+                                    }}
+                                >
+                                    Delete
+                                </WhiteButton>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                );
+            }
+
+            else if (modalType === "alertForDelete") {
+                return (
+                    <div className={this.state.modalAlertForDelete}>
+                        <div className="whiteSquareModalUpperContainer">
+                            <div className="vendorDashboardModal">
+                                <div className="modalHeader">
+                                    <h3>Are you sure, you want to delete this?</h3>
+                                    <div className="line" />
+                                </div>
+                                <div className="confirmationButtonContainer">
+                                    <WhiteButton
+                                    runFunction={() => {
+                                        this.state.productImagesObject.imagesInCategory.splice(0, 1);
+                                        this.modalClassToggle("dontShow");
+                                    }}>
+                                        Yes
+                                    </WhiteButton>
+                                    <WhiteButton
+                                    runFunction={() =>
+                                        this.setState({ modalType: "imagePreview" })
+                                    }>
+                                        No
+                                    </WhiteButton>
                                 </div>
                             </div>
                         </div>
                     </div>
-                )
+                );
             }
         }
 
@@ -2878,7 +3083,7 @@ class EditProductDetails extends React.Component {
             if (productDiscountAvailablity === "yes") {
                 if (productDiscount !== undefined) {
                     if (productDiscount === 0) {
-                        console.log("Wrks", typeof (this.state.productDiscount))
+                        // console.log("Wrks", typeof (this.state.productDiscount))
 
                         this.setState({ displayDiscountValueError: "displayDiscountValueError" })
                         return "Product Discount Value"
@@ -3473,6 +3678,47 @@ class EditProductDetails extends React.Component {
 
                                                 <div className="inputFormContainer">
                                                     <div className="formParaSection">
+                                                        <p className="pargraphClass"> YouTube URL: </p>
+                                                    </div>
+                                                    
+                                                    <div className="inputCategoryYoutubeSection">
+                                                        <div className="youtubeUrlInputSection">
+                                                            <div className="urlInputSection">
+                                                                <input
+                                                                    title="youTube Url"
+                                                                    type="text"
+                                                                    name="youTube"
+                                                                    placeholder="Enter your product Ad/demo YouTube URL"
+                                                                    ref="youTube"
+                                                                    maxLength="1000"
+                                                                    onChange={(e) => this.setYouTubeURL(e)}
+                                                                    onKeyUp={e => {
+                                                                    if (e.key === "Enter") {
+                                                                        this.addYouTubeURL(e)
+                                                                    }
+                                                                    }}
+                                                                />
+                                                            <span className="InputSeparatorLine"> </span>
+                                                                <div className={this.state.youTubeError}>
+                                                                    <p>{this.state.youTubeUrlErrorStatement}</p>
+                                                                </div>
+                                                            </div>
+
+                                                        <WhiteButton runFunction={this.addYouTubeURL}>
+                                                            Add
+                                                        </WhiteButton>
+                                                    </div>
+                                                </div>
+                            
+                            <div className={this.state.youTubeClass}>
+                                <div className="youtubeContentInnerLayer">
+                                  {this.returnYouTubeInput()}
+                                </div>
+                            </div>
+                          </div>
+
+                                                <div className="inputFormContainer">
+                                                    <div className="formParaSection">
                                                         <p className="pargraphClass"> Is there a discount on this product now? </p>
                                                     </div>
 
@@ -3528,6 +3774,51 @@ class EditProductDetails extends React.Component {
                                                         </div>
                                                     </div>    
                                                 </div>
+
+                                                <div className="inputFormContainer">
+                                                    <div className="formParaSection">
+                                                        <p className="pargraphClass">Brand Name</p>
+                                                    </div>
+                                                    <div className="materialInformationColumn">
+                                                        <InputForm
+                                                            refName="brandName"
+                                                            placeholder="Ex.Vertical Moss"
+                                                            isMandatory={false}
+                                                            validationType="alphabetsSpecialCharactersAndNumbers"
+                                                            characterCount="30"
+                                                            result={val =>
+                                                                this.setState({
+                                                                    brandName: val
+                                                                })
+                                                            }
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                <div className="inputFormContainer">
+                                                    <div className="formParaSection">
+                                                        <p className="pargraphClass">Brand Logo</p>
+                                                    </div>
+                                                    <div className="brandImageUploaderRender">
+                                                        <div className="brandImageUploaderClass">
+                                                            <ImageUploader
+                                                                imageType="regularImage" // regularImage || profileImage
+                                                                resultData={data => {
+                                                                    this.setState({
+                                                                        brandImage: data.imageURL
+                                                                    });
+                                                                }}
+                                                                showInitialImage={
+                                                                    this.state.brandImage !== ""
+                                                                        ? this.state.brandImage
+                                                                        : ""
+                                                                }
+                                                                imageClassName="brandImageClass"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                             </div>
                                         </section>
 
