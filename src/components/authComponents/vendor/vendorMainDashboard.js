@@ -19,6 +19,7 @@ import { GradientButton, InputForm, SelectList, WhiteButton } from "../../UX/uxC
 import HtmlSlider from "../../UX/htmlSlider"
 import Axios from "axios"
 import { api } from "../../../actions/apiLinks"
+import YouTube from "../../UX/youTubeUploader";
 
 
 class VendorMainDashboard extends React.Component {
@@ -67,6 +68,7 @@ class VendorMainDashboard extends React.Component {
                 categoryName: "",
                 imagesInCategory: []
             },
+            youTubeURL: [],
             featuresAdded: [],
             categoryStylesAdded: [],
 
@@ -384,6 +386,10 @@ class VendorMainDashboard extends React.Component {
             })
     }
 
+    componentDidUpdate() {
+        console.log(this.state.youTubeURL)
+    }
+
     convertVendorDataAndSave = (productsRaw) => {
 
         let finalData = [], categoryExists = false
@@ -691,6 +697,9 @@ class VendorMainDashboard extends React.Component {
                         imagesInCategory: decryptedData.productImages
                     },
                     productThumbImage: decryptedData.productThumbImage,
+                    // youTubeURL: decryptedData.youTubeURL,
+                    brandName: decryptedData.brandName,
+                    brandImage: decryptedData.brandImage, 
 
                     subCategoryDataExists: true,
 
@@ -1261,7 +1270,8 @@ class VendorMainDashboard extends React.Component {
             productDimensions,
             categoryStylesAdded,
             tagsAdded,
-            productImagesObject
+            productImagesObject,
+            youTubeURL
         } = this.state;
 
         if(fieldName === "materials") {
@@ -1430,6 +1440,18 @@ class VendorMainDashboard extends React.Component {
                 />
             )
         }
+
+        else if (fieldName === "youTube") {
+            if (youTubeURL.length !== 0) {
+                return youTubeURL.map((item, i) => {
+                    return (
+                        <div className="youTubeContainer" key={i}>
+                            <YouTube video={item} autoplay="0" rel="0" modest="1" />
+                        </div>
+                    );
+                })
+            }
+        }
     }
 
     returnSubCategoryDetails = () => {
@@ -1546,11 +1568,37 @@ class VendorMainDashboard extends React.Component {
                                 <p>{productDiscount}%</p>  
                             </div>
                             <div className="productImages">
-                            <h3>Product Images: </h3> 
+                                <h3>Product Images: </h3> 
                                 {this.returnArrayFields("images")}
-                        </div>
+                            </div>
+                            <div className={this.state.youTubeURL.length !== 0 ? "productVideos" : "productVideos hide" }>
+                                <h3>Product Videos: </h3>
+                                {this.returnArrayFields("youTube")}
+                            </div>
                         </div>
                    </div>
+
+                    <div className="confirmationButtonContainer">
+                        <div className="closeButtonContainer">
+                            <WhiteButton
+                                runFunction={() => {
+                                    window.open("/vendor/edit-product/" + this.state.itemCode, "_self")
+                                }}
+                            >
+                                Edit
+                            </WhiteButton>
+                        </div>
+                        <div className="removeButtonContainer">
+                            <WhiteButton
+                                runFunction={() => {
+                                    this.deleteCategory("sub", this.state.productId)
+                                }}
+                            >
+                                Delete
+                             </WhiteButton>
+                        </div>
+                    </div>
+
                 </div>
             )
         }
@@ -1800,26 +1848,6 @@ class VendorMainDashboard extends React.Component {
                     </div>
                     <div className="productEditInformationContainer">
                         {this.returnSubCategoryDetails()}
-                    </div>
-                    <div className="confirmationButtonContainer">
-                        <div className="closeButtonContainer">
-                            <WhiteButton
-                                runFunction={() => { 
-                                    window.open("/vendor/edit-product/" + this.state.itemCode, "_self")
-                                 }}
-                            >
-                                Edit
-                            </WhiteButton>
-                        </div>
-                        <div className="removeButtonContainer">
-                            <WhiteButton
-                                runFunction={() => {
-                                    this.deleteCategory("sub", this.state.productId)
-                                }}
-                            >
-                                Delete
-                             </WhiteButton>
-                        </div>
                     </div>
                 </div>
             )

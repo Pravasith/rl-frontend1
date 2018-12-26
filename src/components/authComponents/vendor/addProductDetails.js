@@ -111,6 +111,8 @@
         productImage: "",
         productImageThumbnail: "",
 
+        brandImage: "",
+
         isProceedClicked: false,
         inputFormContainer: "inputFormContainer",
         proceedOrNotCheck: "proceedOrNotCheck hide",
@@ -933,7 +935,7 @@
         this.setState({ youtubeId })
       }
 
-      console.log(youtubeId)
+      // console.log(youtubeId)
 
       let dummyArray = [...youTubeURL];
 
@@ -974,8 +976,8 @@
       if (this.state.youTubeURL.length !== 0) {
         return this.state.youTubeURL.map((item, i) => {
           return (
-            <div className="youTubeContainer">
-              <YouTube video={this.state.youtubeId} autoplay="0" rel="0" modest="1" />
+            <div className="youTubeContainer" key={i}>
+              <YouTube video={item} autoplay="0" rel="0" modest="1" />
               <div className="deleteIcon" onClick={() => this.removeyouTubeURL(i)}>
                 <CloseButton />
               </div>
@@ -2554,14 +2556,9 @@
           );
         }
 
-        // }
-
-        // const returnAlertModalContent = () => {
-        if (modalType === "alertForDelete") {
+        else if (modalType === "alertForDelete") {
           return (
             <div className={this.state.modalAlertForDelete}>
-              {/* <div className="dummyXClass"> */}
-              {/* <div className="whiteSquareForModal"> */}
               <div className="whiteSquareModalUpperContainer">
                 <div className="vendorDashboardModal">
                   <div className="modalHeader">
@@ -2571,10 +2568,7 @@
                   <div className="confirmationButtonContainer">
                     <WhiteButton
                       runFunction={() => {
-                        this.state.productImagesObject.imagesInCategory.splice(
-                          0,
-                          1
-                        );
+                        this.state.productImagesObject.imagesInCategory.splice(0, 1);
                         this.modalClassToggle("dontShow");
                       }}
                     >
@@ -2590,8 +2584,6 @@
                   </div>
                 </div>
               </div>
-              {/* </div> */}
-              {/* </div> */}
             </div>
           );
         }
@@ -3303,7 +3295,7 @@
                                     title="youTube Url"
                                     type="text"
                                     name="youTube"
-                                    placeholder="Enter your embeded YouTube URL"
+                                    placeholder="Enter your product Ad/demo YouTube URL"
                                     ref="youTube"
                                     maxLength="1000"
                                     onChange={(e) => this.setYouTubeURL(e)}
@@ -3394,6 +3386,51 @@
                               </div>
                             </div>
                           </div>
+
+                          <div className="inputFormContainer">
+                            <div className="formParaSection">
+                              <p className="pargraphClass">Brand Name</p>
+                            </div>
+                            <div className="materialInformationColumn">
+                              <InputForm
+                                refName="brandName"
+                                placeholder="Ex.Vertical Moss"
+                                isMandatory={false}
+                                validationType="alphabetsSpecialCharactersAndNumbers"
+                                characterCount="30"
+                                result={val =>
+                                  this.setState({
+                                    brandName: val
+                                  })
+                                }
+                              />
+                            </div>
+                          </div>
+
+                          <div className="inputFormContainer">
+                            <div className="formParaSection">
+                              <p className="pargraphClass">Brand Logo</p>
+                            </div>
+                            <div className="brandImageUploaderRender">
+                                <div className="brandImageUploaderClass">
+                                  <ImageUploader
+                                    imageType="regularImage" // regularImage || profileImage
+                                    resultData={data => {
+                                      this.setState({
+                                        brandImage: data.imageURL
+                                      });
+                                    }}
+                                    showInitialImage={
+                                      this.state.brandImage !== ""
+                                        ? this.state.brandImage
+                                        : ""
+                                    }
+                                    imageClassName="brandImageClass"
+                                  />
+                                </div>
+                            </div>
+                          </div>
+
                         </div>
                       </section>
 
