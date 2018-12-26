@@ -71,6 +71,7 @@ class VendorMainDashboard extends React.Component {
             categoryStylesAdded: [],
 
             activeModalType: "categoryModal",
+            confirmationButtonContainer: "confirmationButtonContainer hide",
 
             categoryArray: [
                 {
@@ -1267,8 +1268,10 @@ class VendorMainDashboard extends React.Component {
             return (
                 productMaterials.map((item, i) => {
                     return (
-                        <div className="modalContainerUpperContainer">
-                            <div className="modalContainer" key={i}>
+                        <div 
+                            key={i} 
+                            className="modalContainerUpperContainer">
+                            <div className="modalContainer">
                                 <div className="modalContainerInnerLayer">
                                     <div className="materialName">
                                         {/* <h3>Name: </h3> <p>{item.materialName}</p> */}
@@ -1306,8 +1309,8 @@ class VendorMainDashboard extends React.Component {
             return (
                 productFinishes.map((item, i) => {
                     return (
-                        <div className="modalContainerUpperContainer">
-                            <div className="modalContainer" key={i}>
+                        <div key={i} className="modalContainerUpperContainer">
+                            <div className="modalContainer">
                                 <div className="finishImageContainer">
                                     <img 
                                         src={item.finishImage} 
@@ -1372,8 +1375,8 @@ class VendorMainDashboard extends React.Component {
             return (
                 productDimensions.map((item, i) => {
                     return (
-                        <div className="productDimensionUpperContainer">
-                            <div className="modalContainer" key={i}>
+                        <div key={i} className="productDimensionUpperContainer">
+                            <div className="modalContainer">
                                 <div className="dimensionSize">
                                     {/* <h3>Size: </h3> <p>{item.sizeName}</p> */}
                                     <p>{item.sizeName}</p>
@@ -1435,7 +1438,6 @@ class VendorMainDashboard extends React.Component {
             productName,
             productCode,
             productPrice,
-           
             productMinQuantity,
             productMaxQuantity,
             productDescription,
@@ -1788,6 +1790,7 @@ class VendorMainDashboard extends React.Component {
                                 modalClass: "modalClass hide",
                                 mainContentWrap: "mainContentWrap",
                                 productManagerWrapperClass: "productManagerWrapperClass",
+                                subCategoryDataExists: false,
                                 vendorInitialGraphic: 'vendorGraphicCenter',
                             })
                             }
