@@ -670,6 +670,7 @@ class VendorMainDashboard extends React.Component {
                 // DECRYPT RESPONSE DATA
                 //
 
+
                 this.setState({
 
 
@@ -688,7 +689,6 @@ class VendorMainDashboard extends React.Component {
                     productDescription: decryptedData.productDescription,
                     categoryStylesAdded: decryptedData.designStyles,
                     tagsAdded: decryptedData.tags,
-                    productType: decryptedData.productType,
                     productAvailability: decryptedData.availability,
                     productAvailabilityBool: decryptedData.availability,
                     productDiscount: decryptedData.discount,
@@ -697,7 +697,7 @@ class VendorMainDashboard extends React.Component {
                         imagesInCategory: decryptedData.productImages
                     },
                     productThumbImage: decryptedData.productThumbImage,
-                    // youTubeURL: decryptedData.youTubeURL,
+                    youTubeURL: decryptedData.youTubeAdVideos,
                     brandName: decryptedData.brandName,
                     brandImage: decryptedData.brandImage, 
 
@@ -1263,6 +1263,7 @@ class VendorMainDashboard extends React.Component {
 
     returnArrayFields = (fieldName) => {
         const {
+            productPrice,
             productMaterials,
             featuresAdded,
             productFinishes,
@@ -1282,14 +1283,25 @@ class VendorMainDashboard extends React.Component {
                             key={i} 
                             className="modalContainerUpperContainer">
                             <div className="modalContainer">
+                                {/* <div className="subImageOrDivIfAny">
+                                    <img src="https://s3.ap-south-1.amazonaws.com/rolling-logs/images/vendor/regular-images/regularImage-VEN-DmcsOdIT7SQIWhx-FS9DC9tT9e-1544707923492.jpeg" alt=""/>
+                                </div> */}
+
                                 <div className="modalContainerInnerLayer">
-                                    <div className="materialName">
+                                    <div className="modalHeadingText">
                                         {/* <h3>Name: </h3> <p>{item.materialName}</p> */}
                                         <p>{item.materialName}</p>
                                     </div>
-                                    <div className="materialCost">
+                                    <div className="modalSubText">
                                         {/* <h3>Price:</h3> <p>Rs. {item.materialCost}</p> */}
-                                        <p>Rs. {item.materialCost}</p>
+                                        {
+                                            Number(item.materialCost) > 0 
+                                            ?
+                                            <p>Costs <span>Rs. { item.materialCost }</span> extra</p>
+                                            :
+                                            <p>No extra cost</p>
+                                        }
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -1304,9 +1316,23 @@ class VendorMainDashboard extends React.Component {
                 return (
                     featuresAdded.map((item, i) => {
                         return (
-                            <div className="modalContainer" key={i}>
-                                <div className="modalContainerInnerLayer">
-                                    <p>{item},</p>
+                            <div 
+                                key={i} 
+                                className="modalContainerUpperContainer">
+                                <div className="modalContainer">
+                                    {/* <div className="subImageOrDivIfAny">
+                                        <img src="https://s3.ap-south-1.amazonaws.com/rolling-logs/images/vendor/regular-images/regularImage-VEN-DmcsOdIT7SQIWhx-FS9DC9tT9e-1544707923492.jpeg" alt=""/>
+                                    </div> */}
+
+                                    <div className="modalContainerInnerLayer">
+                                        
+
+                                        <div className="modalHeadingText">
+                                            {/* <h3>Price:</h3> <p>Rs. {item.materialCost}</p> */}
+                                            <p><span>{item}</span></p>
+                                            
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         )
@@ -1319,31 +1345,43 @@ class VendorMainDashboard extends React.Component {
             return (
                 productFinishes.map((item, i) => {
                     return (
-                        <div key={i} className="modalContainerUpperContainer">
+                        <div 
+                            key={i} 
+                            className="modalContainerUpperContainer">
                             <div className="modalContainer">
-                                <div className="finishImageContainer">
+                                <div className="subImageOrDivIfAny">
                                     <img 
                                         src={item.finishImage} 
                                         alt=""
                                     />
                                 </div>
-                                <div className="finishInformation">
-                                    <div className="finishName">
-                                        {/* <h3>Finish Name: </h3> <p>{item.finishName}</p> */}
+
+                                <div className="modalContainerInnerLayer">
+                                    <div className="modalHeadingText">
+                                        {/* <h3>Name: </h3> <p>{item.materialName}</p> */}
                                         <p>{item.finishName}</p>
                                     </div>
-                                    <div className="finishCode">
-                                        {/* <h3>Finish Code: </h3>  <p>{item.finishCode}</p> */}
+
+                                    <div className="modalSubText">
+                                        {/* <h3>Price:</h3> <p>Rs. {item.materialCost}</p> */}
                                         <p>{item.finishCode}</p>
                                     </div>
-                                    <div className="finishCost">
-                                        {/* <h3>Finish Cost: </h3>  <p>Rs. {item.finishCost}</p> */}
-                                        <p>Rs. {item.finishCost}</p>
+
+                                    <div className="modalSubText">
+
+                                        {
+                                            Number(item.finishCost) > 0 
+                                            ?
+                                            <p>Costs <span>Rs. { item.finishCost }</span> extra</p>
+                                            :
+                                            <p>No extra cost</p>
+                                        }
                                     </div>
                                 </div>
                             </div>
                         </div>
                     )
+
                 })
             )
         }
@@ -1351,35 +1389,42 @@ class VendorMainDashboard extends React.Component {
         else if (fieldName === "colors") {
             return (
                 colorArray.map((item, i) => {
+
                     return (
-                        <div className="modalContainer" 
-                             key={i}
-                            >
-                            <div className="modalContainerInnerLayer">
-                                <div className="contentColorContainer">
-                                    <div 
-                                        className="colorDetails"
-                                        style={{background : item.colorCode}}
-                                    >
-                                    </div>
+                        <div 
+                            key={i} 
+                            className="modalContainerUpperContainer">
+                            <div className="modalContainer">
+                                <div className="subImageOrDivIfAny">
+                                    <div style = {{background : item.colorCode}} ></div>
                                 </div>
-                                <div className="contentColorValuesContainer">
-                                    <div className="colorNameContainer">
-                                        {/* <h3>Color: </h3> <p>{item.colorName}</p> */}
+
+                                <div className="modalContainerInnerLayer">
+                                    <div className="modalHeadingText">
+                                        {/* <h3>Name: </h3> <p>{item.materialName}</p> */}
                                         <p>{item.colorName}</p>
                                     </div>
-                                    <div className="colorHexCodeContainer">
-                                        {/* <h3>Color Code: </h3> <p>{item.colorCode}</p> */}
+                                    <div className="modalSubText">
+                                        {/* <h3>Price:</h3> <p>Rs. {item.materialCost}</p> */}
                                         <p>{item.colorCode}</p>
                                     </div>
-                                    <div className="colorExtraCostContainer">
-                                        {/* <h3>Color Cost: </h3> <p>Rs. {item.colorCost}</p> */}
-                                        <p>Rs. {item.colorCost}</p>
+                                    <div className="modalSubText">
+                                        {/* <h3>Price:</h3> <p>Rs. {item.materialCost}</p> */}
+                                        
+                                        {
+                                            Number(item.colorCost) > 0 
+                                            ?
+                                            <p>Costs <span>Rs. { item.colorCost }</span> extra</p>
+                                            :
+                                            <p>No extra cost</p>
+                                        }
                                     </div>
                                 </div>
                             </div>
                         </div>
                     )
+
+                    
                 })
             )
         }
@@ -1387,20 +1432,36 @@ class VendorMainDashboard extends React.Component {
         else if (fieldName === "dimensions") {
             return (
                 productDimensions.map((item, i) => {
+
                     return (
-                        <div key={i} className="productDimensionUpperContainer">
+                        <div 
+                            key={i} 
+                            className="modalContainerUpperContainer">
                             <div className="modalContainer">
-                                <div className="dimensionSize">
-                                    {/* <h3>Size: </h3> <p>{item.sizeName}</p> */}
-                                    <p>{item.sizeName}</p>
-                                </div>
-                                <div className="dimensionCost">
-                                    {/* <h3>Cost: </h3> <p>Rs. {item.sizeCost}</p> */}
-                                    <p>Rs. {item.sizeCost}</p>
+                               
+
+                                <div className="modalContainerInnerLayer">
+                                    <div className="modalHeadingText">
+                                        {/* <h3>Name: </h3> <p>{item.materialName}</p> */}
+                                        <p>{item.sizeName}</p>
+                                    </div>
+
+                                    <div className="modalSubText">
+
+                                        {
+                                            Number(item.sizeCost) > 0 
+                                            ?
+                                            <p>Costs <span>Rs. { item.sizeCost }</span> extra</p>
+                                            :
+                                            <p>No extra cost</p>
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     )
+
+                    
                 })
             )
         }
@@ -1409,12 +1470,27 @@ class VendorMainDashboard extends React.Component {
             return (
                 categoryStylesAdded.map((item, i) => {
                     return (
-                        <div className="modalContainer" key={i}>
-                            <div className="modernContainerInnerLayer">
-                                <p>{item.styleName},</p>
+                        <div 
+                            key={i} 
+                            className="modalContainerUpperContainer">
+                            <div className="modalContainer">
+                                {/* <div className="subImageOrDivIfAny">
+                                    <img src="https://s3.ap-south-1.amazonaws.com/rolling-logs/images/vendor/regular-images/regularImage-VEN-DmcsOdIT7SQIWhx-FS9DC9tT9e-1544707923492.jpeg" alt=""/>
+                                </div> */}
+
+                                <div className="modalContainerInnerLayer">
+                                    
+
+                                    <div className="modalHeadingText">
+                                        {/* <h3>Price:</h3> <p>Rs. {item.materialCost}</p> */}
+                                        <p>{item.styleName}</p>
+                                        
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     )
+                    
                 })
             )
         }
@@ -1422,25 +1498,45 @@ class VendorMainDashboard extends React.Component {
         else if (fieldName === "tags") {
             return (
                 tagsAdded.map((item, i) => {
+
                     return (
-                        <div className="modalContainer" key={i}>
-                            <div className="modalContainerInnerLayer">
-                                <p>{item},</p>
+                        <div 
+                            key={i} 
+                            className="modalContainerUpperContainer">
+                            <div className="modalContainer">
+                                {/* <div className="subImageOrDivIfAny">
+                                    <img src="https://s3.ap-south-1.amazonaws.com/rolling-logs/images/vendor/regular-images/regularImage-VEN-DmcsOdIT7SQIWhx-FS9DC9tT9e-1544707923492.jpeg" alt=""/>
+                                </div> */}
+
+                                <div className="modalContainerInnerLayer">
+                                    
+
+                                    <div className="modalHeadingText">
+                                        {/* <h3>Price:</h3> <p>Rs. {item.materialCost}</p> */}
+                                        <p>{item}</p>
+                                        
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     )
+
+
                 })
             )
         }
 
         else if (fieldName === "images") {
+
             return (
-                <HtmlSlider
-                    categoryData={productImagesObject} // format of Item 
-                    numberOfSlides={5} // Change the css grid properties for responsiveness
-                    textOnRibbon={"TRENDING NOW"} // All caps
-                    runFunction={(data) => { }}
-                />
+                <div className="productImagesContainer">
+                    <HtmlSlider
+                        categoryData={productImagesObject} // format of Item 
+                        numberOfSlides={4} // Change the css grid properties for responsiveness
+                        textOnRibbon={"TRENDING NOW"} // All caps
+                        runFunction={(data) => { }}
+                    />
+                </div>
             )
         }
 
@@ -1466,7 +1562,7 @@ class VendorMainDashboard extends React.Component {
             productMinQuantity,
             productMaxQuantity,
             productDescription,
-            productType,
+            
             productAvailability,
             productDiscount,
             productThumbImage
@@ -1501,123 +1597,136 @@ class VendorMainDashboard extends React.Component {
                             
                         </div> */}
                     </div>
-                    <div className="productMaterialsInformationColumn">
-                        <div className="productMaterialInformationInnerLayer">
-                            <div className="productImageCategoryInnerLayer">
-                                <div className="productThumbImageCategoryContainer">
-                                    <div className="productName">
-                                        <h3>Name: </h3> 
-                                        <p>{productName}</p>
-                                    </div>
-                                    <div className="productCode">
-                                        <h3>Code: </h3>
-                                        <p>{productCode}</p>
-                                    </div>
-                                    <div className="productPrice">
-                                        <h3>Price: </h3> 
-                                        <p>Rs.{productPrice}</p> 
-                                    </div>
-                                </div>
-                                <div className="productThumbImage">
-                                    {/* <h3>Thumbnail Image: </h3> */}
+                    <div className="productPreviewInformationColumn">
+
+                                {/* <div className="productThumbImage">
                                     <img
                                         src={productThumbImage}
                                         alt=""
                                     />
-                                </div>
-                                
+                                </div> */}
+                        <div className="productsInformationInnerLayer">
+                            
+                            <div className="productSubHeading">
+                                <h3>Name </h3> 
+                                <p>{productName}</p>
                             </div>
-                            <div className="productMaterialUpperLayer">
-                                <h3>Material: </h3>
-                                <div className="productMaterials">
+
+                            <div className="productSubHeading">
+                                <h3>Code </h3>
+                                <p>{productCode}</p>
+                            </div>
+
+                            <div className="productSubHeading">
+                                <h3>Price </h3> 
+                                <p>Rs. {productPrice} per piece</p> 
+                            </div>
+
+                            <div className="gridItemsContainer productSubContainers">
+                                <h3>Material choices </h3>
+                                <div className="gridOuterBox">
                                     {this.returnArrayFields("materials")}
                                 </div>                            
                             </div>
 
-                            <div className="productFeatures">
-                                <h3>Features: </h3> 
-                                <div className="productFeaturesOuterLayer">
+                            <div className="gridItemsContainer productSubContainers">
+                                <h3>Features / specifications </h3>
+                                <div className="gridOuterBox">
                                     {this.returnArrayFields("features")}
-                                </div>
+                                </div>                            
                             </div>
-                            <div className="productFinishes">
-                                <h3>Finishes: </h3>
-                                <div className="productFinishesOuterLayer">
+
+                            <div className="gridItemsContainer productSubContainers">
+                                <h3>Finishes</h3>
+                                <div className="gridOuterBox">
                                     {this.returnArrayFields("finishes")}
-                                </div>
+                                </div>                            
                             </div>
-                            <div className="productColors">
-                                <h3>Colors: </h3> 
-                                <div className="productColorOuterLayer">
+
+                            <div className="gridItemsContainer productSubContainers">
+                                <h3>Colors</h3>
+                                <div className="gridOuterBox">
                                     {this.returnArrayFields("colors")}
-                                </div>
+                                </div>                            
                             </div>
-                            <div className="productDimensions">
-                                <h3>Dimensions: </h3> 
-                                <div className="productDimensionsOuterLayer">
+
+                            <div className="gridItemsContainer productSubContainers">
+                                <h3>Sizes available </h3>
+                                <div className="gridOuterBox">
                                     {this.returnArrayFields("dimensions")}
-                                </div>
+                                </div>                            
                             </div>
-                            <div className="productQuantityContainer">
-                                <div className="productMinQuantity">
-                                    <h3>Min Quantity: </h3> 
-                                    <p>{productMinQuantity}</p>   
-                                </div>
-                                <div className="productMaxQuantity">
-                                    <h3>Max Quantity: </h3>
-                                    <p>{productMaxQuantity}</p>
-                                </div>
+
+                            <div className="productSubHeading">
+                                <h3>Min Quantity  </h3> 
+                                <p>{productMinQuantity}</p> 
                             </div>
-                            <div className="productDescription">
-                                <h3>Product description: </h3> 
-                                <p>{productDescription}</p>
+
+                            <div className="productSubHeading">
+                                <h3>Max Quantity  </h3> 
+                                <p>{productMaxQuantity}</p> 
                             </div>
-                            <div className="productStyles">
-                                <h3>Design Styles: </h3> 
-                                <div className="productStylesOuterLayer">
+                            
+                            <div className="productSubHeading">
+                                <h3>Product description  </h3> 
+                                <p>{productDescription}</p> 
+                            </div>
+
+                            <div className="gridItemsContainer productSubContainers">
+                                <h3>Design Styles </h3>
+                                <div className="gridOuterBox">
                                     {this.returnArrayFields("styles")}
-                                </div>
+                                </div>                            
                             </div>
-                            <div className="productTags">
-                                <h3>Tags: </h3> 
-                                <div className="productTagsOuterLayer">
+
+                            <div className="gridItemsContainer productSubContainers">
+                                <h3>Tags</h3>
+                                <div className="gridOuterBox">
                                     {this.returnArrayFields("tags")}
+                                </div>                            
+                            </div>
+                            
+                            
+
+                            <div className="productSubHeading">
+                                <h3>Product Availability</h3>
+                                <p>{productAvailability === false ? "No, the product is not available" : "Yes, the product is available"}</p>
+                            </div>
+
+                            <div className="productSubHeading">
+                                <h3>Product discount</h3>
+                                <p>{Number(productDiscount) > 0 ? productDiscount : "No discount available on this product"}</p>
+                            </div>
+
+                            <div className="productSubHeading imageWrapper">
+                                <h3>Product Images</h3>
+                                
+                                <div className="productImagesOuterContainer">
+                                    {this.returnArrayFields("images")}
                                 </div>
                             </div>
-                            <div className="productType">
-                                <h3>Type of the Product: </h3>
-                                <p>{productType}</p>
-                            </div>
-                            <div className="productAvailabilityAndDiscountContainer">
-                                <div className="productAvailability">
-                                    <h3>Product Availability: </h3> 
-                                    <p>{productAvailability === false ? "No" : "Yes"}</p>
-                                </div>
-                                <div className="productDiscount">
-                                    <h3>Product Discount: </h3> 
-                                    <p>{productDiscount}%</p>  
+
+                            <div className="productSubHeading imageWrapper">
+                                <h3>Product videos</h3>
+                                
+                                <div className="productVideosOuterContainer">
+                                    {this.returnArrayFields("youTube")}
                                 </div>
                             </div>
-                            <div className="productImages">
-                                <h3>Product Images: </h3> 
-                                {this.returnArrayFields("images")}
-                            </div>
-                            <div className={this.state.youTubeURL.length !== 0 ? "productVideos" : "productVideos hide" }>
-                                <h3>Product Videos: </h3>
-                                {this.returnArrayFields("youTube")}
-                            </div>
+
+                            
                         </div>
                    </div>
 
                     <div className="confirmationButtonContainer">
                         <div className="closeButtonContainer">
-                            <WhiteButton
+                            <GradientButton
                                 runFunction={() => {
-                                    window.open("/vendor/edit-product/" + this.state.itemCode, "_self")
+                                    window.open("/vendor/edit-product/" + this.state.itemCode.toLowerCase(), "_self")
                                 }}
                             >
-                                Edit
-                            </WhiteButton>
+                                Edit {productName}
+                            </GradientButton>
                         </div>
                         <div className="removeButtonContainer">
                             <WhiteButton
@@ -1833,7 +1942,7 @@ class VendorMainDashboard extends React.Component {
                 <div className="modalCategoryDeleteContainer">
                     <div className="modalHeaderCloserSection">
                         <div className="modalHeaderContainer">
-                            <h3>Sub-category you chose already exists in your dashboard, please check...</h3>
+                            <h3>Sub-category you chose already exists in your dashboard</h3>
                             <div className="line"></div>
                         </div>
                     </div>
@@ -1859,7 +1968,7 @@ class VendorMainDashboard extends React.Component {
             return (
                 <div className="modalEditCategoryContainer">
                     <div className="modalHeaderCloserSection">
-                        <div className="modalHeaderContainer">
+                        <div className="modalHeaderContainer productPreview">
                             <h3>Details of the product</h3>
                             <div className="line"></div>
                         </div>
