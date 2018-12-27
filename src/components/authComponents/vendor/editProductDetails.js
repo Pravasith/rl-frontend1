@@ -239,7 +239,7 @@ class EditProductDetails extends React.Component {
                             imagesInCategory: decryptedData.productImages
                         },
                         productThumbImage: decryptedData.productThumbImage,
-                        // youTubeURL: decryptedData.youTubeURL,
+                        youTubeURL: decryptedData.youTubeAdVideos,
                         brandName: decryptedData.brandName,
                         brandImage: decryptedData.brandImage 
 
@@ -770,7 +770,7 @@ class EditProductDetails extends React.Component {
                                             >{item.sizeName}</p>
                                     </div>
                                     <div className="sizeCostCartWrap">
-                                        <h3>Cost over base price</h3>
+                                        <h3>Extra cost over base price</h3>
                                         <p key={i}>Rs. {item.sizeCost}</p>
                                     </div>
                                 </div>
@@ -867,7 +867,7 @@ class EditProductDetails extends React.Component {
                                         >{item.materialName}</p>
                                     </div>
                                     <div className="materialCostCartWrap">
-                                        <h3>Cost over base price</h3>
+                                        <h3>Extra cost over base price</h3>
                                         <p key={i}>Rs. {item.materialCost}</p>
                                     </div>
                                 </div>
@@ -973,7 +973,7 @@ class EditProductDetails extends React.Component {
                                                 <p key={i}>{item.finishName}</p>
                                             </div>
                                             <div className="finishCostCartWrap">
-                                                <h3>Cost over base price</h3>
+                                                <h3>Extra cost over base price</h3>
                                                 <p key={i}>Rs. {item.finishCost}</p>
                                             </div>
                                             <div className="finishCodecartwrap" >
@@ -2224,10 +2224,10 @@ class EditProductDetails extends React.Component {
             features : this.state.featuresAdded,
             designStyles : this.state.categoryStylesAdded,
             // productTypeId : this.state.productType,
-            productId : this.props.pId,
+            productId : this.props.pId.toUpperCase(),
             tags : this.state.tagsAdded,
             availability : this.state.productAvailabilityBool,
-            youtube: this.state.youTubeURL,
+            youTubeAdVideos: this.state.youTubeURL,
             discount : this.state.productDiscount,
             productImages : this.state.productImagesObject.imagesInCategory,
             productThumbImage : this.state.productImageThumbnail
@@ -3785,7 +3785,7 @@ class EditProductDetails extends React.Component {
                                                     <div className="brandNameInputSection">
                                                         <InputForm
                                                             refName="brandName"
-                                                            placeholder="Ex.Vertical Moss"
+                                                            placeholder="Ex.Greenply / Legrand etc."
                                                             isMandatory={false}
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
                                                             characterCount="30"
