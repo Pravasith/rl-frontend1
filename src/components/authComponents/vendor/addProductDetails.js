@@ -3391,7 +3391,8 @@
                             <div className="formParaSection">
                               <p className="pargraphClass">Brand Name</p>
                             </div>
-                            <div className="materialInformationColumn">
+                            <div className="brandNameInputSection">
+
                               <InputForm
                                 refName="brandName"
                                 placeholder="Ex.Vertical Moss"
