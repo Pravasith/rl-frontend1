@@ -1365,13 +1365,16 @@ class VendorMainDashboard extends React.Component {
                                 </div>
                                 <div className="contentColorValuesContainer">
                                     <div className="colorNameContainer">
-                                        <h3>Color: </h3> <p>{item.colorName}</p>
+                                        {/* <h3>Color: </h3> <p>{item.colorName}</p> */}
+                                        <p>{item.colorName}</p>
                                     </div>
                                     <div className="colorHexCodeContainer">
-                                        <h3>Color Code: </h3> <p>{item.colorCode}</p>
+                                        {/* <h3>Color Code: </h3> <p>{item.colorCode}</p> */}
+                                        <p>{item.colorCode}</p>
                                     </div>
                                     <div className="colorExtraCostContainer">
-                                        <h3>Color Cost: </h3> <p>Rs. {item.colorCost}</p>
+                                        {/* <h3>Color Cost: </h3> <p>Rs. {item.colorCost}</p> */}
+                                        <p>Rs. {item.colorCost}</p>
                                     </div>
                                 </div>
                             </div>
@@ -1434,7 +1437,7 @@ class VendorMainDashboard extends React.Component {
             return (
                 <HtmlSlider
                     categoryData={productImagesObject} // format of Item 
-                    numberOfSlides={3} // Change the css grid properties for responsiveness
+                    numberOfSlides={5} // Change the css grid properties for responsiveness
                     textOnRibbon={"TRENDING NOW"} // All caps
                     runFunction={(data) => { }}
                 />
@@ -1473,7 +1476,7 @@ class VendorMainDashboard extends React.Component {
             return (
                 <div className="subCategoryDeatilsInnerLayer">
                     <div className="productImageCategoryOuterLayer">
-                        <div className="productImageCategoryInnerLayer">
+                        {/* <div className="productImageCategoryInnerLayer">
                             <div className="productThumbImageCategoryContainer">
                                 <div className="productName">
                                     <h3>Name: </h3> 
@@ -1496,10 +1499,34 @@ class VendorMainDashboard extends React.Component {
                                 />
                             </div>
                             
-                        </div>
+                        </div> */}
                     </div>
                     <div className="productMaterialsInformationColumn">
                         <div className="productMaterialInformationInnerLayer">
+                            <div className="productImageCategoryInnerLayer">
+                                <div className="productThumbImageCategoryContainer">
+                                    <div className="productName">
+                                        <h3>Name: </h3> 
+                                        <p>{productName}</p>
+                                    </div>
+                                    <div className="productCode">
+                                        <h3>Code: </h3>
+                                        <p>{productCode}</p>
+                                    </div>
+                                    <div className="productPrice">
+                                        <h3>Price: </h3> 
+                                        <p>Rs.{productPrice}</p> 
+                                    </div>
+                                </div>
+                                <div className="productThumbImage">
+                                    {/* <h3>Thumbnail Image: </h3> */}
+                                    <img
+                                        src={productThumbImage}
+                                        alt=""
+                                    />
+                                </div>
+                                
+                            </div>
                             <div className="productMaterialUpperLayer">
                                 <h3>Material: </h3>
                                 <div className="productMaterials">
@@ -1531,13 +1558,15 @@ class VendorMainDashboard extends React.Component {
                                     {this.returnArrayFields("dimensions")}
                                 </div>
                             </div>
-                            <div className="productMinQuantity">
-                                <h3>Min Quantity: </h3> 
-                                <p>{productMinQuantity}</p>   
-                            </div>
-                            <div className="productMaxQuantity">
-                                <h3>Max Quantity: </h3>
-                                <p>{productMaxQuantity}</p>
+                            <div className="productQuantityContainer">
+                                <div className="productMinQuantity">
+                                    <h3>Min Quantity: </h3> 
+                                    <p>{productMinQuantity}</p>   
+                                </div>
+                                <div className="productMaxQuantity">
+                                    <h3>Max Quantity: </h3>
+                                    <p>{productMaxQuantity}</p>
+                                </div>
                             </div>
                             <div className="productDescription">
                                 <h3>Product description: </h3> 
@@ -1559,13 +1588,15 @@ class VendorMainDashboard extends React.Component {
                                 <h3>Type of the Product: </h3>
                                 <p>{productType}</p>
                             </div>
-                            <div className="productAvailability">
-                                <h3>Product Availability: </h3> 
-                                <p>{productAvailability === false ? "No" : "Yes"}</p>
-                            </div>
-                            <div className="productDiscount">
-                                <h3>Product Discount: </h3> 
-                                <p>{productDiscount}%</p>  
+                            <div className="productAvailabilityAndDiscountContainer">
+                                <div className="productAvailability">
+                                    <h3>Product Availability: </h3> 
+                                    <p>{productAvailability === false ? "No" : "Yes"}</p>
+                                </div>
+                                <div className="productDiscount">
+                                    <h3>Product Discount: </h3> 
+                                    <p>{productDiscount}%</p>  
+                                </div>
                             </div>
                             <div className="productImages">
                                 <h3>Product Images: </h3> 

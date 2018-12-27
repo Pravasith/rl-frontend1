@@ -59,6 +59,8 @@ class EditProductDetails extends React.Component {
             modalFinishDetails: "modalFinishDetailsClass",
             modalSize: "modalSizeClass",
             modalMaterial: "modalMaterialClass",
+            modalImagePreview: "modalImagePreviewClass",
+            modalAlertForDelete: "modalAlertForDeleteClass",
             // dynamincally toggle classes to flip styles //
 
             modalType : null,
@@ -133,7 +135,6 @@ class EditProductDetails extends React.Component {
             finishModalTitle: "Add a close-up image thumbnail for this finish",
 
             finishModalContentPart: 1,
-
             showDeleteButton: "hide",
             showFinalProceed: "hide",
 
@@ -2945,7 +2946,7 @@ class EditProductDetails extends React.Component {
                                 <img 
                                     src={this.state.productImageThumbnail} 
                                     alt=""
-                                    style={{  height: "5em", weight: "5em" }}
+                                    // style={{  height: "5em", weight: "5em" }}
                                     />
                                 </div>
                                 <div className={this.state.showDeleteButton}>
@@ -3781,7 +3782,7 @@ class EditProductDetails extends React.Component {
                                                     <div className="formParaSection">
                                                         <p className="pargraphClass">Brand Name</p>
                                                     </div>
-                                                    <div className="materialInformationColumn">
+                                                    <div className="brandNameInputSection">
                                                         <InputForm
                                                             refName="brandName"
                                                             placeholder="Ex.Vertical Moss"
@@ -3824,7 +3825,8 @@ class EditProductDetails extends React.Component {
                                             </div>
                                         </section>
 
-                                        <div className="formButtonContainer">
+                                        <div className="formButtonContainer">  
+                                              
                                             <div className="buttonContainer">
                                                 <GradientButton
                                                     runFunction={() => 
@@ -3848,7 +3850,8 @@ class EditProductDetails extends React.Component {
                                                         }}>
                                                     Cancel
                                                 </WhiteButton>
-                                            </div>     
+                                            </div> 
+                                            
                                         </div>
 
                                     </article>
