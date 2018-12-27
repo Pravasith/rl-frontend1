@@ -3114,9 +3114,9 @@ class EditProductDetails extends React.Component {
            { fieldName: 'Sizes Available', value: this.state.productDimensions },
            { fieldName: 'Min. quantity', value: this.state.productMinQuantity },
            { fieldName: `${this.handleMultiValidation("Max. quantity")}`, value: this.state.productMaxQuantity },
+           { fieldName: "Product Description", value: this.state.productDescription },
            { fieldName: 'Product Design', value: this.state.categoryStylesAdded },
            { fieldName: 'Product Tags', value: this.state.tagsAdded },
-        //    { fieldName: 'Product Type', value: this.state.productType },
            { fieldName: 'Product Availability', value: this.state.productAvailability },
            { fieldName: `${this.handleMultiValidation("Product Discount")}`, value: this.state.productDiscount },
            { fieldName: 'Product Image', value: this.state.productImagesObject.imagesInCategory }

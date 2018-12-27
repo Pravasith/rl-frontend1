@@ -2708,6 +2708,7 @@
           fieldName: `${this.handleMultiValidation("Max. quantity")}`,
           value: this.state.productMaxQuantity
         },
+        { fieldName: "Product Description", value: this.state.productDescription },
         { fieldName: "Product Design", value: this.state.categoryStylesAdded },
         { fieldName: "Product Tags", value: this.state.tagsAdded },
         { fieldName: "Product Type", value: this.state.productType },
