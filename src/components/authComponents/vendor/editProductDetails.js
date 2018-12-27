@@ -3713,7 +3713,7 @@ class EditProductDetails extends React.Component {
                                                     </div>
                                                 </div>
                             
-                            <div className={this.state.youTubeClass}>
+                            <div className={this.state.youTubeURL.length !== 0 ? "youTubeClass" : "youTubeClass hide"}>
                                 <div className="youtubeContentInnerLayer">
                                   {this.returnYouTubeInput()}
                                 </div>

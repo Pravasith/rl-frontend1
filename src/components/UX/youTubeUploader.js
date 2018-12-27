@@ -15,7 +15,7 @@ export default class YouTube extends Component {
                 width="100%" 
                 height="100%"
                 src={videoSrc}
-                frameborder="0" />
+                frameBorder="0" />
         </div>
     )
   }
