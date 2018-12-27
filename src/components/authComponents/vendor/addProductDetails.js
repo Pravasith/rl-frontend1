@@ -2594,16 +2594,17 @@
                   className="closeButtonContainer"
                   onClick={() => {
                     this.modalClassToggle("dontShow");
-                    this.setState({
-                      spliceOnEdit: false,
-                      isChecked: false,
-                      extraCostInput: "extraCostInput hide",
-                      displayError: "displayError hide",
-                      colorIsValid: true,
-                      sizeIsValid: true,
-                      materialIsValid: true,
-                      finishDetailsIsValid: true
-                    });
+                    // this.setState({
+                    //   spliceOnEdit: false,
+                    //   isChecked: false,
+                    //   extraCostInput: "extraCostInput hide",
+                    //   displayError: "displayError hide",
+                    //   colorIsValid: true,
+                    //   sizeIsValid: true,
+                    //   materialIsValid: true,
+                    //   finishDetailsIsValid: true
+                    // });
+                    this.handleStates();
                     this.handleClearExtraCostInput();
                   }}
                 >
@@ -2620,6 +2621,31 @@
         </div>
       );
     };
+
+    handleStates = () => {
+      if (this.state.finalProceed === "saveAndProceed") {
+        this.setState({
+          productImageThumbnail: "",
+          showFinalProceed: "hide",
+          spliceOnEdit: false,
+          isChecked: false,
+          extraCostInput: "extraCostInput hide",
+          displayError: "displayError hide",
+          colorIsValid: true,
+          sizeIsValid: true,
+          materialIsValid: true,
+          finishDetailsIsValid: true
+        })
+      }
+
+      else if (this.state.finalProceed === "successScreen") {
+        this.setState({
+          productImageThumbnail: "",
+          showFinalProceed: "hide",
+          finalProceed: "saveAndProceed"
+        })
+      }
+    }
 
     handleClearExtraCostInput = () => {
       if (this.state.modalType === "color") {
@@ -2716,9 +2742,6 @@
           fieldName: "Product Availability",
           value: this.state.productAvailability
         },
-        // {
-        //   fieldName: "Youtube Url", value: this.state.youTubeURL
-        // },
         {
           fieldName: `${this.handleMultiValidation("Product Discount")}`,
           value: this.state.productDiscount
@@ -3130,7 +3153,7 @@
                               <InputForm
                                 refName="productDescription"
                                 placeholder="Type something good about the product"
-                                isMandatory={false}
+                                isMandatory={true}
                                 validationType="alphabetsSpecialCharactersAndNumbers"
                                 characterCount="500"
                                 result={val =>
