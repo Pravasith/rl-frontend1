@@ -478,14 +478,23 @@ export default class SignUp extends React.Component{
                                 > { this.state.confirmPasswordText } </p>
 
                                 <span></span>
+                                
+                                <div className="letsGoButtonContainer">
+                                    <div 
+                                        className= "letsGoButton"
+                                        onClick= { () => this.validateAndSubmit() }
+                                        >
+                                        <GradientButton>
+                                                Show me what you got
+                                        </GradientButton>
+                                    </div>
 
-                                <div 
-                                    className= "letsGoButton"
-                                    onClick= { () => this.validateAndSubmit() }
-                                    >
-                                    <GradientButton>
-                                            Show me what you got
-                                    </GradientButton>
+                                    <small>By clicking Show me what you got, you agree to our 
+                                        <a
+                                            href="https://s3.amazonaws.com/xi-upload/terms-conditions/Tscalehub-+Terms+and+Conditions+version+1.0.pdf"
+                                            target="_blank"
+                                        > Terms and Conditions</a>.
+                                    </small>    
                                 </div>
 
                                 <div 
