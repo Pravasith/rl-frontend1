@@ -133,6 +133,8 @@ class EditProductDetails extends React.Component {
             finishModalTitle: "Add a close-up image thumbnail for this finish",
 
             finishModalContentPart: 1,
+
+            showDeleteButton: "hide",
             showFinalProceed: "hide",
 
             architectureStyles : architectureStyles,
