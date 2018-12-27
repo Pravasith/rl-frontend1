@@ -3825,7 +3825,8 @@ class EditProductDetails extends React.Component {
                                             </div>
                                         </section>
 
-                                        <div className="formButtonContainer">
+                                        <div className="formButtonContainer">  
+                                              
                                             <div className="buttonContainer">
                                                 <GradientButton
                                                     runFunction={() => 
@@ -3849,7 +3850,8 @@ class EditProductDetails extends React.Component {
                                                         }}>
                                                     Cancel
                                                 </WhiteButton>
-                                            </div>     
+                                            </div> 
+                                            
                                         </div>
 
                                     </article>
