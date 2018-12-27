@@ -829,22 +829,23 @@ class ProfileDetailsVendor extends React.Component {
                                                 className="formInputContainer"
                                             >
                                                 <div className="formInputInnerLayer">
-                                                        <div className="formParaSection">
-                                                            <h3>3</h3>
-                                                            <p> What should we call your company as? </p>
-                                                        </div>
+                                                
+                                                    <div className="formParaSection">
+                                                        <h3>3</h3>
+                                                        <p> What should we call your company as? </p>
+                                                    </div>
 
-                                                        <div className="companyNameWrap">
-                                                            <InputForm
-                                                                refName="companyName"
-                                                                placeholder="Type your company name here"
-                                                                isMandatory={true}
-                                                                validationType="alphabetsSpecialCharactersAndNumbers"
-                                                                characterCount="50"
-                                                                value={this.state.companyName}
-                                                                result={(val) => this.updateVendorData("companyName", val)}
-                                                            />
-                                                        </div>
+                                                    <div className="companyNameWrap">
+                                                        <InputForm
+                                                            refName="companyName"
+                                                            placeholder="Type your company name here"
+                                                            isMandatory={true}
+                                                            validationType="alphabetsSpecialCharactersAndNumbers"
+                                                            characterCount="50"
+                                                            value={this.state.companyName}
+                                                            result={(val) => this.updateVendorData("companyName", val)}
+                                                        />
+                                                    </div>
                                                     
                                                 </div>
                                             </div>

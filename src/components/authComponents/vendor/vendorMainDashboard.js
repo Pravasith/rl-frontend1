@@ -752,7 +752,7 @@ class VendorMainDashboard extends React.Component {
                     <div className="imageSliderWrap">
                         <HtmlSlider
                             categoryData={dataObject} // format of Item 
-                            numberOfSlides={4} // Change the css grid properties for responsiveness
+                            numberOfSlides={3} // Change the css grid properties for responsiveness
                             textOnRibbon={"BEST SELLER"} // All caps
                             // runFunction={(data) => { 
                             //     window.open("/vendor/edit-product/" + data.itemCode, "_self")
@@ -1833,7 +1833,7 @@ class VendorMainDashboard extends React.Component {
                 <div className="modalCategoryDeleteContainer">
                     <div className="modalHeaderCloserSection">
                         <div className="modalHeaderContainer">
-                            <h3>Sub-category you chose already exists in your dashboard, please check...</h3>
+                            <h3>Sub-category you choose already exists in your dashboard, please check...</h3>
                             <div className="line"></div>
                         </div>
                     </div>
