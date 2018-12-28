@@ -488,13 +488,15 @@ export default class SignUp extends React.Component{
                                                 Show me what you got
                                         </GradientButton>
                                     </div>
-
-                                    <small>By clicking Show me what you got, you agree to our 
-                                        <a
-                                            href="https://s3.amazonaws.com/xi-upload/terms-conditions/Tscalehub-+Terms+and+Conditions+version+1.0.pdf"
-                                            target="_blank"
-                                        > Terms and Conditions</a>.
-                                    </small>    
+                                    
+                                    <div className="termsAndConditionButton">
+                                        <p>By clicking Show me what you got, you agree to our 
+                                            <a
+                                                href="https://s3.amazonaws.com/xi-upload/terms-conditions/Tscalehub-+Terms+and+Conditions+version+1.0.pdf"
+                                                target="_blank"
+                                            > Terms and Conditions</a>.
+                                        </p>
+                                    </div>
                                 </div>
 
                                 <div 

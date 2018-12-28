@@ -384,11 +384,15 @@ class VendorMainDashboard extends React.Component {
                 else
                     console.error(err)
             })
+
+            
     }
 
     componentDidUpdate() {
         console.log(this.state.youTubeURL)
     }
+
+    
 
     convertVendorDataAndSave = (productsRaw) => {
 
@@ -728,6 +732,7 @@ class VendorMainDashboard extends React.Component {
             })
     }
 
+
     returnSubCategoryProducts = (productImages, title) => {
         if(productImages){
             if (productImages.length !== 0) {
@@ -752,7 +757,7 @@ class VendorMainDashboard extends React.Component {
                     <div className="imageSliderWrap">
                         <HtmlSlider
                             categoryData={dataObject} // format of Item 
-                            numberOfSlides={3} // Change the css grid properties for responsiveness
+                            numberOfSlides={4} // Change the css grid properties for responsiveness
                             textOnRibbon={"BEST SELLER"} // All caps
                             // runFunction={(data) => { 
                             //     window.open("/vendor/edit-product/" + data.itemCode, "_self")
@@ -829,14 +834,17 @@ class VendorMainDashboard extends React.Component {
             return(
                 categoriesSelected.map((item, i) => {
                     return (
-                        <div key = {i} className="categorisedProductsDisplay">
+                        <div 
+                            key = {i} 
+                            className="categorisedProductsDisplay"
+                        >
                             <div className="categorisedProductDisplayInnerLayer">
                                 <div className="mainCategoryHead">
                                     <div className="categoryMainHeaderContainer">
                                         <h3>{item.category.categoryName}</h3>
                                         <div className="line"></div>
                                     </div>
-                                    <div 
+                                    {/* <div 
                                         className="deleteCategoryContainer"
                                         // onClick={() => this.deleteCategory(i)}
                                         onClick={() => {
@@ -849,14 +857,14 @@ class VendorMainDashboard extends React.Component {
                                         }}
                                     >
                                         <CloseButton />
-                                    </div>
+                                    </div> */}
                                 </div>
 
                                 {returnSubCategories(item)}
                             </div>
                         </div>
                     )
-                }
+                  }
                 )
             )
         }
@@ -928,7 +936,7 @@ class VendorMainDashboard extends React.Component {
                                     <PlusButtonIconWhite />
                                 </div>
                                 Add new category
-                        </GradientButton>
+                            </GradientButton>
                         </div>
 
                         <div 

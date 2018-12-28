@@ -2376,7 +2376,7 @@ input{
                 .productManagerWrapperClass{
                     .productManagerWrapperInnerLayerClass{
                         .vendorDetailsLeftContainer{
-                            width: 25%;
+                            width: 27%;
                             height: 87vh;
                             min-height: 87vh; 
                             .vendorInformationInnerLayer{
@@ -2414,7 +2414,7 @@ input{
                                     .contentWrapper{
                                         .addProductButton{}
                                         .populatedCategories{
-                                            height: 70vh;
+                                            height: 74vh;
                                             .populatedCategoriesInnerLayer{
                                                 .categorisedProductsDisplay{
                                                     .categorisedProductDisplayInnerLayer{
@@ -2484,34 +2484,58 @@ input{
 
     .vendorProductDashboard{
         .mainClass{
-            margin-top: 7%;
             .maskLayer{
                 .productManagerWrapperClass{
                     .productManagerWrapperInnerLayerClass{
                         .vendorDetailsLeftContainer{
-                            width: 25%;
-                            height: 87vh;
-                            min-height: 87vh; 
+                            width: 35%;
+                            height: 60vh;
+                            min-height: 60vh;
+                            .vendorInformationInnerLayer{
+                                .vendorDashboardInfoConatiner{
+                                    .vendorDashboardCompanyLogo{}
+                                    .vendorDashboardCompanyInfoConatiner{
+                                        .companyInfoContainer{
+                                            .companyInfoUpperConatiner{}
+                                            .companyInfoLowerContainer{
+                                                max-height: 11em;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                         .vendorProductOuterLayer{
-                            width: 70%;
+                            width: 63%;
                             margin: 0 auto;
-                            .productHeadingSection{}
+                            .productHeadingSection{
+                                .firstHeadingComponent{}
+                                h3{
+                                    font-size: 0.9em;
+                                }
+                            }
                             .newCategorySection{
                                 .add{
                                     .contentWrapper{
                                         .addProductButton{}
                                         .populatedCategories{
-                                            height: 70vh;
+                                            height: 75vh;
                                             .populatedCategoriesInnerLayer{
+                                                width: 99%;
                                                 .categorisedProductsDisplay{
                                                     .categorisedProductDisplayInnerLayer{
+                                                        width: 96%;
                                                         .mainCategoryHead{}
                                                         .subCategoryHead{
+                                                            width: 99%;
+                                                            padding-left: 1em;
                                                             .subCategoryHeadInnerSection{
                                                                 .subCategoryHeaderSection{}
                                                                 .addProductCategorySection{
-                                                                    .addNewProductButton{}
+                                                                    .addNewProductButton{
+                                                                        height: 5.5em;
+                                                                        width: 6em;
+                                                                    }
                                                                     .subCategoryProductSection{
                                                                         .subCategoryProductSectionInnerLayer{
                                                                             
@@ -2519,7 +2543,7 @@ input{
                                                                                     .productView{
                                                                                         .innerViewProductLayer{
                                                                                             .imageContainerMiddleLayer{
-                                                                                                grid-template-columns: 1fr 1fr 1fr;
+                                                                                                grid-template-columns: 1fr 1fr;
                                                                                             }
                                                                                         }
                                                                                     }
@@ -2541,9 +2565,10 @@ input{
                     }
                 }
                 .modalClass{
+                    margin-top: 7%;
                     .modalOuterLayer{
                         .modalCategoryDeleteContainer{
-                            width: 40%;
+                            width: 50%;
                         }
                         .modalInnerLayer{
                             width: 70%;
@@ -2562,6 +2587,116 @@ input{
             }
         }
     }
+
+}
+
+@media screen and (max-height: 400px){
+
+    .vendorProductDashboard{
+        .mainClass{
+            .maskLayer{
+                .productManagerWrapperClass{
+                    .productManagerWrapperInnerLayerClass{
+                        .vendorDetailsLeftContainer{
+                            height: 100%;
+                            min-height: 100%;
+                            .vendorInformationInnerLayer{
+                                .vendorDashboardInfoConatiner{
+                                    .vendorDashboardCompanyLogo{}
+                                    .vendorDashboardCompanyInfoConatiner{
+                                        .companyInfoContainer{
+                                            .companyInfoUpperConatiner{}
+                                            .companyInfoLowerContainer{
+                                                // max-height: 11em;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        .vendorProductOuterLayer{
+                            // width: 63%;
+                            // margin: 0 auto;
+                            .productHeadingSection{
+                                .firstHeadingComponent{}
+                                h3{
+                                    // font-size: 0.9em;
+                                }
+                            }
+                            .newCategorySection{
+                                .add{
+                                    .contentWrapper{
+                                        .addProductButton{}
+                                        .populatedCategories{
+                                            height: 30em;
+                                            .populatedCategoriesInnerLayer{
+                                                // width: 99%;
+                                                .categorisedProductsDisplay{
+                                                    .categorisedProductDisplayInnerLayer{
+                                                        // width: 96%;
+                                                        .mainCategoryHead{}
+                                                        .subCategoryHead{
+                                                            // width: 99%;
+                                                            // padding-left: 1em;
+                                                            .subCategoryHeadInnerSection{
+                                                                .subCategoryHeaderSection{}
+                                                                .addProductCategorySection{
+                                                                    .addNewProductButton{
+                                                                        // height: 5.5em;
+                                                                        // width: 6em;
+                                                                    }
+                                                                    .subCategoryProductSection{
+                                                                        .subCategoryProductSectionInnerLayer{
+                                                                            
+                                                                                .imageSliderWrap{
+                                                                                    .productView{
+                                                                                        .innerViewProductLayer{
+                                                                                            .imageContainerMiddleLayer{
+                                                                                                // grid-template-columns: 1fr 1fr;
+                                                                                            }
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                .modalClass{
+                    height: 100%;
+                    .modalOuterLayer{
+                        .modalCategoryDeleteContainer{
+                            width: 50%;
+                        }
+                        .modalInnerLayer{
+                            width: 70%;
+                            .modalHeaderCloserSection{
+                                .modalHeaderContainer{}
+                            }
+                            .subHeadingSection{
+
+                            }
+                            .dummyContainer{}
+                            .errorMessageWrap{}
+                            .proceedButton{}
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 
 }
 

@@ -212,6 +212,37 @@ export default class HtmlSlider extends React.Component{
 
     }
 
+    returnTemplateCols = () => {
+        if(this.props.numberOfSlides === 1){  
+            return {
+                gridTemplateColumns : "1fr"
+            }
+        }
+
+        else if(this.props.numberOfSlides === 2){
+            return {
+                gridTemplateColumns : "1fr 1fr"
+            }
+        }
+        
+        else if(this.props.numberOfSlides === 3){
+            return {
+                gridTemplateColumns : "1fr 1fr 1fr"
+            }
+        }
+
+        else if(this.props.numberOfSlides === 4){
+            return {
+                gridTemplateColumns : "1fr 1fr 1fr 1fr"
+            }
+        }
+
+        else
+        return {
+            gridTemplateColumns : "1fr 1fr 1fr"
+        }
+    }
+
 
     showNextOrPreviousImage = (nextOrPrev) => {
 

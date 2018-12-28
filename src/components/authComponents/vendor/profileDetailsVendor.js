@@ -783,32 +783,32 @@ class ProfileDetailsVendor extends React.Component {
                                                         <p>Your name as you would like your customers to call you?</p>
                                                     </div>
 
-                                                        <div className="firstNameWrap">
-                                                            <InputForm
-                                                                refName="firstName"
-                                                                placeholder="First name"
-                                                                isMandatory={true}
-                                                                validationType="alphabetsAndSpecialCharacters"
-                                                                characterCount="15"
-                                                                value={this.state.firstName ? this.state.firstName : null}
-                                                                result={(val) => this.hitTheAPI("firstName", val)}
-                                                            />
-                                                        </div>
-
-                                                        <div className="lastNameWrap">
-                                                            <InputForm
-                                                                refName="lastName"
-                                                                placeholder="Last name"
-                                                                isMandatory={true}
-                                                                validationType="alphabetsAndSpecialCharacters"
-                                                                characterCount="15"
-                                                                value={this.state.lastName ? this.state.lastName : null}
-                                                                result={(val) => this.hitTheAPI("lastName", val)}
-                                                            />
-                                                        </div>
-
+                                                    <div className="firstNameWrap">
+                                                        <InputForm
+                                                            refName="firstName"
+                                                            placeholder="First name"
+                                                            isMandatory={true}
+                                                            validationType="alphabetsAndSpecialCharacters"
+                                                            characterCount="15"
+                                                            value={this.state.firstName ? this.state.firstName : null}
+                                                            result={(val) => this.hitTheAPI("firstName", val)}
+                                                        />
                                                     </div>
+
+                                                    <div className="lastNameWrap">
+                                                        <InputForm
+                                                            refName="lastName"
+                                                            placeholder="Last name"
+                                                            isMandatory={true}
+                                                            validationType="alphabetsAndSpecialCharacters"
+                                                            characterCount="15"
+                                                            value={this.state.lastName ? this.state.lastName : null}
+                                                            result={(val) => this.hitTheAPI("lastName", val)}
+                                                        />
+                                                    </div>
+
                                                 </div>
+                                            </div>
                                                 
                                                 <div className="formInputContainer"
                                                 >

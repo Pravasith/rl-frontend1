@@ -752,7 +752,12 @@ input[type=number]::-webkit-outer-spin-button {
 
     .bigWrapper{
        .mainClass{
-           .vendorProfileDetailsOuterwrapper{
+           .dummyLayer{
+            .vendorProfileDetailsOuterwrapper{
+                nav{
+                    position: fixed;
+                    top: 0;
+                }
                .vendorHeaderClass{}
                .vendorFormOuterSection{
                    @include flexCentreRow;
@@ -765,6 +770,7 @@ input[type=number]::-webkit-outer-spin-button {
                            }
                        }
                        .rightFormSection{
+                            height: 100%;
                            .formSectionInnerLayer{
                             .vendorForm{
                                 .formInputContainer{
@@ -772,7 +778,7 @@ input[type=number]::-webkit-outer-spin-button {
                                         // @include flexCentreCol;
                                         width: 82%;
                                         .formParaSection{
-                                            @include flexCentreRow;
+                                            // @include flexCentreRow;
                                         }
                                         .imageCategorySection {
                                             .inputColumn{
@@ -788,7 +794,11 @@ input[type=number]::-webkit-outer-spin-button {
                        }
                    }
                }
+               .proceedButtonHandler{
+                margin-bottom: 3em;
+               }
            }
+         }
        } 
     }
 
@@ -798,7 +808,12 @@ input[type=number]::-webkit-outer-spin-button {
 
     .bigWrapper{
         .mainClass{
-            .vendorProfileDetailsOuterwrapper{
+            .dummyLayer{
+             .vendorProfileDetailsOuterwrapper{
+                nav{
+                    position: fixed;
+                    top: 0;
+                }
                 .vendorHeaderClass{}
                 .vendorFormOuterSection{
                     @include flexCentreRow;
@@ -807,41 +822,49 @@ input[type=number]::-webkit-outer-spin-button {
                         .leftSection{
                             width: 80%;
                             .leftSectionInnerLayer{
- 
+
                             }
                         }
                         .rightFormSection{
+                            height: 100%;
                             .formSectionInnerLayer{
-                             .vendorForm{
-                                 .formInputContainer{
-                                     .formInputInnerLayer{
-                                         // @include flexCentreCol;
-                                         width: 82%;
-                                         .formParaSection{
-                                             @include flexCentreRow;
-                                         }
-                                         .cardInstructionPara {
-                                             width: 100%;
-                                         }
-                                         .cardInputSection {
-                                             width: 100%;
-                                         }
-                                         .imageCategorySection {
-                                             width: 100%;
-                                             .inputColumn{
-                                                 .imageUploadIconSection{
-                                                     @include flexCentreRow;
-                                                 }
-                                             }
-                                         }
-                                     }
-                                 }
-                             }
+                            .vendorForm{
+                                .formInputContainer{
+                                    .formInputInnerLayer{
+                                        // @include flexCentreCol;
+                                        width: 82%;
+                                        .formParaSection{
+                                            // @include flexCentreRow;
+                                        }
+                                        .imageOuterLayer{
+                                            width: 35%;
+                                        }
+                                        .cardInstructionPara {
+                                            width: 100%;
+                                        }
+                                        .cardInputSection {
+                                            width: 100%;
+                                        }
+                                        .imageCategorySection {
+                                            width: 100%;
+                                            .inputColumn{
+                                                .imageUploadIconSection{
+                                                    @include flexCentreRow;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                             }
                         }
                     }
                 }
-            }
+                .proceedButtonHandler{
+                    margin-bottom: 3em;
+                }
+             }
+           }
         } 
      }
 

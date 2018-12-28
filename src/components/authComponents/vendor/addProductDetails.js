@@ -2795,55 +2795,57 @@
             <div className="vendorDummyContainer">
               <article className={this.state.vendorDashboardOuterClass}>
                 <section className="vendorDashboardInnerLayer">
-                  <div className="uploadSectionLeftWrapper">
-                    <article className="leftWrapperInnerLayer">
-                      <section className="imageUploadBigContainer">
-                        <div className="imageUploadUpperSection">
-                          <div className="imageUploadInnerLayer">
-                            <div className="imageContainerInnerSection">
-                              <div className="imageUploadComponent">
-                                <header className="vendorImageUploadHeaderComponent">
-                                  <div className="headingArea">
-                                    <h3 className="headingClass">
-                                      Product image
-                                    </h3>
-                                    <div className="line" />
-                                  </div>
-                                </header>
-
-                                <div className="productImageUploaderRender">
-                                  {this.state.productImage === "" ? (
-                                    <div className="productImageUploaderClass">
-                                      <ImageUploader
-                                        imageType="regularImage" // regularImage || profileImage
-                                        resultData={data => {
-                                          this.setState({
-                                            productImage: data.imageURL
-                                          });
-                                          this.addProductImage();
-                                        }}
-                                        showInitialImage={
-                                          this.state.productImage !== ""
-                                            ? this.state.productImage
-                                            : ""
-                                        }
-                                        imageClassName="productImageClass"
-                                      />
+                  <div className="uploadSectionUpperContainer">
+                    <div className="uploadSectionLeftWrapper">
+                      <article className="leftWrapperInnerLayer">
+                        <section className="imageUploadBigContainer">
+                          <div className="imageUploadUpperSection">
+                            <div className="imageUploadInnerLayer">
+                              <div className="imageContainerInnerSection">
+                                <div className="imageUploadComponent">
+                                  <header className="vendorImageUploadHeaderComponent">
+                                    <div className="headingArea">
+                                      <h3 className="headingClass">
+                                        Product image
+                                      </h3>
+                                      <div className="line" />
                                     </div>
-                                  ) : (
-                                    <div className="productImageUploaderClass" />
-                                  )}
+                                  </header>
+
+                                  <div className="productImageUploaderRender">
+                                    {this.state.productImage === "" ? (
+                                      <div className="productImageUploaderClass">
+                                        <ImageUploader
+                                          imageType="regularImage" // regularImage || profileImage
+                                          resultData={data => {
+                                            this.setState({
+                                              productImage: data.imageURL
+                                            });
+                                            this.addProductImage();
+                                          }}
+                                          showInitialImage={
+                                            this.state.productImage !== ""
+                                              ? this.state.productImage
+                                              : ""
+                                          }
+                                          imageClassName="productImageClass"
+                                        />
+                                      </div>
+                                    ) : (
+                                      <div className="productImageUploaderClass" />
+                                    )}
+                                  </div>
                                 </div>
                               </div>
                             </div>
                           </div>
-                        </div>
 
-                        <div className="imageUploadDownSection">
-                          {this.returnHtmlSliderforproductImagesObject()}
-                        </div>
-                      </section>
-                    </article>
+                          <div className="imageUploadDownSection">
+                            {this.returnHtmlSliderforproductImagesObject()}
+                          </div>
+                        </section>
+                      </article>
+                    </div>
                   </div>
 
                   <div className="uploadSectionRightWrapper">
