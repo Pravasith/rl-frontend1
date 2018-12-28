@@ -35,7 +35,8 @@
     GradientButton,
     InputForm,
     WhiteButton,
-    RadioButton
+    RadioButton,
+    SelectList
   } from "../../UX/uxComponents";
   import HtmlSlider from "../../UX/htmlSlider";
   import Navbar from "../../navbar/navbar";
@@ -77,7 +78,10 @@
         colorName: "",
         colorCode: "",
         sizeName: "",
-        sizeCost: "",
+        sizeCost: "", 
+        installerName: "",
+        installerContactNo: "",
+        installerCharges: "",
 
         colorArray: [],
 
@@ -87,6 +91,7 @@
         productDimensions: [],
         productMaterials: [],
         productFinishes: [],
+        productInstallers: [],
         productImagesObject: {
           categoryName: "",
           imagesInCategory: []
@@ -127,13 +132,19 @@
         warningClass: "warningClass hide",
         fieldIsValid: false,
 
-        checkBoxClass1: "checkBox",
-        checkBoxClass2: "checkBox",
+        checkBoxProductDiscountClass1: "checkBox",
+        checkBoxProductDiscountClass2: "checkBox",
+        checkBoxProductInstallationClass1: "checkBox",
+        checkBoxProductInstallationClass2: "checkBox",
+        checkBoxProductInstallationClass3: "checkBox",
+
+        inputSection: "inputSection hide",
 
         // displayError: "displayError",
         displayError: "displayError hide",
         displayValueError: "displayValueError hide",
         displayDiscountValueError: "displayDiscountValueError hide",
+        displayInstallationValueError: "displayInstallationValueError hide",
         displayQuantityValueError: "displayQuantityValueError hide",
         // productQuantityErrorMessage: "displayValueError hide",
         // productMinQuantityError: "productMinQuantityError hide",
@@ -141,6 +152,7 @@
         materialCostIsValid: false,
         sizeCostIsValid: false,
         finishCostIsValid: false,
+        installerChargeIsValid: false,
 
         spliceOnEdit: true,
         finishModalTitle: "Add a close-up image thumbnail for this finish",
@@ -160,7 +172,9 @@
         youTubeClass: "youTubeClass hide",
         youTubeError: "youTubeError hide",
 
-        emptyField: []
+        emptyField: [],
+
+        installerCostType: ""
       };
     }
 
@@ -235,6 +249,10 @@
           } else console.error(err);
         });
     };
+
+    componentDidUpdate() {
+      console.log(this.state.productInstallers, this.state.installerCostType)
+    }
 
     modalClassToggle = showOrNot => {
       if (showOrNot === "show")
@@ -466,6 +484,25 @@
       ];
     };
 
+    returnTypesOfCharge = (typeOfCharge) => {
+      if (typeOfCharge === "serviceCharge") {
+        return [
+          { label: 'square feet', value: 1 },
+          { label: 'running feet', value: 2 },
+          { label: 'piece', value: 3 },
+          { label: 'hour', value: 4 },
+        ]
+      }
+
+      else if (typeOfCharge === "installersCharge") {
+        return [
+          { label: 'square feet', value: 1 },
+          { label: 'piece', value: 2 },
+          { label: 'hour', value: 3 },
+        ]
+      }
+    }
+
     returnfeaturesAdded = () => {
       return this.state.featuresAdded.map((item, i) => {
         return (
@@ -686,6 +723,17 @@
       });
     };
 
+    removeProductInstallers = index => {
+      this.state.productInstallers.splice(index, 1);
+
+      this.setState({
+        productInstallers:
+          this.state.productInstallers.length !== 0
+            ? this.state.productInstallers
+            : []
+      });
+    };
+
     returnFinishCode = finish => {
       if (finish.finishCode !== "") {
         return (
@@ -806,7 +854,9 @@
 
           return <div className="errorMessage">{returnError()}</div>;
         }
-      } else if (modalType === "size") {
+      } 
+      
+      else if (modalType === "size") {
         if (this.state.sizeIsValid === false) {
           return (
             <div className="errorMessage">
@@ -814,7 +864,9 @@
             </div>
           );
         }
-      } else if (modalType === "material") {
+      } 
+      
+      else if (modalType === "material") {
         if (this.state.materialIsValid === false) {
           return (
             <div className="errorMessage">
@@ -822,7 +874,9 @@
             </div>
           );
         }
-      } else if (modalType === "finish") {
+      } 
+      
+      else if (modalType === "finish") {
         if (this.state.finishDetailsIsValid === false) {
           return (
             <div className="errorMessage">
@@ -831,6 +885,16 @@
           );
         }
       }
+
+      else if (modalType === "installer") {
+        if (this.state.installerIsValid === false) {
+          return (
+            <div className="errorMessage">
+              <p>Please enter the {this.state.emptyFieldInInstaller}</p>
+            </div>
+          );
+        }
+      } 
     };
 
     // youTubeHandler = (e) => {
@@ -1002,54 +1066,102 @@
               productDiscount: Number(val),
               displayError: "displayError hide"
             });
-          } else if (checkFor === "color") {
+          } 
+
+          else if (checkFor === "installation") {
+            this.setState({
+              productInstallationServiceCost: Number(val),
+              displayError: "displayError hide"
+            });
+          } 
+
+          else if (checkFor === "installer") {
+            this.setState({
+              installerCharges: Number(val),
+              displayError: "displayError hide",
+              installerChargeIsValid: true
+            });
+          } 
+          
+          else if (checkFor === "color") {
             this.setState({
               colorCost: val,
               displayError: "displayError hide"
             });
-          } else if (checkFor === "material") {
+          } 
+          
+          else if (checkFor === "material") {
             this.setState({
               materialCost: val,
               displayError: "displayError hide",
               materialCostIsValid: true
             });
-          } else if (checkFor === "size") {
+          } 
+          
+          else if (checkFor === "size") {
             this.setState({
               sizeCost: val,
               displayError: "displayError hide",
               sizeCostIsValid: true
             });
-          } else if (checkFor === "finish") {
+          } 
+          
+          else if (checkFor === "finish") {
             this.setState({
               finishCost: val,
               displayError: "displayError hide",
               finishCostIsValid: true
             });
           }
-        } else if (regEx.test(val) === false) {
+        } 
+        
+        else if (regEx.test(val) === false) {
           if (checkFor === "discount") {
             this.setState({
               productDiscount: "",
               displayError: "displayError"
             });
-          } else if (checkFor === "color") {
+          } 
+
+          else if (checkFor === "installation") {
+            this.setState({
+              productInstallationServiceCost: "",
+              displayError: "displayError"
+            });
+          } 
+
+          else if (checkFor === "installer") {
+            this.setState({
+              installerCharges: "",
+              displayError: "displayError",
+              installerChargeIsValid: false
+            });
+          } 
+          
+          else if (checkFor === "color") {
             this.setState({
               colorCost: "",
               displayError: "displayError"
             });
-          } else if (checkFor === "material") {
+          } 
+          
+          else if (checkFor === "material") {
             this.setState({
               materialCost: "",
               displayError: "displayError",
               materialCostValid: false
             });
-          } else if (checkFor === "size") {
+          } 
+          
+          else if (checkFor === "size") {
             this.setState({
               sizeCost: "",
               displayError: "displayError",
               sizeCostIsValid: false
             });
-          } else if (checkFor === "finish") {
+          } 
+          
+          else if (checkFor === "finish") {
             this.setState({
               finishCost: "",
               displayError: "displayError",
@@ -1057,7 +1169,9 @@
             });
           }
         }
-      } else if (val === "") {
+      } 
+      
+      else if (val === "") {
         this.setState({
           displayError: "displayError hide",
           displayValueError: "displayValueError hide"
@@ -1156,14 +1270,18 @@
         productDimensions,
         productFinishes,
         productMaterials,
+        productInstallers,
+        installerContactNo,
         materialCostIsValid,
         sizeCostIsValid,
-        finishCostIsValid
+        finishCostIsValid,
+        installerChargeIsValid
       } = this.state;
 
       let isMaterialValid = false;
       let isColorValid = false;
       let isSizeValid = false;
+      let isInstallerValid = false;
       let isFinishDetailsValid = false;
       let emptyField;
       let errorMessage;
@@ -1391,6 +1509,43 @@
         return validationData;
       };
 
+      const validateInstallerModal = (installerName, installerCharges) => {
+        if (installerName !== "") {
+            if (installerContactNo !== "") {
+                if (installerCharges !== "") {
+                  console.log("wrks in")
+                  if (installerChargeIsValid) {
+                    isInstallerValid = true;
+                  } 
+
+                  else {
+                    emptyField = "Installer charges in number";
+                  }
+
+                }
+
+                else {
+                    emptyField = "Installer charges";
+                }
+            } 
+            
+            else {
+              emptyField = "Installer mobile number";
+            }
+        } 
+        
+        else if (installerName === "") {
+          emptyField = "Installer name";
+        }
+
+        const validationData = {
+          isInstallerValid,
+          emptyField
+        };
+
+        return validationData;
+      };
+
       if (typeOfButtonClicked === "color") {
         const colorCode = this.refs.colorCode.value;
         const colorName = this.refs.colorName.value;
@@ -1422,7 +1577,9 @@
             errorMessage: validatedData.errorMessage
           });
         }
-      } else if (typeOfButtonClicked === "size") {
+      } 
+      
+      else if (typeOfButtonClicked === "size") {
         const sizeName = this.refs.sizeName.value;
         const sizeCost = isChecked ? this.refs.sizeCost.value : 0;
 
@@ -1463,7 +1620,9 @@
             emptyFieldInSize: validatedData.emptyField
           });
         }
-      } else if (typeOfButtonClicked === "material") {
+      } 
+      
+      else if (typeOfButtonClicked === "material") {
         const materialName = this.refs.materialName.value;
         const materialCost = isChecked ? this.refs.materialCost.value : 0;
 
@@ -1498,13 +1657,17 @@
           this.refs.materialName.value = "";
 
           this.modalClassToggle("dontShow");
-        } else {
+        } 
+        
+        else {
           this.setState({
             materialIsValid: false,
             emptyFieldInMaterial: validatedData.emptyField
           });
         }
-      } else if (typeOfButtonClicked === "finish") {
+      } 
+      
+      else if (typeOfButtonClicked === "finish") {
         const finishName = this.refs.finishName.value;
         const finishCost = isChecked ? this.refs.finishCost.value : 0;
         const finishImage = this.state.productFinishImage;
@@ -1548,13 +1711,71 @@
           this.refs.finishCode.value = "";
 
           this.modalClassToggle("dontShow");
-        } else {
+        } 
+        
+        else {
           this.setState({
             finishDetailsIsValid: false,
             emptyFieldInFinishDetails: validatedData.emptyField
           });
         }
       }
+
+      else if (typeOfButtonClicked === "installer") {
+        const installerName = this.refs.installerName.value;
+        const installerContactNo = this.state.installerContactNo;
+        const installerCharges = this.refs.installerCharges.value;
+        const installerChargeType = this.state.installerCostType;
+
+        let validatedData = validateInstallerModal(installerName, installerCharges);
+
+        if (validatedData.isInstallerValid) {
+          let temp = {
+            installerCharges,
+            installerName,
+            installerContactNo, 
+            installerChargeType
+          };
+
+          if (temp.installerName !== "") {
+            if (temp.installerContactNo !== "") {
+              if (temp.installerCharges !== "") {
+
+                let dummyArray = [...productInstallers];
+
+                if (!dummyArray.includes(temp)) {
+                  productInstallers.push(temp);
+
+                  this.setState({
+                    installerContactNo: "",
+                    installerIsValid: true,
+                    emptyFieldInInstaller: null,
+                    modalType: null,
+                    isChecked: false,
+                    productInstallers:
+                      productInstallers.length !== 0 ? productInstallers : null,
+                    displayError: "displayError hide"
+                  });
+                }
+              }
+            }
+        }
+
+
+          this.refs.installerName.value = "";
+          this.refs.installerCharges.value = "";
+
+          this.modalClassToggle("dontShow");
+        }
+
+        else {
+          this.setState({
+            installerIsValid: false,
+            emptyFieldInInstaller: validatedData.emptyField
+          });
+        }
+      } 
+
     };
 
     onChangeHandler = e => {
@@ -1633,17 +1854,19 @@
 
       if (type === "productAvailability") {
         let productAvailability;
-        if (val.toLowerCase() === "yes, it is available") {
-          productAvailability = true;
-        } else if (val.toLowerCase() === "no, it is not available") {
-          productAvailability = false;
-        }
+          if (val.toLowerCase() === "yes, it is available") {
+            productAvailability = true;
+          } else if (val.toLowerCase() === "no, it is not available") {
+            productAvailability = false;
+          }
 
-        this.setState({
-          productAvailability: val,
-          productAvailabilityBool: productAvailability
-        });
-      } else if (type === "productType") {
+          this.setState({
+            productAvailability: val,
+            productAvailabilityBool: productAvailability
+          });
+      } 
+      
+      else if (type === "productType") {
         productTypes.map((item, i) => {
           if (item.productType === val) {
             this.setState({
@@ -1653,6 +1876,17 @@
           }
         });
       }
+
+      // else if (type === "productInstallationCharge") {
+      //   this.returnInstallationCharge().map((item, i) => {
+      //     if (item.value === val) {
+      //       this.setState({
+      //         productInstallationCharge: item.id,
+      //         productInstallationChargeChecked: val
+      //       })
+      //     }
+      //   })
+      // }
     };
 
     returnExtraCost = type => {
@@ -1781,6 +2015,48 @@
         </div>
       );
     };
+
+    returnProductInstallers = () => {
+      const { productInstallers } = this.state;
+
+      if(productInstallers.length !== 0) {
+        return productInstallers.map((item, i) => {
+          return (
+            <div className="productInstallerDescriptionOuterLayer" key={i}>
+              <div className="productInstallerDescriptionInnerLayer">
+                <div className="productInstallerDetails">
+                  <div className="productInstallerNameWrap">
+                    {/* <h3>Installer nomenclature</h3> */}
+                    <h3 key={i}>{item.installerName}</h3>
+                  </div>
+                  <div className="productInstallerChargesWrap">
+                    <small>Charges </small>
+                    <p key={i}>Rs. {item.installerCharges}</p>
+                  </div>
+                </div>
+                <div className="materialEditingButtons">
+                  {/* <div className="editButton">
+                        <WhiteButton
+                            runFunction={() => this.editProductInstallers(i)}
+                        >
+                            Edit
+                        </WhiteButton>
+                      </div> */}
+                  <div
+                    className="deleteButton"
+                    onClick={() => this.removeProductInstallers(i)}
+                  >
+                    <WhiteButton>
+                      Delete
+                    </WhiteButton>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )
+        })
+      }
+    }
 
     sendProductsDataToBackend = () => {
       this.setState({
@@ -2005,7 +2281,9 @@
                 </div>
               </div>
             );
-          } else if (finishModalContentPart === 2) {
+          } 
+          
+          else if (finishModalContentPart === 2) {
             return (
               <div className={this.state.modalFinishDetails}>
                 <div className="dummyXClass">
@@ -2111,14 +2389,15 @@
                       >
                         Proceed
                       </GradientButton>
-                      {this.displayErrorModal("finish")}
                     </div>
                   </div>
                 </div>
               </div>
             );
           }
-        } else if (modalType === "color") {
+        } 
+        
+        else if (modalType === "color") {
           return (
             <div className={this.state.modalColor}>
               <div className="dummyXClass">
@@ -2252,7 +2531,9 @@
               </div>
             </div>
           );
-        } else if (modalType === "size") {
+        } 
+        
+        else if (modalType === "size") {
           return (
             <div className={this.state.modalSize}>
               <div className="dummyXClass">
@@ -2337,7 +2618,9 @@
               </div>
             </div>
           );
-        } else if (modalType === "material") {
+        } 
+        
+        else if (modalType === "material") {
           return (
             <div className={this.state.modalMaterial}>
               <div className="dummyXClass">
@@ -2422,7 +2705,9 @@
               </div>
             </div>
           );
-        } else if (modalType === "validation") {
+        } 
+        
+        else if (modalType === "validation") {
           if (this.state.emptyField.length !== 0) {
             return (
               <div className={this.state.modalClassToggle}>
@@ -2488,7 +2773,9 @@
               </div>
             );
           }
-        } else if (modalType === "imagePreview") {
+        } 
+        
+        else if (modalType === "imagePreview") {
           return (
             <div className={this.state.modalImagePreview}>
               <div className="dummyXClass">
@@ -2583,6 +2870,117 @@
             </div>
           );
         }
+
+        else if (modalType === "installer") {
+            return (
+              <div className={this.state.modalThirdPartyDetails}>
+                <div className="dummyXClass">
+                  <div className="whiteSquareForModal">
+                    <div className="whiteSquareModalUpperContainer">
+                      <div className="vendorDashboardModal">
+                        <div className="modalHeader">
+                          <h3>Third party installer details</h3>
+                          <div className="line" />
+                        </div>
+                      </div>
+                      <div className="finishEndModal">
+
+                        <div className="thirdPartyDetails">
+                          <div className="inputFormContainer">
+                            <div className="formParaSection">
+                              <p className="pargraphClass">Installer's name</p>
+                            </div>
+                            <div className="productInputInfoSection productFinishName">
+                              <div className="modalMandatorySection">
+                                <p className="madatoryHighlight">Mandatory</p>
+                              </div>
+                              <div className="modalInputCategory">
+                                <input
+                                  type="text"
+                                  name="installerName"
+                                  placeholder="Type name here"
+                                  onChange={this.onChangeHandler}
+                                  maxLength="30"
+                                  ref="installerName"
+                                />
+                                <span className="InputSeparatorLine"> </span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="inputFormContainer">
+                            <div className="formParaSection">
+                              <p className="pargraphClass">Installer's 10 digit mobile</p>
+                            </div>
+
+                            <div className="phoneNoWrap">
+                                <InputForm
+                                    refName="installerContactNo"
+                                    placeholder="10 digit Official contact number"
+                                    isMandatory={true}
+                                    validationType="onlyMobileNumbers"
+                                    characterCount="10"
+                                    value={
+                                      this.state.installerContactNo
+                                        ? this.state.installerContactNo
+                                            : ""
+                                    }
+                                    result={(val) => this.setState({ installerContactNo: val })}
+                                />
+                            </div>
+                          </div>
+                          
+                          <div className="inputFormContainer">
+                            <div className="formParaSection">
+                              <p className="pargraphClass">
+                                Installation charges (in INR)
+                              </p>
+                            </div>
+                            <div className="modalInputCategory">
+                              <input
+                                type="text"
+                                name="installerCharges"
+                                placeholder="Ex. 20"
+                                onChange={e => this.checkTypeNumber(e, "installer")}
+                                maxLength="8"
+                                ref="installerCharges"
+                              />
+                              <span className="InputSeparatorLine"> </span>
+                              <p> / </p>
+                              <SelectList
+                                name="installerCostType"
+                                value={this.state.installerCostType !== "" ? 1 : null}
+                                onChange={this.onChangeHandler}
+                                options={this.returnTypesOfCharge("installersCharge")}
+                              />
+                            </div>
+
+                            <div className="errorContent">
+                              <p className={this.state.displayError}>
+                                Numbers Only
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="proceedOrNotCheck">
+                      <GradientButton
+                        runFunction={() => {
+                          this.proceedHandler("installer")
+                        }}
+                      >
+                        Proceed
+                      </GradientButton>
+                      {this.displayErrorModal("installer")}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          }
+
       };
 
       return (
@@ -2594,16 +2992,17 @@
                   className="closeButtonContainer"
                   onClick={() => {
                     this.modalClassToggle("dontShow");
-                    this.setState({
-                      spliceOnEdit: false,
-                      isChecked: false,
-                      extraCostInput: "extraCostInput hide",
-                      displayError: "displayError hide",
-                      colorIsValid: true,
-                      sizeIsValid: true,
-                      materialIsValid: true,
-                      finishDetailsIsValid: true
-                    });
+                    // this.setState({
+                    //   spliceOnEdit: false,
+                    //   isChecked: false,
+                    //   extraCostInput: "extraCostInput hide",
+                    //   displayError: "displayError hide",
+                    //   colorIsValid: true,
+                    //   sizeIsValid: true,
+                    //   materialIsValid: true,
+                    //   finishDetailsIsValid: true
+                    // });
+                    this.handleStates();
                     this.handleClearExtraCostInput();
                   }}
                 >
@@ -2620,6 +3019,31 @@
         </div>
       );
     };
+
+    handleStates = () => {
+      if (this.state.finalProceed === "saveAndProceed") {
+        this.setState({
+          productImageThumbnail: "",
+          showFinalProceed: "hide",
+          spliceOnEdit: false,
+          isChecked: false,
+          extraCostInput: "extraCostInput hide",
+          displayError: "displayError hide",
+          colorIsValid: true,
+          sizeIsValid: true,
+          materialIsValid: true,
+          finishDetailsIsValid: true
+        })
+      }
+
+      else if (this.state.finalProceed === "successScreen") {
+        this.setState({
+          productImageThumbnail: "",
+          showFinalProceed: "hide",
+          finalProceed: "saveAndProceed"
+        })
+      }
+    }
 
     handleClearExtraCostInput = () => {
       if (this.state.modalType === "color") {
@@ -2653,7 +3077,9 @@
         productDiscountAvailablity,
         productDiscount,
         productMinQuantity,
-        productMaxQuantity
+        productMaxQuantity,
+        productInstallationAvailability,
+        productInstallationServiceCost
       } = this.state;
 
       if (fieldName === "Max. quantity") {
@@ -2672,22 +3098,58 @@
               displayQuantityValueError: "displayQuantityValueError hide"
             });
         } else return "Max. qunatity";
-      } else if (fieldName === "Product Discount") {
+      } 
+      
+      else if (fieldName === "Product Discount") {
         if (productDiscountAvailablity === "yes") {
           if (productDiscount !== undefined) {
             if (productDiscount === 0) {
               this.setState({
                 displayDiscountValueError: "displayDiscountValueError"
               });
+              
               return "Product Discount Value";
-            } else
+            } 
+            
+            else
               this.setState({
                 displayDiscountValueError: "displayDiscountValueError hide"
               });
-          } else if (productDiscount === undefined) {
+          } 
+          
+          else if (productDiscount === undefined) {
             return "Product Discount Value";
           }
-        } else return "Product Discount Availability";
+        } 
+        
+        else return "Product Discount Availability";
+      }
+
+      else if (fieldName === "Product Installation") {
+
+        if (productInstallationAvailability === "yes") {
+          if (productInstallationServiceCost !== undefined) {
+            if (productInstallationServiceCost === 0) {
+              this.setState({
+                displayInstallationValueError: "displayInstallationValueError"
+              });
+
+              return "Product Installation Cost";
+            }
+
+            else
+              this.setState({
+                displayInstallationValueError: "displayInstallationValueError hide"
+              });
+          }
+
+          else if (productInstallationServiceCost === undefined) {
+            
+            return "Product Installation Cost";
+          }
+        }
+
+        else return "Product Installation Service";
       }
     };
 
@@ -2708,6 +3170,7 @@
           fieldName: `${this.handleMultiValidation("Max. quantity")}`,
           value: this.state.productMaxQuantity
         },
+        { fieldName: "Product Description", value: this.state.productDescription },
         { fieldName: "Product Design", value: this.state.categoryStylesAdded },
         { fieldName: "Product Tags", value: this.state.tagsAdded },
         { fieldName: "Product Type", value: this.state.productType },
@@ -2715,9 +3178,6 @@
           fieldName: "Product Availability",
           value: this.state.productAvailability
         },
-        // {
-        //   fieldName: "Youtube Url", value: this.state.youTubeURL
-        // },
         {
           fieldName: `${this.handleMultiValidation("Product Discount")}`,
           value: this.state.productDiscount
@@ -2725,7 +3185,9 @@
         {
           fieldName: "Product Image",
           value: this.state.productImagesObject.imagesInCategory
-        }
+        },
+
+        { fieldName: `${this.handleMultiValidation("Product Installation")}`, value: this.state.productInstallationServiceCost },
       ];
 
       await this.setState({
@@ -2738,7 +3200,8 @@
           item.value === null ||
           item.value.length === 0 ||
           item.fieldName === "Max. quantity value" ||
-          item.fieldName === "Product Discount Value"
+          item.fieldName === "Product Discount Value" ||
+          item.fieldName === "Product Installation Cost"
         ) {
           if (!this.state.emptyField.includes(item.fieldName)) {
             this.state.emptyField.push(item.fieldName);
@@ -2753,25 +3216,98 @@
       this.modalClassToggle("show");
     };
 
-    toggleOptions = yesOrNo => {
-      if (yesOrNo === "yes") {
+    toggleOptions = option => {
+      if (option === "yesDiscountAvailable") {
         this.setState({
-          checkBoxClass1: "checkBox color",
-          checkBoxClass2: "checkBox",
+          checkBoxProductDiscountClass1: "checkBox color",
+          checkBoxProductDiscountClass2: "checkBox",
           productDiscountAvailablity: "yes",
           productDiscount: undefined
         });
-      } else if (yesOrNo === "no") {
+      } 
+
+      else if (option === "noDiscount") {
         this.setState({
-          checkBoxClass1: "checkBox",
-          checkBoxClass2: "checkBox color",
+          checkBoxProductDiscountClass1: "checkBox",
+          checkBoxProductDiscountClass2: "checkBox color",
           displayError: "displayError hide",
           productDiscountAvailablity: "no",
-          productDiscount: 0
+          productDiscount: 0,
+          displayDiscountValueError: "displayDiscountValueError hide"
         });
 
         this.refs.discountInput.value = "";
       }
+
+      else if (option === "yesInstallationFree") {
+        this.setState({
+          checkBoxProductInstallationClass1: "checkBox color",
+          checkBoxProductInstallationClass2: "checkBox",
+          checkBoxProductInstallationClass3: "checkBox",
+          checkBoxProductInstallationClass4: "checkBox",
+          checkBoxProductInstallationClass5: "checkBox",
+          inputSection: "inputSection hide",
+          productInstallationAvailability: "no",
+          productInstallationServiceCost: 0,
+          displayInstallationValueError: "displayInstallationValueError hide"
+        })
+      }
+
+      else if (option === "yesInstallationExtraCost") {
+        this.setState({
+          checkBoxProductInstallationClass1: "checkBox",
+          checkBoxProductInstallationClass2: "checkBox color",
+          checkBoxProductInstallationClass3: "checkBox",
+          checkBoxProductInstallationClass4: "checkBox",
+          checkBoxProductInstallationClass5: "checkBox",
+          inputSection: "inputSection",
+          productInstallationAvailability: "yes",
+          productInstallationServiceCost: undefined
+        })
+      }
+
+      else if (option === "readyInstallation") {
+        this.setState({
+          checkBoxProductInstallationClass1: "checkBox",
+          checkBoxProductInstallationClass2: "checkBox",
+          checkBoxProductInstallationClass3: "checkBox color",
+          checkBoxProductInstallationClass4: "checkBox",
+          checkBoxProductInstallationClass5: "checkBox",
+          inputSection: "inputSection hide",
+          productInstallationAvailability: "no",
+          productInstallationServiceCost: 0,
+          displayInstallationValueError: "displayInstallationValueError hide"
+        })
+      }
+
+      else if (option === "noInstallation") {
+        this.setState({
+          checkBoxProductInstallationClass1: "checkBox",
+          checkBoxProductInstallationClass2: "checkBox",
+          checkBoxProductInstallationClass3: "checkBox",
+          checkBoxProductInstallationClass4: "checkBox color",
+          checkBoxProductInstallationClass5: "checkBox",
+          inputSection: "inputSection hide",
+          productInstallationAvailability: "no",
+          productInstallationServiceCost: 0,
+          displayInstallationValueError: "displayInstallationValueError hide"
+        })
+      }
+
+      else if (option === "noInstallationButRecommend") {
+        this.setState({
+          checkBoxProductInstallationClass1: "checkBox",
+          checkBoxProductInstallationClass2: "checkBox",
+          checkBoxProductInstallationClass3: "checkBox",
+          checkBoxProductInstallationClass4: "checkBox",
+          checkBoxProductInstallationClass5: "checkBox color",
+          inputSection: "inputSection hide",
+          productInstallationAvailability: "no",
+          productInstallationServiceCost: 0,
+          displayInstallationValueError: "displayInstallationValueError hide"
+        })
+      }
+
     };
 
     focus = () => {
@@ -3129,7 +3665,7 @@
                               <InputForm
                                 refName="productDescription"
                                 placeholder="Type something good about the product"
-                                isMandatory={false}
+                                isMandatory={true}
                                 validationType="alphabetsSpecialCharactersAndNumbers"
                                 characterCount="500"
                                 result={val =>
@@ -3143,24 +3679,24 @@
 
                           {/* <div className="inputFormContainer">
 
-                                                      <div className="formParaSection">
-                                                          <p className="pargraphClass"> Features / specifications of the product </p>
-                                                      </div>
+                            <div className="formParaSection">
+                                <p className="pargraphClass"> Features / specifications of the product </p>
+                            </div>
 
-                                                      <div className="materialInfoColumn">
-                                                          <InputForm
-                                                              refName="featureName"
-                                                              placeholder="Type here"
-                                                              isMandatory={false}
-                                                              validationType="alphabetsSpecialCharactersAndNumbers"
-                                                              characterCount="100"
-                                                              result={(val) => this.setState({
-                                                                  featureName: val
-                                                              })}
-                                                          />
-                                                      </div>
+                            <div className="materialInfoColumn">
+                                <InputForm
+                                    refName="featureName"
+                                    placeholder="Type here"
+                                    isMandatory={false}
+                                    validationType="alphabetsSpecialCharactersAndNumbers"
+                                    characterCount="100"
+                                    result={(val) => this.setState({
+                                        featureName: val
+                                    })}
+                                />
+                            </div>
 
-                                                  </div> */}
+                        </div> */}
 
                           <div className="inputFormContainer">
                             <div className="formParaSection">
@@ -3331,11 +3867,11 @@
                               <div
                                 className="optionDiv"
                                 onClick={() => {
-                                  this.toggleOptions("yes");
+                                  this.toggleOptions("yesDiscountAvailable");
                                   this.focus();
                                 }}
                               >
-                                <div className={this.state.checkBoxClass1} />
+                                <div className={this.state.checkBoxProductDiscountClass1} />
                                 <div className="contentForOptionSelection">
                                   <div className="nonErrorContent">
                                     <p>Yes, we are offering a discount of</p>
@@ -3372,10 +3908,10 @@
                               <div
                                 className="optionDiv"
                                 onClick={() => {
-                                  this.toggleOptions("no");
+                                  this.toggleOptions("noDiscount");
                                 }}
                               >
-                                <div className={this.state.checkBoxClass2} />
+                                <div className={this.state.checkBoxProductDiscountClass2} />
                                 <div className="contentForOptionSelection">
                                   <p>No, there is no discount</p>
                                 </div>
@@ -3428,6 +3964,162 @@
                             </div>
                           </div>
 
+                          {/* <div className="inputFormContainer">
+                            <div className="formParaSection">
+                              <p className="pargraphClass">
+                                {" "}
+                                Do you offer installation services for this product?{" "}
+                              </p>
+                            </div>
+
+                            <div className="materialInfoColumn">
+                              <RadioButton
+                                title="Product Installation Charge"
+                                name={"productInstallationCharge"}
+                                options={this.returnInstallationCharge()}
+                                selectedOption={this.state.productInstallationChargeChecked}
+                                onChange={e =>
+                                  this.handleRadiobutton(e, "productInstallationCharge")
+                                }
+                              />
+                            </div>
+                          </div> */}
+
+                          {/* returnInstallationCharge = () => {
+                            return [
+                              {
+                                id: 1,
+                                value: "Yes, we install this product for free of cost (No extra installation charges)"
+                              },
+                              {
+                                  id: 2,
+                                value: "No, we don’t offer installation services for this product but I can recommend others who can install it"
+                              },
+                              {
+                                  id: 3,
+                                value: "Yes, we install this product for an extra cost"
+                              },
+                            ]
+                          } */}
+                
+                          <div className="inputFormContainer">
+                            <div className="formParaSection">
+                              <p className="pargraphClass">
+                                Do you offer installation services for this product?
+                              </p>
+                            </div>
+
+                            <div className="materialInfoColumn">
+                              <div
+                                className="optionDiv"
+                                onClick={() => {
+                                  this.toggleOptions("yesInstallationFree");
+                                }}
+                              >
+                                <div className={this.state.checkBoxProductInstallationClass1} />
+                                  <div className="contentForOptionSelection">
+                                    <div className="nonErrorContent">
+                                      <p>Yes, we install this product for free of cost (No extra installation charges).</p>
+                                    </div>
+                                  </div>
+                              </div>
+
+                              <div
+                                className="optionDiv"
+                                onClick={() => {
+                                  this.toggleOptions("yesInstallationExtraCost");
+                                }}
+                              >
+                              <div className={this.state.checkBoxProductInstallationClass2} />
+                                <div className="contentForOptionSelection">
+                                  <p>Yes, we install this product for an extra cost.</p>
+                                </div>
+                                <div className={this.state.inputSection}>
+                                    <input
+                                      type="text"
+                                      ref="installationCost"
+                                      maxLength="5"
+                                      placeholder="EX. 20"
+                                      onChange={e =>
+                                        this.checkTypeNumber(e, "installation")
+                                      }
+                                    />
+                                    <span className="InputSeparatorLine"> </span>
+                                    <p>/</p>
+                                    <SelectList
+                                      name="installationServiceCostType"
+                                      value={this.state.installationServiceCostType}
+                                      onChange={this.onChangeHandler}
+                                      options={this.returnTypesOfCharge("serviceCharge")}
+                                    />
+                                </div>
+                                <div className="errorContent">
+                                  <p className={this.state.displayError}>
+                                    Numbers Only
+                                  </p>
+                                  <p
+                                    className={
+                                      this.state.displayInstallationValueError
+                                    }
+                                  >
+                                    Installation cost cannot be zero, If you wish not to
+                                    offer installation service, please select the option
+                                    accordingly.
+                                  </p>
+                                </div>
+                              </div>
+
+                              <div
+                                className="optionDiv"
+                                onClick={() => {
+                                  this.toggleOptions("readyInstallation");
+                                }}
+                              >
+                                <div className={this.state.checkBoxProductInstallationClass3} />
+                                  <div className="contentForOptionSelection">
+                                    <p>This is a ready to use product. No installation services applicable.</p>
+                                  </div>
+                              </div>
+
+                              <div
+                                className="optionDiv"
+                                onClick={() => {
+                                  this.toggleOptions("noInstallation");
+                                }}
+                              >
+                                <div className={this.state.checkBoxProductInstallationClass4} />
+                                  <div className="contentForOptionSelection">
+                                    <p>No, we don’t provide installation services.</p>
+                                  </div>
+                              </div>
+
+                              <div
+                                className="optionDiv"
+                                onClick={() => {
+                                  this.toggleOptions("noInstallationButRecommend");
+                                }}
+                              >
+                                <div className={this.state.checkBoxProductInstallationClass5} />
+                                  <div className="contentForOptionSelection">
+                                    <p>No, we don’t offer installation services for this product
+                                      but I can recommend others who can install it (this option
+                                        increases the chances of product purchase).</p>
+                                  </div>
+                                  <WhiteButton
+                                    runFunction={() => { 
+                                      this.modalClassToggle("show");
+                                      this.setState({
+                                        modalType: "installer"
+                                      });
+                                    }}
+                                  >
+                                    <PlusButtonIcon />
+                                    Add installer
+                                  </WhiteButton>
+                                </div>
+                                {this.returnProductInstallers()}
+                              </div>
+                          </div>
                         </div>
                       </section>
 

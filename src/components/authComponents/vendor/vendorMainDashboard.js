@@ -386,10 +386,6 @@ class VendorMainDashboard extends React.Component {
             })
     }
 
-    componentDidUpdate() {
-        console.log(this.state.youTubeURL)
-    }
-
     convertVendorDataAndSave = (productsRaw) => {
 
         let finalData = [], categoryExists = false
@@ -1339,6 +1335,14 @@ class VendorMainDashboard extends React.Component {
                     })
                 )
             }
+
+            else {
+                return (
+                    <div className="productSubHeading">
+                        <p>N/A</p>
+                    </div>
+                )
+            }
         }
 
         else if (fieldName === "finishes") {
@@ -1565,7 +1569,9 @@ class VendorMainDashboard extends React.Component {
             
             productAvailability,
             productDiscount,
-            productThumbImage
+            productThumbImage,
+            brandName,
+            brandImage
         } = this.state;
 
         if (this.state.subCategoryDataExists) {
@@ -1714,6 +1720,21 @@ class VendorMainDashboard extends React.Component {
                                 </div>
                             </div>
 
+                            <div className="productSubHeading">
+                                <h3>Brand Name</h3>
+                                <p>{brandName ? brandName : "N/A"}</p>
+                            </div>
+
+                            <div className="productSubHeading">
+                                <h3>Brand Logo</h3>
+                                <div className="productImagesOuterContainer">
+
+                                    {brandImage ?
+                                        < img src={brandImage} alt="" />
+                                        : <p>"N/A"</p> }
+                                </div>
+                                
+                            </div>
                             
                         </div>
                    </div>

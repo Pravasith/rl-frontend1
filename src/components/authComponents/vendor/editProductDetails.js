@@ -245,7 +245,6 @@ class EditProductDetails extends React.Component {
 
                     })
     
-                    // console.log(this.props.pId)
                     this.discountAvailabilityChecked()
 
                     let sCId = pId.split("-")[0] + "-" + pId.split("-")[1]
@@ -342,6 +341,7 @@ class EditProductDetails extends React.Component {
                     console.error(err)
             })
     }
+
 
     discountAvailabilityChecked = () => {
         if (this.state.productDiscount !== 0) {
@@ -1124,10 +1124,11 @@ class EditProductDetails extends React.Component {
             productMinQuantity,
             productMaxQuantity,
             productDescription,
-            // productType,
             productAvailability,
             productDiscount,
-            productThumbImage } = this.state
+            productThumbImage,
+            brandName
+         } = this.state
 
         if(fieldName === "ProductName") {
             if (productName) return productName;
@@ -1169,8 +1170,8 @@ class EditProductDetails extends React.Component {
             if (productDiscount) return productDiscount;
         }
 
-        else if (fieldName === "ProductThumbImage") {
-            if (productThumbImage) return productThumbImage;
+        else if (fieldName === "BrandName") {
+            if (brandName) return brandName;
         }
     }
 
@@ -2205,6 +2206,27 @@ class EditProductDetails extends React.Component {
         )
     }
 
+    returnBrandImage = () => {
+        if (this.state.brandImage !== undefined) {
+            return (
+                <div className="brandImageUploaderRender">
+                    <div className="brandImageUploaderClass">
+                        <ImageUploader
+                            imageType="regularImage" // regularImage || profileImage
+                            resultData={data => {
+                                this.setState({
+                                    brandImage: data.imageURL
+                                });
+                            }}
+                            showInitialImage={this.state.brandImage}
+                            imageClassName="brandImageClass"
+                        />
+                    </div>
+                </div>
+            )
+        }
+    }
+
     updateProductsDataInBackend = () => {
         this.setState({
             finalProceed : "sendRequest"
@@ -2230,7 +2252,9 @@ class EditProductDetails extends React.Component {
             youTubeAdVideos: this.state.youTubeURL,
             discount : this.state.productDiscount,
             productImages : this.state.productImagesObject.imagesInCategory,
-            productThumbImage : this.state.productImageThumbnail
+            productThumbImage : this.state.productImageThumbnail,
+            brandName: this.state.brandName,
+            brandImage: this.state.brandImage
 
             // this.state.productName
             // this.state.productCode
@@ -3009,16 +3033,7 @@ class EditProductDetails extends React.Component {
                             <div className="closeButtonContainer"
                                 onClick = {() => {
                                     this.modalClassToggle("dontShow")
-                                    this.setState({ 
-                                        spliceOnEdit: false,
-                                        isChecked: false, 
-                                        extraCostInput: "extraCostInput hide",
-                                        displayError: "displayError hide",
-                                        colorIsValid: true,
-                                        sizeIsValid: true,
-                                        materialIsValid: true,
-                                        finishDetailsIsValid: true
-                                    })
+                                    this.handleStates()
                                     this.handleClearExtraCostInput()
                                 }}
                                 >
@@ -3036,6 +3051,31 @@ class EditProductDetails extends React.Component {
                 </div>
             </div>
         )
+    }
+
+    handleStates = () => {
+        if (this.state.finalProceed === "saveAndProceed") {
+            this.setState({
+                productImageThumbnail: "",
+                showFinalProceed: "hide",
+                spliceOnEdit: false,
+                isChecked: false,
+                extraCostInput: "extraCostInput hide",
+                displayError: "displayError hide",
+                colorIsValid: true,
+                sizeIsValid: true,
+                materialIsValid: true,
+                finishDetailsIsValid: true
+            })
+        }
+
+        else if (this.state.finalProceed === "successScreen") {
+            this.setState({
+                productImageThumbnail: "",
+                showFinalProceed: "hide",
+                finalProceed: "saveAndProceed"
+            })
+        }
     }
 
     handleClearExtraCostInput = () => {
@@ -3114,9 +3154,9 @@ class EditProductDetails extends React.Component {
            { fieldName: 'Sizes Available', value: this.state.productDimensions },
            { fieldName: 'Min. quantity', value: this.state.productMinQuantity },
            { fieldName: `${this.handleMultiValidation("Max. quantity")}`, value: this.state.productMaxQuantity },
+           { fieldName: "Product Description", value: this.state.productDescription },
            { fieldName: 'Product Design', value: this.state.categoryStylesAdded },
            { fieldName: 'Product Tags', value: this.state.tagsAdded },
-        //    { fieldName: 'Product Type', value: this.state.productType },
            { fieldName: 'Product Availability', value: this.state.productAvailability },
            { fieldName: `${this.handleMultiValidation("Product Discount")}`, value: this.state.productDiscount },
            { fieldName: 'Product Image', value: this.state.productImagesObject.imagesInCategory }
@@ -3713,7 +3753,7 @@ class EditProductDetails extends React.Component {
                                                     </div>
                                                 </div>
                             
-                            <div className={this.state.youTubeClass}>
+                            <div className={this.state.youTubeURL.length !== 0 ? "youTubeClass" : "youTubeClass hide"}>
                                 <div className="youtubeContentInnerLayer">
                                   {this.returnYouTubeInput()}
                                 </div>
@@ -3786,6 +3826,7 @@ class EditProductDetails extends React.Component {
                                                         <InputForm
                                                             refName="brandName"
                                                             placeholder="Ex.Greenply / Legrand etc."
+                                                            value={this.handleDefaultValues("BrandName")}
                                                             isMandatory={false}
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
                                                             characterCount="30"
@@ -3802,24 +3843,7 @@ class EditProductDetails extends React.Component {
                                                     <div className="formParaSection">
                                                         <p className="pargraphClass">Brand Logo</p>
                                                     </div>
-                                                    <div className="brandImageUploaderRender">
-                                                        <div className="brandImageUploaderClass">
-                                                            <ImageUploader
-                                                                imageType="regularImage" // regularImage || profileImage
-                                                                resultData={data => {
-                                                                    this.setState({
-                                                                        brandImage: data.imageURL
-                                                                    });
-                                                                }}
-                                                                showInitialImage={
-                                                                    this.state.brandImage !== ""
-                                                                        ? this.state.brandImage
-                                                                        : ""
-                                                                }
-                                                                imageClassName="brandImageClass"
-                                                            />
-                                                        </div>
-                                                    </div>
+                                                    {this.returnBrandImage()}
                                                 </div>
 
                                             </div>
