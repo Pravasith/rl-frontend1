@@ -302,7 +302,18 @@ class VendorMainDashboard extends React.Component {
                         //     imageURL : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLJk1dKAanCmnxn8w5mEsGWKgFRUwP1rXQNtiaJLe4-AjLM7OEYQ"
                         // },
                     ]
-            }
+            },
+
+            productInstallers: [
+                {
+                    installerName: "rakshith",
+                    installerContactNo: 9972223737,
+                    installerCharges: 1500,
+                    installerCostType: 1
+                }
+            ],
+
+            productInstallationAvailability: 5
         }
 
     }
@@ -1145,6 +1156,13 @@ class VendorMainDashboard extends React.Component {
         })
     }
 
+    returnChargeType = (installerCostType) => {
+
+        if (installerCostType === 1) return "square feet";
+        else if (installerCostType === 2) return "piece";
+        else if (installerCostType === 3) return "hour";
+    };
+
 
     handleCategorySelections = () => {
         const { mainCategorySelection } = this.state
@@ -1268,8 +1286,36 @@ class VendorMainDashboard extends React.Component {
             categoryStylesAdded,
             tagsAdded,
             productImagesObject,
-            youTubeURL
+            youTubeURL,
+            productInstallers,
+            productInstallationAvailability
         } = this.state;
+
+        const productInstallersDetail = productInstallers.map((item, i) => {
+            return (
+                <div className="productInstallerDescriptionOuterLayer" key={i}>
+                  <div className="productInstallerDescriptionInnerLayer">
+                    <div className="productInstallerDetails">
+                      <div className="productInstallerNameWrap">
+                        {/* <h3>Installer nomenclature</h3> */}
+                        <h3 key={i}>{item.installerName}</h3>
+                      </div>
+    
+                      <div className="productInstallerContactNoWrap">
+                        <p key={i}>+91 {item.installerContactNo}</p>
+                      </div>
+    
+                      <div className="productInstallerChargesWrap">
+                        <small>Charges </small>
+                        <p key={i}>
+                          Rs. {item.installerCharges} / {this.returnChargeType(item.installerCostType)}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+        }) 
 
         if(fieldName === "materials") {
             return (
@@ -1555,6 +1601,35 @@ class VendorMainDashboard extends React.Component {
                 })
             }
         }
+
+        else if (fieldName === "installationService") {
+            if (productInstallationAvailability === 1) {
+                return <p>Yes, we install this product for free of cost (No extra installation charges).</p>
+            } 
+
+            else if (productInstallationAvailability === 2) {
+                return <p>Yes, we install this product for an extra cost.</p>
+            }
+
+            else if (productInstallationAvailability === 3) {
+                return <p>This is a ready to use product. No installation services applicable.</p>
+            }
+
+            else if (productInstallationAvailability === 4) {
+                return <p>No, we don’t provide installation services.</p>
+            }
+
+            else if (productInstallationAvailability === 5) {
+                return (
+                    <div>
+                        <p>Installation cost cannot be zero, If you wish
+                        not to offer installation service, please
+                        select the option accordingly.</p>
+                        {productInstallers.length !== 0 ? productInstallersDetail : null}
+                    </div>
+                )
+            }
+        }
     }
 
     returnSubCategoryDetails = () => {
@@ -1734,6 +1809,11 @@ class VendorMainDashboard extends React.Component {
                                         : <p>"N/A"</p> }
                                 </div>
                                 
+                            </div>
+
+                            <div className="productSubHeading">
+                                <h3>Installation Service Option</h3>
+                                {this.returnArrayFields("installationService")}
                             </div>
                             
                         </div>
