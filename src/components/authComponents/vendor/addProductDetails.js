@@ -137,6 +137,8 @@ class AddProductDetails extends React.Component {
       checkBoxProductInstallationClass1: "checkBox",
       checkBoxProductInstallationClass2: "checkBox",
       checkBoxProductInstallationClass3: "checkBox",
+      checkBoxProductInstallationClass4: "checkBox",
+      checkBoxProductInstallationClass5: "checkBox",
 
       inputSection: "inputSection hide",
 
@@ -2059,7 +2061,11 @@ class AddProductDetails extends React.Component {
       youTubeAdVideos: this.state.youTubeURL,
       discount: this.state.productDiscount,
       productImages: this.state.productImagesObject.imagesInCategory,
-      productThumbImage: this.state.productImageThumbnail
+      productThumbImage: this.state.productImageThumbnail,
+      productInstallers: this.state.productInstallers,
+      productInstallationAvailability: this.state.productInstallationAvailability,
+      productInstallationServiceCost: this.state.productInstallationServiceCost,
+      installationServiceCostType: this.state.installationServiceCostType
 
       // this.state.productName
       // this.state.productCode
