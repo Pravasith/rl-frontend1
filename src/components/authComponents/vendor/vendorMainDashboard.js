@@ -395,6 +395,8 @@ class VendorMainDashboard extends React.Component {
                 else
                     console.error(err)
             })
+
+            
     }
 
     convertVendorDataAndSave = (productsRaw) => {
@@ -702,7 +704,7 @@ class VendorMainDashboard extends React.Component {
                         imagesInCategory: decryptedData.productImages
                     },
                     productThumbImage: decryptedData.productThumbImage,
-                    youTubeURL: decryptedData.youTubeAdVideos,
+                    youTubeURL: decryptedData.youTubeAdVideos ? decryptedData.youTubeAdVideos : [],
                     brandName: decryptedData.brandName,
                     brandImage: decryptedData.brandImage, 
 
@@ -732,6 +734,7 @@ class VendorMainDashboard extends React.Component {
 
             })
     }
+
 
     returnSubCategoryProducts = (productImages, title) => {
         if(productImages){
@@ -833,14 +836,17 @@ class VendorMainDashboard extends React.Component {
             return(
                 categoriesSelected.map((item, i) => {
                     return (
-                        <div key = {i} className="categorisedProductsDisplay">
+                        <div 
+                            key = {i} 
+                            className="categorisedProductsDisplay"
+                        >
                             <div className="categorisedProductDisplayInnerLayer">
                                 <div className="mainCategoryHead">
                                     <div className="categoryMainHeaderContainer">
                                         <h3>{item.category.categoryName}</h3>
                                         <div className="line"></div>
                                     </div>
-                                    <div 
+                                    {/* <div 
                                         className="deleteCategoryContainer"
                                         // onClick={() => this.deleteCategory(i)}
                                         onClick={() => {
@@ -853,14 +859,14 @@ class VendorMainDashboard extends React.Component {
                                         }}
                                     >
                                         <CloseButton />
-                                    </div>
+                                    </div> */}
                                 </div>
 
                                 {returnSubCategories(item)}
                             </div>
                         </div>
                     )
-                }
+                  }
                 )
             )
         }
@@ -932,7 +938,7 @@ class VendorMainDashboard extends React.Component {
                                     <PlusButtonIconWhite />
                                 </div>
                                 Add new category
-                        </GradientButton>
+                            </GradientButton>
                         </div>
 
                         <div 
@@ -2043,7 +2049,7 @@ class VendorMainDashboard extends React.Component {
                 <div className="modalCategoryDeleteContainer">
                     <div className="modalHeaderCloserSection">
                         <div className="modalHeaderContainer">
-                            <h3>Sub-category you chose already exists in your dashboard</h3>
+                            <h3>Sub-category you choose already exists in your dashboard</h3>
                             <div className="line"></div>
                         </div>
                     </div>

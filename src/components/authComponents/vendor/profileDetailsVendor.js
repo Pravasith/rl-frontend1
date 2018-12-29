@@ -776,32 +776,32 @@ class ProfileDetailsVendor extends React.Component {
                                                         <p>Your name as you would like your customers to call you?</p>
                                                     </div>
 
-                                                        <div className="firstNameWrap">
-                                                            <InputForm
-                                                                refName="firstName"
-                                                                placeholder="First name"
-                                                                isMandatory={true}
-                                                                validationType="alphabetsAndSpecialCharacters"
-                                                                characterCount="15"
-                                                                value={this.state.firstName ? this.state.firstName : null}
-                                                                result={(val) => this.hitTheAPI("firstName", val)}
-                                                            />
-                                                        </div>
-
-                                                        <div className="lastNameWrap">
-                                                            <InputForm
-                                                                refName="lastName"
-                                                                placeholder="Last name"
-                                                                isMandatory={true}
-                                                                validationType="alphabetsAndSpecialCharacters"
-                                                                characterCount="15"
-                                                                value={this.state.lastName ? this.state.lastName : null}
-                                                                result={(val) => this.hitTheAPI("lastName", val)}
-                                                            />
-                                                        </div>
-
+                                                    <div className="firstNameWrap">
+                                                        <InputForm
+                                                            refName="firstName"
+                                                            placeholder="First name"
+                                                            isMandatory={true}
+                                                            validationType="alphabetsAndSpecialCharacters"
+                                                            characterCount="15"
+                                                            value={this.state.firstName ? this.state.firstName : null}
+                                                            result={(val) => this.hitTheAPI("firstName", val)}
+                                                        />
                                                     </div>
+
+                                                    <div className="lastNameWrap">
+                                                        <InputForm
+                                                            refName="lastName"
+                                                            placeholder="Last name"
+                                                            isMandatory={true}
+                                                            validationType="alphabetsAndSpecialCharacters"
+                                                            characterCount="15"
+                                                            value={this.state.lastName ? this.state.lastName : null}
+                                                            result={(val) => this.hitTheAPI("lastName", val)}
+                                                        />
+                                                    </div>
+
                                                 </div>
+                                            </div>
                                                 
                                                 <div className="formInputContainer"
                                                 >
@@ -822,22 +822,23 @@ class ProfileDetailsVendor extends React.Component {
                                                 className="formInputContainer"
                                             >
                                                 <div className="formInputInnerLayer">
-                                                        <div className="formParaSection">
-                                                            <h3>3</h3>
-                                                            <p> What should we call your company as? </p>
-                                                        </div>
+                                                
+                                                    <div className="formParaSection">
+                                                        <h3>3</h3>
+                                                        <p> What should we call your company as? </p>
+                                                    </div>
 
-                                                        <div className="companyNameWrap">
-                                                            <InputForm
-                                                                refName="companyName"
-                                                                placeholder="Type your company name here"
-                                                                isMandatory={true}
-                                                                validationType="alphabetsSpecialCharactersAndNumbers"
-                                                                characterCount="50"
-                                                                value={this.state.companyName}
-                                                                result={(val) => this.updateVendorData("companyName", val)}
-                                                            />
-                                                        </div>
+                                                    <div className="companyNameWrap">
+                                                        <InputForm
+                                                            refName="companyName"
+                                                            placeholder="Type your company name here"
+                                                            isMandatory={true}
+                                                            validationType="alphabetsSpecialCharactersAndNumbers"
+                                                            characterCount="50"
+                                                            value={this.state.companyName}
+                                                            result={(val) => this.updateVendorData("companyName", val)}
+                                                        />
+                                                    </div>
                                                     
                                                 </div>
                                             </div>

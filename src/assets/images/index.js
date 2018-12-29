@@ -531,6 +531,23 @@ export const PlusButtonIcon = () => {
     )
 }
 
+export const ColorPlusButtonIcon = () => {
+
+    return(
+        <svg id='Layer_1' xmlns='http://www.w3.org/2000/svg' width='14' height='12'
+            viewBox='0 0 14 12'>
+            <linearGradient id='SVGID_1_' gradientUnits='userSpaceOnUse' x1='3.001'
+            y1='3.001' x2='9' y2='9'>
+                <stop offset='0' stopColor='#29abe2' />
+                <stop offset='1' stopColor='#d4145a' />
+            </linearGradient>
+            <polygon fill='url(#SVGID_1_)' points='11,5 7,5 7,1 5,1 5,5 1,5 1,7 5,7 5,11 7,11 7,7 11,7'
+            />
+        </svg>
+    )
+
+}
+
 export const LargePlusButtonIcon = () => {
 
     return (
