@@ -166,13 +166,13 @@ class ImageUploader extends React.Component {
     }
 
     
-    uploadImageToBackend = (theFile) => {
+    uploadImageToBackend = (imageData) => {
 
         // uploads image to backend. From there 
         // the image is written to an s3 bucket
 
 
-        axios.post(api.UPLOAD_IMAGE, theFile, 
+        axios.post(api.UPLOAD_IMAGE, imageData, 
             {
                 headers: {
                 'accept': 'application/json',
@@ -203,6 +203,8 @@ class ImageUploader extends React.Component {
             tl.set('.innerLoadingBar', {
                 width : 0 + "%"
             })
+
+            // console.log(res)
 
             this.props.resultData(res.data)
 

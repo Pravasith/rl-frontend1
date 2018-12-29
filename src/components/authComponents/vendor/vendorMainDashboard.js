@@ -386,15 +386,12 @@ class VendorMainDashboard extends React.Component {
             })
     }
 
-    componentDidUpdate() {
-        console.log(this.state.youTubeURL)
-    }
+   
 
     convertVendorDataAndSave = (productsRaw) => {
 
         let finalData = [], categoryExists = false
 
-        // console.log("LENGTH = " + productsRaw.length )
 
         productsRaw.map((item, i) => {
             const categoryId = item.productId.split("-")[0]
@@ -419,7 +416,6 @@ class VendorMainDashboard extends React.Component {
                         theItem.subCategory.map((subCat, k) => {
                             
                             if (subCat.subCategoryId === subCategoryId){
-                                // console.log(subCat.subCategoryId, subCategoryId)
                                 subCategoryExists = true
 
                                 subCat.productImages.push({
@@ -516,7 +512,7 @@ class VendorMainDashboard extends React.Component {
             categoriesSelected : [...finalData]
         })
 
-        // console.log(finalData)
+        
     }
 
     onSelect = (e) => {
@@ -631,7 +627,7 @@ class VendorMainDashboard extends React.Component {
         }
 
         else if (categoryType === "sub") {
-            // console.log(index)
+
         }
     }
 
@@ -711,7 +707,7 @@ class VendorMainDashboard extends React.Component {
             .catch((err) => {
                 if (err.response) {
 
-                    // console.log(err.response)
+
                     if (err.response.status === 401)
                         window.open('/log-in', "_self")
 
@@ -731,7 +727,6 @@ class VendorMainDashboard extends React.Component {
     returnSubCategoryProducts = (productImages, title) => {
         if(productImages){
             if (productImages.length !== 0) {
-                // console.log(this.state.subCategoryProducts)
 
                 let dummyArray = productImages.map((item, i) => {
                     return {
@@ -933,9 +928,6 @@ class VendorMainDashboard extends React.Component {
 
                         <div 
                             className="populatedCategories"
-                            // onScroll = {() => {
-                            //     console.log("Scrolled")
-                            // }}
                             >
                             <div className="populatedCategoriesInnerLayer">
                                 {this.returnCategorisedProducts()}
@@ -1550,6 +1542,10 @@ class VendorMainDashboard extends React.Component {
                     );
                 })
             }
+
+            else{
+                return <p>N/A</p>
+            }
         }
     }
 
@@ -1599,13 +1595,15 @@ class VendorMainDashboard extends React.Component {
                     </div>
                     <div className="productPreviewInformationColumn">
 
-                                {/* <div className="productThumbImage">
-                                    <img
-                                        src={productThumbImage}
-                                        alt=""
-                                    />
-                                </div> */}
+                                
                         <div className="productsInformationInnerLayer">
+
+                            <div className="productThumbImage">
+                                <img
+                                    src={productThumbImage}
+                                    alt=""
+                                />
+                            </div>
                             
                             <div className="productSubHeading">
                                 <h3>Name </h3> 
@@ -1969,7 +1967,7 @@ class VendorMainDashboard extends React.Component {
                 <div className="modalEditCategoryContainer">
                     <div className="modalHeaderCloserSection">
                         <div className="modalHeaderContainer productPreview">
-                            <h3>Details of the product</h3>
+                            <h3>Product preview</h3>
                             <div className="line"></div>
                         </div>
                         <div
