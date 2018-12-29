@@ -706,7 +706,7 @@ class VendorMainDashboard extends React.Component {
                         imagesInCategory: decryptedData.productImages
                     },
                     productThumbImage: decryptedData.productThumbImage,
-                    youTubeURL: decryptedData.youTubeAdVideos,
+                    youTubeURL: decryptedData.youTubeAdVideos ? decryptedData.youTubeAdVideos : [],
                     brandName: decryptedData.brandName,
                     brandImage: decryptedData.brandImage, 
 

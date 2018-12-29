@@ -687,6 +687,8 @@ input{
 
                                                         @include flexCentreRow;
                                                         align-items: flex-start;
+                                                        justify-content: flex-start;
+                                                        width: 100%;
                                                         margin-bottom: 0.5em;
 
                                                         &:hover{
@@ -700,12 +702,122 @@ input{
 
                                                         }
                                                         
+                                                        .installationCostContent{
+                                                            @include flexCentreCol;
+                                                            align-items: flex-start;
+                                                            width: 100%;
+                                                            .contentForOptionSelection{}
+                                                            .inputSection{
+                                                                background: $lightGrey;
+                                                                padding: 0.5em 1em;
+                                                                margin: 0.5em 0;
+                                                                width: 90%;
+                                                                .installationCostOuterContent{
+                                                                    header{
+                                                                        @include flexCentreCol;
+                                                                        align-items: flex-start;
+                                                                        p{
+                                                                            font-size: 0.9em;
+                                                                        }
+                                                                        .line{
+                                                                            background: $secondaryMagenta;
+                                                                            width: 5%;
+                                                                            margin-top: 0;
+                                                                        }
+                                                                    }
+                                                                    .installationCostInputSection{
+                                                                        @include flexCentreRow;
+                                                                        justify-content: flex-start;
+                                                                        .inputCategory{
+                                                                            width: 10%;
+                                                                            input{
+                                                                                border-bottom: 0.2em solid $mediumGrey;
+                                                                            }
+                                                                        }
+                                                                        p{
+                                                                            margin: 0 0.5em;
+                                                                            color: $darkerGrey;
+                                                                            font-size: 1em;
+                                                                        }
+                                                                        .selectionCategory{
+                                                                            .form-group{
+                                                                                select{
+                                                                                    border: none;
+                                                                                    border-bottom: 0.2em solid $mediumGrey;
+                                                                                    background: none;
+                                                                                    cursor: pointer;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                    .errorContent{
+                                                                        .displayError{
+                                                                            cursor: default;
+                                                                            background: $highLightBlue;
+                                                                            color: $white;
+                                                                            text-align: center;
+                                                                            padding: 0.5em 1em;
+                                                                            font-size: 0.75em;
+                                                                            margin-top: .2em;
+                                                                        }
+                                                                        
+                                                                    }
+                                                                }
+                                                            }
+                                                            .whiteButtonWrapper{
+                                                                font-size: 0.9em;
+                                                            }
+                                                            .productInstallerDescriptionOuterLayer{
+                                                                width: 100%;
+                                                                // margin: 0.5em 0;
+                                                                .productInstallerDescriptionInnerLayer{
+                                                                    @include flexCentreRow;
+                                                                    align-items: center;
+                                                                    justify-content: space-between;
+                                                                    padding: 0.5em 1em;
+                                                                    background: $lightGrey;
+                                                                    margin: 0.5em 0;
+                                                                    .productInstallerDetails{
+                                                                        .productInstallerNameWrap{
+                                                                        
+                                                                            h3{
+                                                                                color: $darkerGrey;
+                                                                            }
+                                                                        }
+                                                                        .productInstallerContactNoWrap{
+                                                                            margin: 0.4em 0;
+                                                                            p{
+                                                                                span{
+                                                                                    color: $darkerGrey; 
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        .productInstallerChargesWrap{
+                                                                            @include flexCentreRow;
+                                                                            p{}
+                                                                            span{
+                                                                                color: $darkerGrey;
+                                                                                border-bottom: 0.1em solid $darkerGrey;
+                                                                                font-size: 0.75em;
+                                                                                margin-left: 0.5em; 
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                    .materialEditingButtons{
+                                                                        @include flexCentreRow;
+                                                                    }
+                                                                }
+                                                            }
+
+                                                        }
                                                         
                                                         .checkBox{
                                                             transition: 0.2s;
                                                             border-radius: 50%;
                                                             height: 0.6em;
                                                             width: 0.6em;
+                                                            min-width: 0.7em;
+                                                            min-height: 0.7em;
                                                             background: $white;
                                                             border: 0.15em solid $darkGrey;
                                                             margin: 0.2em;
@@ -754,7 +866,7 @@ input{
                                                             .errorContent{
                                                                 p{
                                                                     font-size: 0.75em;
-                                                                    color: $red;
+                                                                    color: $white;
                                                                 }
                                                             }
 
@@ -1527,7 +1639,7 @@ input{
                                        } 
                                     }
                                 }
-                                .modalContentClass,.modalFinishClass,.modalSizeClass,.modalMaterialClass,.modalFinishDetailsClass,{
+                                .modalContentClass,.modalFinishClass,.modalSizeClass,.modalMaterialClass,.modalFinishDetailsClass,.modalThirdPartyDetailsClass{
                                         height: 100%;
                                     .dummyXClass{
 
@@ -1706,7 +1818,40 @@ input{
                                                 align-items: flex-start;
                                                 margin: 0.5em 0 1em 0;
 
-                                               
+                                                .phoneNoWrap{
+                                                    width: 100%;
+                                                    .inputCommonWrapper{
+                                                        .inputCategorySection{
+                                                            margin-bottom: 0;
+                                                        }
+                                                    }
+                                                }
+
+                                                .installationCostInputSection{
+                                                    @include flexCentreRow;
+                                                    justify-content: flex-start;
+                                                    .inputCategory{
+                                                        width: 50%;
+                                                        input{
+                                                            border-bottom: 0.2em solid $lightGrey;
+                                                        }
+                                                    }
+                                                    p{
+                                                        margin: 0 0.5em;
+                                                        color: $darkerGrey;
+                                                        font-size: 1em;
+                                                    }
+                                                    .selectionCategory{
+                                                        .form-group{
+                                                            select{
+                                                                border: none;
+                                                                border-bottom: 0.2em solid $lightGrey;
+                                                                background: none;
+                                                                cursor: pointer;
+                                                            }
+                                                        }
+                                                    }
+                                                }
 
 
                                                 .finishInputParaContainer{
