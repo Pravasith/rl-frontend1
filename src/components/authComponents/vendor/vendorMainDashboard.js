@@ -396,12 +396,8 @@ class VendorMainDashboard extends React.Component {
                     console.error(err)
             })
 
-<<<<<<< HEAD
             
     }
-=======
-   
->>>>>>> e81ac2487e2c9867488b94ca2c66bef40df85c14
 
     convertVendorDataAndSave = (productsRaw) => {
 
