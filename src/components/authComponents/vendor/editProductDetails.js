@@ -163,6 +163,9 @@ class EditProductDetails extends React.Component {
 
             emptyField: [],
 
+            installerCostType: 1,
+            installationServiceCostType: 1,
+
             productInstallers: [
                 {
                     installerName: "rakshith",
@@ -768,6 +771,7 @@ class EditProductDetails extends React.Component {
     };
 
     returnChargeType = (installerCostType) => {
+
         if (installerCostType === 1) return "square feet";
         else if (installerCostType === 2) return "running feet";
         else if (installerCostType === 3) return "piece";
@@ -2051,6 +2055,7 @@ class EditProductDetails extends React.Component {
                             this.setState({
                                 installerContactNo: "",
                                 installerIsValid: true,
+                                installerCostType: 1,
                                 emptyFieldInInstaller: null,
                                 modalType: null,
                                 isChecked: false,
@@ -3270,7 +3275,7 @@ class EditProductDetails extends React.Component {
                                                 <div className="formParaSection">
                                                     <p className="pargraphClass">
                                                         Installer's 10 digit mobile
-                          </p>
+                                                    </p>
                                                 </div>
 
                                                 <div className="phoneNoWrap">
@@ -3296,7 +3301,7 @@ class EditProductDetails extends React.Component {
                                                 <div className="formParaSection">
                                                     <p className="pargraphClass">
                                                         Installation charges (in INR)
-                          </p>
+                                                    </p>
                                                 </div>
                                                 <div className="modalInputCategory">
                                                     <input
@@ -3322,7 +3327,7 @@ class EditProductDetails extends React.Component {
                                                 <div className="errorContent">
                                                     <p className={this.state.displayError}>
                                                         Numbers Only
-                          </p>
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -3336,7 +3341,7 @@ class EditProductDetails extends React.Component {
                                         }}
                                     >
                                         Proceed
-                  </GradientButton>
+                                     </GradientButton>
                                     {this.displayErrorModal("installer")}
                                 </div>
                             </div>
@@ -3387,6 +3392,7 @@ class EditProductDetails extends React.Component {
         if (this.state.finalProceed === "saveAndProceed") {
             this.setState({
                 productImageThumbnail: "",
+                installerCostType: 1,
                 showFinalProceed: "hide",
                 spliceOnEdit: false,
                 isChecked: false,

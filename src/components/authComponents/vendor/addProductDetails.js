@@ -176,8 +176,8 @@ class AddProductDetails extends React.Component {
 
       emptyField: [],
 
-      // installerCostType: 1,
-      // installationServiceCostType: 1
+      installerCostType: 1,
+      installationServiceCostType: 1
     };
   }
 
@@ -253,12 +253,12 @@ class AddProductDetails extends React.Component {
       });
   };
 
-  // componentDidUpdate() {
-  //   console.log(
-  //     this.state.productInstallers,
-  //     this.state.installerChargeType
-  //   );
-  // }
+  componentDidUpdate() {
+    console.log(
+      this.state.productInstallers,
+      this.state.installerChargeType
+    );
+  }
 
   modalClassToggle = showOrNot => {
     if (showOrNot === "show")
@@ -500,6 +500,7 @@ class AddProductDetails extends React.Component {
   };
 
   returnChargeType = (installerCostType) => {
+
     if (installerCostType === 1) return "square feet";
     else if (installerCostType === 2) return "running feet";
     else if (installerCostType === 3) return "piece";
@@ -1715,6 +1716,7 @@ class AddProductDetails extends React.Component {
                 this.setState({
                   installerContactNo: "",
                   installerIsValid: true,
+                  installerCostType: 1,
                   emptyFieldInInstaller: null,
                   modalType: null,
                   isChecked: false,
@@ -2999,6 +3001,7 @@ class AddProductDetails extends React.Component {
     if (this.state.finalProceed === "saveAndProceed") {
       this.setState({
         productImageThumbnail: "",
+        installerCostType: 1,
         showFinalProceed: "hide",
         spliceOnEdit: false,
         isChecked: false,
