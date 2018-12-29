@@ -2515,7 +2515,6 @@ class EditProductDetails extends React.Component {
             // DECRYPT REQUEST DATA
             //
 
-            // console.log(decryptedData)
 
             this.setState({
                 finalProceed : "successScreen"
@@ -2527,7 +2526,6 @@ class EditProductDetails extends React.Component {
         .catch((err) => {
             if (err.response) {
 
-                // console.log(err.response)
                 if (err.response.status === 401)
                     window.open('/log-in', "_self")
 
