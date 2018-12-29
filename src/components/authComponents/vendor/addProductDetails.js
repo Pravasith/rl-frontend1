@@ -3756,7 +3756,7 @@ class AddProductDetails extends React.Component {
                                       this.addTagName();
                                     }
                                   }}
-                                >
+                                />
                                   <div className="svgImageContainer">
                                     <LargePlusButtonIcon />
                                   </div>
@@ -3850,7 +3850,7 @@ class AddProductDetails extends React.Component {
                               </WhiteButton>
                             </div>
                           </div>
-                        </div>
+                        {/* </div> */}
 
                           <div className={this.state.youTubeClass}>
                             <div className="youtubeContentInnerLayer">
@@ -4018,7 +4018,7 @@ class AddProductDetails extends React.Component {
                           <div className="formParaSection">
                             <p className="pargraphClass">
                               Do you offer installation services for this
-                              product?
+                              product ?
                             </p>
                           </div>
                         </div>
@@ -4044,10 +4044,10 @@ class AddProductDetails extends React.Component {
                                 </div>
                               </div>
 
-                              <WhiteButton runFunction={this.addYouTubeURL}>
+                              {/* <WhiteButton runFunction={this.addYouTubeURL}>
                                 Add
                               </WhiteButton>
-                            </div>
+                            </div> */}
 
                             <div
                               className="optionDiv"
@@ -4184,7 +4184,7 @@ class AddProductDetails extends React.Component {
                           </div>
                         </div>
 
-                      </div>
+                      {/* </div> */}
                     </section>
 
                     <div className="formButtonContainer">
