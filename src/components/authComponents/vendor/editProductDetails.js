@@ -758,30 +758,20 @@ class EditProductDetails extends React.Component {
         )
     }
 
-    returnChargeType = (installerCostType) => {
-
-        if (installerCostType === 1) return "square feet";
-        else if (installerCostType === 2) return "piece";
-        else if (installerCostType === 3) return "hour";
+    returnTypesOfCharge = () => {
+        return [
+            { label: "square feet", value: 1 },
+            { label: "running feet", value: 2 },
+            { label: "piece", value: 3 },
+            { label: "hour", value: 4 }
+        ];
     };
 
-    returnTypesOfCharge = () => {
-        // if (typeOfCharge === "serviceCharge") {
-            return [
-                { label: "square feet", value: 1 },
-                { label: "running feet", value: 2 },
-                { label: "piece", value: 3 },
-                { label: "hour", value: 4 }
-            ];
-        // } 
-        
-        // else if (typeOfCharge === "installersCharge") {
-        //     return [
-        //         { label: "square feet", value: 1 },
-        //         { label: "piece", value: 2 },
-        //         { label: "hour", value: 3 }
-        //     ];
-        // }
+    returnChargeType = (installerCostType) => {
+        if (installerCostType === 1) return "square feet";
+        else if (installerCostType === 2) return "running feet";
+        else if (installerCostType === 3) return "piece";
+        else if (installerCostType === 4) return "hour";
     };
     
     returnfeaturesAdded = () => {
