@@ -2056,6 +2056,9 @@ class AddProductDetails extends React.Component {
       discount: this.state.productDiscount,
       productImages: this.state.productImagesObject.imagesInCategory,
       productThumbImage: this.state.productImageThumbnail,
+      brandName : this.state.brandName,
+      brandImage : this.state.brandImage,
+
       productInstallers: this.state.productInstallers,
       productInstallationAvailability: this.state.productInstallationAvailability,
       productInstallationServiceCost: this.state.productInstallationServiceCost,
