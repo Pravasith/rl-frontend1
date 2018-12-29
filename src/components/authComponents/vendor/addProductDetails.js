@@ -251,11 +251,11 @@ class AddProductDetails extends React.Component {
       });
   };
 
-  componentDidUpdate() {
-    console.log(
-      this.state.productInstallationAvailability
-    );
-  }
+  // componentDidUpdate() {
+  //   console.log(
+  //     this.state.productInstallationAvailability
+  //   );
+  // }
 
   modalClassToggle = showOrNot => {
     if (showOrNot === "show")
@@ -1499,9 +1499,12 @@ class AddProductDetails extends React.Component {
             } else {
               emptyField = "Installer charges in number";
             }
-          } else {
-            emptyField = "Installer charges";
+          } 
+          
+          else if (installerCharges === "") {
+            isInstallerValid = true;
           }
+
         } else {
           emptyField = "Installer mobile number";
         }
@@ -1548,7 +1551,9 @@ class AddProductDetails extends React.Component {
           errorMessage: validatedData.errorMessage
         });
       }
-    } else if (typeOfButtonClicked === "size") {
+    } 
+    
+    else if (typeOfButtonClicked === "size") {
       const sizeName = this.refs.sizeName.value;
       const sizeCost = isChecked ? this.refs.sizeCost.value : 0;
 
@@ -1589,7 +1594,9 @@ class AddProductDetails extends React.Component {
           emptyFieldInSize: validatedData.emptyField
         });
       }
-    } else if (typeOfButtonClicked === "material") {
+    } 
+    
+    else if (typeOfButtonClicked === "material") {
       const materialName = this.refs.materialName.value;
       const materialCost = isChecked ? this.refs.materialCost.value : 0;
 
@@ -1630,7 +1637,9 @@ class AddProductDetails extends React.Component {
           emptyFieldInMaterial: validatedData.emptyField
         });
       }
-    } else if (typeOfButtonClicked === "finish") {
+    } 
+    
+    else if (typeOfButtonClicked === "finish") {
       const finishName = this.refs.finishName.value;
       const finishCost = isChecked ? this.refs.finishCost.value : 0;
       const finishImage = this.state.productFinishImage;
@@ -1680,7 +1689,9 @@ class AddProductDetails extends React.Component {
           emptyFieldInFinishDetails: validatedData.emptyField
         });
       }
-    } else if (typeOfButtonClicked === "installer") {
+    } 
+    
+    else if (typeOfButtonClicked === "installer") {
       const installerName = this.refs.installerName.value;
       const installerContactNo = this.state.installerContactNo;
       const installerCharges = this.refs.installerCharges.value;
@@ -1701,7 +1712,7 @@ class AddProductDetails extends React.Component {
 
         if (temp.installerName !== "") {
           if (temp.installerContactNo !== "") {
-            if (temp.installerCharges !== "") {
+            // if (temp.installerCharges !== "") {
               let dummyArray = [...productInstallers];
 
               if (!dummyArray.includes(temp)) {
@@ -1718,7 +1729,7 @@ class AddProductDetails extends React.Component {
                   displayError: "displayError hide"
                 });
               }
-            }
+            // }
           }
         }
 
@@ -1998,7 +2009,7 @@ class AddProductDetails extends React.Component {
                     <p key={i}>+91 {item.installerContactNo}</p>
                   </div>
 
-                  <div className="productInstallerChargesWrap">
+                  <div className={item.installerCharges !== "" ? "productInstallerChargesWrap" : "hide"} >
                     <small>Charges </small>
                     <p key={i}>
                       Rs. {item.installerCharges} / {this.returnChargeType()}
@@ -3044,7 +3055,8 @@ class AddProductDetails extends React.Component {
       productMinQuantity,
       productMaxQuantity,
       productInstallationAvailability,
-      productInstallationServiceCost
+      productInstallationServiceCost,
+      productInstallers
     } = this.state;
 
     if (fieldName === "Max. quantity") {
@@ -3063,7 +3075,9 @@ class AddProductDetails extends React.Component {
             displayQuantityValueError: "displayQuantityValueError hide"
           });
       } else return "Max. qunatity";
-    } else if (fieldName === "Product Discount") {
+    } 
+    
+    else if (fieldName === "Product Discount") {
       if (productDiscountAvailablity === "yes") {
         if (productDiscount !== undefined) {
           if (productDiscount === 0) {
@@ -3080,7 +3094,9 @@ class AddProductDetails extends React.Component {
           return "Product Discount Value";
         }
       } else return "Product Discount Availability";
-    } else if (fieldName === "Product Installation") {
+    } 
+    
+    else if (fieldName === "Product Installation") {
       if (productInstallationAvailability === 2) {
         if (productInstallationServiceCost !== undefined) {
           if (productInstallationServiceCost === 0) {
@@ -3094,10 +3110,20 @@ class AddProductDetails extends React.Component {
               displayInstallationValueError:
                 "displayInstallationValueError hide"
             });
-        } else if (productInstallationServiceCost === undefined) {
+        } 
+        
+        else if (productInstallationServiceCost === undefined) {
           return "Product Installation Cost";
         }
-      } else return "Product Installation Service";
+      } 
+
+      else if (productInstallationAvailability === 5) {
+          if (productInstallers.length === 0) {
+            return "Product Installer Details"
+          }
+      }
+      
+      else return "Product Installation Service";
     }
   };
 
@@ -3155,7 +3181,8 @@ class AddProductDetails extends React.Component {
         item.value.length === 0 ||
         item.fieldName === "Max. quantity value" ||
         item.fieldName === "Product Discount Value" ||
-        item.fieldName === "Product Installation Cost"
+        item.fieldName === "Product Installation Cost" ||
+        item.fieldName === "Product Installer Details"
       ) {
         if (!this.state.emptyField.includes(item.fieldName)) {
           this.state.emptyField.push(item.fieldName);
@@ -4099,17 +4126,19 @@ class AddProductDetails extends React.Component {
                                   chances of product purchase).
                                 </p>
                               </div>
-                              <WhiteButton
-                                runFunction={() => {
-                                  this.modalClassToggle("show");
-                                  this.setState({
-                                    modalType: "installer"
-                                  });
-                                }}
-                              >
-                                <PlusButtonIcon />
-                                Add installer
-                              </WhiteButton>
+                              {this.state.checkBoxProductInstallationClass5 === "checkBox color" ?
+                                <WhiteButton
+                                  runFunction={() => {
+                                    this.modalClassToggle("show");
+                                    this.setState({
+                                      modalType: "installer"
+                                    });
+                                  }}
+                                >
+                                  <PlusButtonIcon />
+                                  Add installer
+                                </WhiteButton>
+                               : null }
                             </div>
                             {this.returnProductInstallers()}
                           </div>
