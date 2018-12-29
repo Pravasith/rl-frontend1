@@ -28,7 +28,7 @@ import {
 
 import LogoAnimation from "../../animations/logoAnimation"
 import architectureStyles from "../../../lib/styleCategory"
-import { GradientButton, InputForm, WhiteButton, RadioButton } from "../../UX/uxComponents"
+import { GradientButton, InputForm, WhiteButton, RadioButton, SelectList } from "../../UX/uxComponents"
 import HtmlSlider from "../../UX/htmlSlider"
 import Navbar from "../../navbar/navbar"
 import { decryptData, encryptData } from "../../../factories/encryptDecrypt"
@@ -71,6 +71,9 @@ class EditProductDetails extends React.Component {
             colorCode: '',
             sizeName: '',
             sizeCost: '',
+            installerName: "",
+            installerContactNo: "",
+            installerCharges: "",
 
             colorArray: [],
 
@@ -80,6 +83,7 @@ class EditProductDetails extends React.Component {
             productDimensions: [],
             productMaterials: [],
             productFinishes: [],
+            productInstallers: [],
             productImagesObject: {
                 categoryName: "",
                 imagesInCategory: []
@@ -118,13 +122,21 @@ class EditProductDetails extends React.Component {
             warningClass: "warningClass hide",
             fieldIsValid: false,
 
-            checkBoxClass1: "checkBox",
-            checkBoxClass2: "checkBox",
+            checkBoxProductDiscountClass1: "checkBox",
+            checkBoxProductDiscountClass2: "checkBox",
+            checkBoxProductInstallationClass1: "checkBox",
+            checkBoxProductInstallationClass2: "checkBox",
+            checkBoxProductInstallationClass3: "checkBox",
+            checkBoxProductInstallationClass4: "checkBox",
+            checkBoxProductInstallationClass5: "checkBox",
+
+            inputSection: "inputSection hide",
 
             // displayError: "displayError",
             displayError: "displayError hide",
             displayValueError: "displayValueError hide",
             displayDiscountValueError: "displayDiscountValueError hide",
+            displayInstallationValueError: "displayInstallationValueError hide",
             displayQuantityValueError: "displayQuantityValueError hide",
 
             materialCostIsValid: false,
@@ -149,8 +161,20 @@ class EditProductDetails extends React.Component {
             youTubeClass: "youTubeClass hide",
             youTubeError: "youTubeError hide",
 
-            emptyField: []
-            // productAvailabilityBool : true,
+            emptyField: [],
+
+            productInstallers: [
+                {
+                    installerName: "rakshith",
+                    installerContactNo: 9972223737,
+                    installerCharges: 1500,
+                    installerCostType: 2
+                }
+            ],
+
+            productInstallationAvailability: 2,
+            productInstallationServiceCost: 1500,
+            installationServiceCostType: 3
 
             
         }
@@ -241,11 +265,28 @@ class EditProductDetails extends React.Component {
                         productThumbImage: decryptedData.productThumbImage,
                         youTubeURL: decryptedData.youTubeAdVideos,
                         brandName: decryptedData.brandName,
-                        brandImage: decryptedData.brandImage 
+                        brandImage: decryptedData.brandImage,
+                        productInstallers: decryptedData.productInstallers,
+                        productInstallationAvailability: decryptedData.productInstallationAvailability,
+                        productInstallationServiceCost: decryptedData.productInstallationServiceCost,
+                        installationServiceCostType: decryptedData.installationServiceCostType
+
+                        // productInstallers: [
+                        //     {
+                        //         installerName: "rakshith",
+                        //         installerContactNo: 9972223737,
+                        //         installerCharges: 1500,
+                        //         installerCostType: 2
+                        //     }
+                        // ],
+
+                        // productInstallationAvailability: 2,
+                        // productInstallationServiceCost: 1500,
+                        // installationServiceCostType: 3
 
                     })
     
-                    this.discountAvailabilityChecked()
+                    this.handleDefaultChecked()
 
                     let sCId = pId.split("-")[0] + "-" + pId.split("-")[1]
 
@@ -343,20 +384,74 @@ class EditProductDetails extends React.Component {
     }
 
 
-    discountAvailabilityChecked = () => {
-        if (this.state.productDiscount !== 0) {
+    handleDefaultChecked = () => {
+        const { productDiscount, productInstallationAvailability } = this.state;
+
+        if (productDiscount !== 0) {
             this.setState({
-                checkBoxClass1: "checkBox color",
-                checkBoxClass2: "checkBox",
+                checkBoxProductDiscountClass1: "checkBox color",
+                checkBoxProductDiscountClass2: "checkBox",
                 productDiscountAvailablity: "yes"
-            })
+            });
         } 
 
-        else {
+         else if (productDiscount === 0) {
             this.setState({
-                checkBoxClass1: "checkBox",
-                checkBoxClass2: "checkBox color",
+                checkBoxProductDiscountClass1: "checkBox",
+                checkBoxProductDiscountClass2: "checkBox color",
                 productDiscountAvailablity: "no"
+            })
+        }
+
+        if (productInstallationAvailability === 1) {
+            this.setState({
+                checkBoxProductInstallationClass1: "checkBox color",
+                checkBoxProductInstallationClass2: "checkBox",
+                checkBoxProductInstallationClass3: "checkBox",
+                checkBoxProductInstallationClass4: "checkBox",
+                checkBoxProductInstallationClass5: "checkBox",
+            })   
+        }
+
+        else if (productInstallationAvailability === 2) {
+            this.setState({
+                checkBoxProductInstallationClass1: "checkBox",
+                checkBoxProductInstallationClass2: "checkBox color",
+                checkBoxProductInstallationClass3: "checkBox",
+                checkBoxProductInstallationClass4: "checkBox",
+                checkBoxProductInstallationClass5: "checkBox",
+                inputSection: "inputSection",
+                // productInstallationServiceCost
+            })
+        }
+
+        else if (productInstallationAvailability === 3) {
+            this.setState({
+                checkBoxProductInstallationClass1: "checkBox",
+                checkBoxProductInstallationClass2: "checkBox",
+                checkBoxProductInstallationClass3: "checkBox color",
+                checkBoxProductInstallationClass4: "checkBox",
+                checkBoxProductInstallationClass5: "checkBox",
+            })
+        }
+
+        else if (productInstallationAvailability === 4) {
+            this.setState({
+                checkBoxProductInstallationClass1: "checkBox",
+                checkBoxProductInstallationClass2: "checkBox",
+                checkBoxProductInstallationClass3: "checkBox",
+                checkBoxProductInstallationClass4: "checkBox color",
+                checkBoxProductInstallationClass5: "checkBox",
+            })
+        }
+
+        else if (productInstallationAvailability === 5) {
+            this.setState({
+                checkBoxProductInstallationClass1: "checkBox",
+                checkBoxProductInstallationClass2: "checkBox",
+                checkBoxProductInstallationClass3: "checkBox",
+                checkBoxProductInstallationClass4: "checkBox",
+                checkBoxProductInstallationClass5: "checkBox color",
             })
         }
     }
@@ -675,6 +770,30 @@ class EditProductDetails extends React.Component {
             }]
         )
     }
+
+    returnChargeType = (installerCostType) => {
+
+        if (installerCostType === 1) return "square feet";
+        else if (installerCostType === 2) return "piece";
+        else if (installerCostType === 3) return "hour";
+    };
+
+    returnTypesOfCharge = typeOfCharge => {
+        if (typeOfCharge === "serviceCharge") {
+            return [
+                { label: "square feet", value: 1 },
+                { label: "running feet", value: 2 },
+                { label: "piece", value: 3 },
+                { label: "hour", value: 4 }
+            ];
+        } else if (typeOfCharge === "installersCharge") {
+            return [
+                { label: "square feet", value: 1 },
+                { label: "piece", value: 2 },
+                { label: "hour", value: 3 }
+            ];
+        }
+    };
     
     returnfeaturesAdded = () => {
         return (
@@ -932,6 +1051,17 @@ class EditProductDetails extends React.Component {
             productMaterials: this.state.productMaterials.length !== 0 ? this.state.productMaterials : []
         })
     }
+
+    removeProductInstallers = index => {
+        this.state.productInstallers.splice(index, 1);
+
+        this.setState({
+            productInstallers:
+                this.state.productInstallers.length !== 0
+                    ? this.state.productInstallers
+                    : []
+        });
+    };
 
     returnFinishCode = (finish) => {
         if (finish.finishCode !== "") {
@@ -1297,98 +1427,102 @@ class EditProductDetails extends React.Component {
     }
 
     checkTypeNumber = (e, checkFor) => {
-
         const val = e.target.value;
         const regEx = /^[0-9\b]+$/;
 
-        if (val !== "") {
+        if (val !== 0) {
             if (regEx.test(val) === true) {
-                if (checkFor === "discount") { 
+                if (checkFor === "discount") {
                     this.setState({
                         productDiscount: Number(val),
                         displayError: "displayError hide"
-                    })
-                }
-
-                else if (checkFor === "color") {
+                    });
+                } else if (checkFor === "installation") {
+                    this.setState({
+                        productInstallationServiceCost: Number(val),
+                        displayError: "displayError hide"
+                    });
+                } else if (checkFor === "installer") {
+                    this.setState({
+                        installerCharges: Number(val),
+                        displayError: "displayError hide",
+                        installerChargeIsValid: true
+                    });
+                } else if (checkFor === "color") {
                     this.setState({
                         colorCost: val,
                         displayError: "displayError hide"
-                    })
-                }
-
-                else if (checkFor === "material") {
+                    });
+                } else if (checkFor === "material") {
                     this.setState({
                         materialCost: val,
                         displayError: "displayError hide",
                         materialCostIsValid: true
-                    })
-                }
-
-                else if (checkFor === "size") {
+                    });
+                } else if (checkFor === "size") {
                     this.setState({
                         sizeCost: val,
                         displayError: "displayError hide",
                         sizeCostIsValid: true
-                    })
-                }
-
-                else if (checkFor === "finish") {
+                    });
+                } else if (checkFor === "finish") {
                     this.setState({
                         finishCost: val,
                         displayError: "displayError hide",
                         finishCostIsValid: true
-                    })
+                    });
                 }
-            }
-
-            else if (regEx.test(val) === false) {
+            } else if (regEx.test(val) === false) {
                 if (checkFor === "discount") {
                     this.setState({
                         productDiscount: "",
                         displayError: "displayError"
-                    })
-                }
-
-                else if (checkFor === "color") {
+                    });
+                } else if (checkFor === "installation") {
+                    this.setState({
+                        productInstallationServiceCost: "",
+                        displayError: "displayError"
+                    });
+                } else if (checkFor === "installer") {
+                    this.setState({
+                        installerCharges: "",
+                        displayError: "displayError",
+                        installerChargeIsValid: false
+                    });
+                } else if (checkFor === "color") {
                     this.setState({
                         colorCost: "",
                         displayError: "displayError"
-                    })
-                }
-
-                else if (checkFor === "material") {
+                    });
+                } else if (checkFor === "material") {
                     this.setState({
                         materialCost: "",
                         displayError: "displayError",
                         materialCostValid: false
-                    })
-                }
-
-                else if (checkFor === "size") {
+                    });
+                } else if (checkFor === "size") {
                     this.setState({
                         sizeCost: "",
                         displayError: "displayError",
                         sizeCostIsValid: false
-                    })
-                }
-
-                else if (checkFor === "finish") {
+                    });
+                } else if (checkFor === "finish") {
                     this.setState({
                         finishCost: "",
                         displayError: "displayError",
                         finishCostIsValid: false
-                    })
+                    });
                 }
             }
         }
 
         else if (val === "") {
             this.setState({
-                displayError: "displayError hide"
-            })
+                displayError: "displayError hide",
+                displayValueError: "displayValueError hide"
+            });
         }
-    }
+    };
 
     toggleClassDummy = () => {
         if(this.state.dummyToggle === 'x'){
@@ -1474,268 +1608,222 @@ class EditProductDetails extends React.Component {
         }
     };
 
-    proceedHandler = (typeOfButtonClicked) => {
+    proceedHandler = typeOfButtonClicked => {
+        const {
+            colorArray,
+            isChecked,
+            productDimensions,
+            productFinishes,
+            productMaterials,
+            productInstallers,
+            installerContactNo,
+            materialCostIsValid,
+            sizeCostIsValid,
+            finishCostIsValid,
+            installerChargeIsValid
+        } = this.state;
 
-        const { colorArray,
-                isChecked, 
-                productDimensions,
-                productFinishes,
-                productMaterials,
-                materialCostIsValid,  
-                sizeCostIsValid,
-                finishCostIsValid } = this.state;
-
-        let isMaterialValid = false
-        let isColorValid = false
-        let isSizeValid = false
-        let isFinishDetailsValid = false
-        let emptyField
-        let errorMessage
+        let isMaterialValid = false;
+        let isColorValid = false;
+        let isSizeValid = false;
+        let isInstallerValid = false;
+        let isFinishDetailsValid = false;
+        let emptyField;
+        let errorMessage;
 
         const validateMaterialModal = (materialName, materialCost) => {
-
             if (materialName !== "") {
                 if (isChecked) {
                     if (materialCost !== "") {
                         if (materialCostIsValid) {
                             isMaterialValid = true;
-                        }
-                        else {
+                        } else {
                             emptyField = "Material Cost in Numbers";
                         }
-                    }
-
-                    else {
+                    } else {
                         emptyField = "Material Cost";
                     }
-                }
-
-                else if (materialCost === 0) {
+                } else if (materialCost === 0) {
                     isMaterialValid = true;
                 }
+            } else if (materialName === "") {
+                emptyField = "Material Name";
             }
-
-            else if (materialName === "") {
-                emptyField = "Material Name"
-            }
-
 
             const validationData = {
                 isMaterialValid,
                 emptyField
-            }
+            };
 
-            return (
-                validationData
-            )
-            
-        }
+            return validationData;
+        };
 
         const validateColorModal = (colorName, colorCode, colorCost) => {
             if (colorName !== "" && colorCode !== "") {
                 if (/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(colorCode)) {
-
-                    let alreadyExistingColorName = ""
-                    const { colorArray } = this.state
+                    let alreadyExistingColorName = "";
+                    const { colorArray } = this.state;
 
                     if (colorArray.length === 0) {
-
                         // make an extra check here for colorCost
-                        
-                        if(isChecked === true){
+
+                        if (isChecked === true) {
                             if (colorCost !== "") {
                                 if (!isNaN(colorCost)) {
-                                    isColorValid = true
+                                    isColorValid = true;
                                     colorArray.push({
                                         colorName: colorName.toLowerCase(),
                                         colorCode: colorCode.toLowerCase(),
                                         colorCost: parseInt(colorCost)
-                                    })
+                                    });
 
-                                    emptyField = ""
-                                    errorMessage = ""
+                                    emptyField = "";
+                                    errorMessage = "";
 
                                     this.setState({
-                                        isChecked : false,
-                                    })
+                                        isChecked: false
+                                    });
 
-                                    this.refs.colorName.value = ""
-                                    this.refs.colorCode.value = ""
-                                    this.refs.colorCost.value = ""
+                                    this.refs.colorName.value = "";
+                                    this.refs.colorCode.value = "";
+                                    this.refs.colorCost.value = "";
+                                } else if (isNaN(colorCost)) {
+                                    isColorValid = false;
+                                    emptyField = "colorCost";
+                                    errorMessage = "Please enter color cost only in numbers";
                                 }
-
-                                else if (isNaN(colorCost)) {
-                                    isColorValid = false
-                                    emptyField = "colorCost"
-                                    errorMessage = "Please enter color cost only in numbers"
-                                }
+                            } else {
+                                isColorValid = false;
+                                emptyField = "colorCost";
+                                errorMessage = `Please fill in the extra cost for the color`;
                             }
-
-                            else {
-                                isColorValid = false
-                                emptyField = "colorCost"
-                                errorMessage = `Please fill in the extra cost for the color`
-                            }
-                        }
-
-                        else{
-                            isColorValid = true
+                        } else {
+                            isColorValid = true;
                             colorArray.push({
                                 colorName: colorName.toLowerCase(),
                                 colorCode: colorCode.toLowerCase(),
                                 colorCost: parseInt(colorCost)
-                            })
+                            });
                         }
-
-                    }
-
-                    else {
-                        let colorDoesntExist = true
+                    } else {
+                        let colorDoesntExist = true;
 
                         colorArray.map((item, i) => {
-
-                            colorCode = colorCode.toLowerCase()
+                            colorCode = colorCode.toLowerCase();
 
                             if (item.colorCode === colorCode) {
-                                alreadyExistingColorName = item.colorName
-                                colorDoesntExist = false
+                                alreadyExistingColorName = item.colorName;
+                                colorDoesntExist = false;
+                            } else {
+                                colorDoesntExist = true;
                             }
-
-                            else {
-                                colorDoesntExist = true
-                            }
-                        })
+                        });
 
                         if (colorDoesntExist === true) {
-
                             //// start color cost check ////
 
                             if (isChecked === true) {
                                 if (colorCost !== "") {
                                     if (!isNaN(colorCost)) {
-                                        isColorValid = true
+                                        isColorValid = true;
                                         colorArray.push({
                                             colorName: colorName.toLowerCase(),
                                             colorCode: colorCode.toLowerCase(),
                                             colorCost: parseInt(colorCost)
-                                        })
+                                        });
 
-                                        emptyField = ""
-                                        errorMessage = ""
+                                        emptyField = "";
+                                        errorMessage = "";
 
                                         this.setState({
-                                            isChecked: false,
-                                        })
+                                            isChecked: false
+                                        });
 
-                                        this.refs.colorName.value = ""
-                                        this.refs.colorCode.value = ""
-                                        this.refs.colorCost.value = ""
-
+                                        this.refs.colorName.value = "";
+                                        this.refs.colorCode.value = "";
+                                        this.refs.colorCost.value = "";
+                                    } else if (isNaN(colorCost)) {
+                                        isColorValid = false;
+                                        emptyField = "colorCost";
+                                        errorMessage = "Please enter color cost only in numbers";
                                     }
-
-                                    else if (isNaN(colorCost)) {
-                                        isColorValid = false
-                                        emptyField = "colorCost"
-                                        errorMessage = "Please enter color cost only in numbers"
-                                    }
+                                } else {
+                                    isColorValid = false;
+                                    emptyField = "colorCost";
+                                    errorMessage = `Please fill in the extra cost for the color`;
                                 }
-
-                                else {
-                                    isColorValid = false
-                                    emptyField = "colorCost"
-                                    errorMessage = `Please fill in the extra cost for the color`
-                                }
-                            }
-
-                            else {
-                                isColorValid = true
+                            } else {
+                                isColorValid = true;
                                 colorArray.push({
                                     colorName: colorName.toLowerCase(),
                                     colorCode: colorCode.toLowerCase(),
                                     colorCost: parseInt(colorCost)
-                                })
+                                });
                             }
-                        }
-
-                        else if (colorDoesntExist === false) {
-                            isColorValid = false
-                            emptyField = "colorCode"
-                            errorMessage = `You have already entered this color code with the name "${alreadyExistingColorName}"`
+                        } else if (colorDoesntExist === false) {
+                            isColorValid = false;
+                            emptyField = "colorCode";
+                            errorMessage = `You have already entered this color code with the name "${alreadyExistingColorName}"`;
                         }
                     }
+                } else {
+                    isColorValid = false;
+                    emptyField = "colorCode";
+                    errorMessage =
+                        "The color code is not right, please retry. See if you forgot to enter the '#' at the beginning.";
                 }
-
-                else {
-                    isColorValid = false
-                    emptyField = "colorCode"
-                    errorMessage = "The color code is not right, please retry. See if you forgot to enter the '#' at the beginning."
-                }
-
-            }
-
-            else if (colorName === "" && colorCode === "") {
-                emptyField = "colorName"
-                errorMessage = "please enter color name"
-            }
-
-            else {
+            } else if (colorName === "" && colorCode === "") {
+                emptyField = "colorName";
+                errorMessage = "please enter color name";
+            } else {
                 if (colorName === "") {
-                    emptyField = "colorName"
-                    errorMessage = "Please enter color name"
+                    emptyField = "colorName";
+                    errorMessage = "Please enter color name";
                 }
-
 
                 if (colorCode === "") {
-                    emptyField = "colorCode"
-                    errorMessage = "Please enter color code"
+                    emptyField = "colorCode";
+                    errorMessage = "Please enter color code";
                 }
-
             }
 
             const validationData = {
                 isColorValid,
                 emptyField,
                 errorMessage
-            }
+            };
 
-            return validationData
-        }
+            return validationData;
+        };
 
         const validateSizeModal = (sizeName, sizeCost) => {
-            if(sizeName !== "") {
-                if(isChecked){
-                    if(sizeCost !== ""){
-                        if(sizeCostIsValid){
+            if (sizeName !== "") {
+                if (isChecked) {
+                    if (sizeCost !== "") {
+                        if (sizeCostIsValid) {
                             isSizeValid = true;
-                        }
-                        else{
+                        } else {
                             emptyField = "Size Cost in Numbers";
                         }
-                    }
-
-                    else{
+                    } else {
                         emptyField = "Size Cost";
                     }
-                }
-
-                else{
-                    if (sizeCost === 0){
+                } else {
+                    if (sizeCost === 0) {
                         isSizeValid = true;
                     }
                 }
+            } else if (sizeName === "") {
+                emptyField = "Size Name";
             }
-
-            else if (sizeName === "") {
-                emptyField = "Size Name"
-            } 
 
             const validationData = {
                 isSizeValid,
                 emptyField
-            }
+            };
 
             return validationData;
-        }
+        };
 
         const validateFinishModal = (finishName, finishCost) => {
             if (finishName !== "") {
@@ -1743,45 +1831,67 @@ class EditProductDetails extends React.Component {
                     if (finishCost !== "") {
                         if (finishCostIsValid) {
                             isFinishDetailsValid = true;
-                        }
-                        else {
+                        } else {
                             emptyField = "Finish Cost in Numbers";
                         }
-                    }
-
-                    else {
+                    } else {
                         emptyField = "Finish Cost";
                     }
-                }
-
-                else {
+                } else {
                     if (finishCost === 0) {
                         isFinishDetailsValid = true;
                     }
                 }
-            }
-
-            else if (finishName === "") {
-                emptyField = "Finish Name"
+            } else if (finishName === "") {
+                emptyField = "Finish Name";
             }
 
             const validationData = {
                 isFinishDetailsValid,
                 emptyField
-            }
+            };
 
             return validationData;
-        }
+        };
+
+        const validateInstallerModal = (installerName, installerCharges) => {
+            if (installerName !== "") {
+                if (installerContactNo !== "") {
+                    if (installerCharges !== "") {
+                        if (installerChargeIsValid) {
+                            isInstallerValid = true;
+                        } else {
+                            emptyField = "Installer charges in number";
+                        }
+                    }
+
+                    else if (installerCharges === "") {
+                        isInstallerValid = true;
+                    }
+
+                } else {
+                    emptyField = "Installer mobile number";
+                }
+            } else if (installerName === "") {
+                emptyField = "Installer name";
+            }
+
+            const validationData = {
+                isInstallerValid,
+                emptyField
+            };
+
+            return validationData;
+        };
 
         if (typeOfButtonClicked === "color") {
-            const colorCode = this.refs.colorCode.value
-            const colorName = this.refs.colorName.value
-            const colorCost = isChecked === true ? this.refs.colorCost.value : 0
+            const colorCode = this.refs.colorCode.value;
+            const colorName = this.refs.colorName.value;
+            const colorCost = isChecked === true ? this.refs.colorCost.value : 0;
 
-            let validatedData = validateColorModal(colorName, colorCode, colorCost)
+            let validatedData = validateColorModal(colorName, colorCode, colorCost);
 
             if (validatedData.isColorValid) {
-
                 this.setState({
                     colorIsValid: true,
                     emptyFieldInColor: null,
@@ -1790,28 +1900,24 @@ class EditProductDetails extends React.Component {
                     colorArray: colorArray.length !== 0 ? colorArray : null,
                     extraCostInput: "extraCostInput hide",
                     displayError: "displayError hide"
-                })
+                });
 
                 // save data
 
-                this.refs.colorCode.value = ""
-                this.refs.colorName.value = ""
+                this.refs.colorCode.value = "";
+                this.refs.colorName.value = "";
 
-                this.modalClassToggle("dontShow")
-            }
-
-            else {
-
+                this.modalClassToggle("dontShow");
+            } else {
                 this.setState({
                     colorIsValid: false,
                     emptyFieldInColor: validatedData.emptyField,
                     errorMessage: validatedData.errorMessage
-                })
+                });
             }
         }
 
         else if (typeOfButtonClicked === "size") {
-
             const sizeName = this.refs.sizeName.value;
             const sizeCost = isChecked ? this.refs.sizeCost.value : 0;
 
@@ -1821,13 +1927,13 @@ class EditProductDetails extends React.Component {
                 let temp = {
                     sizeName,
                     sizeCost
-                }
+                };
 
-                if(temp !== "") {
-                    let dummyArray = [...productDimensions]
+                if (temp !== "") {
+                    let dummyArray = [...productDimensions];
 
-                    if(!dummyArray.includes(temp)){
-                        productDimensions.push(temp)
+                    if (!dummyArray.includes(temp)) {
+                        productDimensions.push(temp);
                     }
 
                     this.setState({
@@ -1835,30 +1941,28 @@ class EditProductDetails extends React.Component {
                         emptyFieldInSize: null,
                         modalType: null,
                         isChecked: false,
-                        productDimensions: productDimensions.length !== 0 ? productDimensions : null,
+                        productDimensions:
+                            productDimensions.length !== 0 ? productDimensions : null,
                         extraCostInput: "extraCostInput hide",
                         displayError: "displayError hide"
-                    })
+                    });
                 }
 
-                this.refs.sizeCost.value = ""
-                this.refs.sizeName.value = ""
+                this.refs.sizeCost.value = "";
+                this.refs.sizeName.value = "";
 
-                this.modalClassToggle("dontShow")
-            }
-
-            else {
+                this.modalClassToggle("dontShow");
+            } else {
                 this.setState({
                     sizeIsValid: false,
                     emptyFieldInSize: validatedData.emptyField
-                })
+                });
             }
         }
 
         else if (typeOfButtonClicked === "material") {
-            
             const materialName = this.refs.materialName.value;
-            const materialCost = isChecked ? this.refs.materialCost.value : 0 ;
+            const materialCost = isChecked ? this.refs.materialCost.value : 0;
 
             let validatedData = validateMaterialModal(materialName, materialCost);
 
@@ -1866,44 +1970,43 @@ class EditProductDetails extends React.Component {
                 let temp = {
                     materialCost,
                     materialName
-                }
+                };
 
                 if (temp.materialName !== "") {
-                    let dummyArray = [...productMaterials]
+                    let dummyArray = [...productMaterials];
 
                     if (!dummyArray.includes(temp)) {
-                        productMaterials.push(temp)
+                        productMaterials.push(temp);
 
                         this.setState({
                             materialIsValid: true,
                             emptyFieldInMaterial: null,
                             modalType: null,
-                            isChecked: false, 
-                            productMaterials: productMaterials.length !== 0 ? productMaterials : null,
+                            isChecked: false,
+                            productMaterials:
+                                productMaterials.length !== 0 ? productMaterials : null,
                             extraCostInput: "extraCostInput hide",
                             displayError: "displayError hide"
-                        })
+                        });
                     }
                 }
 
-                this.refs.materialCost.value = ""
-                this.refs.materialName.value = ""
+                this.refs.materialCost.value = "";
+                this.refs.materialName.value = "";
 
-                this.modalClassToggle("dontShow")
-            }
-
-            else {
+                this.modalClassToggle("dontShow");
+            } else {
                 this.setState({
                     materialIsValid: false,
                     emptyFieldInMaterial: validatedData.emptyField
-                })
+                });
             }
         }
 
         else if (typeOfButtonClicked === "finish") {
             const finishName = this.refs.finishName.value;
             const finishCost = isChecked ? this.refs.finishCost.value : 0;
-            const finishImage =  this.state.productFinishImage;
+            const finishImage = this.state.productFinishImage;
             const finishCode = this.refs.finishCode.value;
 
             let validatedData = validateFinishModal(finishName, finishCost);
@@ -1914,13 +2017,13 @@ class EditProductDetails extends React.Component {
                     finishCost,
                     finishImage,
                     finishCode
-                }
+                };
 
                 if (temp !== "") {
-                    let dummyArray = [...productFinishes]
+                    let dummyArray = [...productFinishes];
 
                     if (!dummyArray.includes(temp)) {
-                        productFinishes.push(temp)
+                        productFinishes.push(temp);
                     }
 
                     this.setState({
@@ -1928,34 +2031,92 @@ class EditProductDetails extends React.Component {
                         emptyFieldInFinishDetails: null,
                         modalType: null,
                         isChecked: false,
-                        productFinishes: productFinishes.length !== 0 ? productFinishes : null,
+                        productFinishes:
+                            productFinishes.length !== 0 ? productFinishes : null,
                         extraCostInput: "extraCostInput hide",
                         displayError: "displayError hide",
                         productFinishImage: "",
-                        finishModalTitle: "Add a close - up image thumbnail for this finish",
+                        finishModalTitle:
+                            "Add a close - up image thumbnail for this finish",
                         finishModalContentPart: 1
-                    })
+                    });
                 }
 
-                this.refs.finishCost.value = ""
-                this.refs.finishName.value = ""
-                this.refs.finishCode.value = ""
+                this.refs.finishCost.value = "";
+                this.refs.finishName.value = "";
+                this.refs.finishCode.value = "";
 
-                this.modalClassToggle("dontShow")
+                this.modalClassToggle("dontShow");
+            } else {
+                this.setState({
+                    finishDetailsIsValid: false,
+                    emptyFieldInFinishDetails: validatedData.emptyField
+                });
+            }
+        }
+
+        else if (typeOfButtonClicked === "installer") {
+            const installerName = this.refs.installerName.value;
+            const installerContactNo = this.state.installerContactNo;
+            const installerCharges = this.refs.installerCharges.value;
+            const installerChargeType = this.state.installerCostType;
+
+            let validatedData = validateInstallerModal(
+                installerName,
+                installerCharges
+            );
+
+            if (validatedData.isInstallerValid) {
+                let temp = {
+                    installerCharges,
+                    installerName,
+                    installerContactNo,
+                    installerChargeType
+                };
+
+                if (temp.installerName !== "") {
+                    if (temp.installerContactNo !== "") {
+                        let dummyArray = [...productInstallers];
+
+                        if (!dummyArray.includes(temp)) {
+                            productInstallers.push(temp);
+
+                            this.setState({
+                                installerContactNo: "",
+                                installerIsValid: true,
+                                emptyFieldInInstaller: null,
+                                modalType: null,
+                                isChecked: false,
+                                productInstallers:
+                                    productInstallers.length !== 0 ? productInstallers : null,
+                                displayError: "displayError hide"
+                            });
+                        }
+                    }
+                }
+
+                this.refs.installerName.value = "";
+                this.refs.installerCharges.value = "";
+
+                this.modalClassToggle("dontShow");
             }
 
             else {
                 this.setState({
-                    finishDetailsIsValid: false,
-                    emptyFieldInFinishDetails: validatedData.emptyField
-                })
+                    installerIsValid: false,
+                    emptyFieldInInstaller: validatedData.emptyField
+                });
             }
         }
-    }
+    };
 
-    onChangeHandler = (e) => {
-        this.setState({ [e.target.name]: e.target.value });
-    }
+    onChangeHandler = (e, type) => {
+        if (type === "installerCost" || type === "installationServiceCost") {
+            this.setState({ [e.target.name]: Number(e.target.value) });
+        } else {
+            this.setState({ [e.target.name]: e.target.value });
+        }
+    };
 
     handleColorInput = (e) => {
         this.setState({
@@ -2205,6 +2366,55 @@ class EditProductDetails extends React.Component {
             </div>
         )
     }
+
+    returnProductInstallers = () => {
+    const { checkBoxProductInstallationClass5, productInstallers } = this.state;
+
+    if (checkBoxProductInstallationClass5 === "checkBox color") {
+      if (productInstallers.length !== 0) {
+        return productInstallers.map((item, i) => {
+          return (
+            <div className="productInstallerDescriptionOuterLayer" key={i}>
+              <div className="productInstallerDescriptionInnerLayer">
+                <div className="productInstallerDetails">
+                  <div className="productInstallerNameWrap">
+                    {/* <h3>Installer nomenclature</h3> */}
+                    <h3 key={i}>{item.installerName}</h3>
+                  </div>
+
+                  <div className="productInstallerContactNoWrap">
+                    <p key={i}>+91 {item.installerContactNo}</p>
+                  </div>
+
+                  <div className={item.installerCharges !== "" ? "productInstallerChargesWrap" : "hide"} >
+                    <small>Charges </small>
+                    <p key={i}>
+                      Rs. {item.installerCharges} / {this.returnChargeType(item.installerCostType)}
+                    </p>
+                  </div>
+                </div>
+                <div className="materialEditingButtons">
+                  {/* <div className="editButton">
+                          <WhiteButton
+                              runFunction={() => this.editProductInstallers(i)}
+                          >
+                              Edit
+                          </WhiteButton>
+                        </div> */}
+                  <div
+                    className="deleteButton"
+                    onClick={() => this.removeProductInstallers(i)}
+                  >
+                    <WhiteButton>Delete</WhiteButton>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        });
+      }
+    }
+  };
 
     returnBrandImage = () => {
         if (this.state.brandImage !== undefined) {
@@ -3106,105 +3316,247 @@ class EditProductDetails extends React.Component {
         else if(this.state.isChecked === false) this.setState({ extraCostInput: "extraCostInput hide" });
     }
 
-    handleMultiValidation = (fieldName) => {
-        const { productDiscountAvailablity, productDiscount, productMinQuantity, productMaxQuantity } = this.state;
+    handleMultiValidation = fieldName => {
+        const {
+            productDiscountAvailablity,
+            productDiscount,
+            productMinQuantity,
+            productMaxQuantity,
+            productInstallationAvailability,
+            productInstallationServiceCost,
+            productInstallers
+        } = this.state;
 
         if (fieldName === "Max. quantity") {
             if (productMaxQuantity !== undefined) {
-                if (productMaxQuantity === productMinQuantity || productMaxQuantity < productMinQuantity) {
-                    this.setState({ displayQuantityValueError: "displayQuantityValueError" })
+                if (
+                    productMaxQuantity === productMinQuantity ||
+                    productMaxQuantity < productMinQuantity
+                ) {
+                    this.setState({
+                        displayQuantityValueError: "displayQuantityValueError"
+                    });
 
-                    return  "Max. quantity value"
-                }
-
-                else this.setState({ displayQuantityValueError: "displayQuantityValueError hide" })
-            }
-            else return "Max. qunatity"
-        } 
+                    return "Max. quantity value";
+                } else
+                    this.setState({
+                        displayQuantityValueError: "displayQuantityValueError hide"
+                    });
+            } else return "Max. qunatity";
+        }
 
         else if (fieldName === "Product Discount") {
             if (productDiscountAvailablity === "yes") {
                 if (productDiscount !== undefined) {
                     if (productDiscount === 0) {
-                        // console.log("Wrks", typeof (this.state.productDiscount))
+                        this.setState({
+                            displayDiscountValueError: "displayDiscountValueError"
+                        });
 
-                        this.setState({ displayDiscountValueError: "displayDiscountValueError" })
-                        return "Product Discount Value"
-                    }
-                    else this.setState({ displayDiscountValueError: "displayDiscountValueError hide" })
+                        return "Product Discount Value";
+                    } else
+                        this.setState({
+                            displayDiscountValueError: "displayDiscountValueError hide"
+                        });
+                } else if (productDiscount === undefined) {
+                    return "Product Discount Value";
+                }
+            } else return "Product Discount Availability";
+        }
+
+        else if (fieldName === "Product Installation") {
+            if (productInstallationAvailability === 2) {
+                if (productInstallationServiceCost !== undefined) {
+                    if (productInstallationServiceCost === 0) {
+                        this.setState({
+                            displayInstallationValueError: "displayInstallationValueError"
+                        });
+
+                        return "Product Installation Cost";
+                    } else
+                        this.setState({
+                            displayInstallationValueError:
+                                "displayInstallationValueError hide"
+                        });
                 }
 
-                else if (productDiscount === undefined) {
-                    return "Product Discount Value"
+                else if (productInstallationServiceCost === undefined) {
+                    return "Product Installation Cost";
                 }
             }
 
-            else return "Product Discount Availability"
+            else if (productInstallationAvailability === 5) {
+                if (productInstallers.length === 0) {
+                    return "Product Installer Details"
+                }
+            }
+
+            else return "Product Installation Service";
         }
-    }
+    };
 
     validateProceedHandler = async () => {
-       const fieldNames = [
-           { fieldName: 'Product Name', value: this.state.productName },
-           { fieldName: 'Product Code', value: this.state.productCode },
-           { fieldName: 'Base price of this product', value: this.state.productPrice },
-           { fieldName: 'Material', value: this.state.productMaterials },
-           { fieldName: 'Finishing Options', value: this.state.productFinishes },
-           { fieldName: 'Color Options', value: this.state.colorArray },
-           { fieldName: 'Sizes Available', value: this.state.productDimensions },
-           { fieldName: 'Min. quantity', value: this.state.productMinQuantity },
-           { fieldName: `${this.handleMultiValidation("Max. quantity")}`, value: this.state.productMaxQuantity },
-           { fieldName: "Product Description", value: this.state.productDescription },
-           { fieldName: 'Product Design', value: this.state.categoryStylesAdded },
-           { fieldName: 'Product Tags', value: this.state.tagsAdded },
-           { fieldName: 'Product Availability', value: this.state.productAvailability },
-           { fieldName: `${this.handleMultiValidation("Product Discount")}`, value: this.state.productDiscount },
-           { fieldName: 'Product Image', value: this.state.productImagesObject.imagesInCategory }
-       ]
+        const fieldNames = [
+            { fieldName: "Product Name", value: this.state.productName },
+            { fieldName: "Product Code", value: this.state.productCode },
+            {
+                fieldName: "Base price of this product",
+                value: this.state.productPrice
+            },
+            { fieldName: "Material", value: this.state.productMaterials },
+            { fieldName: "Finishing Options", value: this.state.productFinishes },
+            { fieldName: "Color Options", value: this.state.colorArray },
+            { fieldName: "Sizes Available", value: this.state.productDimensions },
+            { fieldName: "Min. quantity", value: this.state.productMinQuantity },
+            {
+                fieldName: `${this.handleMultiValidation("Max. quantity")}`,
+                value: this.state.productMaxQuantity
+            },
+            {
+                fieldName: "Product Description",
+                value: this.state.productDescription
+            },
+            { fieldName: "Product Design", value: this.state.categoryStylesAdded },
+            { fieldName: "Product Tags", value: this.state.tagsAdded },
+            { fieldName: "Product Type", value: this.state.productType },
+            {
+                fieldName: "Product Availability",
+                value: this.state.productAvailability
+            },
+            {
+                fieldName: `${this.handleMultiValidation("Product Discount")}`,
+                value: this.state.productDiscount
+            },
+            {
+                fieldName: "Product Image",
+                value: this.state.productImagesObject.imagesInCategory
+            },
 
-       await this.setState({
-           emptyField: []
-       })
-
-       fieldNames.map(item => {
-           if (item.value === undefined || item.value === null || item.value.length === 0 || 
-               item.fieldName === "Max. quantity value" || item.fieldName === "Product Discount Value") {
-                    if(!this.state.emptyField.includes(item.fieldName)) {
-                        this.state.emptyField.push(item.fieldName)
-                    }
+            {
+                fieldName: `${this.handleMultiValidation("Product Installation")}`,
+                value: this.state.productInstallationServiceCost
             }
-       })
+        ];
 
-       this.setState({
-           emptyField: this.state.emptyField
-       })
+        await this.setState({
+            emptyField: []
+        });
 
-       this.modalClassToggle("show");
-    }
+        fieldNames.map(item => {
+            if (
+                item.value === undefined ||
+                item.value === null ||
+                item.value.length === 0 ||
+                item.fieldName === "Max. quantity value" ||
+                item.fieldName === "Product Discount Value" ||
+                item.fieldName === "Product Installation Cost" ||
+                item.fieldName === "Product Installer Details"
+            ) {
+                if (!this.state.emptyField.includes(item.fieldName)) {
+                    this.state.emptyField.push(item.fieldName);
+                }
+            }
+        });
 
-    toggleOptions = (yesOrNo) => {
+        this.setState({
+            emptyField: this.state.emptyField
+        });
 
-        if(yesOrNo === "yes"){
+        this.modalClassToggle("show");
+    };
+
+    toggleOptions = option => {
+        if (option === "yesDiscountAvailable") {
             this.setState({
-                checkBoxClass1 : "checkBox color",
-                checkBoxClass2: "checkBox",
+                checkBoxProductDiscountClass1: "checkBox color",
+                checkBoxProductDiscountClass2: "checkBox",
                 productDiscountAvailablity: "yes",
                 productDiscount: undefined
-            })
-        }
-
-        else if(yesOrNo === "no"){
+            });
+        } 
+        
+        else if (option === "noDiscount" || this.state.productDiscount === 0) {
             this.setState({
-                checkBoxClass1: "checkBox",
-                checkBoxClass2 : "checkBox color",
+                checkBoxProductDiscountClass1: "checkBox",
+                checkBoxProductDiscountClass2: "checkBox color",
                 displayError: "displayError hide",
                 productDiscountAvailablity: "no",
-                productDiscount: 0
-            })
+                productDiscount: 0,
+                displayDiscountValueError: "displayDiscountValueError hide"
+            });
 
             this.refs.discountInput.value = "";
+        } 
+        
+        else if (option === "yesInstallationFree") {
+            this.setState({
+                checkBoxProductInstallationClass1: "checkBox color",
+                checkBoxProductInstallationClass2: "checkBox",
+                checkBoxProductInstallationClass3: "checkBox",
+                checkBoxProductInstallationClass4: "checkBox",
+                checkBoxProductInstallationClass5: "checkBox",
+                inputSection: "inputSection hide",
+                productInstallationAvailability: 1,
+                productInstallationServiceCost: 0,
+                displayInstallationValueError: "displayInstallationValueError hide"
+            });
+        } 
+        
+        else if (option === "yesInstallationExtraCost") {
+            this.setState({
+                checkBoxProductInstallationClass1: "checkBox",
+                checkBoxProductInstallationClass2: "checkBox color",
+                checkBoxProductInstallationClass3: "checkBox",
+                checkBoxProductInstallationClass4: "checkBox",
+                checkBoxProductInstallationClass5: "checkBox",
+                inputSection: "inputSection",
+                productInstallationAvailability: 2,
+                productInstallationServiceCost: undefined
+            });
+        } 
+        
+        else if (option === "readyInstallation") {
+            this.setState({
+                checkBoxProductInstallationClass1: "checkBox",
+                checkBoxProductInstallationClass2: "checkBox",
+                checkBoxProductInstallationClass3: "checkBox color",
+                checkBoxProductInstallationClass4: "checkBox",
+                checkBoxProductInstallationClass5: "checkBox",
+                inputSection: "inputSection hide",
+                productInstallationAvailability: 3,
+                productInstallationServiceCost: 0,
+                displayInstallationValueError: "displayInstallationValueError hide"
+            });
+        } 
+        
+        else if (option === "noInstallationService") {
+            this.setState({
+                checkBoxProductInstallationClass1: "checkBox",
+                checkBoxProductInstallationClass2: "checkBox",
+                checkBoxProductInstallationClass3: "checkBox",
+                checkBoxProductInstallationClass4: "checkBox color",
+                checkBoxProductInstallationClass5: "checkBox",
+                inputSection: "inputSection hide",
+                productInstallationAvailability: 4,
+                productInstallationServiceCost: 0,
+                displayInstallationValueError: "displayInstallationValueError hide"
+            });
+        } 
+        
+        else if (option === "noInstallationButRecommendInstaller") {
+            this.setState({
+                checkBoxProductInstallationClass1: "checkBox",
+                checkBoxProductInstallationClass2: "checkBox",
+                checkBoxProductInstallationClass3: "checkBox",
+                checkBoxProductInstallationClass4: "checkBox",
+                checkBoxProductInstallationClass5: "checkBox color",
+                inputSection: "inputSection hide",
+                productInstallationAvailability: 5,
+                productInstallationServiceCost: 0,
+                displayInstallationValueError: "displayInstallationValueError hide"
+            });
         }
-    }
+    };
     
     focus = () => {
         this.refs.discountInput.focus();
@@ -3772,11 +4124,11 @@ class EditProductDetails extends React.Component {
                                                         <div 
                                                             className="optionDiv"
                                                             onClick = {() => {
-                                                                this.toggleOptions("yes")
+                                                                this.toggleOptions("yesDiscountAvailable");
                                                                 this.focus()
                                                             }}
                                                             >
-                                                            <div className={this.state.checkBoxClass1}></div>
+                                                            <div className={this.state.checkBoxProductDiscountClass1}></div>
                                                             <div className="contentForOptionSelection">
                                                                 <div className="nonErrorContent">
                                                                     <p>Yes, we are offering a discount of</p>
@@ -3806,11 +4158,10 @@ class EditProductDetails extends React.Component {
                                                         <div 
                                                             className="optionDiv"
                                                             onClick={() => {
-                                                                this.toggleOptions("no")
-
+                                                                this.toggleOptions("noDiscount");
                                                             }}
                                                             >
-                                                            <div className={this.state.checkBoxClass2}></div>
+                                                            <div className={this.state.checkBoxProductDiscountClass2}></div>
                                                             <div className="contentForOptionSelection">
                                                                 <p>No, there is no discount</p>
                                                             </div>
@@ -3844,6 +4195,172 @@ class EditProductDetails extends React.Component {
                                                         <p className="pargraphClass">Brand Logo</p>
                                                     </div>
                                                     {this.returnBrandImage()}
+                                                </div>
+
+                                                <div className="inputFormContainer">
+                                                <div className="formParaSection">
+                                                    <p className="pargraphClass">
+                                                    Do you offer installation services for this
+                                                    product ?
+                                                    </p>
+                                                </div>
+
+                                                <div className="materialInfoColumn">
+                                                    <div
+                                                    className="optionDiv"
+                                                    onClick={() => {
+                                                        this.toggleOptions("yesInstallationFree");
+                                                    }}
+                                                    >
+                                                    <div
+                                                        className={
+                                                        this.state.checkBoxProductInstallationClass1
+                                                        }
+                                                    />
+                                                    <div className="contentForOptionSelection">
+                                                        <div className="nonErrorContent">
+                                                        <p>
+                                                            Yes, we install this product for free of
+                                                            cost (No extra installation charges).
+                                                        </p>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+
+                                                    <div
+                                                    className="optionDiv"
+                                                    onClick={() => {
+                                                        this.toggleOptions("yesInstallationExtraCost");
+                                                    }}
+                                                    >
+                                                    <div
+                                                        className={
+                                                        this.state.checkBoxProductInstallationClass2
+                                                        }
+                                                    />
+                                                    <div className="contentForOptionSelection">
+                                                        <p>
+                                                        Yes, we install this product for an extra
+                                                        cost.
+                                                        </p>
+                                                    </div>
+                                                    <div className={this.state.inputSection}>
+                                                        <input
+                                                        type="text"
+                                                        ref="installationCost"
+                                                        maxLength="5"
+                                                        placeholder="EX. 20"
+                                                        defaultValue={this.state.productInstallationServiceCost}
+                                                        onChange={e =>
+                                                            this.checkTypeNumber(e, "installation")
+                                                        }
+                                                        />
+                                                        <span className="InputSeparatorLine"> </span>
+                                                        <p>/</p>
+                                                        <SelectList
+                                                        name="installationServiceCostType"
+                                                        value={this.state.installationServiceCostType}
+                                                        onChange={e =>
+                                                            this.onChangeHandler(
+                                                            e,
+                                                            "installationServiceCost"
+                                                            )
+                                                        }
+                                                        options={this.returnTypesOfCharge(
+                                                            "serviceCharge"
+                                                        )}
+                                                        />
+                                                    </div>
+                                                    <div className="errorContent">
+                                                        <p className={this.state.displayError}>
+                                                        Numbers Only
+                                                        </p>
+                                                        <p
+                                                        className={
+                                                            this.state.displayInstallationValueError
+                                                        }
+                                                        >
+                                                        Installation cost cannot be zero, If you wish
+                                                        not to offer installation service, please
+                                                        select the option accordingly.
+                                                        </p>
+                                                    </div>
+                                                    </div>
+
+                                                    <div
+                                                    className="optionDiv"
+                                                    onClick={() => {
+                                                        this.toggleOptions("readyInstallation");
+                                                    }}
+                                                    >
+                                                    <div
+                                                        className={
+                                                        this.state.checkBoxProductInstallationClass3
+                                                        }
+                                                    />
+                                                    <div className="contentForOptionSelection">
+                                                        <p>
+                                                        This is a ready to use product. No
+                                                        installation services applicable.
+                                                        </p>
+                                                    </div>
+                                                    </div>
+
+                                                    <div
+                                                    className="optionDiv"
+                                                    onClick={() => {
+                                                        this.toggleOptions("noInstallationService");
+                                                    }}
+                                                    >
+                                                    <div
+                                                        className={
+                                                        this.state.checkBoxProductInstallationClass4
+                                                        }
+                                                    />
+                                                    <div className="contentForOptionSelection">
+                                                        <p>
+                                                        No, we don’t provide installation services.
+                                                        </p>
+                                                    </div>
+                                                    </div>
+
+                                                    <div
+                                                    className="optionDiv"
+                                                    onClick={() => {
+                                                        this.toggleOptions(
+                                                        "noInstallationButRecommendInstaller"
+                                                        );
+                                                    }}
+                                                    >
+                                                    <div
+                                                        className={
+                                                        this.state.checkBoxProductInstallationClass5
+                                                        }
+                                                    />
+                                                    <div className="contentForOptionSelection">
+                                                        <p>
+                                                        No, we don’t offer installation services for
+                                                        this product but I can recommend others who
+                                                        can install it (this option increases the
+                                                        chances of product purchase).
+                                                        </p>
+                                                    </div>
+                                                    {this.state.checkBoxProductInstallationClass5 === "checkBox color" ?
+                                                        <WhiteButton
+                                                        runFunction={() => {
+                                                            this.modalClassToggle("show");
+                                                            this.setState({
+                                                            modalType: "installer"
+                                                            });
+                                                        }}
+                                                        >
+                                                        <PlusButtonIcon />
+                                                        Add installer
+                                                        </WhiteButton>
+                                                    : null }
+                                                    </div>
+                                                    {this.returnProductInstallers()}
+                                                </div>
                                                 </div>
 
                                             </div>
