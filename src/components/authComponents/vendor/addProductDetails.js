@@ -4147,6 +4147,7 @@ class AddProductDetails extends React.Component {
                                   this.state.checkBoxProductInstallationClass5
                                 }
                               />
+                              <div className="installationCostContent">
                               <div className="contentForOptionSelection">
                                 <p>
                                   No, we don’t offer installation services for
@@ -4155,19 +4156,21 @@ class AddProductDetails extends React.Component {
                                   chances of product purchase).
                                 </p>
                               </div>
-                              {this.state.checkBoxProductInstallationClass5 === "checkBox color" ?
-                                <WhiteButton
-                                  runFunction={() => {
-                                    this.modalClassToggle("show");
-                                    this.setState({
-                                      modalType: "installer"
-                                    });
-                                  }}
-                                >
-                                  <PlusButtonIcon />
-                                  Add installer
-                                </WhiteButton>
-                               : null }
+                                {this.state.checkBoxProductInstallationClass5 === "checkBox color" ?
+                                  <WhiteButton
+                                    runFunction={() => {
+                                      this.modalClassToggle("show");
+                                      this.setState({
+                                        modalType: "installer"
+                                      });
+                                    }}
+                                  >
+                                    <ColorPlusButtonIcon />
+                                    Add installer
+                                  </WhiteButton>
+                                  : null }
+                                  {this.returnProductInstallers()}
+                               </div>
                             </div>
                           </div>
                         </div>
