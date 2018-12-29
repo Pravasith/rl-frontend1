@@ -35,7 +35,8 @@ import {
   GradientButton,
   InputForm,
   WhiteButton,
-  RadioButton
+  RadioButton,
+  SelectList
 } from "../../UX/uxComponents";
 import HtmlSlider from "../../UX/htmlSlider";
 import Navbar from "../../navbar/navbar";
@@ -78,6 +79,9 @@ class AddProductDetails extends React.Component {
       colorCode: "",
       sizeName: "",
       sizeCost: "",
+      installerName: "",
+      installerContactNo: "",
+      installerCharges: "",
 
       colorArray: [],
 
@@ -87,6 +91,7 @@ class AddProductDetails extends React.Component {
       productDimensions: [],
       productMaterials: [],
       productFinishes: [],
+      productInstallers: [],
       productImagesObject: {
         categoryName: "",
         imagesInCategory: []
@@ -127,13 +132,21 @@ class AddProductDetails extends React.Component {
       warningClass: "warningClass hide",
       fieldIsValid: false,
 
-      checkBoxClass1: "checkBox",
-      checkBoxClass2: "checkBox",
+      checkBoxProductDiscountClass1: "checkBox",
+      checkBoxProductDiscountClass2: "checkBox",
+      checkBoxProductInstallationClass1: "checkBox",
+      checkBoxProductInstallationClass2: "checkBox",
+      checkBoxProductInstallationClass3: "checkBox",
+      checkBoxProductInstallationClass4: "checkBox",
+      checkBoxProductInstallationClass5: "checkBox",
+
+      inputSection: "inputSection hide",
 
       // displayError: "displayError",
       displayError: "displayError hide",
       displayValueError: "displayValueError hide",
       displayDiscountValueError: "displayDiscountValueError hide",
+      displayInstallationValueError: "displayInstallationValueError hide",
       displayQuantityValueError: "displayQuantityValueError hide",
       // productQuantityErrorMessage: "displayValueError hide",
       // productMinQuantityError: "productMinQuantityError hide",
@@ -141,6 +154,7 @@ class AddProductDetails extends React.Component {
       materialCostIsValid: false,
       sizeCostIsValid: false,
       finishCostIsValid: false,
+      installerChargeIsValid: false,
 
       spliceOnEdit: true,
       finishModalTitle: "Add a close-up image thumbnail for this finish",
@@ -160,7 +174,10 @@ class AddProductDetails extends React.Component {
       youTubeClass: "youTubeClass hide",
       youTubeError: "youTubeError hide",
 
-      emptyField: []
+      emptyField: [],
+
+      installerCostType: 1,
+      installationServiceCostType: 1
     };
   }
 
@@ -235,6 +252,12 @@ class AddProductDetails extends React.Component {
         } else console.error(err);
       });
   };
+
+  // componentDidUpdate() {
+  //   console.log(
+  //     this.state.productInstallationAvailability
+  //   );
+  // }
 
   modalClassToggle = showOrNot => {
     if (showOrNot === "show")
@@ -466,6 +489,30 @@ class AddProductDetails extends React.Component {
     ];
   };
 
+  returnTypesOfCharge = typeOfCharge => {
+    if (typeOfCharge === "serviceCharge") {
+      return [
+        { label: "square feet", value: 1 },
+        { label: "running feet", value: 2 },
+        { label: "piece", value: 3 },
+        { label: "hour", value: 4 }
+      ];
+    } else if (typeOfCharge === "installersCharge") {
+      return [
+        { label: "square feet", value: 1 },
+        { label: "piece", value: 2 },
+        { label: "hour", value: 3 }
+      ];
+    }
+  };
+
+  returnChargeType = () => {
+    const { installerCostType } = this.state;
+    if (installerCostType === 1) return "square feet";
+    else if (installerCostType === 2) return "piece";
+    else if (installerCostType === 3) return "hour";
+  };
+
   returnfeaturesAdded = () => {
     return this.state.featuresAdded.map((item, i) => {
       return (
@@ -543,12 +590,12 @@ class AddProductDetails extends React.Component {
             </div>
             <div className="sizeEditingButtons">
               {/* <div className="editButton">
-                                        <WhiteButton 
-                                            runFunction={() => this.editProductDimensions(i)}
-                                            >
-                                            Edit
-                                        </WhiteButton>
-                                    </div> */}
+                                          <WhiteButton 
+                                              runFunction={() => this.editProductDimensions(i)}
+                                              >
+                                              Edit
+                                          </WhiteButton>
+                                      </div> */}
               <div
                 className="deleteButton"
                 onClick={() => this.removeProductDimensions(i)}
@@ -629,12 +676,12 @@ class AddProductDetails extends React.Component {
             </div>
             <div className="materialEditingButtons">
               {/* <div className="editButton">
-                                        <WhiteButton
-                                            runFunction={() => this.editProductMaterials(i)}
-                                        >
-                                            Edit
-                                        </WhiteButton>
-                                    </div> */}
+                                          <WhiteButton
+                                              runFunction={() => this.editProductMaterials(i)}
+                                          >
+                                              Edit
+                                          </WhiteButton>
+                                      </div> */}
               <div
                 className="deleteButton"
                 onClick={() => this.removeProductMaterials(i)}
@@ -682,6 +729,17 @@ class AddProductDetails extends React.Component {
       productMaterials:
         this.state.productMaterials.length !== 0
           ? this.state.productMaterials
+          : []
+    });
+  };
+
+  removeProductInstallers = index => {
+    this.state.productInstallers.splice(index, 1);
+
+    this.setState({
+      productInstallers:
+        this.state.productInstallers.length !== 0
+          ? this.state.productInstallers
           : []
     });
   };
@@ -830,13 +888,21 @@ class AddProductDetails extends React.Component {
           </div>
         );
       }
+    } else if (modalType === "installer") {
+      if (this.state.installerIsValid === false) {
+        return (
+          <div className="errorMessage">
+            <p>Please enter the {this.state.emptyFieldInInstaller}</p>
+          </div>
+        );
+      }
     }
   };
 
   // youTubeHandler = (e) => {
   //   const val = e.target.value;
   //   const regEx = /\.youtube\.com\/embed\/\S*$/;
-    
+
   //   const { youTube, youTubeURL } = this.state;
 
   //   if (val !== "") {
@@ -853,7 +919,7 @@ class AddProductDetails extends React.Component {
   //             youTubeClass: "youTubeClass",
   //             youTubeError: "youTubeError hide"
   //           });
-      
+
   //           this.refs.youTube.value = "";
   //         }
 
@@ -880,55 +946,61 @@ class AddProductDetails extends React.Component {
   //   }
   // }
 
-  setYouTubeURL = (e) => {
+  setYouTubeURL = e => {
     const val = e.target.value;
     const regEx = /^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
 
     if (val !== "") {
       if (regEx.test(val) === true) {
-        this.setState({ 
+        this.setState({
           youTube: val,
           youTubeError: "youTubeError hide"
-         });
-      }
-
-      else if (!regEx.test(val) === true) {
+        });
+      } else if (!regEx.test(val) === true) {
         this.setState({
           youTubeError: "youTubeError"
         });
       }
-    }
-
-    else if (val === "") {
+    } else if (val === "") {
       this.setState({
         youTubeError: "youTubeError hide"
       });
     }
-  }
+  };
 
   addYouTubeURL = async () => {
-
     const { youTube, youTubeURL } = this.state;
-    let isItURL = ""
+    let isItURL = "";
 
     if (youTube !== "") {
-      isItURL = youTube.split("/")[2].toLowerCase() === "www.youtube.com" ? true : false
+      isItURL =
+        youTube.split("/")[2].toLowerCase() === "www.youtube.com"
+          ? true
+          : false;
     }
 
-
-    let temp = youTube.split("").reverse().join("")
-    let youtubeId = ""
+    let temp = youTube
+      .split("")
+      .reverse()
+      .join("");
+    let youtubeId = "";
 
     if (isItURL) {
-      youtubeId = temp.split("=")[0].split("").reverse().join("")
+      youtubeId = temp
+        .split("=")[0]
+        .split("")
+        .reverse()
+        .join("");
 
-      this.setState({ youtubeId })
-    }
+      this.setState({ youtubeId });
+    } else {
+      youtubeId = temp
+        .split("/")[0]
+        .split("")
+        .reverse()
+        .join("");
 
-    else {
-      youtubeId = temp.split("/")[0].split("").reverse().join("")
-
-      this.setState({ youtubeId })
+      this.setState({ youtubeId });
     }
 
     // console.log(youtubeId)
@@ -946,27 +1018,24 @@ class AddProductDetails extends React.Component {
           youTubeClass: "youTubeClass",
           youTubeError: "youTubeError hide"
         });
-  
-        this.refs.youTube.value = "";
-      }
 
-      else if (dummyArray.includes(youtubeId)){
+        this.refs.youTube.value = "";
+      } else if (dummyArray.includes(youtubeId)) {
         this.setState({
           youTube: "",
           youtubeId: "",
           youTubeError: "youTubeError",
-          youTubeUrlErrorStatement: "This video has been already uploaded, please add new."
-        })
+          youTubeUrlErrorStatement:
+            "This video has been already uploaded, please add new."
+        });
       }
-    }
-
-    else if (youtubeId === "") {
+    } else if (youtubeId === "") {
       this.setState({
         youTubeError: "youTubeError",
         youTubeUrlErrorStatement: "please check and enter valid YouTube URL."
       });
     }
-  }
+  };
 
   returnYouTubeInput = () => {
     if (this.state.youTubeURL.length !== 0) {
@@ -974,7 +1043,10 @@ class AddProductDetails extends React.Component {
         return (
           <div className="youTubeContainer" key={i}>
             <YouTube video={item} autoplay="0" rel="0" modest="1" />
-            <div className="deleteIcon" onClick={() => this.removeyouTubeURL(i)}>
+            <div
+              className="deleteIcon"
+              onClick={() => this.removeyouTubeURL(i)}
+            >
               <CloseButton />
             </div>
           </div>
@@ -983,24 +1055,36 @@ class AddProductDetails extends React.Component {
     }
   };
 
-  removeyouTubeURL = (index) => {
-    this.state.youTubeURL.splice(index, 1)
+  removeyouTubeURL = index => {
+    this.state.youTubeURL.splice(index, 1);
 
     this.setState({
-      youTubeURL: this.state.youTubeURL.length !== 0 ? this.state.youTubeURL : []
+      youTubeURL:
+        this.state.youTubeURL.length !== 0 ? this.state.youTubeURL : []
     });
-  }
+  };
 
   checkTypeNumber = (e, checkFor) => {
     const val = e.target.value;
     const regEx = /^[0-9\b]+$/;
 
-    if (val !== "") {
+    if (val !== 0) {
       if (regEx.test(val) === true) {
         if (checkFor === "discount") {
           this.setState({
             productDiscount: Number(val),
             displayError: "displayError hide"
+          });
+        } else if (checkFor === "installation") {
+          this.setState({
+            productInstallationServiceCost: Number(val),
+            displayError: "displayError hide"
+          });
+        } else if (checkFor === "installer") {
+          this.setState({
+            installerCharges: Number(val),
+            displayError: "displayError hide",
+            installerChargeIsValid: true
           });
         } else if (checkFor === "color") {
           this.setState({
@@ -1032,6 +1116,17 @@ class AddProductDetails extends React.Component {
             productDiscount: "",
             displayError: "displayError"
           });
+        } else if (checkFor === "installation") {
+          this.setState({
+            productInstallationServiceCost: "",
+            displayError: "displayError"
+          });
+        } else if (checkFor === "installer") {
+          this.setState({
+            installerCharges: "",
+            displayError: "displayError",
+            installerChargeIsValid: false
+          });
         } else if (checkFor === "color") {
           this.setState({
             colorCost: "",
@@ -1057,11 +1152,13 @@ class AddProductDetails extends React.Component {
           });
         }
       }
-    } else if (val === "") {
-      this.setState({
-        displayError: "displayError hide",
-        displayValueError: "displayValueError hide"
-      });
+    } 
+    
+    else if (val === "") {
+        this.setState({
+          displayError: "displayError hide",
+          displayValueError: "displayValueError hide"
+        });
     }
   };
 
@@ -1156,14 +1253,18 @@ class AddProductDetails extends React.Component {
       productDimensions,
       productFinishes,
       productMaterials,
+      productInstallers,
+      installerContactNo,
       materialCostIsValid,
       sizeCostIsValid,
-      finishCostIsValid
+      finishCostIsValid,
+      installerChargeIsValid
     } = this.state;
 
     let isMaterialValid = false;
     let isColorValid = false;
     let isSizeValid = false;
+    let isInstallerValid = false;
     let isFinishDetailsValid = false;
     let emptyField;
     let errorMessage;
@@ -1391,6 +1492,36 @@ class AddProductDetails extends React.Component {
       return validationData;
     };
 
+    const validateInstallerModal = (installerName, installerCharges) => {
+      if (installerName !== "") {
+        if (installerContactNo !== "") {
+          if (installerCharges !== "") {
+            if (installerChargeIsValid) {
+              isInstallerValid = true;
+            } else {
+              emptyField = "Installer charges in number";
+            }
+          } 
+          
+          else if (installerCharges === "") {
+            isInstallerValid = true;
+          }
+
+        } else {
+          emptyField = "Installer mobile number";
+        }
+      } else if (installerName === "") {
+        emptyField = "Installer name";
+      }
+
+      const validationData = {
+        isInstallerValid,
+        emptyField
+      };
+
+      return validationData;
+    };
+
     if (typeOfButtonClicked === "color") {
       const colorCode = this.refs.colorCode.value;
       const colorName = this.refs.colorName.value;
@@ -1422,7 +1553,9 @@ class AddProductDetails extends React.Component {
           errorMessage: validatedData.errorMessage
         });
       }
-    } else if (typeOfButtonClicked === "size") {
+    } 
+    
+    else if (typeOfButtonClicked === "size") {
       const sizeName = this.refs.sizeName.value;
       const sizeCost = isChecked ? this.refs.sizeCost.value : 0;
 
@@ -1463,7 +1596,9 @@ class AddProductDetails extends React.Component {
           emptyFieldInSize: validatedData.emptyField
         });
       }
-    } else if (typeOfButtonClicked === "material") {
+    } 
+    
+    else if (typeOfButtonClicked === "material") {
       const materialName = this.refs.materialName.value;
       const materialCost = isChecked ? this.refs.materialCost.value : 0;
 
@@ -1504,7 +1639,9 @@ class AddProductDetails extends React.Component {
           emptyFieldInMaterial: validatedData.emptyField
         });
       }
-    } else if (typeOfButtonClicked === "finish") {
+    } 
+    
+    else if (typeOfButtonClicked === "finish") {
       const finishName = this.refs.finishName.value;
       const finishCost = isChecked ? this.refs.finishCost.value : 0;
       const finishImage = this.state.productFinishImage;
@@ -1554,11 +1691,69 @@ class AddProductDetails extends React.Component {
           emptyFieldInFinishDetails: validatedData.emptyField
         });
       }
+    } 
+    
+    else if (typeOfButtonClicked === "installer") {
+      const installerName = this.refs.installerName.value;
+      const installerContactNo = this.state.installerContactNo;
+      const installerCharges = this.refs.installerCharges.value;
+      const installerChargeType = this.state.installerCostType;
+
+      let validatedData = validateInstallerModal(
+        installerName,
+        installerCharges
+      );
+
+      if (validatedData.isInstallerValid) {
+        let temp = {
+          installerCharges,
+          installerName,
+          installerContactNo,
+          installerChargeType
+        };
+
+        if (temp.installerName !== "") {
+          if (temp.installerContactNo !== "") {
+              let dummyArray = [...productInstallers];
+
+              if (!dummyArray.includes(temp)) {
+                productInstallers.push(temp);
+
+                this.setState({
+                  installerContactNo: "",
+                  installerIsValid: true,
+                  emptyFieldInInstaller: null,
+                  modalType: null,
+                  isChecked: false,
+                  productInstallers:
+                    productInstallers.length !== 0 ? productInstallers : null,
+                  displayError: "displayError hide"
+                });
+              }
+          }
+        }
+
+        this.refs.installerName.value = "";
+        this.refs.installerCharges.value = "";
+
+        this.modalClassToggle("dontShow");
+      } 
+      
+      else {
+        this.setState({
+          installerIsValid: false,
+          emptyFieldInInstaller: validatedData.emptyField
+        });
+      }
     }
   };
 
-  onChangeHandler = e => {
-    this.setState({ [e.target.name]: e.target.value });
+  onChangeHandler = (e, type) => {
+    if (type === "installerCost" || type === "installationServiceCost") {
+      this.setState({ [e.target.name]: Number(e.target.value) });
+    } else {
+      this.setState({ [e.target.name]: e.target.value });
+    }
   };
 
   handleColorInput = e => {
@@ -1653,6 +1848,17 @@ class AddProductDetails extends React.Component {
         }
       });
     }
+
+    // else if (type === "productInstallationCharge") {
+    //   this.returnInstallationCharge().map((item, i) => {
+    //     if (item.value === val) {
+    //       this.setState({
+    //         productInstallationCharge: item.id,
+    //         productInstallationChargeChecked: val
+    //       })
+    //     }
+    //   })
+    // }
   };
 
   returnExtraCost = type => {
@@ -1782,6 +1988,55 @@ class AddProductDetails extends React.Component {
     );
   };
 
+  returnProductInstallers = () => {
+    const { checkBoxProductInstallationClass5, productInstallers } = this.state;
+
+    if (checkBoxProductInstallationClass5 === "checkBox color") {
+      if (productInstallers.length !== 0) {
+        return productInstallers.map((item, i) => {
+          return (
+            <div className="productInstallerDescriptionOuterLayer" key={i}>
+              <div className="productInstallerDescriptionInnerLayer">
+                <div className="productInstallerDetails">
+                  <div className="productInstallerNameWrap">
+                    {/* <h3>Installer nomenclature</h3> */}
+                    <h3 key={i}>{item.installerName}</h3>
+                  </div>
+
+                  <div className="productInstallerContactNoWrap">
+                    <p key={i}>+91 {item.installerContactNo}</p>
+                  </div>
+
+                  <div className={item.installerCharges !== "" ? "productInstallerChargesWrap" : "hide"} >
+                    <small>Charges </small>
+                    <p key={i}>
+                      Rs. {item.installerCharges} / {this.returnChargeType()}
+                    </p>
+                  </div>
+                </div>
+                <div className="materialEditingButtons">
+                  {/* <div className="editButton">
+                          <WhiteButton
+                              runFunction={() => this.editProductInstallers(i)}
+                          >
+                              Edit
+                          </WhiteButton>
+                        </div> */}
+                  <div
+                    className="deleteButton"
+                    onClick={() => this.removeProductInstallers(i)}
+                  >
+                    <WhiteButton>Delete</WhiteButton>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        });
+      }
+    }
+  };
+
   sendProductsDataToBackend = () => {
     this.setState({
       finalProceed: "sendRequest"
@@ -1806,7 +2061,11 @@ class AddProductDetails extends React.Component {
       youTubeAdVideos: this.state.youTubeURL,
       discount: this.state.productDiscount,
       productImages: this.state.productImagesObject.imagesInCategory,
-      productThumbImage: this.state.productImageThumbnail
+      productThumbImage: this.state.productImageThumbnail,
+      productInstallers: this.state.productInstallers,
+      productInstallationAvailability: this.state.productInstallationAvailability,
+      productInstallationServiceCost: this.state.productInstallationServiceCost,
+      installationServiceCostType: this.state.installationServiceCostType
 
       // this.state.productName
       // this.state.productCode
@@ -1938,6 +2197,7 @@ class AddProductDetails extends React.Component {
                 });
               }}
             >
+              {" "}
               click here
             </span>{" "}
             to try again
@@ -2111,7 +2371,6 @@ class AddProductDetails extends React.Component {
                     >
                       Proceed
                     </GradientButton>
-                    {this.displayErrorModal("finish")}
                   </div>
                 </div>
               </div>
@@ -2222,18 +2481,24 @@ class AddProductDetails extends React.Component {
                           </div>
                         </div>
                       </div>
+                      <label className="switch">
+                        <input
+                          ref="switch"
+                          checked={this.state.isChecked}
+                          onChange={() => this.onToggleSwitch()}
+                          className="switch-input"
+                          type="checkbox"
+                        />
+                        <span
+                          className="switch-label"
+                          data-on="Yes"
+                          data-off="No"
+                        />
+                        <span className="switch-handle" />
+                      </label>
                     </div>
-
-                    <div className="errorContent">
-                      <p
-                        className={
-                          this.state.isChecked
-                            ? this.state.displayError
-                            : "displayError hide"
-                        }
-                      >
-                        Numbers Only
-                      </p>
+                    <div className="returnInputColumn">
+                      {this.returnExtraCost("size")}
                     </div>
                   </div>
                 </div>
@@ -2396,6 +2661,9 @@ class AddProductDetails extends React.Component {
                     <div className="returnInputColumn">
                       {this.returnExtraCost("material")}
                     </div>
+                    <div className="returnInputColumn">
+                      {this.returnExtraCost("material")}
+                    </div>
                   </div>
 
                   <div className="errorContent">
@@ -2409,6 +2677,29 @@ class AddProductDetails extends React.Component {
                       Numbers Only
                     </p>
                   </div>
+
+                  <div className="errorContent">
+                    <p
+                      className={
+                        this.state.isChecked
+                          ? this.state.displayError
+                          : "displayError hide"
+                      }
+                    >
+                      Numbers Only
+                    </p>
+                  </div>
+                </div>
+                <div className="proceedOrNotCheck">
+                  <GradientButton
+                    runFunction={() => {
+                      this.proceedHandler("material")
+                      // this.checkForZero()
+                    }}
+                  >
+                    Proceed
+                  </GradientButton>
+                  {this.displayErrorModal("material")}
                 </div>
                 <div className="proceedOrNotCheck">
                   <GradientButton
@@ -2550,9 +2841,7 @@ class AddProductDetails extends React.Component {
             </div>
           </div>
         );
-      }
-
-      else if (modalType === "alertForDelete") {
+      } else if (modalType === "alertForDelete") {
         return (
           <div className={this.state.modalAlertForDelete}>
             <div className="whiteSquareModalUpperContainer">
@@ -2564,7 +2853,10 @@ class AddProductDetails extends React.Component {
                 <div className="confirmationButtonContainer">
                   <WhiteButton
                     runFunction={() => {
-                      this.state.productImagesObject.imagesInCategory.splice(0, 1);
+                      this.state.productImagesObject.imagesInCategory.splice(
+                        0,
+                        1
+                      );
                       this.modalClassToggle("dontShow");
                     }}
                   >
@@ -2582,6 +2874,121 @@ class AddProductDetails extends React.Component {
             </div>
           </div>
         );
+      } else if (modalType === "installer") {
+        return (
+          <div className={this.state.modalThirdPartyDetails}>
+            <div className="dummyXClass">
+              <div className="whiteSquareForModal">
+                <div className="whiteSquareModalUpperContainer">
+                  <div className="vendorDashboardModal">
+                    <div className="modalHeader">
+                      <h3>Third party installer details</h3>
+                      <div className="line" />
+                    </div>
+                  </div>
+                  <div className="finishEndModal">
+                    <div className="thirdPartyDetails">
+                      <div className="inputFormContainer">
+                        <div className="formParaSection">
+                          <p className="pargraphClass">Installer's name</p>
+                        </div>
+                        <div className="productInputInfoSection productFinishName">
+                          <div className="modalMandatorySection">
+                            <p className="madatoryHighlight">Mandatory</p>
+                          </div>
+                          <div className="modalInputCategory">
+                            <input
+                              type="text"
+                              name="installerName"
+                              placeholder="Type name here"
+                              onChange={this.onChangeHandler}
+                              maxLength="30"
+                              ref="installerName"
+                            />
+                            <span className="InputSeparatorLine"> </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="inputFormContainer">
+                        <div className="formParaSection">
+                          <p className="pargraphClass">
+                            Installer's 10 digit mobile
+                          </p>
+                        </div>
+
+                        <div className="phoneNoWrap">
+                          <InputForm
+                            refName="installerContactNo"
+                            placeholder="10 digit Official contact number"
+                            isMandatory={true}
+                            validationType="onlyMobileNumbers"
+                            characterCount="10"
+                            value={
+                              this.state.installerContactNo
+                                ? this.state.installerContactNo
+                                : ""
+                            }
+                            result={val =>
+                              this.setState({ installerContactNo: val })
+                            }
+                          />
+                        </div>
+                      </div>
+
+                      <div className="inputFormContainer">
+                        <div className="formParaSection">
+                          <p className="pargraphClass">
+                            Installation charges (in INR)
+                          </p>
+                        </div>
+                        <div className="modalInputCategory">
+                          <input
+                            type="text"
+                            name="installerCharges"
+                            placeholder="Ex. 20"
+                            onChange={e => this.checkTypeNumber(e, "installer")}
+                            maxLength="8"
+                            ref="installerCharges"
+                          />
+                          <span className="InputSeparatorLine"> </span>
+                          <p> / </p>
+                          <SelectList
+                            name="installerCostType"
+                            value={this.state.installerCostType}
+                            onChange={e =>
+                              this.onChangeHandler(e, "installerCost")
+                            }
+                            options={this.returnTypesOfCharge(
+                              "installersCharge"
+                            )}
+                          />
+                        </div>
+
+                        <div className="errorContent">
+                          <p className={this.state.displayError}>
+                            Numbers Only
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="proceedOrNotCheck">
+                  <GradientButton
+                    runFunction={() => {
+                      this.proceedHandler("installer");
+                    }}
+                  >
+                    Proceed
+                  </GradientButton>
+                  {this.displayErrorModal("installer")}
+                </div>
+              </div>
+            </div>
+          </div>
+        );
       }
     };
 
@@ -2594,16 +3001,17 @@ class AddProductDetails extends React.Component {
                 className="closeButtonContainer"
                 onClick={() => {
                   this.modalClassToggle("dontShow");
-                  this.setState({
-                    spliceOnEdit: false,
-                    isChecked: false,
-                    extraCostInput: "extraCostInput hide",
-                    displayError: "displayError hide",
-                    colorIsValid: true,
-                    sizeIsValid: true,
-                    materialIsValid: true,
-                    finishDetailsIsValid: true
-                  });
+                  // this.setState({
+                  //   spliceOnEdit: false,
+                  //   isChecked: false,
+                  //   extraCostInput: "extraCostInput hide",
+                  //   displayError: "displayError hide",
+                  //   colorIsValid: true,
+                  //   sizeIsValid: true,
+                  //   materialIsValid: true,
+                  //   finishDetailsIsValid: true
+                  // });
+                  this.handleStates();
                   this.handleClearExtraCostInput();
                 }}
               >
@@ -2619,6 +3027,29 @@ class AddProductDetails extends React.Component {
         </div>
       </div>
     );
+  };
+
+  handleStates = () => {
+    if (this.state.finalProceed === "saveAndProceed") {
+      this.setState({
+        productImageThumbnail: "",
+        showFinalProceed: "hide",
+        spliceOnEdit: false,
+        isChecked: false,
+        extraCostInput: "extraCostInput hide",
+        displayError: "displayError hide",
+        colorIsValid: true,
+        sizeIsValid: true,
+        materialIsValid: true,
+        finishDetailsIsValid: true
+      });
+    } else if (this.state.finalProceed === "successScreen") {
+      this.setState({
+        productImageThumbnail: "",
+        showFinalProceed: "hide",
+        finalProceed: "saveAndProceed"
+      });
+    }
   };
 
   handleClearExtraCostInput = () => {
@@ -2653,7 +3084,10 @@ class AddProductDetails extends React.Component {
       productDiscountAvailablity,
       productDiscount,
       productMinQuantity,
-      productMaxQuantity
+      productMaxQuantity,
+      productInstallationAvailability,
+      productInstallationServiceCost,
+      productInstallers
     } = this.state;
 
     if (fieldName === "Max. quantity") {
@@ -2672,13 +3106,16 @@ class AddProductDetails extends React.Component {
             displayQuantityValueError: "displayQuantityValueError hide"
           });
       } else return "Max. qunatity";
-    } else if (fieldName === "Product Discount") {
+    } 
+    
+    else if (fieldName === "Product Discount") {
       if (productDiscountAvailablity === "yes") {
         if (productDiscount !== undefined) {
           if (productDiscount === 0) {
             this.setState({
               displayDiscountValueError: "displayDiscountValueError"
             });
+
             return "Product Discount Value";
           } else
             this.setState({
@@ -2688,6 +3125,36 @@ class AddProductDetails extends React.Component {
           return "Product Discount Value";
         }
       } else return "Product Discount Availability";
+    } 
+    
+    else if (fieldName === "Product Installation") {
+      if (productInstallationAvailability === 2) {
+        if (productInstallationServiceCost !== undefined) {
+          if (productInstallationServiceCost === 0) {
+            this.setState({
+              displayInstallationValueError: "displayInstallationValueError"
+            });
+
+            return "Product Installation Cost";
+          } else
+            this.setState({
+              displayInstallationValueError:
+                "displayInstallationValueError hide"
+            });
+        } 
+        
+        else if (productInstallationServiceCost === undefined) {
+          return "Product Installation Cost";
+        }
+      } 
+
+      else if (productInstallationAvailability === 5) {
+          if (productInstallers.length === 0) {
+            return "Product Installer Details"
+          }
+      }
+      
+      else return "Product Installation Service";
     }
   };
 
@@ -2708,6 +3175,10 @@ class AddProductDetails extends React.Component {
         fieldName: `${this.handleMultiValidation("Max. quantity")}`,
         value: this.state.productMaxQuantity
       },
+      {
+        fieldName: "Product Description",
+        value: this.state.productDescription
+      },
       { fieldName: "Product Design", value: this.state.categoryStylesAdded },
       { fieldName: "Product Tags", value: this.state.tagsAdded },
       { fieldName: "Product Type", value: this.state.productType },
@@ -2715,9 +3186,6 @@ class AddProductDetails extends React.Component {
         fieldName: "Product Availability",
         value: this.state.productAvailability
       },
-      // {
-      //   fieldName: "Youtube Url", value: this.state.youTubeURL
-      // },
       {
         fieldName: `${this.handleMultiValidation("Product Discount")}`,
         value: this.state.productDiscount
@@ -2725,6 +3193,11 @@ class AddProductDetails extends React.Component {
       {
         fieldName: "Product Image",
         value: this.state.productImagesObject.imagesInCategory
+      },
+
+      {
+        fieldName: `${this.handleMultiValidation("Product Installation")}`,
+        value: this.state.productInstallationServiceCost
       }
     ];
 
@@ -2738,7 +3211,9 @@ class AddProductDetails extends React.Component {
         item.value === null ||
         item.value.length === 0 ||
         item.fieldName === "Max. quantity value" ||
-        item.fieldName === "Product Discount Value"
+        item.fieldName === "Product Discount Value" ||
+        item.fieldName === "Product Installation Cost" ||
+        item.fieldName === "Product Installer Details"
       ) {
         if (!this.state.emptyField.includes(item.fieldName)) {
           this.state.emptyField.push(item.fieldName);
@@ -2753,24 +3228,84 @@ class AddProductDetails extends React.Component {
     this.modalClassToggle("show");
   };
 
-  toggleOptions = yesOrNo => {
-    if (yesOrNo === "yes") {
+  toggleOptions = option => {
+    if (option === "yesDiscountAvailable") {
       this.setState({
-        checkBoxClass1: "checkBox color",
-        checkBoxClass2: "checkBox",
+        checkBoxProductDiscountClass1: "checkBox color",
+        checkBoxProductDiscountClass2: "checkBox",
         productDiscountAvailablity: "yes",
         productDiscount: undefined
       });
-    } else if (yesOrNo === "no") {
+    } else if (option === "noDiscount") {
       this.setState({
-        checkBoxClass1: "checkBox",
-        checkBoxClass2: "checkBox color",
+        checkBoxProductDiscountClass1: "checkBox",
+        checkBoxProductDiscountClass2: "checkBox color",
         displayError: "displayError hide",
         productDiscountAvailablity: "no",
-        productDiscount: 0
+        productDiscount: 0,
+        displayDiscountValueError: "displayDiscountValueError hide"
       });
 
       this.refs.discountInput.value = "";
+    } else if (option === "yesInstallationFree") {
+      this.setState({
+        checkBoxProductInstallationClass1: "checkBox color",
+        checkBoxProductInstallationClass2: "checkBox",
+        checkBoxProductInstallationClass3: "checkBox",
+        checkBoxProductInstallationClass4: "checkBox",
+        checkBoxProductInstallationClass5: "checkBox",
+        inputSection: "inputSection hide",
+        productInstallationAvailability: 1,
+        productInstallationServiceCost: 0,
+        displayInstallationValueError: "displayInstallationValueError hide"
+      });
+    } else if (option === "yesInstallationExtraCost") {
+      this.setState({
+        checkBoxProductInstallationClass1: "checkBox",
+        checkBoxProductInstallationClass2: "checkBox color",
+        checkBoxProductInstallationClass3: "checkBox",
+        checkBoxProductInstallationClass4: "checkBox",
+        checkBoxProductInstallationClass5: "checkBox",
+        inputSection: "inputSection",
+        productInstallationAvailability: 2,
+        productInstallationServiceCost: undefined
+      });
+    } else if (option === "readyInstallation") {
+      this.setState({
+        checkBoxProductInstallationClass1: "checkBox",
+        checkBoxProductInstallationClass2: "checkBox",
+        checkBoxProductInstallationClass3: "checkBox color",
+        checkBoxProductInstallationClass4: "checkBox",
+        checkBoxProductInstallationClass5: "checkBox",
+        inputSection: "inputSection hide",
+        productInstallationAvailability: 3,
+        productInstallationServiceCost: 0,
+        displayInstallationValueError: "displayInstallationValueError hide"
+      });
+    } else if (option === "noInstallationService") {
+      this.setState({
+        checkBoxProductInstallationClass1: "checkBox",
+        checkBoxProductInstallationClass2: "checkBox",
+        checkBoxProductInstallationClass3: "checkBox",
+        checkBoxProductInstallationClass4: "checkBox color",
+        checkBoxProductInstallationClass5: "checkBox",
+        inputSection: "inputSection hide",
+        productInstallationAvailability: 4,
+        productInstallationServiceCost: 0,
+        displayInstallationValueError: "displayInstallationValueError hide"
+      });
+    } else if (option === "noInstallationButRecommendInstaller") {
+      this.setState({
+        checkBoxProductInstallationClass1: "checkBox",
+        checkBoxProductInstallationClass2: "checkBox",
+        checkBoxProductInstallationClass3: "checkBox",
+        checkBoxProductInstallationClass4: "checkBox",
+        checkBoxProductInstallationClass5: "checkBox color",
+        inputSection: "inputSection hide",
+        productInstallationAvailability: 5,
+        productInstallationServiceCost: 0,
+        displayInstallationValueError: "displayInstallationValueError hide"
+      });
     }
   };
 
@@ -3124,12 +3659,13 @@ class AddProductDetails extends React.Component {
                               Product description{" "}
                             </p>
                           </div>
+                        </div>
 
                           <div className="materialInfoColumn">
                             <InputForm
                               refName="productDescription"
                               placeholder="Type something good about the product"
-                              isMandatory={false}
+                              isMandatory={true}
                               validationType="alphabetsSpecialCharactersAndNumbers"
                               characterCount="500"
                               result={val =>
@@ -3143,24 +3679,24 @@ class AddProductDetails extends React.Component {
 
                         {/* <div className="inputFormContainer">
 
-                                                    <div className="formParaSection">
-                                                        <p className="pargraphClass"> Features / specifications of the product </p>
-                                                    </div>
+                            <div className="formParaSection">
+                                <p className="pargraphClass"> Features / specifications of the product </p>
+                            </div>
 
-                                                    <div className="materialInfoColumn">
-                                                        <InputForm
-                                                            refName="featureName"
-                                                            placeholder="Type here"
-                                                            isMandatory={false}
-                                                            validationType="alphabetsSpecialCharactersAndNumbers"
-                                                            characterCount="100"
-                                                            result={(val) => this.setState({
-                                                                featureName: val
-                                                            })}
-                                                        />
-                                                    </div>
+                            <div className="materialInfoColumn">
+                                <InputForm
+                                    refName="featureName"
+                                    placeholder="Type here"
+                                    isMandatory={false}
+                                    validationType="alphabetsSpecialCharactersAndNumbers"
+                                    characterCount="100"
+                                    result={(val) => this.setState({
+                                        featureName: val
+                                    })}
+                                />
+                            </div>
 
-                                                </div> */}
+                        </div> */}
 
                         <div className="inputFormContainer">
                           <div className="formParaSection">
@@ -3174,10 +3710,10 @@ class AddProductDetails extends React.Component {
                           </div>
 
                           {/* <div className="designStyleCategoryTagsContainer">
-                                                        <div className="designStyleTagsInnerLayer">
-                                                            {this.returnStyleContentAdded()}
-                                                        </div>
-                                                    </div> */}
+                                                          <div className="designStyleTagsInnerLayer">
+                                                              {this.returnStyleContentAdded()}
+                                                          </div>
+                                                      </div> */}
 
                           <div className="designStylesOuterLayer">
                             <div className="designStyleCategoryTagsContainer">
@@ -3220,9 +3756,10 @@ class AddProductDetails extends React.Component {
                                       this.addTagName();
                                     }
                                   }}
-                                />
-                                <span className="InputSeparatorLine"> </span>
-                              </div>
+                                  />
+                                  <div className="svgImageContainer">
+                                    <LargePlusButtonIcon />
+                                  </div>
 
                               <WhiteButton runFunction={this.addTagName}>
                                 Add
@@ -3244,6 +3781,7 @@ class AddProductDetails extends React.Component {
                               Choose the product type{" "}
                             </p>
                           </div>
+                        </div>
 
                           <div className="materialInfoColumn">
                             <RadioButton
@@ -3280,45 +3818,46 @@ class AddProductDetails extends React.Component {
                         </div>
 
                         <div className="inputFormContainer">
-                          <div className="formParaSection">
-                            <p className="pargraphClass"> YouTube URL: </p>
-                          </div>
-                          
-                          <div className="inputCategoryYoutubeSection">
-                            <div className="youtubeUrlInputSection">
-                              <div className="urlInputSection">
-                                <input
-                                  title="youTube Url"
-                                  type="text"
-                                  name="youTube"
-                                  placeholder="Enter your product Ad/demo YouTube URL"
-                                  ref="youTube"
-                                  maxLength="1000"
-                                  onChange={(e) => this.setYouTubeURL(e)}
-                                  onKeyUp={e => {
-                                    if (e.key === "Enter") {
-                                      this.addYouTubeURL(e)
-                                    }
-                                  }}
-                                />
-                                <span className="InputSeparatorLine"> </span>
-                                <div className={this.state.youTubeError}>
-                                  <p>{this.state.youTubeUrlErrorStatement}</p>
-                                </div>
-                              </div>
+                            <div className="formParaSection">
+                              <p className="pargraphClass"> YouTube URL: </p>
+                            </div>
 
-                              <WhiteButton runFunction={this.addYouTubeURL}>
-                                Add
-                              </WhiteButton>
+                            <div className="inputCategoryYoutubeSection">
+                              <div className="youtubeUrlInputSection">
+                                <div className="urlInputSection">
+                                  <input
+                                    title="youTube Url"
+                                    type="text"
+                                    name="youTube"
+                                    placeholder="Enter your product Ad/demo YouTube URL"
+                                    ref="youTube"
+                                    maxLength="1000"
+                                    onChange={e => this.setYouTubeURL(e)}
+                                    onKeyUp={e => {
+                                      if (e.key === "Enter") {
+                                        this.addYouTubeURL(e);
+                                      }
+                                    }}
+                                  />
+                                  <span className="InputSeparatorLine"> </span>
+                                  <div className={this.state.youTubeError}>
+                                    <p>{this.state.youTubeUrlErrorStatement}</p>
+                                  </div>
+                                </div>
+
+                                <WhiteButton runFunction={this.addYouTubeURL}>
+                                  Add
+                                </WhiteButton>
+                              </div>
                             </div>
                           </div>
-                          
+
                           <div className={this.state.youTubeClass}>
-                              <div className="youtubeContentInnerLayer">
-                                {this.returnYouTubeInput()}
-                              </div>
+                            <div className="youtubeContentInnerLayer">
+                              {this.returnYouTubeInput()}
+                            </div>
                           </div>
-                        </div>
+                        {/* </div> */}
 
                         <div className="inputFormContainer">
                           <div className="formParaSection">
@@ -3331,11 +3870,15 @@ class AddProductDetails extends React.Component {
                             <div
                               className="optionDiv"
                               onClick={() => {
-                                this.toggleOptions("yes");
+                                this.toggleOptions("yesDiscountAvailable");
                                 this.focus();
                               }}
                             >
-                              <div className={this.state.checkBoxClass1} />
+                              <div
+                                className={
+                                  this.state.checkBoxProductDiscountClass1
+                                }
+                              />
                               <div className="contentForOptionSelection">
                                 <div className="nonErrorContent">
                                   <p>Yes, we are offering a discount of</p>
@@ -3348,7 +3891,9 @@ class AddProductDetails extends React.Component {
                                         this.checkTypeNumber(e, "discount")
                                       }
                                     />
-                                    <span className="InputSeparatorLine"> </span>
+                                    <span className="InputSeparatorLine">
+                                      {" "}
+                                    </span>
                                     <p>%</p>
                                   </div>
                                 </div>
@@ -3372,10 +3917,14 @@ class AddProductDetails extends React.Component {
                             <div
                               className="optionDiv"
                               onClick={() => {
-                                this.toggleOptions("no");
+                                this.toggleOptions("noDiscount");
                               }}
                             >
-                              <div className={this.state.checkBoxClass2} />
+                              <div
+                                className={
+                                  this.state.checkBoxProductDiscountClass2
+                                }
+                              />
                               <div className="contentForOptionSelection">
                                 <p>No, there is no discount</p>
                               </div>
@@ -3388,7 +3937,6 @@ class AddProductDetails extends React.Component {
                             <p className="pargraphClass">Brand Name</p>
                           </div>
                           <div className="brandNameInputSection">
-
                             <InputForm
                               refName="brandName"
                               placeholder="Ex.Greenply / Legrand etc."
@@ -3409,26 +3957,234 @@ class AddProductDetails extends React.Component {
                             <p className="pargraphClass">Brand Logo</p>
                           </div>
                           <div className="brandImageUploaderRender">
-                              <div className="brandImageUploaderClass">
-                                <ImageUploader
-                                  imageType="regularImage" // regularImage || profileImage
-                                  resultData={data => {
-                                    this.setState({
-                                      brandImage: data.imageURL
-                                    });
-                                  }}
-                                  showInitialImage={
-                                    this.state.brandImage !== ""
-                                      ? this.state.brandImage
-                                      : ""
-                                  }
-                                  imageClassName="brandImageClass"
-                                />
-                              </div>
+                            <div className="brandImageUploaderClass">
+                              <ImageUploader
+                                imageType="regularImage" // regularImage || profileImage
+                                resultData={data => {
+                                  this.setState({
+                                    brandImage: data.imageURL
+                                  });
+                                }}
+                                showInitialImage={
+                                  this.state.brandImage !== ""
+                                    ? this.state.brandImage
+                                    : ""
+                                }
+                                imageClassName="brandImageClass"
+                              />
+                            </div>
                           </div>
                         </div>
 
-                      </div>
+                        {/* <div className="inputFormContainer">
+                            <div className="formParaSection">
+                              <p className="pargraphClass">
+                                {" "}
+                                Do you offer installation services for this product?{" "}
+                              </p>
+                            </div>
+
+                            <div className="materialInfoColumn">
+                              <RadioButton
+                                title="Product Installation Charge"
+                                name={"productInstallationCharge"}
+                                options={this.returnInstallationCharge()}
+                                selectedOption={this.state.productInstallationChargeChecked}
+                                onChange={e =>
+                                  this.handleRadiobutton(e, "productInstallationCharge")
+                                }
+                              />
+                            </div>
+                          </div> */}
+
+                        {/* returnInstallationCharge = () => {
+                            return [
+                              {
+                                id: 1,
+                                value: "Yes, we install this product for free of cost (No extra installation charges)"
+                              },
+                              {
+                                  id: 2,
+                                value: "No, we don’t offer installation services for this product but I can recommend others who can install it"
+                              },
+                              {
+                                  id: 3,
+                                value: "Yes, we install this product for an extra cost"
+                              },
+                            ]
+                          } */}
+
+                        <div className="inputFormContainer">
+                          <div className="formParaSection">
+                            <p className="pargraphClass">
+                              Do you offer installation services for this
+                              product?
+                            </p>
+                          </div>
+                        </div>
+
+                          <div className="materialInfoColumn">
+                            <div
+                              className="optionDiv"
+                              onClick={() => {
+                                this.toggleOptions("yesInstallationFree");
+                              }}
+                            >
+                              <div
+                                className={
+                                  this.state.checkBoxProductInstallationClass1
+                                }
+                              />
+                              <div className="contentForOptionSelection">
+                                <div className="nonErrorContent">
+                                  <p>
+                                    Yes, we install this product for free of
+                                    cost (No extra installation charges).
+                                  </p>
+                                </div>
+                              </div>
+
+                              <WhiteButton runFunction={this.addYouTubeURL}>
+                                Add
+                              </WhiteButton>
+                            </div>
+
+                            <div
+                              className="optionDiv"
+                              onClick={() => {
+                                this.toggleOptions("yesInstallationExtraCost");
+                              }}
+                            >
+                              <div
+                                className={
+                                  this.state.checkBoxProductInstallationClass2
+                                }
+                              />
+                              <div className="contentForOptionSelection">
+                                <p>
+                                  Yes, we install this product for an extra
+                                  cost.
+                                </p>
+                              </div>
+                              <div className={this.state.inputSection}>
+                                <input
+                                  type="text"
+                                  ref="installationCost"
+                                  maxLength="5"
+                                  placeholder="EX. 20"
+                                  onChange={e =>
+                                    this.checkTypeNumber(e, "installation")
+                                  }
+                                />
+                                <span className="InputSeparatorLine"> </span>
+                                <p>/</p>
+                                <SelectList
+                                  name="installationServiceCostType"
+                                  value={this.state.installationServiceCostType}
+                                  onChange={e =>
+                                    this.onChangeHandler(
+                                      e,
+                                      "installationServiceCost"
+                                    )
+                                  }
+                                  options={this.returnTypesOfCharge(
+                                    "serviceCharge"
+                                  )}
+                                />
+                              </div>
+                              <div className="errorContent">
+                                <p className={this.state.displayError}>
+                                  Numbers Only
+                                </p>
+                                <p
+                                  className={
+                                    this.state.displayInstallationValueError
+                                  }
+                                >
+                                  Installation cost cannot be zero, If you wish
+                                  not to offer installation service, please
+                                  select the option accordingly.
+                                </p>
+                              </div>
+                            </div>
+
+                            <div
+                              className="optionDiv"
+                              onClick={() => {
+                                this.toggleOptions("readyInstallation");
+                              }}
+                            >
+                              <div
+                                className={
+                                  this.state.checkBoxProductInstallationClass3
+                                }
+                              />
+                              <div className="contentForOptionSelection">
+                                <p>
+                                  This is a ready to use product. No
+                                  installation services applicable.
+                                </p>
+                              </div>
+                            </div>
+
+                            <div
+                              className="optionDiv"
+                              onClick={() => {
+                                this.toggleOptions("noInstallationService");
+                              }}
+                            >
+                              <div
+                                className={
+                                  this.state.checkBoxProductInstallationClass4
+                                }
+                              />
+                              <div className="contentForOptionSelection">
+                                <p>
+                                  No, we don’t provide installation services.
+                                </p>
+                              </div>
+                            </div>
+
+                            <div
+                              className="optionDiv"
+                              onClick={() => {
+                                this.toggleOptions(
+                                  "noInstallationButRecommendInstaller"
+                                );
+                              }}
+                            >
+                              <div
+                                className={
+                                  this.state.checkBoxProductInstallationClass5
+                                }
+                              />
+                              <div className="contentForOptionSelection">
+                                <p>
+                                  No, we don’t offer installation services for
+                                  this product but I can recommend others who
+                                  can install it (this option increases the
+                                  chances of product purchase).
+                                </p>
+                              </div>
+                              {this.state.checkBoxProductInstallationClass5 === "checkBox color" ?
+                                <WhiteButton
+                                  runFunction={() => {
+                                    this.modalClassToggle("show");
+                                    this.setState({
+                                      modalType: "installer"
+                                    });
+                                  }}
+                                >
+                                  <PlusButtonIcon />
+                                  Add installer
+                                </WhiteButton>
+                               : null }
+                            </div>
+                            {this.returnProductInstallers()}
+                          </div>
+                        {/* </div> */}
+                                  
+                      {/* </div> */}
                     </section>
 
                     <div className="formButtonContainer">

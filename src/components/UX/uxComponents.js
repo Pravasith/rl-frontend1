@@ -389,31 +389,31 @@ export class InputForm extends React.Component {
 
 }
 
-export const SelectList = (props) => {
-    // console.log(props)
-    return(
-        <div className="selectList">
-            <label>{props.title}</label>
-            <select
-                id={props.categoryId}
-                name={props.name}
-                value={props.value}
-                onChange={props.handleChange}
-                className=""
-            >
-            <option value="" disabled>{props.placeholder}</option>
-            {props.options.map(option => {
-                return (
-                    <option 
-                        key={option.categoryId}
-                        value={option.categoryName}
-                        label={option.categoryName}>{option.value}</option>
-                )
-            })}
-            </select>
-        </div>
-    )
-}
+// export const SelectList = (props) => {
+//     // console.log(props)
+//     return(
+//         <div className="selectList">
+//             <label>{props.title}</label>
+//             <select
+//                 id={props.categoryId}
+//                 name={props.name}
+//                 value={props.value}
+//                 onChange={props.handleChange}
+//                 className=""
+//             >
+//             <option value="" disabled>{props.placeholder}</option>
+//             {props.options.map(option => {
+//                 return (
+//                     <option 
+//                         key={option.categoryId}
+//                         value={option.categoryName}
+//                         label={option.categoryName}>{option.value}</option>
+//                 )
+//             })}
+//             </select>
+//         </div>
+//     )
+// }
 
 export const RadioButton = (props) => {
     // console.log(props)
@@ -438,6 +438,27 @@ export const RadioButton = (props) => {
                     );
                 })}
             </div>
+        </div>
+    );
+}
+
+export const SelectList = (props) => {
+
+    const selectOptions = props.options.map(option => (
+        <option key={option.label} value={option.value}>
+            {option.label}
+        </option>
+    ));
+
+    return (
+        <div className="form-group">
+            <select
+                name={props.name}
+                value={props.value}
+                onChange={props.onChange}
+            >
+                {selectOptions}
+            </select>
         </div>
     );
 }
