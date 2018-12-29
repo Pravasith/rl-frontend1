@@ -397,11 +397,6 @@ class VendorMainDashboard extends React.Component {
             })
     }
 
-<<<<<<< HEAD
-   
-
-=======
->>>>>>> ddcf9dbf313dd8103db1a2efca7129b0f267a6ac
     convertVendorDataAndSave = (productsRaw) => {
 
         let finalData = [], categoryExists = false
