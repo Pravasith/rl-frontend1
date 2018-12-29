@@ -64,6 +64,7 @@ class VendorMainDashboard extends React.Component {
             productDimensions: [],
             productMaterials: [],
             productFinishes: [],
+            productInstallers: [],
             productImagesObject: {
                 categoryName: "",
                 imagesInCategory: []
@@ -304,16 +305,16 @@ class VendorMainDashboard extends React.Component {
                     ]
             },
 
-            productInstallers: [
-                {
-                    installerName: "rakshith",
-                    installerContactNo: 9972223737,
-                    installerCharges: 1500,
-                    installerCostType: 1
-                }
-            ],
+            // productInstallers: [
+            //     {
+            //         installerName: "rakshith",
+            //         installerContactNo: 9972223737,
+            //         installerCharges: 1500,
+            //         installerCostType: 1
+            //     }
+            // ],
 
-            productInstallationAvailability: 5
+            // productInstallationAvailability: 5
         }
 
     }
@@ -677,6 +678,7 @@ class VendorMainDashboard extends React.Component {
                 // DECRYPT RESPONSE DATA
                 //
 
+                console.log(decryptedData)
 
                 this.setState({
 
@@ -707,6 +709,10 @@ class VendorMainDashboard extends React.Component {
                     youTubeURL: decryptedData.youTubeAdVideos ? decryptedData.youTubeAdVideos : [],
                     brandName: decryptedData.brandName,
                     brandImage: decryptedData.brandImage, 
+                    productInstallers: decryptedData.productInstallers,
+                    productInstallationAvailability: decryptedData.productInstallationAvailability,
+                    productInstallationServiceCost: decryptedData.productInstallationServiceCost,
+                    installationServiceCostType: decryptedData.installationServiceCostType,
 
                     subCategoryDataExists: true,
 
@@ -1275,6 +1281,38 @@ class VendorMainDashboard extends React.Component {
         })
     }
 
+    retunrProductInstallers = () => {
+        const { productInstallers } = this.state;
+
+        if(productInstallers.length !== 0) {
+            return productInstallers.map((item, i) => {
+                return (
+                    <div className="productInstallerDescriptionOuterLayer" key={i}>
+                        <div className="productInstallerDescriptionInnerLayer">
+                            <div className="productInstallerDetails">
+                                <div className="productInstallerNameWrap">
+                                    {/* <h3>Installer nomenclature</h3> */}
+                                    <h3 key={i}>{item.installerName}</h3>
+                                </div>
+
+                                <div className="productInstallerContactNoWrap">
+                                    <p key={i}>+91 {item.installerContactNo}</p>
+                                </div>
+
+                                <div className="productInstallerChargesWrap">
+                                    <small>Charges </small>
+                                    <p key={i}>
+                                        Rs. {item.installerCharges} / {this.returnChargeType(item.installerCostType)}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }) 
+        }
+    }
+
     returnArrayFields = (fieldName) => {
         const {
             productPrice,
@@ -1287,35 +1325,10 @@ class VendorMainDashboard extends React.Component {
             tagsAdded,
             productImagesObject,
             youTubeURL,
-            productInstallers,
             productInstallationAvailability
         } = this.state;
 
-        const productInstallersDetail = productInstallers.map((item, i) => {
-            return (
-                <div className="productInstallerDescriptionOuterLayer" key={i}>
-                  <div className="productInstallerDescriptionInnerLayer">
-                    <div className="productInstallerDetails">
-                      <div className="productInstallerNameWrap">
-                        {/* <h3>Installer nomenclature</h3> */}
-                        <h3 key={i}>{item.installerName}</h3>
-                      </div>
-    
-                      <div className="productInstallerContactNoWrap">
-                        <p key={i}>+91 {item.installerContactNo}</p>
-                      </div>
-    
-                      <div className="productInstallerChargesWrap">
-                        <small>Charges </small>
-                        <p key={i}>
-                          Rs. {item.installerCharges} / {this.returnChargeType(item.installerCostType)}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-        }) 
+        // const productInstallersDetail = 
 
         if(fieldName === "materials") {
             return (
@@ -1629,7 +1642,7 @@ class VendorMainDashboard extends React.Component {
                         <p>Installation cost cannot be zero, If you wish
                         not to offer installation service, please
                         select the option accordingly.</p>
-                        {productInstallers.length !== 0 ? productInstallersDetail : null}
+                        {this.retunrProductInstallers()}
                     </div>
                 )
             }

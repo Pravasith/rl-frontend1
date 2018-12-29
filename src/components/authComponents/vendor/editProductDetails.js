@@ -166,18 +166,18 @@ class EditProductDetails extends React.Component {
             installerCostType: 1,
             installationServiceCostType: 1,
 
-            productInstallers: [
-                {
-                    installerName: "rakshith",
-                    installerContactNo: 9972223737,
-                    installerCharges: 1500,
-                    installerChargeType: 2
-                }
-            ],
+            // productInstallers: [
+            //     {
+            //         installerName: "rakshith",
+            //         installerContactNo: 9972223737,
+            //         installerCharges: 1500,
+            //         installerChargeType: 2
+            //     }
+            // ],
 
-            productInstallationAvailability: 5,
-            productInstallationServiceCost: 1500,
-            installationServiceCostType: 3
+            // productInstallationAvailability: 5,
+            // productInstallationServiceCost: 1500,
+            // installationServiceCostType: 3
 
             
         }
@@ -269,10 +269,10 @@ class EditProductDetails extends React.Component {
                         youTubeURL: decryptedData.youTubeAdVideos,
                         brandName: decryptedData.brandName,
                         brandImage: decryptedData.brandImage,
-                        // productInstallers: decryptedData.productInstallers,
-                        // productInstallationAvailability: decryptedData.productInstallationAvailability,
-                        // productInstallationServiceCost: decryptedData.productInstallationServiceCost,
-                        // installationServiceCostType: decryptedData.installationServiceCostType
+                        productInstallers: decryptedData.productInstallers,
+                        productInstallationAvailability: decryptedData.productInstallationAvailability,
+                        productInstallationServiceCost: decryptedData.productInstallationServiceCost,
+                        installationServiceCostType: decryptedData.installationServiceCostType
 
                     })
     
@@ -371,6 +371,10 @@ class EditProductDetails extends React.Component {
                 else
                     console.error(err)
             })
+    }
+
+    componentDidUpdate() {
+        console.log(this.state.productInstallers)
     }
 
 
@@ -2060,7 +2064,7 @@ class EditProductDetails extends React.Component {
                                 modalType: null,
                                 isChecked: false,
                                 productInstallers:
-                                    productInstallers.length !== 0 ? productInstallers : null,
+                                    productInstallers.length !== 0 ? productInstallers : [],
                                 displayError: "displayError hide"
                             });
                         }
@@ -2436,7 +2440,12 @@ class EditProductDetails extends React.Component {
             productImages : this.state.productImagesObject.imagesInCategory,
             productThumbImage : this.state.productImageThumbnail,
             brandName: this.state.brandName,
-            brandImage: this.state.brandImage
+            brandImage: this.state.brandImage,
+
+            productInstallers: this.state.productInstallers,
+            productInstallationAvailability: this.state.productInstallationAvailability,
+            productInstallationServiceCost: this.state.productInstallationServiceCost,
+            installationServiceCostType: this.state.installationServiceCostType
 
             // this.state.productName
             // this.state.productCode
@@ -3544,7 +3553,6 @@ class EditProductDetails extends React.Component {
             },
             { fieldName: "Product Design", value: this.state.categoryStylesAdded },
             { fieldName: "Product Tags", value: this.state.tagsAdded },
-            { fieldName: "Product Type", value: this.state.productType },
             {
                 fieldName: "Product Availability",
                 value: this.state.productAvailability
@@ -3601,7 +3609,7 @@ class EditProductDetails extends React.Component {
             });
         } 
         
-        else if (option === "noDiscount" || this.state.productDiscount === 0) {
+        else if (option === "noDiscount") {
             this.setState({
                 checkBoxProductDiscountClass1: "checkBox",
                 checkBoxProductDiscountClass2: "checkBox color",

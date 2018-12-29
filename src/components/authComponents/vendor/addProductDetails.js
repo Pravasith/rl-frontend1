@@ -1721,7 +1721,7 @@ class AddProductDetails extends React.Component {
                   modalType: null,
                   isChecked: false,
                   productInstallers:
-                    productInstallers.length !== 0 ? productInstallers : null,
+                    productInstallers.length !== 0 ? productInstallers : [],
                   displayError: "displayError hide"
                 });
               }
