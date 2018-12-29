@@ -1712,7 +1712,6 @@ class AddProductDetails extends React.Component {
 
         if (temp.installerName !== "") {
           if (temp.installerContactNo !== "") {
-            // if (temp.installerCharges !== "") {
               let dummyArray = [...productInstallers];
 
               if (!dummyArray.includes(temp)) {
@@ -1729,7 +1728,6 @@ class AddProductDetails extends React.Component {
                   displayError: "displayError hide"
                 });
               }
-            // }
           }
         }
 
@@ -1737,7 +1735,9 @@ class AddProductDetails extends React.Component {
         this.refs.installerCharges.value = "";
 
         this.modalClassToggle("dontShow");
-      } else {
+      } 
+      
+      else {
         this.setState({
           installerIsValid: false,
           emptyFieldInInstaller: validatedData.emptyField
@@ -1745,10 +1745,6 @@ class AddProductDetails extends React.Component {
       }
     }
   };
-
-  // checkForZero = () => {
-  //   console.log(this.state.materialCost)
-  // }
 
   onChangeHandler = (e, type) => {
     if (type === "installerCost" || type === "installationServiceCost") {
