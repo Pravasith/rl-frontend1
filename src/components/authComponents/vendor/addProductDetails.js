@@ -14,6 +14,7 @@ import {
 import {
   LargePlusButtonIcon,
   PlusButtonIcon,
+  ColorPlusButtonIcon,
   CloseButton,
   BigCloseButton,
   ModalCloseButton,
@@ -69,6 +70,7 @@ class AddProductDetails extends React.Component {
       modalMaterial: "modalMaterialClass",
       modalImagePreview: "modalImagePreviewClass",
       modalAlertForDelete: "modalAlertForDeleteClass",
+      modalThirdPartyDetails: "modalThirdPartyDetailsClass",
       // dynamincally toggle classes to flip styles //
 
       modalType: null,
@@ -253,6 +255,7 @@ class AddProductDetails extends React.Component {
       });
   };
 
+<<<<<<< HEAD
   componentDidUpdate() {
     console.log(
       this.state.productInstallers,
@@ -273,6 +276,27 @@ class AddProductDetails extends React.Component {
       });
   };
 
+=======
+  // componentDidUpdate() {
+  //   console.log(
+  //     this.state.productInstallationAvailability
+  //   );
+  // }
+
+  modalClassToggle = showOrNot => {
+    if (showOrNot === "show")
+      this.setState({
+        modalClassToggle: "modalBackgroundMainOuterWrap",
+        vendorDashboardOuterClass: "vendorDashboardOuterLayer blurClass"
+      });
+    else if (showOrNot === "dontShow")
+      this.setState({
+        modalClassToggle: "modalBackgroundMainOuterWrap hide",
+        vendorDashboardOuterClass: "vendorDashboardOuterLayer"
+      });
+  };
+
+>>>>>>> 02383c187ecc26741307fbebe0f1bab6772e47d2
   returnNavBarData = () => {
     if (this.props.userData.responseData) {
       //
@@ -1176,6 +1200,7 @@ class AddProductDetails extends React.Component {
       });
     }
   };
+<<<<<<< HEAD
 
   addProductImage = () => {
     let { productImage, productImagesObject } = this.state;
@@ -1197,6 +1222,29 @@ class AddProductDetails extends React.Component {
 
     this.toggleClassDummy();
 
+=======
+
+  addProductImage = () => {
+    let { productImage, productImagesObject } = this.state;
+
+    let temp = {
+      itemCode: this.state.productCode,
+      textOnRibbonSatisfied: false,
+      imageURL: productImage
+    };
+
+    // if (temp.imageURL !== "") {
+    let dummyArray = productImagesObject.imagesInCategory
+      ? productImagesObject.imagesInCategory
+      : [];
+
+    //     // if(!dummyArray.includes(temp)) {
+    dummyArray.push(temp);
+    //     // }
+
+    this.toggleClassDummy();
+
+>>>>>>> 02383c187ecc26741307fbebe0f1bab6772e47d2
     this.setState({
       productImagesObject: {
         categoryName: "",
@@ -1751,8 +1799,13 @@ class AddProductDetails extends React.Component {
     }
   };
 
+<<<<<<< HEAD
   onChangeHandler = (e, typeOf) => {
     if (typeOf === "installerCost" || typeOf === "installationServiceCost") {
+=======
+  onChangeHandler = (e, type) => {
+    if (type === "installerCost" || type === "installationServiceCost") {
+>>>>>>> 02383c187ecc26741307fbebe0f1bab6772e47d2
       this.setState({ [e.target.name]: Number(e.target.value) });
     } else {
       this.setState({ [e.target.name]: e.target.value });
@@ -2005,17 +2058,23 @@ class AddProductDetails extends React.Component {
                   <div className="productInstallerNameWrap">
                     {/* <h3>Installer nomenclature</h3> */}
                     <h3 key={i}>{item.installerName}</h3>
-                  </div>
-
+                   </div>
                   <div className="productInstallerContactNoWrap">
-                    <p key={i}>+91 {item.installerContactNo}</p>
+                    <p key={i}>+91<span>{item.installerContactNo}</span></p>
                   </div>
 
                   <div className={item.installerCharges !== "" ? "productInstallerChargesWrap" : "hide"} >
+<<<<<<< HEAD
                     <small>Charges </small>
                     <p key={i}>
                       Rs. {item.installerCharges} / {this.returnChargeType(item.installerChargeType)}
                     </p>
+=======
+                    <p>Charges </p>
+                    <span key={i}>
+                      Rs. {item.installerCharges} / {this.returnChargeType()}
+                    </span>
+>>>>>>> 02383c187ecc26741307fbebe0f1bab6772e47d2
                   </div>
                 </div>
                 <div className="materialEditingButtons">
@@ -2026,17 +2085,24 @@ class AddProductDetails extends React.Component {
                               Edit
                           </WhiteButton>
                         </div> */}
-                  <div
-                    className="deleteButton"
-                    onClick={() => this.removeProductInstallers(i)}
-                  >
-                    <WhiteButton>Delete</WhiteButton>
-                  </div>
+                    <div
+                      className="editButton"
+                    >
+                      <WhiteButton>Edit</WhiteButton>
+                    </div>
+                    <div
+                      className="deleteButton"
+                      onClick={() => this.removeProductInstallers(i)}
+                    >
+                      <WhiteButton>Delete</WhiteButton>
+                    </div>
                 </div>
               </div>
             </div>
           );
         });
+<<<<<<< HEAD
+=======
       }
     }
   };
@@ -2119,6 +2185,7 @@ class AddProductDetails extends React.Component {
         this.setState({
           finalProceed: "successScreen"
         });
+>>>>>>> 02383c187ecc26741307fbebe0f1bab6772e47d2
 
         // window.open("/vendor/dashboard", "_self")
       })
@@ -2861,8 +2928,8 @@ class AddProductDetails extends React.Component {
                       <div className="line" />
                     </div>
                   </div>
-                  <div className="finishEndModal">
-                    <div className="thirdPartyDetails">
+                  {/* <div className="finishEndModal"> */}
+                    {/* <div className="thirdPartyDetails"> */}
                       <div className="inputFormContainer">
                         <div className="formParaSection">
                           <p className="pargraphClass">Installer's name</p>
@@ -2917,7 +2984,34 @@ class AddProductDetails extends React.Component {
                             Installation charges (in INR)
                           </p>
                         </div>
+                        <div className="installationCostInputSection">
+                            <div className="inputCategory">
+                              <input
+                              type="text"
+                              name="installerCharges"
+                              placeholder="Ex. 20"
+                              onChange={e => this.checkTypeNumber(e, "installer")}
+                              maxLength="8"
+                              ref="installerCharges"
+                              />
+                              <span className="InputSeparatorLine"> </span>
+                            </div>
+                            <p> / </p>
+                            <div className="selectionCategory">
+                              <SelectList
+                              name="installerCostType"
+                              value={this.state.installerCostType}
+                              onChange={e =>
+                                this.onChangeHandler(e, "installerCost")
+                              }
+                              options={this.returnTypesOfCharge(
+                                "installersCharge"
+                              )}
+                              />
+                            </div>
+                        </div>
                         <div className="modalInputCategory">
+<<<<<<< HEAD
                           <input
                             type="text"
                             name="installerCharges"
@@ -2936,6 +3030,9 @@ class AddProductDetails extends React.Component {
                             }
                             options={this.returnTypesOfCharge()}
                           />
+=======
+                          
+>>>>>>> 02383c187ecc26741307fbebe0f1bab6772e47d2
                         </div>
 
                         <div className="errorContent">
@@ -2944,8 +3041,8 @@ class AddProductDetails extends React.Component {
                           </p>
                         </div>
                       </div>
-                    </div>
-                  </div>
+                    {/* </div> */}
+                  {/* </div> */}
                 </div>
 
                 <div className="proceedOrNotCheck">
@@ -3299,56 +3396,60 @@ class AddProductDetails extends React.Component {
           <div className="vendorDummyContainer">
             <article className={this.state.vendorDashboardOuterClass}>
               <section className="vendorDashboardInnerLayer">
-                <div className="uploadSectionLeftWrapper">
-                  <article className="leftWrapperInnerLayer">
-                    <section className="imageUploadBigContainer">
-                      <div className="imageUploadUpperSection">
-                        <div className="imageUploadInnerLayer">
-                          <div className="imageContainerInnerSection">
-                            <div className="imageUploadComponent">
-                              <header className="vendorImageUploadHeaderComponent">
-                                <div className="headingArea">
-                                  <h3 className="headingClass">
-                                    Product image
-                                  </h3>
-                                  <div className="line" />
-                                </div>
-                              </header>
-
-                              <div className="productImageUploaderRender">
-                                {this.state.productImage === "" ? (
-                                  <div className="productImageUploaderClass">
-                                    <ImageUploader
-                                      imageType="regularImage" // regularImage || profileImage
-                                      resultData={data => {
-                                        this.setState({
-                                          productImage: data.imageURL
-                                        });
-                                        this.addProductImage();
-                                      }}
-                                      showInitialImage={
-                                        this.state.productImage !== ""
-                                          ? this.state.productImage
-                                          : ""
-                                      }
-                                      imageClassName="productImageClass"
-                                    />
+              <div className="uploadSectionUpperContainer">
+                  <div className="uploadSectionLeftWrapper">
+                    <article className="leftWrapperInnerLayer">
+                      <section className="imageUploadBigContainer">
+                        <div className="imageUploadUpperSection">
+                          <div className="imageUploadInnerLayer">
+                            <div className="imageContainerInnerSection">
+                              <div className="imageUploadComponent">
+                                <header className="vendorImageUploadHeaderComponent">
+                                  <div className="headingArea">
+                                    <h3 className="headingClass">
+                                      Product image
+                                    </h3>
+                                    <div className="line" />
                                   </div>
-                                ) : (
-                                  <div className="productImageUploaderClass" />
-                                )}
+                                </header>
+
+                                <div className="productImageUploaderRender">
+                                  {this.state.productImage === "" ? (
+                                    <div className="productImageUploaderClass">
+                                      <ImageUploader
+                                        imageType="regularImage" // regularImage || profileImage
+                                        resultData={data => {
+                                          this.setState({
+                                            productImage: data.imageURL
+                                          });
+                                          this.addProductImage();
+                                        }}
+                                        showInitialImage={
+                                          this.state.productImage !== ""
+                                            ? this.state.productImage
+                                            : ""
+                                        }
+                                        imageClassName="productImageClass"
+                                      />
+                                    </div>
+                                  ) : (
+                                    <div className="productImageUploaderClass" />
+                                  )}
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>
 
-                      <div className="imageUploadDownSection">
-                        {this.returnHtmlSliderforproductImagesObject()}
-                      </div>
-                    </section>
-                  </article>
-                </div>
+<<<<<<< HEAD
+=======
+                        <div className="imageUploadDownSection">
+                          {this.returnHtmlSliderforproductImagesObject()}
+                        </div>
+                      </section>
+                    </article>
+                  </div>
+              </div>
 
                 <div className="uploadSectionRightWrapper">
                   <article className="rightWrapperInnerLayer">
@@ -3382,6 +3483,7 @@ class AddProductDetails extends React.Component {
                           </div>
                         </div>
 
+>>>>>>> 02383c187ecc26741307fbebe0f1bab6772e47d2
                         <div className="inputFormContainer">
                           <div className="formParaSection">
                             <p className="pargraphClass">Product Code</p>
@@ -3986,8 +4088,12 @@ class AddProductDetails extends React.Component {
                         <div className="inputFormContainer">
                           <div className="formParaSection">
                             <p className="pargraphClass">
+<<<<<<< HEAD
                               Do you offer installation services for this
                               product?
+=======
+                              Do you offer installation services for this product?
+>>>>>>> 02383c187ecc26741307fbebe0f1bab6772e47d2
                             </p>
                           </div>
 
@@ -4024,6 +4130,7 @@ class AddProductDetails extends React.Component {
                                   this.state.checkBoxProductInstallationClass2
                                 }
                               />
+<<<<<<< HEAD
                               <div className="contentForOptionSelection">
                                 <p>
                                   Yes, we install this product for an extra
@@ -4064,6 +4171,66 @@ class AddProductDetails extends React.Component {
                                   not to offer installation service, please
                                   select the option accordingly.
                                 </p>
+=======
+                              <div className="installationCostContent">
+                                <div className="contentForOptionSelection">
+                                  <p>
+                                    Yes, we install this product for an extra cost.
+                                  </p>
+                                </div>
+                                  <div className={this.state.inputSection}>
+                                    <div className="installationCostOuterContent">
+                                      <header>
+                                      <p>Installation cost (in INR)</p>
+                                      <div className="line"></div>
+                                    </header>
+                                      <div className="installationCostInputSection">
+                                        <div className="inputCategory">
+                                          <input
+                                            type="text"
+                                            ref="installationCost"
+                                            maxLength="5"
+                                            placeholder="Ex. 20"
+                                            onChange={e =>
+                                              this.checkTypeNumber(e, "installation")
+                                            }
+                                          />
+                                          <span className="InputSeparatorLine"> </span>
+                                        </div>
+                                        <p>/</p>
+                                        <div className="selectionCategory">
+                                          <SelectList
+                                            name="installationServiceCostType"
+                                            value={this.state.installationServiceCostType}
+                                            onChange={e =>
+                                              this.onChangeHandler(
+                                                e,
+                                                "installationServiceCost"
+                                              )
+                                            }
+                                            options={this.returnTypesOfCharge(
+                                              "serviceCharge"
+                                            )}
+                                          />
+                                        </div>
+                                      </div>
+                                      <div className="errorContent">
+                                        <p className={this.state.displayError}>
+                                          Numbers Only
+                                        </p>
+                                        <p
+                                          className={
+                                            this.state.displayInstallationValueError
+                                          }
+                                        >
+                                          Installation cost cannot be zero, If you wish
+                                          not to offer installation service, please
+                                          select the option accordingly.
+                                        </p>
+                                      </div>
+                                    </div>
+                                  </div>
+>>>>>>> 02383c187ecc26741307fbebe0f1bab6772e47d2
                               </div>
                             </div>
 
@@ -4117,6 +4284,7 @@ class AddProductDetails extends React.Component {
                                   this.state.checkBoxProductInstallationClass5
                                 }
                               />
+                              <div className="installationCostContent">
                               <div className="contentForOptionSelection">
                                 <p>
                                   No, we don’t offer installation services for
@@ -4125,6 +4293,7 @@ class AddProductDetails extends React.Component {
                                   chances of product purchase).
                                 </p>
                               </div>
+<<<<<<< HEAD
                               {this.state.checkBoxProductInstallationClass5 === "checkBox color" ?
                                 <WhiteButton
                                   runFunction={() => {
@@ -4140,6 +4309,24 @@ class AddProductDetails extends React.Component {
                                : null }
                             </div>
                             {this.returnProductInstallers()}
+=======
+                                {this.state.checkBoxProductInstallationClass5 === "checkBox color" ?
+                                  <WhiteButton
+                                    runFunction={() => {
+                                      this.modalClassToggle("show");
+                                      this.setState({
+                                        modalType: "installer"
+                                      });
+                                    }}
+                                  >
+                                    <ColorPlusButtonIcon />
+                                    Add installer
+                                  </WhiteButton>
+                                  : null }
+                                  {this.returnProductInstallers()}
+                               </div>
+                            </div>
+>>>>>>> 02383c187ecc26741307fbebe0f1bab6772e47d2
                           </div>
                         </div>
                       </div>

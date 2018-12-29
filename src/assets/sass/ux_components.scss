@@ -281,13 +281,13 @@
     position: absolute;
     top: 0;
     left: 0;
-    height: 0.75em;
-    width: 0.75em;
+    min-width: 0.8em;
+    min-height: 0.8em;
     // margin-top: 0.25em;
     background-color: $white;
     border: 0.15em solid $darkGrey;
     border-radius: 50%;
-
+    margin-right: 0.5em;
     transition: 0.2s;
 }
 
