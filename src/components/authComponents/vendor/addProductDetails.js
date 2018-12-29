@@ -2481,18 +2481,24 @@ class AddProductDetails extends React.Component {
                           </div>
                         </div>
                       </div>
+                      <label className="switch">
+                        <input
+                          ref="switch"
+                          checked={this.state.isChecked}
+                          onChange={() => this.onToggleSwitch()}
+                          className="switch-input"
+                          type="checkbox"
+                        />
+                        <span
+                          className="switch-label"
+                          data-on="Yes"
+                          data-off="No"
+                        />
+                        <span className="switch-handle" />
+                      </label>
                     </div>
-
-                    <div className="errorContent">
-                      <p
-                        className={
-                          this.state.isChecked
-                            ? this.state.displayError
-                            : "displayError hide"
-                        }
-                      >
-                        Numbers Only
-                      </p>
+                    <div className="returnInputColumn">
+                      {this.returnExtraCost("size")}
                     </div>
                   </div>
                 </div>
@@ -2655,6 +2661,21 @@ class AddProductDetails extends React.Component {
                     <div className="returnInputColumn">
                       {this.returnExtraCost("material")}
                     </div>
+                    <div className="returnInputColumn">
+                      {this.returnExtraCost("material")}
+                    </div>
+                  </div>
+
+                  <div className="errorContent">
+                    <p
+                      className={
+                        this.state.isChecked
+                          ? this.state.displayError
+                          : "displayError hide"
+                      }
+                    >
+                      Numbers Only
+                    </p>
                   </div>
 
                   <div className="errorContent">
@@ -2675,6 +2696,14 @@ class AddProductDetails extends React.Component {
                       this.proceedHandler("material")
                       // this.checkForZero()
                     }}
+                  >
+                    Proceed
+                  </GradientButton>
+                  {this.displayErrorModal("material")}
+                </div>
+                <div className="proceedOrNotCheck">
+                  <GradientButton
+                    runFunction={() => this.proceedHandler("material")}
                   >
                     Proceed
                   </GradientButton>
@@ -3630,6 +3659,7 @@ class AddProductDetails extends React.Component {
                               Product description{" "}
                             </p>
                           </div>
+                        </div>
 
                           <div className="materialInfoColumn">
                             <InputForm
@@ -3726,9 +3756,10 @@ class AddProductDetails extends React.Component {
                                       this.addTagName();
                                     }
                                   }}
-                                />
-                                <span className="InputSeparatorLine"> </span>
-                              </div>
+                                >
+                                  <div className="svgImageContainer">
+                                    <LargePlusButtonIcon />
+                                  </div>
 
                               <WhiteButton runFunction={this.addTagName}>
                                 Add
@@ -3750,6 +3781,7 @@ class AddProductDetails extends React.Component {
                               Choose the product type{" "}
                             </p>
                           </div>
+                        </div>
 
                           <div className="materialInfoColumn">
                             <RadioButton
@@ -3818,6 +3850,7 @@ class AddProductDetails extends React.Component {
                               </WhiteButton>
                             </div>
                           </div>
+                        </div>
 
                           <div className={this.state.youTubeClass}>
                             <div className="youtubeContentInnerLayer">
@@ -3988,6 +4021,7 @@ class AddProductDetails extends React.Component {
                               product?
                             </p>
                           </div>
+                        </div>
 
                           <div className="materialInfoColumn">
                             <div
@@ -4009,6 +4043,10 @@ class AddProductDetails extends React.Component {
                                   </p>
                                 </div>
                               </div>
+
+                              <WhiteButton runFunction={this.addYouTubeURL}>
+                                Add
+                              </WhiteButton>
                             </div>
 
                             <div
@@ -4145,6 +4183,7 @@ class AddProductDetails extends React.Component {
                             {this.returnProductInstallers()}
                           </div>
                         </div>
+
                       </div>
                     </section>
 

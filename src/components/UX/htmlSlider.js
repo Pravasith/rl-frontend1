@@ -1,9 +1,13 @@
 import React from "react"
+import { Image } from 'cloudinary-react'
 
 import "../../assets/sass/html_slider.scss"
 
-import LogoAnimation from "../animations/logoAnimation";
-import { WhiteArrowLeft, WhiteArrowRight, TinyCloseButton, TinyEditButton } from "../../assets/images";
+import PublicId from '../../factories/cloudinaryFactory'
+import LogoAnimation from "../animations/logoAnimation"
+import { WhiteArrowLeft, WhiteArrowRight, TinyCloseButton, TinyEditButton } from "../../assets/images"
+
+
 
 // Use component like this 
 
@@ -93,60 +97,50 @@ export default class HtmlSlider extends React.Component{
 
         const returnImagesInCategories = () => {
 
-            
             const imageArray = productDetailObject.imagesInCategory.map((image, j) => {
-
                 if(image.title){
-                    return (
-
-                        //     <img 
-                        //     key={j} 
-                        //     src={image.imageURL} 
-                        //     alt={image.itemCode} 
-                        //     onClick={() => this.props.runFunction(image)}
-                        // />
-                            <div className="imageDetails">
-                                <div className="imageDetailsDummyWrap">
-                                    <img 
-                                        key={j} 
-                                        src={image.imageURL} 
-                                        alt={image.itemCode} 
-                                        onClick={() => this.props.runFunction(image)}
-                                    />
-                                </div>
-        
-                                <div className="imageTitleContainer">
-                                    <p>
-                                        { image.title ? image.title.charAt(0).toUpperCase() + image.title.slice(1) : "" }
-                                    </p>
-                                </div>
-                            </div>
-                        )
-                }
-
-                else
-                return (
-
-                    //     <img 
-                    //     key={j} 
-                    //     src={image.imageURL} 
-                    //     alt={image.itemCode} 
-                    //     onClick={() => this.props.runFunction(image)}
-                    // />
-                        <div className="imageDetails">
-                            <div className="imageDetailsDummyWrap noTitle">
-                                <img 
-                                    key={j} 
-                                    src={image.imageURL} 
-                                    alt={image.itemCode} 
-                                    onClick={() => this.props.runFunction(image)}
+                    return(
+                        <div key={j} className="imageDetails">
+                            <div className="imageDetailsDummyWrap">
+                                <Image 
+                                    cloudName="rolling-logs" 
+                                    alt = {image.itemCode}
+                                    publicId={PublicId(image.imageURL)} 
+                                    // transformations
+                                    width="300" 
+                                    crop="scale"
+                                    onClick={() => {
+                                        this.props.runFunction(image)
+                                    }}
                                 />
                             </div>
     
-                            
+                            <div className="imageTitleContainer">
+                                <h3>
+                                    { image.title ? image.title.charAt(0).toUpperCase() + image.title.slice(1) : "" }
+                                </h3>
+                            </div>
                         </div>
                     )
-                // console.log(image)
+                }
+
+                else{
+                    return(
+                        <div key={j} className="imageDetails">
+                            <div className="imageDetailsDummyWrap noTitle">
+                                <Image 
+                                    cloudName="rolling-logs" 
+                                    alt = {image.itemCode}
+                                    publicId={PublicId(image.imageURL)} 
+                                    // transformations
+                                    width="300" 
+                                    crop="scale"
+                                    onClick={() => this.props.runFunction(image)} 
+                                />
+                            </div>
+                        </div>
+                    )
+                }
                 
             })
 

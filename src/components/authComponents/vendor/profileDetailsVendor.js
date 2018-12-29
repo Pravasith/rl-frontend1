@@ -83,7 +83,6 @@ class ProfileDetailsVendor extends React.Component {
                     .then((data) => {
                         let { responseData } = this.props
 
-                        // console.log(responseData.responsePayload)
 
                         if (responseData.responsePayload.message !== "User credentials not found") {
 
@@ -96,8 +95,6 @@ class ProfileDetailsVendor extends React.Component {
                             //
                             // DECRYPT REQUEST DATA
                             //
-
-                            console.log(decryptedData)
 
                             let gstInState = {}
 
@@ -142,9 +139,7 @@ class ProfileDetailsVendor extends React.Component {
             
     }
 
-    // componentDidUpdate() {
-    //     console.log(this.state.profilePicture, this.state.companyProfilePicture)
-    // }
+
 
     returnNavBarData = () => {
         if (this.props.userData.responseData) {
@@ -473,7 +468,6 @@ class ProfileDetailsVendor extends React.Component {
                 <ImageUploader
                     imageType="profileImage" // regularImage || profileImage
                     resultData={val => {
-                        // console.log(val.imageURL)
                         this.hitTheAPI("profilePicture", val.imageURL)
                         this.setState({
                             profilePicture: val.imageURL
@@ -491,7 +485,6 @@ class ProfileDetailsVendor extends React.Component {
                     <ImageUploader
                         imageType="profileImage" // regularImage || profileImage
                         resultData={val => {
-                            // console.log(val.imageURL)
                             this.hitTheAPI("profilePicture", val.imageURL)
                             this.setState({
                                 profilePicture: val.imageURL
