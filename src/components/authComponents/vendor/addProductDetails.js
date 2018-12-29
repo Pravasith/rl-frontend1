@@ -176,8 +176,8 @@ class AddProductDetails extends React.Component {
 
       emptyField: [],
 
-      installerCostType: 1,
-      installationServiceCostType: 1
+      // installerCostType: 1,
+      // installationServiceCostType: 1
     };
   }
 
@@ -253,11 +253,12 @@ class AddProductDetails extends React.Component {
       });
   };
 
-  // componentDidUpdate() {
-  //   console.log(
-  //     this.state.productInstallationAvailability
-  //   );
-  // }
+  componentDidUpdate() {
+    console.log(
+      this.state.productInstallers,
+      this.state.installerChargeType
+    );
+  }
 
   modalClassToggle = showOrNot => {
     if (showOrNot === "show")
@@ -490,24 +491,26 @@ class AddProductDetails extends React.Component {
   };
 
   returnTypesOfCharge = typeOfCharge => {
-    if (typeOfCharge === "serviceCharge") {
+    // if (typeOfCharge === "serviceCharge") {
       return [
         { label: "square feet", value: 1 },
         { label: "running feet", value: 2 },
         { label: "piece", value: 3 },
         { label: "hour", value: 4 }
       ];
-    } else if (typeOfCharge === "installersCharge") {
-      return [
-        { label: "square feet", value: 1 },
-        { label: "piece", value: 2 },
-        { label: "hour", value: 3 }
-      ];
-    }
+    // } 
+    
+    // else if (typeOfCharge === "installersCharge") {
+    //   return [
+    //     { label: "square feet", value: 1 },
+    //     { label: "piece", value: 2 },
+    //     { label: "hour", value: 3 }
+    //   ];
+    // }
   };
 
-  returnChargeType = () => {
-    const { installerCostType } = this.state;
+  returnChargeType = (installerCostType) => {
+    // const { installerCostType } = this.state;
     if (installerCostType === 1) return "square feet";
     else if (installerCostType === 2) return "piece";
     else if (installerCostType === 3) return "hour";
@@ -1748,8 +1751,8 @@ class AddProductDetails extends React.Component {
     }
   };
 
-  onChangeHandler = (e, type) => {
-    if (type === "installerCost" || type === "installationServiceCost") {
+  onChangeHandler = (e, typeOf) => {
+    if (typeOf === "installerCost" || typeOf === "installationServiceCost") {
       this.setState({ [e.target.name]: Number(e.target.value) });
     } else {
       this.setState({ [e.target.name]: e.target.value });
@@ -1994,6 +1997,7 @@ class AddProductDetails extends React.Component {
     if (checkBoxProductInstallationClass5 === "checkBox color") {
       if (productInstallers.length !== 0) {
         return productInstallers.map((item, i) => {
+          console.log(item)
           return (
             <div className="productInstallerDescriptionOuterLayer" key={i}>
               <div className="productInstallerDescriptionInnerLayer">
@@ -2010,7 +2014,7 @@ class AddProductDetails extends React.Component {
                   <div className={item.installerCharges !== "" ? "productInstallerChargesWrap" : "hide"} >
                     <small>Charges </small>
                     <p key={i}>
-                      Rs. {item.installerCharges} / {this.returnChargeType()}
+                      Rs. {item.installerCharges} / {this.returnChargeType(item.installerChargeType)}
                     </p>
                   </div>
                 </div>
@@ -2930,9 +2934,7 @@ class AddProductDetails extends React.Component {
                             onChange={e =>
                               this.onChangeHandler(e, "installerCost")
                             }
-                            options={this.returnTypesOfCharge(
-                              "installersCharge"
-                            )}
+                            options={this.returnTypesOfCharge()}
                           />
                         </div>
 
@@ -4044,14 +4046,9 @@ class AddProductDetails extends React.Component {
                                   name="installationServiceCostType"
                                   value={this.state.installationServiceCostType}
                                   onChange={e =>
-                                    this.onChangeHandler(
-                                      e,
-                                      "installationServiceCost"
-                                    )
+                                    this.onChangeHandler(e, "installationServiceCost")
                                   }
-                                  options={this.returnTypesOfCharge(
-                                    "serviceCharge"
-                                  )}
+                                  options={this.returnTypesOfCharge()}
                                 />
                               </div>
                               <div className="errorContent">

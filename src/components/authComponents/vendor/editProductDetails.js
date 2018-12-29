@@ -168,11 +168,11 @@ class EditProductDetails extends React.Component {
                     installerName: "rakshith",
                     installerContactNo: 9972223737,
                     installerCharges: 1500,
-                    installerCostType: 2
+                    installerChargeType: 2
                 }
             ],
 
-            productInstallationAvailability: 2,
+            productInstallationAvailability: 5,
             productInstallationServiceCost: 1500,
             installationServiceCostType: 3
 
@@ -765,21 +765,23 @@ class EditProductDetails extends React.Component {
         else if (installerCostType === 3) return "hour";
     };
 
-    returnTypesOfCharge = typeOfCharge => {
-        if (typeOfCharge === "serviceCharge") {
+    returnTypesOfCharge = () => {
+        // if (typeOfCharge === "serviceCharge") {
             return [
                 { label: "square feet", value: 1 },
                 { label: "running feet", value: 2 },
                 { label: "piece", value: 3 },
                 { label: "hour", value: 4 }
             ];
-        } else if (typeOfCharge === "installersCharge") {
-            return [
-                { label: "square feet", value: 1 },
-                { label: "piece", value: 2 },
-                { label: "hour", value: 3 }
-            ];
-        }
+        // } 
+        
+        // else if (typeOfCharge === "installersCharge") {
+        //     return [
+        //         { label: "square feet", value: 1 },
+        //         { label: "piece", value: 2 },
+        //         { label: "hour", value: 3 }
+        //     ];
+        // }
     };
     
     returnfeaturesAdded = () => {
@@ -1163,73 +1165,61 @@ class EditProductDetails extends React.Component {
         })
     }
 
-    displayErrorModal = (modalType) => {
+    displayErrorModal = modalType => {
         if (modalType === "color") {
-            if(this.state.colorIsValid === false){
+            if (this.state.colorIsValid === false) {
+                const { emptyFieldInColor } = this.state;
 
-                const {emptyFieldInColor} = this.state
- 
-                const  returnError = () => {
-                    if(emptyFieldInColor === "colorName"){
-                        return <p>{this.state.errorMessage}</p>
-                    }
-
-                    else if(emptyFieldInColor === "colorCode"){
+                const returnError = () => {
+                    if (emptyFieldInColor === "colorName") {
+                        return <p>{this.state.errorMessage}</p>;
+                    } else if (emptyFieldInColor === "colorCode") {
+                        return <p>{this.state.errorMessage}</p>;
+                    } else if (emptyFieldInColor === "colorCost") {
+                        return <p>{this.state.errorMessage}</p>;
+                    } else {
                         return (
-                            <p>{this.state.errorMessage}</p>
-                        )
+                            <p>Oops, something is not right, please reload and try again</p>
+                        );
                     }
+                };
 
-                    else if (emptyFieldInColor === "colorCost") {
-                        return (
-                            <p>{this.state.errorMessage}</p>
-                        )
-                    }
-
-                    else{
-                        return <p>Oops, something is not right, please reload and try again</p>
-                    }
-                }
-
-
-                return (
-                    <div className="errorMessage">
-                        {returnError()}
-                    </div>
-                )
+                return <div className="errorMessage">{returnError()}</div>;
             }
-        }
-
-        else if (modalType === "size") {
-            if(this.state.sizeIsValid === false){
+        } else if (modalType === "size") {
+            if (this.state.sizeIsValid === false) {
                 return (
                     <div className="errorMessage">
                         <p>Please enter the {this.state.emptyFieldInSize}</p>
                     </div>
-                )
+                );
             }
-        }
-
-        else if (modalType === "material") {
+        } else if (modalType === "material") {
             if (this.state.materialIsValid === false) {
                 return (
                     <div className="errorMessage">
                         <p>Please enter the {this.state.emptyFieldInMaterial}</p>
                     </div>
-                )
+                );
             }
-        }
-
-        else if (modalType === "finish") {
+        } else if (modalType === "finish") {
             if (this.state.finishDetailsIsValid === false) {
                 return (
                     <div className="errorMessage">
                         <p>Please enter the {this.state.emptyFieldInFinishDetails}</p>
                     </div>
-                )
+                );
+            }
+        } else if (modalType === "installer") {
+            if (this.state.installerIsValid === false) {
+                return (
+                    <div className="errorMessage">
+                        <p>Please enter the {this.state.emptyFieldInInstaller}</p>
+                    </div>
+                );
             }
         }
-    }
+    };
 
     handleDefaultValues = (fieldName) => {
         const { 
@@ -2376,7 +2366,7 @@ class EditProductDetails extends React.Component {
                   <div className={item.installerCharges !== "" ? "productInstallerChargesWrap" : "hide"} >
                     <small>Charges </small>
                     <p key={i}>
-                      Rs. {item.installerCharges} / {this.returnChargeType(item.installerCostType)}
+                      Rs. {item.installerCharges} / {this.returnChargeType(item.installerChargeType)}
                     </p>
                   </div>
                 </div>
@@ -2661,19 +2651,16 @@ class EditProductDetails extends React.Component {
         const { modalType, finishModalContentPart } = this.state;
 
         const returnModalContent = () => {
-            if(modalType === "finish") {
-
-                if (finishModalContentPart === 1){
+            if (modalType === "finish") {
+                if (finishModalContentPart === 1) {
                     return (
                         <div className={this.state.modalFinish}>
                             <div className="dummyXClass">
                                 {this.returnProductFinishUploadedImage()}
                             </div>
                         </div>
-                    )     
-                }
-
-                else if (finishModalContentPart === 2){
+                    );
+                } else if (finishModalContentPart === 2) {
                     return (
                         <div className={this.state.modalFinishDetails}>
                             <div className="dummyXClass">
@@ -2682,17 +2669,18 @@ class EditProductDetails extends React.Component {
                                         <div className="vendorDashboardModal">
                                             <div className="modalHeader">
                                                 <h3>Finish details</h3>
-                                                <div className="line"></div>
+                                                <div className="line" />
                                             </div>
                                         </div>
                                         <div className="finishEndModal">
-                                            <div>
+                                            <div className="finishImageContainer">
                                                 <img
                                                     src={this.state.productFinishImage}
                                                     alt=""
                                                     style={{ width: "5em", height: "5em" }}
                                                 />
                                             </div>
+
                                             <div className="finsihingDetails">
                                                 <div className="inputFormContainer">
                                                     <div className="formParaSection">
@@ -2706,9 +2694,9 @@ class EditProductDetails extends React.Component {
                                                             <input
                                                                 type="text"
                                                                 name="finishName"
-                                                                maxLength="30"
                                                                 placeholder="Ex. Glass reinforced concrete"
                                                                 onChange={this.onChangeHandler}
+                                                                maxLength="30"
                                                                 ref="finishName"
                                                             />
                                                             <span className="InputSeparatorLine"> </span>
@@ -2726,9 +2714,14 @@ class EditProductDetails extends React.Component {
                                                                 checked={this.state.isChecked}
                                                                 onChange={() => this.onToggleSwitch()}
                                                                 className="switch-input"
-                                                                type="checkbox" />
-                                                             <span className="switch-label" data-on="Yes" data-off="No"></span> 
-                                                            <span className="switch-handle"></span> 
+                                                                type="checkbox"
+                                                            />
+                                                            <span
+                                                                className="switch-label"
+                                                                data-on="Yes"
+                                                                data-off="No"
+                                                            />
+                                                            <span className="switch-handle" />
                                                         </label>
                                                     </div>
                                                     <div className="returnInputColumn">
@@ -2736,13 +2729,21 @@ class EditProductDetails extends React.Component {
                                                     </div>
                                                 </div>
                                                 <div className="errorContent">
-                                                    <p className={this.state.isChecked ? this.state.displayError : "displayError hide"}>
+                                                    <p
+                                                        className={
+                                                            this.state.isChecked
+                                                                ? this.state.displayError
+                                                                : "displayError hide"
+                                                        }
+                                                    >
                                                         Numbers Only
-                                                    </p>
+                          </p>
                                                 </div>
                                                 <div className="inputFormContainer">
                                                     <div className="formParaSection">
-                                                        <p className="pargraphClass">Finish code (if any)</p>
+                                                        <p className="pargraphClass">
+                                                            Finish code (if any)
+                            </p>
                                                     </div>
                                                     <div className="modalInputCategory">
                                                         <input
@@ -2750,6 +2751,7 @@ class EditProductDetails extends React.Component {
                                                             name="finishCode"
                                                             placeholder="Ex. #4erfd, 8fds@ etc."
                                                             onChange={this.onChangeHandler}
+                                                            maxLength="30"
                                                             ref="finishCode"
                                                         />
                                                         <span className="InputSeparatorLine"> </span>
@@ -2763,18 +2765,14 @@ class EditProductDetails extends React.Component {
                                             runFunction={() => this.proceedHandler("finish")}
                                         >
                                             Proceed
-                                        </GradientButton>
-                                        {this.displayErrorModal("finish")}
+                    </GradientButton>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    )
+                    );
                 }
-   
-            }
-
-            else if (modalType === "color") {
+            } else if (modalType === "color") {
                 return (
                     <div className={this.state.modalColor}>
                         <div className="dummyXClass">
@@ -2783,21 +2781,18 @@ class EditProductDetails extends React.Component {
                                     <div className="vendorDashboardModal">
                                         <div className="modalHeader">
                                             <h3>Enter a color code</h3>
-                                            <div className="line"></div>
+                                            <div className="line" />
                                         </div>
                                     </div>
 
                                     <div className="colorCategorySection">
-
                                         <div className="colorCategoryInnerLayerContainer">
-                                            <div 
+                                            <div
                                                 className="selectedColorSection"
-                                                ref = "colorPreview"
-                                                style = {{background : this.state.colorPreview}}
-                                            >
-                                            </div>
+                                                ref="colorPreview"
+                                                style={{ background: this.state.colorPreview }}
+                                            />
                                             <div className="colorInputFormSection">
-
                                                 <div className="inputFormContainer">
                                                     <div className="formParaSection">
                                                         <p className="pargraphClass">Name of the color</p>
@@ -2807,24 +2802,31 @@ class EditProductDetails extends React.Component {
                                                             <p className="madatoryHighlight">Mandatory</p>
                                                         </div>
                                                         <div className="modalInputCategory">
-                                                            <input 
+                                                            <input
                                                                 type="text"
                                                                 name="colorName"
                                                                 placeholder="Ex. Orange"
-                                                                ref = "colorName"
-                                                                maxLength = "30"
+                                                                ref="colorName"
+                                                                maxLength="30"
                                                                 onChange={this.onChangeHandler}
                                                             />
                                                             <span className="InputSeparatorLine"> </span>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div className="inputFormContainer">
                                                     <div className="formParaSection">
                                                         <p className="pargraphClass">
-                                                            Enter the color hex-code (<a href="https://www.google.co.in/search?rlz=1C1CHBF_enIN822IN822&ei=aE0GXKaEO4norQG06bjgAw&q=color+selector+tool&oq=color+selector+&gs_l=psy-ab.1.0.0j0i67j0l8.1356.1356..2888...0.0..0.168.168.0j1......0....1..gws-wiz.......0i71.SepRdDVz0P4" target="_blank">click here</a> to get one)
-                                                        </p>
+                                                            Enter the color hex-code (
+                              <a
+                                                                href="https://www.google.co.in/search?rlz=1C1CHBF_enIN822IN822&ei=aE0GXKaEO4norQG06bjgAw&q=color+selector+tool&oq=color+selector+&gs_l=psy-ab.1.0.0j0i67j0l8.1356.1356..2888...0.0..0.168.168.0j1......0....1..gws-wiz.......0i71.SepRdDVz0P4"
+                                                                target="_blank"
+                                                            >
+                                                                click here
+                              </a>{" "}
+                                                            to get one)
+                            </p>
                                                     </div>
                                                     <div className="productInputInfoSection">
                                                         <div className="modalMandatorySection">
@@ -2835,15 +2837,17 @@ class EditProductDetails extends React.Component {
                                                                 type="text"
                                                                 name="colorCode"
                                                                 placeholder="Ex. #29abe2"
-                                                                onChange={(e) => this.handleColorInput(e, "colorCode")}
-                                                                maxLength = "7"
-                                                                ref = "colorCode"
+                                                                onChange={e =>
+                                                                    this.handleColorInput(e, "colorCode")
+                                                                }
+                                                                maxLength="7"
+                                                                ref="colorCode"
                                                             />
                                                             <span className="InputSeparatorLine"> </span>
 
-                                                            <p>Don't forget the # before the code</p> 
+                                                            <p>Don't forget the # before the code</p>
                                                         </div>
-                                                    </div> 
+                                                    </div>
                                                 </div>
 
                                                 <div className="switchContainer">
@@ -2852,51 +2856,58 @@ class EditProductDetails extends React.Component {
                                                             <p>Is there an extra cost over base price ?</p>
                                                         </div>
                                                         <label className="switch">
-                                                            <input 
+                                                            <input
                                                                 ref="switch"
                                                                 checked={this.state.isChecked}
                                                                 onChange={() => this.onToggleSwitch()}
                                                                 className="switch-input"
-                                                                type="checkbox"/>
-                                                             <span className="switch-label" data-on="Yes" data-off="No"></span> 
-                                                            <span className="switch-handle"></span> 
+                                                                type="checkbox"
+                                                            />
+                                                            <span
+                                                                className="switch-label"
+                                                                data-on="Yes"
+                                                                data-off="No"
+                                                            />
+                                                            <span className="switch-handle" />
                                                         </label>
                                                     </div>
                                                     <div className="returnInputColumn">
                                                         {this.returnExtraCost("color")}
                                                     </div>
                                                 </div>
-
                                             </div>
                                         </div>
 
                                         <div className="errorContent">
-                                            <p className={this.state.isChecked ? this.state.displayError : "displayError hide"}>
+                                            <p
+                                                className={
+                                                    this.state.isChecked
+                                                        ? this.state.displayError
+                                                        : "displayError hide"
+                                                }
+                                            >
                                                 Numbers Only
-                                            </p>
+                      </p>
                                         </div>
-
                                     </div>
                                 </div>
                                 <div className="proceedOrNotCheck">
                                     <GradientButton
                                         runFunction={() => {
-                                            this.proceedHandler("color")
-                                        }}>
+                                            this.proceedHandler("color");
+                                        }}
+                                    >
                                         Proceed
-                                    </GradientButton>
+                  </GradientButton>
 
                                     {this.displayErrorModal("color")}
                                 </div>
                             </div>
-                         </div>
+                        </div>
                     </div>
-                )
-            }
-
-            else if (modalType === "size") {
+                );
+            } else if (modalType === "size") {
                 return (
-
                     <div className={this.state.modalSize}>
                         <div className="dummyXClass">
                             <div className="whiteSquareForModal">
@@ -2904,7 +2915,7 @@ class EditProductDetails extends React.Component {
                                     <div className="vendorDashboardModal">
                                         <div className="modalHeader">
                                             <h3>Size details</h3>
-                                            <div className="line"></div>
+                                            <div className="line" />
                                         </div>
                                     </div>
 
@@ -2921,8 +2932,8 @@ class EditProductDetails extends React.Component {
                                                     type="text"
                                                     name="sizeName"
                                                     placeholder="Ex. Small / Extra-large / 2ftx3ft"
-                                                    maxLength="30"
                                                     onChange={this.onChangeHandler}
+                                                    maxLength="30"
                                                     ref="sizeName"
                                                 />
                                                 <span className="InputSeparatorLine"> </span>
@@ -2936,14 +2947,19 @@ class EditProductDetails extends React.Component {
                                                 <p>Is there an extra cost over base price ?</p>
                                             </div>
                                             <label className="switch">
-                                                <input 
+                                                <input
                                                     ref="switch"
                                                     checked={this.state.isChecked}
                                                     onChange={() => this.onToggleSwitch()}
                                                     className="switch-input"
-                                                    type="checkbox"/>
-                                                <span className="switch-label" data-on="Yes" data-off="No"></span> 
-                                                <span className="switch-handle"></span> 
+                                                    type="checkbox"
+                                                />
+                                                <span
+                                                    className="switch-label"
+                                                    data-on="Yes"
+                                                    data-off="No"
+                                                />
+                                                <span className="switch-handle" />
                                             </label>
                                         </div>
                                         <div className="returnInputColumn">
@@ -2952,26 +2968,30 @@ class EditProductDetails extends React.Component {
                                     </div>
 
                                     <div className="errorContent">
-                                    <p className={this.state.isChecked ? this.state.displayError : "displayError hide"}>
-                                        Numbers Only
-                                    </p>
-                                </div>
+                                        <p
+                                            className={
+                                                this.state.isChecked
+                                                    ? this.state.displayError
+                                                    : "displayError hide"
+                                            }
+                                        >
+                                            Numbers Only
+                    </p>
+                                    </div>
                                 </div>
                                 <div className="proceedOrNotCheck">
                                     <GradientButton
-                                        runFunction={() => this.proceedHandler("size")}>
+                                        runFunction={() => this.proceedHandler("size")}
+                                    >
                                         Proceed
-                                    </GradientButton> 
+                  </GradientButton>
                                     {this.displayErrorModal("size")}
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                )
-            }
-
-            else if (modalType === "material") {
+                );
+            } else if (modalType === "material") {
                 return (
                     <div className={this.state.modalMaterial}>
                         <div className="dummyXClass">
@@ -2980,7 +3000,7 @@ class EditProductDetails extends React.Component {
                                     <div className="vendorDashboardModal">
                                         <div className="modalHeader">
                                             <h3>Material details</h3>
-                                            <div className="line"></div>
+                                            <div className="line" />
                                         </div>
                                     </div>
 
@@ -2996,9 +3016,9 @@ class EditProductDetails extends React.Component {
                                                 <input
                                                     type="text"
                                                     name="materialName"
-                                                    maxLength="30"
                                                     placeholder="Ex. Glass reinforced concrete"
                                                     onChange={this.onChangeHandler}
+                                                    maxLength="30"
                                                     ref="materialName"
                                                 />
                                                 <span className="InputSeparatorLine"> </span>
@@ -3012,14 +3032,19 @@ class EditProductDetails extends React.Component {
                                                 <p>Is there an extra cost over base price ?</p>
                                             </div>
                                             <label className="switch">
-                                                <input 
+                                                <input
                                                     ref="switch"
                                                     checked={this.state.isChecked}
                                                     onChange={() => this.onToggleSwitch()}
                                                     className="switch-input"
-                                                    type="checkbox"/>
-                                                <span className="switch-label" data-on="Yes" data-off="No"></span> 
-                                                <span className="switch-handle"></span> 
+                                                    type="checkbox"
+                                                />
+                                                <span
+                                                    className="switch-label"
+                                                    data-on="Yes"
+                                                    data-off="No"
+                                                />
+                                                <span className="switch-handle" />
                                             </label>
                                         </div>
                                         <div className="returnInputColumn">
@@ -3028,79 +3053,80 @@ class EditProductDetails extends React.Component {
                                     </div>
 
                                     <div className="errorContent">
-                                    <p className={this.state.isChecked ? this.state.displayError : "displayError hide"}>
-                                        Numbers Only
-                                    </p>
-                                </div>
+                                        <p
+                                            className={
+                                                this.state.isChecked
+                                                    ? this.state.displayError
+                                                    : "displayError hide"
+                                            }
+                                        >
+                                            Numbers Only
+                    </p>
+                                    </div>
                                 </div>
                                 <div className="proceedOrNotCheck">
                                     <GradientButton
-                                        runFunction={() => this.proceedHandler("material")}
-                                        >
+                                        runFunction={() => {
+                                            this.proceedHandler("material")
+                                            // this.checkForZero()
+                                        }}
+                                    >
                                         Proceed
-                                    </GradientButton>
+                  </GradientButton>
                                     {this.displayErrorModal("material")}
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                )
-            }
-
-            else if (modalType === "validation") {
+                );
+            } else if (modalType === "validation") {
                 if (this.state.emptyField.length !== 0) {
                     return (
                         <div className={this.state.modalClassToggle}>
                             <div className="dummyXClass">
                                 <div className="whiteSquareForModal">
-                                    <div className="addProductDetailsModal">
-                                        <div className="svgImageContainer">
-                                            <ErrorMsgSign />
-                                        </div>
-                                        <div className="modalContentContainer">
-                                            <div className="modalContentContainerInnerLayer">
-                                                <div className="content">
-                                                    <h3>Please provide the following details</h3>
-                                                    <div className="detailsToInput">
-                                                        <div className="detailsInputLayer">
-                                                            <div className="notFilledSection">
-                                                                {this
-                                                                    .state
-                                                                    .emptyField
-                                                                    .map((item, i) =>
-                                                                        <div
-                                                                            className="errorFieldMessage"
-                                                                            key={i}>
+                                    <div className="whiteSquareModalUpperContainer">
+                                        <div className="addProductDetailsModal">
+                                            <div className="svgImageContainer">
+                                                <ErrorMsgSign />
+                                            </div>
+                                            <div className="modalContentContainer">
+                                                <div className="modalContentContainerInnerLayer">
+                                                    <div className="content">
+                                                        <h3>Please provide the following details</h3>
+                                                        <div className="detailsToInput">
+                                                            <div className="detailsInputLayer">
+                                                                <div className="notFilledSection">
+                                                                    {this.state.emptyField.map((item, i) => (
+                                                                        // console.log(item)
+                                                                        <div className="errorFieldMessage" key={i}>
                                                                             <ul>
                                                                                 <li>
                                                                                     <p>{item}</p>
                                                                                 </li>
                                                                             </ul>
                                                                         </div>
-                                                                    )}
+                                                                    ))}
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="closeModalContainer">
-                                            <WhiteButton
-                                                runFunction={() => this.modalClassToggle("dontShow")}
-                                            >
-                                                Sure, I’ll do that
-                                        </WhiteButton>
-                                        </div>
-
+                                    </div>
+                                    <div className="closeModalContainer">
+                                        <WhiteButton
+                                            runFunction={() => this.modalClassToggle("dontShow")}
+                                        >
+                                            Sure, I’ll do that
+                    </WhiteButton>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    )
-                }
-
-                else if (this.state.emptyField.length === 0) {
+                    );
+                } else if (this.state.emptyField.length === 0) {
                     return (
                         <div className={this.state.modalClassToggle}>
                             <div className="dummyXClass">
@@ -3117,79 +3143,71 @@ class EditProductDetails extends React.Component {
                                 </div>
                             </div>
                         </div>
-                    )
+                    );
                 }
-            }
-
-            else if (modalType === "imagePreview") {
+            } else if (modalType === "imagePreview") {
                 return (
                     <div className={this.state.modalImagePreview}>
-                    <div className="dummyXClass">
-                        <div className="whiteSquareForModal">
-                        <div className="whiteSquareModalUpperContainer">
-                            <div className="vendorDashboardModal">
-                            <div className="modalHeader">
-                                <h3>Image Preview</h3>
-                                <div className="line" />
-                            </div>
-                            </div>
-                            <div className="content">
-                            <div className="detailsToInput">
-                                <div className="imageInput">
-                                <HtmlSlider
-                                    categoryData={this.state.productImagesObject} // format of Item
-                                    numberOfSlides={3} // Change the css grid properties for responsiveness
-                                    textOnRibbon={""} // All caps
-                                    runFunction={data => {
-                                    this.setState({
-                                        productImageThumbnail: data.imageURL,
-                                        showDeleteButton: "showDeleteButton"
-                                        // finalProceed: "sendRequest"
-                                    });
-                                    }}
-                                />
-                                </div>
-                            </div>
+                        <div className="dummyXClass">
+                            <div className="whiteSquareForModal">
+                                <div className="whiteSquareModalUpperContainer">
+                                    <div className="vendorDashboardModal">
+                                        <div className="modalHeader">
+                                            <h3>Image Preview</h3>
+                                            <div className="line" />
+                                        </div>
+                                    </div>
+                                    <div className="content">
+                                        <div className="detailsToInput">
+                                            <div className="imageInput">
+                                                <HtmlSlider
+                                                    categoryData={this.state.productImagesObject} // format of Item
+                                                    numberOfSlides={3} // Change the css grid properties for responsiveness
+                                                    textOnRibbon={""} // All caps
+                                                    runFunction={data => {
+                                                        this.setState({
+                                                            productImageThumbnail: data.imageURL,
+                                                            showDeleteButton: "showDeleteButton"
+                                                            // finalProceed: "sendRequest"
+                                                        });
+                                                    }}
+                                                />
+                                            </div>
+                                        </div>
 
-                            <div className="selectedPreviewImageContainer">
-                                <div className="imgContainer">
-                                <p
-                                    className={
-                                    this.state.productImageThumbnail !== ""
-                                        ? "previewImageText hide"
-                                        : "previewImageText"
-                                    }
-                                >
-                                    Click on the image to view
-                                </p>
-                                <img 
-                                    src={this.state.productImageThumbnail} 
-                                    alt=""
-                                    // style={{  height: "5em", weight: "5em" }}
-                                    />
-                                </div>
-                                <div className={this.state.showDeleteButton}>
-                                <WhiteButton
-                                    runFunction={() => {
-                                    this.removeProductImage();
-                                    this.setState({
-                                        showDeleteButton: "showDeleteButton hide"
-                                    });
-                                    }}
-                                >
-                                    Delete
-                                </WhiteButton>
+                                        <div className="selectedPreviewImageContainer">
+                                            <div className="imgContainer">
+                                                <p
+                                                    className={
+                                                        this.state.productImageThumbnail !== ""
+                                                            ? "previewImageText hide"
+                                                            : "previewImageText"
+                                                    }
+                                                >
+                                                    Click on the image to view
+                        </p>
+                                                <img src={this.state.productImageThumbnail} alt="" />
+                                            </div>
+                                            <div className={this.state.showDeleteButton}>
+                                                <WhiteButton
+                                                    runFunction={() => {
+                                                        this.removeProductImage();
+                                                        this.setState({
+                                                            showDeleteButton: "showDeleteButton hide"
+                                                        });
+                                                    }}
+                                                >
+                                                    Delete
+                        </WhiteButton>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            </div>
                         </div>
-                        </div>
-                    </div>
                     </div>
                 );
-            }
-
-            else if (modalType === "alertForDelete") {
+            } else if (modalType === "alertForDelete") {
                 return (
                     <div className={this.state.modalAlertForDelete}>
                         <div className="whiteSquareModalUpperContainer">
@@ -3200,53 +3218,180 @@ class EditProductDetails extends React.Component {
                                 </div>
                                 <div className="confirmationButtonContainer">
                                     <WhiteButton
-                                    runFunction={() => {
-                                        this.state.productImagesObject.imagesInCategory.splice(0, 1);
-                                        this.modalClassToggle("dontShow");
-                                    }}>
+                                        runFunction={() => {
+                                            this.state.productImagesObject.imagesInCategory.splice(
+                                                0,
+                                                1
+                                            );
+                                            this.modalClassToggle("dontShow");
+                                        }}
+                                    >
                                         Yes
-                                    </WhiteButton>
+                  </WhiteButton>
                                     <WhiteButton
-                                    runFunction={() =>
-                                        this.setState({ modalType: "imagePreview" })
-                                    }>
+                                        runFunction={() =>
+                                            this.setState({ modalType: "imagePreview" })
+                                        }
+                                    >
                                         No
-                                    </WhiteButton>
+                  </WhiteButton>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                );
+            } else if (modalType === "installer") {
+                return (
+                    <div className={this.state.modalThirdPartyDetails}>
+                        <div className="dummyXClass">
+                            <div className="whiteSquareForModal">
+                                <div className="whiteSquareModalUpperContainer">
+                                    <div className="vendorDashboardModal">
+                                        <div className="modalHeader">
+                                            <h3>Third party installer details</h3>
+                                            <div className="line" />
+                                        </div>
+                                    </div>
+                                    <div className="finishEndModal">
+                                        <div className="thirdPartyDetails">
+                                            <div className="inputFormContainer">
+                                                <div className="formParaSection">
+                                                    <p className="pargraphClass">Installer's name</p>
+                                                </div>
+                                                <div className="productInputInfoSection productFinishName">
+                                                    <div className="modalMandatorySection">
+                                                        <p className="madatoryHighlight">Mandatory</p>
+                                                    </div>
+                                                    <div className="modalInputCategory">
+                                                        <input
+                                                            type="text"
+                                                            name="installerName"
+                                                            placeholder="Type name here"
+                                                            onChange={this.onChangeHandler}
+                                                            maxLength="30"
+                                                            ref="installerName"
+                                                        />
+                                                        <span className="InputSeparatorLine"> </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="inputFormContainer">
+                                                <div className="formParaSection">
+                                                    <p className="pargraphClass">
+                                                        Installer's 10 digit mobile
+                          </p>
+                                                </div>
+
+                                                <div className="phoneNoWrap">
+                                                    <InputForm
+                                                        refName="installerContactNo"
+                                                        placeholder="10 digit Official contact number"
+                                                        isMandatory={true}
+                                                        validationType="onlyMobileNumbers"
+                                                        characterCount="10"
+                                                        value={
+                                                            this.state.installerContactNo
+                                                                ? this.state.installerContactNo
+                                                                : ""
+                                                        }
+                                                        result={val =>
+                                                            this.setState({ installerContactNo: val })
+                                                        }
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            <div className="inputFormContainer">
+                                                <div className="formParaSection">
+                                                    <p className="pargraphClass">
+                                                        Installation charges (in INR)
+                          </p>
+                                                </div>
+                                                <div className="modalInputCategory">
+                                                    <input
+                                                        type="text"
+                                                        name="installerCharges"
+                                                        placeholder="Ex. 20"
+                                                        onChange={e => this.checkTypeNumber(e, "installer")}
+                                                        maxLength="8"
+                                                        ref="installerCharges"
+                                                    />
+                                                    <span className="InputSeparatorLine"> </span>
+                                                    <p> / </p>
+                                                    <SelectList
+                                                        name="installerCostType"
+                                                        value={this.state.installerCostType}
+                                                        onChange={e =>
+                                                            this.onChangeHandler(e, "installerCost")
+                                                        }
+                                                        options={this.returnTypesOfCharge()}
+                                                    />
+                                                </div>
+
+                                                <div className="errorContent">
+                                                    <p className={this.state.displayError}>
+                                                        Numbers Only
+                          </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="proceedOrNotCheck">
+                                    <GradientButton
+                                        runFunction={() => {
+                                            this.proceedHandler("installer");
+                                        }}
+                                    >
+                                        Proceed
+                  </GradientButton>
+                                    {this.displayErrorModal("installer")}
                                 </div>
                             </div>
                         </div>
                     </div>
                 );
             }
-        }
+        };
 
         return (
             <div className={this.state.modalClassToggle}>
                 <div className="modalBackgroundDummyClass">
                     <div className="modalBackgroundInnerWrap">
                         <header className="closeHeaderSection">
-                            <div className="closeButtonContainer"
-                                onClick = {() => {
-                                    this.modalClassToggle("dontShow")
-                                    this.handleStates()
-                                    this.handleClearExtraCostInput()
+                            <div
+                                className="closeButtonContainer"
+                                onClick={() => {
+                                    this.modalClassToggle("dontShow");
+                                    // this.setState({
+                                    //   spliceOnEdit: false,
+                                    //   isChecked: false,
+                                    //   extraCostInput: "extraCostInput hide",
+                                    //   displayError: "displayError hide",
+                                    //   colorIsValid: true,
+                                    //   sizeIsValid: true,
+                                    //   materialIsValid: true,
+                                    //   finishDetailsIsValid: true
+                                    // });
+                                    this.handleStates();
+                                    this.handleClearExtraCostInput();
                                 }}
-                                >
-                                    <ModalCloseButton />
+                            >
+                                <ModalCloseButton />
                             </div>
                         </header>
                         <div className="modalOuterWrap">
-                            
                             <article className="modalContentWrap">
                                 {returnModalContent()}
                             </article>
-                            
                         </div>
                     </div>
                 </div>
             </div>
-        )
-    }
+        );
+    };
 
     handleStates = () => {
         if (this.state.finalProceed === "saveAndProceed") {
@@ -4251,9 +4396,7 @@ class EditProductDetails extends React.Component {
                                                             "installationServiceCost"
                                                             )
                                                         }
-                                                        options={this.returnTypesOfCharge(
-                                                            "serviceCharge"
-                                                        )}
+                                                        options={this.returnTypesOfCharge()}
                                                         />
                                                     </div>
                                                     <div className="errorContent">
