@@ -266,23 +266,10 @@ class EditProductDetails extends React.Component {
                         youTubeURL: decryptedData.youTubeAdVideos,
                         brandName: decryptedData.brandName,
                         brandImage: decryptedData.brandImage,
-                        productInstallers: decryptedData.productInstallers,
-                        productInstallationAvailability: decryptedData.productInstallationAvailability,
-                        productInstallationServiceCost: decryptedData.productInstallationServiceCost,
-                        installationServiceCostType: decryptedData.installationServiceCostType
-
-                        // productInstallers: [
-                        //     {
-                        //         installerName: "rakshith",
-                        //         installerContactNo: 9972223737,
-                        //         installerCharges: 1500,
-                        //         installerCostType: 2
-                        //     }
-                        // ],
-
-                        // productInstallationAvailability: 2,
-                        // productInstallationServiceCost: 1500,
-                        // installationServiceCostType: 3
+                        // productInstallers: decryptedData.productInstallers,
+                        // productInstallationAvailability: decryptedData.productInstallationAvailability,
+                        // productInstallationServiceCost: decryptedData.productInstallationServiceCost,
+                        // installationServiceCostType: decryptedData.installationServiceCostType
 
                     })
     
