@@ -75,7 +75,6 @@ export default class SignUp extends React.Component{
         }
 
         let rLId =  prefixCode + dateAndTime.TIME + suffixCode
-        
 
         if(userType === "architect"){
             rLId = "ARC-" + rLId
