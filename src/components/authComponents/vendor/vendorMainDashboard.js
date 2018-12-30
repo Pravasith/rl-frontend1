@@ -1825,7 +1825,7 @@ class VendorMainDashboard extends React.Component {
 
                                     {brandImage ?
                                         < img src={brandImage} alt="" />
-                                        : <p>"N/A"</p> }
+                                        : <p>N/A</p> }
                                 </div>
                                 
                             </div>
