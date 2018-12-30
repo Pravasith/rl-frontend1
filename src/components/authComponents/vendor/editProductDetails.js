@@ -258,7 +258,7 @@ class EditProductDetails extends React.Component {
                         categoryStylesAdded: decryptedData.designStyles,
                         tagsAdded: decryptedData.tags,
                         productType : decryptedData.productType,
-                        productAvailability: decryptedData.availability,
+                        // productAvailability: decryptedData.availability,
                         productAvailabilityBool : decryptedData.availability,
                         productDiscount: decryptedData.discount,
                         productImagesObject: {
@@ -374,7 +374,7 @@ class EditProductDetails extends React.Component {
     }
 
     componentDidUpdate() {
-        console.log(this.state.productInstallers)
+        console.log(this.state.productAvailability)
     }
 
 
@@ -4197,7 +4197,7 @@ class EditProductDetails extends React.Component {
                                                             title="Product Availability"
                                                             name={'availability'}
                                                             options={this.returnProductAvailability()}
-                                                            selectedOption={this.state.productAvailability === true ? 
+                                                            selectedOption={this.state.productAvailabilityBool === true ? 
                                                                                     "Yes, it is available" : "No, it is not available"}
                                                             onChange={(e) => this.handleRadiobutton(e, "productAvailability")}
                                                         />
