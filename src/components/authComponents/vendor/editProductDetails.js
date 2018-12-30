@@ -11,6 +11,7 @@ import { hitApi, navBarLoadingAnimationShowHide } from "../../../actions/general
 import {
     LargePlusButtonIcon,
     PlusButtonIcon,
+    ColorPlusButtonIcon,
     CloseButton,
     BigCloseButton,
     ModalCloseButton,
@@ -61,6 +62,7 @@ class EditProductDetails extends React.Component {
             modalMaterial: "modalMaterialClass",
             modalImagePreview: "modalImagePreviewClass",
             modalAlertForDelete: "modalAlertForDeleteClass",
+            modalThirdPartyDetails: "modalThirdPartyDetailsClass",
             // dynamincally toggle classes to flip styles //
 
             modalType : null,
@@ -2359,14 +2361,14 @@ class EditProductDetails extends React.Component {
                   </div>
 
                   <div className="productInstallerContactNoWrap">
-                    <p key={i}>+91 {item.installerContactNo}</p>
+                    <p key={i}>+91<span>{item.installerContactNo}</span></p>
                   </div>
 
                   <div className={item.installerCharges !== "" ? "productInstallerChargesWrap" : "hide"} >
-                    <small>Charges </small>
-                    <p key={i}>
+                    <p>Charges </p>
+                    <span key={i}>
                       Rs. {item.installerCharges} / {this.returnChargeType(item.installerChargeType)}
-                    </p>
+                    </span>
                   </div>
                 </div>
                 <div className="materialEditingButtons">
@@ -2377,6 +2379,9 @@ class EditProductDetails extends React.Component {
                               Edit
                           </WhiteButton>
                         </div> */}
+                    <div className="editButton">
+                     <WhiteButton>Edit</WhiteButton>
+                    </div>
                   <div
                     className="deleteButton"
                     onClick={() => this.removeProductInstallers(i)}
@@ -3256,8 +3261,8 @@ class EditProductDetails extends React.Component {
                                             <div className="line" />
                                         </div>
                                     </div>
-                                    <div className="finishEndModal">
-                                        <div className="thirdPartyDetails">
+                                    {/* <div className="finishEndModal">
+                                        <div className="thirdPartyDetails"> */}
                                             <div className="inputFormContainer">
                                                 <div className="formParaSection">
                                                     <p className="pargraphClass">Installer's name</p>
@@ -3312,25 +3317,29 @@ class EditProductDetails extends React.Component {
                                                         Installation charges (in INR)
                                                     </p>
                                                 </div>
-                                                <div className="modalInputCategory">
-                                                    <input
-                                                        type="text"
-                                                        name="installerCharges"
-                                                        placeholder="Ex. 20"
-                                                        onChange={e => this.checkTypeNumber(e, "installer")}
-                                                        maxLength="8"
-                                                        ref="installerCharges"
-                                                    />
-                                                    <span className="InputSeparatorLine"> </span>
+                                                <div className="installationCostInputSection">
+                                                    <div className="inputCategory">
+                                                        <input
+                                                            type="text"
+                                                            name="installerCharges"
+                                                            placeholder="Ex. 20"
+                                                            onChange={e => this.checkTypeNumber(e, "installer")}
+                                                            maxLength="8"
+                                                            ref="installerCharges"
+                                                        />
+                                                        <span className="InputSeparatorLine"> </span>  
+                                                    </div>
                                                     <p> / </p>
-                                                    <SelectList
-                                                        name="installerCostType"
-                                                        value={this.state.installerCostType}
-                                                        onChange={e =>
-                                                            this.onChangeHandler(e, "installerCost")
-                                                        }
-                                                        options={this.returnTypesOfCharge()}
-                                                    />
+                                                    <div className="selectionCategory">
+                                                        <SelectList
+                                                            name="installerCostType"
+                                                            value={this.state.installerCostType}
+                                                            onChange={e =>
+                                                                this.onChangeHandler(e, "installerCost")
+                                                            }
+                                                            options={this.returnTypesOfCharge()}
+                                                        />
+                                                    </div>
                                                 </div>
 
                                                 <div className="errorContent">
@@ -3339,8 +3348,8 @@ class EditProductDetails extends React.Component {
                                                     </p>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
+                                        {/* </div> */}
+                                    {/* </div> */}
                                 </div>
 
                                 <div className="proceedOrNotCheck">
@@ -3714,56 +3723,58 @@ class EditProductDetails extends React.Component {
                         <article className={this.state.vendorDashboardOuterClass}>
                             <section className="vendorDashboardInnerLayer">
 
-                                <div className="uploadSectionLeftWrapper">
-                                    <article className="leftWrapperInnerLayer">
-                                        <section className="imageUploadBigContainer">
+                                <div className="uploadSectionUpperContainer">
+                                    <div className="uploadSectionLeftWrapper">
+                                        <article className="leftWrapperInnerLayer">
+                                            <section className="imageUploadBigContainer">
 
-                                            <div className="imageUploadUpperSection">
-                                                <div className="imageUploadInnerLayer">
+                                                <div className="imageUploadUpperSection">
+                                                    <div className="imageUploadInnerLayer">
 
-                                                    <div className="imageContainerInnerSection">
+                                                        <div className="imageContainerInnerSection">
 
-                                                        <div className="imageUploadComponent">
-                                                            <header className="vendorImageUploadHeaderComponent">
-                                                                <div className="headingArea">
-                                                                    <h3 className="headingClass">Product image</h3>
-                                                                    <div className="line"></div>
-                                                                </div>
-                                                            </header>
-
-                                                            <div className="productImageUploaderRender">
-                                                                {
-                                                                    this.state.productImage === "" 
-                                                                    ? 
-                                                                    <div className="productImageUploaderClass">
-                                                                        <ImageUploader
-                                                                            imageType="regularImage" // regularImage || profileImage
-                                                                            resultData={(data) => {
-                                                                                this.setState({
-                                                                                    productImage: data.imageURL
-                                                                                })
-                                                                                this.addProductImage();
-                                                                            }}
-                                                                            showInitialImage={this.state.productImage !== "" ? this.state.productImage : ""}
-                                                                            imageClassName="productImageClass"
-                                                                        />
+                                                            <div className="imageUploadComponent">
+                                                                <header className="vendorImageUploadHeaderComponent">
+                                                                    <div className="headingArea">
+                                                                        <h3 className="headingClass">Product image</h3>
+                                                                        <div className="line"></div>
                                                                     </div>
-                                                                    :
-                                                                    <div className="productImageUploaderClass"></div>
-                                                                }
+                                                                </header>
+
+                                                                <div className="productImageUploaderRender">
+                                                                    {
+                                                                        this.state.productImage === "" 
+                                                                        ? 
+                                                                        <div className="productImageUploaderClass">
+                                                                            <ImageUploader
+                                                                                imageType="regularImage" // regularImage || profileImage
+                                                                                resultData={(data) => {
+                                                                                    this.setState({
+                                                                                        productImage: data.imageURL
+                                                                                    })
+                                                                                    this.addProductImage();
+                                                                                }}
+                                                                                showInitialImage={this.state.productImage !== "" ? this.state.productImage : ""}
+                                                                                imageClassName="productImageClass"
+                                                                            />
+                                                                        </div>
+                                                                        :
+                                                                        <div className="productImageUploaderClass"></div>
+                                                                    }
+                                                                </div>
                                                             </div>
                                                         </div>
+
                                                     </div>
-
                                                 </div>
-                                            </div>
-                                            
-                                            <div className="imageUploadDownSection">
-                                                {this.returnHtmlSliderforproductImagesObject()}
-                                            </div>
+                                                
+                                                <div className="imageUploadDownSection">
+                                                    {this.returnHtmlSliderforproductImagesObject()}
+                                                </div>
 
-                                        </section>
-                                    </article>
+                                            </section>
+                                        </article>
+                                    </div>
                                 </div>
 
                                 <div className="uploadSectionRightWrapper">
@@ -4372,52 +4383,65 @@ class EditProductDetails extends React.Component {
                                                         this.state.checkBoxProductInstallationClass2
                                                         }
                                                     />
-                                                    <div className="contentForOptionSelection">
-                                                        <p>
-                                                        Yes, we install this product for an extra
-                                                        cost.
-                                                        </p>
+                                                    <div className="installationCostContent">
+                                                        <div className="contentForOptionSelection">
+                                                            <p>
+                                                            Yes, we install this product for an extra cost.
+                                                            </p>
+                                                        </div>
+                                                        <div className={this.state.inputSection}>
+                                                            <div className="installationCostOuterContent">
+                                                                <header>
+                                                                    <p>Installation cost (in INR)</p>
+                                                                    <div className="line"></div>
+                                                                </header>
+                                                                <div className="installationCostInputSection">
+                                                                    <div className="inputCategory">
+                                                                    <input
+                                                                        type="text"
+                                                                        ref="installationCost"
+                                                                        maxLength="5"
+                                                                        placeholder="EX. 20"
+                                                                        defaultValue={this.state.productInstallationServiceCost}
+                                                                        onChange={e =>
+                                                                            this.checkTypeNumber(e, "installation")
+                                                                        }
+                                                                        />
+                                                                        <span className="InputSeparatorLine"> </span>
+                                                                    </div>
+                                                                    <p>/</p>
+                                                                    <div className="selectionCategory">
+                                                                        <SelectList
+                                                                        name="installationServiceCostType"
+                                                                        value={this.state.installationServiceCostType}
+                                                                        onChange={e =>
+                                                                            this.onChangeHandler(
+                                                                            e,
+                                                                            "installationServiceCost"
+                                                                            )
+                                                                        }
+                                                                        options={this.returnTypesOfCharge()}
+                                                                        />
+                                                                    </div>
+                                                                </div>
+                                                                <div className="errorContent">
+                                                                    <p className={this.state.displayError}>
+                                                                    Numbers Only
+                                                                    </p>
+                                                                    <p
+                                                                    className={
+                                                                        this.state.displayInstallationValueError
+                                                                    }
+                                                                    >
+                                                                    Installation cost cannot be zero, If you wish
+                                                                    not to offer installation service, please
+                                                                    select the option accordingly.
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div className={this.state.inputSection}>
-                                                        <input
-                                                        type="text"
-                                                        ref="installationCost"
-                                                        maxLength="5"
-                                                        placeholder="EX. 20"
-                                                        defaultValue={this.state.productInstallationServiceCost}
-                                                        onChange={e =>
-                                                            this.checkTypeNumber(e, "installation")
-                                                        }
-                                                        />
-                                                        <span className="InputSeparatorLine"> </span>
-                                                        <p>/</p>
-                                                        <SelectList
-                                                        name="installationServiceCostType"
-                                                        value={this.state.installationServiceCostType}
-                                                        onChange={e =>
-                                                            this.onChangeHandler(
-                                                            e,
-                                                            "installationServiceCost"
-                                                            )
-                                                        }
-                                                        options={this.returnTypesOfCharge()}
-                                                        />
-                                                    </div>
-                                                    <div className="errorContent">
-                                                        <p className={this.state.displayError}>
-                                                        Numbers Only
-                                                        </p>
-                                                        <p
-                                                        className={
-                                                            this.state.displayInstallationValueError
-                                                        }
-                                                        >
-                                                        Installation cost cannot be zero, If you wish
-                                                        not to offer installation service, please
-                                                        select the option accordingly.
-                                                        </p>
-                                                    </div>
-                                                    </div>
+                                                </div>
 
                                                     <div
                                                     className="optionDiv"
@@ -4469,15 +4493,16 @@ class EditProductDetails extends React.Component {
                                                         this.state.checkBoxProductInstallationClass5
                                                         }
                                                     />
-                                                    <div className="contentForOptionSelection">
-                                                        <p>
-                                                        No, we don’t offer installation services for
-                                                        this product but I can recommend others who
-                                                        can install it (this option increases the
-                                                        chances of product purchase).
-                                                        </p>
-                                                    </div>
-                                                    {this.state.checkBoxProductInstallationClass5 === "checkBox color" ?
+                                                    <div className="installationCostContent">
+                                                        <div className="contentForOptionSelection">
+                                                            <p>
+                                                            No, we don’t offer installation services for
+                                                            this product but I can recommend others who
+                                                            can install it (this option increases the
+                                                            chances of product purchase).
+                                                            </p>
+                                                        </div>
+                                                        {this.state.checkBoxProductInstallationClass5 === "checkBox color" ?
                                                         <WhiteButton
                                                         runFunction={() => {
                                                             this.modalClassToggle("show");
@@ -4486,12 +4511,13 @@ class EditProductDetails extends React.Component {
                                                             });
                                                         }}
                                                         >
-                                                        <PlusButtonIcon />
-                                                        Add installer
-                                                        </WhiteButton>
-                                                    : null }
+                                                            <ColorPlusButtonIcon />
+                                                                Add installer
+                                                            </WhiteButton>
+                                                        : null }
+                                                         {this.returnProductInstallers()}
                                                     </div>
-                                                    {this.returnProductInstallers()}
+                                                    </div>
                                                 </div>
                                                 </div>
 
