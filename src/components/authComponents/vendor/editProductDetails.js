@@ -260,7 +260,7 @@ class EditProductDetails extends React.Component {
                         categoryStylesAdded: decryptedData.designStyles,
                         tagsAdded: decryptedData.tags,
                         productType : decryptedData.productType,
-                        productAvailability: decryptedData.availability,
+                        // productAvailability: decryptedData.availability,
                         productAvailabilityBool : decryptedData.availability,
                         productDiscount: decryptedData.discount,
                         productImagesObject: {
@@ -376,7 +376,7 @@ class EditProductDetails extends React.Component {
     }
 
     componentDidUpdate() {
-        console.log(this.state.productInstallers)
+        console.log(this.state.productInstallationServiceCost)
     }
 
 
@@ -2089,9 +2089,15 @@ class EditProductDetails extends React.Component {
     };
 
     onChangeHandler = (e, type) => {
-        if (type === "installerCost" || type === "installationServiceCost") {
+        if (type === "installerCost") {
             this.setState({ [e.target.name]: Number(e.target.value) });
-        } else {
+        } 
+
+        else if (type === "installationServiceCost") {
+            this.setState({ [e.target.name]: Number(e.target.value) });
+        } 
+        
+        else {
             this.setState({ [e.target.name]: e.target.value });
         }
     };
@@ -3511,17 +3517,25 @@ class EditProductDetails extends React.Component {
         else if (fieldName === "Product Installation") {
             if (productInstallationAvailability === 2) {
                 if (productInstallationServiceCost !== undefined) {
-                    if (productInstallationServiceCost === 0) {
-                        this.setState({
-                            displayInstallationValueError: "displayInstallationValueError"
-                        });
-
+                    if(this.refs.installationCost.value !== "") {
+                        if (productInstallationServiceCost === 0) {
+                            this.setState({
+                                displayInstallationValueError: "displayInstallationValueError"
+                            });
+    
+                            return "Product Installation Cost";
+                        } 
+                        
+                        else
+                            this.setState({
+                                displayInstallationValueError:
+                                    "displayInstallationValueError hide"
+                            });
+                    }
+                    
+                    else if (this.refs.installationCost.value === "") {
                         return "Product Installation Cost";
-                    } else
-                        this.setState({
-                            displayInstallationValueError:
-                                "displayInstallationValueError hide"
-                        });
+                    }
                 }
 
                 else if (productInstallationServiceCost === undefined) {
@@ -3564,7 +3578,7 @@ class EditProductDetails extends React.Component {
             { fieldName: "Product Tags", value: this.state.tagsAdded },
             {
                 fieldName: "Product Availability",
-                value: this.state.productAvailability
+                value: this.state.productAvailabilityBool
             },
             {
                 fieldName: `${this.handleMultiValidation("Product Discount")}`,
@@ -3577,7 +3591,7 @@ class EditProductDetails extends React.Component {
 
             {
                 fieldName: `${this.handleMultiValidation("Product Installation")}`,
-                value: this.state.productInstallationServiceCost
+                value: this.state.productInstallationAvailability
             }
         ];
 
@@ -3641,8 +3655,10 @@ class EditProductDetails extends React.Component {
                 inputSection: "inputSection hide",
                 productInstallationAvailability: 1,
                 productInstallationServiceCost: 0,
+                installationServiceCostType: 1,
                 displayInstallationValueError: "displayInstallationValueError hide"
             });
+            this.refs.installationCost.value = ""
         } 
         
         else if (option === "yesInstallationExtraCost") {
@@ -3654,7 +3670,7 @@ class EditProductDetails extends React.Component {
                 checkBoxProductInstallationClass5: "checkBox",
                 inputSection: "inputSection",
                 productInstallationAvailability: 2,
-                productInstallationServiceCost: undefined
+                // productInstallationServiceCost: 
             });
         } 
         
@@ -3668,8 +3684,10 @@ class EditProductDetails extends React.Component {
                 inputSection: "inputSection hide",
                 productInstallationAvailability: 3,
                 productInstallationServiceCost: 0,
+                installationServiceCostType: 1,
                 displayInstallationValueError: "displayInstallationValueError hide"
             });
+            this.refs.installationCost.value = ""
         } 
         
         else if (option === "noInstallationService") {
@@ -3682,8 +3700,10 @@ class EditProductDetails extends React.Component {
                 inputSection: "inputSection hide",
                 productInstallationAvailability: 4,
                 productInstallationServiceCost: 0,
+                installationServiceCostType: 1,
                 displayInstallationValueError: "displayInstallationValueError hide"
             });
+            this.refs.installationCost.value = ""
         } 
         
         else if (option === "noInstallationButRecommendInstaller") {
@@ -3696,8 +3716,10 @@ class EditProductDetails extends React.Component {
                 inputSection: "inputSection hide",
                 productInstallationAvailability: 5,
                 productInstallationServiceCost: 0,
+                installationServiceCostType: 1,
                 displayInstallationValueError: "displayInstallationValueError hide"
             });
+            this.refs.installationCost.value = ""
         }
     };
     
@@ -4208,7 +4230,7 @@ class EditProductDetails extends React.Component {
                                                             title="Product Availability"
                                                             name={'availability'}
                                                             options={this.returnProductAvailability()}
-                                                            selectedOption={this.state.productAvailability === true ? 
+                                                            selectedOption={this.state.productAvailabilityBool === true ? 
                                                                                     "Yes, it is available" : "No, it is not available"}
                                                             onChange={(e) => this.handleRadiobutton(e, "productAvailability")}
                                                         />
@@ -4383,63 +4405,51 @@ class EditProductDetails extends React.Component {
                                                         this.state.checkBoxProductInstallationClass2
                                                         }
                                                     />
-                                                    <div className="installationCostContent">
-                                                        <div className="contentForOptionSelection">
-                                                            <p>
-                                                            Yes, we install this product for an extra cost.
-                                                            </p>
-                                                        </div>
-                                                        <div className={this.state.inputSection}>
-                                                            <div className="installationCostOuterContent">
-                                                                <header>
-                                                                    <p>Installation cost (in INR)</p>
-                                                                    <div className="line"></div>
-                                                                </header>
-                                                                <div className="installationCostInputSection">
-                                                                    <div className="inputCategory">
-                                                                    <input
-                                                                        type="text"
-                                                                        ref="installationCost"
-                                                                        maxLength="5"
-                                                                        placeholder="EX. 20"
-                                                                        defaultValue={this.state.productInstallationServiceCost}
-                                                                        onChange={e =>
-                                                                            this.checkTypeNumber(e, "installation")
-                                                                        }
-                                                                        />
-                                                                        <span className="InputSeparatorLine"> </span>
-                                                                    </div>
-                                                                    <p>/</p>
-                                                                    <div className="selectionCategory">
-                                                                        <SelectList
-                                                                        name="installationServiceCostType"
-                                                                        value={this.state.installationServiceCostType}
-                                                                        onChange={e =>
-                                                                            this.onChangeHandler(
-                                                                            e,
-                                                                            "installationServiceCost"
-                                                                            )
-                                                                        }
-                                                                        options={this.returnTypesOfCharge()}
-                                                                        />
-                                                                    </div>
-                                                                </div>
-                                                                <div className="errorContent">
-                                                                    <p className={this.state.displayError}>
-                                                                    Numbers Only
-                                                                    </p>
-                                                                    <p
-                                                                    className={
-                                                                        this.state.displayInstallationValueError
-                                                                    }
-                                                                    >
-                                                                    Installation cost cannot be zero, If you wish
-                                                                    not to offer installation service, please
-                                                                    select the option accordingly.
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                    <div className="contentForOptionSelection">
+                                                        <p>
+                                                        Yes, we install this product for an extra
+                                                        cost.
+                                                        </p>
+                                                    </div>
+                                                    <div className={this.state.inputSection}>
+                                                        <input
+                                                        type="text"
+                                                        ref="installationCost"
+                                                        maxLength="5"
+                                                        placeholder="EX. 20"
+                                                        defaultValue={this.state.productInstallationServiceCost !== 0 ? this.state.productInstallationServiceCost : ""}
+                                                        onChange={e =>
+                                                            this.checkTypeNumber(e, "installation")
+                                                        }
+                                                        />
+                                                        <span className="InputSeparatorLine"> </span>
+                                                        <p>/</p>
+                                                        <SelectList
+                                                        name="installationServiceCostType"
+                                                        value={this.state.installationServiceCostType}
+                                                        onChange={e =>
+                                                            this.onChangeHandler(
+                                                            e,
+                                                            "installationServiceCost"
+                                                            )
+                                                        }
+                                                        options={this.returnTypesOfCharge()}
+                                                        />
+                                                    </div>
+                                                    <div className="errorContent">
+                                                        <p className={this.state.displayError}>
+                                                        Numbers Only
+                                                        </p>
+                                                        <p
+                                                        className={
+                                                            this.state.displayInstallationValueError
+                                                        }
+                                                        >
+                                                        Installation cost cannot be zero, If you wish
+                                                        not to offer installation service, please
+                                                        select the option accordingly.
+                                                        </p>
+                                                    </div>
                                                     </div>
                                                 </div>
 
@@ -4519,7 +4529,7 @@ class EditProductDetails extends React.Component {
                                                     </div>
                                                     </div>
                                                 </div>
-                                                </div>
+                                                {/* </div> */}
 
                                             </div>
                                         </section>
