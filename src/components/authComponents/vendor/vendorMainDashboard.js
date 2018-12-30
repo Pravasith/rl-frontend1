@@ -318,8 +318,32 @@ class VendorMainDashboard extends React.Component {
         }
 
     }
+    // updateDimensions = () => {
 
+    //     let w = window,
+    //         d = document,
+    //         documentElement = d.documentElement,
+    //         body = d.getElementsByTagName('body')[0],
+    //         width = w.innerWidth || documentElement.clientWidth || body.clientWidth,
+    //         height = w.innerHeight|| documentElement.clientHeight|| body.clientHeight;
+    
+    //         this.setState({width: width, height: height})
+
+    //         console.log(width)
+    //         // if you are using ES2015 I'm pretty sure you can do this: this.setState({width, height});
+    // }
+
+    // // componentWillMount = () => {
+    // //     this.updateDimensions()
+    // // }
+
+    // componentWillUnmount = () => {
+    //     window.removeEventListener("resize", this.updateDimensions);
+    // }
+ 
     componentDidMount = () => {
+
+        // window.addEventListener("resize",  this.updateDimensions);
 
         this
             .props
@@ -1281,37 +1305,6 @@ class VendorMainDashboard extends React.Component {
         })
     }
 
-    retunrProductInstallers = () => {
-        const { productInstallers } = this.state;
-
-        if(productInstallers.length !== 0) {
-            return productInstallers.map((item, i) => {
-                return (
-                    <div className="productInstallerDescriptionOuterLayer" key={i}>
-                        <div className="productInstallerDescriptionInnerLayer">
-                            <div className="productInstallerDetails">
-                                <div className="productInstallerNameWrap">
-                                    {/* <h3>Installer nomenclature</h3> */}
-                                    <h3 key={i}>{item.installerName}</h3>
-                                </div>
-
-                                <div className="productInstallerContactNoWrap">
-                                    <p key={i}>+91 {item.installerContactNo}</p>
-                                </div>
-
-                                <div className="productInstallerChargesWrap">
-                                    <small>Charges </small>
-                                    <p key={i}>
-                                        Rs. {item.installerCharges} / {this.returnChargeType(item.installerCostType)}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                );
-            }) 
-        }
-    }
 
     returnArrayFields = (fieldName) => {
         const {
@@ -1325,7 +1318,8 @@ class VendorMainDashboard extends React.Component {
             tagsAdded,
             productImagesObject,
             youTubeURL,
-            productInstallationAvailability
+            productInstallationAvailability,
+            productInstallers,
         } = this.state;
 
         // const productInstallersDetail = 
@@ -1637,14 +1631,48 @@ class VendorMainDashboard extends React.Component {
             }
 
             else if (productInstallationAvailability === 5) {
-                return (
-                    <div>
-                        <p>Installation cost cannot be zero, If you wish
-                        not to offer installation service, please
-                        select the option accordingly.</p>
-                        {this.retunrProductInstallers()}
-                    </div>
-                )
+
+                const populateProductInstallers = () => productInstallers.map((item, i) => {
+                    return (
+                        <div 
+                            key={i} 
+                            className="modalContainerUpperContainer"
+                            >
+                            <div className="modalContainer">
+                                <div className="modalContainerInnerLayer">
+                                    <div className="modalHeadingText">
+                                        <p>{item.installerName}</p>
+                                    </div>
+    
+                                    <div className="modalSubText">
+                                        <p>+91 {item.installerContactNo}</p>
+                                    </div>
+    
+                                    <div className="modalSubText">
+                                        {
+                                            Number(item.sizeCost) > 0 
+                                            ?
+                                            <p>Costs <span>Rs. { item.installerCharges }</span> / {this.returnChargeType(item.installerCostType)}</p>
+                                            :
+                                            <p>Installer cost not specified</p>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                })
+
+                if(productInstallers.length !== 0) {
+                    return (
+                        // <div className="gridItemsContainer productSubContainers">
+                        
+                        // </div>
+                        <div className="gridOuterBox">
+                            {populateProductInstallers()}
+                        </div> 
+                    )
+                }
             }
         }
     }
@@ -1822,17 +1850,28 @@ class VendorMainDashboard extends React.Component {
                             <div className="productSubHeading">
                                 <h3>Brand Logo</h3>
                                 <div className="productImagesOuterContainer">
-
-                                    {brandImage ?
-                                        < img src={brandImage} alt="" />
-                                        : <p>N/A</p> }
+                                    {
+                                        brandImage 
+                                        ?
+                                        <div className="productImagesContainer">
+                                            <img 
+                                                className = "individualImage" 
+                                                src={brandImage} 
+                                                alt="" 
+                                            />
+                                        </div>
+                                        : 
+                                        <p>N/A</p> 
+                                    }
                                 </div>
-                                
                             </div>
 
-                            <div className="productSubHeading">
+                            <div className="gridItemsContainer productSubContainers">
                                 <h3>Installation Service Option</h3>
-                                {this.returnArrayFields("installationService")}
+                                {/* <div className="productImagesOuterContainer"> */}
+                                    {this.returnArrayFields("installationService")}
+                                {/* </div> */}
+                                
                             </div>
                             
                         </div>

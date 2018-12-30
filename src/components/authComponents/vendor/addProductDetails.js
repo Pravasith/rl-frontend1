@@ -3678,10 +3678,10 @@ class AddProductDetails extends React.Component {
                           </div>
 
                           {/* <div className="designStyleCategoryTagsContainer">
-                                                          <div className="designStyleTagsInnerLayer">
-                                                              {this.returnStyleContentAdded()}
-                                                          </div>
-                                                      </div> */}
+                                  <div className="designStyleTagsInnerLayer">
+                                      {this.returnStyleContentAdded()}
+                                  </div>
+                              </div> */}
 
                           <div className="designStylesOuterLayer">
                             <div className="designStyleCategoryTagsContainer">
@@ -4190,7 +4190,7 @@ const matchDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   matchDispatchToProps
-)(AddProductDetails);
+)(AddProductDetails)
 
 // handleStyleSelection = (styleData) => {
 //     this.state.categoryStylesAdded.push(styleData.styleTitle)
