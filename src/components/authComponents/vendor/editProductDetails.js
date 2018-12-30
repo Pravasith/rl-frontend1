@@ -2368,7 +2368,7 @@ class EditProductDetails extends React.Component {
                   </div>
 
                   <div className="productInstallerContactNoWrap">
-                    <p key={i}>+91<span>{item.installerContactNo}</span></p>
+                    <p key={i}>+91 <span>{item.installerContactNo}</span></p>
                   </div>
 
                   <div className={item.installerCharges !== "" ? "productInstallerChargesWrap" : "hide"} >

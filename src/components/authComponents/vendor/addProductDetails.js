@@ -1986,13 +1986,13 @@ class AddProductDetails extends React.Component {
     );
   };
 
+
   returnProductInstallers = () => {
     const { checkBoxProductInstallationClass5, productInstallers } = this.state;
 
     if (checkBoxProductInstallationClass5 === "checkBox color") {
       if (productInstallers.length !== 0) {
         return productInstallers.map((item, i) => {
-          console.log(item)
           return (
             <div className="productInstallerDescriptionOuterLayer" key={i}>
               <div className="productInstallerDescriptionInnerLayer">
@@ -2003,14 +2003,14 @@ class AddProductDetails extends React.Component {
                   </div>
 
                   <div className="productInstallerContactNoWrap">
-                    <p key={i}>+91<span>{item.installerContactNo}</span></p>
+                    <p key={i}>+91 <span>{item.installerContactNo}</span></p>
                   </div>
 
                   <div className={item.installerCharges !== "" ? "productInstallerChargesWrap" : "hide"} >
-                    <small>Charges </small>
-                    <p key={i}>
-                      Rs. {item.installerCharges}/{this.returnChargeType(item.installerChargeType)}
-                    </p>
+                    <p>Charges </p>
+                    <span key={i}>
+                      Rs. {item.installerCharges} / {this.returnChargeType(item.installerChargeType)}
+                    </span>
                   </div>
                 </div>
                 <div className="materialEditingButtons">
@@ -2021,15 +2021,15 @@ class AddProductDetails extends React.Component {
                               Edit
                           </WhiteButton>
                         </div> */}
-                  <div className="editButton">
+                    <div className="editButton">
                      <WhiteButton>Edit</WhiteButton>
                     </div>
-                  <div
-                    className="deleteButton"
-                    onClick={() => this.removeProductInstallers(i)}
-                  >
-                    <WhiteButton>Delete</WhiteButton>
-                  </div>
+                    <div
+                        className="deleteButton"
+                        onClick={() => this.removeProductInstallers(i)}
+                    >
+                        <WhiteButton>Delete</WhiteButton>
+                    </div>
                 </div>
               </div>
             </div>
