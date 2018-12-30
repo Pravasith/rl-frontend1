@@ -4382,6 +4382,7 @@ class EditProductDetails extends React.Component {
                                                             </p>
                                                         </div>
                                                         <div className={this.state.inputSection}>
+
                                                             <div className="installationCostOuterContent">
                                                                 <header>
                                                                     <p>Installation cost (in INR)</p>
@@ -4431,6 +4432,7 @@ class EditProductDetails extends React.Component {
                                                                     </p>
                                                                 </div>
                                                             </div>
+                                                        
                                                         </div>
                                                     </div>
                                                 </div>
