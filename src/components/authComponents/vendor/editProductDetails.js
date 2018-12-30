@@ -126,6 +126,7 @@ class EditProductDetails extends React.Component {
 
             checkBoxProductDiscountClass1: "checkBox",
             checkBoxProductDiscountClass2: "checkBox",
+            
             checkBoxProductInstallationClass1: "checkBox",
             checkBoxProductInstallationClass2: "checkBox",
             checkBoxProductInstallationClass3: "checkBox",

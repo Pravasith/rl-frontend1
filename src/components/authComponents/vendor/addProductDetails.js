@@ -2007,17 +2007,10 @@ class AddProductDetails extends React.Component {
                   </div>
 
                   <div className={item.installerCharges !== "" ? "productInstallerChargesWrap" : "hide"} >
-<<<<<<< HEAD
-                    <p>Charges </p>
-                    <span key={i}>
-                      Rs. {item.installerCharges} / {this.returnChargeType(item.installerChargeType)}
-                    </span>
-=======
                     <small>Charges </small>
                     <p key={i}>
                       Rs. {item.installerCharges}/{this.returnChargeType(item.installerChargeType)}
                     </p>
->>>>>>> a38ad94f20ada6d85fb3181dba34dde0b13418b4
                   </div>
                 </div>
                 <div className="materialEditingButtons">
