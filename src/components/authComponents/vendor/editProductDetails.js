@@ -2378,12 +2378,12 @@ class EditProductDetails extends React.Component {
                     <div className="editButton">
                      <WhiteButton>Edit</WhiteButton>
                     </div>
-                  <div
-                    className="deleteButton"
-                    onClick={() => this.removeProductInstallers(i)}
-                  >
-                    <WhiteButton>Delete</WhiteButton>
-                  </div>
+                    <div
+                        className="deleteButton"
+                        onClick={() => this.removeProductInstallers(i)}
+                    >
+                        <WhiteButton>Delete</WhiteButton>
+                    </div>
                 </div>
               </div>
             </div>
