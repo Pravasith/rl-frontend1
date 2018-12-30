@@ -4406,6 +4406,7 @@ class EditProductDetails extends React.Component {
                                                         this.state.checkBoxProductInstallationClass2
                                                         }
                                                     />
+                                                    <div className="installationCostContent">
                                                     <div className="contentForOptionSelection">
                                                         <p>
                                                         Yes, we install this product for an extra
@@ -4413,7 +4414,57 @@ class EditProductDetails extends React.Component {
                                                         </p>
                                                     </div>
                                                     <div className={this.state.inputSection}>
-                                                        <input
+                                                    <div className="installationCostOuterContent">
+                                                                <header>
+                                                                    <p>Installation cost (in INR)</p>
+                                                                    <div className="line"></div>
+                                                                </header>
+                                                                <div className="installationCostInputSection">
+                                                                    <div className="inputCategory">
+                                                                    <input
+                                                                        type="text"
+                                                                        ref="installationCost"
+                                                                        maxLength="5"
+                                                                        placeholder="EX. 20"
+                                                                        defaultValue={this.state.productInstallationServiceCost}
+                                                                        onChange={e =>
+                                                                            this.checkTypeNumber(e, "installation")
+                                                                        }
+                                                                        />
+                                                                        <span className="InputSeparatorLine"> </span>
+                                                                    </div>
+                                                                    <p>/</p>
+                                                                    <div className="selectionCategory">
+                                                                        <SelectList
+                                                                        name="installationServiceCostType"
+                                                                        value={this.state.installationServiceCostType}
+                                                                        onChange={e =>
+                                                                            this.onChangeHandler(
+                                                                            e,
+                                                                            "installationServiceCost"
+                                                                            )
+                                                                        }
+                                                                        options={this.returnTypesOfCharge()}
+                                                                        />
+                                                                    </div>
+                                                                </div>
+                                                                <div className="errorContent">
+                                                                    <p className={this.state.displayError}>
+                                                                    Numbers Only
+                                                                    </p>
+                                                                    <p
+                                                                    className={
+                                                                        this.state.displayInstallationValueError
+                                                                    }
+                                                                    >
+                                                                    Installation cost cannot be zero, If you wish
+                                                                    not to offer installation service, please
+                                                                    select the option accordingly.
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        
+                                                        {/* <input
                                                         type="text"
                                                         ref="installationCost"
                                                         maxLength="5"
@@ -4435,7 +4486,7 @@ class EditProductDetails extends React.Component {
                                                             )
                                                         }
                                                         options={this.returnTypesOfCharge()}
-                                                        />
+                                                        /> */}
                                                     </div>
                                                     <div className="errorContent">
                                                         <p className={this.state.displayError}>
@@ -4530,7 +4581,7 @@ class EditProductDetails extends React.Component {
                                                     </div>
                                                     </div>
                                                 </div>
-                                                {/* </div> */}
+                                                </div>
 
                                             </div>
                                         </section>
