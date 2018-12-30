@@ -2006,7 +2006,7 @@ class AddProductDetails extends React.Component {
                   <div className={item.installerCharges !== "" ? "productInstallerChargesWrap" : "hide"} >
                     <small>Charges </small>
                     <p key={i}>
-                      Rs. {item.installerCharges} / {this.returnChargeType(item.installerChargeType)}
+                      Rs. {item.installerCharges}/{this.returnChargeType(item.installerChargeType)}
                     </p>
                   </div>
                 </div>
@@ -2811,7 +2811,9 @@ class AddProductDetails extends React.Component {
             </div>
           </div>
         );
-      } else if (modalType === "alertForDelete") {
+      } 
+      
+      else if (modalType === "alertForDelete") {
         return (
           <div className={this.state.modalAlertForDelete}>
             <div className="whiteSquareModalUpperContainer">
@@ -3050,82 +3052,90 @@ class AddProductDetails extends React.Component {
 
   handleMultiValidation = fieldName => {
     const {
-      productDiscountAvailablity,
-      productDiscount,
-      productMinQuantity,
-      productMaxQuantity,
-      productInstallationAvailability,
-      productInstallationServiceCost,
-      productInstallers
+        productDiscountAvailablity,
+        productDiscount,
+        productMinQuantity,
+        productMaxQuantity,
+        productInstallationAvailability,
+        productInstallationServiceCost,
+        productInstallers
     } = this.state;
 
     if (fieldName === "Max. quantity") {
-      if (productMaxQuantity !== undefined) {
-        if (
-          productMaxQuantity === productMinQuantity ||
-          productMaxQuantity < productMinQuantity
-        ) {
-          this.setState({
-            displayQuantityValueError: "displayQuantityValueError"
-          });
+        if (productMaxQuantity !== undefined) {
+            if (
+                productMaxQuantity === productMinQuantity ||
+                productMaxQuantity < productMinQuantity
+            ) {
+                this.setState({
+                    displayQuantityValueError: "displayQuantityValueError"
+                });
 
-          return "Max. quantity value";
-        } else
-          this.setState({
-            displayQuantityValueError: "displayQuantityValueError hide"
-          });
-      } else return "Max. qunatity";
-    } 
-    
-    else if (fieldName === "Product Discount") {
-      if (productDiscountAvailablity === "yes") {
-        if (productDiscount !== undefined) {
-          if (productDiscount === 0) {
-            this.setState({
-              displayDiscountValueError: "displayDiscountValueError"
-            });
-
-            return "Product Discount Value";
-          } else
-            this.setState({
-              displayDiscountValueError: "displayDiscountValueError hide"
-            });
-        } else if (productDiscount === undefined) {
-          return "Product Discount Value";
-        }
-      } else return "Product Discount Availability";
-    } 
-    
-    else if (fieldName === "Product Installation") {
-      if (productInstallationAvailability === 2) {
-        if (productInstallationServiceCost !== undefined) {
-          if (productInstallationServiceCost === 0) {
-            this.setState({
-              displayInstallationValueError: "displayInstallationValueError"
-            });
-
-            return "Product Installation Cost";
-          } else
-            this.setState({
-              displayInstallationValueError:
-                "displayInstallationValueError hide"
-            });
-        } 
-        
-        else if (productInstallationServiceCost === undefined) {
-          return "Product Installation Cost";
-        }
-      } 
-
-      else if (productInstallationAvailability === 5) {
-          if (productInstallers.length === 0) {
-            return "Product Installer Details"
-          }
-      }
-      
-      else return "Product Installation Service";
+                return "Max. quantity value";
+            } else
+                this.setState({
+                    displayQuantityValueError: "displayQuantityValueError hide"
+                });
+        } else return "Max. qunatity";
     }
-  };
+
+    else if (fieldName === "Product Discount") {
+        if (productDiscountAvailablity === "yes") {
+            if (productDiscount !== undefined) {
+                if (productDiscount === 0) {
+                    this.setState({
+                        displayDiscountValueError: "displayDiscountValueError"
+                    });
+
+                    return "Product Discount Value";
+                } else
+                    this.setState({
+                        displayDiscountValueError: "displayDiscountValueError hide"
+                    });
+            } else if (productDiscount === undefined) {
+                return "Product Discount Value";
+            }
+        } else return "Product Discount Availability";
+    }
+
+    else if (fieldName === "Product Installation") {
+        if (productInstallationAvailability === 2) {
+            if (productInstallationServiceCost !== undefined) {
+                if(this.refs.installationCost.value !== "") {
+                    if (productInstallationServiceCost === 0) {
+                        this.setState({
+                            displayInstallationValueError: "displayInstallationValueError"
+                        });
+
+                        return "Product Installation Cost";
+                    } 
+                    
+                    else
+                        this.setState({
+                            displayInstallationValueError:
+                                "displayInstallationValueError hide"
+                        });
+                }
+                
+                else if (this.refs.installationCost.value === "") {
+                    return "Product Installation Cost";
+                }
+            }
+
+            else if (productInstallationServiceCost === undefined) {
+                return "Product Installation Cost";
+            }
+        }
+
+        else if (productInstallationAvailability === 5) {
+            if (productInstallers.length === 0) {
+                return "Product Installer Details"
+            }
+        }
+
+        else return "Product Installation Service";
+    }
+};
 
   validateProceedHandler = async () => {
     const fieldNames = [
@@ -3199,84 +3209,104 @@ class AddProductDetails extends React.Component {
 
   toggleOptions = option => {
     if (option === "yesDiscountAvailable") {
-      this.setState({
-        checkBoxProductDiscountClass1: "checkBox color",
-        checkBoxProductDiscountClass2: "checkBox",
-        productDiscountAvailablity: "yes",
-        productDiscount: undefined
-      });
-    } else if (option === "noDiscount") {
-      this.setState({
-        checkBoxProductDiscountClass1: "checkBox",
-        checkBoxProductDiscountClass2: "checkBox color",
-        displayError: "displayError hide",
-        productDiscountAvailablity: "no",
-        productDiscount: 0,
-        displayDiscountValueError: "displayDiscountValueError hide"
-      });
+        this.setState({
+            checkBoxProductDiscountClass1: "checkBox color",
+            checkBoxProductDiscountClass2: "checkBox",
+            productDiscountAvailablity: "yes",
+            productDiscount: undefined
+        });
+    } 
+    
+    else if (option === "noDiscount") {
+        this.setState({
+            checkBoxProductDiscountClass1: "checkBox",
+            checkBoxProductDiscountClass2: "checkBox color",
+            displayError: "displayError hide",
+            productDiscountAvailablity: "no",
+            productDiscount: 0,
+            displayDiscountValueError: "displayDiscountValueError hide"
+        });
 
-      this.refs.discountInput.value = "";
-    } else if (option === "yesInstallationFree") {
-      this.setState({
-        checkBoxProductInstallationClass1: "checkBox color",
-        checkBoxProductInstallationClass2: "checkBox",
-        checkBoxProductInstallationClass3: "checkBox",
-        checkBoxProductInstallationClass4: "checkBox",
-        checkBoxProductInstallationClass5: "checkBox",
-        inputSection: "inputSection hide",
-        productInstallationAvailability: 1,
-        productInstallationServiceCost: 0,
-        displayInstallationValueError: "displayInstallationValueError hide"
-      });
-    } else if (option === "yesInstallationExtraCost") {
-      this.setState({
-        checkBoxProductInstallationClass1: "checkBox",
-        checkBoxProductInstallationClass2: "checkBox color",
-        checkBoxProductInstallationClass3: "checkBox",
-        checkBoxProductInstallationClass4: "checkBox",
-        checkBoxProductInstallationClass5: "checkBox",
-        inputSection: "inputSection",
-        productInstallationAvailability: 2,
-        productInstallationServiceCost: undefined
-      });
-    } else if (option === "readyInstallation") {
-      this.setState({
-        checkBoxProductInstallationClass1: "checkBox",
-        checkBoxProductInstallationClass2: "checkBox",
-        checkBoxProductInstallationClass3: "checkBox color",
-        checkBoxProductInstallationClass4: "checkBox",
-        checkBoxProductInstallationClass5: "checkBox",
-        inputSection: "inputSection hide",
-        productInstallationAvailability: 3,
-        productInstallationServiceCost: 0,
-        displayInstallationValueError: "displayInstallationValueError hide"
-      });
-    } else if (option === "noInstallationService") {
-      this.setState({
-        checkBoxProductInstallationClass1: "checkBox",
-        checkBoxProductInstallationClass2: "checkBox",
-        checkBoxProductInstallationClass3: "checkBox",
-        checkBoxProductInstallationClass4: "checkBox color",
-        checkBoxProductInstallationClass5: "checkBox",
-        inputSection: "inputSection hide",
-        productInstallationAvailability: 4,
-        productInstallationServiceCost: 0,
-        displayInstallationValueError: "displayInstallationValueError hide"
-      });
-    } else if (option === "noInstallationButRecommendInstaller") {
-      this.setState({
-        checkBoxProductInstallationClass1: "checkBox",
-        checkBoxProductInstallationClass2: "checkBox",
-        checkBoxProductInstallationClass3: "checkBox",
-        checkBoxProductInstallationClass4: "checkBox",
-        checkBoxProductInstallationClass5: "checkBox color",
-        inputSection: "inputSection hide",
-        productInstallationAvailability: 5,
-        productInstallationServiceCost: 0,
-        displayInstallationValueError: "displayInstallationValueError hide"
-      });
+        this.refs.discountInput.value = "";
+    } 
+    
+    else if (option === "yesInstallationFree") {
+        this.setState({
+            checkBoxProductInstallationClass1: "checkBox color",
+            checkBoxProductInstallationClass2: "checkBox",
+            checkBoxProductInstallationClass3: "checkBox",
+            checkBoxProductInstallationClass4: "checkBox",
+            checkBoxProductInstallationClass5: "checkBox",
+            inputSection: "inputSection hide",
+            productInstallationAvailability: 1,
+            productInstallationServiceCost: 0,
+            installationServiceCostType: 1,
+            displayInstallationValueError: "displayInstallationValueError hide"
+        });
+        this.refs.installationCost.value = ""
+    } 
+    
+    else if (option === "yesInstallationExtraCost") {
+        this.setState({
+            checkBoxProductInstallationClass1: "checkBox",
+            checkBoxProductInstallationClass2: "checkBox color",
+            checkBoxProductInstallationClass3: "checkBox",
+            checkBoxProductInstallationClass4: "checkBox",
+            checkBoxProductInstallationClass5: "checkBox",
+            inputSection: "inputSection",
+            productInstallationAvailability: 2,
+            // productInstallationServiceCost: 
+        });
+    } 
+    
+    else if (option === "readyInstallation") {
+        this.setState({
+            checkBoxProductInstallationClass1: "checkBox",
+            checkBoxProductInstallationClass2: "checkBox",
+            checkBoxProductInstallationClass3: "checkBox color",
+            checkBoxProductInstallationClass4: "checkBox",
+            checkBoxProductInstallationClass5: "checkBox",
+            inputSection: "inputSection hide",
+            productInstallationAvailability: 3,
+            productInstallationServiceCost: 0,
+            installationServiceCostType: 1,
+            displayInstallationValueError: "displayInstallationValueError hide"
+        });
+        this.refs.installationCost.value = ""
+    } 
+    
+    else if (option === "noInstallationService") {
+        this.setState({
+            checkBoxProductInstallationClass1: "checkBox",
+            checkBoxProductInstallationClass2: "checkBox",
+            checkBoxProductInstallationClass3: "checkBox",
+            checkBoxProductInstallationClass4: "checkBox color",
+            checkBoxProductInstallationClass5: "checkBox",
+            inputSection: "inputSection hide",
+            productInstallationAvailability: 4,
+            productInstallationServiceCost: 0,
+            installationServiceCostType: 1,
+            displayInstallationValueError: "displayInstallationValueError hide"
+        });
+        this.refs.installationCost.value = ""
+    } 
+    
+    else if (option === "noInstallationButRecommendInstaller") {
+        this.setState({
+            checkBoxProductInstallationClass1: "checkBox",
+            checkBoxProductInstallationClass2: "checkBox",
+            checkBoxProductInstallationClass3: "checkBox",
+            checkBoxProductInstallationClass4: "checkBox",
+            checkBoxProductInstallationClass5: "checkBox color",
+            inputSection: "inputSection hide",
+            productInstallationAvailability: 5,
+            productInstallationServiceCost: 0,
+            installationServiceCostType: 1,
+            displayInstallationValueError: "displayInstallationValueError hide"
+        });
+        this.refs.installationCost.value = ""
     }
-  };
+};
 
   focus = () => {
     this.refs.discountInput.focus();

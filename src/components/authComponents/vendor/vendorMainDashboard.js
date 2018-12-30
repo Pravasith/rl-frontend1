@@ -1162,12 +1162,12 @@ class VendorMainDashboard extends React.Component {
         })
     }
 
-    returnChargeType = (installerCostType) => {
+    // returnChargeType = (installerCostType) => {
 
-        if (installerCostType === 1) return "square feet";
-        else if (installerCostType === 2) return "piece";
-        else if (installerCostType === 3) return "hour";
-    };
+    //     if (installerCostType === 1) return "square feet";
+    //     else if (installerCostType === 2) return "piece";
+    //     else if (installerCostType === 3) return "hour";
+    // };
 
 
     handleCategorySelections = () => {
@@ -1302,7 +1302,7 @@ class VendorMainDashboard extends React.Component {
                                 <div className="productInstallerChargesWrap">
                                     <small>Charges </small>
                                     <p key={i}>
-                                        Rs. {item.installerCharges} / {this.returnChargeType(item.installerCostType)}
+                                        Rs. {item.installerCharges}/{this.returnChargeType(item.installerChargeType)}
                                     </p>
                                 </div>
                             </div>
@@ -1312,6 +1312,14 @@ class VendorMainDashboard extends React.Component {
             }) 
         }
     }
+
+    returnChargeType = (installerCostType) => {
+
+        if (installerCostType === 1) return "square feet";
+        else if (installerCostType === 2) return "running feet";
+        else if (installerCostType === 3) return "piece";
+        else if (installerCostType === 4) return "hour";
+    };
 
     returnArrayFields = (fieldName) => {
         const {
@@ -1325,7 +1333,9 @@ class VendorMainDashboard extends React.Component {
             tagsAdded,
             productImagesObject,
             youTubeURL,
-            productInstallationAvailability
+            productInstallationAvailability,
+            productInstallationServiceCost,
+            installationServiceCostType
         } = this.state;
 
         // const productInstallersDetail = 
@@ -1625,7 +1635,7 @@ class VendorMainDashboard extends React.Component {
             } 
 
             else if (productInstallationAvailability === 2) {
-                return <p>Yes, we install this product for an extra cost.</p>
+                return <p>Yes, we install this product for an extra cost at Rs. {productInstallationServiceCost}/{this.returnChargeType(installationServiceCostType)} .</p>
             }
 
             else if (productInstallationAvailability === 3) {
@@ -1850,8 +1860,15 @@ class VendorMainDashboard extends React.Component {
                         </div>
                         <div className="removeButtonContainer">
                             <WhiteButton
+                                // runFunction={() => {
+                                //     this.deleteCategory("sub", this.state.productId)
+                                // }}
                                 runFunction={() => {
-                                    this.deleteCategory("sub", this.state.productId)
+                                    this.setState({
+                                        modalClass: 'modalClass',
+                                        productManagerWrapperClass: "productManagerWrapperClass blurClass",
+                                        activeModalType: "delete"
+                                    })
                                 }}
                             >
                                 Delete
@@ -2046,9 +2063,10 @@ class VendorMainDashboard extends React.Component {
                                 No
                                 </WhiteButton>
                         </div>
-                        <div className="yesContainer"
-                            onClick={() => this.deleteCategory("main", this.state.mainCategoryIndex)}>
-                            <WhiteButton>
+                        <div className="yesContainer">
+                            <WhiteButton
+                                runFunction={() => console.log("Delete wrkin")}
+                            >
                                 Yes
                              </WhiteButton>
                         </div>
