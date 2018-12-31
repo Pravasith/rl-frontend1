@@ -741,13 +741,58 @@ input{
                                                                         }
                                                                         .selectionCategory{
                                                                             .form-group{
-                                                                                select{
-                                                                                    border: none;
-                                                                                    border-bottom: 0.2em solid $mediumGrey;
-                                                                                    background: none;
-                                                                                    cursor: pointer;
-                                                                                }
+                                                                                position: relative;
+                                                                                // select{
+                                                                                //     border: none;
+                                                                                //     border-bottom: 0.2em solid $mediumGrey;
+                                                                                //     background: none;
+                                                                                //     cursor: pointer;
+                                                                                // }
                                                                             }
+                                                                            .form-group:after{
+                                                                                content: "";
+                                                                                // font: normal normal normal 17px/1 FontAwesome;
+                                                                                width: 0; 
+                                                                                height: 0; 
+                                                                                border-left: 20px solid transparent;
+                                                                                border-right: 20px solid transparent;
+                                                                                
+                                                                                border-top: 20px solid #f00;
+                                                                                color: #0ebeff;
+                                                                                right: 11px;
+                                                                                top: 6px;
+                                                                                height: 34px;
+                                                                                border-left: 1px solid #0ebeff;
+                                                                                position: absolute;
+                                                                                pointer-events: none;
+                                                                                
+                                                                            }
+                                                                            .form-group select::-ms-expand {
+                                                                                display: none;
+                                                                                }
+                                                                            .form-group select {
+                                                                                -webkit-appearance: none;
+                                                                                -moz-appearance: none;
+                                                                                appearance: none;
+                                                                                /* Add some styling */
+                                                                                
+                                                                                display: block;
+                                                                                width: 100%;
+                                                                                max-width: 320px;
+                                                                                height: 50px;
+                                                                                float: right;
+                                                                                margin: 5px 0px;
+                                                                                padding: 0px 24px;
+                                                                                font-size: 16px;
+                                                                                line-height: 1.75;
+                                                                                color: #333;
+                                                                                background-color: #ffffff;
+                                                                                background-image: none;
+                                                                                border: 1px solid #0ebeff;
+                                                                                -ms-word-break: normal;
+                                                                                word-break: normal;
+                                                                              }
+                                                                            
                                                                         }
                                                                     }
                                                                     .errorContent{
