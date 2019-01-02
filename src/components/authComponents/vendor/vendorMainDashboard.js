@@ -66,6 +66,7 @@ class VendorMainDashboard extends React.Component {
             productDimensions: [],
             productMaterials: [],
             productFinishes: [],
+            productInstallers: [],
             productImagesObject: {
                 categoryName: "",
                 imagesInCategory: []
@@ -306,21 +307,45 @@ class VendorMainDashboard extends React.Component {
                     ]
             },
 
-            productInstallers: [
-                {
-                    installerName: "rakshith",
-                    installerContactNo: 9972223737,
-                    installerCharges: 1500,
-                    installerCostType: 1
-                }
-            ],
+            // productInstallers: [
+            //     {
+            //         installerName: "rakshith",
+            //         installerContactNo: 9972223737,
+            //         installerCharges: 1500,
+            //         installerCostType: 1
+            //     }
+            // ],
 
-            productInstallationAvailability: 5
+            // productInstallationAvailability: 5
         }
 
     }
+    // updateDimensions = () => {
 
+    //     let w = window,
+    //         d = document,
+    //         documentElement = d.documentElement,
+    //         body = d.getElementsByTagName('body')[0],
+    //         width = w.innerWidth || documentElement.clientWidth || body.clientWidth,
+    //         height = w.innerHeight|| documentElement.clientHeight|| body.clientHeight;
+    
+    //         this.setState({width: width, height: height})
+
+    //         console.log(width)
+    //         // if you are using ES2015 I'm pretty sure you can do this: this.setState({width, height});
+    // }
+
+    // // componentWillMount = () => {
+    // //     this.updateDimensions()
+    // // }
+
+    // componentWillUnmount = () => {
+    //     window.removeEventListener("resize", this.updateDimensions);
+    // }
+ 
     componentDidMount = () => {
+
+        // window.addEventListener("resize",  this.updateDimensions);
 
         this
             .props
@@ -683,6 +708,7 @@ class VendorMainDashboard extends React.Component {
                 // DECRYPT RESPONSE DATA
                 //
 
+                console.log(decryptedData)
 
                 this.setState({
 
@@ -713,6 +739,10 @@ class VendorMainDashboard extends React.Component {
                     youTubeURL: decryptedData.youTubeAdVideos ? decryptedData.youTubeAdVideos : [],
                     brandName: decryptedData.brandName,
                     brandImage: decryptedData.brandImage, 
+                    productInstallers: decryptedData.productInstallers,
+                    productInstallationAvailability: decryptedData.productInstallationAvailability,
+                    productInstallationServiceCost: decryptedData.productInstallationServiceCost,
+                    installationServiceCostType: decryptedData.installationServiceCostType,
 
                     subCategoryDataExists: true,
 
@@ -1162,12 +1192,12 @@ class VendorMainDashboard extends React.Component {
         })
     }
 
-    returnChargeType = (installerCostType) => {
+    // returnChargeType = (installerCostType) => {
 
-        if (installerCostType === 1) return "square feet";
-        else if (installerCostType === 2) return "piece";
-        else if (installerCostType === 3) return "hour";
-    };
+    //     if (installerCostType === 1) return "square feet";
+    //     else if (installerCostType === 2) return "piece";
+    //     else if (installerCostType === 3) return "hour";
+    // };
 
 
     handleCategorySelections = () => {
@@ -1281,6 +1311,15 @@ class VendorMainDashboard extends React.Component {
         })
     }
 
+
+    returnChargeType = (installerCostType) => {
+
+        if (installerCostType === 1) return "square feet";
+        else if (installerCostType === 2) return "running feet";
+        else if (installerCostType === 3) return "piece";
+        else if (installerCostType === 4) return "hour";
+    };
+
     returnArrayFields = (fieldName) => {
         const {
             productPrice,
@@ -1293,35 +1332,13 @@ class VendorMainDashboard extends React.Component {
             tagsAdded,
             productImagesObject,
             youTubeURL,
+            productInstallationAvailability,
             productInstallers,
-            productInstallationAvailability
+            productInstallationServiceCost,
+            installationServiceCostType
         } = this.state;
 
-        const productInstallersDetail = productInstallers.map((item, i) => {
-            return (
-                <div className="productInstallerDescriptionOuterLayer" key={i}>
-                  <div className="productInstallerDescriptionInnerLayer">
-                    <div className="productInstallerDetails">
-                      <div className="productInstallerNameWrap">
-                        {/* <h3>Installer nomenclature</h3> */}
-                        <h3 key={i}>{item.installerName}</h3>
-                      </div>
-    
-                      <div className="productInstallerContactNoWrap">
-                        <p key={i}>+91 {item.installerContactNo}</p>
-                      </div>
-    
-                      <div className="productInstallerChargesWrap">
-                        <small>Charges </small>
-                        <p key={i}>
-                          Rs. {item.installerCharges} / {this.returnChargeType(item.installerCostType)}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-        }) 
+        // const productInstallersDetail = 
 
         if(fieldName === "materials") {
             return (
@@ -1618,7 +1635,7 @@ class VendorMainDashboard extends React.Component {
             } 
 
             else if (productInstallationAvailability === 2) {
-                return <p>Yes, we install this product for an extra cost.</p>
+                return <p>Yes, we install this product for an extra cost at Rs. {productInstallationServiceCost}/{this.returnChargeType(installationServiceCostType)} .</p>
             }
 
             else if (productInstallationAvailability === 3) {
@@ -1630,14 +1647,48 @@ class VendorMainDashboard extends React.Component {
             }
 
             else if (productInstallationAvailability === 5) {
-                return (
-                    <div>
-                        <p>Installation cost cannot be zero, If you wish
-                        not to offer installation service, please
-                        select the option accordingly.</p>
-                        {productInstallers.length !== 0 ? productInstallersDetail : null}
-                    </div>
-                )
+
+                const populateProductInstallers = () => productInstallers.map((item, i) => {
+                    return (
+                        <div 
+                            key={i} 
+                            className="modalContainerUpperContainer"
+                            >
+                            <div className="modalContainer">
+                                <div className="modalContainerInnerLayer">
+                                    <div className="modalHeadingText">
+                                        <p>{item.installerName}</p>
+                                    </div>
+    
+                                    <div className="modalSubText">
+                                        <p>+91 {item.installerContactNo}</p>
+                                    </div>
+    
+                                    <div className="modalSubText">
+                                        {
+                                            Number(item.sizeCost) > 0 
+                                            ?
+                                            <p>Costs <span>Rs. { item.installerCharges }</span> / {this.returnChargeType(item.installerCostType)}</p>
+                                            :
+                                            <p>Installer cost not specified</p>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                })
+
+                if(productInstallers.length !== 0) {
+                    return (
+                        // <div className="gridItemsContainer productSubContainers">
+                        
+                        // </div>
+                        <div className="gridOuterBox">
+                            {populateProductInstallers()}
+                        </div> 
+                    )
+                }
             }
         }
     }
@@ -1815,17 +1866,28 @@ class VendorMainDashboard extends React.Component {
                             <div className="productSubHeading">
                                 <h3>Brand Logo</h3>
                                 <div className="productImagesOuterContainer">
-
-                                    {brandImage ?
-                                        < img src={brandImage} alt="" />
-                                        : <p>"N/A"</p> }
+                                    {
+                                        brandImage 
+                                        ?
+                                        <div className="productImagesContainer">
+                                            <img 
+                                                className = "individualImage" 
+                                                src={brandImage} 
+                                                alt="" 
+                                            />
+                                        </div>
+                                        : 
+                                        <p>N/A</p> 
+                                    }
                                 </div>
-                                
                             </div>
 
-                            <div className="productSubHeading">
+                            <div className="gridItemsContainer productSubContainers">
                                 <h3>Installation Service Option</h3>
-                                {this.returnArrayFields("installationService")}
+                                {/* <div className="productImagesOuterContainer"> */}
+                                    {this.returnArrayFields("installationService")}
+                                {/* </div> */}
+                                
                             </div>
                             
                         </div>
@@ -1843,8 +1905,15 @@ class VendorMainDashboard extends React.Component {
                         </div>
                         <div className="removeButtonContainer">
                             <WhiteButton
+                                // runFunction={() => {
+                                //     this.deleteCategory("sub", this.state.productId)
+                                // }}
                                 runFunction={() => {
-                                    this.deleteCategory("sub", this.state.productId)
+                                    this.setState({
+                                        modalClass: 'modalClass',
+                                        productManagerWrapperClass: "productManagerWrapperClass blurClass",
+                                        activeModalType: "delete"
+                                    })
                                 }}
                             >
                                 Delete
@@ -2039,9 +2108,10 @@ class VendorMainDashboard extends React.Component {
                                 No
                                 </WhiteButton>
                         </div>
-                        <div className="yesContainer"
-                            onClick={() => this.deleteCategory("main", this.state.mainCategoryIndex)}>
-                            <WhiteButton>
+                        <div className="yesContainer">
+                            <WhiteButton
+                                runFunction={() => console.log("Delete wrkin")}
+                            >
                                 Yes
                              </WhiteButton>
                         </div>

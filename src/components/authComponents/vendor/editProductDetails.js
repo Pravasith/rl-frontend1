@@ -126,6 +126,7 @@ class EditProductDetails extends React.Component {
 
             checkBoxProductDiscountClass1: "checkBox",
             checkBoxProductDiscountClass2: "checkBox",
+            
             checkBoxProductInstallationClass1: "checkBox",
             checkBoxProductInstallationClass2: "checkBox",
             checkBoxProductInstallationClass3: "checkBox",
@@ -168,18 +169,18 @@ class EditProductDetails extends React.Component {
             installerCostType: 1,
             installationServiceCostType: 1,
 
-            productInstallers: [
-                {
-                    installerName: "rakshith",
-                    installerContactNo: 9972223737,
-                    installerCharges: 1500,
-                    installerChargeType: 2
-                }
-            ],
+            // productInstallers: [
+            //     {
+            //         installerName: "rakshith",
+            //         installerContactNo: 9972223737,
+            //         installerCharges: 1500,
+            //         installerChargeType: 2
+            //     }
+            // ],
 
-            productInstallationAvailability: 5,
-            productInstallationServiceCost: 1500,
-            installationServiceCostType: 3
+            // productInstallationAvailability: 5,
+            // productInstallationServiceCost: 1500,
+            // installationServiceCostType: 3
 
             
         }
@@ -260,7 +261,7 @@ class EditProductDetails extends React.Component {
                         categoryStylesAdded: decryptedData.designStyles,
                         tagsAdded: decryptedData.tags,
                         productType : decryptedData.productType,
-                        productAvailability: decryptedData.availability,
+                        // productAvailability: decryptedData.availability,
                         productAvailabilityBool : decryptedData.availability,
                         productDiscount: decryptedData.discount,
                         productImagesObject: {
@@ -271,10 +272,10 @@ class EditProductDetails extends React.Component {
                         youTubeURL: decryptedData.youTubeAdVideos,
                         brandName: decryptedData.brandName,
                         brandImage: decryptedData.brandImage,
-                        // productInstallers: decryptedData.productInstallers,
-                        // productInstallationAvailability: decryptedData.productInstallationAvailability,
-                        // productInstallationServiceCost: decryptedData.productInstallationServiceCost,
-                        // installationServiceCostType: decryptedData.installationServiceCostType
+                        productInstallers: decryptedData.productInstallers,
+                        productInstallationAvailability: decryptedData.productInstallationAvailability,
+                        productInstallationServiceCost: decryptedData.productInstallationServiceCost,
+                        installationServiceCostType: decryptedData.installationServiceCostType
 
                     })
     
@@ -373,6 +374,10 @@ class EditProductDetails extends React.Component {
                 else
                     console.error(err)
             })
+    }
+
+    componentDidUpdate() {
+        console.log(this.state.productInstallationServiceCost)
     }
 
 
@@ -2062,7 +2067,7 @@ class EditProductDetails extends React.Component {
                                 modalType: null,
                                 isChecked: false,
                                 productInstallers:
-                                    productInstallers.length !== 0 ? productInstallers : null,
+                                    productInstallers.length !== 0 ? productInstallers : [],
                                 displayError: "displayError hide"
                             });
                         }
@@ -2085,9 +2090,15 @@ class EditProductDetails extends React.Component {
     };
 
     onChangeHandler = (e, type) => {
-        if (type === "installerCost" || type === "installationServiceCost") {
+        if (type === "installerCost") {
             this.setState({ [e.target.name]: Number(e.target.value) });
-        } else {
+        } 
+
+        else if (type === "installationServiceCost") {
+            this.setState({ [e.target.name]: Number(e.target.value) });
+        } 
+        
+        else {
             this.setState({ [e.target.name]: e.target.value });
         }
     };
@@ -2441,7 +2452,12 @@ class EditProductDetails extends React.Component {
             productImages : this.state.productImagesObject.imagesInCategory,
             productThumbImage : this.state.productImageThumbnail,
             brandName: this.state.brandName,
-            brandImage: this.state.brandImage
+            brandImage: this.state.brandImage,
+
+            productInstallers: this.state.productInstallers,
+            productInstallationAvailability: this.state.productInstallationAvailability,
+            productInstallationServiceCost: this.state.productInstallationServiceCost,
+            installationServiceCostType: this.state.installationServiceCostType
 
             // this.state.productName
             // this.state.productCode
@@ -3502,17 +3518,25 @@ class EditProductDetails extends React.Component {
         else if (fieldName === "Product Installation") {
             if (productInstallationAvailability === 2) {
                 if (productInstallationServiceCost !== undefined) {
-                    if (productInstallationServiceCost === 0) {
-                        this.setState({
-                            displayInstallationValueError: "displayInstallationValueError"
-                        });
-
+                    if(this.refs.installationCost.value !== "") {
+                        if (productInstallationServiceCost === 0) {
+                            this.setState({
+                                displayInstallationValueError: "displayInstallationValueError"
+                            });
+    
+                            return "Product Installation Cost";
+                        } 
+                        
+                        else
+                            this.setState({
+                                displayInstallationValueError:
+                                    "displayInstallationValueError hide"
+                            });
+                    }
+                    
+                    else if (this.refs.installationCost.value === "") {
                         return "Product Installation Cost";
-                    } else
-                        this.setState({
-                            displayInstallationValueError:
-                                "displayInstallationValueError hide"
-                        });
+                    }
                 }
 
                 else if (productInstallationServiceCost === undefined) {
@@ -3553,10 +3577,9 @@ class EditProductDetails extends React.Component {
             },
             { fieldName: "Product Design", value: this.state.categoryStylesAdded },
             { fieldName: "Product Tags", value: this.state.tagsAdded },
-            { fieldName: "Product Type", value: this.state.productType },
             {
                 fieldName: "Product Availability",
-                value: this.state.productAvailability
+                value: this.state.productAvailabilityBool
             },
             {
                 fieldName: `${this.handleMultiValidation("Product Discount")}`,
@@ -3569,7 +3592,7 @@ class EditProductDetails extends React.Component {
 
             {
                 fieldName: `${this.handleMultiValidation("Product Installation")}`,
-                value: this.state.productInstallationServiceCost
+                value: this.state.productInstallationAvailability
             }
         ];
 
@@ -3610,7 +3633,7 @@ class EditProductDetails extends React.Component {
             });
         } 
         
-        else if (option === "noDiscount" || this.state.productDiscount === 0) {
+        else if (option === "noDiscount") {
             this.setState({
                 checkBoxProductDiscountClass1: "checkBox",
                 checkBoxProductDiscountClass2: "checkBox color",
@@ -3633,8 +3656,10 @@ class EditProductDetails extends React.Component {
                 inputSection: "inputSection hide",
                 productInstallationAvailability: 1,
                 productInstallationServiceCost: 0,
+                installationServiceCostType: 1,
                 displayInstallationValueError: "displayInstallationValueError hide"
             });
+            this.refs.installationCost.value = ""
         } 
         
         else if (option === "yesInstallationExtraCost") {
@@ -3646,7 +3671,7 @@ class EditProductDetails extends React.Component {
                 checkBoxProductInstallationClass5: "checkBox",
                 inputSection: "inputSection",
                 productInstallationAvailability: 2,
-                productInstallationServiceCost: undefined
+                // productInstallationServiceCost: 
             });
         } 
         
@@ -3660,8 +3685,10 @@ class EditProductDetails extends React.Component {
                 inputSection: "inputSection hide",
                 productInstallationAvailability: 3,
                 productInstallationServiceCost: 0,
+                installationServiceCostType: 1,
                 displayInstallationValueError: "displayInstallationValueError hide"
             });
+            this.refs.installationCost.value = ""
         } 
         
         else if (option === "noInstallationService") {
@@ -3674,8 +3701,10 @@ class EditProductDetails extends React.Component {
                 inputSection: "inputSection hide",
                 productInstallationAvailability: 4,
                 productInstallationServiceCost: 0,
+                installationServiceCostType: 1,
                 displayInstallationValueError: "displayInstallationValueError hide"
             });
+            this.refs.installationCost.value = ""
         } 
         
         else if (option === "noInstallationButRecommendInstaller") {
@@ -3688,8 +3717,10 @@ class EditProductDetails extends React.Component {
                 inputSection: "inputSection hide",
                 productInstallationAvailability: 5,
                 productInstallationServiceCost: 0,
+                installationServiceCostType: 1,
                 displayInstallationValueError: "displayInstallationValueError hide"
             });
+            this.refs.installationCost.value = ""
         }
     };
     
@@ -4200,7 +4231,7 @@ class EditProductDetails extends React.Component {
                                                             title="Product Availability"
                                                             name={'availability'}
                                                             options={this.returnProductAvailability()}
-                                                            selectedOption={this.state.productAvailability === true ? 
+                                                            selectedOption={this.state.productAvailabilityBool === true ? 
                                                                                     "Yes, it is available" : "No, it is not available"}
                                                             onChange={(e) => this.handleRadiobutton(e, "productAvailability")}
                                                         />
@@ -4376,14 +4407,14 @@ class EditProductDetails extends React.Component {
                                                         }
                                                     />
                                                     <div className="installationCostContent">
-                                                        <div className="contentForOptionSelection">
-                                                            <p>
-                                                            Yes, we install this product for an extra cost.
-                                                            </p>
-                                                        </div>
-                                                        <div className={this.state.inputSection}>
-
-                                                            <div className="installationCostOuterContent">
+                                                    <div className="contentForOptionSelection">
+                                                        <p>
+                                                        Yes, we install this product for an extra
+                                                        cost.
+                                                        </p>
+                                                    </div>
+                                                    <div className={this.state.inputSection}>
+                                                    <div className="installationCostOuterContent">
                                                                 <header>
                                                                     <p>Installation cost (in INR)</p>
                                                                     <div className="line"></div>
@@ -4433,7 +4464,44 @@ class EditProductDetails extends React.Component {
                                                                 </div>
                                                             </div>
                                                         
-                                                        </div>
+                                                        {/* <input
+                                                        type="text"
+                                                        ref="installationCost"
+                                                        maxLength="5"
+                                                        placeholder="EX. 20"
+                                                        defaultValue={this.state.productInstallationServiceCost !== 0 ? this.state.productInstallationServiceCost : ""}
+                                                        onChange={e =>
+                                                            this.checkTypeNumber(e, "installation")
+                                                        }
+                                                        />
+                                                        <span className="InputSeparatorLine"> </span>
+                                                        <p>/</p>
+                                                        <SelectList
+                                                        name="installationServiceCostType"
+                                                        value={this.state.installationServiceCostType}
+                                                        onChange={e =>
+                                                            this.onChangeHandler(
+                                                            e,
+                                                            "installationServiceCost"
+                                                            )
+                                                        }
+                                                        options={this.returnTypesOfCharge()}
+                                                        /> */}
+                                                    </div>
+                                                    <div className="errorContent">
+                                                        <p className={this.state.displayError}>
+                                                        Numbers Only
+                                                        </p>
+                                                        <p
+                                                        className={
+                                                            this.state.displayInstallationValueError
+                                                        }
+                                                        >
+                                                        Installation cost cannot be zero, If you wish
+                                                        not to offer installation service, please
+                                                        select the option accordingly.
+                                                        </p>
+                                                    </div>
                                                     </div>
                                                 </div>
 

@@ -63,17 +63,58 @@ export default class HtmlSlider extends React.Component{
             rightArrowClass : "rightArrowButton",
             leftArrowClass : "hide",
 
+            imageCountFromProps : this.props.numberOfSlides
+
         }
 
         
     }
 
+    adjustAndSetGridTemplateCols = (screenWidth) => {
+        // return this.returnTemplateCols()
+
+        if(screenWidth <= 1024) {
+            this.setState({
+                imageCountFromProps : 3
+            })
+        }
+        else if(screenWidth <= 768){
+            this.setState({
+                imageCountFromProps : 2
+            })
+        }
+    }
+
+    updateDimensions = () => {
+
+        let w = window,
+            d = document,
+            documentElement = d.documentElement,
+            body = d.getElementsByTagName('body')[0],
+            width = w.innerWidth || documentElement.clientWidth || body.clientWidth,
+            height = w.innerHeight|| documentElement.clientHeight|| body.clientHeight;
+    
+            // this.setState({width: width, height: height})
+
+            this.adjustAndSetGridTemplateCols(width)
+
+            // console.log(width)
+            // if you are using ES2015 I'm pretty sure you can do this: this.setState({width, height});
+    }
+
+
+    componentWillUnmount = () => {
+        window.removeEventListener("resize", this.updateDimensions);
+    }
+
     componentDidMount = () => {
+
+        window.addEventListener("resize",  this.updateDimensions);
 
         if(
             this.props.categoryData.imagesInCategory.length - this.state.imageNumberCount + 1
             <= 
-            this.props.numberOfSlides + 1
+            this.state.imageCountFromProps + 1
             ){
 
             this.setState({
@@ -88,7 +129,7 @@ export default class HtmlSlider extends React.Component{
 
         const dummyArr = []
         let c = 0
-        const numberOfSlidesToShow = productDetailObject.imagesInCategory.length >= this.props.numberOfSlides   ? this.props.numberOfSlides : productDetailObject.imagesInCategory.length 
+        const numberOfSlidesToShow = productDetailObject.imagesInCategory.length >= this.state.imageCountFromProps   ? this.state.imageCountFromProps : productDetailObject.imagesInCategory.length 
 
         while(c < numberOfSlidesToShow){
             dummyArr.push(c)
@@ -207,25 +248,29 @@ export default class HtmlSlider extends React.Component{
     }
 
     returnTemplateCols = () => {
-        if(this.props.numberOfSlides === 1){  
+
+
+
+
+        if(this.state.imageCountFromProps === 1){  
             return {
                 gridTemplateColumns : "1fr"
             }
         }
 
-        else if(this.props.numberOfSlides === 2){
+        else if(this.state.imageCountFromProps === 2){
             return {
                 gridTemplateColumns : "1fr 1fr"
             }
         }
         
-        else if(this.props.numberOfSlides === 3){
+        else if(this.state.imageCountFromProps === 3){
             return {
                 gridTemplateColumns : "1fr 1fr 1fr"
             }
         }
 
-        else if(this.props.numberOfSlides === 4){
+        else if(this.state.imageCountFromProps === 4){
             return {
                 gridTemplateColumns : "1fr 1fr 1fr 1fr"
             }
@@ -264,7 +309,7 @@ export default class HtmlSlider extends React.Component{
             if(this.props.categoryData.imagesInCategory.length - this.state.imageNumberCount 
                 > 
                 // 4
-                this.props.numberOfSlides
+                this.state.imageCountFromProps
                 ){
                 this.setState({
                     imageNumberCount : this.state.imageNumberCount + 1,
@@ -275,7 +320,7 @@ export default class HtmlSlider extends React.Component{
             if(this.props.categoryData.imagesInCategory.length - this.state.imageNumberCount 
                 <= 
                 // 5
-                this.props.numberOfSlides + 1
+                this.state.imageCountFromProps + 1
                 ){
                 this.setState({
                     rightArrowClass : "hide"
@@ -284,6 +329,8 @@ export default class HtmlSlider extends React.Component{
         }
 
     }
+
+
 
 
     render(){
@@ -303,7 +350,10 @@ export default class HtmlSlider extends React.Component{
                         </div>
                     </div>
                     
-                    <div className="imageContainerMiddleLayer">
+                    <div 
+                        className="imageContainerMiddleLayer"
+                        style = {this.returnTemplateCols()}
+                        >
                         { this.showItems(this.props.categoryData) }
                     </div>
 
