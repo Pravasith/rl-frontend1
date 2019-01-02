@@ -255,12 +255,12 @@ class AddProductDetails extends React.Component {
       });
   };
 
-  componentDidUpdate() {
-    console.log(
-      this.state.productInstallers,
-      this.state.installerChargeType
-    );
-  }
+  // componentDidUpdate() {
+  //   console.log(
+  //     this.state.productInstallers,
+  //     this.state.installerChargeType
+  //   );
+  // }
 
   modalClassToggle = showOrNot => {
     if (showOrNot === "show")
