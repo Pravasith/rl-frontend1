@@ -743,11 +743,13 @@ input{
                                                                             .form-group{
                                                                                 position: relative;
                                                                             }
-                                                                            .form-group:before{
+                                                                            .form-group::before{
                                                                                 content: "";
+                                                                                display: block;
+                                                                                background:url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjFXxY3iwAR-Py4BFE1vf5IFUYAAX7ap-pTn76B86irWYG6MAT")no-repeat;
                                                                                 position: absolute;
                                                                                 top: 0;
-                                                                                background: yellow;
+                                                                                // background: yellow;
                                                                                 right: 0.5em;
                                                                                 width: 1em;
                                                                                 height: 1em;
@@ -778,7 +780,7 @@ input{
                                                                                 float: right;
                                                                                 padding: 0px 2em;
                                                                                 background: transparent;
-                                                                                line-height: 1.75;
+                                                                                line-height: 1.4;
                                                                                 color: #333;
                                                                                 border: none;
                                                                                 border-bottom: 0.2em solid $mediumGrey;
@@ -1020,7 +1022,7 @@ input{
                                                         margin: 0.5em 0;
                                                         .productSizeDetails{
                                                             @include flexCentreCol;
-                                                            width: 50%;
+                                                            width: 100%;
                                                             align-items: flex-start;
                                                             .sizeCostCartWrap{
                                                                 @include flexCentreRow;
@@ -1030,7 +1032,7 @@ input{
                                                                     font-size: 0.8em;
                                                                 }
                                                                 p{
-                                                                    width: 35%;
+                                                                    width: 70%;
                                                                     font-size: 0.9em;
                                                                     font-weight: 600;
                                                                     color: $primaryMagenta;
@@ -1311,6 +1313,7 @@ input{
 
                                                         .svgImageContainer{
                                                             margin: 0 0.5em;
+                                                            padding-top: 0.3em;
                                                         }
                                                     }
                                                 }
@@ -1375,6 +1378,7 @@ input{
                                 .svgImageContainer{
                                     @include flexCentreRow;
                                     margin-top: 0.5em;
+                                    padding-top: 0.3em;
                                 }
 
                                 .modalContentContainer{

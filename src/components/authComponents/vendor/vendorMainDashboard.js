@@ -1870,10 +1870,18 @@ class VendorMainDashboard extends React.Component {
                                         brandImage 
                                         ?
                                         <div className="productImagesContainer">
-                                            <img 
+                                            {/* <img 
                                                 className = "individualImage" 
                                                 src={brandImage} 
                                                 alt="" 
+                                            /> */}
+                                            <Image
+                                                cloudName="rolling-logs" 
+                                                alt = ""
+                                                publicId={PublicId(brandImage)} 
+                                                // transformations
+                                                width="100" 
+                                                crop="fit"
                                             />
                                         </div>
                                         : 
