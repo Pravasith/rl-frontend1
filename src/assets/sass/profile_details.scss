@@ -758,7 +758,9 @@ input[type=number]::-webkit-outer-spin-button {
                     position: fixed;
                     top: 0;
                 }
-               .vendorHeaderClass{}
+               .vendorHeaderClass{
+                   margin-top: 3em;
+               }
                .vendorFormOuterSection{
                    @include flexCentreRow;
                    .vendorInnerSection{
