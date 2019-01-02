@@ -255,12 +255,12 @@ class AddProductDetails extends React.Component {
       });
   };
 
-  componentDidUpdate() {
-    console.log(
-      this.state.productInstallers,
-      this.state.installerChargeType
-    );
-  }
+  // componentDidUpdate() {
+  //   console.log(
+  //     this.state.productInstallers,
+  //     this.state.installerChargeType
+  //   );
+  // }
 
   modalClassToggle = showOrNot => {
     if (showOrNot === "show")
@@ -1175,10 +1175,12 @@ class AddProductDetails extends React.Component {
     let { productImage, productImagesObject } = this.state;
 
     let temp = {
-      itemCode: this.state.productCode,
+      itemCode: this.state.productCode ? this.state.productCode : "",
       textOnRibbonSatisfied: false,
       imageURL: productImage
     };
+
+    console.log(temp)
 
     // if (temp.imageURL !== "") {
     let dummyArray = productImagesObject.imagesInCategory

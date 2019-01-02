@@ -1992,7 +1992,7 @@ class VendorMainDashboard extends React.Component {
                     <div className="proceedButton">
                         <GradientButton
                             runFunction={() => this.handleCategorySelections()}
-                        >
+                            >
                             Proceed
                         </GradientButton>
                     </div>
@@ -2139,11 +2139,15 @@ class VendorMainDashboard extends React.Component {
                                             // Decrypt data
                                             // 
 
-                                            console.log(responseData)
+                                            // console.log(responseData)
+
+                                            window.open("/vendor/dashboard", "_self")
 
                                             this.setState({
                                                 deleteLoading : false,
-                                                modalToShow : "success"
+                                                modalToShow : "success",
+                                                modalClass: "modalClass hide",
+                                                productManagerWrapperClass: "productManagerWrapperClass",
                                             })
                         
                                         })
@@ -2151,8 +2155,11 @@ class VendorMainDashboard extends React.Component {
                                             console.error(e)
                                             this.setState({
                                                 deleteLoading : false,
-                                                modalToShow : "failure"
+                                                modalToShow : "failure",
+                                                modalClass: "modalClass hide",
+                                                productManagerWrapperClass: "productManagerWrapperClass",
                                             })
+                                            window.open("/vendor/dashboard", "_self")
                                         })
                                         
                                     }}
