@@ -2,6 +2,8 @@ import React from "react"
 import Link from 'next/link'
 
 import "../../../assets/sass/vendor_main_dashboard.scss"
+import { Image } from 'cloudinary-react'
+import PublicId from '../../../factories/cloudinaryFactory'
 
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
@@ -397,6 +399,10 @@ class VendorMainDashboard extends React.Component {
             })
 
             
+    }
+
+    componentDidUpdate() {
+        console.log(this.state.companyProfilePicture)
     }
 
     convertVendorDataAndSave = (productsRaw) => {
@@ -2172,9 +2178,20 @@ class VendorMainDashboard extends React.Component {
                                             <div className="vendorDashboardCompanyLogo">
                                                 <div className="logoImageContainer">
                                                     <div className="logoImageContainerInnerLayer">
-                                                        <img src={
+                                                        {/* <img src={
                                                             this.state.companyProfilePicture ? this.state.companyProfilePicture : ""
-                                                        } alt="" />
+                                                        } alt="" /> */}
+
+                                                        {/* {console.log(this.state.companyProfilePicture)} */}
+                                                        <Image
+                                                            cloudName="rolling-logs" 
+                                                            alt = ""
+                                                            // src = {this.state.companyProfilePicture ? this.state.companyProfilePicture : ""}
+                                                            publicId={PublicId(this.state.companyProfilePicture ? this.state.companyProfilePicture : "")} 
+                                                            // transformations
+                                                            width="300" 
+                                                            crop="scale"
+                                                        />
                                                     </div>
                                                 </div>
                                             </div>

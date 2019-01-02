@@ -16,6 +16,7 @@ import {
   PlusButtonIcon,
   ColorPlusButtonIcon,
   CloseButton,
+  DropDownIcon,
   BigCloseButton,
   ModalCloseButton,
   ErrorMsgSign,
@@ -46,6 +47,7 @@ import ImageUploader from "../../UX/imageUploader";
 import YouTube from "../../UX/youTubeUploader";
 import { api } from "../../../actions/apiLinks";
 import { createClient } from "http";
+// import { url } from "inspector";
 
 class AddProductDetails extends React.Component {
   constructor(props, context) {
@@ -2939,8 +2941,10 @@ class AddProductDetails extends React.Component {
                                   onChange={e =>
                                     this.onChangeHandler(e, "installerCost")
                                   }
+                                  
                                   options={this.returnTypesOfCharge()}
                                 />
+                                
                             </div>
                         </div>
 
@@ -4070,6 +4074,7 @@ class AddProductDetails extends React.Component {
                                             }
                                             options={this.returnTypesOfCharge()}
                                           />
+                                          
                                       </div>
                                     </div>
                                     <div className="errorContent">
