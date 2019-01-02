@@ -861,7 +861,9 @@ class AddProductDetails extends React.Component {
 
         return <div className="errorMessage">{returnError()}</div>;
       }
-    } else if (modalType === "size") {
+    } 
+    
+    else if (modalType === "size") {
       if (this.state.sizeIsValid === false) {
         return (
           <div className="errorMessage">
@@ -869,7 +871,9 @@ class AddProductDetails extends React.Component {
           </div>
         );
       }
-    } else if (modalType === "material") {
+    } 
+    
+    else if (modalType === "material") {
       if (this.state.materialIsValid === false) {
         return (
           <div className="errorMessage">
@@ -877,7 +881,9 @@ class AddProductDetails extends React.Component {
           </div>
         );
       }
-    } else if (modalType === "finish") {
+    } 
+    
+    else if (modalType === "finish") {
       if (this.state.finishDetailsIsValid === false) {
         return (
           <div className="errorMessage">
@@ -1667,7 +1673,7 @@ class AddProductDetails extends React.Component {
             modalType: null,
             isChecked: false,
             productFinishes:
-              productFinishes.length !== 0 ? productFinishes : null,
+              productFinishes.length !== 0 ? productFinishes : [],
             extraCostInput: "extraCostInput hide",
             displayError: "displayError hide",
             productFinishImage: "",
@@ -3159,7 +3165,7 @@ class AddProductDetails extends React.Component {
         value: this.state.productPrice
       },
       { fieldName: "Material", value: this.state.productMaterials },
-      { fieldName: "Finishing Options", value: this.state.productFinishes },
+      // { fieldName: "Finishing Options", value: this.state.productFinishes },
       { fieldName: "Color Options", value: this.state.colorArray },
       { fieldName: "Sizes Available", value: this.state.productDimensions },
       { fieldName: "Min. quantity", value: this.state.productMinQuantity },

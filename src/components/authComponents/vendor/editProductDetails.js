@@ -376,9 +376,9 @@ class EditProductDetails extends React.Component {
             })
     }
 
-    componentDidUpdate() {
-        console.log(this.state.productInstallationServiceCost)
-    }
+    // componentDidUpdate() {
+    //     console.log(this.state.productInstallationServiceCost)
+    // }
 
 
     handleDefaultChecked = () => {
