@@ -305,6 +305,8 @@ class VendorMainDashboard extends React.Component {
                     ]
             },
 
+            deleteLoading : false,
+
             // productInstallers: [
             //     {
             //         installerName: "rakshith",
@@ -706,7 +708,7 @@ class VendorMainDashboard extends React.Component {
 
                 this.setState({
 
-
+                    productSelected : productId,
 
                     /// PLACE HERE ////
                     productName: decryptedData.productName,
@@ -2081,37 +2083,88 @@ class VendorMainDashboard extends React.Component {
         }
 
         else if (categoryModalOrSubcategoryModal === "delete") {
-            return (
-                <div className="modalCategoryDeleteContainer">
-                    <div className="modalHeaderCloserSection">
-                        <div className="modalHeaderContainer">
-                            <h3>Are you sure you want to delete this ?</h3>
-                            <div className="line"></div>
+
+            if(this.state.deleteLoading){
+                return (
+                    <div className="modalCategoryDeleteContainer">
+                        <div className="loadingAnimationDelete">
+                            <NavBarLoadingIcon/>
                         </div>
                     </div>
-                    <div className="confirmationButtonContainer">
-                        <div className="closeButtonContainer">
-                            <WhiteButton    
-                                runFunction={() => this.setState({
-                                    modalClass: "modalClass hide",
-                                    productManagerWrapperClass: "productManagerWrapperClass",
-                                    mainContentWrap: "mainContentWrap",
-                                    vendorInitialGraphic: 'vendorGraphicCenter',
-                                })}
-                            >
-                                No
+                )
+            }
+
+            else{
+                return (
+                    <div className="modalCategoryDeleteContainer">
+                        <div className="modalHeaderCloserSection">
+                            <div className="modalHeaderContainer">
+                                <h3>Are you sure you want to delete this ?</h3>
+                                <div className="line"></div>
+                            </div>
+                        </div>
+                        <div className="confirmationButtonContainer">
+                            <div className="closeButtonContainer">
+                                <WhiteButton    
+                                    runFunction={() => this.setState({
+                                        modalClass: "modalClass hide",
+                                        productManagerWrapperClass: "productManagerWrapperClass",
+                                        mainContentWrap: "mainContentWrap",
+                                        vendorInitialGraphic: 'vendorGraphicCenter',
+                                    })}
+                                    >
+                                    No
                                 </WhiteButton>
-                        </div>
-                        <div className="yesContainer">
-                            <WhiteButton
-                                runFunction={() => console.log("Delete wrkin")}
-                            >
-                                Yes
-                             </WhiteButton>
+                            </div>
+                            <div className="yesContainer">
+                                <WhiteButton
+                                    runFunction={() => {
+                                        this.setState({
+                                            deleteLoading : true,
+                                        })
+
+                                       
+                                        this.props.hitApi(api.DELETE_PRODUCT + "?pId=" + this.state.productSelected, "DELETE", 
+                                            // {
+                                            //     message: "Houston, destroy product",
+                                            //     requestData: encryptedData
+                                            // }
+                                        )
+                                        .then(() => {
+                                            // 
+                                            // Decrypt data
+                                            // 
+                                            const responseData = decryptData(this.props.responseData.responsePayload.responseData)
+                                            // 
+                                            // Decrypt data
+                                            // 
+
+                                            console.log(responseData)
+
+                                            this.setState({
+                                                deleteLoading : false,
+                                                modalToShow : "success"
+                                            })
+                        
+                                        })
+                                        .catch(e => {
+                                            console.error(e)
+                                            this.setState({
+                                                deleteLoading : false,
+                                                modalToShow : "failure"
+                                            })
+                                        })
+                                        
+                                    }}
+                                    >
+                                    Yes
+                                 </WhiteButton>
+                            </div>
                         </div>
                     </div>
-                </div>
-            )
+                )
+            }
+           
         }
 
         else if (categoryModalOrSubcategoryModal === "subCategoryExistWarning") {

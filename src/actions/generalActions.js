@@ -43,6 +43,8 @@ export function hitApi(apiURL, typeOfRequest, requestPayload) {
         withCredentials: true
     }
 
+    console.log(requestPayload)
+
     // send requests and get deliveries |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
     if (typeOfRequest === "GET") {

@@ -96,6 +96,13 @@ input{
                     background: $white;
                     @include box_shadow;
 
+                    .loadingAnimationDelete{
+                        @include flexCentreCol;
+                        margin: 0.5em;
+                        // background: yellow;
+                        height: 100%;
+                    }
+
                     .modalHeaderContainer{
                         @include flexCentreCol;
                         margin-top: 0.5em;
@@ -1898,6 +1905,7 @@ input{
                     .modalOuterLayer{
                         .modalCategoryDeleteContainer{
                             width: 40%;
+                            
                         }
                         .modalInnerLayer{
                             width: 50%;
@@ -2008,6 +2016,7 @@ input{
                     .modalOuterLayer{
                         .modalCategoryDeleteContainer{
                             width: 50%;
+                            
                         }
                         .modalInnerLayer{
                             width: 70%;
@@ -2112,11 +2121,13 @@ input{
                         }
                     }
                 }
+
                 .modalClass{
                     height: 100%;
                     .modalOuterLayer{
                         .modalCategoryDeleteContainer{
                             width: 50%;
+                            
                         }
                         .modalInnerLayer{
                             width: 70%;

@@ -1,6 +1,6 @@
 
 import {Provider} from "react-redux"
-
+import { Head } from "next/document"
 import StartPage from "../src/components/common/startPage"
 import Link from 'next/link'
 import routeLinks from "../src/config/routeLinks"
@@ -41,9 +41,21 @@ const PostLink = (props) => (
 
 const Index = () => (
     <Provider store={store} >
+        
         <section
             className="bringingTheArtInArchitectureBigWrap"
             >
+
+            {/* <Head>
+                <meta charSet="UTF-8"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+                <meta httpEquiv="X-UA-Compatible" content="ie=edge"/>
+                <link rel="icon" type="image/x-icon" href="../static/favicon.ico" />
+
+                
+                
+            </Head> */}
+
             <div className="outerWrapperIndexPage">
                 <StartPage />
                 <ul>
