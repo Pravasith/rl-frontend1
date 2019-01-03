@@ -256,10 +256,7 @@ class AddProductDetails extends React.Component {
   };
 
   // componentDidUpdate() {
-  //   console.log(
-  //     this.state.productInstallers,
-  //     this.state.installerChargeType
-  //   );
+  //   console.log(this.state.finishDetailsIsValid);
   // }
 
   modalClassToggle = showOrNot => {
@@ -669,6 +666,9 @@ class AddProductDetails extends React.Component {
                 <h3>Extra cost over base price</h3>
                 <p key={i}>Rs. {item.materialCost}</p>
               </div>
+              <div className="finishCodecartwrap">
+                {this.returnMiscellaneousField("materialGrade", item)}
+              </div>
             </div>
             <div className="materialEditingButtons">
               {/* <div className="editButton">
@@ -741,14 +741,27 @@ class AddProductDetails extends React.Component {
     });
   };
 
-  returnFinishCode = finish => {
-    if (finish.finishCode !== "") {
-      return (
-        <div className="finishCodeCartWrapReturn">
-          <h3>Finish code </h3>
-          <p>{finish.finishCode}</p>
-        </div>
-      );
+  returnMiscellaneousField = (field, item) => {
+    if (field === "finishCode") {
+      if (item.finishCode !== "") {
+        return (
+          <div className="finishCodeCartWrapReturn">
+            <h3>Finish code </h3>
+            <p>{item.finishCode}</p>
+          </div>
+        );
+      }
+    }
+
+    else if (field === "materialGrade") {
+      if (item.materialGrade !== "") {
+        return (
+          <div className="materialGradeCartWrapReturn">
+            <h3>Material Grade </h3>
+            <p>{item.materialGrade}</p>
+          </div>
+        );
+      }
     }
   };
 
@@ -773,7 +786,7 @@ class AddProductDetails extends React.Component {
                     <p key={i}>Rs. {item.finishCost}</p>
                   </div>
                   <div className="finishCodecartwrap">
-                    {this.returnFinishCode(item)}
+                    {this.returnMiscellaneousField("finishCode", item)}
                   </div>
                 </div>
 
@@ -1139,7 +1152,7 @@ class AddProductDetails extends React.Component {
           this.setState({
             materialCost: "",
             displayError: "displayError",
-            materialCostValid: false
+            materialCostIsValid: false
           });
         } else if (checkFor === "size") {
           this.setState({
@@ -1604,13 +1617,15 @@ class AddProductDetails extends React.Component {
     else if (typeOfButtonClicked === "material") {
       const materialName = this.refs.materialName.value;
       const materialCost = isChecked ? this.refs.materialCost.value : 0;
+      const materialGrade = this.refs.materialGrade.value;
 
       let validatedData = validateMaterialModal(materialName, materialCost);
 
       if (validatedData.isMaterialValid) {
         let temp = {
           materialCost,
-          materialName
+          materialName,
+          materialGrade
         };
 
         if (temp.materialName !== "") {
@@ -1688,7 +1703,9 @@ class AddProductDetails extends React.Component {
         this.refs.finishCode.value = "";
 
         this.modalClassToggle("dontShow");
-      } else {
+      } 
+      
+      else {
         this.setState({
           finishDetailsIsValid: false,
           emptyFieldInFinishDetails: validatedData.emptyField
@@ -2355,6 +2372,7 @@ class AddProductDetails extends React.Component {
                             Numbers Only
                           </p>
                         </div>
+
                         <div className="inputFormContainer">
                           <div className="formParaSection">
                             <p className="pargraphClass">
@@ -2373,6 +2391,7 @@ class AddProductDetails extends React.Component {
                             <span className="InputSeparatorLine"> </span>
                           </div>
                         </div>
+
                       </div>
                     </div>
                   </div>
@@ -2382,6 +2401,7 @@ class AddProductDetails extends React.Component {
                     >
                       Proceed
                     </GradientButton>
+                    {this.displayErrorModal("finish")}
                   </div>
                 </div>
               </div>
@@ -2642,6 +2662,25 @@ class AddProductDetails extends React.Component {
                     </div>
                   </div>
 
+                  <div className="inputFormContainer">
+                    <div className="formParaSection">
+                      <p className="pargraphClass">
+                        Material built Grade (if any)
+                      </p>
+                    </div>
+                    <div className="modalInputCategory">
+                      <input
+                        type="text"
+                        name="materialGrade"
+                        placeholder="Ex. ISI, ISO etc"
+                        onChange={this.onChangeHandler}
+                        maxLength="30"
+                        ref="materialGrade"
+                      />
+                      <span className="InputSeparatorLine"> </span>
+                    </div>
+                  </div>
+
                   <div className="switchContainer">
                     <div className="labelUpperColumn">
                       <div className="switchContainerParagraph">
@@ -2679,6 +2718,7 @@ class AddProductDetails extends React.Component {
                       Numbers Only
                     </p>
                   </div>
+
                 </div>
                 <div className="proceedOrNotCheck">
                   <GradientButton
@@ -3166,7 +3206,7 @@ class AddProductDetails extends React.Component {
       },
       { fieldName: "Material", value: this.state.productMaterials },
       // { fieldName: "Finishing Options", value: this.state.productFinishes },
-      { fieldName: "Color Options", value: this.state.colorArray },
+      // { fieldName: "Color Options", value: this.state.colorArray },
       { fieldName: "Sizes Available", value: this.state.productDimensions },
       { fieldName: "Min. quantity", value: this.state.productMinQuantity },
       {

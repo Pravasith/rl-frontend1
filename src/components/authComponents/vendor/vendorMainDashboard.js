@@ -1351,6 +1351,12 @@ class VendorMainDashboard extends React.Component {
                                         {/* <h3>Name: </h3> <p>{item.materialName}</p> */}
                                         <p>{item.materialName}</p>
                                     </div>
+
+                                    <div className="modalSubText">
+                                        {/* <h3>Price:</h3> <p>Rs. {item.materialCost}</p> */}
+                                        <p>{item.materialGrade}</p>
+                                    </div>
+
                                     <div className="modalSubText">
                                         {/* <h3>Price:</h3> <p>Rs. {item.materialCost}</p> */}
                                         {
