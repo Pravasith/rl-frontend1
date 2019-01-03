@@ -312,17 +312,9 @@ class EditProductDetails extends React.Component {
             }
                 
         })
-
-
-
-
-
-
-
-
-
-       
-
+        
+        
+        
         // this
         //     .props
         //     .getUserData()
@@ -510,20 +502,6 @@ class EditProductDetails extends React.Component {
     // componentDidUpdate() {
     //     console.log(this.state.productInstallationServiceCost)
     // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     handleDefaultChecked = ( productDiscount, productInstallationAvailability ) => {

@@ -228,9 +228,9 @@ class ProfileDetailsVendor extends React.Component {
             
     }
 
-    componentDidUpdate() {
-        console.log(this.state.firstName, this.state.lastName, this.state.companyName, this.state.detailedAddressLine1)
-    }
+    // componentDidUpdate() {
+    //     console.log(this.state.firstName, this.state.lastName, this.state.companyName, this.state.detailedAddressLine1)
+    // }
 
     returnNavBarData = () => {
         if (this.props.userData.responseData) {
