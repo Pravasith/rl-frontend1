@@ -270,6 +270,9 @@
                     margin: 0 auto;
                     text-align: center;
                     color: $mediumGrey;
+                    a{
+                        color: $darkestGrey;
+                    }
                 }
             }
 
@@ -492,7 +495,7 @@
 
 @media screen and (max-width: 520px){
 
-    
+    .mainClass{
     .signUpWrapper{
         .topHeading{
             @include flexCentreCol;
@@ -512,9 +515,13 @@
         .formsX{
             @include flexCentreCol;
             .leftForm{
-                width: 100%;
+                width: 90%;
                 padding: 1em 0;
                 order: 3;
+                .studentLoginBtn2{
+                    width: 70%;
+                    text-align: center;
+                }
             }
             .orSplit{
                 @include flexCentreCol;
@@ -524,9 +531,14 @@
             .socialNetworksForm{
                 width: 100%;
                 order: 1;
+                padding: 0;
             }
         }
     }
+    .footerWrapper{
+        display: none;
+    }
+}
 
 
     .finalCheckWrapper{

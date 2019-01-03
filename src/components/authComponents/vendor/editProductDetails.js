@@ -507,6 +507,9 @@ class EditProductDetails extends React.Component {
         //             console.error(err)
         //     })
 
+    // componentDidUpdate() {
+    //     console.log(this.state.productInstallationServiceCost)
+    // }
 
 
 

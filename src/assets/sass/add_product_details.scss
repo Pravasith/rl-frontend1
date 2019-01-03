@@ -708,7 +708,7 @@ input{
                                                             width: 100%;
                                                             .contentForOptionSelection{}
                                                             .inputSection{
-                                                                background: $lightGrey;
+                                                                background: $veryLightGrey;
                                                                 padding: 0.5em 1em;
                                                                 margin: 0.5em 0;
                                                                 width: 90%;
@@ -746,14 +746,25 @@ input{
                                                                             .form-group::before{
                                                                                 content: "";
                                                                                 display: block;
-                                                                                background:url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjFXxY3iwAR-Py4BFE1vf5IFUYAAX7ap-pTn76B86irWYG6MAT")no-repeat;
+                                                                                background:url("https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/dropDownMagentaArrow-01.png")no-repeat;
                                                                                 position: absolute;
-                                                                                top: 0;
+                                                                                top: 0.25em;
                                                                                 // background: yellow;
-                                                                                right: 0.5em;
+                                                                                right: 0.4em;
                                                                                 width: 1em;
                                                                                 height: 1em;
+                                                                                &:hover{
+                                                                                    transform: rotate(360deg);
+                                                                                }
                                                                             }
+                                                                            .form-group:hover::before{
+                                                                                transform: rotate(180deg);
+                                                                                height: 0.7em;
+                                                                                top: 0; 
+                                                                                transition: .5s;
+                                                                            }
+                                                                            
+                                                                            
                                                                             // .form-group:after{
                                                                             //     content: "";
                                                                             //     width: 0; 
@@ -778,15 +789,35 @@ input{
                                                                                 display: block;
                                                                                 width: 100%;
                                                                                 float: right;
-                                                                                padding: 0px 2em;
+                                                                                padding: 0px 2em 0.1em 0.5em;
                                                                                 background: transparent;
                                                                                 line-height: 1.4;
                                                                                 color: #333;
                                                                                 border: none;
                                                                                 border-bottom: 0.2em solid $mediumGrey;
-                                                                                -ms-word-break: normal;
-                                                                                word-break: normal;
+                                                                                outline: none;
+
+                                                                                option{
+                                                                                    background-color: $white;
+                                                                                    border: 0;
+                                                                                    border-radius: 0.5em;
+                                                                                }
                                                                               }
+                                                                            //   select:focus{
+                                                                            //     background-color:#FFF;
+                                                                            //     outline:none;
+                                                                            //     border:none;
+                                                                            //     box-shadow:none;
+                                                                            // }
+                                                                            .form-group option{
+                                                                                background-color:#FFF;
+                                                                                outline:none;
+                                                                                border:none;
+                                                                                box-shadow:none;
+                                                                            }
+                                                                            option{
+
+                                                                            }
                                                                             
                                                                         }
                                                                     }
@@ -1967,12 +1998,13 @@ input{
                                                     .modalMandatorySection{
                                                         background: $secondaryMagenta;
                                                         padding: 0.2em;
+                                                        margin-right: 1em;
                                                         .madatoryHighlight{
                                                             color: $white;
                                                         }
                                                     }
                                                     .modalInputCategory{
-                                                        margin-left: 1em;
+                                                        // margin-left: 1em;
                                                         width: 100%;
                                                         input{
                                                             border: none;
@@ -2278,9 +2310,10 @@ input{
     .vendorDashboardWrapper{
         .mainClass{
            nav{
-            position: sticky;
-            top: 0;
-            background: $white;
+            // position: fixed;
+            // top: 0;
+            // background: $white;
+            // z-index: 99;
            } 
            .vendorDummyContainer{
                top: 0;
@@ -2292,6 +2325,7 @@ input{
                         top: 4em;
                     }
                     .uploadSectionRightWrapper{
+                        margin-top: 3em;
                         .rightWrapperInnerLayer{
                             .vendorFormHeading{}
                             .vendorUploadFormSection{

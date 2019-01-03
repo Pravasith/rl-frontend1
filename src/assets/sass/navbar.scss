@@ -7,7 +7,7 @@
 nav{
     width: 100%;
     margin: 0;
-    margin-top: 0.2em;
+    // margin-top: 0.2em;
     background: $white;
 }
 
@@ -226,6 +226,11 @@ nav{
 
 @media screen and (max-width: 1024px){
     nav{
+            position: fixed;
+            top: 0;
+            background: $white;
+            z-index: 99;
+            margin-top: 0;
         .navbarHeaderClass{
             header{
 
