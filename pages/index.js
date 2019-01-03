@@ -42,11 +42,6 @@ const PostLink = (props) => (
 )
 
 
-const checkAndReturnRelevantPage = () => {
-    setTimeout(() => {
-        window.open("/register", "_self")
-    }, 3000)
-}
 
 const Index = () => (
     <Provider store={store} >

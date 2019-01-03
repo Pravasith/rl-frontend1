@@ -181,88 +181,145 @@ class AddProductDetails extends React.Component {
       emptyField: [],
 
       installerCostType: 1,
-      installationServiceCostType: 1
+      installationServiceCostType: 1,
+
+      productTypes : [],
     };
   }
 
-  componentDidMount = () => {
-    this.props
-      .getUserData()
+  componentDidMount = async () => {
 
-      .then(data => {
-        let { userData, sCId } = this.props;
+    let { sCId } = this.props
 
-        //
-        // DECRYPT REQUEST DATA
-        //
-        let decryptedData = decryptData(userData.responseData);
-        //
-        // DECRYPT REQUEST DATA
-        //
+    const rawData = { sCId }
 
-        const rawData = { sCId };
+    //
+    // Encrypt data
+    //
+    const encryptedData = encryptData(rawData)
+    //
+    // Encrypt data
+    //
 
-        //
-        // Encrypt data
-        //
-        const encryptedData = encryptData(rawData);
-        //
-        // Encrypt data
-        //
-
-        // GET PRODUCT TYPES
-        this.props
+    await Promise.all([
+      this.props.getUserData(),
+      this.props
           .hitApi(api.GET_PRODUCT_TYPES, "POST", {
             requestData: encryptedData,
             message: "Requesting dispatch product types"
-          })
-          .then(() => {
-            //
-            // DECRYPT REQUEST DATA
-            //
-            let decryptedData = decryptData(
-              this.props.responseData.responsePayload.responseData
-            );
-            //
-            // DECRYPT REQUEST DATA
-            //
+          }),
+          
+    ])
 
-            this.setState({
-              loadingClass: "loadingAnim hide",
-              mainClass: "mainClass",
-              productTypes: decryptedData
-            });
+    .then((data) => {
+        let { userData, responseData } = this.props
 
-            // console.log(this.props.sCId)
-          })
+        //
+        // DECRYPT REQUEST DATA
+        //
+        let decryptedData = [...decryptData(responseData.responsePayload.responseData)]
+          // ...decryptData(userData.responseData),
+          
+        
+        //
+        // DECRYPT REQUEST DATA
+        //
 
-          .catch(err => {
-            if (err.response) {
-              // console.log(err.response)
-              if (err.response.status === 401) window.open("/log-in", "_self");
-              else {
-                // window.open('/vendor/dashboard', "_self")
-              }
-            } else {
-              console.error(err);
-              // window.open('/vendor/dashboard', "_self")
-            }
-          });
-      })
+        console.log(decryptedData)
 
-      .catch(err => {
-        if (err.response) {
-          if (err.response.status === 401) window.open("/log-in", "_self");
-        } else console.error(err);
-      });
-  };
+        this.setState({
+          loadingClass: "loadingAnim hide",
+          mainClass: "mainClass",
+          productTypes: decryptedData
+        })
 
-  // componentDidUpdate() {
-  //   console.log(
-  //     this.state.productInstallers,
-  //     this.state.installerChargeType
-  //   );
-  // }
+
+    })
+
+    .catch(err => {
+      if (err.response) {
+        if (err.response.status === 401) window.open("/log-in", "_self");
+      } else console.error(err);
+    });
+
+
+
+
+
+
+
+
+    // this.props
+    //   .getUserData()
+
+    //   .then(data => {
+    //     let { userData, sCId } = this.props
+
+    //     //
+    //     // DECRYPT REQUEST DATA
+    //     //
+    //     let decryptedData = decryptData(userData.responseData);
+    //     //
+    //     // DECRYPT REQUEST DATA
+    //     //
+
+    //     const rawData = { sCId }
+
+    //     //
+    //     // Encrypt data
+    //     //
+    //     const encryptedData = encryptData(rawData);
+    //     //
+    //     // Encrypt data
+    //     //
+
+    //     // GET PRODUCT TYPES
+    //     this.props
+    //       .hitApi(api.GET_PRODUCT_TYPES, "POST", {
+    //         requestData: encryptedData,
+    //         message: "Requesting dispatch product types"
+    //       })
+    //       .then(() => {
+    //         //
+    //         // DECRYPT REQUEST DATA
+    //         //
+    //         let decryptedData = decryptData(
+    //           this.props.responseData.responsePayload.responseData
+    //         );
+    //         //
+    //         // DECRYPT REQUEST DATA
+    //         //
+
+    //         this.setState({
+    //           loadingClass: "loadingAnim hide",
+    //           mainClass: "mainClass",
+    //           productTypes: decryptedData
+    //         });
+
+    //         // console.log(this.props.sCId)
+    //       })
+
+    //       .catch(err => {
+    //         if (err.response) {
+    //           // console.log(err.response)
+    //           if (err.response.status === 401) window.open("/log-in", "_self");
+    //           else {
+    //             // window.open('/vendor/dashboard', "_self")
+    //           }
+    //         } else {
+    //           console.error(err);
+    //           // window.open('/vendor/dashboard', "_self")
+    //         }
+    //       });
+    //   })
+
+    //   .catch(err => {
+    //     if (err.response) {
+    //       if (err.response.status === 401) window.open("/log-in", "_self");
+    //     } else console.error(err);
+    //   });
+  }
+
 
   modalClassToggle = showOrNot => {
     if (showOrNot === "show")
