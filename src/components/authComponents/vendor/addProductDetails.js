@@ -4373,6 +4373,15 @@ class AddProductDetails extends React.Component {
                           Save and Proceed
                         </GradientButton>
                       </div>
+                      <div>
+                        <WhiteButton
+                          runFunction={() => {
+                            window.open('/vendor/dashboard', "_self")
+                          }}
+                        >
+                          Cancel
+                        </WhiteButton>
+                      </div>
                     </div>
                   </article>
                 </div>
