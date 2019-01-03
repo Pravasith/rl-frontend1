@@ -10,7 +10,7 @@ import StartPage from "../src/components/common/startPage"
 
 const PostLink = (props) => (
     <div>
-        <Link 
+        <Link
             as= {`/vendor/profile-details`}
             href= {`/vendor-profile-details`}
             >
@@ -41,6 +41,13 @@ const PostLink = (props) => (
     
 )
 
+
+const checkAndReturnRelevantPage = () => {
+    setTimeout(() => {
+        window.open("/register", "_self")
+    }, 3000)
+}
+
 const Index = () => (
     <Provider store={store} >
         
@@ -57,6 +64,8 @@ const Index = () => (
                 
                 
             </Head> */}
+
+            {/* {checkAndReturnRelevantPage()} */}
 
             <div className="outerWrapperIndexPage">
                 <StartPage />
