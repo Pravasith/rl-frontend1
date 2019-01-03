@@ -1113,9 +1113,9 @@ class EditProductDetails extends React.Component {
                                 <h3>Extra cost over base price</h3>
                                 <p key={i}>Rs. {item.materialCost}</p>
                             </div>
-                            <div className="finishCodecartwrap">
+                            {/* <div className="finishCodecartwrap"> */}
                                 {this.returnMiscellaneousField("materialGrade", item)}
-                            </div>
+                            {/* </div> */}
                         </div>
                         <div className="materialEditingButtons">
                             {/* <div className="editButton">
@@ -1202,7 +1202,7 @@ class EditProductDetails extends React.Component {
         else if (field === "materialGrade") {
             if (item.materialGrade !== "") {
                 return (
-                    <div className="materialGradeCartWrapReturn">
+                    <div className="materialCostCartWrap">
                         <h3>Material Grade </h3>
                         <p>{item.materialGrade}</p>
                     </div>
