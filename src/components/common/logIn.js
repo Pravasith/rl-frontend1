@@ -8,7 +8,7 @@ import { api } from "../../actions/apiLinks";
 import LogoAnimation from "../animations/logoAnimation";
 import { GradientButton, WhiteButton } from "../UX/uxComponents";
 
-import "../../assets/sass/sign_up_log_in.scss"
+// import "../../assets/sass/sign_up_log_in.scss"
 import { Footer } from "../footer/footer";
 import { encryptData, decryptData } from "../../factories/encryptDecrypt";
 

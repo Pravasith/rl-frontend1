@@ -1,5 +1,6 @@
-import SignUp from "../src/components/common/signUp";
+import SignUp from "../src/components/common/signUp"
 
+import "../src/assets/sass/sign_up_log_in.scss"
 
 const Register = () => (
     <section

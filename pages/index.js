@@ -1,10 +1,12 @@
 
 import {Provider} from "react-redux"
 import { Head } from "next/document"
-import StartPage from "../src/components/common/startPage"
 import Link from 'next/link'
 import routeLinks from "../src/config/routeLinks"
 import store from "../src/store"
+
+import "../src/assets/sass/start_page.scss"
+import StartPage from "../src/components/common/startPage"
 
 const PostLink = (props) => (
     <div>
