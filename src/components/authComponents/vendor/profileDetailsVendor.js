@@ -564,6 +564,7 @@ class ProfileDetailsVendor extends React.Component {
         
     }
 
+
     returnProfileImageUploader = () => {
 
         if (this.state.profilePicture) {
@@ -589,9 +590,11 @@ class ProfileDetailsVendor extends React.Component {
                         imageType="profileImage" // regularImage || profileImage
                         resultData={val => {
                             // this.hitTheAPI("profilePicture", val.imageURL)
+
                             this.setState({
-                                profilePicture: val.imageURL
+                                profilePicture: imageURL
                             })
+                            
                         }}
                         // showInitialImage={this.state.profilePicture}
                         imageClassName="profilePictureClass"
@@ -718,7 +721,8 @@ class ProfileDetailsVendor extends React.Component {
                 firstName : this.state.firstName,
                 lastName : this.state.lastName,
                 mobileNo : this.state.mobileNo,
-                whatsappNo : this.state.whatsappNo
+                whatsappNo : this.state.whatsappNo,
+                profilePicture : this.state.profilePicture
             }
 
             // 
