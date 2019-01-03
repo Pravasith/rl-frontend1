@@ -3537,9 +3537,9 @@ class AddProductDetails extends React.Component {
                         <div className="inputFormContainer">
                           <div className="formParaSection">
                             <p className="pargraphClass"> Finishing options </p>
-                            <div className="modalMandatorySection">
+                            {/* <div className="modalMandatorySection">
                               <p className="madatoryHighlight">Mandatory</p>
-                            </div>
+                            </div> */}
                           </div>
 
                           <div className="productFinishSection">
@@ -3572,9 +3572,9 @@ class AddProductDetails extends React.Component {
                             >
                               Color options
                             </p>
-                            <div className="modalMandatorySection">
+                            {/* <div className="modalMandatorySection">
                               <p className="madatoryHighlight">Mandatory</p>
-                            </div>
+                            </div> */}
                           </div>
 
                           <div className="colorSelectionContainer">
