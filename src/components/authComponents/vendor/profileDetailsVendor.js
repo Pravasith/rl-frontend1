@@ -52,32 +52,121 @@ class ProfileDetailsVendor extends React.Component {
         }
     }
 
-    componentDidMount = () => {
+    componentDidMount = async () => {
 
-        this.props.getUserData()
-            .then((data) => {
-                let { userData } = this.props
+
+        await Promise.all([
+            this.props.getUserData(),
+            this.props.hitApi(api.GET_VENDOR_DATA, "GET")
+        ])
+
+        .then((data) => {
+            let { userData, responseData } = this.props
+
+
+            if (responseData.responsePayload.message !== "User credentials not found") {
 
                 //
                 // DECRYPT REQUEST DATA
-                // 
-                let decryptedData = decryptData(
-                    userData.responseData
-                )
+                //
+                let decryptedData = {
+                    ...decryptData(userData.responseData),
+                    ...decryptData(responseData.responsePayload.responseData)
+                }
                 //
                 // DECRYPT REQUEST DATA
                 //
+
+
+                let gstInState = {}
+
+                const getIndividualGSTINs = () => {
+                    if (decryptedData.GSTIN)
+                        decryptedData.GSTIN.split('-').map((item, i) => {
+                            gstInState["gstIn" + (i + 1)] = item
+                        })
+                }
+
+                if (decryptedData.GSTIN !== undefined || decryptedData.GSTIN !== null) {
+                    getIndividualGSTINs()
+                }
 
                 this.setState({
-                    loadingClass: 'loadingAnim hide',
-                    mainClass: 'mainClass',
 
                     firstName: decryptedData.firstName,
                     lastName: decryptedData.lastName,
                     profilePicture: decryptedData.profilePicture,
                     mobileNo: decryptedData.mobileNo,
-                    whatsappNo: decryptedData.whatsappNo
+                    whatsappNo: decryptedData.whatsappNo,
+
+                    /////////
+
+                    companyName: decryptedData.companyName,
+
+                    detailedAddressLine1: decryptedData.address.detailedAddressLine1,
+                    detailedAddressLine2: decryptedData.address.detailedAddressLine2,
+                    state: decryptedData.address.state,
+                    city: decryptedData.address.city,
+                    pincode: decryptedData.address.pincode,
+
+                    companyDescriptionLine1: decryptedData.companyDescriptionLine1,
+                    companyDescriptionLine2: decryptedData.companyDescriptionLine2,
+
+                    experienceCount: decryptedData.experience.years,
+
+                    gstIn: decryptedData.GSTIN,
+                    pan: decryptedData.PAN,
+
+                    companyProfilePicture: decryptedData.companyProfilePicture,
+
+                    ...gstInState,
+
+                    //////////
+
+                    loadingClass: 'loadingAnim hide',
+                    mainClass: 'mainClass',
+
                 })
+            }
+        })
+
+        .catch((err) => {
+            if (err.response) {
+                if (err.response.status === 401)
+                    window.open('/log-in', "_self")
+            }
+
+            else
+                console.error(err)
+        })
+
+
+
+
+        this.props.getUserData()
+            .then((data) => {
+                // let { userData } = this.props
+
+                // //
+                // // DECRYPT REQUEST DATA
+                // // 
+                // let decryptedData = decryptData(
+                //     userData.responseData
+                // )
+                // //
+                // // DECRYPT REQUEST DATA
+                // //
+
+                // this.setState({
+                //     loadingClass: 'loadingAnim hide',
+                //     mainClass: 'mainClass',
+
+                //     firstName: decryptedData.firstName,
+                //     lastName: decryptedData.lastName,
+                //     profilePicture: decryptedData.profilePicture,
+                //     mobileNo: decryptedData.mobileNo,
+                //     whatsappNo: decryptedData.whatsappNo
+                // })
 
                 this.props.hitApi(api.GET_VENDOR_DATA, "GET")
                     .then((data) => {
