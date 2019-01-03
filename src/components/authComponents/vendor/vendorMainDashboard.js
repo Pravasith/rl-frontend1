@@ -1749,30 +1749,40 @@ class VendorMainDashboard extends React.Component {
                     </div>
                     <div className="productPreviewInformationColumn">
 
+                        
                                 
                         <div className="productsInformationInnerLayer">
 
-                            <div className="productThumbImage">
-                                <img
-                                    src={productThumbImage}
-                                    alt=""
-                                />
+                            <div className="alignedSubjects">
+                                <div className="leftAligned">
+                                    <div className="productSubHeading">
+                                        <h3>Name </h3>
+                                        <p>{productName}</p>
+                                    </div>
+
+                                    <div className="productSubHeading">
+                                        <h3>Code </h3>
+                                        <p>{productCode}</p>
+                                    </div>
+
+                                    <div className="productSubHeading">
+                                        <h3>Price </h3>
+                                        <p>Rs. {productPrice} per piece</p>
+                                    </div>
+                                </div>
+
+                                <div className="rightAligned">
+                                    <div className="productThumbImage">
+                                        <img
+                                            src={productThumbImage}
+                                            alt=""
+                                        />
+                                    </div>
+                                </div>
+
                             </div>
+
                             
-                            <div className="productSubHeading">
-                                <h3>Name </h3> 
-                                <p>{productName}</p>
-                            </div>
-
-                            <div className="productSubHeading">
-                                <h3>Code </h3>
-                                <p>{productCode}</p>
-                            </div>
-
-                            <div className="productSubHeading">
-                                <h3>Price </h3> 
-                                <p>Rs. {productPrice} per piece</p> 
-                            </div>
 
                             <div className="gridItemsContainer productSubContainers">
                                 <h3>Material choices </h3>
