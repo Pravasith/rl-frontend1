@@ -2,6 +2,8 @@ import React from "react"
 import Link from 'next/link'
 
 import "../../../assets/sass/vendor_main_dashboard.scss"
+import { Image } from 'cloudinary-react'
+import PublicId from '../../../factories/cloudinaryFactory'
 
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
@@ -305,6 +307,8 @@ class VendorMainDashboard extends React.Component {
                     ]
             },
 
+            deleteLoading : false,
+
             // productInstallers: [
             //     {
             //         installerName: "rakshith",
@@ -422,6 +426,10 @@ class VendorMainDashboard extends React.Component {
             })
 
             
+    }
+
+    componentDidUpdate() {
+        console.log(this.state.companyProfilePicture)
     }
 
     convertVendorDataAndSave = (productsRaw) => {
@@ -706,7 +714,7 @@ class VendorMainDashboard extends React.Component {
 
                 this.setState({
 
-
+                    productSelected : productId,
 
                     /// PLACE HERE ////
                     productName: decryptedData.productName,
@@ -1870,10 +1878,18 @@ class VendorMainDashboard extends React.Component {
                                         brandImage 
                                         ?
                                         <div className="productImagesContainer">
-                                            <img 
+                                            {/* <img 
                                                 className = "individualImage" 
                                                 src={brandImage} 
                                                 alt="" 
+                                            /> */}
+                                            <Image
+                                                cloudName="rolling-logs" 
+                                                alt = ""
+                                                publicId={PublicId(brandImage)} 
+                                                // transformations
+                                                width="100" 
+                                                crop="fit"
                                             />
                                         </div>
                                         : 
@@ -1996,7 +2012,7 @@ class VendorMainDashboard extends React.Component {
                     <div className="proceedButton">
                         <GradientButton
                             runFunction={() => this.handleCategorySelections()}
-                        >
+                            >
                             Proceed
                         </GradientButton>
                     </div>
@@ -2087,37 +2103,95 @@ class VendorMainDashboard extends React.Component {
         }
 
         else if (categoryModalOrSubcategoryModal === "delete") {
-            return (
-                <div className="modalCategoryDeleteContainer">
-                    <div className="modalHeaderCloserSection">
-                        <div className="modalHeaderContainer">
-                            <h3>Are you sure you want to delete this ?</h3>
-                            <div className="line"></div>
+
+            if(this.state.deleteLoading){
+                return (
+                    <div className="modalCategoryDeleteContainer">
+                        <div className="loadingAnimationDelete">
+                            <NavBarLoadingIcon/>
                         </div>
                     </div>
-                    <div className="confirmationButtonContainer">
-                        <div className="closeButtonContainer">
-                            <WhiteButton    
-                                runFunction={() => this.setState({
-                                    modalClass: "modalClass hide",
-                                    productManagerWrapperClass: "productManagerWrapperClass",
-                                    mainContentWrap: "mainContentWrap",
-                                    vendorInitialGraphic: 'vendorGraphicCenter',
-                                })}
-                            >
-                                No
+                )
+            }
+
+            else{
+                return (
+                    <div className="modalCategoryDeleteContainer">
+                        <div className="modalHeaderCloserSection">
+                            <div className="modalHeaderContainer">
+                                <h3>Are you sure you want to delete this ?</h3>
+                                <div className="line"></div>
+                            </div>
+                        </div>
+                        <div className="confirmationButtonContainer">
+                            <div className="closeButtonContainer">
+                                <WhiteButton    
+                                    runFunction={() => this.setState({
+                                        modalClass: "modalClass hide",
+                                        productManagerWrapperClass: "productManagerWrapperClass",
+                                        mainContentWrap: "mainContentWrap",
+                                        vendorInitialGraphic: 'vendorGraphicCenter',
+                                    })}
+                                    >
+                                    No
                                 </WhiteButton>
-                        </div>
-                        <div className="yesContainer">
-                            <WhiteButton
-                                runFunction={() => console.log("Delete wrkin")}
-                            >
-                                Yes
-                             </WhiteButton>
+                            </div>
+                            <div className="yesContainer">
+                                <WhiteButton
+                                    runFunction={() => {
+                                        this.setState({
+                                            deleteLoading : true,
+                                        })
+
+                                       
+                                        this.props.hitApi(api.DELETE_PRODUCT + "?pId=" + this.state.productSelected, "DELETE", 
+                                            // {
+                                            //     message: "Houston, destroy product",
+                                            //     requestData: encryptedData
+                                            // }
+                                        )
+                                        .then(() => {
+                                            // 
+                                            // Decrypt data
+                                            // 
+                                            const responseData = decryptData(this.props.responseData.responsePayload.responseData)
+                                            // 
+                                            // Decrypt data
+                                            // 
+
+                                            // console.log(responseData)
+
+                                            window.open("/vendor/dashboard", "_self")
+
+                                            this.setState({
+                                                deleteLoading : false,
+                                                modalToShow : "success",
+                                                modalClass: "modalClass hide",
+                                                productManagerWrapperClass: "productManagerWrapperClass",
+                                            })
+                        
+                                        })
+                                        .catch(e => {
+                                            console.error(e)
+                                            this.setState({
+                                                deleteLoading : false,
+                                                modalToShow : "failure",
+                                                modalClass: "modalClass hide",
+                                                productManagerWrapperClass: "productManagerWrapperClass",
+                                            })
+                                            window.open("/vendor/dashboard", "_self")
+                                        })
+                                        
+                                    }}
+                                    >
+                                    Yes
+                                 </WhiteButton>
+                            </div>
                         </div>
                     </div>
-                </div>
-            )
+                )
+            }
+           
         }
 
         else if (categoryModalOrSubcategoryModal === "subCategoryExistWarning") {
@@ -2248,9 +2322,20 @@ class VendorMainDashboard extends React.Component {
                                             <div className="vendorDashboardCompanyLogo">
                                                 <div className="logoImageContainer">
                                                     <div className="logoImageContainerInnerLayer">
-                                                        <img src={
+                                                        {/* <img src={
                                                             this.state.companyProfilePicture ? this.state.companyProfilePicture : ""
-                                                        } alt="" />
+                                                        } alt="" /> */}
+
+                                                        {/* {console.log(this.state.companyProfilePicture)} */}
+                                                        <Image
+                                                            cloudName="rolling-logs" 
+                                                            alt = ""
+                                                            // src = {this.state.companyProfilePicture ? this.state.companyProfilePicture : ""}
+                                                            publicId={PublicId(this.state.companyProfilePicture ? this.state.companyProfilePicture : "")} 
+                                                            // transformations
+                                                            width="300" 
+                                                            crop="scale"
+                                                        />
                                                     </div>
                                                 </div>
                                             </div>

@@ -529,7 +529,7 @@ input{
                                                                         font-size: 0.8em;
                                                                     }
                                                                     p{
-                                                                        width: 35%;
+                                                                        width: 70%;
                                                                         font-size: 0.9em;
                                                                         font-weight: 600;
                                                                         color: $primaryMagenta;
@@ -741,13 +741,53 @@ input{
                                                                         }
                                                                         .selectionCategory{
                                                                             .form-group{
-                                                                                select{
-                                                                                    border: none;
-                                                                                    border-bottom: 0.2em solid $mediumGrey;
-                                                                                    background: none;
-                                                                                    cursor: pointer;
-                                                                                }
+                                                                                position: relative;
                                                                             }
+                                                                            .form-group::before{
+                                                                                content: "";
+                                                                                display: block;
+                                                                                background:url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjFXxY3iwAR-Py4BFE1vf5IFUYAAX7ap-pTn76B86irWYG6MAT")no-repeat;
+                                                                                position: absolute;
+                                                                                top: 0;
+                                                                                // background: yellow;
+                                                                                right: 0.5em;
+                                                                                width: 1em;
+                                                                                height: 1em;
+                                                                            }
+                                                                            // .form-group:after{
+                                                                            //     content: "";
+                                                                            //     width: 0; 
+                                                                            //     height: 0; 
+                                                                            //     position: absolute;
+                                                                            //     pointer-events: none;
+                                                                            //     border-left: 0.7em solid transparent;
+                                                                            //     border-right: 0.7em solid transparent;
+                                                                            //     border-top: 0.7em solid red;
+                                                                            //     right: 0.1em;
+                                                                            //     top: 0.5em;
+                                                                                
+                                                                            // }
+                                                                            .form-group select::-ms-expand {
+                                                                                display: none;
+                                                                                }
+                                                                            .form-group select {
+                                                                                position: relative;
+                                                                                appearance: none;
+                                                                                cursor: pointer;
+                                                                                /* Add some styling */
+                                                                                display: block;
+                                                                                width: 100%;
+                                                                                float: right;
+                                                                                padding: 0px 2em;
+                                                                                background: transparent;
+                                                                                line-height: 1.4;
+                                                                                color: #333;
+                                                                                border: none;
+                                                                                border-bottom: 0.2em solid $mediumGrey;
+                                                                                -ms-word-break: normal;
+                                                                                word-break: normal;
+                                                                              }
+                                                                            
                                                                         }
                                                                     }
                                                                     .errorContent{
@@ -982,7 +1022,7 @@ input{
                                                         margin: 0.5em 0;
                                                         .productSizeDetails{
                                                             @include flexCentreCol;
-                                                            width: 50%;
+                                                            width: 100%;
                                                             align-items: flex-start;
                                                             .sizeCostCartWrap{
                                                                 @include flexCentreRow;
@@ -992,7 +1032,7 @@ input{
                                                                     font-size: 0.8em;
                                                                 }
                                                                 p{
-                                                                    width: 35%;
+                                                                    width: 70%;
                                                                     font-size: 0.9em;
                                                                     font-weight: 600;
                                                                     color: $primaryMagenta;
@@ -1065,6 +1105,7 @@ input{
                                                 }
 
                                                 .featureHolder{
+                                                    width: 100%;
                                                     .featureWrap{
                                                         @include flexCentreRow;
                                                         justify-content: flex-start;
@@ -1272,6 +1313,7 @@ input{
 
                                                         .svgImageContainer{
                                                             margin: 0 0.5em;
+                                                            padding-top: 0.3em;
                                                         }
                                                     }
                                                 }
@@ -1336,6 +1378,7 @@ input{
                                 .svgImageContainer{
                                     @include flexCentreRow;
                                     margin-top: 0.5em;
+                                    padding-top: 0.3em;
                                 }
 
                                 .modalContentContainer{

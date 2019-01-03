@@ -8,6 +8,7 @@ nav{
     width: 100%;
     margin: 0;
     margin-top: 0.2em;
+    background: $white;
 }
 
 .rollingLogsLogoWrap{
@@ -223,13 +224,13 @@ nav{
 }
 
 
-// @media screen and (max-width: 1024px){
-//     nav{
-//         .navbarHeaderClass{
-//             header{
+@media screen and (max-width: 1024px){
+    nav{
+        .navbarHeaderClass{
+            header{
 
-//             } 
+            } 
 
-//         }
-//     }
-// }
+        }
+    }
+}

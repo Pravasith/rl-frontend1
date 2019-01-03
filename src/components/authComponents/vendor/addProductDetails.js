@@ -1,6 +1,6 @@
 import React from "react";
 
-import "../../../assets/sass/add_product_details.scss";
+// import "../../../assets/sass/add_product_details.scss";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -16,6 +16,7 @@ import {
   PlusButtonIcon,
   ColorPlusButtonIcon,
   CloseButton,
+  DropDownIcon,
   BigCloseButton,
   ModalCloseButton,
   ErrorMsgSign,
@@ -46,6 +47,7 @@ import ImageUploader from "../../UX/imageUploader";
 import YouTube from "../../UX/youTubeUploader";
 import { api } from "../../../actions/apiLinks";
 import { createClient } from "http";
+// import { url } from "inspector";
 
 class AddProductDetails extends React.Component {
   constructor(props, context) {
@@ -1194,10 +1196,12 @@ class AddProductDetails extends React.Component {
     let { productImage, productImagesObject } = this.state;
 
     let temp = {
-      itemCode: this.state.productCode,
+      itemCode: this.state.productCode ? this.state.productCode : "",
       textOnRibbonSatisfied: false,
       imageURL: productImage
     };
+
+    console.log(temp)
 
     // if (temp.imageURL !== "") {
     let dummyArray = productImagesObject.imagesInCategory
@@ -2987,8 +2991,10 @@ class AddProductDetails extends React.Component {
                                   onChange={e =>
                                     this.onChangeHandler(e, "installerCost")
                                   }
+                                  
                                   options={this.returnTypesOfCharge()}
                                 />
+                                
                             </div>
                         </div>
 
@@ -3452,6 +3458,7 @@ class AddProductDetails extends React.Component {
                         <div className="inputFormContainer">
                           <div className="formParaSection">
                             <p className="pargraphClass">Name of the product</p>
+                            
                           </div>
                           <div className="materialInformationColumn">
                             <InputForm
@@ -3514,6 +3521,9 @@ class AddProductDetails extends React.Component {
                         <div className="inputFormContainer">
                           <div className="formParaSection">
                             <p className="pargraphClass">Material</p>
+                            <div className="modalMandatorySection">
+                              <p className="madatoryHighlight">Mandatory</p>
+                            </div>
                           </div>
                           <div className="productMaterialSection">
                             {this.returnProductMaterials()}
@@ -3575,6 +3585,9 @@ class AddProductDetails extends React.Component {
                         <div className="inputFormContainer">
                           <div className="formParaSection">
                             <p className="pargraphClass"> Finishing options </p>
+                            <div className="modalMandatorySection">
+                              <p className="madatoryHighlight">Mandatory</p>
+                            </div>
                           </div>
 
                           <div className="productFinishSection">
@@ -3607,6 +3620,9 @@ class AddProductDetails extends React.Component {
                             >
                               Color options
                             </p>
+                            <div className="modalMandatorySection">
+                              <p className="madatoryHighlight">Mandatory</p>
+                            </div>
                           </div>
 
                           <div className="colorSelectionContainer">
@@ -3636,6 +3652,9 @@ class AddProductDetails extends React.Component {
                         <div className="inputFormContainer">
                           <div className="formParaSection">
                             <p className="pargraphClass">Sizes available</p>
+                            <div className="modalMandatorySection">
+                              <p className="madatoryHighlight">Mandatory</p>
+                            </div>
                           </div>
                           <div className="productSizeDescriptionOuterLayer">
                             {this.returnProductDimensions()}
@@ -3718,6 +3737,9 @@ class AddProductDetails extends React.Component {
                               {" "}
                               Product description{" "}
                             </p>
+                            <div className="modalMandatorySection">
+                              <p className="madatoryHighlight">Mandatory</p>
+                            </div>
                           </div>
 
                           <div className="materialInfoColumn">
@@ -3838,6 +3860,9 @@ class AddProductDetails extends React.Component {
                               {" "}
                               Choose the product type{" "}
                             </p>
+                            <div className="modalMandatorySection">
+                              <p className="madatoryHighlight">Mandatory</p>
+                            </div>
                           </div>
 
                           <div className="materialInfoColumn">
@@ -3859,6 +3884,9 @@ class AddProductDetails extends React.Component {
                               {" "}
                               Is the product available?{" "}
                             </p>
+                            <div className="modalMandatorySection">
+                              <p className="madatoryHighlight">Mandatory</p>
+                            </div>
                           </div>
 
                           <div className="materialInfoColumn">
@@ -3920,6 +3948,9 @@ class AddProductDetails extends React.Component {
                             <p className="pargraphClass">
                               Is there a discount on this product now?
                             </p>
+                            <div className="modalMandatorySection">
+                              <p className="madatoryHighlight">Mandatory</p>
+                            </div>
                           </div>
 
                           <div className="materialInfoColumn">
@@ -4076,6 +4107,9 @@ class AddProductDetails extends React.Component {
                               Do you offer installation services for this
                               product?
                             </p>
+                            <div className="modalMandatorySection">
+                              <p className="madatoryHighlight">Mandatory</p>
+                            </div>
                           </div>
 
                           <div className="materialInfoColumn">
@@ -4146,6 +4180,7 @@ class AddProductDetails extends React.Component {
                                             }
                                             options={this.returnTypesOfCharge()}
                                           />
+                                          
                                       </div>
                                     </div>
                                     <div className="errorContent">

@@ -4442,7 +4442,7 @@ class EditProductDetails extends React.Component {
                                                                     <div className="selectionCategory">
                                                                         <SelectList
                                                                         name="installationServiceCostType"
-                                                                        value={this.state.installationServiceCostType}
+                                                                        defaultValue={this.state.installationServiceCostType}
                                                                         onChange={e =>
                                                                             this.onChangeHandler(
                                                                             e,

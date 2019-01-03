@@ -561,11 +561,13 @@ class ProfileDetailsVendor extends React.Component {
             { fieldName: "your profile picture", value: this.state.profilePicture },
             { fieldName: 'mobile number', value: this.state.mobileNo },
             { fieldName: 'company name', value: this.state.companyName }, 
+
             { fieldName: "your company address", value: this.state.detailedAddressLine1 },
             { fieldName: 'state', value: this.state.state },
             { fieldName: 'city', value: this.state.city },
             { fieldName: 'pincode', value: this.state.pincode },
             { fieldName: 'description about your company', value: this.state.companyDescriptionLine1 },
+
             { fieldName: 'your experience in the industry', value: this.state.experienceCount },
             { fieldName: "your company's GST identification number", value: this.state.gstIn },
             { fieldName: "your company's PAN number", value: this.state.pan },
@@ -794,7 +796,10 @@ class ProfileDetailsVendor extends React.Component {
                                                             value={this.state.firstName ? this.state.firstName : null}
                                                             result={(val) => {
                                                                 // this.hitTheAPI("firstName", val)
-                                                                this.setState({ firstName: val })
+
+                                                                this.setState({
+                                                                    firstName : val
+                                                                })
                                                             }}
                                                         />
                                                     </div>
@@ -851,8 +856,11 @@ class ProfileDetailsVendor extends React.Component {
                                                             characterCount="50"
                                                             value={this.state.companyName}
                                                             result={(val) => {
+
                                                                 // this.updateVendorData("companyName", val)
-                                                                this.setState({ companyName: val })
+                                                                this.setState({
+                                                                    companyName : val
+                                                                })
                                                             }}
                                                         />
                                                     </div>
