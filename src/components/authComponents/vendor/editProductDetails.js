@@ -507,6 +507,9 @@ class EditProductDetails extends React.Component {
         //             console.error(err)
         //     })
 
+    // componentDidUpdate() {
+    //     console.log(this.state.productInstallationServiceCost)
+    // }
 
 
 
@@ -1100,52 +1103,44 @@ class EditProductDetails extends React.Component {
     }
 
     returnProductMaterials = () => {
-        return (
-            this
-                .state
-                .productMaterials
-                .map((item, i) => {
-                    return (
-                        <div
-                            className="productMaterialDescriptionOuterLayer"
-                            key={i}
-                        >
-                            <div className="productMaterialDescriptionInnerLayer">
-                                <div className="productMaterialDetails">
-                                    <div className="materialCostCartWrap">
-                                        <h3>Material nomenclature</h3>
-                                        <p key={i}
-                                        >{item.materialName}</p>
-                                    </div>
-                                    <div className="materialCostCartWrap">
-                                        <h3>Extra cost over base price</h3>
-                                        <p key={i}>Rs. {item.materialCost}</p>
-                                    </div>
-                                </div>
-                                <div className="materialEditingButtons">
-                                    {/* <div className="editButton">
-                                        <WhiteButton
-                                            runFunction={() => this.editProductMaterials(i)}
-                                        >
-                                            Edit
-                                        </WhiteButton>
-                                    </div> */}
-                                    <div
-                                        className="deleteButton"
-                                        onClick={() => this.removeProductMaterials(i)}
-                                    >
-                                        <WhiteButton>
-                                            Delete
-                                        </WhiteButton>
-                                    </div>
-                                </div>
+        return this.state.productMaterials.map((item, i) => {
+            return (
+                <div className="productMaterialDescriptionOuterLayer" key={i}>
+                    <div className="productMaterialDescriptionInnerLayer">
+                        <div className="productMaterialDetails">
+                            <div className="materialCostCartWrap">
+                                <h3>Material nomenclature</h3>
+                                <p key={i}>{item.materialName}</p>
+                            </div>
+                            <div className="materialCostCartWrap">
+                                <h3>Extra cost over base price</h3>
+                                <p key={i}>Rs. {item.materialCost}</p>
+                            </div>
+                            {/* <div className="finishCodecartwrap"> */}
+                                {this.returnMiscellaneousField("materialGrade", item)}
+                            {/* </div> */}
+                        </div>
+                        <div className="materialEditingButtons">
+                            {/* <div className="editButton">
+                                          <WhiteButton
+                                              runFunction={() => this.editProductMaterials(i)}
+                                          >
+                                              Edit
+                                          </WhiteButton>
+                                      </div> */}
+
+                            <div
+                                className="deleteButton"
+                                onClick={() => this.removeProductMaterials(i)}
+                            >
+                                <WhiteButton>Delete</WhiteButton>
                             </div>
                         </div>
-                    )
-                })
-        )
-    }
-
+                    </div>
+                </div>
+            );
+        });
+    };
     // editProductMaterials = async (index) => {
     //     const materialName = this.state.productMaterials[index].materialName;
     //     const materialCost = this.state.productMaterials[index].materialCost;
@@ -1195,16 +1190,29 @@ class EditProductDetails extends React.Component {
         });
     };
 
-    returnFinishCode = (finish) => {
-        if (finish.finishCode !== "") {
-            return (
-                <div className="finishCodeCartWrapReturn">
-                    <h3>Finish code </h3>
-                    <p>{finish.finishCode}</p>
-                </div>
-            )
+    returnMiscellaneousField = (field, item) => {
+        if (field === "finishCode") {
+            if (item.finishCode !== "") {
+                return (
+                    <div className="finishCodeCartWrapReturn">
+                        <h3>Finish code </h3>
+                        <p>{item.finishCode}</p>
+                    </div>
+                );
+            }
         }
-    }
+
+        else if (field === "materialGrade") {
+            if (item.materialGrade !== "") {
+                return (
+                    <div className="materialCostCartWrap">
+                        <h3>Material Grade </h3>
+                        <p>{item.materialGrade}</p>
+                    </div>
+                );
+            }
+        }
+    };
 
     returnProductFinishes = () => {
 
@@ -1239,7 +1247,7 @@ class EditProductDetails extends React.Component {
                                                 <p key={i}>Rs. {item.finishCost}</p>
                                             </div>
                                             <div className="finishCodecartwrap" >
-                                                {this.returnFinishCode(item)}
+                                                {this.returnMiscellaneousField("finishCode", item)}
                                             </div>
                                         </div>
                                     
@@ -2510,7 +2518,7 @@ class EditProductDetails extends React.Component {
                   </div>
 
                   <div className="productInstallerContactNoWrap">
-                    <p key={i}>+91<span>{item.installerContactNo}</span></p>
+                    <p key={i}>+91 <span>{item.installerContactNo}</span></p>
                   </div>
 
                   <div className={item.installerCharges !== "" ? "productInstallerChargesWrap" : "hide"} >
