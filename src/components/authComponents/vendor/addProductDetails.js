@@ -668,9 +668,9 @@ class AddProductDetails extends React.Component {
                 <h3>Extra cost over base price</h3>
                 <p key={i}>Rs. {item.materialCost}</p>
               </div>
-              <div className="finishCodecartwrap">
+              {/* <div className="materialCostCartWrap"> */}
                 {this.returnMiscellaneousField("materialGrade", item)}
-              </div>
+              {/* </div> */}
             </div>
             <div className="materialEditingButtons">
               {/* <div className="editButton">
@@ -758,7 +758,7 @@ class AddProductDetails extends React.Component {
     else if (field === "materialGrade") {
       if (item.materialGrade !== "") {
         return (
-          <div className="materialGradeCartWrapReturn">
+          <div className="materialCostCartWrap">
             <h3>Material Grade </h3>
             <p>{item.materialGrade}</p>
           </div>
@@ -2672,16 +2672,18 @@ class AddProductDetails extends React.Component {
                         Material built Grade (if any)
                       </p>
                     </div>
-                    <div className="modalInputCategory">
-                      <input
-                        type="text"
-                        name="materialGrade"
-                        placeholder="Ex. ISI, ISO etc"
-                        onChange={this.onChangeHandler}
-                        maxLength="30"
-                        ref="materialGrade"
-                      />
-                      <span className="InputSeparatorLine"> </span>
+                    <div className="productInputInfoSection productMaterialName">
+                      <div className="modalInputCategory">
+                        <input
+                          type="text"
+                          name="materialGrade"
+                          placeholder="Ex. ISI, ISO etc"
+                          onChange={this.onChangeHandler}
+                          maxLength="30"
+                          ref="materialGrade"
+                        />
+                        <span className="InputSeparatorLine"> </span>
+                      </div>
                     </div>
                   </div>
 

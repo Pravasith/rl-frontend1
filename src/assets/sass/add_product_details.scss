@@ -1967,12 +1967,13 @@ input{
                                                     .modalMandatorySection{
                                                         background: $secondaryMagenta;
                                                         padding: 0.2em;
+                                                        margin-right: 1em;
                                                         .madatoryHighlight{
                                                             color: $white;
                                                         }
                                                     }
                                                     .modalInputCategory{
-                                                        margin-left: 1em;
+                                                        // margin-left: 1em;
                                                         width: 100%;
                                                         input{
                                                             border: none;
