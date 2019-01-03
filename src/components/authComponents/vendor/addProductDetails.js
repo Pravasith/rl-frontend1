@@ -5,6 +5,9 @@ import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
+import { Image } from 'cloudinary-react'
+import PublicId from '../../../factories/cloudinaryFactory'
+
 import { getUserData } from "../../../actions/userActions";
 import {
   hitApi,
@@ -2820,22 +2823,6 @@ class AddProductDetails extends React.Component {
                     </div>
                   </div>
                   <div className="content">
-                    <div className="detailsToInput">
-                      <div className="imageInput">
-                        <HtmlSlider
-                          categoryData={this.state.productImagesObject} // format of Item
-                          numberOfSlides={3} // Change the css grid properties for responsiveness
-                          textOnRibbon={""} // All caps
-                          runFunction={data => {
-                            this.setState({
-                              productImageThumbnail: data.imageURL,
-                              showDeleteButton: "showDeleteButton"
-                              // finalProceed: "sendRequest"
-                            });
-                          }}
-                        />
-                      </div>
-                    </div>
 
                     <div className="selectedPreviewImageContainer">
                       <div className="imgContainer">
@@ -2861,6 +2848,22 @@ class AddProductDetails extends React.Component {
                         >
                           Delete
                         </WhiteButton>
+                      </div>
+                    </div>
+                    <div className="detailsToInput">
+                      <div className="imageInput">
+                        <HtmlSlider
+                          categoryData={this.state.productImagesObject} // format of Item
+                          numberOfSlides={3} // Change the css grid properties for responsiveness
+                          textOnRibbon={""} // All caps
+                          runFunction={data => {
+                            this.setState({
+                              productImageThumbnail: data.imageURL,
+                              showDeleteButton: "showDeleteButton"
+                              // finalProceed: "sendRequest"
+                            });
+                          }}
+                        />
                       </div>
                     </div>
                   </div>

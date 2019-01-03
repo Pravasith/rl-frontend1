@@ -1773,9 +1773,17 @@ class VendorMainDashboard extends React.Component {
 
                                 <div className="rightAligned">
                                     <div className="productThumbImage">
-                                        <img
+                                        {/* <img
                                             src={productThumbImage}
                                             alt=""
+                                        /> */}
+                                        <Image 
+                                            cloudName="rolling-logs" 
+                                            alt = ""
+                                            publicId={PublicId(productThumbImage)} 
+                                            // transformations
+                                            width="300" 
+                                            crop="fit"
                                         />
                                     </div>
                                 </div>
