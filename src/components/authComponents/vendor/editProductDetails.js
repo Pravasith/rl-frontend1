@@ -3324,6 +3324,34 @@ class EditProductDetails extends React.Component {
                                         </div>
                                     </div>
                                     <div className="content">
+                                    
+
+                                        <div className="selectedPreviewImageContainer">
+                                            <div className="imgContainer">
+                                                <p
+                                                    className={
+                                                        this.state.productImageThumbnail !== ""
+                                                            ? "previewImageText hide"
+                                                            : "previewImageText"
+                                                    }
+                                                >
+                                                    Click on the image to view
+                                                </p>
+                                                <img src={this.state.productImageThumbnail} alt="" />
+                                            </div>
+                                            <div className={this.state.showDeleteButton}>
+                                                <WhiteButton
+                                                    runFunction={() => {
+                                                        this.removeProductImage();
+                                                        this.setState({
+                                                            showDeleteButton: "showDeleteButton hide"
+                                                        });
+                                                    }}
+                                                >
+                                                    Delete
+                                                </WhiteButton>
+                                            </div>
+                                        </div>
                                         <div className="detailsToInput">
                                             <div className="imageInput">
                                                 <HtmlSlider
@@ -3338,33 +3366,6 @@ class EditProductDetails extends React.Component {
                                                         });
                                                     }}
                                                 />
-                                            </div>
-                                        </div>
-
-                                        <div className="selectedPreviewImageContainer">
-                                            <div className="imgContainer">
-                                                <p
-                                                    className={
-                                                        this.state.productImageThumbnail !== ""
-                                                            ? "previewImageText hide"
-                                                            : "previewImageText"
-                                                    }
-                                                >
-                                                    Click on the image to view
-                        </p>
-                                                <img src={this.state.productImageThumbnail} alt="" />
-                                            </div>
-                                            <div className={this.state.showDeleteButton}>
-                                                <WhiteButton
-                                                    runFunction={() => {
-                                                        this.removeProductImage();
-                                                        this.setState({
-                                                            showDeleteButton: "showDeleteButton hide"
-                                                        });
-                                                    }}
-                                                >
-                                                    Delete
-                        </WhiteButton>
                                             </div>
                                         </div>
                                     </div>
