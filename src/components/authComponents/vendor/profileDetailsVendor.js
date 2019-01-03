@@ -128,6 +128,10 @@ class ProfileDetailsVendor extends React.Component {
 
                 })
             }
+
+            else{
+                window.open('/log-in', "_self")
+            }
         })
 
         .catch((err) => {
@@ -143,94 +147,96 @@ class ProfileDetailsVendor extends React.Component {
 
 
 
-        this.props.getUserData()
-            .then((data) => {
-                // let { userData } = this.props
+        // this.props.getUserData()
+        //     .then((data) => {
+        //         // let { userData } = this.props
 
-                // //
-                // // DECRYPT REQUEST DATA
-                // // 
-                // let decryptedData = decryptData(
-                //     userData.responseData
-                // )
-                // //
-                // // DECRYPT REQUEST DATA
-                // //
+        //         // //
+        //         // // DECRYPT REQUEST DATA
+        //         // // 
+        //         // let decryptedData = decryptData(
+        //         //     userData.responseData
+        //         // )
+        //         // //
+        //         // // DECRYPT REQUEST DATA
+        //         // //
 
-                // this.setState({
-                //     loadingClass: 'loadingAnim hide',
-                //     mainClass: 'mainClass',
+        //         // this.setState({
+        //         //     loadingClass: 'loadingAnim hide',
+        //         //     mainClass: 'mainClass',
 
-                //     firstName: decryptedData.firstName,
-                //     lastName: decryptedData.lastName,
-                //     profilePicture: decryptedData.profilePicture,
-                //     mobileNo: decryptedData.mobileNo,
-                //     whatsappNo: decryptedData.whatsappNo
-                // })
+        //         //     firstName: decryptedData.firstName,
+        //         //     lastName: decryptedData.lastName,
+        //         //     profilePicture: decryptedData.profilePicture,
+        //         //     mobileNo: decryptedData.mobileNo,
+        //         //     whatsappNo: decryptedData.whatsappNo
+        //         // })
 
-                this.props.hitApi(api.GET_VENDOR_DATA, "GET")
-                    .then((data) => {
-                        let { responseData } = this.props
+        //         this.props.hitApi(api.GET_VENDOR_DATA, "GET")
+        //             .then((data) => {
+        //                 let { responseData } = this.props
 
 
-                        if (responseData.responsePayload.message !== "User credentials not found") {
+        //                 if (responseData.responsePayload.message !== "User credentials not found") {
 
-                            //
-                            // DECRYPT REQUEST DATA
-                            //
-                            let decryptedData = decryptData(
-                                responseData.responsePayload.responseData
-                            )
-                            //
-                            // DECRYPT REQUEST DATA
-                            //
+        //                     //
+        //                     // DECRYPT REQUEST DATA
+        //                     //
+        //                     let decryptedData = decryptData(
+        //                         responseData.responsePayload.responseData
+        //                     )
+        //                     //
+        //                     // DECRYPT REQUEST DATA
+        //                     //
 
-                            let gstInState = {}
+        //                     let gstInState = {}
 
-                            const getIndividualGSTINs = () => {
-                                if (decryptedData.GSTIN)
-                                    decryptedData.GSTIN.split('-').map((item, i) => {
-                                        gstInState["gstIn" + (i + 1)] = item
-                                    })
-                            }
+        //                     const getIndividualGSTINs = () => {
+        //                         if (decryptedData.GSTIN)
+        //                             decryptedData.GSTIN.split('-').map((item, i) => {
+        //                                 gstInState["gstIn" + (i + 1)] = item
+        //                             })
+        //                     }
 
-                            if (decryptedData.GSTIN !== undefined || decryptedData.GSTIN !== null) {
-                                getIndividualGSTINs()
-                            }
+        //                     if (decryptedData.GSTIN !== undefined || decryptedData.GSTIN !== null) {
+        //                         getIndividualGSTINs()
+        //                     }
 
-                            this.setState({
+        //                     this.setState({
 
-                                companyName: decryptedData.companyName,
+        //                         companyName: decryptedData.companyName,
 
-                                detailedAddressLine1: decryptedData.address.detailedAddressLine1,
-                                detailedAddressLine2: decryptedData.address.detailedAddressLine2,
-                                state: decryptedData.address.state,
-                                city: decryptedData.address.city,
-                                pincode: decryptedData.address.pincode,
+        //                         detailedAddressLine1: decryptedData.address.detailedAddressLine1,
+        //                         detailedAddressLine2: decryptedData.address.detailedAddressLine2,
+        //                         state: decryptedData.address.state,
+        //                         city: decryptedData.address.city,
+        //                         pincode: decryptedData.address.pincode,
 
-                                companyDescriptionLine1: decryptedData.companyDescriptionLine1,
-                                companyDescriptionLine2: decryptedData.companyDescriptionLine2,
+        //                         companyDescriptionLine1: decryptedData.companyDescriptionLine1,
+        //                         companyDescriptionLine2: decryptedData.companyDescriptionLine2,
 
-                                experienceCount: decryptedData.experience.years,
+        //                         experienceCount: decryptedData.experience.years,
 
-                                gstIn: decryptedData.GSTIN,
-                                pan: decryptedData.PAN,
+        //                         gstIn: decryptedData.GSTIN,
+        //                         pan: decryptedData.PAN,
 
-                                companyProfilePicture: decryptedData.companyProfilePicture,
+        //                         companyProfilePicture: decryptedData.companyProfilePicture,
 
-                                ...gstInState
-                            })
-                        }
-                    })
-                    .catch(e => console.error(e))
-            })
-            .catch(e => console.error(e))
-            
+        //                         ...gstInState
+        //                     })
+        //                 }
+        //             })
+        //             .catch(e => console.error(e))
+        //     })
+        //     .catch(e => console.error(e))
+
+
+
+
+
     }
 
-    componentDidUpdate() {
-        console.log(this.state.firstName, this.state.lastName, this.state.companyName, this.state.detailedAddressLine1)
-    }
+
 
     returnNavBarData = () => {
         if (this.props.userData.responseData) {

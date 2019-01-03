@@ -96,7 +96,8 @@ class Navbar extends Component {
                                     <div
                                         className="menuItem"
                                         onClick={() => {
-                                            window.open('/profile-view/' + this.props.userData._id, '_self')
+                                            // window.open('/profile-view/' + this.props.userData._id, '_self')
+                                            window.open("/vendor/profile-details", "_self")
                                         }}
                                     >
 
