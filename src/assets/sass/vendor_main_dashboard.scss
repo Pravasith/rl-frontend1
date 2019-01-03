@@ -686,6 +686,7 @@ input{
                     .productEditInformationContainer{
                         @include flexCentreRow;
                         width: 100%;
+                        height: 70vh;
                         margin: 0.5em 0;
                         .subCategoryDeatilsInnerLayer{
                             @include flexCentreCol;
