@@ -2209,14 +2209,18 @@ class AddProductDetails extends React.Component {
           </div>
         </div>
       );
-    else if (this.state.finalProceed === "sendRequest") {
+    
+    
+      else if (this.state.finalProceed === "sendRequest") {
       return (
         <div className="loadingWrapperProducts">
           <NavBarLoadingIcon />
           <h3 className="loadingHeader">Saving your product...</h3>
         </div>
       );
-    } else if (this.state.finalProceed === "errorScreen") {
+    } 
+    
+    else if (this.state.finalProceed === "errorScreen") {
       return (
         <div className="loadingWrapperProducts">
           <SadFace />
@@ -2236,7 +2240,9 @@ class AddProductDetails extends React.Component {
           </h3>
         </div>
       );
-    } else if (this.state.finalProceed === "successScreen") {
+    } 
+    
+    else if (this.state.finalProceed === "successScreen") {
       return (
         <div className="loadingWrapperProducts">
           <HappyFace />
@@ -3033,7 +3039,7 @@ class AddProductDetails extends React.Component {
           <div className="modalBackgroundInnerWrap">
             <header className="closeHeaderSection">
               <div
-                className="closeButtonContainer"
+                className={this.returnModalCloseButton()}
                 onClick={() => {
                   this.modalClassToggle("dontShow");
                   // this.setState({
@@ -3063,6 +3069,15 @@ class AddProductDetails extends React.Component {
       </div>
     );
   };
+
+  returnModalCloseButton = () => {
+    if (this.state.finalProceed === "successScreen" || this.state.finalProceed === "errorScreen") {
+      return "closeButtonContainer hide"
+    }
+    else {
+      return "closeButtonContainer"
+    }
+  }
 
   handleStates = () => {
     if (this.state.finalProceed === "saveAndProceed") {

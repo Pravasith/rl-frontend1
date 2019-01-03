@@ -3387,7 +3387,7 @@ class EditProductDetails extends React.Component {
                     <div className="modalBackgroundInnerWrap">
                         <header className="closeHeaderSection">
                             <div
-                                className="closeButtonContainer"
+                                className={this.returnModalCloseButton()}
                                 onClick={() => {
                                     this.modalClassToggle("dontShow");
                                     // this.setState({
@@ -3417,6 +3417,15 @@ class EditProductDetails extends React.Component {
             </div>
         );
     };
+
+    returnModalCloseButton = () => {
+        if (this.state.finalProceed === "successScreen" || this.state.finalProceed === "errorScreen") {
+            return "closeButtonContainer hide"
+        }
+        else {
+            return "closeButtonContainer"
+        }
+    }
 
     handleStates = () => {
         if (this.state.finalProceed === "saveAndProceed") {
@@ -3568,8 +3577,8 @@ class EditProductDetails extends React.Component {
                 value: this.state.productPrice
             },
             { fieldName: "Material", value: this.state.productMaterials },
-            { fieldName: "Finishing Options", value: this.state.productFinishes },
-            { fieldName: "Color Options", value: this.state.colorArray },
+            // { fieldName: "Finishing Options", value: this.state.productFinishes },
+            // { fieldName: "Color Options", value: this.state.colorArray },
             { fieldName: "Sizes Available", value: this.state.productDimensions },
             { fieldName: "Min. quantity", value: this.state.productMinQuantity },
             {

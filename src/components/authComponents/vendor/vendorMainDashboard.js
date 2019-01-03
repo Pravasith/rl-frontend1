@@ -1423,91 +1423,99 @@ class VendorMainDashboard extends React.Component {
         }
 
         else if (fieldName === "finishes") {
-            return (
-                productFinishes.map((item, i) => {
-                    return (
-                        <div 
-                            key={i} 
-                            className="modalContainerUpperContainer">
-                            <div className="modalContainer">
-                                <div className="subImageOrDivIfAny">
-                                    <img 
-                                        src={item.finishImage} 
-                                        alt=""
-                                    />
-                                </div>
-
-                                <div className="modalContainerInnerLayer">
-                                    <div className="modalHeadingText">
-                                        {/* <h3>Name: </h3> <p>{item.materialName}</p> */}
-                                        <p>{item.finishName}</p>
+            if (productFinishes.length !== 0) {
+                return (
+                    productFinishes.map((item, i) => {
+                        return (
+                            <div
+                                key={i}
+                                className="modalContainerUpperContainer">
+                                <div className="modalContainer">
+                                    <div className="subImageOrDivIfAny">
+                                        <img
+                                            src={item.finishImage}
+                                            alt=""
+                                        />
                                     </div>
 
-                                    <div className="modalSubText">
-                                        {/* <h3>Price:</h3> <p>Rs. {item.materialCost}</p> */}
-                                        <p>{item.finishCode}</p>
-                                    </div>
+                                    <div className="modalContainerInnerLayer">
+                                        <div className="modalHeadingText">
+                                            {/* <h3>Name: </h3> <p>{item.materialName}</p> */}
+                                            <p>{item.finishName}</p>
+                                        </div>
 
-                                    <div className="modalSubText">
+                                        <div className="modalSubText">
+                                            {/* <h3>Price:</h3> <p>Rs. {item.materialCost}</p> */}
+                                            <p>{item.finishCode}</p>
+                                        </div>
 
-                                        {
-                                            Number(item.finishCost) > 0 
-                                            ?
-                                            <p>Costs <span>Rs. { item.finishCost }</span> extra</p>
-                                            :
-                                            <p>No extra cost</p>
-                                        }
+                                        <div className="modalSubText">
+
+                                            {
+                                                Number(item.finishCost) > 0
+                                                    ?
+                                                    <p>Costs <span>Rs. {item.finishCost}</span> extra</p>
+                                                    :
+                                                    <p>No extra cost</p>
+                                            }
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    )
+                        )
+                    })
+                )
+            }
 
-                })
-            )
+            else {
+                return <p>N/A</p>
+            }
         }
 
         else if (fieldName === "colors") {
-            return (
-                colorArray.map((item, i) => {
-
-                    return (
-                        <div 
-                            key={i} 
-                            className="modalContainerUpperContainer">
-                            <div className="modalContainer">
-                                <div className="subImageOrDivIfAny">
-                                    <div style = {{background : item.colorCode}} ></div>
-                                </div>
-
-                                <div className="modalContainerInnerLayer">
-                                    <div className="modalHeadingText">
-                                        {/* <h3>Name: </h3> <p>{item.materialName}</p> */}
-                                        <p>{item.colorName}</p>
+            if (colorArray.length !== 0) {
+                return (
+                    colorArray.map((item, i) => {
+                        return (
+                            <div
+                                key={i}
+                                className="modalContainerUpperContainer">
+                                <div className="modalContainer">
+                                    <div className="subImageOrDivIfAny">
+                                        <div style={{ background: item.colorCode }} ></div>
                                     </div>
-                                    <div className="modalSubText">
-                                        {/* <h3>Price:</h3> <p>Rs. {item.materialCost}</p> */}
-                                        <p>{item.colorCode}</p>
-                                    </div>
-                                    <div className="modalSubText">
-                                        {/* <h3>Price:</h3> <p>Rs. {item.materialCost}</p> */}
-                                        
-                                        {
-                                            Number(item.colorCost) > 0 
-                                            ?
-                                            <p>Costs <span>Rs. { item.colorCost }</span> extra</p>
-                                            :
-                                            <p>No extra cost</p>
-                                        }
+
+                                    <div className="modalContainerInnerLayer">
+                                        <div className="modalHeadingText">
+                                            {/* <h3>Name: </h3> <p>{item.materialName}</p> */}
+                                            <p>{item.colorName}</p>
+                                        </div>
+                                        <div className="modalSubText">
+                                            {/* <h3>Price:</h3> <p>Rs. {item.materialCost}</p> */}
+                                            <p>{item.colorCode}</p>
+                                        </div>
+                                        <div className="modalSubText">
+                                            {/* <h3>Price:</h3> <p>Rs. {item.materialCost}</p> */}
+
+                                            {
+                                                Number(item.colorCost) > 0
+                                                    ?
+                                                    <p>Costs <span>Rs. {item.colorCost}</span> extra</p>
+                                                    :
+                                                    <p>No extra cost</p>
+                                            }
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    )
+                        )
+                    })
+                )
+            }
 
-                    
-                })
-            )
+            else {
+                return <p>N/A</p>
+            }
         }
 
         else if (fieldName === "dimensions") {
@@ -2238,6 +2246,7 @@ class VendorMainDashboard extends React.Component {
                         <div className="modalHeaderContainer productPreview">
                             <h3>Product preview</h3>
                             <div className="line"></div>
+                            <small>(N/A - Not Applicable)</small>
                         </div>
                         <div
                             className="close"
