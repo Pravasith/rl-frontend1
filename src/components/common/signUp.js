@@ -1,7 +1,7 @@
 import React from "react"
 import Link from 'next/link'
 
-import "../../assets/sass/sign_up_log_in.scss"
+// import "../../assets/sass/sign_up_log_in.scss"
 
 import Axios from "axios"
 

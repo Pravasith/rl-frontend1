@@ -1,6 +1,6 @@
 import React from "react";
 
-import "../../../assets/sass/add_product_details.scss";
+// import "../../../assets/sass/add_product_details.scss";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -257,12 +257,9 @@ class AddProductDetails extends React.Component {
       });
   };
 
-  componentDidUpdate() {
-    console.log(
-      this.state.productInstallers,
-      this.state.installerChargeType
-    );
-  }
+  // componentDidUpdate() {
+  //   console.log(this.state.finishDetailsIsValid);
+  // }
 
   modalClassToggle = showOrNot => {
     if (showOrNot === "show")
@@ -671,6 +668,9 @@ class AddProductDetails extends React.Component {
                 <h3>Extra cost over base price</h3>
                 <p key={i}>Rs. {item.materialCost}</p>
               </div>
+              <div className="finishCodecartwrap">
+                {this.returnMiscellaneousField("materialGrade", item)}
+              </div>
             </div>
             <div className="materialEditingButtons">
               {/* <div className="editButton">
@@ -743,14 +743,27 @@ class AddProductDetails extends React.Component {
     });
   };
 
-  returnFinishCode = finish => {
-    if (finish.finishCode !== "") {
-      return (
-        <div className="finishCodeCartWrapReturn">
-          <h3>Finish code </h3>
-          <p>{finish.finishCode}</p>
-        </div>
-      );
+  returnMiscellaneousField = (field, item) => {
+    if (field === "finishCode") {
+      if (item.finishCode !== "") {
+        return (
+          <div className="finishCodeCartWrapReturn">
+            <h3>Finish code </h3>
+            <p>{item.finishCode}</p>
+          </div>
+        );
+      }
+    }
+
+    else if (field === "materialGrade") {
+      if (item.materialGrade !== "") {
+        return (
+          <div className="materialGradeCartWrapReturn">
+            <h3>Material Grade </h3>
+            <p>{item.materialGrade}</p>
+          </div>
+        );
+      }
     }
   };
 
@@ -775,7 +788,7 @@ class AddProductDetails extends React.Component {
                     <p key={i}>Rs. {item.finishCost}</p>
                   </div>
                   <div className="finishCodecartwrap">
-                    {this.returnFinishCode(item)}
+                    {this.returnMiscellaneousField("finishCode", item)}
                   </div>
                 </div>
 
@@ -863,7 +876,9 @@ class AddProductDetails extends React.Component {
 
         return <div className="errorMessage">{returnError()}</div>;
       }
-    } else if (modalType === "size") {
+    } 
+    
+    else if (modalType === "size") {
       if (this.state.sizeIsValid === false) {
         return (
           <div className="errorMessage">
@@ -871,7 +886,9 @@ class AddProductDetails extends React.Component {
           </div>
         );
       }
-    } else if (modalType === "material") {
+    } 
+    
+    else if (modalType === "material") {
       if (this.state.materialIsValid === false) {
         return (
           <div className="errorMessage">
@@ -879,7 +896,9 @@ class AddProductDetails extends React.Component {
           </div>
         );
       }
-    } else if (modalType === "finish") {
+    } 
+    
+    else if (modalType === "finish") {
       if (this.state.finishDetailsIsValid === false) {
         return (
           <div className="errorMessage">
@@ -1135,7 +1154,7 @@ class AddProductDetails extends React.Component {
           this.setState({
             materialCost: "",
             displayError: "displayError",
-            materialCostValid: false
+            materialCostIsValid: false
           });
         } else if (checkFor === "size") {
           this.setState({
@@ -1177,10 +1196,12 @@ class AddProductDetails extends React.Component {
     let { productImage, productImagesObject } = this.state;
 
     let temp = {
-      itemCode: this.state.productCode,
+      itemCode: this.state.productCode ? this.state.productCode : "",
       textOnRibbonSatisfied: false,
       imageURL: productImage
     };
+
+    console.log(temp)
 
     // if (temp.imageURL !== "") {
     let dummyArray = productImagesObject.imagesInCategory
@@ -1600,13 +1621,15 @@ class AddProductDetails extends React.Component {
     else if (typeOfButtonClicked === "material") {
       const materialName = this.refs.materialName.value;
       const materialCost = isChecked ? this.refs.materialCost.value : 0;
+      const materialGrade = this.refs.materialGrade.value;
 
       let validatedData = validateMaterialModal(materialName, materialCost);
 
       if (validatedData.isMaterialValid) {
         let temp = {
           materialCost,
-          materialName
+          materialName,
+          materialGrade
         };
 
         if (temp.materialName !== "") {
@@ -1669,7 +1692,7 @@ class AddProductDetails extends React.Component {
             modalType: null,
             isChecked: false,
             productFinishes:
-              productFinishes.length !== 0 ? productFinishes : null,
+              productFinishes.length !== 0 ? productFinishes : [],
             extraCostInput: "extraCostInput hide",
             displayError: "displayError hide",
             productFinishImage: "",
@@ -1684,7 +1707,9 @@ class AddProductDetails extends React.Component {
         this.refs.finishCode.value = "";
 
         this.modalClassToggle("dontShow");
-      } else {
+      } 
+      
+      else {
         this.setState({
           finishDetailsIsValid: false,
           emptyFieldInFinishDetails: validatedData.emptyField
@@ -1988,13 +2013,13 @@ class AddProductDetails extends React.Component {
     );
   };
 
+
   returnProductInstallers = () => {
     const { checkBoxProductInstallationClass5, productInstallers } = this.state;
 
     if (checkBoxProductInstallationClass5 === "checkBox color") {
       if (productInstallers.length !== 0) {
         return productInstallers.map((item, i) => {
-          console.log(item)
           return (
             <div className="productInstallerDescriptionOuterLayer" key={i}>
               <div className="productInstallerDescriptionInnerLayer">
@@ -2005,14 +2030,14 @@ class AddProductDetails extends React.Component {
                   </div>
 
                   <div className="productInstallerContactNoWrap">
-                    <p key={i}>+91<span>{item.installerContactNo}</span></p>
+                    <p key={i}>+91 <span>{item.installerContactNo}</span></p>
                   </div>
 
                   <div className={item.installerCharges !== "" ? "productInstallerChargesWrap" : "hide"} >
-                    <small>Charges </small>
-                    <p key={i}>
-                      Rs. {item.installerCharges}/{this.returnChargeType(item.installerChargeType)}
-                    </p>
+                    <p>Charges </p>
+                    <span key={i}>
+                      Rs. {item.installerCharges} / {this.returnChargeType(item.installerChargeType)}
+                    </span>
                   </div>
                 </div>
                 <div className="materialEditingButtons">
@@ -2023,15 +2048,15 @@ class AddProductDetails extends React.Component {
                               Edit
                           </WhiteButton>
                         </div> */}
-                  <div className="editButton">
+                    <div className="editButton">
                      <WhiteButton>Edit</WhiteButton>
                     </div>
-                  <div
-                    className="deleteButton"
-                    onClick={() => this.removeProductInstallers(i)}
-                  >
-                    <WhiteButton>Delete</WhiteButton>
-                  </div>
+                    <div
+                        className="deleteButton"
+                        onClick={() => this.removeProductInstallers(i)}
+                    >
+                        <WhiteButton>Delete</WhiteButton>
+                    </div>
                 </div>
               </div>
             </div>
@@ -2351,6 +2376,7 @@ class AddProductDetails extends React.Component {
                             Numbers Only
                           </p>
                         </div>
+
                         <div className="inputFormContainer">
                           <div className="formParaSection">
                             <p className="pargraphClass">
@@ -2369,6 +2395,7 @@ class AddProductDetails extends React.Component {
                             <span className="InputSeparatorLine"> </span>
                           </div>
                         </div>
+
                       </div>
                     </div>
                   </div>
@@ -2378,6 +2405,7 @@ class AddProductDetails extends React.Component {
                     >
                       Proceed
                     </GradientButton>
+                    {this.displayErrorModal("finish")}
                   </div>
                 </div>
               </div>
@@ -2638,6 +2666,25 @@ class AddProductDetails extends React.Component {
                     </div>
                   </div>
 
+                  <div className="inputFormContainer">
+                    <div className="formParaSection">
+                      <p className="pargraphClass">
+                        Material built Grade (if any)
+                      </p>
+                    </div>
+                    <div className="modalInputCategory">
+                      <input
+                        type="text"
+                        name="materialGrade"
+                        placeholder="Ex. ISI, ISO etc"
+                        onChange={this.onChangeHandler}
+                        maxLength="30"
+                        ref="materialGrade"
+                      />
+                      <span className="InputSeparatorLine"> </span>
+                    </div>
+                  </div>
+
                   <div className="switchContainer">
                     <div className="labelUpperColumn">
                       <div className="switchContainerParagraph">
@@ -2675,6 +2722,7 @@ class AddProductDetails extends React.Component {
                       Numbers Only
                     </p>
                   </div>
+
                 </div>
                 <div className="proceedOrNotCheck">
                   <GradientButton
@@ -3163,8 +3211,8 @@ class AddProductDetails extends React.Component {
         value: this.state.productPrice
       },
       { fieldName: "Material", value: this.state.productMaterials },
-      { fieldName: "Finishing Options", value: this.state.productFinishes },
-      { fieldName: "Color Options", value: this.state.colorArray },
+      // { fieldName: "Finishing Options", value: this.state.productFinishes },
+      // { fieldName: "Color Options", value: this.state.colorArray },
       { fieldName: "Sizes Available", value: this.state.productDimensions },
       { fieldName: "Min. quantity", value: this.state.productMinQuantity },
       {

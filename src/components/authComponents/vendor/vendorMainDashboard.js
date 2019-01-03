@@ -307,6 +307,8 @@ class VendorMainDashboard extends React.Component {
                     ]
             },
 
+            deleteLoading : false,
+
             // productInstallers: [
             //     {
             //         installerName: "rakshith",
@@ -712,7 +714,7 @@ class VendorMainDashboard extends React.Component {
 
                 this.setState({
 
-
+                    productSelected : productId,
 
                     /// PLACE HERE ////
                     productName: decryptedData.productName,
@@ -1357,6 +1359,12 @@ class VendorMainDashboard extends React.Component {
                                         {/* <h3>Name: </h3> <p>{item.materialName}</p> */}
                                         <p>{item.materialName}</p>
                                     </div>
+
+                                    <div className="modalSubText">
+                                        {/* <h3>Price:</h3> <p>Rs. {item.materialCost}</p> */}
+                                        <p>{item.materialGrade}</p>
+                                    </div>
+
                                     <div className="modalSubText">
                                         {/* <h3>Price:</h3> <p>Rs. {item.materialCost}</p> */}
                                         {
@@ -1741,30 +1749,40 @@ class VendorMainDashboard extends React.Component {
                     </div>
                     <div className="productPreviewInformationColumn">
 
+                        
                                 
                         <div className="productsInformationInnerLayer">
 
-                            <div className="productThumbImage">
-                                <img
-                                    src={productThumbImage}
-                                    alt=""
-                                />
+                            <div className="alignedSubjects">
+                                <div className="leftAligned">
+                                    <div className="productSubHeading">
+                                        <h3>Name </h3>
+                                        <p>{productName}</p>
+                                    </div>
+
+                                    <div className="productSubHeading">
+                                        <h3>Code </h3>
+                                        <p>{productCode}</p>
+                                    </div>
+
+                                    <div className="productSubHeading">
+                                        <h3>Price </h3>
+                                        <p>Rs. {productPrice} per piece</p>
+                                    </div>
+                                </div>
+
+                                <div className="rightAligned">
+                                    <div className="productThumbImage">
+                                        <img
+                                            src={productThumbImage}
+                                            alt=""
+                                        />
+                                    </div>
+                                </div>
+
                             </div>
+
                             
-                            <div className="productSubHeading">
-                                <h3>Name </h3> 
-                                <p>{productName}</p>
-                            </div>
-
-                            <div className="productSubHeading">
-                                <h3>Code </h3>
-                                <p>{productCode}</p>
-                            </div>
-
-                            <div className="productSubHeading">
-                                <h3>Price </h3> 
-                                <p>Rs. {productPrice} per piece</p> 
-                            </div>
 
                             <div className="gridItemsContainer productSubContainers">
                                 <h3>Material choices </h3>
@@ -2004,7 +2022,7 @@ class VendorMainDashboard extends React.Component {
                     <div className="proceedButton">
                         <GradientButton
                             runFunction={() => this.handleCategorySelections()}
-                        >
+                            >
                             Proceed
                         </GradientButton>
                     </div>
@@ -2095,37 +2113,95 @@ class VendorMainDashboard extends React.Component {
         }
 
         else if (categoryModalOrSubcategoryModal === "delete") {
-            return (
-                <div className="modalCategoryDeleteContainer">
-                    <div className="modalHeaderCloserSection">
-                        <div className="modalHeaderContainer">
-                            <h3>Are you sure you want to delete this ?</h3>
-                            <div className="line"></div>
+
+            if(this.state.deleteLoading){
+                return (
+                    <div className="modalCategoryDeleteContainer">
+                        <div className="loadingAnimationDelete">
+                            <NavBarLoadingIcon/>
                         </div>
                     </div>
-                    <div className="confirmationButtonContainer">
-                        <div className="closeButtonContainer">
-                            <WhiteButton    
-                                runFunction={() => this.setState({
-                                    modalClass: "modalClass hide",
-                                    productManagerWrapperClass: "productManagerWrapperClass",
-                                    mainContentWrap: "mainContentWrap",
-                                    vendorInitialGraphic: 'vendorGraphicCenter',
-                                })}
-                            >
-                                No
+                )
+            }
+
+            else{
+                return (
+                    <div className="modalCategoryDeleteContainer">
+                        <div className="modalHeaderCloserSection">
+                            <div className="modalHeaderContainer">
+                                <h3>Are you sure you want to delete this ?</h3>
+                                <div className="line"></div>
+                            </div>
+                        </div>
+                        <div className="confirmationButtonContainer">
+                            <div className="closeButtonContainer">
+                                <WhiteButton    
+                                    runFunction={() => this.setState({
+                                        modalClass: "modalClass hide",
+                                        productManagerWrapperClass: "productManagerWrapperClass",
+                                        mainContentWrap: "mainContentWrap",
+                                        vendorInitialGraphic: 'vendorGraphicCenter',
+                                    })}
+                                    >
+                                    No
                                 </WhiteButton>
-                        </div>
-                        <div className="yesContainer">
-                            <WhiteButton
-                                runFunction={() => console.log("Delete wrkin")}
-                            >
-                                Yes
-                             </WhiteButton>
+                            </div>
+                            <div className="yesContainer">
+                                <WhiteButton
+                                    runFunction={() => {
+                                        this.setState({
+                                            deleteLoading : true,
+                                        })
+
+                                       
+                                        this.props.hitApi(api.DELETE_PRODUCT + "?pId=" + this.state.productSelected, "DELETE", 
+                                            // {
+                                            //     message: "Houston, destroy product",
+                                            //     requestData: encryptedData
+                                            // }
+                                        )
+                                        .then(() => {
+                                            // 
+                                            // Decrypt data
+                                            // 
+                                            const responseData = decryptData(this.props.responseData.responsePayload.responseData)
+                                            // 
+                                            // Decrypt data
+                                            // 
+
+                                            // console.log(responseData)
+
+                                            window.open("/vendor/dashboard", "_self")
+
+                                            this.setState({
+                                                deleteLoading : false,
+                                                modalToShow : "success",
+                                                modalClass: "modalClass hide",
+                                                productManagerWrapperClass: "productManagerWrapperClass",
+                                            })
+                        
+                                        })
+                                        .catch(e => {
+                                            console.error(e)
+                                            this.setState({
+                                                deleteLoading : false,
+                                                modalToShow : "failure",
+                                                modalClass: "modalClass hide",
+                                                productManagerWrapperClass: "productManagerWrapperClass",
+                                            })
+                                            window.open("/vendor/dashboard", "_self")
+                                        })
+                                        
+                                    }}
+                                    >
+                                    Yes
+                                 </WhiteButton>
+                            </div>
                         </div>
                     </div>
-                </div>
-            )
+                )
+            }
+           
         }
 
         else if (categoryModalOrSubcategoryModal === "subCategoryExistWarning") {

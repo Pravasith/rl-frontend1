@@ -139,7 +139,9 @@ class ProfileDetailsVendor extends React.Component {
             
     }
 
-
+    componentDidUpdate() {
+        console.log(this.state.firstName, this.state.lastName, this.state.companyName, this.state.detailedAddressLine1)
+    }
 
     returnNavBarData = () => {
         if (this.props.userData.responseData) {
@@ -177,7 +179,7 @@ class ProfileDetailsVendor extends React.Component {
 
                 if (gstInForCheck.length === 15) {
                     if (/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/.test(gstInForCheck)) {
-                        this.updateVendorData("GSTIN", gstIn)
+                        // this.updateVendorData("GSTIN", gstIn)
                         this.setState({
                             gstIn: gstIn,
                             warningText: "please check and fill all the fields",
@@ -257,13 +259,19 @@ class ProfileDetailsVendor extends React.Component {
         const val = e.target.value
 
         this.changeCityList(val)
-        this.updateVendorData("address.state", val)
+        // this.updateVendorData("address.state", val)
+        this.setState({
+            state: val
+        })
     }
 
     handleCitySelection = (e) => {
         const val = e.target.value
 
-        this.updateVendorData("address.city", val)
+        // this.updateVendorData("address.city", val)
+        this.setState({
+            city: val
+        })
     }
 
     changeCityList = (theState) => {
@@ -430,10 +438,10 @@ class ProfileDetailsVendor extends React.Component {
                 <ImageUploader
                     imageType = "regularImage" // regularImage || profileImage
                     resultData={val => {
-                        this.updateVendorData("companyProfilePicture", val.imageURL)
-                        // this.setState({
-                        //     companyProfilePicture: val.imageURL
-                        // })
+                        // this.updateVendorData("companyProfilePicture", val.imageURL)
+                        this.setState({
+                            companyProfilePicture: val.imageURL
+                        })
                     }}
                     showInitialImage = {this.state.companyProfilePicture}
                     imageClassName= "companyProfilePictureClass"
@@ -447,10 +455,10 @@ class ProfileDetailsVendor extends React.Component {
                     <ImageUploader
                         imageType = "regularImage" // regularImage || profileImage
                         resultData={val => {
-                            this.updateVendorData("companyProfilePicture", val.imageURL)
-                            // this.setState({
-                            //     companyProfilePicture: val.imageURL
-                            // })
+                            // this.updateVendorData("companyProfilePicture", val.imageURL)
+                            this.setState({
+                                companyProfilePicture: val.imageURL
+                            })
                         }}
                         showInitialImage = {this.state.companyProfilePicture}
                         imageClassName="companyProfilePictureClass"
@@ -468,7 +476,7 @@ class ProfileDetailsVendor extends React.Component {
                 <ImageUploader
                     imageType="profileImage" // regularImage || profileImage
                     resultData={val => {
-                        this.hitTheAPI("profilePicture", val.imageURL)
+                        // this.hitTheAPI("profilePicture", val.imageURL)
                         this.setState({
                             profilePicture: val.imageURL
                         })
@@ -485,7 +493,7 @@ class ProfileDetailsVendor extends React.Component {
                     <ImageUploader
                         imageType="profileImage" // regularImage || profileImage
                         resultData={val => {
-                            this.hitTheAPI("profilePicture", val.imageURL)
+                            // this.hitTheAPI("profilePicture", val.imageURL)
                             this.setState({
                                 profilePicture: val.imageURL
                             })
@@ -541,7 +549,7 @@ class ProfileDetailsVendor extends React.Component {
     handleRadiobutton = (e) => {
         const val = e.target.value;
 
-        this.updateVendorData("experience.years", val)
+        // this.updateVendorData("experience.years", val)
         this.setState({ experienceCount: val })
     }
 
@@ -553,11 +561,13 @@ class ProfileDetailsVendor extends React.Component {
             { fieldName: "your profile picture", value: this.state.profilePicture },
             { fieldName: 'mobile number', value: this.state.mobileNo },
             { fieldName: 'company name', value: this.state.companyName }, 
+
             { fieldName: "your company address", value: this.state.detailedAddressLine1 },
             { fieldName: 'state', value: this.state.state },
             { fieldName: 'city', value: this.state.city },
             { fieldName: 'pincode', value: this.state.pincode },
             { fieldName: 'description about your company', value: this.state.companyDescriptionLine1 },
+
             { fieldName: 'your experience in the industry', value: this.state.experienceCount },
             { fieldName: "your company's GST identification number", value: this.state.gstIn },
             { fieldName: "your company's PAN number", value: this.state.pan },
@@ -784,7 +794,13 @@ class ProfileDetailsVendor extends React.Component {
                                                             validationType="alphabetsAndSpecialCharacters"
                                                             characterCount="15"
                                                             value={this.state.firstName ? this.state.firstName : null}
-                                                            result={(val) => this.hitTheAPI("firstName", val)}
+                                                            result={(val) => {
+                                                                // this.hitTheAPI("firstName", val)
+
+                                                                this.setState({
+                                                                    firstName : val
+                                                                })
+                                                            }}
                                                         />
                                                     </div>
 
@@ -796,7 +812,10 @@ class ProfileDetailsVendor extends React.Component {
                                                             validationType="alphabetsAndSpecialCharacters"
                                                             characterCount="15"
                                                             value={this.state.lastName ? this.state.lastName : null}
-                                                            result={(val) => this.hitTheAPI("lastName", val)}
+                                                                result={(val) => {
+                                                                    // this.hitTheAPI("lastName", val)
+                                                                    this.setState({ lastName: val })
+                                                                }}
                                                         />
                                                     </div>
 
@@ -836,7 +855,13 @@ class ProfileDetailsVendor extends React.Component {
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
                                                             characterCount="50"
                                                             value={this.state.companyName}
-                                                            result={(val) => this.updateVendorData("companyName", val)}
+                                                            result={(val) => {
+
+                                                                // this.updateVendorData("companyName", val)
+                                                                this.setState({
+                                                                    companyName : val
+                                                                })
+                                                            }}
                                                         />
                                                     </div>
                                                     
@@ -865,7 +890,12 @@ class ProfileDetailsVendor extends React.Component {
                                                                         ? this.state.mobileNo
                                                                         : null
                                                                 }
-                                                                result={(val) => this.hitTheAPI("mobileNo", val)}
+                                                                result={(val) => {
+                                                                    // this.hitTheAPI("mobileNo", val)
+                                                                    this.setState({
+                                                                        mobileNo: val
+                                                                    })
+                                                                }}
                                                             />
                                                         </div>
 
@@ -881,7 +911,12 @@ class ProfileDetailsVendor extends React.Component {
                                                                         ? this.state.whatsappNo
                                                                         : null
                                                                 }
-                                                                result={(val, isValid) => this.hitTheAPI("whatsappNo", val)}
+                                                                result={(val, isValid) => {
+                                                                    // this.hitTheAPI("whatsappNo", val)
+                                                                    this.setState({
+                                                                        whatsappNo: val
+                                                                    })
+                                                                }}
                                                             />
                                                         </div>
                                                     </div>
@@ -904,7 +939,12 @@ class ProfileDetailsVendor extends React.Component {
                                                                 validationType="alphabetsSpecialCharactersAndNumbers"
                                                                 characterCount="100"
                                                                 value={this.state.detailedAddressLine1 ? this.state.detailedAddressLine1 : null}
-                                                                result={val => this.updateVendorData("address.detailedAddressLine1", val)}
+                                                                result={val => {
+                                                                    // this.updateVendorData("address.detailedAddressLine1", val)
+                                                                    this.setState({ 
+                                                                        detailedAddressLine1: val
+                                                                    })
+                                                                }}
                                                             />
                                                         </div>
 
@@ -916,7 +956,12 @@ class ProfileDetailsVendor extends React.Component {
                                                                 validationType="alphabetsSpecialCharactersAndNumbers"
                                                                 characterCount="100"
                                                                 value={this.state.detailedAddressLine2 ? this.state.detailedAddressLine2 : null}
-                                                                result={val => this.updateVendorData("address.detailedAddressLine2", val)}
+                                                                result={val => {
+                                                                    // this.updateVendorData("address.detailedAddressLine2", val)
+                                                                    this.setState({
+                                                                        detailedAddressLine2: val
+                                                                    })
+                                                                }}
                                                             />
                                                         </div>
 
@@ -965,7 +1010,10 @@ class ProfileDetailsVendor extends React.Component {
                                                                 characterCount="6"
                                                                 value={this.state.pincode ? this.state.pincode : null}
                                                                 result={val => {
-                                                                    this.updateVendorData("address.pincode", val)
+                                                                    // this.updateVendorData("address.pincode", val)
+                                                                    this.setState({
+                                                                        pincode: val
+                                                                    })
                                                                 }}
                                                             />
                                                         </div>
@@ -989,7 +1037,12 @@ class ProfileDetailsVendor extends React.Component {
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
                                                             characterCount="300"
                                                             value={this.state.companyDescriptionLine1 ? this.state.companyDescriptionLine1 : null}
-                                                            result={val => this.updateVendorData("companyDescriptionLine1", val)}
+                                                            result={val => {
+                                                                // this.updateVendorData("companyDescriptionLine1", val)
+                                                                this.setState({
+                                                                    companyDescriptionLine1: val
+                                                                })
+                                                            }}
                                                         />
                                                     </div>
                                                     <div className="companyDescriptionWrap">
@@ -1000,7 +1053,12 @@ class ProfileDetailsVendor extends React.Component {
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
                                                             characterCount="300"
                                                             value={this.state.companyDescriptionLine2 ? this.state.companyDescriptionLine2 : null}
-                                                            result={val => this.updateVendorData("companyDescriptionLine2", val)}
+                                                            result={val => {
+                                                                // this.updateVendorData("companyDescriptionLine2", val)
+                                                                this.setState({
+                                                                    companyDescriptionLine2: val
+                                                                })
+                                                            }}
                                                         />
                                                     </div>
                                                 </div>
@@ -1164,7 +1222,12 @@ class ProfileDetailsVendor extends React.Component {
                                                                 validationType="alphabetsAndNumbers"
                                                                 characterCount="10"
                                                                 value={this.state.pan ? this.state.pan : null}
-                                                                result={val => this.updateVendorData("PAN", val)}
+                                                                result={val => {
+                                                                    // this.updateVendorData("PAN", val)
+                                                                    this.setState({
+                                                                        pan: val
+                                                                    })
+                                                                }}
                                                             />
                                                         </div>
 
