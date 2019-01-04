@@ -49,9 +49,6 @@ class Navbar extends Component {
     }
 
     returnProfilePicture = () => {
-
-        // console.log(this.props.userData)
-
         if(this.props.userData.profilePicture )
             return <img src={this.props.userData.profilePicture} alt="" />
 

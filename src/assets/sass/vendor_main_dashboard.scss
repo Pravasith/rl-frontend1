@@ -1316,6 +1316,8 @@ input{
                         .firstHeadingComponent{
                             @include flexCentreCol;
                             width: 50%;
+                            height: 2.5em;
+
                             &:hover{
                                 cursor: pointer;
                                 .line{

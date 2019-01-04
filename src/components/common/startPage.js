@@ -49,7 +49,6 @@ class StartPage extends React.Component {
 
             if(isUnauthorized){
                 window.open("/home", "_self")
-                // console.log("isUnauthorized")
             }
 
             else {
@@ -87,12 +86,10 @@ class StartPage extends React.Component {
             //     // DECRYPT REQUEST DATA
             //     //
 
-            //     console.log(decryptedData)
 
             // }
 
             // else{
-            //     console.log("X")
             // }
         })
         
