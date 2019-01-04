@@ -5,6 +5,7 @@ import "../../../assets/sass/profile_details.scss"
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 
+import Head from 'next/head'
 
 import LogoAnimation from "../../animations/logoAnimation"
 import statesAndCities from "../../../lib/statesAndCities"
@@ -139,9 +140,9 @@ class ProfileDetailsVendor extends React.Component {
             
     }
 
-    componentDidUpdate() {
-        console.log(this.state.firstName, this.state.lastName, this.state.companyName, this.state.detailedAddressLine1)
-    }
+    // componentDidUpdate() {
+    //     console.log(this.state.firstName, this.state.lastName, this.state.companyName, this.state.detailedAddressLine1)
+    // }
 
     returnNavBarData = () => {
         if (this.props.userData.responseData) {
@@ -741,6 +742,20 @@ class ProfileDetailsVendor extends React.Component {
 
         return (
             <div className="bigWrapper">
+
+            <Head>
+                <meta name="description" content="Architectural process from Rolling Logs, start building your dream home without any hassle in India." />
+                <meta name="robots" content="noodp" />
+                <link rel="canonical" href="https://www.rollinglogs.com/architecture/" />
+                <link rel = "next" href = "https://www.rollinglogs.com/architecture/page/2/" />
+                <meta property="og:locale" content="en_US" />
+                <meta property="og:type" content="object" />
+                <meta property="og:description" content="Architects, Interior Designers Marketplace in India" />
+                <meta property="og:url" content="https://www.rollinglogs.com/architecture/" />
+                <meta property="og:site_name" content="RollingLogs" />
+                <meta property="og:image" content="http://static.dezeen.com/assets/images/logo-magazine.png" />
+                <title>Create Vendor profile here and get seen by architects - Rolling Logs</title>
+            </Head>
 
                 <div className={this.state.loadingClass}>
                     <LogoAnimation 
