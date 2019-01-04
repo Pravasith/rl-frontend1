@@ -8,6 +8,8 @@ import PublicId from '../../../factories/cloudinaryFactory'
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 
+import Head from 'next/head'
+
 import Navbar from "../../navbar/navbar"
 import { hitApi, navBarLoadingAnimationShowHide } from "../../../actions/generalActions"
 import { getUserData } from "../../../actions/userActions"
@@ -416,7 +418,9 @@ class VendorMainDashboard extends React.Component {
             
     }
 
-
+    // componentDidUpdate() {
+    //     // console.log(this.state.companyProfilePicture)
+    // }
 
     convertVendorDataAndSave = (productsRaw) => {
 
@@ -696,7 +700,7 @@ class VendorMainDashboard extends React.Component {
                 // DECRYPT RESPONSE DATA
                 //
 
-                console.log(decryptedData)
+                // console.log(decryptedData)
 
                 this.setState({
 
@@ -2312,6 +2316,20 @@ class VendorMainDashboard extends React.Component {
     render() {
         return (
             <div className="vendorProductDashboard">
+
+                <Head>
+                    <meta name="description" content="Architectural process from Rolling Logs, start building your dream home without any hassle in India." />
+                    <meta name="robots" content="noodp" />
+                    <link rel="canonical" href="https://www.rollinglogs.com/architecture/" />
+                    <link rel = "next" href = "https://www.rollinglogs.com/architecture/page/2/" />
+                    <meta property="og:locale" content="en_US" />
+                    <meta property="og:type" content="object" />
+                    <meta property="og:description" content="Architects, Interior Designers Marketplace in India" />
+                    <meta property="og:url" content="https://www.rollinglogs.com/architecture/" />
+                    <meta property="og:site_name" content="RollingLogs" />
+                    <meta property="og:image" content="http://static.dezeen.com/assets/images/logo-magazine.png" />
+                    <title>Products dashboard for vendors - Rolling Logs</title>
+                </Head>
                 <div className={this.state.loadingClass}>
                     <LogoAnimation
                         text="We are loading..."
