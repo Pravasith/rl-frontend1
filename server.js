@@ -21,8 +21,10 @@ nextApp.prepare()
         let options = {
             // key: fs.readFileSync('./ssl/privatekey.pem'),
             // cert: fs.readFileSync('./ssl/certificate.pem'),
-            key: fs.readFileSync('/var/www/rollinglogs/fullkeys/privkey.pem', 'utf-8'),
-            cert: fs.readFileSync('/var/www/rollinglogs/fullkeys/fullchain.pem', 'utf-8')
+            key: fs.readFileSync('/etc/letsencrypt/live/api.rollinglogs.com/privkey.pem', 'utf-8'),
+            cert: fs.readFileSync('/etc/letsencrypt/live/api.rollinglogs.com/fullchain.pem', 'utf-8'),
+            // key: fs.readFileSync('/var/www/rollinglogs/fullkeys/privkey.pem', 'utf-8'),
+            // cert: fs.readFileSync('/var/www/rollinglogs/fullkeys/fullchain.pem', 'utf-8')
         };
 
         // let app = express();
