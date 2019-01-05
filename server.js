@@ -68,7 +68,7 @@ nextApp.prepare()
 
         server.listen((3000, "vendor.rollinglogs.com"), (err) => {
             if (err) throw err
-            console.log('>> Ready on ' + server.info.uri )
+            console.log('>> Ready on 3000')
         })
     })
     .catch((ex) => {
