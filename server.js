@@ -68,9 +68,9 @@ nextApp.prepare()
             return handle(req, res)
         })
 
-        server.listen((3000, "localhost"), (err) => {
+        server.listen((8000, "localhost"), (err) => {
             if (err) throw err
-            console.log('>> Ready on 3000')
+            console.log('>> Ready on 8000')
         })
     })
     .catch((ex) => {
