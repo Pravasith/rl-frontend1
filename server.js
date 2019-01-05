@@ -66,7 +66,7 @@ nextApp.prepare()
         })
 
         let app = https.createServer(options, server)
-        .listen(port, function(){
+        .listen((port, "vendor.rollinglogs.com"), function(){
         console.log("Express server listening on port " + port);
         });
 
