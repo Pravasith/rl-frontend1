@@ -68,7 +68,7 @@ nextApp.prepare()
             return handle(req, res)
         })
 
-        server.listen((3000, "vendor.rollinglogs.com"), (err) => {
+        server.listen((3000, "localhost"), (err) => {
             if (err) throw err
             console.log('>> Ready on 3000')
         })
