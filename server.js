@@ -16,7 +16,7 @@ nextApp.prepare()
         const server = express ()
 
 
-        // let port = 8080;
+        let port = 3000;
 
         let options = {
             // key: fs.readFileSync('./ssl/privatekey.pem'),
@@ -29,10 +29,7 @@ nextApp.prepare()
 
         // let app = express();
 
-        let app = https.createServer(options, server)
-        // .listen(port, function(){
-        // console.log("Express server listening on port " + port);
-        // });
+        
 
         // server.use(favicon(path.join(__dirname, "/favicon.ico")))
 
@@ -68,10 +65,15 @@ nextApp.prepare()
             return handle(req, res)
         })
 
-        server.listen((8000, "localhost"), (err) => {
-            if (err) throw err
-            console.log('>> Ready on 8000')
-        })
+        let app = https.createServer(options, server)
+        .listen(port, function(){
+        console.log("Express server listening on port " + port);
+        });
+
+        // server.listen((3000, "localhost"), (err) => {
+        //     if (err) throw err
+        //     console.log('>> Ready on 3000')
+        // })
     })
     .catch((ex) => {
         console.error(ex.stack)
