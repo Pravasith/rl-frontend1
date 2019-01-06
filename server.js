@@ -10,13 +10,15 @@ const handle = nextApp.getRequestHandler()
 
 const fs = require('fs')
 
+// NODE_ENV=production PORT=80 node server
+
 
 nextApp.prepare()
     .then(() => {
         const server = express ()
 
 
-        let port = 3000;
+        let port = 80;
 
         let options = {
             // key: fs.readFileSync('./ssl/privatekey.pem'),
