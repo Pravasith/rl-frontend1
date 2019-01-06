@@ -18,7 +18,7 @@ nextApp.prepare()
         const server = express ()
 
 
-        let port = 80;
+        let port = 3000;
 
         let options = {
             // key: fs.readFileSync('./ssl/privatekey.pem'),
