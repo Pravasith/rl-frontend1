@@ -35,6 +35,8 @@ class ProfileDetailsVendor extends React.Component {
             firstName: null,
             lastName: null,
 
+            emailId : null,
+
             warningClass: 'warningClass hide',
             warningText: null,
 
@@ -99,6 +101,8 @@ class ProfileDetailsVendor extends React.Component {
                     profilePicture: decryptedData.profilePicture,
                     mobileNo: decryptedData.mobileNo,
                     whatsappNo: decryptedData.whatsappNo,
+
+                    emailId : decryptedData.emailId,
 
                     /////////
 
@@ -242,25 +246,27 @@ class ProfileDetailsVendor extends React.Component {
 
 
     returnNavBarData = () => {
-        if(this.state.firstName){
-            if (this.props.userData.responseData) {
+        if(this.state.emailId){
+            // if (this.props.userData.responseData) {
 
-                //
-                // DECRYPT REQUEST DATA
-                // 
-                let decryptedData = decryptData(
-                    this.props.userData.responseData
-                )
-                //
-                // DECRYPT REQUEST DATA
-                //
+            //     //
+            //     // DECRYPT REQUEST DATA
+            //     // 
+            //     let decryptedData = decryptData(
+            //         this.props.userData.responseData
+            //     )
+            //     //
+            //     // DECRYPT REQUEST DATA
+            //     //
     
-                return decryptedData
-            }
-    
-            // else {
-            //     return null
+            //     return decryptedData
             // }
+
+            const userdata = {
+                profilePicture : this.state.profilePicture
+            }
+
+            return userdata
         }
         
     }
