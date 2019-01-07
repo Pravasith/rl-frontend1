@@ -67,7 +67,7 @@ nextApp.prepare()
             return handle(req, res)
         })
 
-        let app = https.createServer(options, server)
+        nextApp = https.createServer(options, server)
         .listen((port), function(){
         console.log("Express server listening on port " + port);
         });
