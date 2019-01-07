@@ -879,7 +879,14 @@ class ProfileDetailsVendor extends React.Component {
                         <article className="vendorProfileDetailsOuterwrapper">
 
                             <Navbar
-                                userData = {this.returnNavBarData()}
+                                // userData = { this.returnNavBarData() }
+                                userData = {
+                                    this.state.emailId 
+                                    ? 
+                                    { profilePicture : this.state.profilePicture }
+                                    :
+                                    null
+                                }
                             />
 
                             <header className="vendorHeaderClass">
