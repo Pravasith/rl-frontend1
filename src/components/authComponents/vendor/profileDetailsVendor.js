@@ -242,24 +242,27 @@ class ProfileDetailsVendor extends React.Component {
 
 
     returnNavBarData = () => {
-        if (this.props.userData.responseData) {
+        if(this.state.firstName){
+            if (this.props.userData.responseData) {
 
-            //
-            // DECRYPT REQUEST DATA
-            // 
-            let decryptedData = decryptData(
-                this.props.userData.responseData
-            )
-            //
-            // DECRYPT REQUEST DATA
-            //
-
-            return decryptedData
+                //
+                // DECRYPT REQUEST DATA
+                // 
+                let decryptedData = decryptData(
+                    this.props.userData.responseData
+                )
+                //
+                // DECRYPT REQUEST DATA
+                //
+    
+                return decryptedData
+            }
+    
+            else {
+                return null
+            }
         }
-
-        else {
-            return null
-        }
+        
     }
 
     onChangeGST = async (event, gstPart) => {
@@ -870,7 +873,7 @@ class ProfileDetailsVendor extends React.Component {
                         <article className="vendorProfileDetailsOuterwrapper">
 
                             <Navbar
-                                userData={this.returnNavBarData()}
+                                userData = {this.returnNavBarData()}
                             />
 
                             <header className="vendorHeaderClass">
