@@ -258,9 +258,9 @@ class ProfileDetailsVendor extends React.Component {
                 return decryptedData
             }
     
-            else {
-                return null
-            }
+            // else {
+            //     return null
+            // }
         }
         
     }
