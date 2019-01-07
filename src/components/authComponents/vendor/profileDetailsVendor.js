@@ -235,14 +235,7 @@ class ProfileDetailsVendor extends React.Component {
         //     })
         //     .catch(e => console.error(e))
 
-
-
-
-
-    // componentDidUpdate() {
-    //     console.log(this.state.firstName, this.state.lastName, this.state.companyName, this.state.detailedAddressLine1)
-    // }
-
+    }
 
 
     returnNavBarData = () => {
@@ -847,7 +840,6 @@ class ProfileDetailsVendor extends React.Component {
                 )
             }    
         }
-    }
 
     render() {
 
