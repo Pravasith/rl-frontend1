@@ -18,7 +18,7 @@ nextApp.prepare()
         const server = express ()
 
 
-        let port = 80;
+        let port = 3000;
 
         let options = {
             // key: fs.readFileSync('./ssl/privatekey.pem'),
@@ -76,6 +76,10 @@ nextApp.prepare()
         //     if (err) throw err
         //     console.log('>> Ready on 3000')
         // })
+
+        app.on('listening',function(){
+            console.log('ok, server is running');
+        });
     })
     .catch((ex) => {
         console.error(ex.stack)
