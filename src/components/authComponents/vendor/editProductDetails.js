@@ -4394,7 +4394,7 @@ class EditProductDetails extends React.Component {
 
                                                 <div className="inputFormContainer">
                                                     <div className="formParaSection">
-                                                        <p className="pargraphClass"> YouTube URL: </p>
+                                                        <p className="pargraphClass">Product ad/demo video YouTube link(if any) </p>
                                                     </div>
                                                     
                                                     <div className="inputCategoryYoutubeSection">
