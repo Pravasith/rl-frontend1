@@ -597,7 +597,7 @@ class ProfileDetailsVendor extends React.Component {
                             // this.hitTheAPI("profilePicture", val.imageURL)
 
                             this.setState({
-                                profilePicture: imageURL
+                                profilePicture: val.imageURL
                             })
                             
                         }}
