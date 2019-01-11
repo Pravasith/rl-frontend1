@@ -1,0 +1,49 @@
+@import "_mixins";
+@import "_vars";
+
+@include includeCommonStyles;
+@include ignoreDefaultStyles;
+
+
+@include scrollStyles;
+
+
+.architectDashboard{
+    width: 100%;
+    background: $white;
+    .productCategoriesWrapper{
+        width: 100%;
+        box-sizing: border-box;
+        .menuDropWrap{
+            .menuItemsFullWrap{
+                // .productsCategoryMainClass{
+                    
+                // }
+
+            }
+            .productsCategory {
+                    display: inline-flex;
+                    ul{
+                        @include flexCentreCol;
+                        width: 100%;
+                        margin: 0;
+                        padding: 0.5em;
+                        justify-content: flex-start;
+                        
+                    }
+                    
+                }
+                .dropdownModal{
+                        width: 80%;
+                        height: 10em;
+                        background: black;
+                    }
+            
+        }
+    }
+
+    li{
+        list-style: none;
+        margin: 0 1em;
+    }
+}
