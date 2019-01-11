@@ -23,8 +23,12 @@ nextApp.prepare()
         let options = {
             // key: fs.readFileSync('./ssl/privatekey.pem'),
             // cert: fs.readFileSync('./ssl/certificate.pem'),
-            key: fs.readFileSync('/etc/letsencrypt/live/vendor.rollinglogs.com/privkey.pem', 'utf-8'),
-            cert: fs.readFileSync('/etc/letsencrypt/live/vendor.rollinglogs.com/fullchain.pem', 'utf-8'),
+
+
+            // key: fs.readFileSync('/etc/letsencrypt/live/vendor.rollinglogs.com/privkey.pem', 'utf-8'),
+            // cert: fs.readFileSync('/etc/letsencrypt/live/vendor.rollinglogs.com/fullchain.pem', 'utf-8'),
+
+
             // key: fs.readFileSync('/var/www/rollinglogs/fullkeys/privkey.pem', 'utf-8'),
             // cert: fs.readFileSync('/var/www/rollinglogs/fullkeys/fullchain.pem', 'utf-8')
         };
@@ -67,19 +71,19 @@ nextApp.prepare()
             return handle(req, res)
         })
 
-        let app = https.createServer(options, server)
-        .listen((port), function(){
-        console.log("Express server listening on port " + port);
-        });
+        // let app = https.createServer(options, server)
+        // .listen((port), function(){
+        // console.log("Express server listening on port " + port);
+        // });
 
-        // server.listen((3000, "localhost"), (err) => {
-        //     if (err) throw err
-        //     console.log('>> Ready on 3000')
-        // })
+        server.listen((port), (err) => {
+            if (err) throw err
+            console.log('>> Ready on 3000')
+        })
 
-        app.on('listening',function(){
-            console.log('ok, server is running');
-        });
+        // app.on('listening',function(){
+        //     console.log('ok, server is running');
+        // });
     })
     .catch((ex) => {
         console.error(ex.stack)

@@ -1701,7 +1701,7 @@ input{
                             .vendorGraphicInnerContainer{
                                 position: absolute;
                                 text-align: center;
-                                bottom: 20%;
+                                top: 13em;
                                 width: 100%;
                                 .vendorGraphicParaInnerLayer{
                                     @include flexCentreRow;
