@@ -24,82 +24,295 @@ class ArchitectMainDashboard extends Component {
         this.state = {
             loadingClass: 'loadingAnim',
             mainClass: 'mainClass hide',
-            menuDrop: "menuDrop hide",
+            menuDrop: "dummyWrapper hide",
 
             categories: [
                 {
-                    categoryName : "Category - 1",
+                    categoryName : "Furniture",
                     categoryId : "1",
-                    subCategories : {
-                        subCategoryName: "subCategory - 1",
-                        subCategoryId : "1"
-                    }
+                    subCategories : [
+                        {
+                            subCategoryName: "Sofas and Armchairs",
+                            subCategoryId : "1",
+                            productTypes: [
+                                "Sofas",
+                                "Armchairs",
+                                "Easy chairs",
+                                "Lounge Chairs",
+                                "Day Beds",
+                                "Small Sofas",
+                                "Poufs",
+                                "Footstools"
+                            ] 
+                        },
+                        {
+                            subCategoryName: "Tables and Chairs",
+                            subCategoryId: "1",
+                            productTypes: [
+                                "Chairs",
+                                "Stools",
+                                "Indoor benches",
+                                "Tables",
+                                "Coffee Tables",
+                                "Console Tables",
+                                "Game tables",
+                                "Writing Desks",
+                                "Secretary desks"
+                            ] 
+                        },
+                        {
+                            subCategoryName: "Storage Systems and Units3",
+                            subCategoryId: "1",
+                            productTypes: [
+                                "Bookcases",
+                                "Storage walls",
+                                "Sideboards",
+                                "TV cabinets",
+                                "Highboards",
+                                "Display Cabinets",
+                                "Hallway units",
+                                "More..."
+                            ] 
+                        },
+                        {
+                            subCategoryName: "Sleeping area and children's bedrooms",
+                            subCategoryId: "1",
+                            productTypes: [
+                                "Beds",
+                                "Bedside tables",
+                                "Wardrobes",
+                                "Chests of drawers",
+                                "Walk -in wardrobes",
+                                "Headboards",
+                                "Dressing tables",
+                                "Kids' bedroom sets",
+                                "More..."
+                            ] 
+                        },
+                        {
+                            subCategoryName: "Furniture components and hardware",
+                            subCategoryId: "1",
+                            productTypes: [
+                                "Drawers",
+                                "Cabinet doors",
+                                "Table Tops",
+                                "Table bases",
+                                "More..."
+                            ] 
+                        }
+                    ]
                 },
-                {
-                    categoryName: "Category - 2",
-                    categoryId: "2",
-                    subCategories: {
-                        subCategoryName: "subCategory - 2",
-                        subCategoryId: "2"
-                    }
-                },
-                {
-                    categoryName: "Category - 3",
-                    categoryId: "3",
-                    subCategories: {
-                        subCategoryName: "subCategory - 3",
-                        subCategoryId: "3"
-                    }
-                },
-                {
-                    categoryName: "Category - 4",
-                    categoryId: "4",
-                    subCategories: {
-                        subCategoryName: "subCategory - 4",
-                        subCategoryId: "4"
-                    }
-                },
-                {
-                    categoryName: "Category - 5",
-                    categoryId: "5",
-                    subCategories: {
-                        subCategoryName: "subCategory - 5",
-                        subCategoryId: "5"
-                    }
-                },
-                {
-                    categoryName: "Category - 6",
-                    categoryId: "6",
-                    subCategories: {
-                        subCategoryName: "subCategory - 6",
-                        subCategoryId: "6"
-                    }
-                },
-                {
-                    categoryName: "Category - 7",
-                    categoryId: "7",
-                    subCategories: {
-                        subCategoryName: "subCategory - 7",
-                        subCategoryId: "7"
-                    }
-                },
-                {
-                    categoryName: "Category - 8",
-                    categoryId: "8",
-                    subCategories: {
-                        subCategoryName: "subCategory - 8",
-                        subCategoryId: "8"
-                    }
-                },
-                {
-                    categoryName: "Category - 9",
-                    categoryId: "9",
-                    subCategories: {
-                        subCategoryName: "subCategory - 9",
-                        subCategoryId: "9"
-                    }
-                }
-            ]
+                // {
+                //     categoryName: "Category - 2",
+                //     categoryId: "2",
+                //     subCategories: [
+                //         {
+                //             subCategoryName: "subCategory - 2/1",
+                //             subCategoryId: "2"
+                //         },
+                //         {
+                //             subCategoryName: "subCategory - 2/2",
+                //             subCategoryId: "2"
+                //         },
+                //         {
+                //             subCategoryName: "subCategory - 2/3",
+                //             subCategoryId: "2"
+                //         },
+                //         {
+                //             subCategoryName: "subCategory - 2/4",
+                //             subCategoryId: "2"
+                //         },
+                //         {
+                //             subCategoryName: "subCategory - 2/5",
+                //             subCategoryId: "2"
+                //         }
+                //     ]
+                // },
+                // {
+                //     categoryName: "Category - 3",
+                //     categoryId: "3",
+                //     subCategories: [
+                //         {
+                //             subCategoryName: "subCategory - 3/1",
+                //             subCategoryId: "3"
+                //         },
+                //         {
+                //             subCategoryName: "subCategory - 3/2",
+                //             subCategoryId: "1"
+                //         },
+                //         {
+                //             subCategoryName: "subCategory - 3/3",
+                //             subCategoryId: "1"
+                //         },
+                //         {
+                //             subCategoryName: "subCategory - 3/4",
+                //             subCategoryId: "1"
+                //         },
+                //         {
+                //             subCategoryName: "subCategory - 3/5",
+                //             subCategoryId: "1"
+                //         }
+                //     ]
+                // },
+                // {
+                //     categoryName: "Category - 4",
+                //     categoryId: "4",
+                //     subCategories: [
+                //         {
+                //             subCategoryName: "subCategory - 4/1",
+                //             subCategoryId: "4"
+                //         },
+                //         {
+                //             subCategoryName: "subCategory - 4/2",
+                //             subCategoryId: "4"
+                //         },
+                //         {
+                //             subCategoryName: "subCategory - 4/3",
+                //             subCategoryId: "4"
+                //         },
+                //         {
+                //             subCategoryName: "subCategory - 4/4",
+                //             subCategoryId: "4"
+                //         },
+                //         {
+                //             subCategoryName: "subCategory - 4/5",
+                //             subCategoryId: "4"
+                //         }
+                //     ]
+                // },
+                // {
+                //     categoryName: "Category - 5",
+                //     categoryId: "5",
+                //     subCategories: [
+                //         {
+                //             subCategoryName: "subCategory - 5/1",
+                //             subCategoryId: "5"
+                //         },
+                //         {
+                //             subCategoryName: "subCategory - 5/2",
+                //             subCategoryId: "5"
+                //         },
+                //         {
+                //             subCategoryName: "subCategory - 5/3",
+                //             subCategoryId: "5"
+                //         },
+                //         {
+                //             subCategoryName: "subCategory - 5/4",
+                //             subCategoryId: "5"
+                //         },
+                //         {
+                //             subCategoryName: "subCategory - 5/5",
+                //             subCategoryId: "5"
+                //         }
+                //     ]
+                // },
+                // {
+                //     categoryName: "Category - 6",
+                //     categoryId: "6",
+                //     subCategories: [
+                //         {
+                //             subCategoryName: "subCategory - 6/1",
+                //             subCategoryId: "6"
+                //         },
+                //         {
+                //             subCategoryName: "subCategory - 6/2",
+                //             subCategoryId: "6"
+                //         },
+                //         {
+                //             subCategoryName: "subCategory - 6/3",
+                //             subCategoryId: "6"
+                //         },
+                //         {
+                //             subCategoryName: "subCategory - 6/4",
+                //             subCategoryId: "6"
+                //         },
+                //         {
+                //             subCategoryName: "subCategory - 6/5",
+                //             subCategoryId: "6"
+                //         }
+                //     ]
+                // },
+                // {
+                //     categoryName: "Category - 7",
+                //     categoryId: "7",
+                //     subCategories: [
+                //         {
+                //             subCategoryName: "subCategory - 7/1",
+                //             subCategoryId: "7"
+                //         },
+                //         {
+                //             subCategoryName: "subCategory - 7/2",
+                //             subCategoryId: "7"
+                //         },
+                //         {
+                //             subCategoryName: "subCategory - 7/3",
+                //             subCategoryId: "7"
+                //         },
+                //         {
+                //             subCategoryName: "subCategory - 7/4",
+                //             subCategoryId: "7"
+                //         },
+                //         {
+                //             subCategoryName: "subCategory - 7/5",
+                //             subCategoryId: "7"
+                //         }
+                //     ]
+                // },
+                // {
+                //     categoryName: "Category - 8",
+                //     categoryId: "8",
+                //     subCategories: [
+                //         {
+                //             subCategoryName: "subCategory - 8/1",
+                //             subCategoryId: "8"
+                //         },
+                //         {
+                //             subCategoryName: "subCategory - 8/2",
+                //             subCategoryId: "8"
+                //         },
+                //         {
+                //             subCategoryName: "subCategory - 8/3",
+                //             subCategoryId: "8"
+                //         },
+                //         {
+                //             subCategoryName: "subCategory - 8/4",
+                //             subCategoryId: "8"
+                //         },
+                //         {
+                //             subCategoryName: "subCategory - 8/5",
+                //             subCategoryId: "8"
+                //         }
+                //     ]
+                // },
+                // {
+                //     categoryName: "Category - 9",
+                //     categoryId: "9",
+                //     subCategories: [
+                //         {
+                //             subCategoryName: "subCategory - 9/1",
+                //             subCategoryId: "9"
+                //         },
+                //         {
+                //             subCategoryName: "subCategory - 9/2",
+                //             subCategoryId: "9"
+                //         },
+                //         {
+                //             subCategoryName: "subCategory - 9/3",
+                //             subCategoryId: "9"
+                //         },
+                //         {
+                //             subCategoryName: "subCategory - 9/4",
+                //             subCategoryId: "9"
+                //         },
+                //         {
+                //             subCategoryName: "subCategory - 9/5",
+                //             subCategoryId: "9"
+                //         }
+                //     ]
+                // }
+            ],
+
+            categorySelected: ""
         }
 
     }
@@ -156,7 +369,7 @@ class ArchitectMainDashboard extends Component {
     }
 
     // componentDidUpdate = () => {
-    //     console.log(this.state.firstName)
+    //     console.log(this.state.menuDrop, this.state.categorySelected)
     // }
     
 
@@ -181,45 +394,36 @@ class ArchitectMainDashboard extends Component {
         }
     }
 
-    
-    toggleClass = (categoryMenu) => {
-
-        if (categoryMenu === 'toggleMenu') {
-            if (this.state.menuDrop === "menuDrop") {
-                this.setState({
-                    menuDrop: "menuDrop hide"
-                })
-            }
-
-            if (this.state.menuDrop === "menuDrop hide") {
-                this.setState({
-                    menuDrop: "menuDrop"
-                })
-            }
-        }
-
-    }
-
     returnFooter = () => {
         if (this.props.userData) {
             return (
 
-                <div className="menuDropWrap">
+                <div className="menuDropWrap"
+                    onMouseEnter={() => {
+                        this.setState({
+                            menuDrop: "dummyWrapper"
+                        })
+                    }}
 
-                    <div className="menuItemsFullWrap">
-                        {this.state.categories.map(item => {
+                    onMouseLeave={() => {
+                        this.setState({
+                            menuDrop: "dummyWrapper hide"
+                        })
+                    }}
+                >
+
+                    <div 
+                        className="menuItemsFullWrap"
+                        >
+                        {this.state.categories.map((item,i) => {
                             return (
                                 <div
-                                    key={item.categoryId}
+                                    key={i}
                                     className="productsCategory"
                                     onMouseEnter={() => {
-                                        this.toggleClass('toggleMenu')
                                         this.setState({
                                             categorySelected: item.categoryId
                                         })
-                                    }}
-                                    onMouseLeave={() => {
-                                        this.toggleClass('toggleMenu')
                                     }}
                                 >
                                     <ul>
@@ -233,11 +437,17 @@ class ArchitectMainDashboard extends Component {
                             }
                         )}
 
-
                     </div>
 
-                    <div className="dropdownModal">
-                        {this.returnCategoryMenu()}
+                    <div className={this.state.menuDrop}>
+                        <div
+                            className="dropdownModal"
+                            >
+                            <div className="gridWrapper">
+                                {this.returnCategoryMenu()}
+                            </div>
+                            
+                        </div>
                     </div>
 
                 </div>
@@ -245,25 +455,31 @@ class ArchitectMainDashboard extends Component {
         }
     }
     
-    handleCategoryMenu = (categoryName) => {
-        if(categoryName === "category - 1") {
-            console.log(categoryName)
-            this.setState({
-                categorySelected: categoryName
-            })
-        }
-    }
 
     returnCategoryMenu = () => {
         const {categories, categorySelected} = this.state;
 
         return categories.map(item => {
             if (item.categoryId === categorySelected) {
-                return(
-                    <div key={item.subCategories.subCategoryId} className="categoryDropDownMenu">
-                        <p>{item.subCategories.subCategoryName}</p>
-                    </div>
-                )
+                return item.subCategories.map((subItem, i) => {
+                    
+                    return (
+                        <div key={i} className="subCategoryList">
+                            <div className="subCategoryNameHead">
+                                {subItem.subCategoryName}
+                                <div className="productTypes">
+                                        {subItem.productTypes.map((product, i) => {
+                                            return (
+                                                <div key={i} className="productNames">
+                                                    {product}
+                                                </div>
+                                            )}
+                                        )}
+                                </div>
+                            </div>
+                        </div>
+                    )
+                })
             }
         })
     }
