@@ -1,7 +1,7 @@
 import React from "react"
 import Link from 'next/link'
 
-import "../../../assets/sass/vendor_main_dashboard.scss"
+// import "../../../assets/sass/vendor_main_dashboard.scss"
 import { Image } from 'cloudinary-react'
 import PublicId from '../../../factories/cloudinaryFactory'
 
@@ -347,92 +347,77 @@ class VendorMainDashboard extends React.Component {
     //     window.removeEventListener("resize", this.updateDimensions);
     // }
  
-    componentDidMount = () => {
+    componentDidMount = async () => {
 
         // window.addEventListener("resize",  this.updateDimensions);
 
-        this
-            .props
-            .getUserData()
-            .then((data) => {
-                let { userData } = this.props
+        await Promise.all([
+            this.props.getUserData(),
+            this.props.hitApi(api.GET_VENDOR_DATA, "GET")
+        ])
+
+        .then(() => {
+            
+            let { userData, responseData } = this.props
+
+
+            if (responseData.responsePayload.message !== "User credentials not found") {
 
                 //
                 // DECRYPT REQUEST DATA
                 //
-                let decryptedData = decryptData(userData.responseData)
-
+                let decryptedData = {
+                    ...decryptData(userData.responseData),
+                    ...decryptData(responseData.responsePayload.responseData)
+                }
                 //
                 // DECRYPT REQUEST DATA
                 //
+
+                this.convertVendorDataAndSave(decryptedData.products)
 
                 this.setState({
-                    loadingClass: 'loadingAnim hide',
-                    mainClass: 'mainClass',
-
                     firstName: decryptedData.firstName,
                     lastName: decryptedData.lastName,
                     professionalTitle: decryptedData.professionalTitle,
                     profilePicture: decryptedData.profilePicture,
+
+                    ////////
+                    responseCompanyName : decryptedData.companyName,
+                    responseCompanyDescription : decryptedData.companyDescriptionLine1 
+                                                    + " " +
+                                                (
+                                                    decryptedData.companyDescriptionLine2 
+                                                        ?
+                                                    decryptedData.companyDescriptionLine2 
+                                                        :
+                                                    ""
+                                                ),
+                    responseExperience : decryptedData.experience ? decryptedData.experience.years : "",
+                    companyProfilePicture : decryptedData.companyProfilePicture,
+
+                    state: decryptedData.address.state,
+                    city: decryptedData.address.city,
+                    
+                    ////////
+                    loadingClass: 'loadingAnim hide',
+                    mainClass: 'mainClass',
                 })
+            }
+        })
 
-                this.props.hitApi(api.GET_VENDOR_DATA, "GET")
-                .then((data) => {
-                    let { responseData } = this.props
+        .catch((err) => {
+            if (err.response) {
+                if (err.response.status === 401)
+                    window.open('/log-in', "_self")
+            }
 
-                    if (responseData.responsePayload.message !== "User credentials not found") {
-
-                        //
-                        // DECRYPT REQUEST DATA
-                        //
-                        let decryptedData = decryptData(
-                            responseData.responsePayload.responseData
-                        )
-                        //
-                        // DECRYPT REQUEST DATA
-                        //
-
-                        this.convertVendorDataAndSave(decryptedData.products)
-
-                        this.setState({
-                            responseCompanyName : decryptedData.companyName,
-                            responseCompanyDescription : decryptedData.companyDescriptionLine1 
-                                                            + " " +
-                                                        (
-                                                            decryptedData.companyDescriptionLine2 
-                                                                ?
-                                                            decryptedData.companyDescriptionLine2 
-                                                                :
-                                                            ""
-                                                        ),
-                            responseExperience : decryptedData.experience ? decryptedData.experience.years : "",
-                            companyProfilePicture : decryptedData.companyProfilePicture,
-
-                            state: decryptedData.address.state,
-                            city: decryptedData.address.city,
-
-                            //
-                        })
-                    }
-                })
-            })
-
-            .catch((err) => {
-                if (err.response) {
-                    if (err.response.status === 401)
-                        window.open('/log-in', "_self")
-                }
-
-                else
-                    console.error(err)
-            })
-
+            else
+                console.error(err)
+        })
             
     }
 
-    // componentDidUpdate() {
-    //     // console.log(this.state.companyProfilePicture)
-    // }
 
     convertVendorDataAndSave = (productsRaw) => {
 
@@ -1425,91 +1410,99 @@ class VendorMainDashboard extends React.Component {
         }
 
         else if (fieldName === "finishes") {
-            return (
-                productFinishes.map((item, i) => {
-                    return (
-                        <div 
-                            key={i} 
-                            className="modalContainerUpperContainer">
-                            <div className="modalContainer">
-                                <div className="subImageOrDivIfAny">
-                                    <img 
-                                        src={item.finishImage} 
-                                        alt=""
-                                    />
-                                </div>
-
-                                <div className="modalContainerInnerLayer">
-                                    <div className="modalHeadingText">
-                                        {/* <h3>Name: </h3> <p>{item.materialName}</p> */}
-                                        <p>{item.finishName}</p>
+            if (productFinishes.length !== 0) {
+                return (
+                    productFinishes.map((item, i) => {
+                        return (
+                            <div
+                                key={i}
+                                className="modalContainerUpperContainer">
+                                <div className="modalContainer">
+                                    <div className="subImageOrDivIfAny">
+                                        <img
+                                            src={item.finishImage}
+                                            alt=""
+                                        />
                                     </div>
 
-                                    <div className="modalSubText">
-                                        {/* <h3>Price:</h3> <p>Rs. {item.materialCost}</p> */}
-                                        <p>{item.finishCode}</p>
-                                    </div>
+                                    <div className="modalContainerInnerLayer">
+                                        <div className="modalHeadingText">
+                                            {/* <h3>Name: </h3> <p>{item.materialName}</p> */}
+                                            <p>{item.finishName}</p>
+                                        </div>
 
-                                    <div className="modalSubText">
+                                        <div className="modalSubText">
+                                            {/* <h3>Price:</h3> <p>Rs. {item.materialCost}</p> */}
+                                            <p>{item.finishCode}</p>
+                                        </div>
 
-                                        {
-                                            Number(item.finishCost) > 0 
-                                            ?
-                                            <p>Costs <span>Rs. { item.finishCost }</span> extra</p>
-                                            :
-                                            <p>No extra cost</p>
-                                        }
+                                        <div className="modalSubText">
+
+                                            {
+                                                Number(item.finishCost) > 0
+                                                    ?
+                                                    <p>Costs <span>Rs. {item.finishCost}</span> extra</p>
+                                                    :
+                                                    <p>No extra cost</p>
+                                            }
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    )
+                        )
+                    })
+                )
+            }
 
-                })
-            )
+            else {
+                return <p>N/A</p>
+            }
         }
 
         else if (fieldName === "colors") {
-            return (
-                colorArray.map((item, i) => {
-
-                    return (
-                        <div 
-                            key={i} 
-                            className="modalContainerUpperContainer">
-                            <div className="modalContainer">
-                                <div className="subImageOrDivIfAny">
-                                    <div style = {{background : item.colorCode}} ></div>
-                                </div>
-
-                                <div className="modalContainerInnerLayer">
-                                    <div className="modalHeadingText">
-                                        {/* <h3>Name: </h3> <p>{item.materialName}</p> */}
-                                        <p>{item.colorName}</p>
+            if (colorArray.length !== 0) {
+                return (
+                    colorArray.map((item, i) => {
+                        return (
+                            <div
+                                key={i}
+                                className="modalContainerUpperContainer">
+                                <div className="modalContainer">
+                                    <div className="subImageOrDivIfAny">
+                                        <div style={{ background: item.colorCode }} ></div>
                                     </div>
-                                    <div className="modalSubText">
-                                        {/* <h3>Price:</h3> <p>Rs. {item.materialCost}</p> */}
-                                        <p>{item.colorCode}</p>
-                                    </div>
-                                    <div className="modalSubText">
-                                        {/* <h3>Price:</h3> <p>Rs. {item.materialCost}</p> */}
-                                        
-                                        {
-                                            Number(item.colorCost) > 0 
-                                            ?
-                                            <p>Costs <span>Rs. { item.colorCost }</span> extra</p>
-                                            :
-                                            <p>No extra cost</p>
-                                        }
+
+                                    <div className="modalContainerInnerLayer">
+                                        <div className="modalHeadingText">
+                                            {/* <h3>Name: </h3> <p>{item.materialName}</p> */}
+                                            <p>{item.colorName}</p>
+                                        </div>
+                                        <div className="modalSubText">
+                                            {/* <h3>Price:</h3> <p>Rs. {item.materialCost}</p> */}
+                                            <p>{item.colorCode}</p>
+                                        </div>
+                                        <div className="modalSubText">
+                                            {/* <h3>Price:</h3> <p>Rs. {item.materialCost}</p> */}
+
+                                            {
+                                                Number(item.colorCost) > 0
+                                                    ?
+                                                    <p>Costs <span>Rs. {item.colorCost}</span> extra</p>
+                                                    :
+                                                    <p>No extra cost</p>
+                                            }
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    )
+                        )
+                    })
+                )
+            }
 
-                    
-                })
-            )
+            else {
+                return <p>N/A</p>
+            }
         }
 
         else if (fieldName === "dimensions") {
@@ -2248,6 +2241,7 @@ class VendorMainDashboard extends React.Component {
                         <div className="modalHeaderContainer productPreview">
                             <h3>Product preview</h3>
                             <div className="line"></div>
+                            <small>(N/A - Not Applicable)</small>
                         </div>
                         <div
                             className="close"

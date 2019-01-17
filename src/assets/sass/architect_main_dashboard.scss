@@ -1,0 +1,65 @@
+@import "_mixins";
+@import "_vars";
+
+@include includeCommonStyles;
+@include ignoreDefaultStyles;
+
+
+@include scrollStyles;
+
+
+.architectDashboard{
+    width: 100%;
+    background: $white;
+    .productCategoriesWrapper{
+        width: 100%;
+        // box-sizing: border-box;
+        .menuDropWrap{
+            position: relative;
+            .menuItemsFullWrap{
+            }
+            .productsCategory {
+                    display: inline-flex;
+                    ul{
+                        @include flexCentreCol;
+                        width: 100%;
+                        margin: 0;
+                        padding: 0.5em;
+                        justify-content: flex-start;   
+                    }
+                    
+                }
+                .dummyWrapper{
+                    width: 80%;
+                    height: 30em;
+                    overflow-y: auto;
+
+                    .dropdownModal{
+                        position: relative;
+                        z-index: 1;
+                        background: black;
+                    }
+                }
+                .gridWrapper{
+                    display: grid;
+                    grid-template-columns: 1fr 1fr 1fr;
+                }
+                .subCategoryNameHead{
+                    color: #f8f9ff;
+                    padding: 1em;
+                }
+                .productTypes{
+                    padding: 0.5em 0;
+                }
+                .productNames{
+                    color: #f8f9ff;
+                    font-size: 13px
+                }
+        }
+    }
+
+    li{
+        list-style: none;
+        margin: 0 1em;
+    }
+}

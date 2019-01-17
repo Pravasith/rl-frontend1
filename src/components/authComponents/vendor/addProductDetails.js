@@ -185,85 +185,145 @@ class AddProductDetails extends React.Component {
       emptyField: [],
 
       installerCostType: 1,
-      installationServiceCostType: 1
+      installationServiceCostType: 1,
+
+      productTypes : [],
     };
   }
 
-  componentDidMount = () => {
-    this.props
-      .getUserData()
+  componentDidMount = async () => {
 
-      .then(data => {
-        let { userData, sCId } = this.props;
+    let { sCId } = this.props
 
-        //
-        // DECRYPT REQUEST DATA
-        //
-        let decryptedData = decryptData(userData.responseData);
-        //
-        // DECRYPT REQUEST DATA
-        //
+    const rawData = { sCId }
 
-        const rawData = { sCId };
+    //
+    // Encrypt data
+    //
+    const encryptedData = encryptData(rawData)
+    //
+    // Encrypt data
+    //
 
-        //
-        // Encrypt data
-        //
-        const encryptedData = encryptData(rawData);
-        //
-        // Encrypt data
-        //
-
-        // GET PRODUCT TYPES
-        this.props
+    await Promise.all([
+      this.props.getUserData(),
+      this.props
           .hitApi(api.GET_PRODUCT_TYPES, "POST", {
             requestData: encryptedData,
             message: "Requesting dispatch product types"
-          })
-          .then(() => {
-            //
-            // DECRYPT REQUEST DATA
-            //
-            let decryptedData = decryptData(
-              this.props.responseData.responsePayload.responseData
-            );
-            //
-            // DECRYPT REQUEST DATA
-            //
+          }),
+          
+    ])
 
-            this.setState({
-              loadingClass: "loadingAnim hide",
-              mainClass: "mainClass",
-              productTypes: decryptedData
-            });
+    .then((data) => {
+        let { userData, responseData } = this.props
 
-            // console.log(this.props.sCId)
-          })
+        //
+        // DECRYPT REQUEST DATA
+        //
+        let decryptedData = [...decryptData(responseData.responsePayload.responseData)]
+          // ...decryptData(userData.responseData),
+          
+        
+        //
+        // DECRYPT REQUEST DATA
+        //
 
-          .catch(err => {
-            if (err.response) {
-              // console.log(err.response)
-              if (err.response.status === 401) window.open("/log-in", "_self");
-              else {
-                // window.open('/vendor/dashboard', "_self")
-              }
-            } else {
-              console.error(err);
-              // window.open('/vendor/dashboard', "_self")
-            }
-          });
-      })
+        console.log(decryptedData)
 
-      .catch(err => {
-        if (err.response) {
-          if (err.response.status === 401) window.open("/log-in", "_self");
-        } else console.error(err);
-      });
-  };
+        this.setState({
+          loadingClass: "loadingAnim hide",
+          mainClass: "mainClass",
+          productTypes: decryptedData
+        })
 
-  // componentDidUpdate() {
-  //   console.log(this.state.finishDetailsIsValid);
-  // }
+
+    })
+
+    .catch(err => {
+      if (err.response) {
+        if (err.response.status === 401) window.open("/log-in", "_self");
+      } else console.error(err);
+    });
+
+
+
+
+
+
+
+
+    // this.props
+    //   .getUserData()
+
+    //   .then(data => {
+    //     let { userData, sCId } = this.props
+
+    //     //
+    //     // DECRYPT REQUEST DATA
+    //     //
+    //     let decryptedData = decryptData(userData.responseData);
+    //     //
+    //     // DECRYPT REQUEST DATA
+    //     //
+
+    //     const rawData = { sCId }
+
+    //     //
+    //     // Encrypt data
+    //     //
+    //     const encryptedData = encryptData(rawData);
+    //     //
+    //     // Encrypt data
+    //     //
+
+    //     // GET PRODUCT TYPES
+    //     this.props
+    //       .hitApi(api.GET_PRODUCT_TYPES, "POST", {
+    //         requestData: encryptedData,
+    //         message: "Requesting dispatch product types"
+    //       })
+    //       .then(() => {
+    //         //
+    //         // DECRYPT REQUEST DATA
+    //         //
+    //         let decryptedData = decryptData(
+    //           this.props.responseData.responsePayload.responseData
+    //         );
+    //         //
+    //         // DECRYPT REQUEST DATA
+    //         //
+
+    //         this.setState({
+    //           loadingClass: "loadingAnim hide",
+    //           mainClass: "mainClass",
+    //           productTypes: decryptedData
+    //         });
+
+    //         // console.log(this.props.sCId)
+    //       })
+
+    //       .catch(err => {
+    //         if (err.response) {
+    //           // console.log(err.response)
+    //           if (err.response.status === 401) window.open("/log-in", "_self");
+    //           else {
+    //             // window.open('/vendor/dashboard', "_self")
+    //           }
+    //         } else {
+    //           console.error(err);
+    //           // window.open('/vendor/dashboard', "_self")
+    //         }
+    //       });
+    //   })
+
+    //   .catch(err => {
+    //     if (err.response) {
+    //       if (err.response.status === 401) window.open("/log-in", "_self");
+    //     } else console.error(err);
+    //   });
+  }
+
 
   modalClassToggle = showOrNot => {
     if (showOrNot === "show")
@@ -2213,14 +2273,18 @@ class AddProductDetails extends React.Component {
           </div>
         </div>
       );
-    else if (this.state.finalProceed === "sendRequest") {
+    
+    
+      else if (this.state.finalProceed === "sendRequest") {
       return (
         <div className="loadingWrapperProducts">
           <NavBarLoadingIcon />
           <h3 className="loadingHeader">Saving your product...</h3>
         </div>
       );
-    } else if (this.state.finalProceed === "errorScreen") {
+    } 
+    
+    else if (this.state.finalProceed === "errorScreen") {
       return (
         <div className="loadingWrapperProducts">
           <SadFace />
@@ -2240,7 +2304,9 @@ class AddProductDetails extends React.Component {
           </h3>
         </div>
       );
-    } else if (this.state.finalProceed === "successScreen") {
+    } 
+    
+    else if (this.state.finalProceed === "successScreen") {
       return (
         <div className="loadingWrapperProducts">
           <HappyFace />
@@ -3039,7 +3105,7 @@ class AddProductDetails extends React.Component {
           <div className="modalBackgroundInnerWrap">
             <header className="closeHeaderSection">
               <div
-                className="closeButtonContainer"
+                className={this.returnModalCloseButton()}
                 onClick={() => {
                   this.modalClassToggle("dontShow");
                   // this.setState({
@@ -3069,6 +3135,15 @@ class AddProductDetails extends React.Component {
       </div>
     );
   };
+
+  returnModalCloseButton = () => {
+    if (this.state.finalProceed === "successScreen" || this.state.finalProceed === "errorScreen") {
+      return "closeButtonContainer hide"
+    }
+    else {
+      return "closeButtonContainer"
+    }
+  }
 
   handleStates = () => {
     if (this.state.finalProceed === "saveAndProceed") {
@@ -4314,6 +4389,15 @@ class AddProductDetails extends React.Component {
                         >
                           Save and Proceed
                         </GradientButton>
+                      </div>
+                      <div>
+                        <WhiteButton
+                          runFunction={() => {
+                            window.open('/vendor/dashboard', "_self")
+                          }}
+                        >
+                          Cancel
+                        </WhiteButton>
                       </div>
                     </div>
                   </article>

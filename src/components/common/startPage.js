@@ -26,14 +26,13 @@ export default class StartPage extends React.Component {
 
 
     componentDidMount = () => {
-        // setTimeout( () => {
-            this.setState({
-                loadingClass: 'loadingAnim hide',
-                mainClass: 'mainClass',
-            })
-        // },4000)
 
         
+        
+        this.setState({
+            loadingClass: 'loadingAnim hide',
+            mainClass: 'mainClass',
+        })
     }   
 
 
@@ -51,7 +50,7 @@ export default class StartPage extends React.Component {
                     <meta property="og:description" content="Architects, Interior Designers Marketplace in India" />
                     <meta property="og:url" content="https://www.rollinglogs.com/architecture/" />
                     <meta property="og:site_name" content="RollingLogs" />
-                    <meta property="og:image" content="http://static.dezeen.com/assets/images/logo-magazine.png" />
+                    {/* <meta property="og:image" content="http://static.dezeen.com/assets/images/logo-magazine.png" /> */}
                     <title>Start building your dream home without any hassle in India - Rolling Logs</title>
                 </Head>
 
