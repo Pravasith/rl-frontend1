@@ -330,7 +330,7 @@ class ArchitectMainDashboard extends Component {
                 let { userData } = this.props
 
                 if (userData.message !== "User credentials not found") {
-
+                    
                     //
                     // DECRYPT REQUEST DATA
                     //

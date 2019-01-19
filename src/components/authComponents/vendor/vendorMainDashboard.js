@@ -2362,7 +2362,7 @@ class VendorMainDashboard extends React.Component {
                                                             publicId={PublicId(this.state.companyProfilePicture ? this.state.companyProfilePicture : "")} 
                                                             // transformations
                                                             width="300" 
-                                                            crop="scale"
+                                                            crop="fit"
                                                         />
                                                     </div>
                                                 </div>
