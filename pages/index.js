@@ -66,7 +66,7 @@ const Index = () => (
                 <StartPage/>
                 <ul>
                     <PostLink 
-                        // id={routeLinks.VENDOR_DASHBOARD} 
+                        id={routeLinks.VENDOR_DASHBOARD} 
                     />
                 </ul>
             </div>

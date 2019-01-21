@@ -141,7 +141,13 @@ export default class HtmlSlider extends React.Component{
             const imageArray = productDetailObject.imagesInCategory.map((image, j) => {
                 if(image.title){
                     return(
-                        <div key={j} className="imageDetails">
+                        <div 
+                            key={j} 
+                            className="imageDetails"
+                            onClick={() => {
+                                this.props.runFunction(image)
+                            }}
+                            >
                             <div className="imageDetailsDummyWrap">
                                 <Image 
                                     cloudName="rolling-logs" 
@@ -150,9 +156,7 @@ export default class HtmlSlider extends React.Component{
                                     // transformations
                                     width="300" 
                                     crop="scale"
-                                    onClick={() => {
-                                        this.props.runFunction(image)
-                                    }}
+                                   
                                 />
                             </div>
     
@@ -167,7 +171,11 @@ export default class HtmlSlider extends React.Component{
 
                 else{
                     return(
-                        <div key={j} className="imageDetails">
+                        <div 
+                            key={j} 
+                            className="imageDetails"
+                            onClick={() => this.props.runFunction(image)} 
+                            >
                             <div className="imageDetailsDummyWrap noTitle">
                                 <Image 
                                     cloudName="rolling-logs" 
@@ -176,7 +184,7 @@ export default class HtmlSlider extends React.Component{
                                     // transformations
                                     width="300" 
                                     crop="scale"
-                                    onClick={() => this.props.runFunction(image)} 
+                                    
                                 />
                             </div>
                         </div>
