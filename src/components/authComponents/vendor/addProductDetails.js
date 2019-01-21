@@ -119,6 +119,7 @@ class AddProductDetails extends React.Component {
       // productPrice: 0,
       productDescription: "",
 
+      productGST: undefined,
       productDiscount: undefined,
 
       productFinishImage: "",
@@ -153,8 +154,15 @@ class AddProductDetails extends React.Component {
 
       // displayError: "displayError",
       displayError: "displayError hide",
+      displayDiscountValueValidationError: "displayError hide",
+      displayGSTValueValidationError: "displayError hide",
+      displayInstallationValueValidationError: "displayError hide",
+
       displayValueError: "displayValueError hide",
+      displayGSTValueError: "displayGSTValueError hide",
       displayDiscountValueError: "displayDiscountValueError hide",
+
+      Validation: "Validation hide",
       displayInstallationValueError: "displayInstallationValueError hide",
       displayQuantityValueError: "displayQuantityValueError hide",
       // productQuantityErrorMessage: "displayValueError hide",
@@ -325,6 +333,9 @@ class AddProductDetails extends React.Component {
     //   });
   }
 
+  componentDidUpdate() {
+    console.log(this.state.displayDiscountValueValidationError, this.state.displayGSTValueValidationError, this.state.displayInstallationValueValidationError)
+  }
 
   modalClassToggle = showOrNot => {
     if (showOrNot === "show")
@@ -1156,12 +1167,17 @@ class AddProductDetails extends React.Component {
         if (checkFor === "discount") {
           this.setState({
             productDiscount: Number(val),
-            displayError: "displayError hide"
+            displayDiscountValueValidationError: "displayError hide"
+          });
+        } else if (checkFor === "GST") {
+          this.setState({
+            productGST: Number(val),
+            displayGSTValueValidationError: "displayError hide",
           });
         } else if (checkFor === "installation") {
           this.setState({
             productInstallationServiceCost: Number(val),
-            displayError: "displayError hide"
+            displayInstallationValueValidationError: "displayError hide"
           });
         } else if (checkFor === "installer") {
           this.setState({
@@ -1197,12 +1213,17 @@ class AddProductDetails extends React.Component {
         if (checkFor === "discount") {
           this.setState({
             productDiscount: "",
-            displayError: "displayError"
+            displayDiscountValueValidationError: "displayError"
+          });
+        } else if (checkFor === "GST") {
+          this.setState({
+            productGST: "",
+            displayGSTValueValidationError: "displayError"
           });
         } else if (checkFor === "installation") {
           this.setState({
             productInstallationServiceCost: "",
-            displayError: "displayError"
+            displayInstallationValueValidationError: "displayError"
           });
         } else if (checkFor === "installer") {
           this.setState({
@@ -3371,7 +3392,7 @@ class AddProductDetails extends React.Component {
             displayError: "displayError hide",
             productDiscountAvailablity: "no",
             productDiscount: 0,
-            displayDiscountValueError: "displayDiscountValueError hide"
+            Validation: "Validation hide"
         });
 
         this.refs.discountInput.value = "";
@@ -3610,6 +3631,41 @@ class AddProductDetails extends React.Component {
                                 });
                               }}
                             />
+                          </div>
+                        </div>
+
+
+                        <div className="inputFormContainer">
+                          <div className="formParaSection">
+                            <p className="pargraphClass">
+                              GST of this product
+                            </p>
+                          </div>
+                          <div className="GSTinputSection">
+                            <input
+                              type="text"
+                              ref="GSTInput"
+                              maxLength="2"
+                              onChange={e =>
+                                this.checkTypeNumber(e, "GST")
+                              }
+                            />
+                            <span className="InputSeparatorLine">
+                              {" "}
+                            </span>
+                            <p>%</p>
+                          </div>
+                          <div className="errorContent">
+                            <p className={this.state.displayGSTValueValidationError}>
+                              Numbers only
+                            </p>
+                            <p
+                              className={
+                                this.state.displayGSTValueError
+                              }
+                            >
+                              GST cannot be zero, please check and enter it.
+                            </p>
                           </div>
                         </div>
 
@@ -4080,7 +4136,7 @@ class AddProductDetails extends React.Component {
                                   </div>
                                 </div>
                                 <div className="errorContent">
-                                  <p className={this.state.displayError}>
+                                  <p className={this.state.displayDiscountValueValidationError}>
                                     Numbers Only
                                   </p>
                                   <p
@@ -4279,7 +4335,7 @@ class AddProductDetails extends React.Component {
                                       </div>
                                     </div>
                                     <div className="errorContent">
-                                      <p className={this.state.displayError}>
+                                      <p className={this.state.displayInstallationValueValidationError}>
                                         Numbers Only
                                       </p>
                                       <p
