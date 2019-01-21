@@ -35,7 +35,7 @@ nextApp.prepare()
             // cert: fs.readFileSync('/var/www/rollinglogs/fullkeys/fullchain.pem', 'utf-8')
         };
 
-        let app = express();
+        // let app = express();
 
         
 
@@ -78,10 +78,10 @@ nextApp.prepare()
         console.log("Express server listening on port " + port);
         });
 
-        server.listen((port), (err) => {
-            if (err) throw err
-            console.log('>> Ready on 3000')
-        })
+        // server.listen((port), (err) => {
+        //     if (err) throw err
+        //     console.log('>> Ready on 3000')
+        // })
 
         app.on('listening',function(){
             console.log('ok, server is running');
