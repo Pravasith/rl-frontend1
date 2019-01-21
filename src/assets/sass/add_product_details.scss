@@ -1455,7 +1455,7 @@ input{
                                                             .outerMostLayer{
                                                                 width: 90%;
                                                                 margin: 0.2em;
-                                                                border: 0.1em solid $mediumGrey;
+                                                                // border: 0.1em solid $mediumGrey;
                                                                 .innerWrapperImage{
                                                                     height: 100%;
                                                                     .productCatalogueImage{
@@ -1624,7 +1624,7 @@ input{
                                     height: 100%;
                                     .dummyXClass{
                                         height: 100%;
-                                        height: 30em;
+                                        // height: 30em;
                                         width: 60em;
                                        .whiteSquareForModal{
                                            @include flexCentreCol;
@@ -1648,53 +1648,55 @@ input{
                                                 }
                                               }
                                                .content{
-                                                    @include flexCentreRow;
-                                                    align-items: flex-start;
+                                                    @include flexCentreCol;
+                                                    // align-items: flex-start;
                                                     width: 100%;
                                                     height: 100%;
                                                     .detailsToInput{
                                                         @include flexCentreRow;
-                                                        width: 15%;
+                                                        width: 100%;
                                                         margin: 1em 0;
                                                         .imageInput{
+                                                            @include flexCentreRow;
                                                             width: 100%;
                                                             .productView{
                                                                 margin-top: 0;
-                                                                .innerViewProductLayer{
-                                                                    @include flexCentreCol;
-                                                                    .arrowButtonContainer{
-                                                                        .leftArrowButton{
-                                                                            #Left_Arrow{
-                                                                                transform: rotate(90deg);
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                    .imageContainerMiddleLayer{
-                                                                        grid-template-rows: 1fr 1fr 1fr;
-                                                                        width: 90%;
-                                                                    }
-                                                                    .arrowButtonContainer{
-                                                                        .rightArrowButton{
-                                                                            #Right_Arrow{
-                                                                                transform: rotate(90deg);
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                }
+                                                                width: 40%;
+                                                                // .innerViewProductLayer{
+                                                                //     @include flexCentreCol;
+                                                                //     .arrowButtonContainer{
+                                                                //         .leftArrowButton{
+                                                                //             #Left_Arrow{
+                                                                //                 transform: rotate(90deg);
+                                                                //             }
+                                                                //         }
+                                                                //     }
+                                                                //     .imageContainerMiddleLayer{
+                                                                //         grid-template-rows: 1fr 1fr 1fr;
+                                                                //         width: 90%;
+                                                                //     }
+                                                                //     .arrowButtonContainer{
+                                                                //         .rightArrowButton{
+                                                                //             #Right_Arrow{
+                                                                //                 transform: rotate(90deg);
+                                                                //             }
+                                                                //         }
+                                                                //     }
+                                                                // }
                                                             }
                                                         }
                                                     }
                                                     .selectedPreviewImageContainer{
                                                         @include flexCentreCol;
                                                         width: 70%;
-                                                        height: 27em;
+                                                        height: 23em;
                                                         .imgContainer{
                                                             width: 75%;
-                                                            height: 22em;
+                                                            height: 20em;
                                                             border: 0.1em solid $lightGrey;
                                                             p{
                                                                 top: 50%;
-                                                                left: 50%;
+                                                                left: 45%;
                                                                 position: absolute;
                                                                
                                                                 text-align: center;

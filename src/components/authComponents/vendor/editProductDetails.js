@@ -2,6 +2,8 @@ import React from "react"
 
 import "../../../assets/sass/add_product_details.scss"
 
+import Head from 'next/head'
+
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 
@@ -3302,6 +3304,34 @@ class EditProductDetails extends React.Component {
                                         </div>
                                     </div>
                                     <div className="content">
+                                    
+
+                                        <div className="selectedPreviewImageContainer">
+                                            <div className="imgContainer">
+                                                <p
+                                                    className={
+                                                        this.state.productImageThumbnail !== ""
+                                                            ? "previewImageText hide"
+                                                            : "previewImageText"
+                                                    }
+                                                >
+                                                    Click on the image to view
+                                                </p>
+                                                <img src={this.state.productImageThumbnail} alt="" />
+                                            </div>
+                                            <div className={this.state.showDeleteButton}>
+                                                <WhiteButton
+                                                    runFunction={() => {
+                                                        this.removeProductImage();
+                                                        this.setState({
+                                                            showDeleteButton: "showDeleteButton hide"
+                                                        });
+                                                    }}
+                                                >
+                                                    Delete
+                                                </WhiteButton>
+                                            </div>
+                                        </div>
                                         <div className="detailsToInput">
                                             <div className="imageInput">
                                                 <HtmlSlider
@@ -3316,33 +3346,6 @@ class EditProductDetails extends React.Component {
                                                         });
                                                     }}
                                                 />
-                                            </div>
-                                        </div>
-
-                                        <div className="selectedPreviewImageContainer">
-                                            <div className="imgContainer">
-                                                <p
-                                                    className={
-                                                        this.state.productImageThumbnail !== ""
-                                                            ? "previewImageText hide"
-                                                            : "previewImageText"
-                                                    }
-                                                >
-                                                    Click on the image to view
-                        </p>
-                                                <img src={this.state.productImageThumbnail} alt="" />
-                                            </div>
-                                            <div className={this.state.showDeleteButton}>
-                                                <WhiteButton
-                                                    runFunction={() => {
-                                                        this.removeProductImage();
-                                                        this.setState({
-                                                            showDeleteButton: "showDeleteButton hide"
-                                                        });
-                                                    }}
-                                                >
-                                                    Delete
-                        </WhiteButton>
                                             </div>
                                         </div>
                                     </div>
@@ -3868,6 +3871,19 @@ class EditProductDetails extends React.Component {
     render() {
         return (
             <div className="vendorDashboardWrapper">
+                <Head>
+                    <meta name="description" content="Architectural process from Rolling Logs, start building your dream home without any hassle in India." />
+                    <meta name="robots" content="noodp" />
+                    <link rel="canonical" href="https://www.rollinglogs.com/architecture/" />
+                    <link rel = "next" href = "https://www.rollinglogs.com/architecture/page/2/" />
+                    <meta property="og:locale" content="en_US" />
+                    <meta property="og:type" content="object" />
+                    <meta property="og:description" content="Architects, Interior Designers Marketplace in India" />
+                    <meta property="og:url" content="https://www.rollinglogs.com/architecture/" />
+                    <meta property="og:site_name" content="RollingLogs" />
+                    <meta property="og:image" content="http://static.dezeen.com/assets/images/logo-magazine.png" />
+                    <title>Showcase your products to architect and interior designers - Rolling Logs</title>
+                </Head>
                 <div className={this.state.loadingClass}>
                     <LogoAnimation
                         text="We are loading..."
@@ -4378,7 +4394,7 @@ class EditProductDetails extends React.Component {
 
                                                 <div className="inputFormContainer">
                                                     <div className="formParaSection">
-                                                        <p className="pargraphClass"> YouTube URL: </p>
+                                                        <p className="pargraphClass">Product ad/demo video YouTube link(if any) </p>
                                                     </div>
                                                     
                                                     <div className="inputCategoryYoutubeSection">

@@ -1,9 +1,13 @@
 import React from "react";
 
 // import "../../../assets/sass/add_product_details.scss";
+import Head from 'next/head'
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+
+import { Image } from 'cloudinary-react'
+import PublicId from '../../../factories/cloudinaryFactory'
 
 import { getUserData } from "../../../actions/userActions";
 import {
@@ -226,7 +230,7 @@ class AddProductDetails extends React.Component {
         // DECRYPT REQUEST DATA
         //
 
-        console.log(decryptedData)
+        // console.log(decryptedData)
 
         this.setState({
           loadingClass: "loadingAnim hide",
@@ -1262,7 +1266,7 @@ class AddProductDetails extends React.Component {
       imageURL: productImage
     };
 
-    console.log(temp)
+    // console.log(temp)
 
     // if (temp.imageURL !== "") {
     let dummyArray = productImagesObject.imagesInCategory
@@ -2887,22 +2891,6 @@ class AddProductDetails extends React.Component {
                     </div>
                   </div>
                   <div className="content">
-                    <div className="detailsToInput">
-                      <div className="imageInput">
-                        <HtmlSlider
-                          categoryData={this.state.productImagesObject} // format of Item
-                          numberOfSlides={3} // Change the css grid properties for responsiveness
-                          textOnRibbon={""} // All caps
-                          runFunction={data => {
-                            this.setState({
-                              productImageThumbnail: data.imageURL,
-                              showDeleteButton: "showDeleteButton"
-                              // finalProceed: "sendRequest"
-                            });
-                          }}
-                        />
-                      </div>
-                    </div>
 
                     <div className="selectedPreviewImageContainer">
                       <div className="imgContainer">
@@ -2928,6 +2916,22 @@ class AddProductDetails extends React.Component {
                         >
                           Delete
                         </WhiteButton>
+                      </div>
+                    </div>
+                    <div className="detailsToInput">
+                      <div className="imageInput">
+                        <HtmlSlider
+                          categoryData={this.state.productImagesObject} // format of Item
+                          numberOfSlides={3} // Change the css grid properties for responsiveness
+                          textOnRibbon={""} // All caps
+                          runFunction={data => {
+                            this.setState({
+                              productImageThumbnail: data.imageURL,
+                              showDeleteButton: "showDeleteButton"
+                              // finalProceed: "sendRequest"
+                            });
+                          }}
+                        />
                       </div>
                     </div>
                   </div>
@@ -3458,6 +3462,19 @@ class AddProductDetails extends React.Component {
   render() {
     return (
       <div className="vendorDashboardWrapper">
+        <Head>
+            <meta name="description" content="Architectural process from Rolling Logs, start building your dream home without any hassle in India." />
+            <meta name="robots" content="noodp" />
+            <link rel="canonical" href="https://www.rollinglogs.com/architecture/" />
+            <link rel = "next" href = "https://www.rollinglogs.com/architecture/page/2/" />
+            <meta property="og:locale" content="en_US" />
+            <meta property="og:type" content="object" />
+            <meta property="og:description" content="Architects, Interior Designers Marketplace in India" />
+            <meta property="og:url" content="https://www.rollinglogs.com/architecture/" />
+            <meta property="og:site_name" content="RollingLogs" />
+            <meta property="og:image" content="http://static.dezeen.com/assets/images/logo-magazine.png" />
+            <title>Showcase your products to architect and interior designers - Rolling Logs</title>
+        </Head>
         <div className={this.state.loadingClass}>
           <LogoAnimation text="We are loading..." />
         </div>
@@ -3982,7 +3999,7 @@ class AddProductDetails extends React.Component {
 
                         <div className="inputFormContainer">
                           <div className="formParaSection">
-                            <p className="pargraphClass"> YouTube URL: </p>
+                            <p className="pargraphClass"> Product ad/demo video YouTube link(if any) </p>
                           </div>
 
                           <div className="inputCategoryYoutubeSection">
