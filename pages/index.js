@@ -37,6 +37,13 @@ const PostLink = (props) => (
             >
             <a></a>
         </Link>
+
+        <Link
+            as={`/vendor/products/${props.pId}`}
+            href={`/vendor-productsList?pId=${props.pId}`}
+        >
+            <a></a>
+        </Link>
     </div>
     
 )

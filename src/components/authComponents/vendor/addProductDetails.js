@@ -112,6 +112,7 @@ class AddProductDetails extends React.Component {
 
       materialCost: "",
 
+      // productPrice: 0,
       productDescription: "",
 
       productDiscount: undefined,
