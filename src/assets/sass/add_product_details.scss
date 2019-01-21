@@ -342,6 +342,33 @@ input{
                                                 width: 100%;
                                                 margin: 1em 0;
 
+                                                 .GSTinputSection{
+                                                    @include flexCentreRow;
+                                                    justify-content: flex-start;
+                                                    .modalMandatorySection{
+                                                        background: $secondaryMagenta;
+                                                        padding: 0.2em;
+                                                        margin-right: 1em;
+                                                        .madatoryHighlight{
+                                                            color: $white;
+                                                        }
+                                                    }
+                                                    .inputColumn{
+                                                        @include flexCentreCol;
+                                                        width: 40%;
+                                                    }
+                                                }
+
+                                                .errorContent{
+                                                    .displayGSTValueError{
+                                                        background: $highLightBlue;
+                                                        color: $white;
+                                                        margin-top: 0.5em;
+                                                        padding: 0.2em;
+                                                    }
+                                                }
+                                                
+
                                                 .youTubeClass{
                                                    width: 90%;
                                                    margin-top: 0.5em;
@@ -822,7 +849,7 @@ input{
                                                                         }
                                                                     }
                                                                     .errorContent{
-                                                                        .displayError{
+                                                                        .displayDiscountValueError{
                                                                             cursor: default;
                                                                             background: $highLightBlue;
                                                                             color: $white;
@@ -831,7 +858,16 @@ input{
                                                                             font-size: 0.75em;
                                                                             margin-top: .2em;
                                                                         }
+                                                                        .displayInstallationValueError{
+                                                                            background: $highLightBlue;
                                                                         
+                                                                            color: $white;
+                                                                        }
+                                                                        
+                                                                        .displayGSTValueError{
+                                                                            background: $secondaryMagenta;
+                                                                            color: $white;
+                                                                        }
                                                                     }
                                                                 }
                                                             }
@@ -912,6 +948,7 @@ input{
                                                                 cursor: pointer;
                                                                 font-size: 0.9em;
                                                                 color: $darkGrey;
+                                                                
                                                                 font-weight: 500;
                                                                 font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
                                                             }
@@ -936,8 +973,21 @@ input{
 
                                                             }
                                                             .errorContent{
-                                                                p{
+                                                                // p{
+                                                                //     font-size: 0.75em;
+                                                                //     color: $white;
+                                                                // }
+                                                                .displayDiscountValueError{
+                                                                    cursor: default;
+                                                                    background: $secondaryMagenta;
+                                                                    color: $white;
+                                                                    text-align: center;
+                                                                    padding: 0.5em 1em;
                                                                     font-size: 0.75em;
+                                                                    margin-top: .2em;
+                                                                }
+                                                                .displayInstallationValueError{
+                                                                    background: $secondaryMagenta;
                                                                     color: $white;
                                                                 }
                                                             }
@@ -1855,6 +1905,10 @@ input{
                                                     text-align: center;
                                                     color: $red;
                                                 }
+                                                .displayGSTValueError{
+                                                                            background: $secondaryMagenta;
+                                                                            color: $white;
+                                                                        }
                                             }
 
                                             .colorCategorySection{
@@ -1894,6 +1948,18 @@ input{
                                                 @include flexCentreCol;
                                                 align-items: flex-start;
                                                 margin: 0.5em 0 1em 0;
+
+                                                .GSTinputSection{
+                                                    @include flexCentreRow;
+                                                    .modalMandatorySection{
+                                                        background: $secondaryMagenta;
+                                                        padding: 0.2em;
+                                                        margin-right: 1em;
+                                                        .madatoryHighlight{
+                                                            color: $white;
+                                                        }
+                                                    }
+                                                }
 
                                                 .phoneNoWrap{
                                                     width: 100%;
