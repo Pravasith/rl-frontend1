@@ -582,7 +582,14 @@ class AddProductDetails extends React.Component {
             </li>
           </ul>
 
-          <div className="deleteIcon" onClick={i => this.removeFeature(i)}>
+          {/* <div className="deleteIcon" onClick={i => this.removeFeature(i)}>
+            <CloseButton />
+          </div> */}
+          <div className="deleteIcon" 
+               onClick={() => {
+                this.removeFeature(i);
+               }}
+          >
             <CloseButton />
           </div>
         </div>
