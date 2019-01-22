@@ -80,7 +80,225 @@ class VendorMainDashboard extends React.Component {
             activeModalType: "categoryModal",
             confirmationButtonContainer: "confirmationButtonContainer hide",
 
-            categoryArray: [
+            categoryArray: [],
+
+            subCategoryArray: [],
+
+            categoriesSelected: [],
+
+            deleteLoading : false,
+
+        }
+
+    }
+ 
+    componentDidMount = async () => {
+
+        // window.addEventListener("resize",  this.updateDimensions);
+        this.returnCategoryProducts()
+
+        await Promise.all([
+            this.props.getUserData(),
+            this.props.hitApi(api.GET_VENDOR_DATA, "GET")
+        ])
+
+        .then(() => {
+            
+            let { userData, responseData } = this.props
+
+           
+
+
+            if (responseData.responsePayload.message !== "User credentials not found") {
+                //
+                // DECRYPT REQUEST DATA
+                //
+                let decryptedData = {
+                    ...decryptData(userData.responseData),
+                    ...decryptData(responseData.responsePayload.responseData)
+                }
+                //
+                // DECRYPT REQUEST DATA
+                //
+
+                this.convertVendorDataAndSave(decryptedData.products)
+
+                this.setState({
+                    firstName: decryptedData.firstName,
+                    lastName: decryptedData.lastName,
+                    professionalTitle: decryptedData.professionalTitle,
+                    profilePicture: decryptedData.profilePicture,
+
+                    ////////
+                    responseCompanyName : decryptedData.companyName,
+                    responseCompanyDescription : decryptedData.companyDescriptionLine1 
+                                                    + " " +
+                                                (
+                                                    decryptedData.companyDescriptionLine2 
+                                                        ?
+                                                    decryptedData.companyDescriptionLine2 
+                                                        :
+                                                    ""
+                                                ),
+                    responseExperience : decryptedData.experience ? decryptedData.experience.years : "",
+                    companyProfilePicture : decryptedData.companyProfilePicture,
+
+                    state: decryptedData.address.state,
+                    city: decryptedData.address.city,
+                    
+                    ////////
+                    loadingClass: 'loadingAnim hide',
+                    mainClass: 'mainClass',
+                })
+            }
+        })
+
+        .catch((err) => {
+            if (err.response) {
+                if (err.response.status === 401)
+                    window.open('/log-in', "_self")
+            }
+
+            else
+                console.error(err)
+        })
+
+    }
+
+    // componentDidUpdate() {
+    //     console.log(this.state.categoryArray)
+    // }
+
+    convertVendorDataAndSave = (productsRaw) => {
+
+        let finalData = [], categoryExists = false
+
+
+        productsRaw.map((item, i) => {
+            const categoryId = item.productId.split("-")[0]
+            const subCategoryId = item.productId.split("-")[0] + "-" + item.productId.split("-")[1]
+            const { subCategoryName, productName, productId, thumb } = item
+            let category
+
+            this.state.categoryArray.map((categoryState, j) => {
+                if (categoryState.categoryId === categoryId){
+                    category = categoryState
+                }
+            })
+
+            if(finalData.length !== 0){
+                finalData.map((theItem, j) => {
+
+                    if (theItem.category.categoryId === categoryId) {
+                        categoryExists = true
+
+                        let subCategoryExists = false
+
+                        theItem.subCategory.map((subCat, k) => {
+                            
+                            if (subCat.subCategoryId === subCategoryId){
+                                subCategoryExists = true
+
+                                subCat.productImages.push({
+                                    productId,
+                                    productName,
+                                    thumb
+                                })
+                            }
+                        })
+
+                        if(!subCategoryExists){
+                            theItem.subCategory.push({
+                                subCategoryId: subCategoryId,
+                                subCategoryName: subCategoryName,
+                                productImages: [
+                                    {
+                                        productId,
+                                        productName,
+                                        thumb
+                                    }
+                                ]
+                            })
+                        }
+
+                        else {
+                            subCategoryExists = false
+                        }
+
+                    }
+
+                    else {
+                        categoryExists = false
+                    }
+                })
+
+                if(!categoryExists){
+
+                    let secondCheckForCategorysExistance = false
+
+                    finalData.map((secondItem) => {
+                        if(secondItem.category.categoryId === categoryId){
+                            secondCheckForCategorysExistance = true
+                        }
+                    })
+
+                    if(!secondCheckForCategorysExistance)
+                    finalData.push({
+                        category,
+                        subCategory: [
+                            {
+                                subCategoryId: subCategoryId,
+                                subCategoryName: subCategoryName,
+                                productImages : [
+                                    {
+                                        productId,
+                                        productName,
+                                        thumb
+                                    }
+                                ]
+                            }
+                        ]
+                    })
+                }
+
+
+            }
+
+            else{
+                finalData.push({
+                    category,
+                    subCategory: [
+                        {
+                            subCategoryId: subCategoryId,
+                            subCategoryName: subCategoryName,
+                            productImages: [
+                                {
+                                    productId,
+                                    productName,
+                                    thumb
+                                }
+                            ]
+                        }
+                    ]
+                })
+            }
+
+        })
+
+        this.setState({
+            mainContentWrap: 'mainContentWrap',
+            internalLoaderClass: 'contentLoader hide',
+            sectionClass: 'newCategorySection',
+            contentWrapper: 'contentWrapper',
+            categoriesSelected : [...finalData]
+        })
+
+        
+    }
+
+    returnCategoryProducts = () => {
+        let temp = 
+            [
                 {
                     categoryName: 'Barrier free products',
                     categoryId: "CAT0000",
@@ -250,303 +468,10 @@ class VendorMainDashboard extends React.Component {
                     categoryId: "CAT0032",
                     categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/wood.jpg",
                 },
-            ],
-
-            subCategoryArray: [],
-
-            categoriesSelected: [],
-
-            subCategoryProducts: {
-                    categoryName: "Water bodies",
-                    imagesInCategory: [
-                        {
-                            itemCode: "CL12",
-                            textOnRibbonSatisfied: false,
-                            imageURL: "https://www.hcsupplies.co.uk/public/images/products/3/clear-maple.jpg"
-                        },
-                        {
-                            itemCode: "WB13",
-                            textOnRibbonSatisfied: false,
-                            imageURL: "https://images.pexels.com/photos/935875/pexels-photo-935875.jpeg?auto=compress&cs=tinysrgb&h=350"
-                        },
-                        {
-                            itemCode: "WB14",
-                            textOnRibbonSatisfied: false,
-                            imageURL: "https://image.freepik.com/free-vector/wood-texture_1083-21.jpg"
-                        },
-                        {
-                            itemCode: "WB15",
-                            textOnRibbonSatisfied: false,
-                            imageURL: "https://www.hcsupplies.co.uk/public/images/products/3/clear-maple.jpg"
-                        },
-
-                        {
-                            itemCode: "WB14",
-                            textOnRibbonSatisfied: false,
-                            imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPFxp7lUM2L4lF4aGcpv4K0ToCdZGXJHxwCzHsrV0ro-sGkN5evQ"
-                        },
-                        {
-                            itemCode: "WB15",
-                            textOnRibbonSatisfied: false,
-                            imageURL: "https://i.ebayimg.com/images/g/xe0AAOSwiBJaAuOT/s-l300.jpg"
-                        },
-                        // {
-                        //     itemCode : "WB15",
-                        //     textOnRibbonSatisfied : false,
-                        //     imageURL : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLJk1dKAanCmnxn8w5mEsGWKgFRUwP1rXQNtiaJLe4-AjLM7OEYQ"
-                        // },
-
-                        // {
-                        //     itemCode : "WB14",
-                        //     textOnRibbonSatisfied : false,
-                        //     imageURL : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnFm-l4w9PMzZ_m-o60l7aL0YSb-xcs_xRh74aaVU_avdYgc0s7g"
-                        // },
-                        // {
-                        //     itemCode : "WB15",
-                        //     textOnRibbonSatisfied : false,
-                        //     imageURL : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLJk1dKAanCmnxn8w5mEsGWKgFRUwP1rXQNtiaJLe4-AjLM7OEYQ"
-                        // },
-                    ]
-            },
-
-            deleteLoading : false,
-
-            // productInstallers: [
-            //     {
-            //         installerName: "rakshith",
-            //         installerContactNo: 9972223737,
-            //         installerCharges: 1500,
-            //         installerCostType: 1
-            //     }
-            // ],
-
-            // productInstallationAvailability: 5
-        }
-
-    }
-    // updateDimensions = () => {
-
-    //     let w = window,
-    //         d = document,
-    //         documentElement = d.documentElement,
-    //         body = d.getElementsByTagName('body')[0],
-    //         width = w.innerWidth || documentElement.clientWidth || body.clientWidth,
-    //         height = w.innerHeight|| documentElement.clientHeight|| body.clientHeight;
-    
-    //         this.setState({width: width, height: height})
-
-    //         console.log(width)
-    //         // if you are using ES2015 I'm pretty sure you can do this: this.setState({width, height});
-    // }
-
-    // // componentWillMount = () => {
-    // //     this.updateDimensions()
-    // // }
-
-    // componentWillUnmount = () => {
-    //     window.removeEventListener("resize", this.updateDimensions);
-    // }
- 
-    componentDidMount = async () => {
-
-        // window.addEventListener("resize",  this.updateDimensions);
-
-        await Promise.all([
-            this.props.getUserData(),
-            this.props.hitApi(api.GET_VENDOR_DATA, "GET")
-        ])
-
-        .then(() => {
-            
-            let { userData, responseData } = this.props
+            ]
 
 
-            if (responseData.responsePayload.message !== "User credentials not found") {
-
-                //
-                // DECRYPT REQUEST DATA
-                //
-                let decryptedData = {
-                    ...decryptData(userData.responseData),
-                    ...decryptData(responseData.responsePayload.responseData)
-                }
-                //
-                // DECRYPT REQUEST DATA
-                //
-
-                this.convertVendorDataAndSave(decryptedData.products)
-
-                this.setState({
-                    firstName: decryptedData.firstName,
-                    lastName: decryptedData.lastName,
-                    professionalTitle: decryptedData.professionalTitle,
-                    profilePicture: decryptedData.profilePicture,
-
-                    ////////
-                    responseCompanyName : decryptedData.companyName,
-                    responseCompanyDescription : decryptedData.companyDescriptionLine1 
-                                                    + " " +
-                                                (
-                                                    decryptedData.companyDescriptionLine2 
-                                                        ?
-                                                    decryptedData.companyDescriptionLine2 
-                                                        :
-                                                    ""
-                                                ),
-                    responseExperience : decryptedData.experience ? decryptedData.experience.years : "",
-                    companyProfilePicture : decryptedData.companyProfilePicture,
-
-                    state: decryptedData.address.state,
-                    city: decryptedData.address.city,
-                    
-                    ////////
-                    loadingClass: 'loadingAnim hide',
-                    mainClass: 'mainClass',
-                })
-            }
-        })
-
-        .catch((err) => {
-            if (err.response) {
-                if (err.response.status === 401)
-                    window.open('/log-in', "_self")
-            }
-
-            else
-                console.error(err)
-        })
-            
-    }
-
-    // componentDidUpdate() {
-    //     // console.log(this.state.companyProfilePicture)
-    // }
-
-    convertVendorDataAndSave = (productsRaw) => {
-
-        let finalData = [], categoryExists = false
-
-
-        productsRaw.map((item, i) => {
-            const categoryId = item.productId.split("-")[0]
-            const subCategoryId = item.productId.split("-")[0] + "-" + item.productId.split("-")[1]
-            const { subCategoryName, productName, productId, thumb } = item
-            let category
-
-            this.state.categoryArray.map((categoryState, j) => {
-                if (categoryState.categoryId === categoryId){
-                    category = categoryState
-                }
-            })
-
-            if(finalData.length !== 0){
-                finalData.map((theItem, j) => {
-
-                    if (theItem.category.categoryId === categoryId) {
-                        categoryExists = true
-
-                        let subCategoryExists = false
-
-                        theItem.subCategory.map((subCat, k) => {
-                            
-                            if (subCat.subCategoryId === subCategoryId){
-                                subCategoryExists = true
-
-                                subCat.productImages.push({
-                                    productId,
-                                    productName,
-                                    thumb
-                                })
-                            }
-                        })
-
-                        if(!subCategoryExists){
-                            theItem.subCategory.push({
-                                subCategoryId: subCategoryId,
-                                subCategoryName: subCategoryName,
-                                productImages: [
-                                    {
-                                        productId,
-                                        productName,
-                                        thumb
-                                    }
-                                ]
-                            })
-                        }
-
-                        else {
-                            subCategoryExists = false
-                        }
-
-                    }
-
-                    else {
-                        categoryExists = false
-                    }
-                })
-
-                if(!categoryExists){
-
-                    let secondCheckForCategorysExistance = false
-
-                    finalData.map((secondItem) => {
-                        if(secondItem.category.categoryId === categoryId){
-                            secondCheckForCategorysExistance = true
-                        }
-                    })
-
-                    if(!secondCheckForCategorysExistance)
-                    finalData.push({
-                        category,
-                        subCategory: [
-                            {
-                                subCategoryId: subCategoryId,
-                                subCategoryName: subCategoryName,
-                                productImages : [
-                                    {
-                                        productId,
-                                        productName,
-                                        thumb
-                                    }
-                                ]
-                            }
-                        ]
-                    })
-                }
-
-
-            }
-
-            else{
-                finalData.push({
-                    category,
-                    subCategory: [
-                        {
-                            subCategoryId: subCategoryId,
-                            subCategoryName: subCategoryName,
-                            productImages: [
-                                {
-                                    productId,
-                                    productName,
-                                    thumb
-                                }
-                            ]
-                        }
-                    ]
-                })
-            }
-
-        })
-
-        this.setState({
-            mainContentWrap: 'mainContentWrap',
-            internalLoaderClass: 'contentLoader hide',
-            sectionClass: 'newCategorySection',
-            contentWrapper: 'contentWrapper',
-            categoriesSelected : [...finalData]
-        })
-
-        
+        this.setState({ categoryArray: temp })
     }
 
     onSelect = (e) => {
@@ -710,6 +635,7 @@ class VendorMainDashboard extends React.Component {
                     productName: decryptedData.productName,
                     productCode: decryptedData.productCode,
                     productPrice: decryptedData.basePrice,
+                    productGST: decryptedData.gstPercentage,
                     productMaterials: decryptedData.productMaterials,
                     featuresAdded: decryptedData.features,
                     productFinishes: decryptedData.finishingOptions,
@@ -1723,6 +1649,7 @@ class VendorMainDashboard extends React.Component {
             productName,
             productCode,
             productPrice,
+            productGST,
             productMinQuantity,
             productMaxQuantity,
             productDescription,
@@ -1784,6 +1711,11 @@ class VendorMainDashboard extends React.Component {
                                     <div className="productSubHeading">
                                         <h3>Price </h3>
                                         <p>Rs. {productPrice} per piece</p>
+                                    </div>
+
+                                    <div className="productSubHeading">
+                                        <h3>GST </h3>
+                                        <p>{productGST} %</p>
                                     </div>
                                 </div>
 
