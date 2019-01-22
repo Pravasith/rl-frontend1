@@ -4088,33 +4088,25 @@ class EditProductDetails extends React.Component {
                                                         <div className="modalMandatorySection">
                                                             <p className="madatoryHighlight">Mandatory</p>
                                                         </div>
-                                                        {/* <div className="inputColumn">
+
+                                                        <div className="inputColumn">
                                                             <input
-                                                            type="text"
-                                                            ref="GSTInput"
-                                                            maxLength="2"
-                                                            placeholder="Ex. 18, 12 etc"
-                                                            onChange={e =>
-                                                                this.checkTypeNumber(e, "GST")
-                                                            }
+                                                                type="text"
+                                                                ref="GSTInput"
+                                                                maxLength="2"
+                                                                placeholder="Ex. 18, 12 etc"
+                                                                defaultValue={this.handleDefaultValues("ProductGST")}
+                                                                onChange={e =>
+                                                                    this.checkTypeNumber(e, "GST")
+                                                                }
                                                             />
                                                             <span className="InputSeparatorLine"></span>
-                                                        </div> */}
-                                                        <input
-                                                            type="text"
-                                                            ref="GSTInput"
-                                                            maxLength="2"
-                                                            placeholder="Ex. 18, 12 etc"
-                                                            defaultValue={this.handleDefaultValues("ProductGST")}
-                                                            onChange={e =>
-                                                                this.checkTypeNumber(e, "GST")
-                                                            }
-                                                        />
-                                                        <span className="InputSeparatorLine">
-                                                        {" "}
-                                                        </span>
+                                                        </div>
+                                                        
                                                         <p>%</p>
                                                     </div>
+
+
                                                     <div className="errorContent">
                                                         <p className={this.state.displayGSTValueValidationError}>
                                                         Numbers only
