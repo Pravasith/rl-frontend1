@@ -3378,6 +3378,7 @@ class AddProductDetails extends React.Component {
     });
 
     fieldNames.map(item => {
+      console.log(item)
       if (
         item.value === undefined ||
         item.value === null ||
