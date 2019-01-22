@@ -16,9 +16,9 @@ const fs = require('fs')
 nextApp.prepare()
     .then(() => {
 
-        // DEPLOYMENT ///
-        // const server = express ()
-        // DEPLOYMENT ///
+        // PRODUCTION ///
+        const server = express ()
+        // PRODUCTION ///
 
 
 
@@ -29,9 +29,9 @@ nextApp.prepare()
             cert: fs.readFileSync('/etc/letsencrypt/live/vendor.rollinglogs.com/fullchain.pem', 'utf-8'),
         };
 
-        // PRODUCTION ///
+        // DEPLOYMENT ///
         let app = express();
-        // PRODUCTION ///
+        // DEPLOYMENT ///
         
 
         server.use(favicon(path.join(__dirname, "/favicon.ico")))
