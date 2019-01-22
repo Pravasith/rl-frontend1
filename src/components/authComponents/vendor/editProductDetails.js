@@ -4075,7 +4075,7 @@ class EditProductDetails extends React.Component {
                                                 <div className="inputFormContainer">
                                                     <div className="formParaSection">
                                                         <p className="pargraphClass">
-                                                        GST of this product
+                                                        GST applicable for this product
                                                         </p>
                                                     </div>
                                                     <div className="materialInformationColumn">
@@ -4595,9 +4595,17 @@ class EditProductDetails extends React.Component {
 
                                                 <div className="inputFormContainer">
                                                     <div className="formParaSection">
-                                                        <p className="pargraphClass">Brand Logo</p>
+                                                        <p className="pargraphClass">Product's brand logo (if any) </p>
                                                     </div>
+                                                    
+                                                    <p
+                                                        style = {{marginBottom : "1em"}}
+                                                        >
+                                                        Note: Don't worry if the image doesn't appear properly, it will be properly displayed later
+                                                    </p>
+
                                                     {this.returnBrandImage()}
+                                                    
                                                 </div>
 
                                                 <div className="inputFormContainer">
