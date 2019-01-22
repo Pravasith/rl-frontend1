@@ -17,7 +17,11 @@ const fs = require('fs')
 
 nextApp.prepare()
     .then(() => {
+
+        // DEPLOYMENT ///
         const server = express ()
+        // DEPLOYMENT ///
+
 
 
         let port = 3000;
@@ -27,16 +31,17 @@ nextApp.prepare()
             // cert: fs.readFileSync('./ssl/certificate.pem'),
 
 
-            key: fs.readFileSync('/etc/letsencrypt/live/vendor.rollinglogs.com/privkey.pem', 'utf-8'),
-            cert: fs.readFileSync('/etc/letsencrypt/live/vendor.rollinglogs.com/fullchain.pem', 'utf-8'),
+            // key: fs.readFileSync('/etc/letsencrypt/live/vendor.rollinglogs.com/privkey.pem', 'utf-8'),
+            // cert: fs.readFileSync('/etc/letsencrypt/live/vendor.rollinglogs.com/fullchain.pem', 'utf-8'),
 
 
             // key: fs.readFileSync('/var/www/rollinglogs/fullkeys/privkey.pem', 'utf-8'),
             // cert: fs.readFileSync('/var/www/rollinglogs/fullkeys/fullchain.pem', 'utf-8')
         };
 
+        // PRODUCTION ///
         // let app = express();
-
+        // PRODUCTION ///
         
 
         server.use(favicon(path.join(__dirname, "/favicon.ico")))
@@ -73,19 +78,25 @@ nextApp.prepare()
             return handle(req, res)
         })
 
-        let app = https.createServer(options, server)
-        .listen((port), function(){
-        console.log("Express server listening on port " + port);
-        });
+        // PRODUCTION ///
+        // let app = https.createServer(options, server)
+        // .listen((port), function(){
+        // console.log("Express server listening on port " + port);
+        // });
+        // PRODUCTION ///
 
-        // server.listen((port), (err) => {
-        //     if (err) throw err
-        //     console.log('>> Ready on 3000')
-        // })
+        // DEVELOPMENT ///
+        server.listen((port), (err) => { 
+            if (err) throw err
+            console.log('>> Ready on 3000')
+        })
+        // DEVELOPMENT ///
 
-        app.on('listening',function(){
-            console.log('ok, server is running');
-        });
+        // PRODUCTION ///
+        // app.on('listening',function(){
+        //     console.log('ok, server is running');
+        // });
+        // PRODUCTION ///
     })
     .catch((ex) => {
         console.error(ex.stack)

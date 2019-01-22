@@ -2168,6 +2168,13 @@
                             .vendorFormHeading{}
                             .vendorUploadFormSection{
                                 height: 100%;
+                                .vendorUploadFormInnerContainer{
+                                    .inputFormContainer{
+                                        .brandImageUploaderRender{
+                                            width: 50%;
+                                        }
+                                    }
+                                }
                             }
                             .formButtonContainer{}
                         }
