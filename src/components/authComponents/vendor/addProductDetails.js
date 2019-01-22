@@ -333,9 +333,9 @@ class AddProductDetails extends React.Component {
     //   });
   }
 
-  componentDidUpdate() {
-    console.log(this.state.displayDiscountValueValidationError, this.state.displayGSTValueValidationError, this.state.displayInstallationValueValidationError)
-  }
+  // componentDidUpdate() {
+  //   console.log(this.state.displayDiscountValueValidationError, this.state.displayGSTValueValidationError, this.state.displayInstallationValueValidationError)
+  // }
 
   modalClassToggle = showOrNot => {
     if (showOrNot === "show")
@@ -2168,7 +2168,7 @@ class AddProductDetails extends React.Component {
       productName: this.state.productName,
       productCode: this.state.productCode,
       basePrice: this.state.productPrice,
-      productGST: this.state.productGST,
+      gstPercentage: this.state.productGST,
       productMaterials: this.state.productMaterials,
       finishingOptions: this.state.productFinishes,
       colorOptions: this.state.colorArray,
@@ -3259,7 +3259,6 @@ class AddProductDetails extends React.Component {
     else if (fieldName === "Product GST") {
         if (productGST !== undefined) {
           if (productGST === 0) {
-            console.log("wrksin")
             this.setState({
               displayGSTValueError: "displayGSTValueError"
             });
@@ -3669,7 +3668,7 @@ class AddProductDetails extends React.Component {
                         <div className="inputFormContainer">
                           <div className="formParaSection">
                             <p className="pargraphClass">
-                              GST of this product
+                              GST applicable for this product
                             </p>
                           </div>
                           <div className="materialInformationColumn">
@@ -4214,8 +4213,13 @@ class AddProductDetails extends React.Component {
 
                         <div className="inputFormContainer">
                           <div className="formParaSection">
-                            <p className="pargraphClass">Brand Logo</p>
+                            <p className="pargraphClass">Product's brand logo (if any)</p>
                           </div>
+                          <p
+                              style = {{marginBottom : "1em"}}
+                              >
+                              Note: Don't worry if the image doesn't appear properly, it will be properly displayed later
+                          </p>
                           <div className="brandImageUploaderRender">
                             <div className="brandImageUploaderClass">
                               <ImageUploader

@@ -6,9 +6,6 @@ import "../src/assets/sass/add_product_details.scss"
 
 import AddProductDetails from "../src/components/authComponents/vendor/addProductDetails"
 
-
-
-
 const Content = withRouter((props) => (
     <div>
       <AddProductDetails

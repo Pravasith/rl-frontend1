@@ -16,6 +16,8 @@ import { getUserData } from "../../../actions/userActions"
 import { encryptData, decryptData } from "../../../factories/encryptDecrypt"
 import { Footer } from "../../footer/footer"
 
+import productsCategories from "../../../lib/productsCategory"
+
 import { CloseButton, LogoLoadingAnimation, BigAnimatedCloseButton, TickSmallWhite, NavBarLoadingIcon, LocationTag } from "../../../assets/images"
 import { WhiteArrowLeft, WhiteArrowRight, UploadImageIcon, PlusButtonIconWhite, AddNewProduct, VendorGraphic, ArrowMarkLong, BigCloseButton, SmallCloseButton } from "../../../assets/images"
 import LogoAnimation from "../../animations/logoAnimation"
@@ -80,272 +82,17 @@ class VendorMainDashboard extends React.Component {
             activeModalType: "categoryModal",
             confirmationButtonContainer: "confirmationButtonContainer hide",
 
-            categoryArray: [
-                {
-                    categoryName: 'Barrier free products',
-                    categoryId: "CAT0000",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/barrier-free-products.jpg"
-                },
-
-                {
-                    categoryName: 'Bathroom products',
-                    categoryId: "CAT0001",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/bathroom-products.jpg"
-                },
-
-                {
-                    categoryName: 'Ceiling related',
-                    categoryId: "CAT0002",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/ceiling.jpg",
-                },
-                {
-                    categoryName: 'Construction site equipment',
-                    categoryId: "CAT0003",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/construction-site-equipment.jpg",
-                },
-                {
-                    categoryName: 'Décor',
-                    categoryId: "CAT0004",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/decor.jpeg",
-                },
-                {
-                    categoryName: 'Doors',
-                    categoryId: "CAT0005",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/doors.JPG",
-                },
-
-                {
-                    categoryName: 'Electricals',
-                    categoryId: "CAT0006",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/electricals.jpg",
-                },
-                {
-                    categoryName: 'External facades and fenestration',
-                    categoryId: "CAT0007",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/external-facades-and-fenestration.jpg",
-                },
-                {
-                    categoryName: 'Fences and perimeter enclosures',
-                    categoryId: "CAT0008",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/fences-and-perimeter-enclosures.jpg",
-                },
-                {
-                    categoryName: 'Finishing',
-                    categoryId: "CAT0009",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/finishing.jpg",
-                },
-                {
-                    categoryName: 'Fire prevention and safety',
-                    categoryId: "CAT0010",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/fire-prevention-and-safety.png",
-
-                },
-                {
-                    categoryName: 'Flooring',
-                    categoryId: "CAT0011",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/flooring.PNG",
-                },
-                {
-                    categoryName: 'Furniture',
-                    categoryId: "CAT0012",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/furniture.jpg",
-                },
-                {
-                    categoryName: 'Hardware and fastners',
-                    categoryId: "CAT0013",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/hardware-and-fastners.jpg",
-                },
-                {
-                    categoryName: 'Heating ventillation and air conditioning',
-                    categoryId: "CAT0014",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/heating-ventillation-and-air-conditioning.jpg",
-                },
-                {
-                    categoryName: 'Home automations',
-                    categoryId: "CAT0015",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/home-automation.jpg",
-                },
-                {
-                    categoryName: 'Insulation',
-                    categoryId: "CAT0016",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/insulation.jpg",
-                },
-                {
-                    categoryName: 'Kitchen',
-                    categoryId: "CAT0017",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/kitchen.jpg",
-                },
-                {
-                    categoryName: 'Lifts and escalators',
-                    categoryId: "CAT0018",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/lifts-and-escalators.jpg",
-                },
-                {
-                    categoryName: 'Lighting',
-                    categoryId: "CAT0019",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/lighting.jpg",
-                },
-                {
-                    categoryName: 'Office',
-                    categoryId: "CAT0020",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/office.jpg",
-                },
-                {
-                    categoryName: 'Outdoor',
-                    categoryId: "CAT0021",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/outdoor.jpg",
-                },
-                {
-                    categoryName: 'Partitions',
-                    categoryId: "CAT0022",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/partitions.jpg",
-                },
-                {
-                    categoryName: 'Plumbing',
-                    categoryId: "CAT0023",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/plumbing.jpg",
-                },
-                {
-                    categoryName: 'Renewable energy system',
-                    categoryId: "CAT0024",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/renewable-energy-system.jpg",
-                },
-                {
-                    categoryName: 'Roofs',
-                    categoryId: "CAT0025",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/roofs.jpg",
-                },
-                {
-                    categoryName: 'Safety and security',
-                    categoryId: "CAT0026",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/safety-and-security.jpg",
-                },
-                {
-                    categoryName: 'Stairs',
-                    categoryId: "CAT0027",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/stairs.jpg",
-                },
-                {
-                    categoryName: 'Waterproofing',
-                    categoryId: "CAT0028",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/waterproofing.jpg",
-                },
-                {
-                    categoryName: 'Water system',
-                    categoryId: "CAT0029",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/water-system.jpg",
-                },
-                {
-                    categoryName: 'Wellness',
-                    categoryId: "CAT0030",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/wellness.jpg",
-                },
-                {
-                    categoryName: 'Windows',
-                    categoryId: "CAT0031",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/windows.jpg",
-                },
-                {
-                    categoryName: 'Wood',
-                    categoryId: "CAT0032",
-                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/wood.jpg",
-                },
-            ],
+            categoryArray: [...productsCategories],
 
             subCategoryArray: [],
 
             categoriesSelected: [],
 
-            subCategoryProducts: {
-                    categoryName: "Water bodies",
-                    imagesInCategory: [
-                        {
-                            itemCode: "CL12",
-                            textOnRibbonSatisfied: false,
-                            imageURL: "https://www.hcsupplies.co.uk/public/images/products/3/clear-maple.jpg"
-                        },
-                        {
-                            itemCode: "WB13",
-                            textOnRibbonSatisfied: false,
-                            imageURL: "https://images.pexels.com/photos/935875/pexels-photo-935875.jpeg?auto=compress&cs=tinysrgb&h=350"
-                        },
-                        {
-                            itemCode: "WB14",
-                            textOnRibbonSatisfied: false,
-                            imageURL: "https://image.freepik.com/free-vector/wood-texture_1083-21.jpg"
-                        },
-                        {
-                            itemCode: "WB15",
-                            textOnRibbonSatisfied: false,
-                            imageURL: "https://www.hcsupplies.co.uk/public/images/products/3/clear-maple.jpg"
-                        },
-
-                        {
-                            itemCode: "WB14",
-                            textOnRibbonSatisfied: false,
-                            imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPFxp7lUM2L4lF4aGcpv4K0ToCdZGXJHxwCzHsrV0ro-sGkN5evQ"
-                        },
-                        {
-                            itemCode: "WB15",
-                            textOnRibbonSatisfied: false,
-                            imageURL: "https://i.ebayimg.com/images/g/xe0AAOSwiBJaAuOT/s-l300.jpg"
-                        },
-                        // {
-                        //     itemCode : "WB15",
-                        //     textOnRibbonSatisfied : false,
-                        //     imageURL : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLJk1dKAanCmnxn8w5mEsGWKgFRUwP1rXQNtiaJLe4-AjLM7OEYQ"
-                        // },
-
-                        // {
-                        //     itemCode : "WB14",
-                        //     textOnRibbonSatisfied : false,
-                        //     imageURL : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnFm-l4w9PMzZ_m-o60l7aL0YSb-xcs_xRh74aaVU_avdYgc0s7g"
-                        // },
-                        // {
-                        //     itemCode : "WB15",
-                        //     textOnRibbonSatisfied : false,
-                        //     imageURL : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLJk1dKAanCmnxn8w5mEsGWKgFRUwP1rXQNtiaJLe4-AjLM7OEYQ"
-                        // },
-                    ]
-            },
-
             deleteLoading : false,
 
-            // productInstallers: [
-            //     {
-            //         installerName: "rakshith",
-            //         installerContactNo: 9972223737,
-            //         installerCharges: 1500,
-            //         installerCostType: 1
-            //     }
-            // ],
-
-            // productInstallationAvailability: 5
         }
 
     }
-    // updateDimensions = () => {
-
-    //     let w = window,
-    //         d = document,
-    //         documentElement = d.documentElement,
-    //         body = d.getElementsByTagName('body')[0],
-    //         width = w.innerWidth || documentElement.clientWidth || body.clientWidth,
-    //         height = w.innerHeight|| documentElement.clientHeight|| body.clientHeight;
-    
-    //         this.setState({width: width, height: height})
-
-    //         console.log(width)
-    //         // if you are using ES2015 I'm pretty sure you can do this: this.setState({width, height});
-    // }
-
-    // // componentWillMount = () => {
-    // //     this.updateDimensions()
-    // // }
-
-    // componentWillUnmount = () => {
-    //     window.removeEventListener("resize", this.updateDimensions);
-    // }
  
     componentDidMount = async () => {
 
@@ -360,9 +107,10 @@ class VendorMainDashboard extends React.Component {
             
             let { userData, responseData } = this.props
 
+           
+
 
             if (responseData.responsePayload.message !== "User credentials not found") {
-
                 //
                 // DECRYPT REQUEST DATA
                 //
@@ -415,11 +163,11 @@ class VendorMainDashboard extends React.Component {
             else
                 console.error(err)
         })
-            
+
     }
 
     // componentDidUpdate() {
-    //     // console.log(this.state.companyProfilePicture)
+    //     console.log(this.state.categoryArray)
     // }
 
     convertVendorDataAndSave = (productsRaw) => {
@@ -710,6 +458,7 @@ class VendorMainDashboard extends React.Component {
                     productName: decryptedData.productName,
                     productCode: decryptedData.productCode,
                     productPrice: decryptedData.basePrice,
+                    productGST: decryptedData.gstPercentage,
                     productMaterials: decryptedData.productMaterials,
                     featuresAdded: decryptedData.features,
                     productFinishes: decryptedData.finishingOptions,
@@ -921,8 +670,13 @@ class VendorMainDashboard extends React.Component {
         const { categoriesSelected } = this.state
 
         const returnSubCategories = (subcategories) => {
+            
             return subcategories.subCategory.map((subcategory, i) => {
-                let subCatProducts = [...subcategory.productImages.reverse()]
+                let subCatProducts = []
+
+                if(subcategory.productImages)
+                subCatProducts = [...subcategory.productImages.reverse()]
+                
                 return (
                     <div 
                         className="subCategoryHead"
@@ -1833,6 +1587,7 @@ class VendorMainDashboard extends React.Component {
             productName,
             productCode,
             productPrice,
+            productGST,
             productMinQuantity,
             productMaxQuantity,
             productDescription,
@@ -1894,6 +1649,11 @@ class VendorMainDashboard extends React.Component {
                                     <div className="productSubHeading">
                                         <h3>Price </h3>
                                         <p>Rs. {productPrice} per piece</p>
+                                    </div>
+
+                                    <div className="productSubHeading">
+                                        <h3>GST </h3>
+                                        <p>{productGST} %</p>
                                     </div>
                                 </div>
 

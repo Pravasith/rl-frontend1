@@ -258,6 +258,7 @@ class EditProductDetails extends React.Component {
                 productName: decryptedData.productName,
                 productCode: decryptedData.productCode,
                 productPrice: decryptedData.basePrice,
+                productGST: decryptedData.gstPercentage,
                 productMaterials: decryptedData.productMaterials,
                 featuresAdded: decryptedData.features,
                 productFinishes: decryptedData.finishingOptions,
@@ -1364,6 +1365,7 @@ class EditProductDetails extends React.Component {
             productName,
             productCode,
             productPrice,
+            productGST,
             productMaterials,
             productFinishes,
             productMinQuantity,
@@ -1385,6 +1387,10 @@ class EditProductDetails extends React.Component {
 
         else if (fieldName === "ProductPrice") {
             if (productPrice) return productPrice;
+        }
+
+        else if (fieldName === "ProductGST") {
+            if (productGST) return productGST;
         }
 
         else if (fieldName === "ProductMaterials") {
@@ -2580,7 +2586,8 @@ class EditProductDetails extends React.Component {
         const finalDataToSend = {
             productName : this.state.productName,
             productCode : this.state.productCode,
-            basePrice : this.state.productPrice,
+            basePrice: this.state.productPrice,
+            gstPercentage: this.state.productGST,
             productMaterials : this.state.productMaterials,
             finishingOptions : this.state.productFinishes,
             colorOptions :  this.state.colorArray,
@@ -4074,27 +4081,32 @@ class EditProductDetails extends React.Component {
                                                 <div className="inputFormContainer">
                                                     <div className="formParaSection">
                                                         <p className="pargraphClass">
-                                                        GST of this product
+                                                        GST applicable for this product
                                                         </p>
                                                     </div>
                                                     <div className="materialInformationColumn">
                                                         <div className="modalMandatorySection">
                                                             <p className="madatoryHighlight">Mandatory</p>
                                                         </div>
+
                                                         <div className="inputColumn">
                                                             <input
-                                                            type="text"
-                                                            ref="GSTInput"
-                                                            maxLength="2"
-                                                            placeholder="Ex. 18, 12 etc"
-                                                            onChange={e =>
-                                                                this.checkTypeNumber(e, "GST")
-                                                            }
+                                                                type="text"
+                                                                ref="GSTInput"
+                                                                maxLength="2"
+                                                                placeholder="Ex. 18, 12 etc"
+                                                                defaultValue={this.handleDefaultValues("ProductGST")}
+                                                                onChange={e =>
+                                                                    this.checkTypeNumber(e, "GST")
+                                                                }
                                                             />
                                                             <span className="InputSeparatorLine"></span>
                                                         </div>
+                                                        
                                                         <p>%</p>
                                                     </div>
+
+
                                                     <div className="errorContent">
                                                         <p className={this.state.displayGSTValueValidationError}>
                                                         Numbers only
@@ -4594,9 +4606,17 @@ class EditProductDetails extends React.Component {
 
                                                 <div className="inputFormContainer">
                                                     <div className="formParaSection">
-                                                        <p className="pargraphClass">Brand Logo</p>
+                                                        <p className="pargraphClass">Product's brand logo (if any) </p>
                                                     </div>
+                                                    
+                                                    <p
+                                                        style = {{marginBottom : "1em"}}
+                                                        >
+                                                        Note: Don't worry if the image doesn't appear properly, it will be properly displayed later
+                                                    </p>
+
                                                     {this.returnBrandImage()}
+                                                    
                                                 </div>
 
                                                 <div className="inputFormContainer">
