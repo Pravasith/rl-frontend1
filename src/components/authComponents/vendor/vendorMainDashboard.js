@@ -814,6 +814,7 @@ class VendorMainDashboard extends React.Component {
 
         const returnSubCategories = (subcategories) => {
             return subcategories.subCategory.map((subcategory, i) => {
+                let subCatProducts = [...subcategory.productImages.reverse()]
                 return (
                     <div 
                         className="subCategoryHead"
@@ -848,7 +849,8 @@ class VendorMainDashboard extends React.Component {
                                 <div className="subCategoryProductSection">
                                     <div className="subCategoryProductSectionInnerLayer">
                                         {
-                                            this.returnSubCategoryProducts(subcategory.productImages, subcategory.subCategoryName)
+                                            this.returnSubCategoryProducts(subCatProducts.reverse(), subcategory.subCategoryName)
+                                            // this.returnSubCategoryProducts(subcategory.productImages.reverse(), subcategory.subCategoryName)
                                         }
                                     </div>
                                 </div>

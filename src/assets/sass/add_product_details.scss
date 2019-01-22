@@ -11,7 +11,8 @@
     display: none;
 }
 
-input{
+
+    input{
         border: none;
         // border-bottom: 0.2em solid $black;
         background: transparent;
@@ -22,12 +23,12 @@ input{
         border-bottom: 0.2em solid $lightGrey;
         &:focus + .InputSeparatorLine {
             transform: scaleX(1) translateY(-2px);   
-                opacity: 1;
-            }
-            &:hover + .InputSeparatorLine{
+            opacity: 1;
+        }
+        &:hover + .InputSeparatorLine{
             transform: scaleX(1) translateY(-2px);   
             opacity: 1;
-            }
+        }
     }
 
     
@@ -41,7 +42,7 @@ input{
         opacity: 0;
         transition: all .15s $curve;
     }
-    
+
     
     * :focus {
         outline-color: transparent;
@@ -93,50 +94,50 @@ input{
     margin: 0.4em 0;
 }
 
-.innerWrapper{
-    @include flexCentreCol;
-    width: 100%;
-    margin-right: 0.8em;
-    &:hover{
+// .innerWrapper{
+//     @include flexCentreCol;
+//     width: 100%;
+//     margin-right: 0.8em;
+//     &:hover{
 
-        .animationLine{
-            .innerLine{
-                width: 100%;
-                background: $darkerGrey;
-            }
-        }
+//         .animationLine{
+//             .innerLine{
+//                 width: 100%;
+//                 background: $darkerGrey;
+//             }
+//         }
         
-    }
+//     }
 
-    input{
-        border: none;
-        // border-bottom: 0.2em solid $black;
-        background: transparent;
-        color: $darkerGrey;
-        outline: none;
-        height: 1.5em;
-    }
+//     input{
+//         border: none;
+//         // border-bottom: 0.2em solid $black;
+//         background: transparent;
+//         color: $darkerGrey;
+//         outline: none;
+//         height: 1.5em;
+//     }
 
-    .animationLine{
-        margin-top: 0;
-        padding-top: 0;
-        width: 83%;
+//     .animationLine{
+//         margin-top: 0;
+//         padding-top: 0;
+//         width: 83%;
 
-        .innerLine{
-            width: 100%;
-            height: 100%;
-            // background: yellow;
-            width: 0%;
-            transition: 0.2s;
-        }
+//         .innerLine{
+//             width: 100%;
+//             height: 100%;
+//             // background: yellow;
+//             width: 0%;
+//             transition: 0.2s;
+//         }
 
        
-    }
-}
-
-// .mandatorySection{
-//     display: none;
+//     }
 // }
+
+// // .mandatorySection{
+// //     display: none;
+// // }
 
 .vendorDashboardWrapper{
     width: 100%;
@@ -342,7 +343,27 @@ input{
                                                 width: 100%;
                                                 margin: 1em 0;
 
-                                                 .GSTinputSection{
+                                                .formParaSection{
+                                                    @include flexCentreRow;
+                                                    // margin-right: 1em;
+                                                    margin-bottom: 0.5em;
+
+                                                    .pargraphClass{
+                                                        font-size: 1em;
+                                                        margin-right: 1em;
+                                                        color: $darkerGrey;
+                                                    }
+                                                    .modalMandatorySection{
+                                                        background: $secondaryMagenta;
+                                                        padding: 0.2em;
+                                                        margin-right: 1em;
+                                                        p{
+                                                            color: $white;
+                                                        }
+                                                    }
+                                                }
+
+                                                .materialInformationColumn{
                                                     @include flexCentreRow;
                                                     justify-content: flex-start;
                                                     .modalMandatorySection{
@@ -355,9 +376,308 @@ input{
                                                     }
                                                     .inputColumn{
                                                         @include flexCentreCol;
-                                                        width: 40%;
+                                                        // width: 40%;
                                                     }
                                                 }
+
+                                                .productMaterialSection{
+                                                    width: 100%;
+                                                    .productMaterialDescriptionOuterLayer{
+                                                        width: 100%;
+                                                        margin: 0.5em 0;
+                                                        .productMaterialDescriptionInnerLayer{
+                                                            @include flexCentreRow;
+                                                            justify-content: space-between;
+                                                            padding: 0.5em 1em;
+                                                            background: $lightGrey;
+                                                            margin: 0.5em 0;
+                                                            .productMaterialDetails{
+                                                                @include flexCentreCol;
+                                                                width: 100%;
+                                                                align-items: flex-start;
+                                                                .materialCostCartWrap{
+                                                                    @include flexCentreRow;
+                                                                    justify-content: space-between;
+                                                                    width: 100%;
+                                                                    h3{
+                                                                        font-size: 0.8em;
+                                                                    }
+                                                                    p{
+                                                                        width: 70%;
+                                                                        font-size: 0.9em;
+                                                                        font-weight: 600;
+                                                                        color: $primaryMagenta;
+                                                                    }
+                                                                }
+                                                                .materialCostCartWrap{
+                                                                    @include flexCentreRow;
+                                                                    justify-content: space-between;
+                                                                    width: 100%;
+                                                                    h3{
+                                                                        font-size: 0.8em;
+                                                                    }
+                                                                    p{
+                                                                        width: 70%;
+                                                                        font-size: 0.9em;
+                                                                        font-weight: 600;
+                                                                        color: $primaryMagenta;
+                                                                    }
+                                                                }
+                                                            }
+                                                            .materialEditingButtons{
+                                                                @include flexCentreRow;
+                                                                .editButton{}
+                                                                .deleteButton{}
+                                                            }
+                                                        }
+                                                    }
+                                                }
+
+                                                .featureHolder{
+                                                    width: 100%;
+                                                    .featureWrap{
+                                                        @include flexCentreRow;
+                                                        justify-content: flex-start;
+                                                        align-items: flex-start;
+                                                        max-width: 80%;
+                                                        
+
+                                                        ul{
+                                                            margin: 0;
+                                                            padding-left: 2em;
+                                                            padding-top: 0.1em;
+                                                            margin-right: 0.5em;
+                                                        }
+
+                                                        .deleteIcon{
+                                                            margin: 0.25em;
+                                                        }
+                                                    }
+
+                                                    p{
+                                                        font-size: 0.8em;
+                                                        padding-right: 0.5em;
+                                                        padding-bottom: 0.5em;
+                                                        // padding-left: 0;
+                                                    }
+                                                }
+
+                                                .featureNameColumn{
+                                                    @include flexCentreRow;
+                                                    justify-content: flex-start;
+                                                    align-items: flex-start;
+                                                    width: 100%;
+
+                                                    .inputWrap{
+                                                        @include flexCentreCol;
+                                                        margin-top: 0.5em;
+                                                        width: 75%;
+                                                    }
+
+                                                    .whiteButtonWrapper{
+                                                        margin: 0;
+                                                        margin-top: 0.5em;
+                                                        font-size: 0.75em;
+                                                        margin-left: 2em;
+
+                                                    }
+                                                }
+
+                                                .productFinishSection{
+                                                    width: 100%;
+                                                    margin: 0.5em 0;
+                                                    .productFinishDescriptionOuterLayer{
+                                                         @include flexCentreRow;
+                                                        justify-content: space-between;
+                                                        padding: 0.5em 1em;
+                                                        background: $lightGrey;
+                                                        margin: 0.5em 0;
+                                                        .productFinishDescriptionInnerLayer{
+                                                            @include flexCentreRow;
+                                                            justify-content: flex-start;
+                                                            align-items: flex-start;
+                                                            width: 100%;
+                                                            .finishImageContainer{
+                                                                img{
+                                                                     width: 5em;
+                                                                     height: 5em;
+                                                                     object-fit: cover;
+                                                                }
+                                                            }
+                                                            .productFinishDetails{
+                                                                margin: 0 1em 0 1.8em;
+                                                                width: 97%;
+                                                                .productFinishDetailsInnerLayer{
+                                                                    @include flexCentreRow;
+                                                                    justify-content: space-between;
+                                                                    width: 100%;
+                                                                    .finsihingOptionContent{
+                                                                        @include flexCentreCol;
+                                                                        align-items: flex-start;
+                                                                        width: 70%;
+                                                                        .finishCostCartWrap{
+                                                                            @include flexCentreRow;
+                                                                            justify-content: space-between;
+                                                                            width: 100%;
+                                                                            h3{
+                                                                                font-size: 0.9em;
+                                                                            }
+                                                                            p{  
+                                                                                width: 55%;
+                                                                                font-size: 0.9em;
+                                                                                margin-left: 0.5em;
+                                                                                color: $primaryMagenta;
+                                                                            }
+                                                                        }
+                                                                        .finishCodecartwrap{
+                                                                            width: 100%;
+                                                                            .finishCodeCartWrapReturn{
+                                                                                @include flexCentreRow;
+                                                                                justify-content: space-between;
+                                                                                width: 100%;
+                                                                                h3{
+                                                                                    font-size: 0.9em;
+                                                                                }
+                                                                                p{
+                                                                                    width: 55%;
+                                                                                    font-size: 0.9em;
+                                                                                    margin-left: 0.5em;
+                                                                                    color: $primaryMagenta;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                    .finishEditingButtons{
+                                                                        @include flexCentreRow;
+                                                                        height: 5em;
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+
+                                                .buttonContainer{
+
+                                                    .whiteButtonWrapper{
+                                                        @include flexCentreRow;
+
+                                                        .svgImageContainer{
+                                                            margin: 0 0.5em;
+                                                            padding-top: 0.3em;
+                                                        }
+                                                    }
+                                                }
+
+                                                .colorSelectionContainer{
+                                                    margin-bottom: 0.5em;
+                                                    display: grid;
+                                                    grid-template-columns: 1fr 1fr;
+
+                                                    .addColorDummyContainer{
+                                                        width: 16.5em;
+                                                        height: 7em;
+                                                        padding: 0.2em;
+                                                        margin: 0.3em;
+                                                        @include box_shadow;
+
+                                                        .addColorDummyContainerInnerLayer{
+                                                            @include flexCentreRow;
+                                                            align-items: flex-start;
+                                                            width: 100%;
+                                                            height: 100%;
+                                                            // background: $veryLightGrey;
+                                                            cursor: pointer;                                                            
+                                                            .addButtonContainer{
+                                                            @include flexCentreCol;
+                                                            height: 100%;
+                                                                .whiteButtonWrapper{
+                                                                    border-radius: 50%;
+                                                                    margin: 0.1em;
+                                                                    padding: 0.5em 0.7em;
+                                                                }
+                                                            }   
+                                                        }
+                                                    }
+                                                    .colorDescriptionOuterLayer{
+                                                        width: 16em;
+                                                        margin: 0.3em;
+                                                        padding: 0.5em;
+                                                        @include box_shadow;
+                                                        .colorDescriptionInnerLayer{
+                                                            @include flexCentreRow;
+                                                            align-items: flex-start;
+                                                            .contentColorContainer{
+                                                                @include flexCentreRow;
+                                                                // width: 100%;
+                                                                margin-right: 0.8em;
+                                                                align-items: flex-start;
+                                                                justify-content: space-between;
+                                                                .colorDetails{
+                                                                    width: 4em;
+                                                                    height: 4em;
+                                                                    padding: 0.2em;
+                                                                    @include box_shadow;
+                                                                }
+                                                                .closeButtonContainer{
+
+                                                                }
+                                                            }
+                                                            .contentColorValuesContainer{
+                                                                @include flexCentreCol;
+                                                                width: 100%;
+                                                                align-items: flex-start;
+                                                                // margin-top: 0.5em;
+                                                                .colorNameContainer{
+                                                                    // margin: 0.3em 0;
+                                                                    p{
+                                                                        font-size: 0.8em;
+                                                                        span{
+                                                                            color: $primaryMagenta;
+                                                                        }
+                                                                    }
+                                                                }
+                                                                .colorHexCodeContainer{
+                                                                    margin: 0.3em 0;
+                                                                    p{
+                                                                        font-size: 0.8em;
+                                                                        span{
+                                                                            color: $primaryMagenta;
+                                                                        }
+                                                                    }
+                                                                }
+                                                                .colorExtraCostContainer{
+                                                                    margin: 0.2em 0;
+                                                                    max-width: 10em;
+                                                                    p{
+                                                                        font-size: 0.8em;
+                                                                        span{
+                                                                            color: $primaryMagenta;
+                                                                        }
+                                                                    }
+                                                                }
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+
+                                                // .GSTinputSection{
+                                                //     @include flexCentreRow;
+                                                //     justify-content: flex-start;
+                                                //     .modalMandatorySection{
+                                                //         background: $secondaryMagenta;
+                                                //         padding: 0.2em;
+                                                //         margin-right: 1em;
+                                                //         .madatoryHighlight{
+                                                //             color: $white;
+                                                //         }
+                                                //     }
+                                                //     .inputColumn{
+                                                //         @include flexCentreCol;
+                                                //         width: 40%;
+                                                //     }
+                                                // }
 
                                                 .errorContent{
                                                     .displayGSTValueError{
@@ -481,6 +801,7 @@ input{
                                                 }
                                                 
                                                 .brandNameInputSection{
+                                                    width: 40%;
                                                     .inputCommonWrapper{
                                                         .inputCategorySection{
                                                             .mandatorySection{
@@ -498,80 +819,6 @@ input{
                                                         width: 100%;
                                                     }
                                                 }
-
-                                                .formParaSection{
-                                                    @include flexCentreRow;
-                                                    // margin-right: 1em;
-                                                    margin-bottom: 0.5em;
-
-                                                    .pargraphClass{
-                                                        font-size: 1em;
-                                                        margin-right: 1em;
-                                                        color: $darkerGrey;
-                                                    }
-                                                    .modalMandatorySection{
-                                                        background: $secondaryMagenta;
-                                                        padding: 0.2em;
-                                                        margin-right: 1em;
-                                                        p{
-                                                            color: $white;
-                                                        }
-                                                    }
-                                                }
-
-                                                .productMaterialSection{
-                                                    width: 100%;
-                                                    .productMaterialDescriptionOuterLayer{
-                                                        width: 100%;
-                                                        margin: 0.5em 0;
-                                                        .productMaterialDescriptionInnerLayer{
-                                                            @include flexCentreRow;
-                                                            justify-content: space-between;
-                                                            padding: 0.5em 1em;
-                                                            background: $lightGrey;
-                                                            margin: 0.5em 0;
-                                                            .productMaterialDetails{
-                                                                @include flexCentreCol;
-                                                                width: 100%;
-                                                                align-items: flex-start;
-                                                                .materialCostCartWrap{
-                                                                    @include flexCentreRow;
-                                                                    justify-content: space-between;
-                                                                    width: 100%;
-                                                                    h3{
-                                                                        font-size: 0.8em;
-                                                                    }
-                                                                    p{
-                                                                        width: 70%;
-                                                                        font-size: 0.9em;
-                                                                        font-weight: 600;
-                                                                        color: $primaryMagenta;
-                                                                    }
-                                                                }
-                                                                .materialCostCartWrap{
-                                                                    @include flexCentreRow;
-                                                                    justify-content: space-between;
-                                                                    width: 100%;
-                                                                    h3{
-                                                                        font-size: 0.8em;
-                                                                    }
-                                                                    p{
-                                                                        width: 70%;
-                                                                        font-size: 0.9em;
-                                                                        font-weight: 600;
-                                                                        color: $primaryMagenta;
-                                                                    }
-                                                                }
-                                                            }
-                                                            .materialEditingButtons{
-                                                                @include flexCentreRow;
-                                                                .editButton{}
-                                                                .deleteButton{}
-                                                            }
-                                                        }
-                                                    }
-                                                }
-
 
                                                 .designStylesOuterLayer{
                                                     width: 100%;
@@ -776,35 +1023,11 @@ input{
                                                                                 background:url("https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/dropDownMagentaArrow-01.png")no-repeat;
                                                                                 position: absolute;
                                                                                 top: 0.25em;
-                                                                                // background: yellow;
                                                                                 right: 0.4em;
                                                                                 width: 1em;
                                                                                 height: 1em;
-                                                                                &:hover{
-                                                                                    transform: rotate(360deg);
-                                                                                }
-                                                                            }
-                                                                            .form-group:hover::before{
-                                                                                transform: rotate(180deg);
-                                                                                height: 0.7em;
-                                                                                top: 0; 
-                                                                                transition: .5s;
                                                                             }
                                                                             
-                                                                            
-                                                                            // .form-group:after{
-                                                                            //     content: "";
-                                                                            //     width: 0; 
-                                                                            //     height: 0; 
-                                                                            //     position: absolute;
-                                                                            //     pointer-events: none;
-                                                                            //     border-left: 0.7em solid transparent;
-                                                                            //     border-right: 0.7em solid transparent;
-                                                                            //     border-top: 0.7em solid red;
-                                                                            //     right: 0.1em;
-                                                                            //     top: 0.5em;
-                                                                                
-                                                                            // }
                                                                             .form-group select::-ms-expand {
                                                                                 display: none;
                                                                                 }
@@ -830,21 +1053,13 @@ input{
                                                                                     border-radius: 0.5em;
                                                                                 }
                                                                               }
-                                                                            //   select:focus{
-                                                                            //     background-color:#FFF;
-                                                                            //     outline:none;
-                                                                            //     border:none;
-                                                                            //     box-shadow:none;
-                                                                            // }
                                                                             .form-group option{
                                                                                 background-color:#FFF;
                                                                                 outline:none;
                                                                                 border:none;
                                                                                 box-shadow:none;
                                                                             }
-                                                                            option{
 
-                                                                            }
                                                                             
                                                                         }
                                                                     }
@@ -1018,80 +1233,6 @@ input{
                                                     }
                                                 }
 
-                                                .productFinishSection{
-                                                    width: 100%;
-                                                    margin: 0.5em 0;
-                                                    .productFinishDescriptionOuterLayer{
-                                                         @include flexCentreRow;
-                                                        justify-content: space-between;
-                                                        padding: 0.5em 1em;
-                                                        background: $lightGrey;
-                                                        margin: 0.5em 0;
-                                                        .productFinishDescriptionInnerLayer{
-                                                            @include flexCentreRow;
-                                                            justify-content: flex-start;
-                                                            align-items: flex-start;
-                                                            width: 100%;
-                                                            .finishImageContainer{
-                                                                img{
-                                                                     width: 5em;
-                                                                     height: 5em;
-                                                                     object-fit: cover;
-                                                                }
-                                                            }
-                                                            .productFinishDetails{
-                                                                margin: 0 1em 0 1.8em;
-                                                                width: 97%;
-                                                                .productFinishDetailsInnerLayer{
-                                                                    @include flexCentreRow;
-                                                                    justify-content: space-between;
-                                                                    width: 100%;
-                                                                    .finsihingOptionContent{
-                                                                        @include flexCentreCol;
-                                                                        align-items: flex-start;
-                                                                        width: 70%;
-                                                                        .finishCostCartWrap{
-                                                                            @include flexCentreRow;
-                                                                            justify-content: space-between;
-                                                                            width: 100%;
-                                                                            h3{
-                                                                                font-size: 0.9em;
-                                                                            }
-                                                                            p{  
-                                                                                width: 55%;
-                                                                                font-size: 0.9em;
-                                                                                margin-left: 0.5em;
-                                                                                color: $primaryMagenta;
-                                                                            }
-                                                                        }
-                                                                        .finishCodecartwrap{
-                                                                            width: 100%;
-                                                                            .finishCodeCartWrapReturn{
-                                                                                @include flexCentreRow;
-                                                                                justify-content: space-between;
-                                                                                width: 100%;
-                                                                                h3{
-                                                                                    font-size: 0.9em;
-                                                                                }
-                                                                                p{
-                                                                                    width: 55%;
-                                                                                    font-size: 0.9em;
-                                                                                    margin-left: 0.5em;
-                                                                                    color: $primaryMagenta;
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                    .finishEditingButtons{
-                                                                        @include flexCentreRow;
-                                                                        height: 5em;
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-
                                                 .productSizeDescriptionOuterLayer{
                                                     width: 100%;
                                                     margin: 0.5em 0;
@@ -1185,91 +1326,6 @@ input{
                                                     }   
                                                 }
 
-                                                .featureHolder{
-                                                    width: 100%;
-                                                    .featureWrap{
-                                                        @include flexCentreRow;
-                                                        justify-content: flex-start;
-                                                        align-items: flex-start;
-                                                        max-width: 80%;
-                                                        
-
-                                                        ul{
-                                                            margin: 0;
-                                                            padding-left: 2em;
-                                                            padding-top: 0.1em;
-                                                            margin-right: 0.5em;
-                                                        }
-
-                                                        .deleteIcon{
-                                                            margin: 0.25em;
-                                                        }
-                                                    }
-
-                                                    p{
-                                                        font-size: 0.8em;
-                                                        padding-right: 0.5em;
-                                                        padding-bottom: 0.5em;
-                                                        // padding-left: 0;
-                                                    }
-                                                }
-
-                                                .featureNameColumn{
-                                                    @include flexCentreRow;
-                                                    align-items: flex-start;
-
-                                                    .inputWrap{
-                                                        @include flexCentreCol;
-                                                        margin-top: 0.5em;
-
-                                                        input{
-                                                            border: none;
-                                                            // border-bottom: 0.2em solid $black;
-                                                            background: transparent;
-                                                            color: $darkerGrey;
-                                                            outline: none;
-                                                            height: 1.5em;
-                                                            width: 100%;
-                                                            border-bottom: 0.2em solid $lightGrey;
-                                                            &:focus + .InputSeparatorLine {
-                                                                transform: scaleX(1) translateY(-2px);   
-                                                                opacity: 1;
-                                                            }
-                                                            &:hover + .InputSeparatorLine{
-                                                                transform: scaleX(1) translateY(-2px);   
-                                                                opacity: 1;
-                                                            }
-                                                        }
-                                            
-                                                        
-                                                        .InputSeparatorLine {
-                                                            height:0.2em;
-                                                            width: 100%;
-                                                            background: $darkGrey;
-                                                            display: block;
-                                                            transform: scaleX(0) translateY(-2px);
-                                                            transform-origin: 50%;
-                                                            opacity: 0;
-                                                            transition: all .15s $curve;
-                                                        }
-                
-                                                    }
-
-                                                
-                                                    .inputCategorySection{
-                                                        margin-bottom: 1em;
-                                                        margin-top: 0.5em;
-                                                    }
-
-                                                    .whiteButtonWrapper{
-                                                        margin: 0;
-                                                        margin-top: 0.5em;
-                                                        font-size: 0.75em;
-                                                        margin-left: 2em;
-
-                                                    }
-                                                }
-
                                                 .colorVariantSliderContainer{
                                                     width: 70%;
                                                     margin-bottom: 0.5em;
@@ -1292,111 +1348,6 @@ input{
                                                         }
                                                     }
 
-                                                }
-
-                                                .colorSelectionContainer{
-                                                    margin-bottom: 0.5em;
-                                                    display: grid;
-                                                    grid-template-columns: 1fr 1fr;
-
-                                                    .addColorDummyContainer{
-                                                        width: 16.5em;
-                                                        height: 7em;
-                                                        padding: 0.2em;
-                                                        margin: 0.3em;
-                                                        @include box_shadow;
-
-                                                        .addColorDummyContainerInnerLayer{
-                                                            @include flexCentreRow;
-                                                            align-items: flex-start;
-                                                            width: 100%;
-                                                            height: 100%;
-                                                            // background: $veryLightGrey;
-                                                            cursor: pointer;                                                            
-                                                            .addButtonContainer{
-                                                            @include flexCentreCol;
-                                                            height: 100%;
-                                                                .whiteButtonWrapper{
-                                                                    border-radius: 50%;
-                                                                    margin: 0.1em;
-                                                                    padding: 0.5em 0.7em;
-                                                                }
-                                                            }   
-                                                        }
-                                                    }
-                                                    .colorDescriptionOuterLayer{
-                                                        width: 16em;
-                                                        margin: 0.3em;
-                                                        padding: 0.5em;
-                                                        @include box_shadow;
-                                                        .colorDescriptionInnerLayer{
-                                                            @include flexCentreRow;
-                                                            align-items: flex-start;
-                                                            .contentColorContainer{
-                                                                @include flexCentreRow;
-                                                                // width: 100%;
-                                                                margin-right: 0.8em;
-                                                                align-items: flex-start;
-                                                                justify-content: space-between;
-                                                                .colorDetails{
-                                                                    width: 4em;
-                                                                    height: 4em;
-                                                                    padding: 0.2em;
-                                                                    @include box_shadow;
-                                                                }
-                                                                .closeButtonContainer{
-
-                                                                }
-                                                            }
-                                                            .contentColorValuesContainer{
-                                                                @include flexCentreCol;
-                                                                width: 100%;
-                                                                align-items: flex-start;
-                                                                // margin-top: 0.5em;
-                                                                .colorNameContainer{
-                                                                    // margin: 0.3em 0;
-                                                                    p{
-                                                                        font-size: 0.8em;
-                                                                        span{
-                                                                            color: $primaryMagenta;
-                                                                        }
-                                                                    }
-                                                                }
-                                                                .colorHexCodeContainer{
-                                                                    margin: 0.3em 0;
-                                                                    p{
-                                                                        font-size: 0.8em;
-                                                                        span{
-                                                                            color: $primaryMagenta;
-                                                                        }
-                                                                    }
-                                                                }
-                                                                .colorExtraCostContainer{
-                                                                    margin: 0.2em 0;
-                                                                    max-width: 10em;
-                                                                    p{
-                                                                        font-size: 0.8em;
-                                                                        span{
-                                                                            color: $primaryMagenta;
-                                                                        }
-                                                                    }
-                                                                }
-
-                                                            }
-                                                        }
-                                                    }
-                                                }
-
-                                                .buttonContainer{
-
-                                                    .whiteButtonWrapper{
-                                                        @include flexCentreRow;
-
-                                                        .svgImageContainer{
-                                                            margin: 0 0.5em;
-                                                            padding-top: 0.3em;
-                                                        }
-                                                    }
                                                 }
 
                                                 .mentionedSizeContainer{
@@ -1994,6 +1945,7 @@ input{
                                                             }
                                                         }
                                                     }
+                                                    
                                                 }
 
 
@@ -2191,78 +2143,42 @@ input{
     }
 }
 
+@media screen and (max-width: 1024px){
 
-// // switch toggle button css code////
-// .switch {
-//     position: relative;
-//     display: inline-block;
-//     width: 5em;
-//     height: 1.4em;
-//     margin-left: 0.5em;
-//   }
-  
-//   .switch input {display:none;}
-  
-//   .slider {
-//     position: absolute;
-//     cursor: pointer;
-//     top: 0;
-//     left: 0;
-//     right: 0;
-//     bottom: 0;
-//     background-color: $primaryMagenta;
-//     -webkit-transition: .4s;
-//     transition: .4s;
-//     border-radius: 1em;
-//   }
-  
-//   .slider:before {
-//     position: absolute;
-//     content: "";
-//     height: 0.8em;
-//     width: 0.8em;
-//     left: 0.25em;
-//     bottom: 0.30em;
-//     background-color: white;
-//     -webkit-transition: .4s;
-//     transition: .4s;
-//     border-radius: 50%;
-//   }
-  
-//   input:checked + .slider {
-//     background-color: $primaryGreen;
-//   }
-  
-//   input:focus + .slider {
-//     box-shadow: 0 0 1px #2196F3;
-//   }
-  
-//   input:checked + .slider:before {
-//     -webkit-transform: translateX(26px);
-//     -ms-transform: translateX(26px);
-//     transform: translateX(55px);
-//   }
-  
-//   /*------ ADDED CSS ---------*/
-//   .slider:after
-//   {
-//    content:'No';
-//    color: $white;
-//    display: block;
-//    position: absolute;
-//    transform: translate(-50%,-50%);
-//    top: 50%;
-//    left: 50%;
-//    font-size: 0.8em;
-//    font-family: Verdana, sans-serif;
-//   }
-  
-//   input:checked + .slider:after
-//   {  
-//     content:'Yes';
-//   }
-  
-//   /*--------- END --------*/
+    .vendorDashboardWrapper{
+        .mainClass{
+           nav{
+            // position: fixed;
+            // top: 0;
+            // background: $white;
+            // z-index: 99;
+           } 
+           .vendorDummyContainer{
+               top: 0;
+               .vendorDashboardOuterLayer{
+                 .vendorDashboardInnerLayer{
+                    .uploadSectionUpperContainer{
+                        min-width: 35%;
+                        position: sticky;
+                        top: 4em;
+                    }
+                    .uploadSectionRightWrapper{
+                        margin-top: 3em;
+                        .rightWrapperInnerLayer{
+                            .vendorFormHeading{}
+                            .vendorUploadFormSection{
+                                height: 100%;
+                            }
+                            .formButtonContainer{}
+                        }
+                    }
+                 }  
+               }
+           }
+        }
+    }
+
+}
 
 
 // switch toggle button css code////
@@ -2346,19 +2262,8 @@ input{
 	border-radius: 100%;
 	box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
 }
-// .switch-handle:before {
-// 	content: "";
-// 	position: absolute;
-// 	top: 50%;
-// 	left: 50%;
-// 	margin: -6px 0 0 -6px;
-// 	width: 12px;
-// 	height: 12px;
-// 	background: linear-gradient(to bottom, #eeeeee, #FFFFFF);
-// 	background-image: -webkit-linear-gradient(top, #eeeeee, #FFFFFF);
-// 	border-radius: 6px;
-// 	box-shadow: inset 0 1px rgba(0, 0, 0, 0.02);
-// }
+
+
 .switch-input:checked ~ .switch-handle {
     left: 2.3em;
 	box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.2);
@@ -2373,39 +2278,50 @@ input{
 	-o-transition: All 0.3s ease;
 }
 
-@media screen and (max-width: 1024px){
 
-    .vendorDashboardWrapper{
-        .mainClass{
-           nav{
-            // position: fixed;
-            // top: 0;
-            // background: $white;
-            // z-index: 99;
-           } 
-           .vendorDummyContainer{
-               top: 0;
-               .vendorDashboardOuterLayer{
-                 .vendorDashboardInnerLayer{
-                    .uploadSectionUpperContainer{
-                        min-width: 35%;
-                        position: sticky;
-                        top: 4em;
-                    }
-                    .uploadSectionRightWrapper{
-                        margin-top: 3em;
-                        .rightWrapperInnerLayer{
-                            .vendorFormHeading{}
-                            .vendorUploadFormSection{
-                                height: 100%;
-                            }
-                            .formButtonContainer{}
-                        }
-                    }
-                 }  
-               }
-           }
-        }
+
+.form-group{
+    position: relative;
+}
+.form-group::before{
+    content: "";
+    display: block;
+    background:url("https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/dropDownMagentaArrow-01.png")no-repeat;
+    position: absolute;
+    top: 0.25em;
+    right: 0.4em;
+    width: 1em;
+    height: 1em;
+}
+
+.form-group select::-ms-expand {
+    display: none;
     }
+.form-group select {
+    position: relative;
+    appearance: none;
+    cursor: pointer;
+    /* Add some styling */
+    display: block;
+    width: 100%;
+    float: right;
+    padding: 0px 2em 0.1em 0.5em;
+    background: transparent;
+    line-height: 1.4;
+    color: #333;
+    border: none;
+    border-bottom: 0.2em solid $mediumGrey;
+    outline: none;
 
+    option{
+        background-color: $white;
+        border: 0;
+        border-radius: 0.5em;
+    }
+  }
+.form-group option{
+    background-color:#FFF;
+    outline:none;
+    border:none;
+    box-shadow:none;
 }
