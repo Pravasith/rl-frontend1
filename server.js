@@ -67,6 +67,12 @@ nextApp.prepare()
             nextApp.render(req, res, actualPage, queryParams)
         })
 
+        server.get('/vendor/:id', (req, res) => {
+            const actualPage = '/vendor-own-profile'
+            const queryParams = { id: req.params.id }
+            nextApp.render(req, res, actualPage, queryParams)
+        })
+
         server.get('*', (req, res) => {
             return handle(req, res)
         })

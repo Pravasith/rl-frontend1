@@ -333,9 +333,9 @@ class AddProductDetails extends React.Component {
     //   });
   }
 
-  componentDidUpdate() {
-    console.log(this.state.displayDiscountValueValidationError, this.state.displayGSTValueValidationError, this.state.displayInstallationValueValidationError)
-  }
+  // componentDidUpdate() {
+  //   console.log(this.state.displayDiscountValueValidationError, this.state.displayGSTValueValidationError, this.state.displayInstallationValueValidationError)
+  // }
 
   modalClassToggle = showOrNot => {
     if (showOrNot === "show")
@@ -2161,7 +2161,7 @@ class AddProductDetails extends React.Component {
       productName: this.state.productName,
       productCode: this.state.productCode,
       basePrice: this.state.productPrice,
-      productGST: this.state.productGST,
+      gstPercentage: this.state.productGST,
       productMaterials: this.state.productMaterials,
       finishingOptions: this.state.productFinishes,
       colorOptions: this.state.colorArray,

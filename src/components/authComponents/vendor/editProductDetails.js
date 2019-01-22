@@ -2580,7 +2580,8 @@ class EditProductDetails extends React.Component {
         const finalDataToSend = {
             productName : this.state.productName,
             productCode : this.state.productCode,
-            basePrice : this.state.productPrice,
+            basePrice: this.state.productPrice,
+            gstPercentage: this.state.productGST,
             productMaterials : this.state.productMaterials,
             finishingOptions : this.state.productFinishes,
             colorOptions :  this.state.colorArray,
