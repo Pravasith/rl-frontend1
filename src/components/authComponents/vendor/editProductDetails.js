@@ -4098,9 +4098,9 @@ class EditProductDetails extends React.Component {
                                                                 this.checkTypeNumber(e, "GST")
                                                             }
                                                         />
-                                                        <span className="InputSeparatorLine">
+                                                        {/* <span className="InputSeparatorLine">
                                                         {" "}
-                                                        </span>
+                                                        </span> */}
                                                         <p>%</p>
                                                     </div>
                                                     <div className="errorContent">
