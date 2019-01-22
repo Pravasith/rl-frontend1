@@ -17,7 +17,7 @@ nextApp.prepare()
     .then(() => {
 
         // DEPLOYMENT ///
-        const server = express ()
+        // const server = express ()
         // DEPLOYMENT ///
 
 
@@ -25,12 +25,12 @@ nextApp.prepare()
         let port = 3000;
 
         let options = {
-            // key: fs.readFileSync('/etc/letsencrypt/live/vendor.rollinglogs.com/privkey.pem', 'utf-8'),
-            // cert: fs.readFileSync('/etc/letsencrypt/live/vendor.rollinglogs.com/fullchain.pem', 'utf-8'),
+            key: fs.readFileSync('/etc/letsencrypt/live/vendor.rollinglogs.com/privkey.pem', 'utf-8'),
+            cert: fs.readFileSync('/etc/letsencrypt/live/vendor.rollinglogs.com/fullchain.pem', 'utf-8'),
         };
 
         // PRODUCTION ///
-        // let app = express();
+        let app = express();
         // PRODUCTION ///
         
 
@@ -69,23 +69,23 @@ nextApp.prepare()
         })
 
         // PRODUCTION ///
-        // let app = https.createServer(options, server)
-        // .listen((port), function(){
-        // console.log("Express server listening on port " + port);
-        // });
+        let app = https.createServer(options, server)
+        .listen((port), function(){
+        console.log("Express server listening on port " + port);
+        });
         // PRODUCTION ///
 
         // DEVELOPMENT ///
-        server.listen((port), (err) => { 
-            if (err) throw err
-            console.log('>> Ready on 3000')
-        })
+        // server.listen((port), (err) => { 
+        //     if (err) throw err
+        //     console.log('>> Ready on 3000')
+        // })
         // DEVELOPMENT ///
 
         // PRODUCTION ///
-        // app.on('listening',function(){
-        //     console.log('ok, server is running');
-        // });
+        app.on('listening',function(){
+            console.log('ok, server is running');
+        });
         // PRODUCTION ///
     })
     .catch((ex) => {
