@@ -739,8 +739,13 @@ class VendorMainDashboard extends React.Component {
         const { categoriesSelected } = this.state
 
         const returnSubCategories = (subcategories) => {
+            
             return subcategories.subCategory.map((subcategory, i) => {
-                let subCatProducts = [...subcategory.productImages.reverse()]
+                let subCatProducts = []
+
+                if(subcategory.productImages)
+                subCatProducts = [...subcategory.productImages.reverse()]
+                
                 return (
                     <div 
                         className="subCategoryHead"
