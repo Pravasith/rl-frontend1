@@ -2262,7 +2262,7 @@ class VendorMainDashboard extends React.Component {
                         <div className="modalHeaderContainer productPreview">
                             <h3>Product preview</h3>
                             <div className="line"></div>
-                            <small>* N/A - Not Applicable</small>
+                            {/* <small>(N/A - Not Applicable)</small> */}
                         </div>
                         <div
                             className="close"

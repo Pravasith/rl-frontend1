@@ -1,5 +1,7 @@
 const express = require('express')
 const next = require('next')
+
+
 const favicon = require('serve-favicon')
 var path = require('path')
 let https = require('https')
@@ -25,8 +27,8 @@ nextApp.prepare()
             // cert: fs.readFileSync('./ssl/certificate.pem'),
 
 
-            // key: fs.readFileSync('/etc/letsencrypt/live/vendor.rollinglogs.com/privkey.pem', 'utf-8'),
-            // cert: fs.readFileSync('/etc/letsencrypt/live/vendor.rollinglogs.com/fullchain.pem', 'utf-8'),
+            key: fs.readFileSync('/etc/letsencrypt/live/vendor.rollinglogs.com/privkey.pem', 'utf-8'),
+            cert: fs.readFileSync('/etc/letsencrypt/live/vendor.rollinglogs.com/fullchain.pem', 'utf-8'),
 
 
             // key: fs.readFileSync('/var/www/rollinglogs/fullkeys/privkey.pem', 'utf-8'),
@@ -37,7 +39,7 @@ nextApp.prepare()
 
         
 
-        // server.use(favicon(path.join(__dirname, "/favicon.ico")))
+        server.use(favicon(path.join(__dirname, "/favicon.ico")))
 
         // server.get('/vendor/profile-details/:id', (req, res) => {
         //     const actualPage = '/vendor-profile-details'
@@ -71,19 +73,19 @@ nextApp.prepare()
             return handle(req, res)
         })
 
-        // let app = https.createServer(options, server)
-        // .listen((port), function(){
-        // console.log("Express server listening on port " + port);
-        // });
+        let app = https.createServer(options, server)
+        .listen((port), function(){
+        console.log("Express server listening on port " + port);
+        });
 
-        server.listen((port), (err) => {
-            if (err) throw err
-            console.log('>> Ready on 3000')
-        })
+        // server.listen((port), (err) => {
+        //     if (err) throw err
+        //     console.log('>> Ready on 3000')
+        // })
 
-        // app.on('listening',function(){
-        //     console.log('ok, server is running');
-        // });
+        app.on('listening',function(){
+            console.log('ok, server is running');
+        });
     })
     .catch((ex) => {
         console.error(ex.stack)
