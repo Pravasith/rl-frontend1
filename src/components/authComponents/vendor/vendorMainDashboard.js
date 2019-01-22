@@ -563,6 +563,7 @@ class VendorMainDashboard extends React.Component {
 
         const returnSubCategories = (subcategories) => {
             return subcategories.subCategory.map((subcategory, i) => {
+                let subCatProducts = [...subcategory.productImages.reverse()]
                 return (
                     <div 
                         className="subCategoryHead"
@@ -597,7 +598,8 @@ class VendorMainDashboard extends React.Component {
                                 <div className="subCategoryProductSection">
                                     <div className="subCategoryProductSectionInnerLayer">
                                         {
-                                            this.returnSubCategoryProducts(subcategory.productImages, subcategory.subCategoryName)
+                                            this.returnSubCategoryProducts(subCatProducts.reverse(), subcategory.subCategoryName)
+                                            // this.returnSubCategoryProducts(subcategory.productImages.reverse(), subcategory.subCategoryName)
                                         }
                                     </div>
                                 </div>
@@ -2015,7 +2017,7 @@ class VendorMainDashboard extends React.Component {
                         <div className="modalHeaderContainer productPreview">
                             <h3>Product preview</h3>
                             <div className="line"></div>
-                            <small>* N/A - Not Applicable</small>
+                            {/* <small>(N/A - Not Applicable)</small> */}
                         </div>
                         <div
                             className="close"
@@ -2136,7 +2138,7 @@ class VendorMainDashboard extends React.Component {
                                                             publicId={PublicId(this.state.companyProfilePicture ? this.state.companyProfilePicture : "")} 
                                                             // transformations
                                                             width="300" 
-                                                            crop="scale"
+                                                            crop="fit"
                                                         />
                                                     </div>
                                                 </div>

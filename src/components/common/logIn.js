@@ -119,7 +119,7 @@ export default class LogIn extends React.Component {
                                 loadingClass: 'loadingAnim',
                                 mainClass: 'mainClass hide',
                             })
-                            window.open('/vendor/profile-details', '_self')
+                            window.open('/', '_self')
                         }
                         
 

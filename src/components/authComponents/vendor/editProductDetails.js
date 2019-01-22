@@ -4084,11 +4084,12 @@ class EditProductDetails extends React.Component {
                                                         GST of this product
                                                         </p>
                                                     </div>
-                                                    <div className="GSTinputSection">
+                                                    <div className="materialInformationColumn">
                                                         <div className="modalMandatorySection">
-                                                        <p className="madatoryHighlight">Mandatory</p>
+                                                            <p className="madatoryHighlight">Mandatory</p>
                                                         </div>
-                                                        <input
+                                                        <div className="inputColumn">
+                                                            <input
                                                             type="text"
                                                             ref="GSTInput"
                                                             maxLength="2"
@@ -4097,10 +4098,9 @@ class EditProductDetails extends React.Component {
                                                             onChange={e =>
                                                                 this.checkTypeNumber(e, "GST")
                                                             }
-                                                        />
-                                                        {/* <span className="InputSeparatorLine">
-                                                        {" "}
-                                                        </span> */}
+                                                            />
+                                                            <span className="InputSeparatorLine"></span>
+                                                        </div>
                                                         <p>%</p>
                                                     </div>
                                                     <div className="errorContent">

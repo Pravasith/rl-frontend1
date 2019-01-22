@@ -657,7 +657,8 @@ input{
                     @include flexCentreCol;
                     justify-content: flex-start;
                     width: 70%;
-                    height: 35em;
+                    // height: 35em;
+                    height: 75vh;
                     padding: 0.5em;
                     background: $white;
                     @include box_shadow;
@@ -694,7 +695,8 @@ input{
                           
                             .productPreviewInformationColumn{
                                 width: 99%;
-                                height: 63vh;
+                                // height: 63vh;
+                                height: 56vh;
                                 overflow-y: auto;
                                 margin: 1em 0;
                                

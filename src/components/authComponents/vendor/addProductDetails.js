@@ -594,7 +594,14 @@ class AddProductDetails extends React.Component {
             </li>
           </ul>
 
-          <div className="deleteIcon" onClick={i => this.removeFeature(i)}>
+          {/* <div className="deleteIcon" onClick={i => this.removeFeature(i)}>
+            <CloseButton />
+          </div> */}
+          <div className="deleteIcon" 
+               onClick={() => {
+                this.removeFeature(i);
+               }}
+          >
             <CloseButton />
           </div>
         </div>
@@ -2666,7 +2673,7 @@ class AddProductDetails extends React.Component {
                           name="sizeName"
                           placeholder="Ex. Small / Extra-large / 2ftx3ft"
                           onChange={this.onChangeHandler}
-                          maxLength="30"
+                          maxLength="100"
                           ref="sizeName"
                         />
                         <span className="InputSeparatorLine"> </span>
@@ -3589,17 +3596,16 @@ class AddProductDetails extends React.Component {
                     <header className="vendorFormHeading">
                       <div className="headingArea">
                         <h3 className="headingClass">Add new product</h3>
-
                         <div className="line" />
                       </div>
                     </header>
 
                     <section className="vendorUploadFormSection">
                       <div className="vendorUploadFormInnerContainer">
+
                         <div className="inputFormContainer">
                           <div className="formParaSection">
                             <p className="pargraphClass">Name of the product</p>
-                            
                           </div>
                           <div className="materialInformationColumn">
                             <InputForm
@@ -3621,7 +3627,7 @@ class AddProductDetails extends React.Component {
                           <div className="formParaSection">
                             <p className="pargraphClass">Product Code</p>
                           </div>
-                          <div className="productCode">
+                          <div className="materialInformationColumn">
                             <InputForm
                               refName="productCode"
                               placeholder="Type here"
@@ -3643,7 +3649,7 @@ class AddProductDetails extends React.Component {
                               Base price of this product
                             </p>
                           </div>
-                          <div className="PricingSection">
+                          <div className="materialInformationColumn">
                             <InputForm
                               refName="productPrice"
                               placeholder="Type here (in Rupees)"
@@ -3659,14 +3665,13 @@ class AddProductDetails extends React.Component {
                           </div>
                         </div>
 
-
                         <div className="inputFormContainer">
                           <div className="formParaSection">
                             <p className="pargraphClass">
                               GST of this product
                             </p>
                           </div>
-                          <div className="GSTinputSection">
+                          <div className="materialInformationColumn">
                             <div className="modalMandatorySection">
                               <p className="madatoryHighlight">Mandatory</p>
                             </div>
@@ -3681,7 +3686,6 @@ class AddProductDetails extends React.Component {
                                 }
                               />
                               <span className="InputSeparatorLine">
-                                {" "}
                               </span>
                             </div>
                             <p>%</p>
@@ -3731,8 +3735,7 @@ class AddProductDetails extends React.Component {
                         <div className="inputFormContainer">
                           <div className="formParaSection">
                             <p className="pargraphClass">
-                              {" "}
-                              Features / specifications of the product{" "}
+                              Features / specifications of the product
                             </p>
                           </div>
 
@@ -3746,7 +3749,7 @@ class AddProductDetails extends React.Component {
                                 placeholder="Type the value-add features about this product"
                                 ref="featureInput"
                                 type="text"
-                                maxLength="30"
+                                maxLength="100"
                                 onChange={e => this.setfeatureName(e)}
                                 onKeyPress={e => {
                                   if (e.key === "Enter") {
@@ -3767,9 +3770,6 @@ class AddProductDetails extends React.Component {
                         <div className="inputFormContainer">
                           <div className="formParaSection">
                             <p className="pargraphClass"> Finishing options </p>
-                            {/* <div className="modalMandatorySection">
-                              <p className="madatoryHighlight">Mandatory</p>
-                            </div> */}
                           </div>
 
                           <div className="productFinishSection">
@@ -3796,12 +3796,7 @@ class AddProductDetails extends React.Component {
 
                         <div className="inputFormContainer">
                           <div className="formParaSection">
-                            <p
-                              className="pargraphClass"
-                              // onClick = {() => console.log(this.state.colorArray)}
-                            >
-                              Color options
-                            </p>
+                            <p className="pargraphClass"> Color options </p>
                             {/* <div className="modalMandatorySection">
                               <p className="madatoryHighlight">Mandatory</p>
                             </div> */}
@@ -3916,8 +3911,7 @@ class AddProductDetails extends React.Component {
                         <div className="inputFormContainer">
                           <div className="formParaSection">
                             <p className="pargraphClass">
-                              {" "}
-                              Product description{" "}
+                              Product description
                             </p>
                             <div className="modalMandatorySection">
                               <p className="madatoryHighlight">Mandatory</p>
@@ -3963,10 +3957,9 @@ class AddProductDetails extends React.Component {
 
                         <div className="inputFormContainer">
                           <div className="formParaSection">
-                            <h3 className="pargraphClass">
-                              {" "}
+                            <p className="pargraphClass">
                               Choose the product’s design style{" "}
-                            </h3>
+                            </p>
                             <div className="modalMandatorySection">
                               <p className="madatoryHighlight">Mandatory</p>
                             </div>
@@ -3996,8 +3989,7 @@ class AddProductDetails extends React.Component {
                         <div className="inputFormContainer">
                           <div className="formParaSection">
                             <p className="pargraphClass">
-                              {" "}
-                              Add tags for your product{" "}
+                              Add tags for your product
                             </p>
                           </div>
 
@@ -4039,8 +4031,7 @@ class AddProductDetails extends React.Component {
                         <div className="inputFormContainer">
                           <div className="formParaSection">
                             <p className="pargraphClass">
-                              {" "}
-                              Choose the product type{" "}
+                              Choose the product type
                             </p>
                             <div className="modalMandatorySection">
                               <p className="madatoryHighlight">Mandatory</p>
@@ -4063,8 +4054,7 @@ class AddProductDetails extends React.Component {
                         <div className="inputFormContainer">
                           <div className="formParaSection">
                             <p className="pargraphClass">
-                              {" "}
-                              Is the product available?{" "}
+                              Is the product available?
                             </p>
                             <div className="modalMandatorySection">
                               <p className="madatoryHighlight">Mandatory</p>
@@ -4205,7 +4195,7 @@ class AddProductDetails extends React.Component {
                           <div className="formParaSection">
                             <p className="pargraphClass">Brand Name</p>
                           </div>
-                          <div className="brandNameInputSection">
+                          <div className="materialInformationColumn brandNameInputSection">
                             <InputForm
                               refName="brandName"
                               placeholder="Ex.Greenply / Legrand etc."

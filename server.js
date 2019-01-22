@@ -1,5 +1,7 @@
 const express = require('express')
 const next = require('next')
+
+
 const favicon = require('serve-favicon')
 var path = require('path')
 let https = require('https')
@@ -15,7 +17,11 @@ const fs = require('fs')
 
 nextApp.prepare()
     .then(() => {
+
+        // DEPLOYMENT ///
         const server = express ()
+        // DEPLOYMENT ///
+
 
 
         let port = 3000;
@@ -33,11 +39,12 @@ nextApp.prepare()
             // cert: fs.readFileSync('/var/www/rollinglogs/fullkeys/fullchain.pem', 'utf-8')
         };
 
+        // PRODUCTION ///
         // let app = express();
-
+        // PRODUCTION ///
         
 
-        // server.use(favicon(path.join(__dirname, "/favicon.ico")))
+        server.use(favicon(path.join(__dirname, "/favicon.ico")))
 
         // server.get('/vendor/profile-details/:id', (req, res) => {
         //     const actualPage = '/vendor-profile-details'
@@ -77,19 +84,25 @@ nextApp.prepare()
             return handle(req, res)
         })
 
+        // PRODUCTION ///
         // let app = https.createServer(options, server)
         // .listen((port), function(){
         // console.log("Express server listening on port " + port);
         // });
+        // PRODUCTION ///
 
-        server.listen((port), (err) => {
+        // DEVELOPMENT ///
+        server.listen((port), (err) => { 
             if (err) throw err
             console.log('>> Ready on 3000')
         })
+        // DEVELOPMENT ///
 
+        // PRODUCTION ///
         // app.on('listening',function(){
         //     console.log('ok, server is running');
         // });
+        // PRODUCTION ///
     })
     .catch((ex) => {
         console.error(ex.stack)

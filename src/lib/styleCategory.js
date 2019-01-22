@@ -65,7 +65,7 @@ const architectureStyles =
       "styleTitle": "Rusty",
       "styleContent": "Rustic design is drawn from natural inspiration, using raw and often unfinished elements including wood and stone.\n\n",
       "styleImageUrl": "https://rocheledecorating.com.au/website-images/Rustic_design.jpg"
-    },
+    }, 
     {
       "styleId": "12",
       "styleTitle": "Hollywood Glam",
