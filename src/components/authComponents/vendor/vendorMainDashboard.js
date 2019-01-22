@@ -802,9 +802,117 @@ class VendorMainDashboard extends React.Component {
                                 })
                             }}
                         />
+
                     </div>
                 )
             }
+        }
+
+    }
+
+    returnSubCategoryProductsModal = (productImages, title) => {
+
+        if(productImages){
+            if (productImages.length !== 0) {
+
+                let dummyArray = productImages.map((item, i) => {
+                    return {
+                        itemCode: item.productId,
+                        textOnRibbonSatisfied: false,
+                        imageURL: item.thumb,
+                        title: item.productName
+                    }
+                })
+
+                const dataObject = {
+                    categoryName: title,
+                    imagesInCategory: [...dummyArray]
+                }
+                
+
+                return (
+                    <div 
+                        className="imageSliderWrap"
+                        onClick={(data) => {
+                            this.fetchProductData(data.itemCode)
+                            this.setState({
+                                modalClass: 'modalClass',
+                                productManagerWrapperClass: "productManagerWrapperClass blurClass",
+                                activeModalType: "subCategoryDetailedPreview",
+                                itemCode: data.itemCode
+                            })
+                        }}    
+                    >
+                        {/* <HtmlSlider
+                            categoryData={dataObject} // format of Item 
+                            numberOfSlides={4} // Change the css grid properties for responsiveness
+                            textOnRibbon={"BEST SELLER"} // All caps
+                            // runFunction={(data) => { 
+                            //     window.open("/vendor/edit-product/" + data.itemCode, "_self")
+                            //  }}
+                            runFunction={(data) => {
+                                this.fetchProductData(data.itemCode)
+                                this.setState({
+                                    modalClass: 'modalClass',
+                                    productManagerWrapperClass: "productManagerWrapperClass blurClass",
+                                    activeModalType: "subCategoryDetailedPreview",
+                                    itemCode: data.itemCode
+                                })
+                            }}
+                        /> */}
+                        {/* <img src={dataObject.imagesInCategory[0].imageURL} alt=""/>
+                        <div>{dataObject.imagesInCategory[0].title}</div>
+                        {console.log(dataObject.imagesInCategory[0])} */}
+                    </div>
+                )
+            }
+        }
+
+    }
+
+    returnCategoryInModal = () => {
+        const { categoriesSelected } = this.state
+
+        const returnSubCategories = (subcategories) => {
+            return subcategories.subCategory.map((subcategory, i) => {
+                let subCatProducts = [...subcategory.productImages.reverse()]
+                return (
+                    <div 
+                        className="subCategoryHead"
+                        key = { "subCat" + i }
+                        >
+                        <div className="subCategoryHeadInnerSection">
+                            <div className="addProductCategorySection">
+                                <div className="subCategoryProductSection">
+                                    <div className="subCategoryProductSectionInnerLayer">
+                                        {
+                                            this.returnSubCategoryProductsModal(subCatProducts.reverse(), subcategory.subCategoryName)
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )
+            })
+        }
+
+        if (categoriesSelected.length !== 0) {
+            return(
+                categoriesSelected.map((item, i) => {
+                    return (
+                        <div 
+                            key = {i} 
+                            className="categorisedProductsDisplay"
+                        >
+                            <div className="categorisedProductDisplayInnerLayer">
+                                {returnSubCategories(item)}
+                            </div>
+                        </div>
+                    )
+                  }
+                )
+            )
         }
 
     }
@@ -876,7 +984,7 @@ class VendorMainDashboard extends React.Component {
                                         <h3>{item.category.categoryName}</h3>
                                         <div className="line"></div>
                                     </div>
-                                    {/* <div 
+                                    <div 
                                         className="deleteCategoryContainer"
                                         // onClick={() => this.deleteCategory(i)}
                                         onClick={() => {
@@ -888,8 +996,10 @@ class VendorMainDashboard extends React.Component {
                                             })
                                         }}
                                     >
-                                        <CloseButton />
-                                    </div> */}
+                                        <WhiteButton>
+                                            View All
+                                        </WhiteButton>
+                                    </div>
                                 </div>
 
                                 {returnSubCategories(item)}
@@ -2149,28 +2259,31 @@ class VendorMainDashboard extends React.Component {
             }
 
             else{
+                
                 return (
                     <div className="modalCategoryDeleteContainer">
                         <div className="modalHeaderCloserSection">
                             <div className="modalHeaderContainer">
-                                <h3>Are you sure you want to delete this ?</h3>
+                                <h3>Uploaded products</h3>
                                 <div className="line"></div>
+                            </div>
+                            <div 
+                                className="close"
+                                onClick={() => this.setState({
+                                    modalClass: "modalClass hide",
+                                    productManagerWrapperClass: "productManagerWrapperClass",
+                                    mainContentWrap: "mainContentWrap",
+                                    vendorInitialGraphic: 'vendorGraphicCenter',
+                                })}
+                            >
+                            <BigCloseButton/>
                             </div>
                         </div>
                         <div className="confirmationButtonContainer">
-                            <div className="closeButtonContainer">
-                                <WhiteButton    
-                                    runFunction={() => this.setState({
-                                        modalClass: "modalClass hide",
-                                        productManagerWrapperClass: "productManagerWrapperClass",
-                                        mainContentWrap: "mainContentWrap",
-                                        vendorInitialGraphic: 'vendorGraphicCenter',
-                                    })}
-                                    >
-                                    No
-                                </WhiteButton>
+                            <div className="productContainer">
+                            {this.returnCategoryInModal()}
                             </div>
-                            <div className="yesContainer">
+                            {/* <div className="yesContainer">
                                 <WhiteButton
                                     runFunction={() => {
                                         this.setState({
@@ -2220,7 +2333,7 @@ class VendorMainDashboard extends React.Component {
                                     >
                                     Yes
                                  </WhiteButton>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 )

@@ -91,7 +91,7 @@ input{
                     @include flexCentreCol;
                     justify-content: flex-start;
                     width: 30%;
-                    height: 8em;
+                    // height: 8em;
                     margin: 0.5em;
                     background: $white;
                     @include box_shadow;
@@ -103,18 +103,23 @@ input{
                         height: 100%;
                     }
 
-                    .modalHeaderContainer{
-                        @include flexCentreCol;
-                        margin-top: 0.5em;
-                        // width: 85%;
-                        h3{
-                            text-align: center;
+                    .modalHeaderCloserSection{
+                        @include flexCentreRow;
+                        width: 100%;
+                        .modalHeaderContainer{
+                            @include flexCentreCol;
+                            margin-top: 0.5em;
+                            width: 80%;
+                            h3{
+                                text-align: center;
+                            }
+                            .line{
+                                width: 30%;
+                                height: 0.1em;
+                                background: $secondaryMagenta;
+                            }
                         }
-                        .line{
-                            width: 30%;
-                            height: 0.1em;
-                            background: $secondaryMagenta;
-                        }
+                        .close{}
                     }
                     
                 .confirmationButtonContainer{
@@ -1581,7 +1586,7 @@ input{
                             .mainCategoryHead{
                                 @include flexCentreRow;
                                 justify-content: space-between;
-                                align-items: flex-start;
+                                align-items: baseline;
                                 // width: 30%;
                                 .categoryMainHeaderContainer{
                                     @include flexCentreCol;
