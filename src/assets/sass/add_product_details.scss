@@ -1075,7 +1075,8 @@
                                                                         }
                                                                         .displayInstallationValueError{
                                                                             background: $highLightBlue;
-                                                                        
+                                                                            text-align: center;
+                                                                            padding: 0.2em 0;
                                                                             color: $white;
                                                                         }
                                                                         
@@ -1200,10 +1201,6 @@
                                                                     padding: 0.5em 1em;
                                                                     font-size: 0.75em;
                                                                     margin-top: .2em;
-                                                                }
-                                                                .displayInstallationValueError{
-                                                                    background: $secondaryMagenta;
-                                                                    color: $white;
                                                                 }
                                                             }
 
@@ -2167,7 +2164,8 @@
                         .rightWrapperInnerLayer{
                             .vendorFormHeading{}
                             .vendorUploadFormSection{
-                                height: 100%;
+                                // height: 100%;
+                                height: 72vh;
                                 .vendorUploadFormInnerContainer{
                                     .inputFormContainer{
                                         .brandImageUploaderRender{
@@ -2180,6 +2178,11 @@
                         }
                     }
                  }  
+               }
+               .modalBackgroundMainOuterWrap{
+                   .modalBackgroundDummyClass{
+                    //    height: 25%;
+                   }
                }
            }
         }
