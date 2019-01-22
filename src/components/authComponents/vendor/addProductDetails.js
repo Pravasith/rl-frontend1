@@ -3252,7 +3252,6 @@ class AddProductDetails extends React.Component {
     else if (fieldName === "Product GST") {
         if (productGST !== undefined) {
           if (productGST === 0) {
-            console.log("wrksin")
             this.setState({
               displayGSTValueError: "displayGSTValueError"
             });
@@ -3378,7 +3377,6 @@ class AddProductDetails extends React.Component {
     });
 
     fieldNames.map(item => {
-      console.log(item)
       if (
         item.value === undefined ||
         item.value === null ||
