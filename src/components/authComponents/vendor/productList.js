@@ -674,7 +674,7 @@ class VendorProductList extends React.Component {
                 // DECRYPT RESPONSE DATA
                 //
 
-                console.log(decryptedData)
+                // console.log(decryptedData)
 
                 this.setState({
 

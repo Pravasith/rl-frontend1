@@ -258,6 +258,7 @@ class EditProductDetails extends React.Component {
                 productName: decryptedData.productName,
                 productCode: decryptedData.productCode,
                 productPrice: decryptedData.basePrice,
+                productGST: decryptedData.gstPercentage,
                 productMaterials: decryptedData.productMaterials,
                 featuresAdded: decryptedData.features,
                 productFinishes: decryptedData.finishingOptions,
@@ -1364,6 +1365,7 @@ class EditProductDetails extends React.Component {
             productName,
             productCode,
             productPrice,
+            productGST,
             productMaterials,
             productFinishes,
             productMinQuantity,
@@ -1385,6 +1387,10 @@ class EditProductDetails extends React.Component {
 
         else if (fieldName === "ProductPrice") {
             if (productPrice) return productPrice;
+        }
+
+        else if (fieldName === "ProductGST") {
+            if (productGST) return productGST;
         }
 
         else if (fieldName === "ProductMaterials") {
@@ -4094,6 +4100,19 @@ class EditProductDetails extends React.Component {
                                                             />
                                                             <span className="InputSeparatorLine"></span>
                                                         </div>
+                                                        <input
+                                                            type="text"
+                                                            ref="GSTInput"
+                                                            maxLength="2"
+                                                            placeholder="Ex. 18, 12 etc"
+                                                            defaultValue={this.handleDefaultValues("ProductGST")}
+                                                            onChange={e =>
+                                                                this.checkTypeNumber(e, "GST")
+                                                            }
+                                                        />
+                                                        <span className="InputSeparatorLine">
+                                                        {" "}
+                                                        </span>
                                                         <p>%</p>
                                                     </div>
                                                     <div className="errorContent">

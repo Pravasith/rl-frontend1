@@ -3259,7 +3259,6 @@ class AddProductDetails extends React.Component {
     else if (fieldName === "Product GST") {
         if (productGST !== undefined) {
           if (productGST === 0) {
-            console.log("wrksin")
             this.setState({
               displayGSTValueError: "displayGSTValueError"
             });
