@@ -116,8 +116,10 @@ class AddProductDetails extends React.Component {
 
       materialCost: "",
 
+      // productPrice: 0,
       productDescription: "",
 
+      productGST: undefined,
       productDiscount: undefined,
 
       productFinishImage: "",
@@ -152,10 +154,17 @@ class AddProductDetails extends React.Component {
 
       // displayError: "displayError",
       displayError: "displayError hide",
+      displayDiscountValueValidationError: "displayDiscountValueValidationError hide",
+      displayGSTValueValidationError: "displayGSTValueValidationError hide",
+      displayInstallationValueValidationError: "displayInstallationValueValidationError hide",
+
       displayValueError: "displayValueError hide",
+      displayGSTValueError: "displayGSTValueError hide",
       displayDiscountValueError: "displayDiscountValueError hide",
       displayInstallationValueError: "displayInstallationValueError hide",
       displayQuantityValueError: "displayQuantityValueError hide",
+
+      Validation: "Validation hide",
       // productQuantityErrorMessage: "displayValueError hide",
       // productMinQuantityError: "productMinQuantityError hide",
 
@@ -229,7 +238,7 @@ class AddProductDetails extends React.Component {
         // DECRYPT REQUEST DATA
         //
 
-        console.log(decryptedData)
+        // console.log(decryptedData)
 
         this.setState({
           loadingClass: "loadingAnim hide",
@@ -324,6 +333,9 @@ class AddProductDetails extends React.Component {
     //   });
   }
 
+  componentDidUpdate() {
+    console.log(this.state.displayDiscountValueValidationError, this.state.displayGSTValueValidationError, this.state.displayInstallationValueValidationError)
+  }
 
   modalClassToggle = showOrNot => {
     if (showOrNot === "show")
@@ -1162,12 +1174,17 @@ class AddProductDetails extends React.Component {
         if (checkFor === "discount") {
           this.setState({
             productDiscount: Number(val),
-            displayError: "displayError hide"
+            displayDiscountValueValidationError: "displayDiscountValueValidationError hide"
+          });
+        } else if (checkFor === "GST") {
+          this.setState({
+            productGST: Number(val),
+            displayGSTValueValidationError: "displayGSTValueValidationError hide",
           });
         } else if (checkFor === "installation") {
           this.setState({
             productInstallationServiceCost: Number(val),
-            displayError: "displayError hide"
+            displayInstallationValueValidationError: "displayInstallationValueValidationError hide"
           });
         } else if (checkFor === "installer") {
           this.setState({
@@ -1203,12 +1220,17 @@ class AddProductDetails extends React.Component {
         if (checkFor === "discount") {
           this.setState({
             productDiscount: "",
-            displayError: "displayError"
+            displayDiscountValueValidationError: "displayDiscountValueValidationError"
+          });
+        } else if (checkFor === "GST") {
+          this.setState({
+            productGST: "",
+            displayGSTValueValidationError: "displayGSTValueValidationError"
           });
         } else if (checkFor === "installation") {
           this.setState({
             productInstallationServiceCost: "",
-            displayError: "displayError"
+            displayInstallationValueValidationError: "displayInstallationValueValidationError"
           });
         } else if (checkFor === "installer") {
           this.setState({
@@ -2146,6 +2168,7 @@ class AddProductDetails extends React.Component {
       productName: this.state.productName,
       productCode: this.state.productCode,
       basePrice: this.state.productPrice,
+      productGST: this.state.productGST,
       productMaterials: this.state.productMaterials,
       finishingOptions: this.state.productFinishes,
       colorOptions: this.state.colorArray,
@@ -3207,6 +3230,7 @@ class AddProductDetails extends React.Component {
     const {
         productDiscountAvailablity,
         productDiscount,
+        productGST,
         productMinQuantity,
         productMaxQuantity,
         productInstallationAvailability,
@@ -3230,6 +3254,25 @@ class AddProductDetails extends React.Component {
                     displayQuantityValueError: "displayQuantityValueError hide"
                 });
         } else return "Max. qunatity";
+    }
+
+    else if (fieldName === "Product GST") {
+        if (productGST !== undefined) {
+          if (productGST === 0) {
+            console.log("wrksin")
+            this.setState({
+              displayGSTValueError: "displayGSTValueError"
+            });
+
+            return "Product GST Value";
+          } else {
+            this.setState({
+              displayGSTValueError: "displayGSTValueError hide"
+            });
+          }
+        } else if (productGST === undefined) {
+          return "Product GST";
+      }
     }
 
     else if (fieldName === "Product Discount") {
@@ -3288,7 +3331,7 @@ class AddProductDetails extends React.Component {
 
         else return "Product Installation Service";
     }
-};
+  };
 
   validateProceedHandler = async () => {
     const fieldNames = [
@@ -3297,6 +3340,10 @@ class AddProductDetails extends React.Component {
       {
         fieldName: "Base price of this product",
         value: this.state.productPrice
+      },
+      {
+        fieldName: `${this.handleMultiValidation("Product GST")}`,
+        value: this.state.productGST
       },
       { fieldName: "Material", value: this.state.productMaterials },
       // { fieldName: "Finishing Options", value: this.state.productFinishes },
@@ -3342,6 +3389,7 @@ class AddProductDetails extends React.Component {
         item.value === undefined ||
         item.value === null ||
         item.value.length === 0 ||
+        item.fieldName === "Product GST Value" ||
         item.fieldName === "Max. quantity value" ||
         item.fieldName === "Product Discount Value" ||
         item.fieldName === "Product Installation Cost" ||
@@ -3377,7 +3425,7 @@ class AddProductDetails extends React.Component {
             displayError: "displayError hide",
             productDiscountAvailablity: "no",
             productDiscount: 0,
-            displayDiscountValueError: "displayDiscountValueError hide"
+            Validation: "Validation hide"
         });
 
         this.refs.discountInput.value = "";
@@ -3616,6 +3664,47 @@ class AddProductDetails extends React.Component {
                                 });
                               }}
                             />
+                          </div>
+                        </div>
+
+
+                        <div className="inputFormContainer">
+                          <div className="formParaSection">
+                            <p className="pargraphClass">
+                              GST of this product
+                            </p>
+                          </div>
+                          <div className="GSTinputSection">
+                            <div className="modalMandatorySection">
+                              <p className="madatoryHighlight">Mandatory</p>
+                            </div>
+                            <div className="inputColumn">
+                              <input
+                                type="text"
+                                ref="GSTInput"
+                                maxLength="2"
+                                placeholder="Ex. 18, 12 etc"
+                                onChange={e =>
+                                  this.checkTypeNumber(e, "GST")
+                                }
+                              />
+                              <span className="InputSeparatorLine">
+                                {" "}
+                              </span>
+                            </div>
+                            <p>%</p>
+                          </div>
+                          <div className="errorContent">
+                            <p className={this.state.displayGSTValueValidationError}>
+                              Numbers only
+                            </p>
+                            <p
+                              className={
+                                this.state.displayGSTValueError
+                              }
+                            >
+                              GST cannot be zero, please check and enter it.
+                            </p>
                           </div>
                         </div>
 
@@ -4005,7 +4094,7 @@ class AddProductDetails extends React.Component {
 
                         <div className="inputFormContainer">
                           <div className="formParaSection">
-                            <p className="pargraphClass"> YouTube URL: </p>
+                            <p className="pargraphClass"> Product ad/demo video YouTube link(if any) </p>
                           </div>
 
                           <div className="inputCategoryYoutubeSection">
@@ -4086,7 +4175,7 @@ class AddProductDetails extends React.Component {
                                   </div>
                                 </div>
                                 <div className="errorContent">
-                                  <p className={this.state.displayError}>
+                                  <p className={this.state.displayDiscountValueValidationError}>
                                     Numbers Only
                                   </p>
                                   <p
@@ -4285,7 +4374,7 @@ class AddProductDetails extends React.Component {
                                       </div>
                                     </div>
                                     <div className="errorContent">
-                                      <p className={this.state.displayError}>
+                                      <p className={this.state.displayInstallationValueValidationError}>
                                         Numbers Only
                                       </p>
                                       <p

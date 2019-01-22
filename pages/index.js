@@ -1,5 +1,5 @@
 
-import {Provider} from "react-redux"
+import { Provider } from "react-redux"
 import { Head } from "next/document"
 import Link from 'next/link'
 import routeLinks from "../src/config/routeLinks"
@@ -37,6 +37,13 @@ const PostLink = (props) => (
             >
             <a></a>
         </Link>
+
+        <Link
+            as={`/vendor/products/${props.pId}`}
+            href={`/vendor-productsList?pId=${props.pId}`}
+        >
+            <a></a>
+        </Link>
     </div>
     
 )
@@ -63,7 +70,7 @@ const Index = () => (
             {/* {checkAndReturnRelevantPage()} */}
 
             <div className="outerWrapperIndexPage">
-                <StartPage />
+                <StartPage/>
                 <ul>
                     <PostLink 
                         // id={routeLinks.VENDOR_DASHBOARD} 

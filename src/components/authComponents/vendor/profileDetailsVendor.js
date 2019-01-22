@@ -35,6 +35,8 @@ class ProfileDetailsVendor extends React.Component {
             firstName: null,
             lastName: null,
 
+            emailId : null,
+
             warningClass: 'warningClass hide',
             warningText: null,
 
@@ -100,6 +102,8 @@ class ProfileDetailsVendor extends React.Component {
                     mobileNo: decryptedData.mobileNo,
                     whatsappNo: decryptedData.whatsappNo,
 
+                    emailId : decryptedData.emailId,
+
                     /////////
 
                     companyName: decryptedData.companyName,
@@ -129,6 +133,10 @@ class ProfileDetailsVendor extends React.Component {
 
                 })
             }
+
+            else{
+                window.open('/log-in', "_self")
+            }
         })
 
         .catch((err) => {
@@ -144,114 +152,116 @@ class ProfileDetailsVendor extends React.Component {
 
 
 
-        this.props.getUserData()
-            .then((data) => {
-                // let { userData } = this.props
+        // this.props.getUserData()
+        //     .then((data) => {
+        //         // let { userData } = this.props
 
-                // //
-                // // DECRYPT REQUEST DATA
-                // // 
-                // let decryptedData = decryptData(
-                //     userData.responseData
-                // )
-                // //
-                // // DECRYPT REQUEST DATA
-                // //
+        //         // //
+        //         // // DECRYPT REQUEST DATA
+        //         // // 
+        //         // let decryptedData = decryptData(
+        //         //     userData.responseData
+        //         // )
+        //         // //
+        //         // // DECRYPT REQUEST DATA
+        //         // //
 
-                // this.setState({
-                //     loadingClass: 'loadingAnim hide',
-                //     mainClass: 'mainClass',
+        //         // this.setState({
+        //         //     loadingClass: 'loadingAnim hide',
+        //         //     mainClass: 'mainClass',
 
-                //     firstName: decryptedData.firstName,
-                //     lastName: decryptedData.lastName,
-                //     profilePicture: decryptedData.profilePicture,
-                //     mobileNo: decryptedData.mobileNo,
-                //     whatsappNo: decryptedData.whatsappNo
-                // })
+        //         //     firstName: decryptedData.firstName,
+        //         //     lastName: decryptedData.lastName,
+        //         //     profilePicture: decryptedData.profilePicture,
+        //         //     mobileNo: decryptedData.mobileNo,
+        //         //     whatsappNo: decryptedData.whatsappNo
+        //         // })
 
-                this.props.hitApi(api.GET_VENDOR_DATA, "GET")
-                    .then((data) => {
-                        let { responseData } = this.props
+        //         this.props.hitApi(api.GET_VENDOR_DATA, "GET")
+        //             .then((data) => {
+        //                 let { responseData } = this.props
 
 
-                        if (responseData.responsePayload.message !== "User credentials not found") {
+        //                 if (responseData.responsePayload.message !== "User credentials not found") {
 
-                            //
-                            // DECRYPT REQUEST DATA
-                            //
-                            let decryptedData = decryptData(
-                                responseData.responsePayload.responseData
-                            )
-                            //
-                            // DECRYPT REQUEST DATA
-                            //
+        //                     //
+        //                     // DECRYPT REQUEST DATA
+        //                     //
+        //                     let decryptedData = decryptData(
+        //                         responseData.responsePayload.responseData
+        //                     )
+        //                     //
+        //                     // DECRYPT REQUEST DATA
+        //                     //
 
-                            let gstInState = {}
+        //                     let gstInState = {}
 
-                            const getIndividualGSTINs = () => {
-                                if (decryptedData.GSTIN)
-                                    decryptedData.GSTIN.split('-').map((item, i) => {
-                                        gstInState["gstIn" + (i + 1)] = item
-                                    })
-                            }
+        //                     const getIndividualGSTINs = () => {
+        //                         if (decryptedData.GSTIN)
+        //                             decryptedData.GSTIN.split('-').map((item, i) => {
+        //                                 gstInState["gstIn" + (i + 1)] = item
+        //                             })
+        //                     }
 
-                            if (decryptedData.GSTIN !== undefined || decryptedData.GSTIN !== null) {
-                                getIndividualGSTINs()
-                            }
+        //                     if (decryptedData.GSTIN !== undefined || decryptedData.GSTIN !== null) {
+        //                         getIndividualGSTINs()
+        //                     }
 
-                            this.setState({
+        //                     this.setState({
 
-                                companyName: decryptedData.companyName,
+        //                         companyName: decryptedData.companyName,
 
-                                detailedAddressLine1: decryptedData.address.detailedAddressLine1,
-                                detailedAddressLine2: decryptedData.address.detailedAddressLine2,
-                                state: decryptedData.address.state,
-                                city: decryptedData.address.city,
-                                pincode: decryptedData.address.pincode,
+        //                         detailedAddressLine1: decryptedData.address.detailedAddressLine1,
+        //                         detailedAddressLine2: decryptedData.address.detailedAddressLine2,
+        //                         state: decryptedData.address.state,
+        //                         city: decryptedData.address.city,
+        //                         pincode: decryptedData.address.pincode,
 
-                                companyDescriptionLine1: decryptedData.companyDescriptionLine1,
-                                companyDescriptionLine2: decryptedData.companyDescriptionLine2,
+        //                         companyDescriptionLine1: decryptedData.companyDescriptionLine1,
+        //                         companyDescriptionLine2: decryptedData.companyDescriptionLine2,
 
-                                experienceCount: decryptedData.experience.years,
+        //                         experienceCount: decryptedData.experience.years,
 
-                                gstIn: decryptedData.GSTIN,
-                                pan: decryptedData.PAN,
+        //                         gstIn: decryptedData.GSTIN,
+        //                         pan: decryptedData.PAN,
 
-                                companyProfilePicture: decryptedData.companyProfilePicture,
+        //                         companyProfilePicture: decryptedData.companyProfilePicture,
 
-                                ...gstInState
-                            })
-                        }
-                    })
-                    .catch(e => console.error(e))
-            })
-            .catch(e => console.error(e))
-            
+        //                         ...gstInState
+        //                     })
+        //                 }
+        //             })
+        //             .catch(e => console.error(e))
+        //     })
+        //     .catch(e => console.error(e))
+
     }
 
-    // componentDidUpdate() {
-    //     console.log(this.state.firstName, this.state.lastName, this.state.companyName, this.state.detailedAddressLine1)
-    // }
 
     returnNavBarData = () => {
-        if (this.props.userData.responseData) {
+        if(this.state.emailId){
+            // if (this.props.userData.responseData) {
 
-            //
-            // DECRYPT REQUEST DATA
-            // 
-            let decryptedData = decryptData(
-                this.props.userData.responseData
-            )
-            //
-            // DECRYPT REQUEST DATA
-            //
+            //     //
+            //     // DECRYPT REQUEST DATA
+            //     // 
+            //     let decryptedData = decryptData(
+            //         this.props.userData.responseData
+            //     )
+            //     //
+            //     // DECRYPT REQUEST DATA
+            //     //
+    
+            //     return decryptedData
+            // }
 
-            return decryptedData
+            const userdata = {
+                profilePicture : this.state.profilePicture
+            }
+
+            return userdata
         }
-
-        else {
-            return null
-        }
+        
     }
 
     onChangeGST = async (event, gstPart) => {
@@ -559,6 +569,7 @@ class ProfileDetailsVendor extends React.Component {
         
     }
 
+
     returnProfileImageUploader = () => {
 
         if (this.state.profilePicture) {
@@ -584,9 +595,11 @@ class ProfileDetailsVendor extends React.Component {
                         imageType="profileImage" // regularImage || profileImage
                         resultData={val => {
                             // this.hitTheAPI("profilePicture", val.imageURL)
+
                             this.setState({
                                 profilePicture: val.imageURL
                             })
+                            
                         }}
                         // showInitialImage={this.state.profilePicture}
                         imageClassName="profilePictureClass"
@@ -713,7 +726,8 @@ class ProfileDetailsVendor extends React.Component {
                 firstName : this.state.firstName,
                 lastName : this.state.lastName,
                 mobileNo : this.state.mobileNo,
-                whatsappNo : this.state.whatsappNo
+                whatsappNo : this.state.whatsappNo,
+                profilePicture : this.state.profilePicture
             }
 
             // 
@@ -778,73 +792,73 @@ class ProfileDetailsVendor extends React.Component {
     returnValidationModal = () => {
         const { emptyField } = this.state;
 
-        if (emptyField.length !== 0) {
-            return (
-                <div className={this.state.modalClassToggle}>
-                    <div className="dummyXClass">
-                        <div className="whiteSquareForModal">
-                            <div className="vendorProfileDetailsModal">
-                                <div className="svgImageContainer">
-                                    <ErrorMsgSign />
-                                </div>
-                                <div className="modalContentContainer">
-                                    <div className="modalContentContainerInnerLayer">
-                                        <div className="contentMissingValues">
-                                            <h3>Please provide these details</h3>
-                                            <div className="detailsToInput">
-                                                <div className="detailsInputLayer">
-                                                    {emptyField
-                                                        .map((item, i) =>
-                                                            <div
-                                                                className="errorFieldMessage"
-                                                                key={i}>
-                                                                <ul>
-                                                                    <li>{item}</li>
-                                                                </ul>
-                                                            </div>
-                                                        )}
-                                                    
+            if (emptyField.length !== 0) {
+                return (
+                    <div className={this.state.modalClassToggle}>
+                        <div className="dummyXClass">
+                            <div className="whiteSquareForModal">
+                                <div className="vendorProfileDetailsModal">
+                                    <div className="svgImageContainer">
+                                        <ErrorMsgSign />
+                                    </div>
+                                    <div className="modalContentContainer">
+                                        <div className="modalContentContainerInnerLayer">
+                                            <div className="contentMissingValues">
+                                                <h3>Please provide these details</h3>
+                                                <div className="detailsToInput">
+                                                    <div className="detailsInputLayer">
+                                                        {emptyField
+                                                            .map((item, i) =>
+                                                                <div
+                                                                    className="errorFieldMessage"
+                                                                    key={i}>
+                                                                    <ul>
+                                                                        <li>{item}</li>
+                                                                    </ul>
+                                                                </div>
+                                                            )}
+                                                        
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="closeModalContainer">
-                                    <WhiteButton
-                                        runFunction={() => {
-                                            this.modalClassToggle("dontShow")
-                                        }}
-                                    >
-                                        Sure, I’ll do that
-                                    </WhiteButton>
-                                </div>
+                                    <div className="closeModalContainer">
+                                        <WhiteButton
+                                            runFunction={() => {
+                                                this.modalClassToggle("dontShow")
+                                            }}
+                                        >
+                                            Sure, I’ll do that
+                                        </WhiteButton>
+                                    </div>
 
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            )
-        }    
-    }
+                )
+            }    
+        }
 
     render() {
 
         return (
             <div className="bigWrapper">
 
-            <Head>
-                <meta name="description" content="Architectural process from Rolling Logs, start building your dream home without any hassle in India." />
-                <meta name="robots" content="noodp" />
-                <link rel="canonical" href="https://www.rollinglogs.com/architecture/" />
-                <link rel = "next" href = "https://www.rollinglogs.com/architecture/page/2/" />
-                <meta property="og:locale" content="en_US" />
-                <meta property="og:type" content="object" />
-                <meta property="og:description" content="Architects, Interior Designers Marketplace in India" />
-                <meta property="og:url" content="https://www.rollinglogs.com/architecture/" />
-                <meta property="og:site_name" content="RollingLogs" />
-                <meta property="og:image" content="http://static.dezeen.com/assets/images/logo-magazine.png" />
-                <title>Create Vendor profile here and get seen by architects - Rolling Logs</title>
-            </Head>
+                <Head>
+                    <meta name="description" content="Architectural process from Rolling Logs, start building your dream home without any hassle in India." />
+                    <meta name="robots" content="noodp" />
+                    <link rel="canonical" href="https://www.rollinglogs.com/architecture/" />
+                    <link rel = "next" href = "https://www.rollinglogs.com/architecture/page/2/" />
+                    <meta property="og:locale" content="en_US" />
+                    <meta property="og:type" content="object" />
+                    <meta property="og:description" content="Architects, Interior Designers Marketplace in India" />
+                    <meta property="og:url" content="https://www.rollinglogs.com/architecture/" />
+                    <meta property="og:site_name" content="RollingLogs" />
+                    <meta property="og:image" content="http://static.dezeen.com/assets/images/logo-magazine.png" />
+                    <title>Create Vendor profile here and get seen by architects - Rolling Logs</title>
+                </Head>
 
                 <div className={this.state.loadingClass}>
                     <LogoAnimation 
@@ -857,7 +871,14 @@ class ProfileDetailsVendor extends React.Component {
                         <article className="vendorProfileDetailsOuterwrapper">
 
                             <Navbar
-                                userData={this.returnNavBarData()}
+                                // userData = { this.returnNavBarData() }
+                                userData = {
+                                    this.state.emailId 
+                                    ? 
+                                    { profilePicture : this.state.profilePicture }
+                                    :
+                                    null
+                                }
                             />
 
                             <header className="vendorHeaderClass">

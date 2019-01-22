@@ -1318,6 +1318,8 @@ input{
                         .firstHeadingComponent{
                             @include flexCentreCol;
                             width: 50%;
+                            height: 2.5em;
+
                             &:hover{
                                 cursor: pointer;
                                 .line{
@@ -1701,7 +1703,7 @@ input{
                             .vendorGraphicInnerContainer{
                                 position: absolute;
                                 text-align: center;
-                                bottom: 20%;
+                                top: 13em;
                                 width: 100%;
                                 .vendorGraphicParaInnerLayer{
                                     @include flexCentreRow;
