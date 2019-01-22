@@ -4088,7 +4088,7 @@ class EditProductDetails extends React.Component {
                                                         <div className="modalMandatorySection">
                                                             <p className="madatoryHighlight">Mandatory</p>
                                                         </div>
-                                                        <div className="inputColumn">
+                                                        {/* <div className="inputColumn">
                                                             <input
                                                             type="text"
                                                             ref="GSTInput"
@@ -4099,7 +4099,7 @@ class EditProductDetails extends React.Component {
                                                             }
                                                             />
                                                             <span className="InputSeparatorLine"></span>
-                                                        </div>
+                                                        </div> */}
                                                         <input
                                                             type="text"
                                                             ref="GSTInput"
