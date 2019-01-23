@@ -578,69 +578,68 @@ class VendorMainDashboard extends React.Component {
                     imagesInCategory: [...dummyArray]
                 }
                 
+                // console.log(dataObject.categoryName)
 
                 return (
-                    <div 
-                        className="imageSliderWrap"
-                        onClick={(data) => {
-                            this.fetchProductData(data.itemCode)
-                            this.setState({
-                                modalClass: 'modalClass',
-                                productManagerWrapperClass: "productManagerWrapperClass blurClass",
-                                activeModalType: "subCategoryDetailedPreview",
-                                itemCode: data.itemCode
-                            })
-                        }}    
-                    >
-                        {/* <HtmlSlider
-                            categoryData={dataObject} // format of Item 
-                            numberOfSlides={4} // Change the css grid properties for responsiveness
-                            textOnRibbon={"BEST SELLER"} // All caps
-                            // runFunction={(data) => { 
-                            //     window.open("/vendor/edit-product/" + data.itemCode, "_self")
-                            //  }}
-                            runFunction={(data) => {
-                                this.fetchProductData(data.itemCode)
-                                this.setState({
-                                    modalClass: 'modalClass',
-                                    productManagerWrapperClass: "productManagerWrapperClass blurClass",
-                                    activeModalType: "subCategoryDetailedPreview",
-                                    itemCode: data.itemCode
-                                })
-                            }}
-                        /> */}
-                        {/* <img src={dataObject.imagesInCategory[0].imageURL} alt=""/>
-                        <div>{dataObject.imagesInCategory[0].title}</div>
-                        {console.log(dataObject.imagesInCategory[0])} */}
-                    </div>
+                        
+                        dataObject.imagesInCategory.map((item, i) => {
+                            // console.log(item)
+                            return (
+                                <div 
+                                    key={i}
+                                    className="imageSliderWrap"
+                                    onClick={(data) => {
+                                        this.fetchProductData(item.itemCode)
+                            
+                                        this.setState({
+                                            modalClass: 'modalClass',
+                                            productManagerWrapperClass: "productManagerWrapperClass blurClass",
+                                            activeModalType: "subCategoryDetailedPreview",
+                                            itemCode: data.itemCode
+                                            
+                                        })
+                                    }}    
+                                >
+                                
+                                    <div 
+                                        className="productImageGallery"
+                                        key={i}>
+                                        <Image 
+                                            cloudName="rolling-logs" 
+                                            alt = ""
+                                            publicId={PublicId(item.imageURL)} 
+                                            // transformations
+                                            width="300" 
+                                            crop="fit"
+                                        />
+                                        <div className="paragraphClass"><p>{item.title.charAt(0).toUpperCase() + item.title.slice(1)}</p></div>
+                                    </div>
+                                </div>
+                            )
+                        }
+                    )
                 )
             }
         }
-
     }
 
     returnCategoryInModal = () => {
         const { categoriesSelected } = this.state
 
         const returnSubCategories = (subcategories) => {
+
+            
             return subcategories.subCategory.map((subcategory, i) => {
                 let subCatProducts = [...subcategory.productImages.reverse()]
                 return (
                     <div 
                         className="subCategoryHead"
                         key = { "subCat" + i }
-                        >
-                        <div className="subCategoryHeadInnerSection">
-                            <div className="addProductCategorySection">
-                                <div className="subCategoryProductSection">
-                                    <div className="subCategoryProductSectionInnerLayer">
-                                        {
-                                            this.returnSubCategoryProductsModal(subCatProducts.reverse(), subcategory.subCategoryName)
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        >          
+
+                            {
+                                this.returnSubCategoryProductsModal(subCatProducts.reverse(), subcategory.subCategoryName)
+                            }
                     </div>
                 )
             })
@@ -674,8 +673,11 @@ class VendorMainDashboard extends React.Component {
             return subcategories.subCategory.map((subcategory, i) => {
                 let subCatProducts = []
 
-                if(subcategory.productImages)
-                subCatProducts = [...subcategory.productImages.reverse()]
+                if(subcategory.productImages){
+                    subCatProducts = [...subcategory.productImages.reverse()]
+                    console.log(subCatProducts.length);
+                }
+                
                 
                 return (
                     <div 
@@ -683,11 +685,35 @@ class VendorMainDashboard extends React.Component {
                         key = { "subCat" + i }
                         >
                         <div className="subCategoryHeadInnerSection">
-                            <div className="subCategoryHeaderSection">
-                                <h3>{subcategory.subCategoryName}</h3>
-                                <div className="line"></div>
+                            <div className="headerSection">
+                                <div className="subCategoryHeaderSection">
+                                    <div className="subCategoryHeaderNumberSection">
+                                        <h3>{subcategory.subCategoryName}</h3>
+                                        <h3 className="numberCount">({subCatProducts.length})</h3>
+                                    </div>
+                                    <div className="line"></div>
+                                </div>
+                                <div 
+                                    className="deleteCategoryContainer"
+                                    // onClick={() => this.deleteCategory(i)}
+                                    onClick={() => {
+                                        this.setState({
+                                            mainCategoryIndex: i,
+                                            modalClass: 'modalClass',
+                                            productManagerWrapperClass: "productManagerWrapperClass blurClass",
+                                            activeModalType: "uploaded"
+                                        })
+                                    }}
+                                >
+                                    {subCatProducts.length >= 1 ? 
+                                       (<WhiteButton>
+                                            View All
+                                        </WhiteButton>)
+                                        :
+                                        (<div></div>)
+                                    }
+                                </div>
                             </div>
-
                             <div className="addProductCategorySection">
                                 <div 
                                     className="addNewProductButton"
@@ -737,22 +763,6 @@ class VendorMainDashboard extends React.Component {
                                     <div className="categoryMainHeaderContainer">
                                         <h3>{item.category.categoryName}</h3>
                                         <div className="line"></div>
-                                    </div>
-                                    <div 
-                                        className="deleteCategoryContainer"
-                                        // onClick={() => this.deleteCategory(i)}
-                                        onClick={() => {
-                                            this.setState({
-                                                mainCategoryIndex: i,
-                                                modalClass: 'modalClass',
-                                                productManagerWrapperClass: "productManagerWrapperClass blurClass",
-                                                activeModalType: "delete"
-                                            })
-                                        }}
-                                    >
-                                        <WhiteButton>
-                                            View All
-                                        </WhiteButton>
                                     </div>
                                 </div>
 
@@ -1669,7 +1679,7 @@ class VendorMainDashboard extends React.Component {
                                             publicId={PublicId(productThumbImage)} 
                                             // transformations
                                             width="300" 
-                                            crop="fit"
+                                            crop="limit"
                                         />
                                     </div>
                                 </div>
@@ -2006,6 +2016,47 @@ class VendorMainDashboard extends React.Component {
             )
         }
 
+        else if (categoryModalOrSubcategoryModal === "uploaded") {
+            if(this.state.deleteLoading){
+                return (
+                    <div className="modalCategoryDeleteContainer">
+                        <div className="loadingAnimationDelete">
+                            <NavBarLoadingIcon/>
+                        </div>
+                    </div>
+                )
+            }
+            else{
+                
+                return (
+                    <div className="modalCategoryUploadedContainer">
+                        <div className="modalHeaderCloserSection">
+                            <div className="modalHeaderContainer">
+                                <h3>Uploaded products</h3>
+                                <div className="line"></div>
+                            </div>
+                            <div 
+                                className="close"
+                                onClick={() => this.setState({
+                                    modalClass: "modalClass hide",
+                                    productManagerWrapperClass: "productManagerWrapperClass",
+                                    mainContentWrap: "mainContentWrap",
+                                    vendorInitialGraphic: 'vendorGraphicCenter',
+                                })}
+                            >
+                            <BigCloseButton/>
+                            </div>
+                        </div>
+                        <div className="uploadedProductsContainer">
+                            <div className="productImagesContainer">
+                                 {this.returnCategoryInModal()}
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
+        }
+
         else if (categoryModalOrSubcategoryModal === "delete") {
 
             if(this.state.deleteLoading){
@@ -2024,26 +2075,24 @@ class VendorMainDashboard extends React.Component {
                     <div className="modalCategoryDeleteContainer">
                         <div className="modalHeaderCloserSection">
                             <div className="modalHeaderContainer">
-                                <h3>Uploaded products</h3>
+                                <h3>Are you sure you want to delete this ?</h3>
                                 <div className="line"></div>
-                            </div>
-                            <div 
-                                className="close"
-                                onClick={() => this.setState({
-                                    modalClass: "modalClass hide",
-                                    productManagerWrapperClass: "productManagerWrapperClass",
-                                    mainContentWrap: "mainContentWrap",
-                                    vendorInitialGraphic: 'vendorGraphicCenter',
-                                })}
-                            >
-                            <BigCloseButton/>
                             </div>
                         </div>
                         <div className="confirmationButtonContainer">
-                            <div className="productContainer">
-                            {this.returnCategoryInModal()}
+                            <div className="noContainer">
+                                <WhiteButton
+                                    runFunction={() => this.setState({
+                                        modalClass: "modalClass hide",
+                                        productManagerWrapperClass: "productManagerWrapperClass",
+                                        mainContentWrap: "mainContentWrap",
+                                        vendorInitialGraphic: 'vendorGraphicCenter',
+                                    })}  
+                                >
+                                No
+                                </WhiteButton>
                             </div>
-                            {/* <div className="yesContainer">
+                            <div className="yesContainer">
                                 <WhiteButton
                                     runFunction={() => {
                                         this.setState({
@@ -2093,7 +2142,7 @@ class VendorMainDashboard extends React.Component {
                                     >
                                     Yes
                                  </WhiteButton>
-                            </div> */}
+                            </div>
                         </div>
                     </div>
                 )
