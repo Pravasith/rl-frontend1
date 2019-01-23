@@ -675,7 +675,6 @@ class VendorMainDashboard extends React.Component {
 
                 if(subcategory.productImages){
                     subCatProducts = [...subcategory.productImages]
-                    console.log(subCatProducts.length);
                 }
                 
                 
