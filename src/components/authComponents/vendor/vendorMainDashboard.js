@@ -630,7 +630,7 @@ class VendorMainDashboard extends React.Component {
 
             
             return subcategories.subCategory.map((subcategory, i) => {
-                let subCatProducts = [...subcategory.productImages.reverse()]
+                let subCatProducts = [...subcategory.productImages]
                 return (
                     <div 
                         className="subCategoryHead"
@@ -638,7 +638,7 @@ class VendorMainDashboard extends React.Component {
                         >          
 
                             {
-                                this.returnSubCategoryProductsModal(subCatProducts.reverse(), subcategory.subCategoryName)
+                                this.returnSubCategoryProductsModal(subCatProducts, subcategory.subCategoryName)
                             }
                     </div>
                 )
@@ -674,7 +674,7 @@ class VendorMainDashboard extends React.Component {
                 let subCatProducts = []
 
                 if(subcategory.productImages){
-                    subCatProducts = [...subcategory.productImages.reverse()]
+                    subCatProducts = [...subcategory.productImages]
                     console.log(subCatProducts.length);
                 }
                 
@@ -737,8 +737,7 @@ class VendorMainDashboard extends React.Component {
                                 <div className="subCategoryProductSection">
                                     <div className="subCategoryProductSectionInnerLayer">
                                         {
-                                            this.returnSubCategoryProducts(subCatProducts.reverse(), subcategory.subCategoryName)
-                                            // this.returnSubCategoryProducts(subcategory.productImages.reverse(), subcategory.subCategoryName)
+                                            this.returnSubCategoryProducts(subCatProducts, subcategory.subCategoryName)
                                         }
                                     </div>
                                 </div>
