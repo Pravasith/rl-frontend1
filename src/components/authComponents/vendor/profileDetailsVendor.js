@@ -412,123 +412,123 @@ class ProfileDetailsVendor extends React.Component {
         }
     }
 
-    hitTheAPI = async (objectName, data) => {
+    // hitTheAPI = async (objectName, data) => {
 
-        this
-            .props
-            .navBarLoadingAnimationShowHide(true)
+    //     this
+    //         .props
+    //         .navBarLoadingAnimationShowHide(true)
 
-        let rawData = {}
+    //     let rawData = {}
 
-        rawData[objectName] = data
+    //     rawData[objectName] = data
 
-        // 
-        // Encrypt data
-        // 
-        const encryptedData = encryptData(rawData)
-        // 
-        // Encrypt data
-        // 
+    //     // 
+    //     // Encrypt data
+    //     // 
+    //     const encryptedData = encryptData(rawData)
+    //     // 
+    //     // Encrypt data
+    //     // 
 
-        await this
-            .props
-            .hitApi(api.UPDATE_USER_DATA, "PUT",
-                {
-                    message: "Update user's data",
-                    requestData: encryptedData
-                }
-            )
+    //     await this
+    //         .props
+    //         .hitApi(api.UPDATE_USER_DATA, "PUT",
+    //             {
+    //                 message: "Update user's data",
+    //                 requestData: encryptedData
+    //             }
+    //         )
 
-            .then(() => {
+    //         .then(() => {
 
-                this
-                    .props
-                    .navBarLoadingAnimationShowHide(false)
+    //             this
+    //                 .props
+    //                 .navBarLoadingAnimationShowHide(false)
 
-                //
-                // Decrypt data
-                //
-                const decryptedData = decryptData(this.props.responseData.responsePayload.responseData)
-                //
-                // Decrypt data
-                //
+    //             //
+    //             // Decrypt data
+    //             //
+    //             const decryptedData = decryptData(this.props.responseData.responsePayload.responseData)
+    //             //
+    //             // Decrypt data
+    //             //
 
-                this.setState({
-                    firstName: decryptedData.firstName,
-                    lastName: decryptedData.lastName,
-                    mobileNo: decryptedData.mobileNo,
-                    whatsappNo: decryptedData.whatsappNo,
-                    profilePicture: decryptedData.profilePicture
-                })
-            })
+    //             this.setState({
+    //                 firstName: decryptedData.firstName,
+    //                 lastName: decryptedData.lastName,
+    //                 mobileNo: decryptedData.mobileNo,
+    //                 whatsappNo: decryptedData.whatsappNo,
+    //                 profilePicture: decryptedData.profilePicture
+    //             })
+    //         })
 
-    }
+    // }
 
-    updateVendorData = (objectName, data) => {
+    // updateVendorData = (objectName, data) => {
 
-        this
-            .props
-            .navBarLoadingAnimationShowHide(true)
+    //     this
+    //         .props
+    //         .navBarLoadingAnimationShowHide(true)
 
-        let rawData = {}
+    //     let rawData = {}
 
-        rawData[objectName] = data
+    //     rawData[objectName] = data
 
-        //
-        // Encrypt data
-        //
-        const encryptedData = encryptData(rawData)
-        //
-        // Encrypt data
-        //
+    //     //
+    //     // Encrypt data
+    //     //
+    //     const encryptedData = encryptData(rawData)
+    //     //
+    //     // Encrypt data
+    //     //
 
-        this
-            .props
-            .hitApi(api.UPDATE_VENDOR_DATA, "PUT",
-                {
-                    message: "Update vendor's data",
-                    requestData: encryptedData
-                }
-            )
-            .then(() => {
-                this
-                    .props
-                    .navBarLoadingAnimationShowHide(false)
+    //     this
+    //         .props
+    //         .hitApi(api.UPDATE_VENDOR_DATA, "PUT",
+    //             {
+    //                 message: "Update vendor's data",
+    //                 requestData: encryptedData
+    //             }
+    //         )
+    //         .then(() => {
+    //             this
+    //                 .props
+    //                 .navBarLoadingAnimationShowHide(false)
 
-                //
-                // Decrypt data
-                //
-                const decryptedData = decryptData(this.props.responseData.responsePayload.responseData)
-                //
-                // Decrypt data
-                //
+    //             //
+    //             // Decrypt data
+    //             //
+    //             const decryptedData = decryptData(this.props.responseData.responsePayload.responseData)
+    //             //
+    //             // Decrypt data
+    //             //
 
-                this.setState({
+    //             this.setState({
 
-                    companyName: decryptedData.companyName,
+    //                 companyName: decryptedData.companyName,
 
-                    detailedAddressLine1: decryptedData.address.detailedAddressLine1,
-                    detailedAddressLine2: decryptedData.address.detailedAddressLine2,
-                    state: decryptedData.address.state,
-                    city: decryptedData.address.city,
-                    pincode: decryptedData.address.pincode,
+    //                 detailedAddressLine1: decryptedData.address.detailedAddressLine1,
+    //                 detailedAddressLine2: decryptedData.address.detailedAddressLine2,
+    //                 state: decryptedData.address.state,
+    //                 city: decryptedData.address.city,
+    //                 pincode: decryptedData.address.pincode,
 
-                    companyDescriptionLine1: decryptedData.companyDescriptionLine1,
-                    companyDescriptionLine2: decryptedData.companyDescriptionLine2,
+    //                 companyDescriptionLine1: decryptedData.companyDescriptionLine1,
+    //                 companyDescriptionLine2: decryptedData.companyDescriptionLine2,
 
-                    experienceCount: decryptedData.experience.years,
+    //                 experienceCount: decryptedData.experience.years,
 
-                    gstIn: decryptedData.GSTIN,
-                    pan: decryptedData.PAN,
+    //                 gstIn: decryptedData.GSTIN,
+    //                 pan: decryptedData.PAN,
 
 
 
-                    companyProfilePicture: decryptedData.companyProfilePicture,
+    //                 companyProfilePicture: decryptedData.companyProfilePicture,
                     
-                })
-            })
-            .catch(e => console.error(e))
-    }
+    //             })
+    //         })
+    //         .catch(e => console.error(e))
+    // }
 
 
     returnCompanyLogoUploader = () => {
@@ -560,7 +560,7 @@ class ProfileDetailsVendor extends React.Component {
                                 companyProfilePicture: val.imageURL
                             })
                         }}
-                        showInitialImage = {this.state.companyProfilePicture}
+                        // showInitialImage = {this.state.companyProfilePicture}
                         imageClassName="companyProfilePictureClass"
                     />
                 </div>
