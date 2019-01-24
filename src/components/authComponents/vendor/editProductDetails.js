@@ -4125,6 +4125,9 @@ class EditProductDetails extends React.Component {
                                                 <div className="inputFormContainer">
                                                     <div className="formParaSection">
                                                         <p className="pargraphClass">Material</p>
+                                                        <div className="modalMandatorySection">
+                                                            <p className="madatoryHighlight">Mandatory</p>
+                                                        </div>
                                                     </div>
                                                     <div className="productMaterialSection">
 
