@@ -3958,7 +3958,7 @@ class AddProductDetails extends React.Component {
                         <div className="inputFormContainer">
                           <div className="formParaSection">
                             <p className="pargraphClass">
-                              Choose the product’s design style{" "}
+                              Choose the product’s design style
                             </p>
                             <div className="modalMandatorySection">
                               <p className="madatoryHighlight">Mandatory</p>

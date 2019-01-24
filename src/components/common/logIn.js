@@ -349,9 +349,6 @@ export default class LogIn extends React.Component {
                                         onKeyPress={(e) => this.validatePassword(e)}
                                     />
                                     <span className="InputSeparatorLine"> </span>
-                                    {/* <div className="animationLine line">
-                                        <div className="innerLine"></div>
-                                    </div> */}
                                 </div>
                                 <p
                                     className={this.state.passwordClass}

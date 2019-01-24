@@ -19,9 +19,9 @@ import { Footer } from "../../footer/footer"
 import productsCategories from "../../../lib/productsCategory"
 
 import { CloseButton, LogoLoadingAnimation, BigAnimatedCloseButton, TickSmallWhite, NavBarLoadingIcon, LocationTag } from "../../../assets/images"
-import { WhiteArrowLeft, WhiteArrowRight, UploadImageIcon, PlusButtonIconWhite, AddNewProduct, VendorGraphic, ArrowMarkLong, BigCloseButton, SmallCloseButton } from "../../../assets/images"
+import { WhiteArrowLeft, WhiteArrowRight, UploadImageIcon, PlusButtonIconWhite, AddNewProduct, VendorGraphic, ArrowMarkLong, BigCloseButton, SmallCloseButton, CopyLinkicon, ShareLink } from "../../../assets/images"
 import LogoAnimation from "../../animations/logoAnimation"
-import { GradientButton, InputForm, SelectList, WhiteButton } from "../../UX/uxComponents"
+import { GradientButton, InputForm, Modal, SelectList, WhiteButton } from "../../UX/uxComponents"
 import HtmlSlider from "../../UX/htmlSlider"
 import Axios from "axios"
 import { api } from "../../../actions/apiLinks"
@@ -90,6 +90,9 @@ class VendorMainDashboard extends React.Component {
 
             deleteLoading : false,
 
+            isShowing: false,
+
+            tool_tip_content: '',
         }
 
     }
@@ -122,9 +125,12 @@ class VendorMainDashboard extends React.Component {
                 // DECRYPT REQUEST DATA
                 //
 
+                console.log(decryptData(userData.responseData))
+
                 this.convertVendorDataAndSave(decryptedData.products)
 
                 this.setState({
+                    rLId: decryptedData.rLId,
                     firstName: decryptedData.firstName,
                     lastName: decryptedData.lastName,
                     professionalTitle: decryptedData.professionalTitle,
@@ -513,6 +519,15 @@ class VendorMainDashboard extends React.Component {
     }
 
 
+    copyToClipBoard = () => {
+        console.log(this.refs.toolTip.value)
+
+        this.refs.toolTip.select();
+        document.execCommand('copy');
+        this.setState({ tool_tip_content: 'Copied to clipboard' });
+
+    };
+
     returnSubCategoryProducts = (productImages, title) => {
         if(productImages){
             if (productImages.length !== 0) {
@@ -822,6 +837,7 @@ class VendorMainDashboard extends React.Component {
 
             return (
                 <div className="add">
+                    
                     <div className={this.state.contentWrapper}>
                         <div className="addProductButton">
                             <GradientButton
@@ -841,6 +857,19 @@ class VendorMainDashboard extends React.Component {
                                 </div>
                                 Add new category
                             </GradientButton>
+
+                            <WhiteButton
+                                runFunction={() => {
+                                    this.setState({
+                                        isShowing: true
+                                    })
+                                }}
+                            >
+                                Share Link
+                            </WhiteButton>
+
+
+                            
 
                             {/* <Link href="/vendor/profile-details">
                                 <a
@@ -2212,6 +2241,43 @@ class VendorMainDashboard extends React.Component {
         }
     }
 
+    returnShareLinkModal = () => {
+        return (
+
+            <Modal
+                className="modal"
+                show={this.state.isShowing}
+                header={"Share this link in your social media for showing your portfolio of products"}
+                close={() => this.setState({
+                    isShowing: false
+                })}
+            >
+                <div className="linkModal">
+
+                    <div className="linkComponent">
+                        <ShareLink className="shareLinkLogo" />
+                        <input
+                            className="shareLinkInput"
+                            readOnly
+                            ref="toolTip"
+                            value={`https://rollinglogs.com/vendor-profile/${this.state.firstName}-${this.state.rLId}`}
+                        />
+                        <button
+                            className="toolTip"
+                            onClick={() => this.copyToClipBoard()}
+                        >
+                            <CopyLinkicon />
+                            <span className="tooltip">Copy</span>
+                        </button>
+
+                    </div>
+                    {this.state.tool_tip_content.length > 0 && <span className="tooltiptext">{this.state.tool_tip_content} </span>}
+                </div>
+            </Modal>
+        )
+    }
+
+
     returnModal = () => {
         return (
             <div className={this.state.modalClass}>
@@ -2437,11 +2503,12 @@ class VendorMainDashboard extends React.Component {
 
                                     <section className={this.state.sectionClass}>
 
-                                        {
-                                            this.returnContent()
-                                        }
+                                        {this.returnContent()}
+
 
                                     </section>
+
+                                    {this.returnShareLinkModal()}
 
                                 </article>
 
@@ -2451,7 +2518,6 @@ class VendorMainDashboard extends React.Component {
                         {/* <Footer /> */}
 
                         {this.returnModal()}
-
                     </div>
                 </div>
             </div>
