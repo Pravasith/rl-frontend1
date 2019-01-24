@@ -595,7 +595,7 @@ class VendorMainDashboard extends React.Component {
                                             modalClass: 'modalClass',
                                             productManagerWrapperClass: "productManagerWrapperClass blurClass",
                                             activeModalType: "subCategoryDetailedPreview",
-                                            itemCode: data.itemCode
+                                            itemCode: item.itemCode
                                             
                                         })
                                     }}    
@@ -636,10 +636,9 @@ class VendorMainDashboard extends React.Component {
                         className="subCategoryHead"
                         key = { "subCat" + i }
                         >          
-
-                            {
-                                this.returnSubCategoryProductsModal(subCatProducts, subcategory.subCategoryName)
-                            }
+                        {
+                            this.returnSubCategoryProductsModal(subCatProducts, subcategory.subCategoryName)
+                        }
                     </div>
                 )
             })
@@ -700,7 +699,8 @@ class VendorMainDashboard extends React.Component {
                                             mainCategoryIndex: i,
                                             modalClass: 'modalClass',
                                             productManagerWrapperClass: "productManagerWrapperClass blurClass",
-                                            activeModalType: "uploaded"
+                                            activeModalType: "uploaded",
+                                            
                                         })
                                     }}
                                 >
