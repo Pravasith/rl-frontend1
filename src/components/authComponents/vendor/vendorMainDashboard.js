@@ -706,7 +706,7 @@ class VendorMainDashboard extends React.Component {
                                 >
                                     {subCatProducts.length >= 1 ? 
                                        (<WhiteButton>
-                                            View All
+                                           Show All
                                         </WhiteButton>)
                                         :
                                         (<div></div>)
@@ -1399,40 +1399,46 @@ class VendorMainDashboard extends React.Component {
         }
 
         else if (fieldName === "dimensions") {
-            return (
-                productDimensions.map((item, i) => {
+            if (productDimensions.length !== 0) {
+                return (
+                    productDimensions.map((item, i) => {
 
-                    return (
-                        <div 
-                            key={i} 
-                            className="modalContainerUpperContainer">
-                            <div className="modalContainer">
-                               
+                        return (
+                            <div
+                                key={i}
+                                className="modalContainerUpperContainer">
+                                <div className="modalContainer">
 
-                                <div className="modalContainerInnerLayer">
-                                    <div className="modalHeadingText">
-                                        {/* <h3>Name: </h3> <p>{item.materialName}</p> */}
-                                        <p>{item.sizeName}</p>
-                                    </div>
 
-                                    <div className="modalSubText">
+                                    <div className="modalContainerInnerLayer">
+                                        <div className="modalHeadingText">
+                                            {/* <h3>Name: </h3> <p>{item.materialName}</p> */}
+                                            <p>{item.sizeName}</p>
+                                        </div>
 
-                                        {
-                                            Number(item.sizeCost) > 0 
-                                            ?
-                                            <p>Costs <span>Rs. { item.sizeCost }</span> extra</p>
-                                            :
-                                            <p>No extra cost</p>
-                                        }
+                                        <div className="modalSubText">
+
+                                            {
+                                                Number(item.sizeCost) > 0
+                                                    ?
+                                                    <p>Costs <span>Rs. {item.sizeCost}</span> extra</p>
+                                                    :
+                                                    <p>No extra cost</p>
+                                            }
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    )
+                        )
 
-                    
-                })
-            )
+
+                    })
+                )
+            }
+
+            else {
+                return <p>N/A</p>
+            }
         }
 
         else if (fieldName === "styles") {
