@@ -707,7 +707,7 @@ class VendorMainDashboard extends React.Component {
                                 >
                                     {subCatProducts.length >= 1 ? 
                                        (<WhiteButton>
-                                            View All
+                                            Show All
                                         </WhiteButton>)
                                         :
                                         (<div></div>)
@@ -1955,11 +1955,6 @@ class VendorMainDashboard extends React.Component {
                             <BigCloseButton />
                         </div>
                     </div>
-
-
-
-
-
 
                     <div className="subHeadingSection">
                         <h3>2/2</h3>
