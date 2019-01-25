@@ -19,9 +19,9 @@ import { Footer } from "../../footer/footer"
 import productsCategories from "../../../lib/productsCategory"
 
 import { CloseButton, LogoLoadingAnimation, BigAnimatedCloseButton, TickSmallWhite, NavBarLoadingIcon, LocationTag } from "../../../assets/images"
-import { WhiteArrowLeft, WhiteArrowRight, UploadImageIcon, PlusButtonIconWhite, AddNewProduct, VendorGraphic, ArrowMarkLong, BigCloseButton, SmallCloseButton } from "../../../assets/images"
+import { WhiteArrowLeft, WhiteArrowRight, UploadImageIcon, PlusButtonIconWhite, AddNewProduct, VendorGraphic, ArrowMarkLong, BigCloseButton, SmallCloseButton, CopyLinkicon, ShareLink } from "../../../assets/images"
 import LogoAnimation from "../../animations/logoAnimation"
-import { GradientButton, InputForm, SelectList, WhiteButton } from "../../UX/uxComponents"
+import { GradientButton, InputForm, Modal, SelectList, WhiteButton } from "../../UX/uxComponents"
 import HtmlSlider from "../../UX/htmlSlider"
 import Axios from "axios"
 import { api } from "../../../actions/apiLinks"
@@ -90,6 +90,9 @@ class VendorMainDashboard extends React.Component {
 
             deleteLoading : false,
 
+            isShowing: false,
+
+            tool_tip_content: '',
         }
 
     }
@@ -122,9 +125,12 @@ class VendorMainDashboard extends React.Component {
                 // DECRYPT REQUEST DATA
                 //
 
+                console.log(decryptData(userData.responseData))
+
                 this.convertVendorDataAndSave(decryptedData.products)
 
                 this.setState({
+                    rLId: decryptedData.rLId,
                     firstName: decryptedData.firstName,
                     lastName: decryptedData.lastName,
                     professionalTitle: decryptedData.professionalTitle,
@@ -513,6 +519,15 @@ class VendorMainDashboard extends React.Component {
     }
 
 
+    copyToClipBoard = () => {
+        console.log(this.refs.toolTip.value)
+
+        this.refs.toolTip.select();
+        document.execCommand('copy');
+        this.setState({ tool_tip_content: 'Copied to clipboard' });
+
+    };
+
     returnSubCategoryProducts = (productImages, title) => {
         if(productImages){
             if (productImages.length !== 0) {
@@ -630,7 +645,7 @@ class VendorMainDashboard extends React.Component {
 
             
             return subcategories.subCategory.map((subcategory, i) => {
-                let subCatProducts = [...subcategory.productImages.reverse()]
+                let subCatProducts = [...subcategory.productImages]
                 return (
                     <div 
                         className="subCategoryHead"
@@ -638,7 +653,7 @@ class VendorMainDashboard extends React.Component {
                         >          
 
                             {
-                                this.returnSubCategoryProductsModal(subCatProducts.reverse(), subcategory.subCategoryName)
+                                this.returnSubCategoryProductsModal(subCatProducts, subcategory.subCategoryName)
                             }
                     </div>
                 )
@@ -674,8 +689,7 @@ class VendorMainDashboard extends React.Component {
                 let subCatProducts = []
 
                 if(subcategory.productImages){
-                    subCatProducts = [...subcategory.productImages.reverse()]
-                    console.log(subCatProducts.length);
+                    subCatProducts = [...subcategory.productImages]
                 }
                 
                 
@@ -707,7 +721,7 @@ class VendorMainDashboard extends React.Component {
                                 >
                                     {subCatProducts.length >= 1 ? 
                                        (<WhiteButton>
-                                            Show All
+                                           Show All
                                         </WhiteButton>)
                                         :
                                         (<div></div>)
@@ -737,8 +751,7 @@ class VendorMainDashboard extends React.Component {
                                 <div className="subCategoryProductSection">
                                     <div className="subCategoryProductSectionInnerLayer">
                                         {
-                                            this.returnSubCategoryProducts(subCatProducts.reverse(), subcategory.subCategoryName)
-                                            // this.returnSubCategoryProducts(subcategory.productImages.reverse(), subcategory.subCategoryName)
+                                            this.returnSubCategoryProducts(subCatProducts, subcategory.subCategoryName)
                                         }
                                     </div>
                                 </div>
@@ -824,6 +837,7 @@ class VendorMainDashboard extends React.Component {
 
             return (
                 <div className="add">
+                    
                     <div className={this.state.contentWrapper}>
                         <div className="addProductButton">
                             <GradientButton
@@ -843,6 +857,19 @@ class VendorMainDashboard extends React.Component {
                                 </div>
                                 Add new category
                             </GradientButton>
+
+                            <WhiteButton
+                                runFunction={() => {
+                                    this.setState({
+                                        isShowing: true
+                                    })
+                                }}
+                            >
+                                Share Link
+                            </WhiteButton>
+
+
+                            
 
                             {/* <Link href="/vendor/profile-details">
                                 <a
@@ -1401,40 +1428,46 @@ class VendorMainDashboard extends React.Component {
         }
 
         else if (fieldName === "dimensions") {
-            return (
-                productDimensions.map((item, i) => {
+            if (productDimensions.length !== 0) {
+                return (
+                    productDimensions.map((item, i) => {
 
-                    return (
-                        <div 
-                            key={i} 
-                            className="modalContainerUpperContainer">
-                            <div className="modalContainer">
-                               
+                        return (
+                            <div
+                                key={i}
+                                className="modalContainerUpperContainer">
+                                <div className="modalContainer">
 
-                                <div className="modalContainerInnerLayer">
-                                    <div className="modalHeadingText">
-                                        {/* <h3>Name: </h3> <p>{item.materialName}</p> */}
-                                        <p>{item.sizeName}</p>
-                                    </div>
 
-                                    <div className="modalSubText">
+                                    <div className="modalContainerInnerLayer">
+                                        <div className="modalHeadingText">
+                                            {/* <h3>Name: </h3> <p>{item.materialName}</p> */}
+                                            <p>{item.sizeName}</p>
+                                        </div>
 
-                                        {
-                                            Number(item.sizeCost) > 0 
-                                            ?
-                                            <p>Costs <span>Rs. { item.sizeCost }</span> extra</p>
-                                            :
-                                            <p>No extra cost</p>
-                                        }
+                                        <div className="modalSubText">
+
+                                            {
+                                                Number(item.sizeCost) > 0
+                                                    ?
+                                                    <p>Costs <span>Rs. {item.sizeCost}</span> extra</p>
+                                                    :
+                                                    <p>No extra cost</p>
+                                            }
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    )
+                        )
 
-                    
-                })
-            )
+
+                    })
+                )
+            }
+
+            else {
+                return <p>N/A</p>
+            }
         }
 
         else if (fieldName === "styles") {
@@ -2203,6 +2236,43 @@ class VendorMainDashboard extends React.Component {
         }
     }
 
+    returnShareLinkModal = () => {
+        return (
+
+            <Modal
+                className="modal"
+                show={this.state.isShowing}
+                header={"Share this link in your social media for showing your portfolio of products"}
+                close={() => this.setState({
+                    isShowing: false
+                })}
+            >
+                <div className="linkModal">
+
+                    <div className="linkComponent">
+                        <ShareLink className="shareLinkLogo" />
+                        <input
+                            className="shareLinkInput"
+                            readOnly
+                            ref="toolTip"
+                            value={`https://rollinglogs.com/vendor-profile/${this.state.firstName}-${this.state.rLId}`}
+                        />
+                        <button
+                            className="toolTip"
+                            onClick={() => this.copyToClipBoard()}
+                        >
+                            <CopyLinkicon />
+                            <span className="tooltip">Copy</span>
+                        </button>
+
+                    </div>
+                    {this.state.tool_tip_content.length > 0 && <span className="tooltiptext">{this.state.tool_tip_content} </span>}
+                </div>
+            </Modal>
+        )
+    }
+
+
     returnModal = () => {
         return (
             <div className={this.state.modalClass}>
@@ -2428,11 +2498,12 @@ class VendorMainDashboard extends React.Component {
 
                                     <section className={this.state.sectionClass}>
 
-                                        {
-                                            this.returnContent()
-                                        }
+                                        {this.returnContent()}
+
 
                                     </section>
+
+                                    {this.returnShareLinkModal()}
 
                                 </article>
 
@@ -2442,7 +2513,6 @@ class VendorMainDashboard extends React.Component {
                         {/* <Footer /> */}
 
                         {this.returnModal()}
-
                     </div>
                 </div>
             </div>

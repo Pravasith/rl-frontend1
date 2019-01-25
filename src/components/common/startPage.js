@@ -105,8 +105,6 @@ class StartPage extends React.Component {
         return (
             <article className="homepageWrapper">
                 
-            
-
                 <div className={this.state.loadingClass}>
                     <LogoAnimation text = "Bringing back the Art in Architecture."/>
                 </div>

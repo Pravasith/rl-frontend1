@@ -3753,7 +3753,7 @@ class EditProductDetails extends React.Component {
             { fieldName: "Material", value: this.state.productMaterials },
             // { fieldName: "Finishing Options", value: this.state.productFinishes },
             // { fieldName: "Color Options", value: this.state.colorArray },
-            { fieldName: "Sizes Available", value: this.state.productDimensions },
+            // { fieldName: "Sizes Available", value: this.state.productDimensions },
             { fieldName: "Min. quantity", value: this.state.productMinQuantity },
             {
                 fieldName: `${this.handleMultiValidation("Max. quantity")}`,
@@ -4125,6 +4125,9 @@ class EditProductDetails extends React.Component {
                                                 <div className="inputFormContainer">
                                                     <div className="formParaSection">
                                                         <p className="pargraphClass">Material</p>
+                                                        <div className="modalMandatorySection">
+                                                            <p className="madatoryHighlight">Mandatory</p>
+                                                        </div>
                                                     </div>
                                                     <div className="productMaterialSection">
 
