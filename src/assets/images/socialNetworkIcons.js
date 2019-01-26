@@ -64,3 +64,41 @@ export const LinkedInSmallIcon = () => {
     )
 }
 
+export const CopyLinkicon = () => {
+
+    return(
+
+        <svg id='Layer_1' xmlns='http://www.w3.org/2000/svg' width='18' height='20'
+            viewBox='0 0 18 20'>
+            <path fill='#FFF' d='M14,14c0,1.104-0.896,2-2,2H3c-1.104,0-2-0.896-2-2V3c0-1.104,0.896-2,2-2h9c1.104,0,2,0.896,2,2V14z'
+            />
+            <path fill='none' stroke='#333' strokeWidth='2' strokeMiterlimit='10'
+                d='M14,14c0,1.104-0.896,2-2,2H3 c-1.104,0-2-0.896-2-2V3c0-1.104,0.896-2,2-2h9c1.104,0,2,0.896,2,2V14z'
+            />
+            <g>
+                <path fill='#FFF' d='M17,17c0,1.104-0.896,2-2,2H6c-1.104,0-2-0.896-2-2V6c0-1.104,0.896-2,2-2h9c1.104,0,2,0.896,2,2V17z'
+                />
+                <path fill='none' stroke='#333' strokeWidth='2' strokeMiterlimit='10'
+                    d='M17,17c0,1.104-0.896,2-2,2H6 c-1.104,0-2-0.896-2-2V6c0-1.104,0.896-2,2-2h9c1.104,0,2,0.896,2,2V17z'
+                />
+            </g>
+        </svg>
+    )
+
+}
+
+export const ShareLink = () => {
+    return(
+        <svg id='Layer_1' xmlns='http://www.w3.org/2000/svg' width='36.781' height='44.579'
+            viewBox='0 0 36.781 44.579'>
+            <g stroke='gray' strokeWidth='3' strokeMiterlimit='10'>
+                <polyline fill='none' points='31.059,5.832 5.723,24.563 31.059,38.748'
+                />
+                <circle fill='#FFF' cx='5.723' cy='24.563' r='4.223' />
+                <circle fill='#FFF' cx='31.059' cy='5.724' r='4.223' />
+                <circle fill='#FFF' cx='31.059' cy='38.856' r='4.223' />
+            </g>
+        </svg>
+    )
+}
+

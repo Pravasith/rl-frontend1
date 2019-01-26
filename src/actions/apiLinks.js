@@ -1,16 +1,16 @@
-// export const API_BASE_URL = 'http://159.65.144.155:8000/'
-// export const API_SOCKETS_URL = 'ws://159.65.144.155:8000/nes'
+let API_SOCKETS_URL,
+    API_BASE_URL
 
-// export const API_BASE_URL = 'https://api.tscalehub.com:8000/'
-// export const API_SOCKETS_URL = 'wss://api.tscalehub.com:8000/nes'
+if(process.env.NODE_ENV === "development"){
+    API_SOCKETS_URL = 'ws://localhost:8000/nes'
+    API_BASE_URL = 'http://localhost:8000/'
+}
 
-export const API_SOCKETS_URL = 'wss://api.rollinglogs:8000/nes'
-const API_BASE_URL = 'https://api.rollinglogs.com:8000/'
+else if (process.env.NODE_ENV === "production"){
+    API_SOCKETS_URL = 'wss://api.rollinglogs:8000/nes'
+    API_BASE_URL = 'https://api.rollinglogs.com:8000/'
+}
 
-// export const API_SOCKETS_URL = 'ws://localhost:8000/nes'
-// const API_BASE_URL = 'http://localhost:8000/'
-
-// export const API_BASE_URL = 'http://159.89.175.187:8000/' - old
 
 const API_PATH = 'api/'
 const API_URL = API_BASE_URL + API_PATH
