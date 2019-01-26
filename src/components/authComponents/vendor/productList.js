@@ -1,5 +1,4 @@
 import React from "react"
-import Link from 'next/link'
 
 // import "../../../assets/sass/vendor_main_dashboard.scss"
 import { Image } from 'cloudinary-react'
@@ -8,15 +7,11 @@ import PublicId from '../../../factories/cloudinaryFactory'
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 
-import Head from 'next/head'
-
 import Navbar from "../../navbar/navbar"
 import { hitApi, navBarLoadingAnimationShowHide } from "../../../actions/generalActions"
 import { getUserData } from "../../../actions/userActions"
 import { encryptData, decryptData } from "../../../factories/encryptDecrypt"
 import { Footer } from "../../footer/footer"
-
-import productsCategories from "../../../lib/productsCategory"
 
 import { CloseButton, LogoLoadingAnimation, BigAnimatedCloseButton, TickSmallWhite, NavBarLoadingIcon, LocationTag } from "../../../assets/images"
 import { WhiteArrowLeft, WhiteArrowRight, UploadImageIcon, PlusButtonIconWhite, AddNewProduct, VendorGraphic, ArrowMarkLong, BigCloseButton, SmallCloseButton } from "../../../assets/images"
@@ -28,7 +23,7 @@ import { api } from "../../../actions/apiLinks"
 import YouTube from "../../UX/youTubeUploader";
 
 
-class VendorMainDashboard extends React.Component {
+class VendorProductList extends React.Component {
 
     constructor(props, context) {
         super(props, context)
@@ -82,18 +77,273 @@ class VendorMainDashboard extends React.Component {
             activeModalType: "categoryModal",
             confirmationButtonContainer: "confirmationButtonContainer hide",
 
-            categoryArray: [...productsCategories],
+            categoryArray: [
+                {
+                    categoryName: 'Barrier free products',
+                    categoryId: "CAT0000",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/barrier-free-products.jpg"
+                },
+
+                {
+                    categoryName: 'Bathroom products',
+                    categoryId: "CAT0001",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/bathroom-products.jpg"
+                },
+
+                {
+                    categoryName: 'Ceiling related',
+                    categoryId: "CAT0002",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/ceiling.jpg",
+                },
+                {
+                    categoryName: 'Construction site equipment',
+                    categoryId: "CAT0003",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/construction-site-equipment.jpg",
+                },
+                {
+                    categoryName: 'Décor',
+                    categoryId: "CAT0004",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/decor.jpeg",
+                },
+                {
+                    categoryName: 'Doors',
+                    categoryId: "CAT0005",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/doors.JPG",
+                },
+
+                {
+                    categoryName: 'Electricals',
+                    categoryId: "CAT0006",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/electricals.jpg",
+                },
+                {
+                    categoryName: 'External facades and fenestration',
+                    categoryId: "CAT0007",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/external-facades-and-fenestration.jpg",
+                },
+                {
+                    categoryName: 'Fences and perimeter enclosures',
+                    categoryId: "CAT0008",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/fences-and-perimeter-enclosures.jpg",
+                },
+                {
+                    categoryName: 'Finishing',
+                    categoryId: "CAT0009",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/finishing.jpg",
+                },
+                {
+                    categoryName: 'Fire prevention and safety',
+                    categoryId: "CAT0010",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/fire-prevention-and-safety.png",
+
+                },
+                {
+                    categoryName: 'Flooring',
+                    categoryId: "CAT0011",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/flooring.PNG",
+                },
+                {
+                    categoryName: 'Furniture',
+                    categoryId: "CAT0012",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/furniture.jpg",
+                },
+                {
+                    categoryName: 'Hardware and fastners',
+                    categoryId: "CAT0013",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/hardware-and-fastners.jpg",
+                },
+                {
+                    categoryName: 'Heating ventillation and air conditioning',
+                    categoryId: "CAT0014",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/heating-ventillation-and-air-conditioning.jpg",
+                },
+                {
+                    categoryName: 'Home automations',
+                    categoryId: "CAT0015",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/home-automation.jpg",
+                },
+                {
+                    categoryName: 'Insulation',
+                    categoryId: "CAT0016",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/insulation.jpg",
+                },
+                {
+                    categoryName: 'Kitchen',
+                    categoryId: "CAT0017",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/kitchen.jpg",
+                },
+                {
+                    categoryName: 'Lifts and escalators',
+                    categoryId: "CAT0018",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/lifts-and-escalators.jpg",
+                },
+                {
+                    categoryName: 'Lighting',
+                    categoryId: "CAT0019",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/lighting.jpg",
+                },
+                {
+                    categoryName: 'Office',
+                    categoryId: "CAT0020",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/office.jpg",
+                },
+                {
+                    categoryName: 'Outdoor',
+                    categoryId: "CAT0021",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/outdoor.jpg",
+                },
+                {
+                    categoryName: 'Partitions',
+                    categoryId: "CAT0022",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/partitions.jpg",
+                },
+                {
+                    categoryName: 'Plumbing',
+                    categoryId: "CAT0023",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/plumbing.jpg",
+                },
+                {
+                    categoryName: 'Renewable energy system',
+                    categoryId: "CAT0024",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/renewable-energy-system.jpg",
+                },
+                {
+                    categoryName: 'Roofs',
+                    categoryId: "CAT0025",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/roofs.jpg",
+                },
+                {
+                    categoryName: 'Safety and security',
+                    categoryId: "CAT0026",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/safety-and-security.jpg",
+                },
+                {
+                    categoryName: 'Stairs',
+                    categoryId: "CAT0027",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/stairs.jpg",
+                },
+                {
+                    categoryName: 'Waterproofing',
+                    categoryId: "CAT0028",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/waterproofing.jpg",
+                },
+                {
+                    categoryName: 'Water system',
+                    categoryId: "CAT0029",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/water-system.jpg",
+                },
+                {
+                    categoryName: 'Wellness',
+                    categoryId: "CAT0030",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/wellness.jpg",
+                },
+                {
+                    categoryName: 'Windows',
+                    categoryId: "CAT0031",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/windows.jpg",
+                },
+                {
+                    categoryName: 'Wood',
+                    categoryId: "CAT0032",
+                    categoryImage: "https://s3.ap-south-1.amazonaws.com/rolling-logs/app-data/vendor-categories/wood.jpg",
+                },
+            ],
 
             subCategoryArray: [],
 
             categoriesSelected: [],
 
-            deleteLoading : false,
+            subCategoryProducts: {
+                categoryName: "Water bodies",
+                imagesInCategory: [
+                    {
+                        itemCode: "CL12",
+                        textOnRibbonSatisfied: false,
+                        imageURL: "https://www.hcsupplies.co.uk/public/images/products/3/clear-maple.jpg"
+                    },
+                    {
+                        itemCode: "WB13",
+                        textOnRibbonSatisfied: false,
+                        imageURL: "https://images.pexels.com/photos/935875/pexels-photo-935875.jpeg?auto=compress&cs=tinysrgb&h=350"
+                    },
+                    {
+                        itemCode: "WB14",
+                        textOnRibbonSatisfied: false,
+                        imageURL: "https://image.freepik.com/free-vector/wood-texture_1083-21.jpg"
+                    },
+                    {
+                        itemCode: "WB15",
+                        textOnRibbonSatisfied: false,
+                        imageURL: "https://www.hcsupplies.co.uk/public/images/products/3/clear-maple.jpg"
+                    },
 
+                    {
+                        itemCode: "WB14",
+                        textOnRibbonSatisfied: false,
+                        imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPFxp7lUM2L4lF4aGcpv4K0ToCdZGXJHxwCzHsrV0ro-sGkN5evQ"
+                    },
+                    {
+                        itemCode: "WB15",
+                        textOnRibbonSatisfied: false,
+                        imageURL: "https://i.ebayimg.com/images/g/xe0AAOSwiBJaAuOT/s-l300.jpg"
+                    },
+                    // {
+                    //     itemCode : "WB15",
+                    //     textOnRibbonSatisfied : false,
+                    //     imageURL : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLJk1dKAanCmnxn8w5mEsGWKgFRUwP1rXQNtiaJLe4-AjLM7OEYQ"
+                    // },
+
+                    // {
+                    //     itemCode : "WB14",
+                    //     textOnRibbonSatisfied : false,
+                    //     imageURL : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnFm-l4w9PMzZ_m-o60l7aL0YSb-xcs_xRh74aaVU_avdYgc0s7g"
+                    // },
+                    // {
+                    //     itemCode : "WB15",
+                    //     textOnRibbonSatisfied : false,
+                    //     imageURL : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLJk1dKAanCmnxn8w5mEsGWKgFRUwP1rXQNtiaJLe4-AjLM7OEYQ"
+                    // },
+                ]
+            },
+
+            deleteLoading: false,
+
+            // productInstallers: [
+            //     {
+            //         installerName: "rakshith",
+            //         installerContactNo: 9972223737,
+            //         installerCharges: 1500,
+            //         installerCostType: 1
+            //     }
+            // ],
+
+            // productInstallationAvailability: 5
         }
 
     }
- 
+    // updateDimensions = () => {
+
+    //     let w = window,
+    //         d = document,
+    //         documentElement = d.documentElement,
+    //         body = d.getElementsByTagName('body')[0],
+    //         width = w.innerWidth || documentElement.clientWidth || body.clientWidth,
+    //         height = w.innerHeight|| documentElement.clientHeight|| body.clientHeight;
+
+    //         this.setState({width: width, height: height})
+
+    //         console.log(width)
+    //         // if you are using ES2015 I'm pretty sure you can do this: this.setState({width, height});
+    // }
+
+    // // componentWillMount = () => {
+    // //     this.updateDimensions()
+    // // }
+
+    // componentWillUnmount = () => {
+    //     window.removeEventListener("resize", this.updateDimensions);
+    // }
+
     componentDidMount = async () => {
 
         // window.addEventListener("resize",  this.updateDimensions);
@@ -103,72 +353,69 @@ class VendorMainDashboard extends React.Component {
             this.props.hitApi(api.GET_VENDOR_DATA, "GET")
         ])
 
-        .then(() => {
-            
-            let { userData, responseData } = this.props
+            .then(() => {
 
-           
+                let { userData, responseData } = this.props
 
 
-            if (responseData.responsePayload.message !== "User credentials not found") {
-                //
-                // DECRYPT REQUEST DATA
-                //
-                let decryptedData = {
-                    ...decryptData(userData.responseData),
-                    ...decryptData(responseData.responsePayload.responseData)
+                if (responseData.responsePayload.message !== "User credentials not found") {
+
+                    //
+                    // DECRYPT REQUEST DATA
+                    //
+                    let decryptedData = {
+                        ...decryptData(userData.responseData),
+                        ...decryptData(responseData.responsePayload.responseData)
+                    }
+                    //
+                    // DECRYPT REQUEST DATA
+                    //
+
+                    this.convertVendorDataAndSave(decryptedData.products)
+
+                    this.setState({
+                        firstName: decryptedData.firstName,
+                        lastName: decryptedData.lastName,
+                        professionalTitle: decryptedData.professionalTitle,
+                        profilePicture: decryptedData.profilePicture,
+
+                        ////////
+                        responseCompanyName: decryptedData.companyName,
+                        responseCompanyDescription: decryptedData.companyDescriptionLine1
+                            + " " +
+                            (
+                                decryptedData.companyDescriptionLine2
+                                    ?
+                                    decryptedData.companyDescriptionLine2
+                                    :
+                                    ""
+                            ),
+                        responseExperience: decryptedData.experience ? decryptedData.experience.years : "",
+                        companyProfilePicture: decryptedData.companyProfilePicture,
+
+                        state: decryptedData.address.state,
+                        city: decryptedData.address.city,
+
+                        ////////
+                        loadingClass: 'loadingAnim hide',
+                        mainClass: 'mainClass',
+                    })
                 }
-                //
-                // DECRYPT REQUEST DATA
-                //
+            })
 
-                this.convertVendorDataAndSave(decryptedData.products)
+            .catch((err) => {
+                if (err.response) {
+                    if (err.response.status === 401)
+                        window.open('/log-in', "_self")
+                }
 
-                this.setState({
-                    firstName: decryptedData.firstName,
-                    lastName: decryptedData.lastName,
-                    professionalTitle: decryptedData.professionalTitle,
-                    profilePicture: decryptedData.profilePicture,
-
-                    ////////
-                    responseCompanyName : decryptedData.companyName,
-                    responseCompanyDescription : decryptedData.companyDescriptionLine1 
-                                                    + " " +
-                                                (
-                                                    decryptedData.companyDescriptionLine2 
-                                                        ?
-                                                    decryptedData.companyDescriptionLine2 
-                                                        :
-                                                    ""
-                                                ),
-                    responseExperience : decryptedData.experience ? decryptedData.experience.years : "",
-                    companyProfilePicture : decryptedData.companyProfilePicture,
-
-                    state: decryptedData.address.state,
-                    city: decryptedData.address.city,
-                    
-                    ////////
-                    loadingClass: 'loadingAnim hide',
-                    mainClass: 'mainClass',
-                })
-            }
-        })
-
-        .catch((err) => {
-            if (err.response) {
-                if (err.response.status === 401)
-                    window.open('/log-in', "_self")
-            }
-
-            else
-                console.error(err)
-        })
+                else
+                    console.error(err)
+            })
 
     }
 
-    // componentDidUpdate() {
-    //     console.log(this.state.categoryArray)
-    // }
+
 
     convertVendorDataAndSave = (productsRaw) => {
 
@@ -182,12 +429,12 @@ class VendorMainDashboard extends React.Component {
             let category
 
             this.state.categoryArray.map((categoryState, j) => {
-                if (categoryState.categoryId === categoryId){
+                if (categoryState.categoryId === categoryId) {
                     category = categoryState
                 }
             })
 
-            if(finalData.length !== 0){
+            if (finalData.length !== 0) {
                 finalData.map((theItem, j) => {
 
                     if (theItem.category.categoryId === categoryId) {
@@ -196,8 +443,8 @@ class VendorMainDashboard extends React.Component {
                         let subCategoryExists = false
 
                         theItem.subCategory.map((subCat, k) => {
-                            
-                            if (subCat.subCategoryId === subCategoryId){
+
+                            if (subCat.subCategoryId === subCategoryId) {
                                 subCategoryExists = true
 
                                 subCat.productImages.push({
@@ -208,7 +455,7 @@ class VendorMainDashboard extends React.Component {
                             }
                         })
 
-                        if(!subCategoryExists){
+                        if (!subCategoryExists) {
                             theItem.subCategory.push({
                                 subCategoryId: subCategoryId,
                                 subCategoryName: subCategoryName,
@@ -233,39 +480,39 @@ class VendorMainDashboard extends React.Component {
                     }
                 })
 
-                if(!categoryExists){
+                if (!categoryExists) {
 
                     let secondCheckForCategorysExistance = false
 
                     finalData.map((secondItem) => {
-                        if(secondItem.category.categoryId === categoryId){
+                        if (secondItem.category.categoryId === categoryId) {
                             secondCheckForCategorysExistance = true
                         }
                     })
 
-                    if(!secondCheckForCategorysExistance)
-                    finalData.push({
-                        category,
-                        subCategory: [
-                            {
-                                subCategoryId: subCategoryId,
-                                subCategoryName: subCategoryName,
-                                productImages : [
-                                    {
-                                        productId,
-                                        productName,
-                                        thumb
-                                    }
-                                ]
-                            }
-                        ]
-                    })
+                    if (!secondCheckForCategorysExistance)
+                        finalData.push({
+                            category,
+                            subCategory: [
+                                {
+                                    subCategoryId: subCategoryId,
+                                    subCategoryName: subCategoryName,
+                                    productImages: [
+                                        {
+                                            productId,
+                                            productName,
+                                            thumb
+                                        }
+                                    ]
+                                }
+                            ]
+                        })
                 }
 
 
             }
 
-            else{
+            else {
                 finalData.push({
                     category,
                     subCategory: [
@@ -291,37 +538,16 @@ class VendorMainDashboard extends React.Component {
             internalLoaderClass: 'contentLoader hide',
             sectionClass: 'newCategorySection',
             contentWrapper: 'contentWrapper',
-            categoriesSelected : [...finalData]
+            categoriesSelected: [...finalData]
         })
 
-        
+
     }
 
     onSelect = (e) => {
         this.setState({
             categoryName: e.target.value
         })
-    }
-
-    returnNavBarData = () => {
-        if (this.props.userData.responseData) {
-
-            //
-            // DECRYPT REQUEST DATA
-            // 
-            let decryptedData = decryptData(
-                this.props.userData.responseData
-            )
-            //
-            // DECRYPT REQUEST DATA
-            //
-
-            return decryptedData
-        }
-
-        else {
-            return null
-        }
     }
 
     hitTheAPI = async (objectName, data) => {
@@ -452,13 +678,12 @@ class VendorMainDashboard extends React.Component {
 
                 this.setState({
 
-                    productSelected : productId,
+                    productSelected: productId,
 
                     /// PLACE HERE ////
                     productName: decryptedData.productName,
                     productCode: decryptedData.productCode,
                     productPrice: decryptedData.basePrice,
-                    productGST: decryptedData.gstPercentage,
                     productMaterials: decryptedData.productMaterials,
                     featuresAdded: decryptedData.features,
                     productFinishes: decryptedData.finishingOptions,
@@ -479,7 +704,7 @@ class VendorMainDashboard extends React.Component {
                     productThumbImage: decryptedData.productThumbImage,
                     youTubeURL: decryptedData.youTubeAdVideos ? decryptedData.youTubeAdVideos : [],
                     brandName: decryptedData.brandName,
-                    brandImage: decryptedData.brandImage, 
+                    brandImage: decryptedData.brandImage,
                     productInstallers: decryptedData.productInstallers,
                     productInstallationAvailability: decryptedData.productInstallationAvailability,
                     productInstallationServiceCost: decryptedData.productInstallationServiceCost,
@@ -514,7 +739,7 @@ class VendorMainDashboard extends React.Component {
 
 
     returnSubCategoryProducts = (productImages, title) => {
-        if(productImages){
+        if (productImages) {
             if (productImages.length !== 0) {
 
                 let dummyArray = productImages.map((item, i) => {
@@ -530,7 +755,7 @@ class VendorMainDashboard extends React.Component {
                     categoryName: title,
                     imagesInCategory: [...dummyArray]
                 }
-                
+
 
                 return (
                     <div className="imageSliderWrap">
@@ -551,116 +776,9 @@ class VendorMainDashboard extends React.Component {
                                 })
                             }}
                         />
-
                     </div>
                 )
             }
-        }
-
-    }
-
-    returnSubCategoryProductsModal = (productImages, title) => {
-
-        if(productImages){
-            if (productImages.length !== 0) {
-
-                let dummyArray = productImages.map((item, i) => {
-                    return {
-                        itemCode: item.productId,
-                        textOnRibbonSatisfied: false,
-                        imageURL: item.thumb,
-                        title: item.productName
-                    }
-                })
-
-                const dataObject = {
-                    categoryName: title,
-                    imagesInCategory: [...dummyArray]
-                }
-                
-                // console.log(dataObject.categoryName)
-
-                return (
-                        
-                        dataObject.imagesInCategory.map((item, i) => {
-                            // console.log(item)
-                            return (
-                                <div 
-                                    key={i}
-                                    className="imageSliderWrap"
-                                    onClick={(data) => {
-                                        this.fetchProductData(item.itemCode)
-                            
-                                        this.setState({
-                                            modalClass: 'modalClass',
-                                            productManagerWrapperClass: "productManagerWrapperClass blurClass",
-                                            activeModalType: "subCategoryDetailedPreview",
-                                            itemCode: data.itemCode
-                                            
-                                        })
-                                    }}    
-                                >
-                                
-                                    <div 
-                                        className="productImageGallery"
-                                        key={i}>
-                                        <Image 
-                                            cloudName="rolling-logs" 
-                                            alt = ""
-                                            publicId={PublicId(item.imageURL)} 
-                                            // transformations
-                                            width="300" 
-                                            crop="fit"
-                                        />
-                                        <div className="paragraphClass"><p>{item.title.charAt(0).toUpperCase() + item.title.slice(1)}</p></div>
-                                    </div>
-                                </div>
-                            )
-                        }
-                    )
-                )
-            }
-        }
-    }
-
-    returnCategoryInModal = () => {
-        const { categoriesSelected } = this.state
-
-        const returnSubCategories = (subcategories) => {
-
-            
-            return subcategories.subCategory.map((subcategory, i) => {
-                let subCatProducts = [...subcategory.productImages.reverse()]
-                return (
-                    <div 
-                        className="subCategoryHead"
-                        key = { "subCat" + i }
-                        >          
-
-                            {
-                                this.returnSubCategoryProductsModal(subCatProducts.reverse(), subcategory.subCategoryName)
-                            }
-                    </div>
-                )
-            })
-        }
-
-        if (categoriesSelected.length !== 0) {
-            return(
-                categoriesSelected.map((item, i) => {
-                    return (
-                        <div 
-                            key = {i} 
-                            className="categorisedProductsDisplay"
-                        >
-                            <div className="categorisedProductDisplayInnerLayer">
-                                {returnSubCategories(item)}
-                            </div>
-                        </div>
-                    )
-                  }
-                )
-            )
         }
 
     }
@@ -669,82 +787,28 @@ class VendorMainDashboard extends React.Component {
         const { categoriesSelected } = this.state
 
         const returnSubCategories = (subcategories) => {
-            
             return subcategories.subCategory.map((subcategory, i) => {
-                let subCatProducts = []
-
-                if(subcategory.productImages){
-                    subCatProducts = [...subcategory.productImages.reverse()]
-                    console.log(subCatProducts.length);
-                }
-                
-                
                 return (
-                    <div 
+                    <div
                         className="subCategoryHead"
-                        key = { "subCat" + i }
-                        >
+                        key={"subCat" + i}
+                    >
                         <div className="subCategoryHeadInnerSection">
-                            <div className="headerSection">
-                                <div className="subCategoryHeaderSection">
-                                    <div className="subCategoryHeaderNumberSection">
-                                        <h3>{subcategory.subCategoryName}</h3>
-                                        <h3 className="numberCount">({subCatProducts.length})</h3>
-                                    </div>
-                                    <div className="line"></div>
-                                </div>
-                                <div 
-                                    className="deleteCategoryContainer"
-                                    // onClick={() => this.deleteCategory(i)}
-                                    onClick={() => {
-                                        this.setState({
-                                            mainCategoryIndex: i,
-                                            modalClass: 'modalClass',
-                                            productManagerWrapperClass: "productManagerWrapperClass blurClass",
-                                            activeModalType: "uploaded"
-                                        })
-                                    }}
-                                >
-                                    {subCatProducts.length >= 1 ? 
-                                       (<WhiteButton>
-                                            View All
-                                        </WhiteButton>)
-                                        :
-                                        (<div></div>)
-                                    }
-                                </div>
+                            <div className="subCategoryHeaderSection">
+                                <h3>{subcategory.subCategoryName}</h3>
+                                <div className="line"></div>
                             </div>
-                            <div className="addProductCategorySection">
-                                <div 
-                                    className="addNewProductButton"
-                                    onClick = {() => {
-                                        this.setState({
-                                            mainClass : "mainClass hide",
-                                            loadingClass : "loadingAnim"
-                                        })
 
-                                        window.open("/vendor/add-product/" + subcategory.subCategoryId.toLowerCase(), "_self")
-                                    }}
-                                    >
-                                    <div className="addNewProductButtonInnerLayer">
-                                        <div className="svgImageSection">
-                                            <AddNewProduct />
-                                        </div>
-                                        <h3>Add new</h3>
-                                    </div>
-                                </div>
+                            <div className="addProductCategorySection">
 
                                 <div className="subCategoryProductSection">
-                                    <div 
-                                        className="subCategoryProductSectionInnerLayer"
-                                        onClick={console.log("Wrks")}
-                                    >
+                                    <div className="subCategoryProductSectionInnerLayer">
                                         {
-                                            this.returnSubCategoryProducts(subCatProducts.reverse(), subcategory.subCategoryName)
-                                            // this.returnSubCategoryProducts(subcategory.productImages.reverse(), subcategory.subCategoryName)
+                                            this.returnSubCategoryProducts(subcategory.productImages, subcategory.subCategoryName)
                                         }
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -754,11 +818,11 @@ class VendorMainDashboard extends React.Component {
 
 
         if (categoriesSelected.length !== 0) {
-            return(
+            return (
                 categoriesSelected.map((item, i) => {
                     return (
-                        <div 
-                            key = {i} 
+                        <div
+                            key={i}
                             className="categorisedProductsDisplay"
                         >
                             <div className="categorisedProductDisplayInnerLayer">
@@ -773,7 +837,7 @@ class VendorMainDashboard extends React.Component {
                             </div>
                         </div>
                     )
-                  }
+                }
                 )
             )
         }
@@ -791,102 +855,6 @@ class VendorMainDashboard extends React.Component {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            )
-        }
-    }
-
-
-    returnContent = () => {
-        let { contentType } = this.state;
-
-        if (contentType === 'productManager'){
-
-            // return(
-            //         <div className="add">
-            //             <div className={this.state.contentWrapper}>
-            //                 <div className="addProductButton">
-            //                     <GradientButton
-            //                         runFunction={() => {
-
-            //                             // this.selectCategoryAndSubCategory()
-            //                             this.setState({
-            //                                 modalClass: 'modalClass ',
-            //                                 productManagerWrapperClass : "productManagerWrapperClass blurClass",
-            //                                 vendorInitialGraphic: 'hide',
-            //                             })
-            //                         }}
-            //                         >
-            //                         <div className="svgImageContainer">
-            //                             <PlusButtonIconWhite />
-            //                         </div>
-            //                         Add new category
-            //                     </GradientButton>
-            //                 </div>
-
-            return (
-                <div className="add">
-                    <div className={this.state.contentWrapper}>
-                        <div className="addProductButton">
-                            <GradientButton
-                                runFunction={() => {
-
-                                    // this.selectCategoryAndSubCategory()
-                                    this.setState({
-                                        modalClass: 'modalClass ',
-                                        productManagerWrapperClass: "productManagerWrapperClass blurClass",
-                                        vendorInitialGraphic: 'hide',
-                                        activeModalType: 'categoryModal'
-                                    })
-                                }}
-                            >
-                                <div className="svgImageContainer">
-                                    <PlusButtonIconWhite />
-                                </div>
-                                Add new category
-                            </GradientButton>
-
-                            {/* <Link href="/vendor/profile-details">
-                                <a
-                                    onClick={() => {
-                                        this.setState = ({
-                                            loadingClass: 'loadingAnim',
-                                            mainClass: 'mainClass hide'
-                                        })
-                                    }}
-                                >
-                                    <WhiteButton>
-                                        Edit profile details
-                                    </WhiteButton>
-                                </a>
-                            </Link> */}
-
-                        </div>
-
-                        <div 
-                            className="populatedCategories"
-                            >
-                            <div className="populatedCategoriesInnerLayer">
-                                {this.returnCategorisedProducts()}
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div
-                        className={this.state.internalLoaderClass}
-                    >
-                        <LogoLoadingAnimation />
-                    </div>
-                </div>
-            )
-        }
-        else if (contentType === 'salesManager') {
-            return (
-                <div className="clientProductWrap">
-                    <div className="clientSectionInnerWrap">
-                        Coming Soon
                     </div>
                 </div>
             )
@@ -1144,7 +1112,7 @@ class VendorMainDashboard extends React.Component {
             this.setState({
                 categoryErrorClass: "errorMessageWrap hide",
                 activeModalType: "subcategoryModal"
-               
+
             })
         }
     }
@@ -1181,7 +1149,7 @@ class VendorMainDashboard extends React.Component {
                 }
             }
         })
-        
+
         if (categoryAlreadySelected === false) {
             categoriesSelected.push({
                 category: mainCategorySelection,
@@ -1193,8 +1161,8 @@ class VendorMainDashboard extends React.Component {
 
         this.setState({
             categoriesSelected: dummyArray,
-            subCategorySelection : null,
-            mainCategorySelection : null
+            subCategorySelection: null,
+            mainCategorySelection: null
         })
     }
 
@@ -1227,12 +1195,12 @@ class VendorMainDashboard extends React.Component {
 
         // const productInstallersDetail = 
 
-        if(fieldName === "materials") {
+        if (fieldName === "materials") {
             return (
                 productMaterials.map((item, i) => {
                     return (
-                        <div 
-                            key={i} 
+                        <div
+                            key={i}
                             className="modalContainerUpperContainer">
                             <div className="modalContainer">
                                 {/* <div className="subImageOrDivIfAny">
@@ -1250,17 +1218,16 @@ class VendorMainDashboard extends React.Component {
                                         <p>{item.materialGrade}</p>
                                     </div>
 
-                                    <div className="modalSubText">
-                                        {/* <h3>Price:</h3> <p>Rs. {item.materialCost}</p> */}
+                                    {/* <div className="modalSubText">
                                         {
-                                            Number(item.materialCost) > 0 
-                                            ?
-                                            <p>Costs <span>Rs. { item.materialCost }</span> extra</p>
-                                            :
-                                            <p>No extra cost</p>
+                                            Number(item.materialCost) > 0
+                                                ?
+                                                <p>Costs <span>Rs. {item.materialCost}</span> extra</p>
+                                                :
+                                                <p>No extra cost</p>
                                         }
-                                        
-                                    </div>
+
+                                    </div> */}
                                 </div>
                             </div>
                         </div>
@@ -1274,8 +1241,8 @@ class VendorMainDashboard extends React.Component {
                 return (
                     featuresAdded.map((item, i) => {
                         return (
-                            <div 
-                                key={i} 
+                            <div
+                                key={i}
                                 className="modalContainerUpperContainer">
                                 <div className="modalContainer">
                                     {/* <div className="subImageOrDivIfAny">
@@ -1283,12 +1250,12 @@ class VendorMainDashboard extends React.Component {
                                     </div> */}
 
                                     <div className="modalContainerInnerLayer">
-                                        
+
 
                                         <div className="modalHeadingText">
                                             {/* <h3>Price:</h3> <p>Rs. {item.materialCost}</p> */}
                                             <p><span>{item}</span></p>
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -1334,7 +1301,7 @@ class VendorMainDashboard extends React.Component {
                                             <p>{item.finishCode}</p>
                                         </div>
 
-                                        <div className="modalSubText">
+                                        {/* <div className="modalSubText">
 
                                             {
                                                 Number(item.finishCost) > 0
@@ -1343,7 +1310,7 @@ class VendorMainDashboard extends React.Component {
                                                     :
                                                     <p>No extra cost</p>
                                             }
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                             </div>
@@ -1379,8 +1346,7 @@ class VendorMainDashboard extends React.Component {
                                             {/* <h3>Price:</h3> <p>Rs. {item.materialCost}</p> */}
                                             <p>{item.colorCode}</p>
                                         </div>
-                                        <div className="modalSubText">
-                                            {/* <h3>Price:</h3> <p>Rs. {item.materialCost}</p> */}
+                                        {/* <div className="modalSubText">
 
                                             {
                                                 Number(item.colorCost) > 0
@@ -1389,7 +1355,7 @@ class VendorMainDashboard extends React.Component {
                                                     :
                                                     <p>No extra cost</p>
                                             }
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                             </div>
@@ -1408,11 +1374,11 @@ class VendorMainDashboard extends React.Component {
                 productDimensions.map((item, i) => {
 
                     return (
-                        <div 
-                            key={i} 
+                        <div
+                            key={i}
                             className="modalContainerUpperContainer">
                             <div className="modalContainer">
-                               
+
 
                                 <div className="modalContainerInnerLayer">
                                     <div className="modalHeadingText">
@@ -1420,22 +1386,22 @@ class VendorMainDashboard extends React.Component {
                                         <p>{item.sizeName}</p>
                                     </div>
 
-                                    <div className="modalSubText">
+                                    {/* <div className="modalSubText">
 
                                         {
-                                            Number(item.sizeCost) > 0 
-                                            ?
-                                            <p>Costs <span>Rs. { item.sizeCost }</span> extra</p>
-                                            :
-                                            <p>No extra cost</p>
+                                            Number(item.sizeCost) > 0
+                                                ?
+                                                <p>Costs <span>Rs. {item.sizeCost}</span> extra</p>
+                                                :
+                                                <p>No extra cost</p>
                                         }
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         </div>
                     )
 
-                    
+
                 })
             )
         }
@@ -1444,8 +1410,8 @@ class VendorMainDashboard extends React.Component {
             return (
                 categoryStylesAdded.map((item, i) => {
                     return (
-                        <div 
-                            key={i} 
+                        <div
+                            key={i}
                             className="modalContainerUpperContainer">
                             <div className="modalContainer">
                                 {/* <div className="subImageOrDivIfAny">
@@ -1453,18 +1419,18 @@ class VendorMainDashboard extends React.Component {
                                 </div> */}
 
                                 <div className="modalContainerInnerLayer">
-                                    
+
 
                                     <div className="modalHeadingText">
                                         {/* <h3>Price:</h3> <p>Rs. {item.materialCost}</p> */}
                                         <p>{item.styleName}</p>
-                                        
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     )
-                    
+
                 })
             )
         }
@@ -1474,8 +1440,8 @@ class VendorMainDashboard extends React.Component {
                 tagsAdded.map((item, i) => {
 
                     return (
-                        <div 
-                            key={i} 
+                        <div
+                            key={i}
                             className="modalContainerUpperContainer">
                             <div className="modalContainer">
                                 {/* <div className="subImageOrDivIfAny">
@@ -1483,12 +1449,12 @@ class VendorMainDashboard extends React.Component {
                                 </div> */}
 
                                 <div className="modalContainerInnerLayer">
-                                    
+
 
                                     <div className="modalHeadingText">
                                         {/* <h3>Price:</h3> <p>Rs. {item.materialCost}</p> */}
                                         <p>{item}</p>
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -1525,7 +1491,7 @@ class VendorMainDashboard extends React.Component {
                 })
             }
 
-            else{
+            else {
                 return <p>N/A</p>
             }
         }
@@ -1533,7 +1499,7 @@ class VendorMainDashboard extends React.Component {
         else if (fieldName === "installationService") {
             if (productInstallationAvailability === 1) {
                 return <p>Yes, we install this product for free of cost (No extra installation charges).</p>
-            } 
+            }
 
             else if (productInstallationAvailability === 2) {
                 return <p>Yes, we install this product for an extra cost at Rs. {productInstallationServiceCost}/{this.returnChargeType(installationServiceCostType)} .</p>
@@ -1551,27 +1517,27 @@ class VendorMainDashboard extends React.Component {
 
                 const populateProductInstallers = () => productInstallers.map((item, i) => {
                     return (
-                        <div 
-                            key={i} 
+                        <div
+                            key={i}
                             className="modalContainerUpperContainer"
-                            >
+                        >
                             <div className="modalContainer">
                                 <div className="modalContainerInnerLayer">
                                     <div className="modalHeadingText">
                                         <p>{item.installerName}</p>
                                     </div>
-    
+
                                     <div className="modalSubText">
                                         <p>+91 {item.installerContactNo}</p>
                                     </div>
-    
+
                                     <div className="modalSubText">
                                         {
-                                            Number(item.sizeCost) > 0 
-                                            ?
-                                            <p>Costs <span>Rs. { item.installerCharges }</span> / {this.returnChargeType(item.installerCostType)}</p>
-                                            :
-                                            <p>Installer cost not specified</p>
+                                            Number(item.sizeCost) > 0
+                                                ?
+                                                <p>Costs <span>Rs. {item.installerCharges}</span> / {this.returnChargeType(item.installerCostType)}</p>
+                                                :
+                                                <p>Installer cost not specified</p>
                                         }
                                     </div>
                                 </div>
@@ -1580,14 +1546,14 @@ class VendorMainDashboard extends React.Component {
                     )
                 })
 
-                if(productInstallers.length !== 0) {
+                if (productInstallers.length !== 0) {
                     return (
                         // <div className="gridItemsContainer productSubContainers">
-                        
+
                         // </div>
                         <div className="gridOuterBox">
                             {populateProductInstallers()}
-                        </div> 
+                        </div>
                     )
                 }
             }
@@ -1596,15 +1562,14 @@ class VendorMainDashboard extends React.Component {
 
     returnSubCategoryDetails = () => {
 
-        const { 
+        const {
             productName,
             productCode,
             productPrice,
-            productGST,
             productMinQuantity,
             productMaxQuantity,
             productDescription,
-            
+
             productAvailability,
             productDiscount,
             productThumbImage,
@@ -1643,8 +1608,8 @@ class VendorMainDashboard extends React.Component {
                     </div>
                     <div className="productPreviewInformationColumn">
 
-                        
-                                
+
+
                         <div className="productsInformationInnerLayer">
 
                             <div className="alignedSubjects">
@@ -1654,110 +1619,97 @@ class VendorMainDashboard extends React.Component {
                                         <p>{productName}</p>
                                     </div>
 
-                                    <div className="productSubHeading">
+                                    {/* <div className="productSubHeading">
                                         <h3>Code </h3>
                                         <p>{productCode}</p>
-                                    </div>
+                                    </div> */}
 
                                     <div className="productSubHeading">
                                         <h3>Price </h3>
                                         <p>Rs. {productPrice} per piece</p>
                                     </div>
-
-                                    <div className="productSubHeading">
-                                        <h3>GST </h3>
-                                        <p>{productGST} %</p>
-                                    </div>
                                 </div>
 
                                 <div className="rightAligned">
                                     <div className="productThumbImage">
-                                        {/* <img
+                                        <img
                                             src={productThumbImage}
                                             alt=""
-                                        /> */}
-                                        <Image 
-                                            cloudName="rolling-logs" 
-                                            alt = ""
-                                            publicId={PublicId(productThumbImage)} 
-                                            // transformations
-                                            width="300" 
-                                            crop="limit"
                                         />
                                     </div>
                                 </div>
 
                             </div>
 
-                            
+
 
                             <div className="gridItemsContainer productSubContainers">
                                 <h3>Material choices </h3>
                                 <div className="gridOuterBox">
                                     {this.returnArrayFields("materials")}
-                                </div>                            
+                                </div>
                             </div>
 
                             <div className="gridItemsContainer productSubContainers">
                                 <h3>Features / specifications </h3>
                                 <div className="gridOuterBox">
                                     {this.returnArrayFields("features")}
-                                </div>                            
+                                </div>
                             </div>
 
                             <div className="gridItemsContainer productSubContainers">
                                 <h3>Finishes</h3>
                                 <div className="gridOuterBox">
                                     {this.returnArrayFields("finishes")}
-                                </div>                            
+                                </div>
                             </div>
 
                             <div className="gridItemsContainer productSubContainers">
                                 <h3>Colors</h3>
                                 <div className="gridOuterBox">
                                     {this.returnArrayFields("colors")}
-                                </div>                            
+                                </div>
                             </div>
 
                             <div className="gridItemsContainer productSubContainers">
                                 <h3>Sizes available </h3>
                                 <div className="gridOuterBox">
                                     {this.returnArrayFields("dimensions")}
-                                </div>                            
+                                </div>
+                            </div>
+
+                            {/* <div className="productSubHeading">
+                                <h3>Min Quantity  </h3>
+                                <p>{productMinQuantity}</p>
                             </div>
 
                             <div className="productSubHeading">
-                                <h3>Min Quantity  </h3> 
-                                <p>{productMinQuantity}</p> 
-                            </div>
+                                <h3>Max Quantity  </h3>
+                                <p>{productMaxQuantity}</p>
+                            </div> */}
 
                             <div className="productSubHeading">
-                                <h3>Max Quantity  </h3> 
-                                <p>{productMaxQuantity}</p> 
-                            </div>
-                            
-                            <div className="productSubHeading">
-                                <h3>Product description  </h3> 
-                                <p>{productDescription}</p> 
+                                <h3>Product description  </h3>
+                                <p>{productDescription}</p>
                             </div>
 
                             <div className="gridItemsContainer productSubContainers">
                                 <h3>Design Styles </h3>
                                 <div className="gridOuterBox">
                                     {this.returnArrayFields("styles")}
-                                </div>                            
+                                </div>
                             </div>
 
-                            <div className="gridItemsContainer productSubContainers">
+                            {/* <div className="gridItemsContainer productSubContainers">
                                 <h3>Tags</h3>
                                 <div className="gridOuterBox">
                                     {this.returnArrayFields("tags")}
-                                </div>                            
-                            </div>
-                            
-                            
+                                </div>
+                            </div> */}
 
-                            <div className="productSubHeading">
+
+
+                            {/* <div className="productSubHeading">
                                 <h3>Product Availability</h3>
                                 <p>{productAvailability === false ? "No, the product is not available" : "Yes, the product is available"}</p>
                             </div>
@@ -1765,19 +1717,19 @@ class VendorMainDashboard extends React.Component {
                             <div className="productSubHeading">
                                 <h3>Product discount</h3>
                                 <p>{Number(productDiscount) > 0 ? productDiscount : "No discount available on this product"}</p>
-                            </div>
+                            </div> */}
 
                             <div className="productSubHeading imageWrapper">
                                 <h3>Product Images</h3>
-                                
+
                                 <div className="productImagesOuterContainer">
                                     {this.returnArrayFields("images")}
                                 </div>
                             </div>
 
-                            <div className="productSubHeading imageWrapper">
+                            {/* <div className="productSubHeading imageWrapper">
                                 <h3>Product videos</h3>
-                                
+
                                 <div className="productVideosOuterContainer">
                                     {this.returnArrayFields("youTube")}
                                 </div>
@@ -1786,71 +1738,36 @@ class VendorMainDashboard extends React.Component {
                             <div className="productSubHeading">
                                 <h3>Brand Name</h3>
                                 <p>{brandName ? brandName : "N/A"}</p>
-                            </div>
+                            </div> */}
 
-                            <div className="productSubHeading">
+                            {/* <div className="productSubHeading">
                                 <h3>Brand Logo</h3>
                                 <div className="productImagesOuterContainer">
                                     {
-                                        brandImage 
-                                        ?
-                                        <div className="productImagesContainer">
-                                            {/* <img 
-                                                className = "individualImage" 
-                                                src={brandImage} 
-                                                alt="" 
-                                            /> */}
-                                            <Image
-                                                cloudName="rolling-logs" 
-                                                alt = ""
-                                                publicId={PublicId(brandImage)} 
-                                                // transformations
-                                                width="100" 
-                                                crop="fit"
-                                            />
-                                        </div>
-                                        : 
-                                        <p>N/A</p> 
+                                        brandImage
+                                            ?
+                                            <div className="productImagesContainer">
+                                                <Image
+                                                    cloudName="rolling-logs"
+                                                    alt=""
+                                                    publicId={PublicId(brandImage)}
+                                                    // transformations
+                                                    width="100"
+                                                    crop="fit"
+                                                />
+                                            </div>
+                                            :
+                                            <p>N/A</p>
                                     }
                                 </div>
-                            </div>
+                            </div> */}
 
-                            <div className="gridItemsContainer productSubContainers">
+                            {/* <div className="gridItemsContainer productSubContainers">
                                 <h3>Installation Service Option</h3>
-                                {/* <div className="productImagesOuterContainer"> */}
-                                    {this.returnArrayFields("installationService")}
-                                {/* </div> */}
-                                
-                            </div>
-                            
-                        </div>
-                   </div>
+                                {this.returnArrayFields("installationService")}
 
-                    <div className="confirmationButtonContainer">
-                        <div className="closeButtonContainer">
-                            <GradientButton
-                                runFunction={() => {
-                                    window.open("/vendor/edit-product/" + this.state.itemCode.toLowerCase(), "_self")
-                                }}
-                            >
-                                Edit {productName}
-                            </GradientButton>
-                        </div>
-                        <div className="removeButtonContainer">
-                            <WhiteButton
-                                // runFunction={() => {
-                                //     this.deleteCategory("sub", this.state.productId)
-                                // }}
-                                runFunction={() => {
-                                    this.setState({
-                                        modalClass: 'modalClass',
-                                        productManagerWrapperClass: "productManagerWrapperClass blurClass",
-                                        activeModalType: "delete"
-                                    })
-                                }}
-                            >
-                                Delete
-                             </WhiteButton>
+                            </div> */}
+
                         </div>
                     </div>
 
@@ -1858,7 +1775,7 @@ class VendorMainDashboard extends React.Component {
             )
         }
 
-        else{
+        else {
             return (
                 <div className="loadingButton">
                     <NavBarLoadingIcon />
@@ -1929,7 +1846,7 @@ class VendorMainDashboard extends React.Component {
                     <div className="proceedButton">
                         <GradientButton
                             runFunction={() => this.handleCategorySelections()}
-                            >
+                        >
                             Proceed
                         </GradientButton>
                     </div>
@@ -1999,7 +1916,7 @@ class VendorMainDashboard extends React.Component {
                             runFunction={() => this.setState({
                                 activeModalType: "categoryModal"
                             })}
-                            >
+                        >
                             Go back
                         </WhiteButton>
                         <GradientButton
@@ -2010,8 +1927,8 @@ class VendorMainDashboard extends React.Component {
                                 })
 
                                 this.handleProceedForNewProduct()
-                             }}
-                            >
+                            }}
+                        >
                             Proceed
                         </GradientButton>
                     </div>
@@ -2019,61 +1936,19 @@ class VendorMainDashboard extends React.Component {
             )
         }
 
-        else if (categoryModalOrSubcategoryModal === "uploaded") {
-            if(this.state.deleteLoading){
-                return (
-                    <div className="modalCategoryDeleteContainer">
-                        <div className="loadingAnimationDelete">
-                            <NavBarLoadingIcon/>
-                        </div>
-                    </div>
-                )
-            }
-            else{
-                
-                return (
-                    <div className="modalCategoryUploadedContainer">
-                        <div className="modalHeaderCloserSection">
-                            <div className="modalHeaderContainer">
-                                <h3>Uploaded products</h3>
-                                <div className="line"></div>
-                            </div>
-                            <div 
-                                className="close"
-                                onClick={() => this.setState({
-                                    modalClass: "modalClass hide",
-                                    productManagerWrapperClass: "productManagerWrapperClass",
-                                    mainContentWrap: "mainContentWrap",
-                                    vendorInitialGraphic: 'vendorGraphicCenter',
-                                })}
-                            >
-                            <BigCloseButton/>
-                            </div>
-                        </div>
-                        <div className="uploadedProductsContainer">
-                            <div className="productImagesContainer">
-                                 {this.returnCategoryInModal()}
-                            </div>
-                        </div>
-                    </div>
-                )
-            }
-        }
-
         else if (categoryModalOrSubcategoryModal === "delete") {
 
-            if(this.state.deleteLoading){
+            if (this.state.deleteLoading) {
                 return (
                     <div className="modalCategoryDeleteContainer">
                         <div className="loadingAnimationDelete">
-                            <NavBarLoadingIcon/>
+                            <NavBarLoadingIcon />
                         </div>
                     </div>
                 )
             }
 
-            else{
-                
+            else {
                 return (
                     <div className="modalCategoryDeleteContainer">
                         <div className="modalHeaderCloserSection">
@@ -2083,66 +1958,66 @@ class VendorMainDashboard extends React.Component {
                             </div>
                         </div>
                         <div className="confirmationButtonContainer">
-                            <div className="noContainer">
+                            <div className="closeButtonContainer">
                                 <WhiteButton
                                     runFunction={() => this.setState({
                                         modalClass: "modalClass hide",
                                         productManagerWrapperClass: "productManagerWrapperClass",
                                         mainContentWrap: "mainContentWrap",
                                         vendorInitialGraphic: 'vendorGraphicCenter',
-                                    })}  
+                                    })}
                                 >
-                                No
+                                    No
                                 </WhiteButton>
                             </div>
                             <div className="yesContainer">
                                 <WhiteButton
                                     runFunction={() => {
                                         this.setState({
-                                            deleteLoading : true,
+                                            deleteLoading: true,
                                         })
 
-                                       
-                                        this.props.hitApi(api.DELETE_PRODUCT + "?pId=" + this.state.productSelected, "DELETE", 
+
+                                        this.props.hitApi(api.DELETE_PRODUCT + "?pId=" + this.state.productSelected, "DELETE",
                                             // {
                                             //     message: "Houston, destroy product",
                                             //     requestData: encryptedData
                                             // }
                                         )
-                                        .then(() => {
-                                            // 
-                                            // Decrypt data
-                                            // 
-                                            const responseData = decryptData(this.props.responseData.responsePayload.responseData)
-                                            // 
-                                            // Decrypt data
-                                            // 
+                                            .then(() => {
+                                                // 
+                                                // Decrypt data
+                                                // 
+                                                const responseData = decryptData(this.props.responseData.responsePayload.responseData)
+                                                // 
+                                                // Decrypt data
+                                                // 
 
-                                            // console.log(responseData)
+                                                // console.log(responseData)
 
-                                            window.open("/vendor/dashboard", "_self")
+                                                window.open("/vendor/dashboard", "_self")
 
-                                            this.setState({
-                                                deleteLoading : false,
-                                                modalToShow : "success",
-                                                modalClass: "modalClass hide",
-                                                productManagerWrapperClass: "productManagerWrapperClass",
+                                                this.setState({
+                                                    deleteLoading: false,
+                                                    modalToShow: "success",
+                                                    modalClass: "modalClass hide",
+                                                    productManagerWrapperClass: "productManagerWrapperClass",
+                                                })
+
                                             })
-                        
-                                        })
-                                        .catch(e => {
-                                            console.error(e)
-                                            this.setState({
-                                                deleteLoading : false,
-                                                modalToShow : "failure",
-                                                modalClass: "modalClass hide",
-                                                productManagerWrapperClass: "productManagerWrapperClass",
+                                            .catch(e => {
+                                                console.error(e)
+                                                this.setState({
+                                                    deleteLoading: false,
+                                                    modalToShow: "failure",
+                                                    modalClass: "modalClass hide",
+                                                    productManagerWrapperClass: "productManagerWrapperClass",
+                                                })
+                                                window.open("/vendor/dashboard", "_self")
                                             })
-                                            window.open("/vendor/dashboard", "_self")
-                                        })
-                                        
+
                                     }}
-                                    >
+                                >
                                     Yes
                                  </WhiteButton>
                             </div>
@@ -2150,7 +2025,7 @@ class VendorMainDashboard extends React.Component {
                     </div>
                 )
             }
-           
+
         }
 
         else if (categoryModalOrSubcategoryModal === "subCategoryExistWarning") {
@@ -2187,7 +2062,7 @@ class VendorMainDashboard extends React.Component {
                         <div className="modalHeaderContainer productPreview">
                             <h3>Product preview</h3>
                             <div className="line"></div>
-                            {/* <small>(N/A - Not Applicable)</small> */}
+                            <small>* N/A - Not Applicable</small>
                         </div>
                         <div
                             className="close"
@@ -2259,20 +2134,6 @@ class VendorMainDashboard extends React.Component {
     render() {
         return (
             <div className="vendorProductDashboard">
-
-                <Head>
-                    <meta name="description" content="Architectural process from Rolling Logs, start building your dream home without any hassle in India." />
-                    <meta name="robots" content="noodp" />
-                    <link rel="canonical" href="https://www.rollinglogs.com/architecture/" />
-                    <link rel = "next" href = "https://www.rollinglogs.com/architecture/page/2/" />
-                    <meta property="og:locale" content="en_US" />
-                    <meta property="og:type" content="object" />
-                    <meta property="og:description" content="Architects, Interior Designers Marketplace in India" />
-                    <meta property="og:url" content="https://www.rollinglogs.com/architecture/" />
-                    <meta property="og:site_name" content="RollingLogs" />
-                    <meta property="og:image" content="http://static.dezeen.com/assets/images/logo-magazine.png" />
-                    <title>Products dashboard for vendors - Rolling Logs</title>
-                </Head>
                 <div className={this.state.loadingClass}>
                     <LogoAnimation
                         text="We are loading..."
@@ -2281,164 +2142,33 @@ class VendorMainDashboard extends React.Component {
 
                 <div className={this.state.mainClass}>
                     <div className="maskLayer">
-                        <Navbar
-                            userData={this.returnNavBarData()}
-                        />
 
                         <div className={this.state.productManagerWrapperClass}>
                             <div className="productManagerWrapperInnerLayerClass">
 
-                                <div className="vendorDetailsLeftContainer">
-                                    <div className="vendorInformationInnerLayer">
-
-                                        <div className="vendorDashboardInfoConatiner">
-
-                                            <div className="vendorDashboardCompanyLogo">
-                                                <div className="logoImageContainer">
-                                                    <div className="logoImageContainerInnerLayer">
-                                                        {/* <img src={
-                                                            this.state.companyProfilePicture ? this.state.companyProfilePicture : ""
-                                                        } alt="" /> */}
-
-                                                        {/* {console.log(this.state.companyProfilePicture)} */}
-                                                        <Image
-                                                            cloudName="rolling-logs" 
-                                                            alt = ""
-                                                            // src = {this.state.companyProfilePicture ? this.state.companyProfilePicture : ""}
-                                                            publicId={PublicId(this.state.companyProfilePicture ? this.state.companyProfilePicture : "")} 
-                                                            // transformations
-                                                            width="300" 
-                                                            crop="fit"
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div className="vendorDashboardCompanyInfoConatiner">
-                                                <div className="companyInfoContainer">
-                                                    <div className="companyInfoUpperConatiner">
-                                                        <div className="companyTitleConatiner">
-                                                            <h3>{this.state.responseCompanyName}</h3>
-                                                        </div>
-                                                        
-                                                        <div className="line"></div>
-                                                    </div>
-                                                    <div className="companyInfoLowerContainer">
-                                                        <p>
-                                                            {this.state.responseCompanyDescription}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div className="vendorInfoConatiner">
-                                                    <div className="vendorTitleContainer">
-                                                        <h3>Proprietor</h3>
-                                                        <div className="line"></div>
-                                                    </div>
-                                                    <div className="vendorInfoDownContainer">
-                                                        <div className="vendorPictureContainer">
-                                                            <div className="vendorProfilePicture">
-                                                                <div className="vendorProfilePictureInnerLayer">
-                                                                    <img src={
-                                                                        this.state.profilePicture ? this.state.profilePicture : ""
-                                                                    } alt="" />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div className="vendorPersonalInfoContainer">
-                                                            <h3>{this.state.firstName + " " + this.state.lastName } </h3>
-                                                            <div className="industryExperienceContainer">
-                                                                <h3>has been in this business for<span> {this.state.responseExperience} years</span></h3>
-
-                                                            </div>
-                                                            <div className="locationData">
-                                                                <div className="locationTagContainer">
-                                                                    <LocationTag/>
-                                                                </div>
-                                                                <div className="locationContainer">
-                                                                    <h3>{this.state.city + ", " + this.state.state}</h3>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="companyCaptionConatiner">
-                                                        <p>{this.state.professionalTitle}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="profileEditContainer">
-                                            <Link href = "/vendor/profile-details">
-                                                <a
-                                                    onClick={() => {
-                                                        this.setState=({
-                                                            loadingClass: 'loadingAnim',
-                                                            mainClass: 'mainClass hide'
-                                                        })
-                                                    }}
-                                                >
-                                                    <WhiteButton>
-                                                        Edit profile details
-                                                    </WhiteButton>
-                                                </a>
-                                            </Link>
-                                            {/* <WhiteButton
-                                                runFunction={() => {
-                                                    window.open("/vendor/profile-details", "_self")
-                                                }}
-                                            >
-                                                Edit profile details
-                                            </WhiteButton> */}
-                                        </div>
-                                    </div>
-                                </div>
                                 <article className="vendorProductOuterLayer">
-
-                                    <header className="productHeadingSection">
-
-                                        <div
-                                            className={"firstHeadingComponent " + this.state.mainHeadingClass1}
-                                            onClick={() => {
-                                                if (this.state.mainHeadingClass1 !== "productManager active") {
-                                                    this.toggleHeaderClass('productManager')
-                                                }
-
-                                                this.setState({
-                                                    contentType: 'productManager'
-                                                })
-                                            }}
-                                        >
-                                            <h3 className="headingClass">
-                                                Simple Product Manager
-                                            </h3>
-                                            <div className="line"></div>
-                                        </div>
-
-                                        <div
-                                            className={"firstHeadingComponent " + this.state.mainHeadingClass2}
-                                            onClick={() => {
-                                                if (this.state.mainHeadingClass2 !== "salesManager active") {
-                                                    this.toggleHeaderClass('salesManager')
-                                                }
-
-                                                this.setState({
-                                                    contentType: 'salesManager'
-                                                })
-                                            }}
-                                        >
-                                            <h3 className="headingClass">
-                                                Simple Sales Manager
-                                            </h3>
-                                            <div className="line"></div>
-                                        </div>
-
-                                    </header>
 
                                     <section className={this.state.sectionClass}>
 
-                                        {
-                                            this.returnContent()
-                                        }
+                                        <div className="add">
+                                            <div className={this.state.contentWrapper}>
+
+                                                <div
+                                                    className="populatedCategories"
+                                                >
+                                                    <div className="populatedCategoriesInnerLayer">
+                                                        {this.returnCategorisedProducts()}
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div
+                                                className={this.state.internalLoaderClass}
+                                            >
+                                                <LogoLoadingAnimation />
+                                            </div>
+                                        </div>
 
                                     </section>
 
@@ -2473,4 +2203,4 @@ const matchDispatchToProps = (dispatch) => {
     }, dispatch)
 }
 
-export default connect(mapStateToProps, matchDispatchToProps)(VendorMainDashboard)
+export default connect(mapStateToProps, matchDispatchToProps)(VendorProductList)

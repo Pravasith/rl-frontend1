@@ -504,7 +504,7 @@ export default class SignUp extends React.Component{
                                     >
                                     <Link href="/log-in">
                                         <a>
-                                            If you are already have an account, log in here
+                                            If you already have an account, log in here
                                         </a>
                                     </Link>
                                     {/* If you are already have an account, log in here */}

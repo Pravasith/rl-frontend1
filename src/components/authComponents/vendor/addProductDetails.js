@@ -1,6 +1,7 @@
 import React from "react";
 
 // import "../../../assets/sass/add_product_details.scss";
+import Head from 'next/head'
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -116,8 +117,10 @@ class AddProductDetails extends React.Component {
 
       materialCost: "",
 
+      // productPrice: 0,
       productDescription: "",
 
+      productGST: undefined,
       productDiscount: undefined,
 
       productFinishImage: "",
@@ -152,10 +155,17 @@ class AddProductDetails extends React.Component {
 
       // displayError: "displayError",
       displayError: "displayError hide",
+      displayDiscountValueValidationError: "displayDiscountValueValidationError hide",
+      displayGSTValueValidationError: "displayGSTValueValidationError hide",
+      displayInstallationValueValidationError: "displayInstallationValueValidationError hide",
+
       displayValueError: "displayValueError hide",
+      displayGSTValueError: "displayGSTValueError hide",
       displayDiscountValueError: "displayDiscountValueError hide",
       displayInstallationValueError: "displayInstallationValueError hide",
       displayQuantityValueError: "displayQuantityValueError hide",
+
+      Validation: "Validation hide",
       // productQuantityErrorMessage: "displayValueError hide",
       // productMinQuantityError: "productMinQuantityError hide",
 
@@ -324,6 +334,9 @@ class AddProductDetails extends React.Component {
     //   });
   }
 
+  // componentDidUpdate() {
+  //   console.log(this.state.displayDiscountValueValidationError, this.state.displayGSTValueValidationError, this.state.displayInstallationValueValidationError)
+  // }
 
   modalClassToggle = showOrNot => {
     if (showOrNot === "show")
@@ -582,7 +595,14 @@ class AddProductDetails extends React.Component {
             </li>
           </ul>
 
-          <div className="deleteIcon" onClick={i => this.removeFeature(i)}>
+          {/* <div className="deleteIcon" onClick={i => this.removeFeature(i)}>
+            <CloseButton />
+          </div> */}
+          <div className="deleteIcon" 
+               onClick={() => {
+                this.removeFeature(i);
+               }}
+          >
             <CloseButton />
           </div>
         </div>
@@ -1155,12 +1175,17 @@ class AddProductDetails extends React.Component {
         if (checkFor === "discount") {
           this.setState({
             productDiscount: Number(val),
-            displayError: "displayError hide"
+            displayDiscountValueValidationError: "displayDiscountValueValidationError hide"
+          });
+        } else if (checkFor === "GST") {
+          this.setState({
+            productGST: Number(val),
+            displayGSTValueValidationError: "displayGSTValueValidationError hide",
           });
         } else if (checkFor === "installation") {
           this.setState({
             productInstallationServiceCost: Number(val),
-            displayError: "displayError hide"
+            displayInstallationValueValidationError: "displayInstallationValueValidationError hide"
           });
         } else if (checkFor === "installer") {
           this.setState({
@@ -1196,12 +1221,17 @@ class AddProductDetails extends React.Component {
         if (checkFor === "discount") {
           this.setState({
             productDiscount: "",
-            displayError: "displayError"
+            displayDiscountValueValidationError: "displayDiscountValueValidationError"
+          });
+        } else if (checkFor === "GST") {
+          this.setState({
+            productGST: "",
+            displayGSTValueValidationError: "displayGSTValueValidationError"
           });
         } else if (checkFor === "installation") {
           this.setState({
             productInstallationServiceCost: "",
-            displayError: "displayError"
+            displayInstallationValueValidationError: "displayInstallationValueValidationError"
           });
         } else if (checkFor === "installer") {
           this.setState({
@@ -1265,7 +1295,7 @@ class AddProductDetails extends React.Component {
       imageURL: productImage
     };
 
-    console.log(temp)
+    // console.log(temp)
 
     // if (temp.imageURL !== "") {
     let dummyArray = productImagesObject.imagesInCategory
@@ -2139,6 +2169,7 @@ class AddProductDetails extends React.Component {
       productName: this.state.productName,
       productCode: this.state.productCode,
       basePrice: this.state.productPrice,
+      gstPercentage: this.state.productGST,
       productMaterials: this.state.productMaterials,
       finishingOptions: this.state.productFinishes,
       colorOptions: this.state.colorArray,
@@ -2643,7 +2674,7 @@ class AddProductDetails extends React.Component {
                           name="sizeName"
                           placeholder="Ex. Small / Extra-large / 2ftx3ft"
                           onChange={this.onChangeHandler}
-                          maxLength="30"
+                          maxLength="100"
                           ref="sizeName"
                         />
                         <span className="InputSeparatorLine"> </span>
@@ -3200,6 +3231,7 @@ class AddProductDetails extends React.Component {
     const {
         productDiscountAvailablity,
         productDiscount,
+        productGST,
         productMinQuantity,
         productMaxQuantity,
         productInstallationAvailability,
@@ -3223,6 +3255,24 @@ class AddProductDetails extends React.Component {
                     displayQuantityValueError: "displayQuantityValueError hide"
                 });
         } else return "Max. qunatity";
+    }
+
+    else if (fieldName === "Product GST") {
+        if (productGST !== undefined) {
+          if (productGST === 0) {
+            this.setState({
+              displayGSTValueError: "displayGSTValueError"
+            });
+
+            return "Product GST Value";
+          } else {
+            this.setState({
+              displayGSTValueError: "displayGSTValueError hide"
+            });
+          }
+        } else if (productGST === undefined) {
+          return "Product GST";
+      }
     }
 
     else if (fieldName === "Product Discount") {
@@ -3281,16 +3331,20 @@ class AddProductDetails extends React.Component {
 
         else return "Product Installation Service";
     }
-};
+  };
 
   validateProceedHandler = async () => {
     const fieldNames = [
       { fieldName: "Product Name", value: this.state.productName },
       { fieldName: "Product Code", value: this.state.productCode },
-      // {
-      //   fieldName: "Base price of this product",
-      //   value: this.state.productPrice
-      // },
+      {
+        fieldName: "Base price of this product",
+        value: this.state.productPrice
+      },
+      {
+        fieldName: `${this.handleMultiValidation("Product GST")}`,
+        value: this.state.productGST
+      },
       { fieldName: "Material", value: this.state.productMaterials },
       // { fieldName: "Finishing Options", value: this.state.productFinishes },
       // { fieldName: "Color Options", value: this.state.colorArray },
@@ -3335,6 +3389,7 @@ class AddProductDetails extends React.Component {
         item.value === undefined ||
         item.value === null ||
         item.value.length === 0 ||
+        item.fieldName === "Product GST Value" ||
         item.fieldName === "Max. quantity value" ||
         item.fieldName === "Product Discount Value" ||
         item.fieldName === "Product Installation Cost" ||
@@ -3370,7 +3425,7 @@ class AddProductDetails extends React.Component {
             displayError: "displayError hide",
             productDiscountAvailablity: "no",
             productDiscount: 0,
-            displayDiscountValueError: "displayDiscountValueError hide"
+            Validation: "Validation hide"
         });
 
         this.refs.discountInput.value = "";
@@ -3461,6 +3516,19 @@ class AddProductDetails extends React.Component {
   render() {
     return (
       <div className="vendorDashboardWrapper">
+        <Head>
+            <meta name="description" content="Architectural process from Rolling Logs, start building your dream home without any hassle in India." />
+            <meta name="robots" content="noodp" />
+            <link rel="canonical" href="https://www.rollinglogs.com/architecture/" />
+            <link rel = "next" href = "https://www.rollinglogs.com/architecture/page/2/" />
+            <meta property="og:locale" content="en_US" />
+            <meta property="og:type" content="object" />
+            <meta property="og:description" content="Architects, Interior Designers Marketplace in India" />
+            <meta property="og:url" content="https://www.rollinglogs.com/architecture/" />
+            <meta property="og:site_name" content="RollingLogs" />
+            <meta property="og:image" content="http://static.dezeen.com/assets/images/logo-magazine.png" />
+            <title>Showcase your products to architect and interior designers - Rolling Logs</title>
+        </Head>
         <div className={this.state.loadingClass}>
           <LogoAnimation text="We are loading..." />
         </div>
@@ -3529,17 +3597,16 @@ class AddProductDetails extends React.Component {
                     <header className="vendorFormHeading">
                       <div className="headingArea">
                         <h3 className="headingClass">Add new product</h3>
-
                         <div className="line" />
                       </div>
                     </header>
 
                     <section className="vendorUploadFormSection">
                       <div className="vendorUploadFormInnerContainer">
+
                         <div className="inputFormContainer">
                           <div className="formParaSection">
                             <p className="pargraphClass">Name of the product</p>
-                            
                           </div>
                           <div className="materialInformationColumn">
                             <InputForm
@@ -3561,7 +3628,7 @@ class AddProductDetails extends React.Component {
                           <div className="formParaSection">
                             <p className="pargraphClass">Product Code</p>
                           </div>
-                          <div className="productCode">
+                          <div className="materialInformationColumn">
                             <InputForm
                               refName="productCode"
                               placeholder="Type here"
@@ -3583,7 +3650,7 @@ class AddProductDetails extends React.Component {
                               Base price of this product
                             </p>
                           </div>
-                          <div className="PricingSection">
+                          <div className="materialInformationColumn">
                             <InputForm
                               refName="productPrice"
                               placeholder="Type here (in Rupees)"
@@ -3596,6 +3663,45 @@ class AddProductDetails extends React.Component {
                                 });
                               }}
                             />
+                          </div>
+                        </div>
+
+                        <div className="inputFormContainer">
+                          <div className="formParaSection">
+                            <p className="pargraphClass">
+                              GST applicable for this product
+                            </p>
+                          </div>
+                          <div className="materialInformationColumn">
+                            <div className="modalMandatorySection">
+                              <p className="madatoryHighlight">Mandatory</p>
+                            </div>
+                            <div className="inputColumn">
+                              <input
+                                type="text"
+                                ref="GSTInput"
+                                maxLength="2"
+                                placeholder="Ex. 18, 12 etc"
+                                onChange={e =>
+                                  this.checkTypeNumber(e, "GST")
+                                }
+                              />
+                              <span className="InputSeparatorLine">
+                              </span>
+                            </div>
+                            <p>%</p>
+                          </div>
+                          <div className="errorContent">
+                            <p className={this.state.displayGSTValueValidationError}>
+                              Numbers only
+                            </p>
+                            <p
+                              className={
+                                this.state.displayGSTValueError
+                              }
+                            >
+                              GST cannot be zero, please check and enter it.
+                            </p>
                           </div>
                         </div>
 
@@ -3630,8 +3736,7 @@ class AddProductDetails extends React.Component {
                         <div className="inputFormContainer">
                           <div className="formParaSection">
                             <p className="pargraphClass">
-                              {" "}
-                              Features / specifications of the product{" "}
+                              Features / specifications of the product
                             </p>
                           </div>
 
@@ -3645,7 +3750,7 @@ class AddProductDetails extends React.Component {
                                 placeholder="Type the value-add features about this product"
                                 ref="featureInput"
                                 type="text"
-                                maxLength="30"
+                                maxLength="100"
                                 onChange={e => this.setfeatureName(e)}
                                 onKeyPress={e => {
                                   if (e.key === "Enter") {
@@ -3666,9 +3771,6 @@ class AddProductDetails extends React.Component {
                         <div className="inputFormContainer">
                           <div className="formParaSection">
                             <p className="pargraphClass"> Finishing options </p>
-                            {/* <div className="modalMandatorySection">
-                              <p className="madatoryHighlight">Mandatory</p>
-                            </div> */}
                           </div>
 
                           <div className="productFinishSection">
@@ -3695,12 +3797,7 @@ class AddProductDetails extends React.Component {
 
                         <div className="inputFormContainer">
                           <div className="formParaSection">
-                            <p
-                              className="pargraphClass"
-                              // onClick = {() => console.log(this.state.colorArray)}
-                            >
-                              Color options
-                            </p>
+                            <p className="pargraphClass"> Color options </p>
                             {/* <div className="modalMandatorySection">
                               <p className="madatoryHighlight">Mandatory</p>
                             </div> */}
@@ -3815,8 +3912,7 @@ class AddProductDetails extends React.Component {
                         <div className="inputFormContainer">
                           <div className="formParaSection">
                             <p className="pargraphClass">
-                              {" "}
-                              Product description{" "}
+                              Product description
                             </p>
                             <div className="modalMandatorySection">
                               <p className="madatoryHighlight">Mandatory</p>
@@ -3862,10 +3958,9 @@ class AddProductDetails extends React.Component {
 
                         <div className="inputFormContainer">
                           <div className="formParaSection">
-                            <h3 className="pargraphClass">
-                              {" "}
+                            <p className="pargraphClass">
                               Choose the product’s design style{" "}
-                            </h3>
+                            </p>
                             <div className="modalMandatorySection">
                               <p className="madatoryHighlight">Mandatory</p>
                             </div>
@@ -3895,8 +3990,7 @@ class AddProductDetails extends React.Component {
                         <div className="inputFormContainer">
                           <div className="formParaSection">
                             <p className="pargraphClass">
-                              {" "}
-                              Add tags for your product{" "}
+                              Add tags for your product
                             </p>
                           </div>
 
@@ -3938,8 +4032,7 @@ class AddProductDetails extends React.Component {
                         <div className="inputFormContainer">
                           <div className="formParaSection">
                             <p className="pargraphClass">
-                              {" "}
-                              Choose the product type{" "}
+                              Choose the product type
                             </p>
                             <div className="modalMandatorySection">
                               <p className="madatoryHighlight">Mandatory</p>
@@ -3962,8 +4055,7 @@ class AddProductDetails extends React.Component {
                         <div className="inputFormContainer">
                           <div className="formParaSection">
                             <p className="pargraphClass">
-                              {" "}
-                              Is the product available?{" "}
+                              Is the product available?
                             </p>
                             <div className="modalMandatorySection">
                               <p className="madatoryHighlight">Mandatory</p>
@@ -3985,7 +4077,7 @@ class AddProductDetails extends React.Component {
 
                         <div className="inputFormContainer">
                           <div className="formParaSection">
-                            <p className="pargraphClass"> YouTube URL: </p>
+                            <p className="pargraphClass"> Product ad/demo video YouTube link(if any) </p>
                           </div>
 
                           <div className="inputCategoryYoutubeSection">
@@ -4066,7 +4158,7 @@ class AddProductDetails extends React.Component {
                                   </div>
                                 </div>
                                 <div className="errorContent">
-                                  <p className={this.state.displayError}>
+                                  <p className={this.state.displayDiscountValueValidationError}>
                                     Numbers Only
                                   </p>
                                   <p
@@ -4104,7 +4196,7 @@ class AddProductDetails extends React.Component {
                           <div className="formParaSection">
                             <p className="pargraphClass">Brand Name</p>
                           </div>
-                          <div className="brandNameInputSection">
+                          <div className="materialInformationColumn brandNameInputSection">
                             <InputForm
                               refName="brandName"
                               placeholder="Ex.Greenply / Legrand etc."
@@ -4122,8 +4214,13 @@ class AddProductDetails extends React.Component {
 
                         <div className="inputFormContainer">
                           <div className="formParaSection">
-                            <p className="pargraphClass">Brand Logo</p>
+                            <p className="pargraphClass">Product's brand logo (if any)</p>
                           </div>
+                          <p
+                              style = {{marginBottom : "1em"}}
+                              >
+                              Note: Don't worry if the image doesn't appear properly, it will be properly displayed later
+                          </p>
                           <div className="brandImageUploaderRender">
                             <div className="brandImageUploaderClass">
                               <ImageUploader
@@ -4265,7 +4362,7 @@ class AddProductDetails extends React.Component {
                                       </div>
                                     </div>
                                     <div className="errorContent">
-                                      <p className={this.state.displayError}>
+                                      <p className={this.state.displayInstallationValueValidationError}>
                                         Numbers Only
                                       </p>
                                       <p

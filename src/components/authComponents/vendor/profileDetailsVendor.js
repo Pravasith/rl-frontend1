@@ -5,6 +5,7 @@ import "../../../assets/sass/profile_details.scss"
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 
+import Head from 'next/head'
 
 import LogoAnimation from "../../animations/logoAnimation"
 import statesAndCities from "../../../lib/statesAndCities"
@@ -33,6 +34,8 @@ class ProfileDetailsVendor extends React.Component {
 
             firstName: null,
             lastName: null,
+
+            emailId : null,
 
             warningClass: 'warningClass hide',
             warningText: null,
@@ -98,6 +101,8 @@ class ProfileDetailsVendor extends React.Component {
                     profilePicture: decryptedData.profilePicture,
                     mobileNo: decryptedData.mobileNo,
                     whatsappNo: decryptedData.whatsappNo,
+
+                    emailId : decryptedData.emailId,
 
                     /////////
 
@@ -230,33 +235,33 @@ class ProfileDetailsVendor extends React.Component {
         //     })
         //     .catch(e => console.error(e))
 
-
-
-
-
     }
 
 
-
     returnNavBarData = () => {
-        if (this.props.userData.responseData) {
+        if(this.state.emailId){
+            // if (this.props.userData.responseData) {
 
-            //
-            // DECRYPT REQUEST DATA
-            // 
-            let decryptedData = decryptData(
-                this.props.userData.responseData
-            )
-            //
-            // DECRYPT REQUEST DATA
-            //
+            //     //
+            //     // DECRYPT REQUEST DATA
+            //     // 
+            //     let decryptedData = decryptData(
+            //         this.props.userData.responseData
+            //     )
+            //     //
+            //     // DECRYPT REQUEST DATA
+            //     //
+    
+            //     return decryptedData
+            // }
 
-            return decryptedData
+            const userdata = {
+                profilePicture : this.state.profilePicture
+            }
+
+            return userdata
         }
-
-        else {
-            return null
-        }
+        
     }
 
     onChangeGST = async (event, gstPart) => {
@@ -592,7 +597,7 @@ class ProfileDetailsVendor extends React.Component {
                             // this.hitTheAPI("profilePicture", val.imageURL)
 
                             this.setState({
-                                profilePicture: imageURL
+                                profilePicture: val.imageURL
                             })
                             
                         }}
@@ -787,59 +792,73 @@ class ProfileDetailsVendor extends React.Component {
     returnValidationModal = () => {
         const { emptyField } = this.state;
 
-        if (emptyField.length !== 0) {
-            return (
-                <div className={this.state.modalClassToggle}>
-                    <div className="dummyXClass">
-                        <div className="whiteSquareForModal">
-                            <div className="vendorProfileDetailsModal">
-                                <div className="svgImageContainer">
-                                    <ErrorMsgSign />
-                                </div>
-                                <div className="modalContentContainer">
-                                    <div className="modalContentContainerInnerLayer">
-                                        <div className="contentMissingValues">
-                                            <h3>Please provide these details</h3>
-                                            <div className="detailsToInput">
-                                                <div className="detailsInputLayer">
-                                                    {emptyField
-                                                        .map((item, i) =>
-                                                            <div
-                                                                className="errorFieldMessage"
-                                                                key={i}>
-                                                                <ul>
-                                                                    <li>{item}</li>
-                                                                </ul>
-                                                            </div>
-                                                        )}
-                                                    
+            if (emptyField.length !== 0) {
+                return (
+                    <div className={this.state.modalClassToggle}>
+                        <div className="dummyXClass">
+                            <div className="whiteSquareForModal">
+                                <div className="vendorProfileDetailsModal">
+                                    <div className="svgImageContainer">
+                                        <ErrorMsgSign />
+                                    </div>
+                                    <div className="modalContentContainer">
+                                        <div className="modalContentContainerInnerLayer">
+                                            <div className="contentMissingValues">
+                                                <h3>Please provide these details</h3>
+                                                <div className="detailsToInput">
+                                                    <div className="detailsInputLayer">
+                                                        {emptyField
+                                                            .map((item, i) =>
+                                                                <div
+                                                                    className="errorFieldMessage"
+                                                                    key={i}>
+                                                                    <ul>
+                                                                        <li>{item}</li>
+                                                                    </ul>
+                                                                </div>
+                                                            )}
+                                                        
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="closeModalContainer">
-                                    <WhiteButton
-                                        runFunction={() => {
-                                            this.modalClassToggle("dontShow")
-                                        }}
-                                    >
-                                        Sure, I’ll do that
-                                    </WhiteButton>
-                                </div>
+                                    <div className="closeModalContainer">
+                                        <WhiteButton
+                                            runFunction={() => {
+                                                this.modalClassToggle("dontShow")
+                                            }}
+                                        >
+                                            Sure, I’ll do that
+                                        </WhiteButton>
+                                    </div>
 
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            )
-        }    
-    }
+                )
+            }    
+        }
 
     render() {
 
         return (
             <div className="bigWrapper">
+
+                <Head>
+                    <meta name="description" content="Architectural process from Rolling Logs, start building your dream home without any hassle in India." />
+                    <meta name="robots" content="noodp" />
+                    <link rel="canonical" href="https://www.rollinglogs.com/architecture/" />
+                    <link rel = "next" href = "https://www.rollinglogs.com/architecture/page/2/" />
+                    <meta property="og:locale" content="en_US" />
+                    <meta property="og:type" content="object" />
+                    <meta property="og:description" content="Architects, Interior Designers Marketplace in India" />
+                    <meta property="og:url" content="https://www.rollinglogs.com/architecture/" />
+                    <meta property="og:site_name" content="RollingLogs" />
+                    <meta property="og:image" content="http://static.dezeen.com/assets/images/logo-magazine.png" />
+                    <title>Create Vendor profile here and get seen by architects - Rolling Logs</title>
+                </Head>
 
                 <div className={this.state.loadingClass}>
                     <LogoAnimation 
@@ -852,7 +871,14 @@ class ProfileDetailsVendor extends React.Component {
                         <article className="vendorProfileDetailsOuterwrapper">
 
                             <Navbar
-                                userData={this.returnNavBarData()}
+                                // userData = { this.returnNavBarData() }
+                                userData = {
+                                    this.state.emailId 
+                                    ? 
+                                    { profilePicture : this.state.profilePicture }
+                                    :
+                                    null
+                                }
                             />
 
                             <header className="vendorHeaderClass">

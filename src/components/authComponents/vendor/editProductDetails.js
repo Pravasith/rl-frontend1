@@ -2,6 +2,8 @@ import React from "react"
 
 import "../../../assets/sass/add_product_details.scss"
 
+import Head from 'next/head'
+
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 
@@ -137,10 +139,17 @@ class EditProductDetails extends React.Component {
 
             // displayError: "displayError",
             displayError: "displayError hide",
+            displayDiscountValueValidationError: "displayError hide",
+            displayGSTValueValidationError: "displayError hide",
+            displayInstallationValueValidationError: "displayError hide",
+
             displayValueError: "displayValueError hide",
+            displayGSTValueError: "displayGSTValueError hide",
             displayDiscountValueError: "displayDiscountValueError hide",
             displayInstallationValueError: "displayInstallationValueError hide",
             displayQuantityValueError: "displayQuantityValueError hide",
+
+            Validation: "Validation hide",
 
             materialCostIsValid: false,
             sizeCostIsValid: false,
@@ -249,6 +258,7 @@ class EditProductDetails extends React.Component {
                 productName: decryptedData.productName,
                 productCode: decryptedData.productCode,
                 productPrice: decryptedData.basePrice,
+                productGST: decryptedData.gstPercentage,
                 productMaterials: decryptedData.productMaterials,
                 featuresAdded: decryptedData.features,
                 productFinishes: decryptedData.finishingOptions,
@@ -1355,6 +1365,7 @@ class EditProductDetails extends React.Component {
             productName,
             productCode,
             productPrice,
+            productGST,
             productMaterials,
             productFinishes,
             productMinQuantity,
@@ -1376,6 +1387,10 @@ class EditProductDetails extends React.Component {
 
         else if (fieldName === "ProductPrice") {
             if (productPrice) return productPrice;
+        }
+
+        else if (fieldName === "ProductGST") {
+            if (productGST) return productGST;
         }
 
         else if (fieldName === "ProductMaterials") {
@@ -1541,12 +1556,17 @@ class EditProductDetails extends React.Component {
                 if (checkFor === "discount") {
                     this.setState({
                         productDiscount: Number(val),
-                        displayError: "displayError hide"
+                        displayDiscountValueValidationError: "displayError hide"
+                    });
+                } else if (checkFor === "GST") {
+                    this.setState({
+                        productGST: Number(val),
+                        displayGSTValueValidationError: "displayError hide",
                     });
                 } else if (checkFor === "installation") {
                     this.setState({
                         productInstallationServiceCost: Number(val),
-                        displayError: "displayError hide"
+                        displayInstallationValueValidationError: "displayError hide"
                     });
                 } else if (checkFor === "installer") {
                     this.setState({
@@ -1582,12 +1602,17 @@ class EditProductDetails extends React.Component {
                 if (checkFor === "discount") {
                     this.setState({
                         productDiscount: "",
-                        displayError: "displayError"
+                        displayDiscountValueValidationError: "displayError"
+                    });
+                } else if (checkFor === "GST") {
+                    this.setState({
+                        productGST: "",
+                        displayGSTValueValidationError: "displayError"
                     });
                 } else if (checkFor === "installation") {
                     this.setState({
                         productInstallationServiceCost: "",
-                        displayError: "displayError"
+                        displayInstallationValueValidationError: "displayError"
                     });
                 } else if (checkFor === "installer") {
                     this.setState({
@@ -1604,7 +1629,7 @@ class EditProductDetails extends React.Component {
                     this.setState({
                         materialCost: "",
                         displayError: "displayError",
-                        materialCostValid: false
+                        materialCostIsValid: false
                     });
                 } else if (checkFor === "size") {
                     this.setState({
@@ -2561,7 +2586,8 @@ class EditProductDetails extends React.Component {
         const finalDataToSend = {
             productName : this.state.productName,
             productCode : this.state.productCode,
-            basePrice : this.state.productPrice,
+            basePrice: this.state.productPrice,
+            gstPercentage: this.state.productGST,
             productMaterials : this.state.productMaterials,
             finishingOptions : this.state.productFinishes,
             colorOptions :  this.state.colorArray,
@@ -3479,7 +3505,7 @@ class EditProductDetails extends React.Component {
                                                 </div>
 
                                                 <div className="errorContent">
-                                                    <p className={this.state.displayError}>
+                                                    <p className={this.state.displayInstallationValueValidationError}>
                                                         Numbers Only
                                                     </p>
                                                 </div>
@@ -3605,92 +3631,112 @@ class EditProductDetails extends React.Component {
         else if(this.state.isChecked === false) this.setState({ extraCostInput: "extraCostInput hide" });
     }
 
-    handleMultiValidation = fieldName => {
-        const {
-            productDiscountAvailablity,
-            productDiscount,
-            productMinQuantity,
-            productMaxQuantity,
-            productInstallationAvailability,
-            productInstallationServiceCost,
-            productInstallers
-        } = this.state;
+  handleMultiValidation = fieldName => {
+    const {
+        productDiscountAvailablity,
+        productDiscount,
+        productGST,
+        productMinQuantity,
+        productMaxQuantity,
+        productInstallationAvailability,
+        productInstallationServiceCost,
+        productInstallers
+    } = this.state;
 
-        if (fieldName === "Max. quantity") {
-            if (productMaxQuantity !== undefined) {
-                if (
-                    productMaxQuantity === productMinQuantity ||
-                    productMaxQuantity < productMinQuantity
-                ) {
+    if (fieldName === "Max. quantity") {
+        if (productMaxQuantity !== undefined) {
+            if (
+                productMaxQuantity === productMinQuantity ||
+                productMaxQuantity < productMinQuantity
+            ) {
+                this.setState({
+                    displayQuantityValueError: "displayQuantityValueError"
+                });
+
+                return "Max. quantity value";
+            } else
+                this.setState({
+                    displayQuantityValueError: "displayQuantityValueError hide"
+                });
+        } else return "Max. qunatity";
+    }
+
+    else if (fieldName === "Product GST") {
+        if (productGST !== undefined) {
+          if (productGST === 0) {
+            console.log("wrksin")
+            this.setState({
+              displayGSTValueError: "displayGSTValueError"
+            });
+
+            return "Product GST Value";
+          } else {
+            this.setState({
+              displayGSTValueError: "displayGSTValueError hide"
+            });
+          }
+        } else if (productGST === undefined) {
+          return "Product GST";
+      }
+    }
+
+    else if (fieldName === "Product Discount") {
+        if (productDiscountAvailablity === "yes") {
+            if (productDiscount !== undefined) {
+                if (productDiscount === 0) {
                     this.setState({
-                        displayQuantityValueError: "displayQuantityValueError"
+                        displayDiscountValueError: "displayDiscountValueError"
                     });
 
-                    return "Max. quantity value";
+                    return "Product Discount Value";
                 } else
                     this.setState({
-                        displayQuantityValueError: "displayQuantityValueError hide"
+                        displayDiscountValueError: "displayDiscountValueError hide"
                     });
-            } else return "Max. qunatity";
-        }
+            } else if (productDiscount === undefined) {
+                return "Product Discount Value";
+            }
+        } else return "Product Discount Availability";
+    }
 
-        else if (fieldName === "Product Discount") {
-            if (productDiscountAvailablity === "yes") {
-                if (productDiscount !== undefined) {
-                    if (productDiscount === 0) {
+    else if (fieldName === "Product Installation") {
+        if (productInstallationAvailability === 2) {
+            if (productInstallationServiceCost !== undefined) {
+                if(this.refs.installationCost.value !== "") {
+                    if (productInstallationServiceCost === 0) {
                         this.setState({
-                            displayDiscountValueError: "displayDiscountValueError"
+                            displayInstallationValueError: "displayInstallationValueError"
                         });
 
-                        return "Product Discount Value";
-                    } else
-                        this.setState({
-                            displayDiscountValueError: "displayDiscountValueError hide"
-                        });
-                } else if (productDiscount === undefined) {
-                    return "Product Discount Value";
-                }
-            } else return "Product Discount Availability";
-        }
-
-        else if (fieldName === "Product Installation") {
-            if (productInstallationAvailability === 2) {
-                if (productInstallationServiceCost !== undefined) {
-                    if(this.refs.installationCost.value !== "") {
-                        if (productInstallationServiceCost === 0) {
-                            this.setState({
-                                displayInstallationValueError: "displayInstallationValueError"
-                            });
-    
-                            return "Product Installation Cost";
-                        } 
-                        
-                        else
-                            this.setState({
-                                displayInstallationValueError:
-                                    "displayInstallationValueError hide"
-                            });
-                    }
-                    
-                    else if (this.refs.installationCost.value === "") {
                         return "Product Installation Cost";
-                    }
+                    } 
+                    
+                    else
+                        this.setState({
+                            displayInstallationValueError:
+                                "displayInstallationValueError hide"
+                        });
                 }
-
-                else if (productInstallationServiceCost === undefined) {
+                
+                else if (this.refs.installationCost.value === "") {
                     return "Product Installation Cost";
                 }
             }
 
-            else if (productInstallationAvailability === 5) {
-                if (productInstallers.length === 0) {
-                    return "Product Installer Details"
-                }
+            else if (productInstallationServiceCost === undefined) {
+                return "Product Installation Cost";
             }
-
-            else return "Product Installation Service";
         }
-    };
+
+        else if (productInstallationAvailability === 5) {
+            if (productInstallers.length === 0) {
+                return "Product Installer Details"
+            }
+        }
+
+        else return "Product Installation Service";
+    }
+  };
 
     validateProceedHandler = async () => {
         const fieldNames = [
@@ -3699,6 +3745,10 @@ class EditProductDetails extends React.Component {
             {
                 fieldName: "Base price of this product",
                 value: this.state.productPrice
+            },
+            {
+                fieldName: `${this.handleMultiValidation("Product GST")}`,
+                value: this.state.productGST
             },
             { fieldName: "Material", value: this.state.productMaterials },
             // { fieldName: "Finishing Options", value: this.state.productFinishes },
@@ -3743,6 +3793,7 @@ class EditProductDetails extends React.Component {
                 item.value === undefined ||
                 item.value === null ||
                 item.value.length === 0 ||
+                item.fieldName === "Product GST Value" ||
                 item.fieldName === "Max. quantity value" ||
                 item.fieldName === "Product Discount Value" ||
                 item.fieldName === "Product Installation Cost" ||
@@ -3869,6 +3920,19 @@ class EditProductDetails extends React.Component {
     render() {
         return (
             <div className="vendorDashboardWrapper">
+                <Head>
+                    <meta name="description" content="Architectural process from Rolling Logs, start building your dream home without any hassle in India." />
+                    <meta name="robots" content="noodp" />
+                    <link rel="canonical" href="https://www.rollinglogs.com/architecture/" />
+                    <link rel = "next" href = "https://www.rollinglogs.com/architecture/page/2/" />
+                    <meta property="og:locale" content="en_US" />
+                    <meta property="og:type" content="object" />
+                    <meta property="og:description" content="Architects, Interior Designers Marketplace in India" />
+                    <meta property="og:url" content="https://www.rollinglogs.com/architecture/" />
+                    <meta property="og:site_name" content="RollingLogs" />
+                    <meta property="og:image" content="http://static.dezeen.com/assets/images/logo-magazine.png" />
+                    <title>Showcase your products to architect and interior designers - Rolling Logs</title>
+                </Head>
                 <div className={this.state.loadingClass}>
                     <LogoAnimation
                         text="We are loading..."
@@ -4013,6 +4077,50 @@ class EditProductDetails extends React.Component {
                                                         />
                                                     </div>
                                                 </div>
+
+                                                <div className="inputFormContainer">
+                                                    <div className="formParaSection">
+                                                        <p className="pargraphClass">
+                                                        GST applicable for this product
+                                                        </p>
+                                                    </div>
+                                                    <div className="materialInformationColumn">
+                                                        <div className="modalMandatorySection">
+                                                            <p className="madatoryHighlight">Mandatory</p>
+                                                        </div>
+
+                                                        <div className="inputColumn">
+                                                            <input
+                                                                type="text"
+                                                                ref="GSTInput"
+                                                                maxLength="2"
+                                                                placeholder="Ex. 18, 12 etc"
+                                                                defaultValue={this.handleDefaultValues("ProductGST")}
+                                                                onChange={e =>
+                                                                    this.checkTypeNumber(e, "GST")
+                                                                }
+                                                            />
+                                                            <span className="InputSeparatorLine"></span>
+                                                        </div>
+                                                        
+                                                        <p>%</p>
+                                                    </div>
+
+
+                                                    <div className="errorContent">
+                                                        <p className={this.state.displayGSTValueValidationError}>
+                                                        Numbers only
+                                                        </p>
+                                                        <p
+                                                        className={
+                                                            this.state.displayGSTValueError
+                                                        }
+                                                        >
+                                                        GST cannot be zero, please check and enter it.
+                                                        </p>
+                                                    </div>
+                                                </div>
+
 
                                                 <div className="inputFormContainer">
                                                     <div className="formParaSection">
@@ -4379,7 +4487,7 @@ class EditProductDetails extends React.Component {
 
                                                 <div className="inputFormContainer">
                                                     <div className="formParaSection">
-                                                        <p className="pargraphClass"> YouTube URL: </p>
+                                                        <p className="pargraphClass">Product ad/demo video YouTube link(if any) </p>
                                                     </div>
                                                     
                                                     <div className="inputCategoryYoutubeSection">
@@ -4450,7 +4558,7 @@ class EditProductDetails extends React.Component {
                                                                     </div>
                                                                 </div>
                                                                 <div className="errorContent">
-                                                                    <p className={this.state.displayError}>
+                                                                    <p className={this.state.displayDiscountValueValidationError}>
                                                                         Numbers Only
                                                                     </p>
                                                                     <p className={this.state.displayDiscountValueError}>
@@ -4498,9 +4606,17 @@ class EditProductDetails extends React.Component {
 
                                                 <div className="inputFormContainer">
                                                     <div className="formParaSection">
-                                                        <p className="pargraphClass">Brand Logo</p>
+                                                        <p className="pargraphClass">Product's brand logo (if any) </p>
                                                     </div>
+                                                    
+                                                    <p
+                                                        style = {{marginBottom : "1em"}}
+                                                        >
+                                                        Note: Don't worry if the image doesn't appear properly, it will be properly displayed later
+                                                    </p>
+
                                                     {this.returnBrandImage()}
+                                                    
                                                 </div>
 
                                                 <div className="inputFormContainer">

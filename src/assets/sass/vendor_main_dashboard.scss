@@ -87,11 +87,107 @@ input{
                 //    height: 85%;
                     height: 100%;
 
+                .modalCategoryUploadedContainer{
+                    @include flexCentreCol;
+                    justify-content: flex-start;
+                    width: 40%;
+                    // height: 8em;
+                    margin: 0.5em;
+                    background: $white;
+                    margin-bottom: 4em;
+                    @include box_shadow;
+
+                    .loadingAnimationDelete{
+                        @include flexCentreCol;
+                        margin: 0.5em;
+                        // background: yellow;
+                        height: 100%;
+                    }
+
+                    .modalHeaderCloserSection{
+                        @include flexCentreRow;
+                        width: 100%;
+                        .modalHeaderContainer{
+                            @include flexCentreCol;
+                            margin-top: 0.5em;
+                            width: 92%;
+                            h3{
+                                text-align: center;
+                            }
+                            .line{
+                                width: 30%;
+                                height: 0.1em;
+                                background: $secondaryMagenta;
+                            }
+                        }
+                        .close{
+                            cursor: pointer;
+                        }
+                    }
+                    .confirmationButtonContainer{
+                        @include flexCentreRow;
+                        margin: 1em 0;
+                    }
+                    .uploadedProductsContainer{
+                        @include flexCentreRow;
+                        margin: 0.5em 0 0.8em 0; 
+                        width: 100%;
+                        .productImagesContainer{
+                            height: 23em;
+                            overflow-y: auto;
+                            width: 95%;
+                            .categorisedProductsDisplay{
+                                .categorisedProductDisplayInnerLayer{
+                                    .subCategoryHead{
+                                        display: grid;
+                                        grid-template-columns: 1fr 1fr 1fr;
+                                        cursor: pointer;
+                                          .imageSliderWrap{
+                                            width: 90%;
+                                            margin: 0.5em 0.2em;
+                                            .productImageGallery{
+                                                img{
+                                                    width: 100%;
+                                                    height: 6em;
+                                                    transition: 0.4s;
+                                                    animation: fadeIn 0.3s ease;
+                                                }
+                                                &:hover{
+                                                    transform: translateY(-0.1em);
+                                                    transition: 0.3s;
+                                                    img{
+                                                        filter: saturate(1.25);
+                                                    }
+                                                    .paragraphClass{
+                                                        p{
+                                                            background: $white;
+                                                            opacity: 1;
+                                                            color: $black;
+                                                            transition: 0.3s;
+                                                            text-decoration: underline;
+                                                        }
+                                                        
+                                                    }
+                                                }
+                                                .paragraphClass{
+                                                    text-align: center;
+                                                }
+                                            }
+                                            
+                                          }
+                                       
+                                    }
+                                }
+                            }
+                        }
+                    } 
+                }
+
                 .modalCategoryDeleteContainer{
                     @include flexCentreCol;
                     justify-content: flex-start;
                     width: 30%;
-                    height: 8em;
+                    // height: 8em;
                     margin: 0.5em;
                     background: $white;
                     @include box_shadow;
@@ -103,24 +199,91 @@ input{
                         height: 100%;
                     }
 
-                    .modalHeaderContainer{
-                        @include flexCentreCol;
-                        margin-top: 0.5em;
-                        // width: 85%;
-                        h3{
-                            text-align: center;
+                    .modalHeaderCloserSection{
+                        @include flexCentreRow;
+                        width: 100%;
+                        .modalHeaderContainer{
+                            @include flexCentreCol;
+                            margin-top: 0.5em;
+                            width: 80%;
+                            h3{
+                                text-align: center;
+                            }
+                            .line{
+                                width: 30%;
+                                height: 0.1em;
+                                background: $secondaryMagenta;
+                            }
                         }
-                        .line{
-                            width: 30%;
-                            height: 0.1em;
-                            background: $secondaryMagenta;
+                        .close{
+                            cursor: pointer;
                         }
                     }
-                    
-                .confirmationButtonContainer{
-                    @include flexCentreRow;
-                    margin: 0.5em 0; 
-                }   
+                    .confirmationButtonContainer{
+                        @include flexCentreRow;
+                        margin: 1em 0;
+                    }
+                    .uploadedProductsContainer{
+                        @include flexCentreRow;
+                        margin: 0.5em 0; 
+                        width: 100%;
+                        .productImagesContainer{
+                            height: 23em;
+                            overflow-y: auto;
+                            width: 95%;
+                            .categorisedProductsDisplay{
+                                .categorisedProductDisplayInnerLayer{
+                                    .subCategoryHead{
+                                        display: grid;
+                                        grid-template-columns: 1fr 1fr 1fr;
+                                        cursor: pointer;
+                                          .imageSliderWrap{
+                                            width: 85%;
+                                            margin: 0.7em 0.2em;
+                                            &:hover{
+                                                @include box_shadow;
+                                                background: $white;
+                                                transform: translateY(-0.1em);
+                                            }
+                                            .productImageGallery{
+                                                img{
+                                                    width: 100%;
+                                                    height: 6em;
+                                                    transition: 0.2s;
+                                                    filter: saturate(1.25);
+                                                    animation: fadeIn 0.3s ease;
+                                                }
+                                                &:hover{
+                                                    // @include box_shadow;
+                                                    // background: $white;
+                                                    // transform: translateY(-0.1em);
+                                                    img{
+                                                        
+                                                        filter: saturate(1.25);
+                                                    }
+                                                    .paragraphClass{
+                                                        p{
+                                                            background: $white;
+                                                            opacity: 1;
+                                                            color: $black;
+                                                            transition: 0.2s;
+                                                            text-decoration: underline;
+                                                        }
+                                                        
+                                                    }
+                                                }
+                                                .paragraphClass{
+                                                    text-align: center;
+                                                }
+                                            }
+                                            
+                                          }
+                                       
+                                    }
+                                }
+                            }
+                        }
+                    }   
                 }
 
                 .modalInnerLayer{
@@ -657,7 +820,8 @@ input{
                     @include flexCentreCol;
                     justify-content: flex-start;
                     width: 70%;
-                    height: 35em;
+                    // height: 35em;
+                    height: 75vh;
                     padding: 0.5em;
                     background: $white;
                     @include box_shadow;
@@ -694,7 +858,8 @@ input{
                           
                             .productPreviewInformationColumn{
                                 width: 99%;
-                                height: 63vh;
+                                // height: 63vh;
+                                height: 56vh;
                                 overflow-y: auto;
                                 margin: 1em 0;
                                
@@ -1316,6 +1481,8 @@ input{
                         .firstHeadingComponent{
                             @include flexCentreCol;
                             width: 50%;
+                            height: 2.5em;
+
                             &:hover{
                                 cursor: pointer;
                                 .line{
@@ -1577,7 +1744,7 @@ input{
                             .mainCategoryHead{
                                 @include flexCentreRow;
                                 justify-content: space-between;
-                                align-items: flex-start;
+                                align-items: baseline;
                                 // width: 30%;
                                 .categoryMainHeaderContainer{
                                     @include flexCentreCol;
@@ -1610,18 +1777,58 @@ input{
                                     @include flexCentreCol;
                                     align-items: flex-start;
                                     width: 97%;
-                                    .subCategoryHeaderSection{
-                                        h3{
-                                            color: $darkerGrey;
-                                            font-size: 0.8em;
-                                            font-weight: 500;
+                                    .headerSection{
+                                        @include flexCentreRow;
+                                        justify-content: flex-start;
+                                        width: 100%;
+                                        margin-bottom: 0.5em;
+                                        .subCategoryHeaderSection{
+                                            // width: 20%;
+                                            .subCategoryHeaderNumberSection{
+                                                @include flexCentreRow;
+                                                justify-content: flex-start;
+                                                .numberCount{
+                                                    margin-left: 0.5em;
+                                                }
+                                                h3{
+                                                    color: $darkerGrey;
+                                                    font-size: 0.8em;
+                                                    font-weight: 500;
+                                                }
+                                            }
+                                            
+                                            .line{
+                                                width: 20%;
+                                                min-height: 0.1em;
+                                                height: 0.1em;
+                                                background: $lightGrey;
+                                            }
                                         }
-                                        .line{
-                                            width: 20%;
-                                            min-height: 0.1em;
-                                            height: 0.1em;
-                                            background: $lightGrey;
+                                        .deleteCategoryContainer{
+                                            .whiteButtonWrapper{
+                                                margin-top: 0;
+                                                margin-bottom: 1.2em;
+                                                margin-left: 1em;
+                                                font-size: 0.7em;
+                                                background: $mediumGrey;
+                                                color: $white;
+                                                box-shadow: none;
+                                                transition: 0.2s;
+                                                padding: 0.3em 0.8em;
+                                                transition: 0.2s;
+                                                animation: fadeIn 0.3s ease;
+
+                                                &:hover{
+                                                    background: $darkestGrey;
+                                                    color: $white;
+                                                    // p{
+                                                        text-decoration: underline;
+                                                    // }
+                                                }
+                                            }
+
                                         }
+
                                     }
                                     .addProductCategorySection{
                                         @include flexCentreRow;
@@ -1699,7 +1906,7 @@ input{
                             .vendorGraphicInnerContainer{
                                 position: absolute;
                                 text-align: center;
-                                bottom: 14%;
+                                top: 13em;
                                 width: 100%;
                                 .vendorGraphicParaInnerLayer{
                                     @include flexCentreRow;

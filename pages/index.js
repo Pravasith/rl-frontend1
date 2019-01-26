@@ -37,6 +37,13 @@ const PostLink = (props) => (
             >
             <a></a>
         </Link>
+
+        <Link
+            as={`/vendor/products/${props.pId}`}
+            href={`/vendor-productsList?pId=${props.pId}`}
+        >
+            <a></a>
+        </Link>
     </div>
     
 )
@@ -66,7 +73,7 @@ const Index = () => (
                 <StartPage/>
                 <ul>
                     <PostLink 
-                        // id={routeLinks.VENDOR_DASHBOARD} 
+                        id={routeLinks.VENDOR_DASHBOARD} 
                     />
                 </ul>
             </div>
