@@ -1062,6 +1062,106 @@ input{
               }
             }
 
+            .linkModalContainer{
+                .modalContainer{
+                    width: 100%;
+                    // height: 91vh;
+                    // background: #ffffff88;
+                    position: absolute;
+                    top: 20%;
+                    // left: 0;
+                    // margin-top: 4%;
+                    .modalWrapperOuterLayer{
+                        @include flexCentreRow;
+                        // background: $white;
+                        // @include box_shadow;
+                        // margin: 100px auto 0;
+                        transition: .4s ease-in-out;
+                        width: 100%;
+                        .modalWrapperInnerLayer{
+                            @include flexCentreCol;
+                            justify-content: flex-start;
+                            width: 50%;
+                            height: 23vh;
+                            @include box_shadow;
+                            background: $white;
+                            padding: 0.5em;
+                            .modalHeader {
+                                @include flexCentreRow;
+                                background: $white;
+                                .modalHeaderContainer{
+                                    @include flexCentreCol;
+                                    .line{
+                                        width: 40%;
+                                        background: $secondaryMagenta;
+                                    }
+                                }
+                                h3{
+                                    color: black;
+                                    margin: 0;
+                                    padding: 1em 2em 0 2em;
+                                    width: 70%;
+                                    text-align: center;
+                                }
+                                .closeModalBtn {
+                                    @include flexCentreRow;
+                                    color: black;
+                                    cursor: pointer;
+                                    float: right;
+                                    font-size: 50px;
+                                    margin: 0;
+                                }
+                            }
+                            .modalBody {
+                                width: 100%;
+                                .linkModal{
+                                    .linkComponent{
+                                        @include flexCentreRow;
+                                        .shareLinkImageComponent{
+                                            margin: 0 0.5em;
+                                        }
+                                        .linkAddressComponent{
+                                            width: 70%;
+                                            input{
+                                                border: 0.2em solid black;
+                                                border-radius: 0.5em;
+                                            }
+                                        }
+                                        .copyButtonContainer{
+                                            margin: 0 0.5em;
+                                            button{
+                                                position: relative;
+                                                display: inline-block;
+                                                &:hover{
+                                                    .tooltip{
+                                                    visibility: visible;
+                                                    }
+                                                }
+                                                .tooltip{
+                                                // visibility: hidden;
+                                                width: 3em;
+                                                background-color: black;
+                                                color: #fff;
+                                                text-align: center;
+                                                border-radius: 6px;
+                                                padding: 5px 0;
+                        
+                                                /* Position the tooltip */
+                                                position: absolute;
+                                                z-index: 1;
+                                                }
+                                        }
+                                        }   
+                                    }
+                                    input{}
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+
 
             .whiteBackgroundForModal{
                 width: 100%;
@@ -1965,6 +2065,10 @@ input{
                 display: none;
             }
         }
+   
+    
+    
+    
     }
 
         .footerWrapper{

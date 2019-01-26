@@ -37,6 +37,8 @@ class VendorMainDashboard extends React.Component {
             loadingClass: 'loadingAnim',
             mainClass: 'mainClass hide',
 
+            linkModal: 'linkModalContainer hide',
+
             contentClass: 'contentClass hide',
             internalLoaderClass: 'contentLoader',
             modalClass: 'modalClass hide',
@@ -861,6 +863,7 @@ class VendorMainDashboard extends React.Component {
                             <WhiteButton
                                 runFunction={() => {
                                     this.setState({
+                                        linkModal: 'linkModalContainer',
                                         isShowing: true
                                     })
                                 }}
@@ -2239,6 +2242,9 @@ class VendorMainDashboard extends React.Component {
     returnShareLinkModal = () => {
         return (
 
+            <div className={this.state.linkModal}>
+
+            
             <Modal
                 className="modal"
                 show={this.state.isShowing}
@@ -2250,25 +2256,32 @@ class VendorMainDashboard extends React.Component {
                 <div className="linkModal">
 
                     <div className="linkComponent">
-                        <ShareLink className="shareLinkLogo" />
-                        <input
-                            className="shareLinkInput"
-                            readOnly
-                            ref="toolTip"
-                            value={`https://rollinglogs.com/vendor-profile/${this.state.firstName}-${this.state.rLId}`}
-                        />
-                        <button
-                            className="toolTip"
-                            onClick={() => this.copyToClipBoard()}
-                        >
-                            <CopyLinkicon />
-                            <span className="tooltip">Copy</span>
-                        </button>
+                        <div className="shareLinkImageComponent">
+                            <ShareLink />
+                        </div>
 
+                        <div className="linkAddressComponent">
+                            <input
+                                className="shareLinkInput"
+                                readOnly
+                                ref="toolTip"
+                                value={`https://rollinglogs.com/vendor-profile/${this.state.firstName}-${this.state.rLId}`}
+                            />
+                        </div>
+                        <div className="copyButtonContainer">
+                            <button
+                                className="toolTip"
+                                onClick={() => this.copyToClipBoard()}
+                            >
+                                <CopyLinkicon />
+                                <span className="tooltip">Copy</span>
+                            </button>
+                        </div>
                     </div>
                     {this.state.tool_tip_content.length > 0 && <span className="tooltiptext">{this.state.tool_tip_content} </span>}
                 </div>
             </Modal>
+            </div>
         )
     }
 
@@ -2503,7 +2516,7 @@ class VendorMainDashboard extends React.Component {
 
                                     </section>
 
-                                    {this.returnShareLinkModal()}
+                                    {/* {this.returnShareLinkModal()} */}
 
                                 </article>
 
@@ -2511,6 +2524,8 @@ class VendorMainDashboard extends React.Component {
                         </div>
 
                         {/* <Footer /> */}
+
+                         {this.returnShareLinkModal()}
 
                         {this.returnModal()}
                     </div>
