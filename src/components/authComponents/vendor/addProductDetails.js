@@ -103,6 +103,7 @@ class AddProductDetails extends React.Component {
         categoryName: "",
         imagesInCategory: []
       },
+      productPrice: 0,
 
       tagsAdded: [],
 
@@ -228,7 +229,7 @@ class AddProductDetails extends React.Component {
         // DECRYPT REQUEST DATA
         //
 
-        console.log(decryptedData)
+        // console.log(decryptedData)
 
         this.setState({
           loadingClass: "loadingAnim hide",
@@ -3286,10 +3287,10 @@ class AddProductDetails extends React.Component {
     const fieldNames = [
       { fieldName: "Product Name", value: this.state.productName },
       { fieldName: "Product Code", value: this.state.productCode },
-      {
-        fieldName: "Base price of this product",
-        value: this.state.productPrice
-      },
+      // {
+      //   fieldName: "Base price of this product",
+      //   value: this.state.productPrice
+      // },
       { fieldName: "Material", value: this.state.productMaterials },
       // { fieldName: "Finishing Options", value: this.state.productFinishes },
       // { fieldName: "Color Options", value: this.state.colorArray },

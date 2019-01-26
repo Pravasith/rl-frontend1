@@ -842,7 +842,10 @@ class VendorMainDashboard extends React.Component {
                                 </div>
 
                                 <div className="subCategoryProductSection">
-                                    <div className="subCategoryProductSectionInnerLayer">
+                                    <div 
+                                        className="subCategoryProductSectionInnerLayer"
+                                        onClick={console.log("Wrks")}
+                                    >
                                         {
                                             this.returnSubCategoryProducts(subcategory.productImages, subcategory.subCategoryName)
                                         }
