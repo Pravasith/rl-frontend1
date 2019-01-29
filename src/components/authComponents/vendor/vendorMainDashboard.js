@@ -2516,7 +2516,7 @@ class VendorMainDashboard extends React.Component {
 
                         {/* <Footer /> */}
 
-                         {this.returnShareLinkModal()}
+                         {/* {this.returnShareLinkModal()} */}
 
                         {this.returnModal()}
                     </div>
