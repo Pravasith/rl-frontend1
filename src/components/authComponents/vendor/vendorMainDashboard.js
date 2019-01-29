@@ -125,7 +125,7 @@ class VendorMainDashboard extends React.Component {
                 // DECRYPT REQUEST DATA
                 //
 
-                console.log(decryptData(userData.responseData))
+                // console.log(decryptData(userData.responseData))
 
                 this.convertVendorDataAndSave(decryptedData.products)
 
@@ -546,7 +546,7 @@ class VendorMainDashboard extends React.Component {
                     imagesInCategory: [...dummyArray]
                 }
                 
-                console.log(dataObject);
+                // console.log(dataObject);
 
                 return (
                     <div className="imageSliderWrap">
