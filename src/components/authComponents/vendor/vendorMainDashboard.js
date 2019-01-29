@@ -546,6 +546,7 @@ class VendorMainDashboard extends React.Component {
                     imagesInCategory: [...dummyArray]
                 }
                 
+                console.log(dataObject);
 
                 return (
                     <div className="imageSliderWrap">
