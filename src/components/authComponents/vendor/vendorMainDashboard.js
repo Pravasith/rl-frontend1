@@ -92,9 +92,9 @@ class VendorMainDashboard extends React.Component {
 
             deleteLoading : false,
 
-            isShowing: false,
+            // isShowing: false,
 
-            tool_tip_content: '',
+            // tool_tip_content: '',
         }
 
     }
@@ -127,7 +127,7 @@ class VendorMainDashboard extends React.Component {
                 // DECRYPT REQUEST DATA
                 //
 
-                console.log(decryptData(userData.responseData))
+                // console.log(decryptData(userData.responseData))
 
                 this.convertVendorDataAndSave(decryptedData.products)
 
@@ -548,6 +548,7 @@ class VendorMainDashboard extends React.Component {
                     imagesInCategory: [...dummyArray]
                 }
                 
+                // console.log(dataObject);
 
                 return (
                     <div className="imageSliderWrap">
@@ -612,7 +613,7 @@ class VendorMainDashboard extends React.Component {
                                             modalClass: 'modalClass',
                                             productManagerWrapperClass: "productManagerWrapperClass blurClass",
                                             activeModalType: "subCategoryDetailedPreview",
-                                            itemCode: data.itemCode
+                                            itemCode: item.itemCode
                                             
                                         })
                                     }}    
@@ -653,10 +654,9 @@ class VendorMainDashboard extends React.Component {
                         className="subCategoryHead"
                         key = { "subCat" + i }
                         >          
-
-                            {
-                                this.returnSubCategoryProductsModal(subCatProducts, subcategory.subCategoryName)
-                            }
+                        {
+                            this.returnSubCategoryProductsModal(subCatProducts, subcategory.subCategoryName)
+                        }
                     </div>
                 )
             })
@@ -717,7 +717,8 @@ class VendorMainDashboard extends React.Component {
                                             mainCategoryIndex: i,
                                             modalClass: 'modalClass',
                                             productManagerWrapperClass: "productManagerWrapperClass blurClass",
-                                            activeModalType: "uploaded"
+                                            activeModalType: "uploaded",
+                                            
                                         })
                                     }}
                                 >
@@ -860,7 +861,7 @@ class VendorMainDashboard extends React.Component {
                                 Add new category
                             </GradientButton>
 
-                            <WhiteButton
+                            {/* <WhiteButton
                                 runFunction={() => {
                                     this.setState({
                                         linkModal: 'linkModalContainer',
@@ -869,7 +870,7 @@ class VendorMainDashboard extends React.Component {
                                 }}
                             >
                                 Share Link
-                            </WhiteButton>
+                            </WhiteButton> */}
 
 
                             
@@ -2239,51 +2240,41 @@ class VendorMainDashboard extends React.Component {
         }
     }
 
-    returnShareLinkModal = () => {
-        return (
+    // returnShareLinkModal = () => {
+    //     return (
 
-            <div className={this.state.linkModal}>
+    //         <Modal
+    //             className="modal"
+    //             show={this.state.isShowing}
+    //             header={"Share this link in your social media for showing your portfolio of products"}
+    //             close={() => this.setState({
+    //                 isShowing: false
+    //             })}
+    //         >
+    //             <div className="linkModal">
 
-            
-            <Modal
-                className="modal"
-                show={this.state.isShowing}
-                header={"Share this link in your social media for showing your portfolio of products"}
-                close={() => this.setState({
-                    isShowing: false
-                })}
-            >
-                <div className="linkModal">
+    //                 <div className="linkComponent">
+    //                     <ShareLink className="shareLinkLogo" />
+    //                     <input
+    //                         className="shareLinkInput"
+    //                         readOnly
+    //                         ref="toolTip"
+    //                         value={`https://rollinglogs.com/vendor-profile/${this.state.firstName}-${this.state.rLId}`}
+    //                     />
+    //                     <button
+    //                         className="toolTip"
+    //                         onClick={() => this.copyToClipBoard()}
+    //                     >
+    //                         <CopyLinkicon />
+    //                         <span className="tooltip">Copy</span>
+    //                     </button>
 
-                    <div className="linkComponent">
-                        <div className="shareLinkImageComponent">
-                            <ShareLink />
-                        </div>
-
-                        <div className="linkAddressComponent">
-                            <input
-                                className="shareLinkInput"
-                                readOnly
-                                ref="toolTip"
-                                value={`https://rollinglogs.com/vendor-profile/${this.state.firstName}-${this.state.rLId}`}
-                            />
-                        </div>
-                        <div className="copyButtonContainer">
-                            <button
-                                className="toolTip"
-                                onClick={() => this.copyToClipBoard()}
-                            >
-                                <CopyLinkicon />
-                                <span className="tooltip">Copy</span>
-                            </button>
-                        </div>
-                    </div>
-                    {this.state.tool_tip_content.length > 0 && <span className="tooltiptext">{this.state.tool_tip_content} </span>}
-                </div>
-            </Modal>
-            </div>
-        )
-    }
+    //                 </div>
+    //                 {this.state.tool_tip_content.length > 0 && <span className="tooltiptext">{this.state.tool_tip_content} </span>}
+    //             </div>
+    //         </Modal>
+    //     )
+    // }
 
 
     returnModal = () => {
