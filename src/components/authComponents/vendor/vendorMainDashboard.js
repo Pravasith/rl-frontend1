@@ -112,9 +112,6 @@ class VendorMainDashboard extends React.Component {
             
             let { userData, responseData } = this.props
 
-           
-
-
             if (responseData.responsePayload.message !== "User credentials not found") {
                 //
                 // DECRYPT REQUEST DATA
@@ -126,8 +123,6 @@ class VendorMainDashboard extends React.Component {
                 //
                 // DECRYPT REQUEST DATA
                 //
-
-                // console.log(decryptData(userData.responseData))
 
                 this.convertVendorDataAndSave(decryptedData.products)
 
@@ -164,8 +159,11 @@ class VendorMainDashboard extends React.Component {
 
         .catch((err) => {
             if (err.response) {
-                if (err.response.status === 401)
+                if (err.response.status === 401){
+                    console.log(err.response)
                     window.open('/log-in', "_self")
+                }
+                    
             }
 
             else
@@ -173,10 +171,6 @@ class VendorMainDashboard extends React.Component {
         })
 
     }
-
-    // componentDidUpdate() {
-    //     console.log(this.state.categoryArray)
-    // }
 
     convertVendorDataAndSave = (productsRaw) => {
 
