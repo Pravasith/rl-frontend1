@@ -1101,14 +1101,6 @@ class VendorMainDashboard extends React.Component {
         })
     }
 
-    // returnChargeType = (installerCostType) => {
-
-    //     if (installerCostType === 1) return "square feet";
-    //     else if (installerCostType === 2) return "piece";
-    //     else if (installerCostType === 3) return "hour";
-    // };
-
-
     handleCategorySelections = () => {
         const { mainCategorySelection } = this.state
 
@@ -1597,10 +1589,10 @@ class VendorMainDashboard extends React.Component {
                                         {
                                             Number(item.installerCharges) > 0 
                                             ?
-                                            <p>Costs <span>Rs. { item.installerCharges }</span> / {this.returnChargeType(item.installerCostType)}</p>
+                                                <p>Costs <span>Rs. {item.installerCharges}</span> / {this.returnChargeType(item.installerChargeType)}</p>
                                             :
                                             <p>Installer cost not specified</p>
-                                        }
+                                    }
                                     </div>
                                 </div>
                             </div>
