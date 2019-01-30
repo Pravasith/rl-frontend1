@@ -1598,7 +1598,7 @@ class VendorMainDashboard extends React.Component {
     
                                     <div className="modalSubText">
                                         {
-                                            Number(item.sizeCost) > 0 
+                                            Number(item.installerCharges) > 0 
                                             ?
                                             <p>Costs <span>Rs. { item.installerCharges }</span> / {this.returnChargeType(item.installerCostType)}</p>
                                             :
