@@ -146,3 +146,107 @@
     }
 
 }
+
+@media screen and (max-width: 1024px){
+
+.mainClass{
+    .hide{
+        display: none;
+    }
+    header{
+        .wrapperForNavbar{}
+    }
+    .mainContentSection{
+        .contentSectionInnerLayer{
+            margin-top: 10%;
+            .vendorMainHeaderSection{
+                @include flexCentreCol;
+                h3{
+                    text-align: center;
+                    width: 100%;
+                }
+                .line{
+                    width: 40%;
+                }
+            }
+            .architectureFrontContent{
+                .architectureFrontContentInnerLayer{
+                    @include flexCentreCol;
+                    .frontPageLeftSection{}
+                    .frontPageRightSection{
+                        width: 100%;
+                        .rightSectionInnerLayer{
+                            .rightSectionContentWrapper{
+                                @include flexCentreCol;
+                                width: 100%;
+                                .rightSectionContentWrapperInnerLayer{
+
+                                }
+                                .ProceedButtonContainer{
+                                    margin-bottom: 3.5em;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+}
+
+@media screen and (max-width: 700px){
+
+    .mainClass{
+        .hide{
+            display: none;
+        }
+        header{
+            .wrapperForNavbar{}
+        }
+        .mainContentSection{
+            .contentSectionInnerLayer{
+                margin-top: 10%;
+                .vendorMainHeaderSection{
+                    @include flexCentreCol;
+                    margin-top: 1em;
+                    h3{
+                        font-size: 1em;
+                        text-align: center;
+                        width: 100%;
+                    }
+                    .line{
+                        width: 20%;
+                    }
+                }
+                .architectureFrontContent{
+                    .architectureFrontContentInnerLayer{
+                        @include flexCentreCol;
+                        .frontPageLeftSection{}
+                        .frontPageRightSection{
+                            width: 100%;
+                            .rightSectionInnerLayer{
+                                .rightSectionContentWrapper{
+                                    @include flexCentreCol;
+                                    width: 100%;
+                                    .rightSectionContentWrapperInnerLayer{
+                                        ul{
+                                            h3{
+                                                margin: 0.5em 0;
+                                            }
+                                        }
+                                    }
+                                    .ProceedButtonContainer{
+                                        margin-bottom: 3.5em;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
