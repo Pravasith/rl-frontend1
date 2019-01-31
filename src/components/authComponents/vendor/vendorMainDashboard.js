@@ -636,29 +636,38 @@ class VendorMainDashboard extends React.Component {
     }
 
     returnCategoryInModal = () => {
-        const { categoriesSelected } = this.state
+        // const { categoriesSelected } = this.state
+        const categoriesSelected = [...this.state.categoriesSelected];
+
 
         const returnSubCategories = (subcategories) => {
 
-            
-            return subcategories.subCategory.map((subcategory, i) => {
-                let subCatProducts = [...subcategory.productImages]
+            return subcategories.subCategory.map((item, i) => {
+                let subCatProducts = [];
+                if(item.subCategoryId === this.state.subCatId){
+                    subCatProducts = item.productImages
+                }
+                // console.log(subCatProducts);
                 return (
                     <div 
-                        className="subCategoryHead"
+                        className = "subCategoryHead"
                         key = { "subCat" + i }
-                        >          
+                        >
                         {
-                            this.returnSubCategoryProductsModal(subCatProducts, subcategory.subCategoryName)
+                            this.returnSubCategoryProductsModal(
+                                subCatProducts,
+                                item.subCategoryName
+                            )
                         }
                     </div>
                 )
             })
         }
 
-        if (categoriesSelected.length !== 0) {
-            return(
-                categoriesSelected.map((item, i) => {
+
+        return(
+            categoriesSelected.map((item, i) => {
+
                     return (
                         <div 
                             key = {i} 
@@ -669,10 +678,9 @@ class VendorMainDashboard extends React.Component {
                             </div>
                         </div>
                     )
-                  }
-                )
+                }
             )
-        }
+        )
 
     }
 
@@ -707,12 +715,13 @@ class VendorMainDashboard extends React.Component {
                                     className="deleteCategoryContainer"
                                     // onClick={() => this.deleteCategory(i)}
                                     onClick={() => {
+                                        // console.log(subcategory);
                                         this.setState({
                                             mainCategoryIndex: i,
                                             modalClass: 'modalClass',
                                             productManagerWrapperClass: "productManagerWrapperClass blurClass",
                                             activeModalType: "uploaded",
-                                            
+                                            subCatId: subcategory.subCategoryId
                                         })
                                     }}
                                 >
