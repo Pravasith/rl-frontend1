@@ -1092,6 +1092,7 @@ class EditProductDetails extends React.Component {
 
     returnProductMaterials = () => {
         return this.state.productMaterials.map((item, i) => {
+            console.log(item)
             return (
                 <div className="productMaterialDescriptionOuterLayer" key={i}>
                     <div className="productMaterialDescriptionInnerLayer">
@@ -1104,8 +1105,8 @@ class EditProductDetails extends React.Component {
                                 <h3>Extra cost over base price</h3>
                                 <p key={i}>Rs. {item.materialCost}</p>
                             </div>
-                            {/* <div className="finishCodecartwrap"> */}
-                                {this.returnMiscellaneousField("materialGrade", item)}
+                            {/* <div className="materialCostCartWrap"> */}
+                            {this.returnMiscellaneousField("materialGrade", item)}
                             {/* </div> */}
                         </div>
                         <div className="materialEditingButtons">
@@ -1191,6 +1192,7 @@ class EditProductDetails extends React.Component {
         }
 
         else if (field === "materialGrade") {
+            console.log(item)
             if (item.materialGrade !== "") {
                 return (
                     <div className="materialCostCartWrap">
@@ -2094,13 +2096,15 @@ class EditProductDetails extends React.Component {
         else if (typeOfButtonClicked === "material") {
             const materialName = this.refs.materialName.value;
             const materialCost = isChecked ? this.refs.materialCost.value : 0;
+            const materialGrade = this.refs.materialGrade.value;
 
             let validatedData = validateMaterialModal(materialName, materialCost);
 
             if (validatedData.isMaterialValid) {
                 let temp = {
                     materialCost,
-                    materialName
+                    materialName,
+                    materialGrade
                 };
 
                 if (temp.materialName !== "") {
@@ -2132,7 +2136,7 @@ class EditProductDetails extends React.Component {
                     emptyFieldInMaterial: validatedData.emptyField
                 });
             }
-        }
+        } 
 
         else if (typeOfButtonClicked === "finish") {
             const finishName = this.refs.finishName.value;
@@ -2242,16 +2246,10 @@ class EditProductDetails extends React.Component {
         }
     };
 
-    onChangeHandler = (e, type) => {
-        if (type === "installerCost") {
+    onChangeHandler = (e, typeOf) => {
+        if (typeOf === "installerCost" || typeOf === "installationServiceCost") {
             this.setState({ [e.target.name]: Number(e.target.value) });
-        } 
-
-        else if (type === "installationServiceCost") {
-            this.setState({ [e.target.name]: Number(e.target.value) });
-        } 
-        
-        else {
+        } else {
             this.setState({ [e.target.name]: e.target.value });
         }
     };
@@ -3188,8 +3186,29 @@ class EditProductDetails extends React.Component {
                                                     name="materialName"
                                                     placeholder="Ex. Glass reinforced concrete"
                                                     onChange={this.onChangeHandler}
-                                                    maxLength="30"
+                                                    maxLength="60"
                                                     ref="materialName"
+                                                />
+                                                <span className="InputSeparatorLine"> </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="inputFormContainer">
+                                        <div className="formParaSection">
+                                            <p className="pargraphClass">
+                                                Material built Grade (if any)
+                                            </p>
+                                        </div>
+                                        <div className="productInputInfoSection productMaterialName">
+                                            <div className="modalInputCategory">
+                                                <input
+                                                    type="text"
+                                                    name="materialGrade"
+                                                    placeholder="Ex. ISI, ISO etc"
+                                                    onChange={this.onChangeHandler}
+                                                    maxLength="30"
+                                                    ref="materialGrade"
                                                 />
                                                 <span className="InputSeparatorLine"> </span>
                                             </div>
@@ -4028,7 +4047,7 @@ class EditProductDetails extends React.Component {
                                                             placeholder="Ex.Vertical Moss"
                                                             isMandatory={true}
                                                             validationType="alphabetsSpecialCharactersAndNumbers"
-                                                            characterCount="30"
+                                                            characterCount="60"
                                                             value={this.handleDefaultValues("ProductName")}
                                                             result={(val) => this.setState({
                                                                 productName: val

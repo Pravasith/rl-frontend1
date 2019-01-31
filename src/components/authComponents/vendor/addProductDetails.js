@@ -739,6 +739,7 @@ class AddProductDetails extends React.Component {
 
   returnProductMaterials = () => {
     return this.state.productMaterials.map((item, i) => {
+      console.log(item)
       return (
         <div className="productMaterialDescriptionOuterLayer" key={i}>
           <div className="productMaterialDescriptionInnerLayer">
@@ -2758,7 +2759,7 @@ class AddProductDetails extends React.Component {
                           name="materialName"
                           placeholder="Ex. Glass reinforced concrete"
                           onChange={this.onChangeHandler}
-                          maxLength="30"
+                          maxLength="60"
                           ref="materialName"
                         />
                         <span className="InputSeparatorLine"> </span>
@@ -3613,7 +3614,7 @@ class AddProductDetails extends React.Component {
                               placeholder="Ex.Vertical Moss"
                               isMandatory={true}
                               validationType="alphabetsSpecialCharactersAndNumbers"
-                              characterCount="30"
+                              characterCount="60"
                               result={val =>
                                 this.setState({
                                   productName: val
