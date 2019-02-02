@@ -1711,7 +1711,9 @@ class VendorMainDashboard extends React.Component {
                                             publicId={PublicId(productThumbImage)} 
                                             // transformations
                                             width="300" 
-                                            crop="limit"
+                                            height = "ih"
+                                            crop="fit"
+                                            // aspect_ratio="1.5"
                                         />
                                     </div>
                                 </div>
