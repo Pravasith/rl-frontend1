@@ -3762,7 +3762,7 @@ class EditProductDetails extends React.Component {
             { fieldName: "Product Name", value: this.state.productName },
             { fieldName: "Product Code", value: this.state.productCode },
             {
-                fieldName: "Base price of this product",
+                fieldName: "Base price of this product (Excl. GST)",
                 value: this.state.productPrice
             },
             {
@@ -4078,7 +4078,7 @@ class EditProductDetails extends React.Component {
 
                                                 <div className="inputFormContainer">
                                                     <div className="formParaSection">
-                                                        <p className="pargraphClass">Base price of this product</p>
+                                                        <p className="pargraphClass">Base price of this product (Excl. GST)</p>
                                                     </div>
                                                     <div className="PricingSection">
                                                         <InputForm

@@ -1278,7 +1278,7 @@ class VendorMainDashboard extends React.Component {
                                         {
                                             Number(item.materialCost) > 0 
                                             ?
-                                            <p>Costs <span>Rs. { item.materialCost }</span> extra</p>
+                                            <p>Costs <span>Rs. { item.materialCost }</span> extra per piece</p>
                                             :
                                             <p>No extra cost</p>
                                         }
@@ -1362,7 +1362,7 @@ class VendorMainDashboard extends React.Component {
                                             {
                                                 Number(item.finishCost) > 0
                                                     ?
-                                                    <p>Costs <span>Rs. {item.finishCost}</span> extra</p>
+                                                    <p>Costs <span>Rs. {item.finishCost}</span> extra per piece</p>
                                                     :
                                                     <p>No extra cost</p>
                                             }
@@ -1408,7 +1408,7 @@ class VendorMainDashboard extends React.Component {
                                             {
                                                 Number(item.colorCost) > 0
                                                     ?
-                                                    <p>Costs <span>Rs. {item.colorCost}</span> extra</p>
+                                                    <p>Costs <span>Rs. {item.colorCost}</span> extra per piece</p>
                                                     :
                                                     <p>No extra cost</p>
                                             }
@@ -1449,7 +1449,7 @@ class VendorMainDashboard extends React.Component {
                                             {
                                                 Number(item.sizeCost) > 0
                                                     ?
-                                                    <p>Costs <span>Rs. {item.sizeCost}</span> extra</p>
+                                                    <p>Costs <span>Rs. {item.sizeCost}</span> extra per piece</p>
                                                     :
                                                     <p>No extra cost</p>
                                             }
@@ -1598,7 +1598,7 @@ class VendorMainDashboard extends React.Component {
                                         {
                                             Number(item.installerCharges) > 0 
                                             ?
-                                                <p>Costs <span>Rs. {item.installerCharges}</span> / {this.returnChargeType(item.installerChargeType)}</p>
+                                                <p>Charges <span>Rs. {item.installerCharges}</span> / {this.returnChargeType(item.installerChargeType)}</p>
                                             :
                                             <p>Installer cost not specified</p>
                                     }
@@ -1689,7 +1689,7 @@ class VendorMainDashboard extends React.Component {
                                     </div>
 
                                     <div className="productSubHeading">
-                                        <h3>Price </h3>
+                                        <h3>Price (Excl. GST)</h3>
                                         <p>Rs. {productPrice} per piece</p>
                                     </div>
 
