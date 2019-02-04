@@ -3750,7 +3750,7 @@ class AddProductDetails extends React.Component {
                                 placeholder="Type the value-add features about this product"
                                 ref="featureInput"
                                 type="text"
-                                maxLength="100"
+                                maxLength="200"
                                 onChange={e => this.setfeatureName(e)}
                                 onKeyPress={e => {
                                   if (e.key === "Enter") {
@@ -4004,7 +4004,7 @@ class AddProductDetails extends React.Component {
                                   placeholder="For Ex. Sofa"
                                   ref="tagInput"
                                   type="text"
-                                  maxLength="20"
+                                  maxLength="40"
                                   onChange={e => this.setTagName(e)}
                                   onKeyPress={e => {
                                     if (e.key === "Enter") {
