@@ -154,9 +154,9 @@ export default class HtmlSlider extends React.Component{
                                     alt = {image.itemCode}
                                     publicId={PublicId(image.imageURL)} 
                                     // transformations
-                                    width="300" 
-                                    crop="scale"
-                                   
+                                    width="300"
+                                    // height="0.7" 
+                                    crop="fit"
                                 />
                             </div>
     
