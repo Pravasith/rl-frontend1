@@ -621,8 +621,11 @@ class VendorMainDashboard extends React.Component {
                                             alt = ""
                                             publicId={PublicId(item.imageURL)} 
                                             // transformations
-                                            width="300" 
-                                            crop="fit"
+                                            // width="300" 
+                                            // crop="fit"
+                                            width="200" 
+                                            height = "140"
+                                            crop="lpad"
                                         />
                                         <div className="paragraphClass"><p>{item.title.charAt(0).toUpperCase() + item.title.slice(1)}</p></div>
                                     </div>
@@ -1710,9 +1713,11 @@ class VendorMainDashboard extends React.Component {
                                             alt = ""
                                             publicId={PublicId(productThumbImage)} 
                                             // transformations
-                                            width="300" 
-                                            height = "ih"
-                                            crop="fit"
+                                            width="200" 
+                                            height = "140"
+                                            crop="lpad"
+
+                                            // zoom="0.05"
                                             // aspect_ratio="1.5"
                                         />
                                     </div>
