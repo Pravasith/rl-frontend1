@@ -739,7 +739,6 @@ class AddProductDetails extends React.Component {
 
   returnProductMaterials = () => {
     return this.state.productMaterials.map((item, i) => {
-      console.log(item)
       return (
         <div className="productMaterialDescriptionOuterLayer" key={i}>
           <div className="productMaterialDescriptionInnerLayer">
@@ -1217,7 +1216,9 @@ class AddProductDetails extends React.Component {
             finishCostIsValid: true
           });
         }
-      } else if (regEx.test(val) === false) {
+      } 
+      
+      else if (regEx.test(val) === false) {
         if (checkFor === "discount") {
           this.setState({
             productDiscount: "",
@@ -1612,8 +1613,15 @@ class AddProductDetails extends React.Component {
           if (installerCharges !== "") {
             if (installerChargeIsValid) {
               isInstallerValid = true;
-            } else {
-              emptyField = "Installer charges in number";
+            } 
+            else if (!installerChargeIsValid) {
+              if (installerCharges !== 0) {
+                isInstallerValid = true;
+                emptyField = "Installer charges in number";
+              }
+              else {
+                isInstallerValid = true;
+              }
             }
           } 
           
@@ -1814,7 +1822,7 @@ class AddProductDetails extends React.Component {
     else if (typeOfButtonClicked === "installer") {
       const installerName = this.refs.installerName.value;
       const installerContactNo = this.state.installerContactNo;
-      const installerCharges = this.refs.installerCharges.value;
+      const installerCharges = this.refs.installerCharges.value !== "" ? this.refs.installerCharges.value : 0 ;
       const installerChargeType = this.state.installerCostType;
 
       let validatedData = validateInstallerModal(
@@ -1845,7 +1853,7 @@ class AddProductDetails extends React.Component {
                   modalType: null,
                   isChecked: false,
                   productInstallers:
-                    productInstallers.length !== 0 ? productInstallers : [],
+                  productInstallers.length !== 0 ? productInstallers : [],
                   displayError: "displayError hide"
                 });
               }
@@ -2127,7 +2135,8 @@ class AddProductDetails extends React.Component {
                     <p key={i}>+91 <span>{item.installerContactNo}</span></p>
                   </div>
 
-                  <div className={item.installerCharges !== "" ? "productInstallerChargesWrap" : "hide"} >
+                  <div className={item.installerCharges !== "" ? 
+                                    (item.installerCharges !== 0 ? "productInstallerChargesWrap" : "hide") : "hide"} >
                     <p>Charges </p>
                     <span key={i}>
                       Rs. {item.installerCharges} / {this.returnChargeType(item.installerChargeType)}
@@ -2141,10 +2150,10 @@ class AddProductDetails extends React.Component {
                           >
                               Edit
                           </WhiteButton>
-                        </div> */}
+                        </div>
                     <div className="editButton">
                      <WhiteButton>Edit</WhiteButton>
-                    </div>
+                    </div> */}
                     <div
                         className="deleteButton"
                         onClick={() => this.removeProductInstallers(i)}

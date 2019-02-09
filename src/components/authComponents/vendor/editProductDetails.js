@@ -1192,7 +1192,6 @@ class EditProductDetails extends React.Component {
         }
 
         else if (field === "materialGrade") {
-            console.log(item)
             if (item.materialGrade !== "") {
                 return (
                     <div className="materialCostCartWrap">
@@ -1993,8 +1992,15 @@ class EditProductDetails extends React.Component {
                     if (installerCharges !== "") {
                         if (installerChargeIsValid) {
                             isInstallerValid = true;
-                        } else {
-                            emptyField = "Installer charges in number";
+                        }
+                        else if (!installerChargeIsValid) {
+                            if (installerCharges !== 0) {
+                                isInstallerValid = true;
+                                emptyField = "Installer charges in number";
+                            }
+                            else {
+                                isInstallerValid = true;
+                            }
                         }
                     }
 
@@ -2193,7 +2199,7 @@ class EditProductDetails extends React.Component {
         else if (typeOfButtonClicked === "installer") {
             const installerName = this.refs.installerName.value;
             const installerContactNo = this.state.installerContactNo;
-            const installerCharges = this.refs.installerCharges.value;
+            const installerCharges = this.refs.installerCharges.value !== "" ? this.refs.installerCharges.value : 0;
             const installerChargeType = this.state.installerCostType;
 
             let validatedData = validateInstallerModal(
@@ -2513,33 +2519,25 @@ class EditProductDetails extends React.Component {
             <div className="productInstallerDescriptionOuterLayer" key={i}>
               <div className="productInstallerDescriptionInnerLayer">
                 <div className="productInstallerDetails">
-                  <div className="productInstallerNameWrap">
-                    {/* <h3>Installer nomenclature</h3> */}
-                    <h3 key={i}>{item.installerName}</h3>
-                  </div>
+                    <div className="productInstallerNameWrap">
+                        {/* <h3>Installer nomenclature</h3> */}
+                        <h3 key={i}>{item.installerName}</h3>
+                    </div>
 
-                  <div className="productInstallerContactNoWrap">
-                    <p key={i}>+91 <span>{item.installerContactNo}</span></p>
-                  </div>
+                    <div className="productInstallerContactNoWrap">
+                        <p key={i}>+91 <span>{item.installerContactNo}</span></p>
+                    </div>
 
-                  <div className={item.installerCharges !== "" ? "productInstallerChargesWrap" : "hide"} >
-                    <p>Charges </p>
-                    <span key={i}>
-                      Rs. {item.installerCharges} / {this.returnChargeType(item.installerChargeType)}
-                    </span>
-                  </div>
+                    <div className={item.installerCharges !== "" ?
+                        (item.installerCharges !== 0 ? "productInstallerChargesWrap" : "hide") : "hide"} >
+                        <p>Charges </p>
+                        <span key={i}>
+                            Rs. {item.installerCharges} / {this.returnChargeType(item.installerChargeType)}
+                        </span>
+                    </div>
                 </div>
                 <div className="materialEditingButtons">
-                  {/* <div className="editButton">
-                          <WhiteButton
-                              runFunction={() => this.editProductInstallers(i)}
-                          >
-                              Edit
-                          </WhiteButton>
-                        </div> */}
-                    <div className="editButton">
-                     <WhiteButton>Edit</WhiteButton>
-                    </div>
+                    {/* S */}
                     <div
                         className="deleteButton"
                         onClick={() => this.removeProductInstallers(i)}
@@ -3683,7 +3681,6 @@ class EditProductDetails extends React.Component {
     else if (fieldName === "Product GST") {
         if (productGST !== undefined) {
           if (productGST === 0) {
-            console.log("wrksin")
             this.setState({
               displayGSTValueError: "displayGSTValueError"
             });
