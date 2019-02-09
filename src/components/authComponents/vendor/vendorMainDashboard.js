@@ -1584,7 +1584,7 @@ class VendorMainDashboard extends React.Component {
                 const populateProductInstallers = () => productInstallers.map((item, i) => {
                     return (
                         <div 
-                            key={i} 
+                            key={i}
                             className="modalContainerUpperContainer"
                             >
                             <div className="modalContainer">
