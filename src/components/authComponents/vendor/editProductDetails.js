@@ -306,8 +306,6 @@ class EditProductDetails extends React.Component {
 
         .catch((err) => {
             if (err.response) {
-
-                // console.log(err.response)
                 if (err.response.status === 401)
                     window.open('/log-in', "_self")
 
@@ -332,7 +330,6 @@ class EditProductDetails extends React.Component {
         //     .then((data) => {
         //         let { userData, pId } = this.props
 
-        //         // console.log(pId)
 
         //         //
         //         // DECRYPT RESPONSE DATA
@@ -373,7 +370,6 @@ class EditProductDetails extends React.Component {
         //             //
         //             // DECRYPT REQUEST DATA
         //             //
-        //                 // console.log(decryptedData)
                     
 
         //             this.setState({
@@ -453,13 +449,11 @@ class EditProductDetails extends React.Component {
         //                     productTypes : decryptedData
         //                 })
         
-        //                 // console.log(this.props.sCId)
+
         //             })
 
         //             .catch((err) => {
         //                 if (err.response) {
-
-        //                     // console.log(err.response)
         //                     if (err.response.status === 401)
         //                         window.open('/log-in', "_self")
 
@@ -478,8 +472,6 @@ class EditProductDetails extends React.Component {
 
         //         .catch((err) => {
         //             if (err.response) {
-
-        //                 // console.log(err.response)
         //                 if (err.response.status === 401)
         //                     window.open('/log-in', "_self")
 
@@ -508,10 +500,6 @@ class EditProductDetails extends React.Component {
         //         else
         //             console.error(err)
         //     })
-
-    // componentDidUpdate() {
-    //     console.log(this.state.productInstallationServiceCost)
-    // }
     }
 
     handleDefaultChecked = ( productDiscount, productInstallationAvailability ) => {
@@ -771,7 +759,6 @@ class EditProductDetails extends React.Component {
 
         else{
             categoryStylesAdded.map((item, i) => {
-                // console.log(item.styleName, styleData.styleTitle)
                 if(item.styleName === styleData.styleTitle){
                     styleDoesntExist = false
                 }
@@ -1059,8 +1046,6 @@ class EditProductDetails extends React.Component {
 
     //     await setSyncState()
 
-    //     console.log(this.refs.sizeCost.value, this.refs.sizeName.value)
-    //     console.log(sizeCost, sizeName)
 
     //     this
     //         .state
@@ -1092,7 +1077,6 @@ class EditProductDetails extends React.Component {
 
     returnProductMaterials = () => {
         return this.state.productMaterials.map((item, i) => {
-            console.log(item)
             return (
                 <div className="productMaterialDescriptionOuterLayer" key={i}>
                     <div className="productMaterialDescriptionInnerLayer">
@@ -1480,7 +1464,6 @@ class EditProductDetails extends React.Component {
         this.setState({ youtubeId })
       }
 
-    //   console.log(youtubeId)
 
       let dummyArray = [...youTubeURL];
 
@@ -2361,7 +2344,6 @@ class EditProductDetails extends React.Component {
                 productAvailability = false
             }
 
-            // console.log(productAvailability)
             
             this.setState({ 
                 productAvailability: val,
@@ -2688,7 +2670,7 @@ class EditProductDetails extends React.Component {
 
         
 
-        // console.log(finalDataToSend)
+
     }
 
     returnProductsContent = () => {
@@ -3285,7 +3267,6 @@ class EditProductDetails extends React.Component {
                                                             <div className="detailsInputLayer">
                                                                 <div className="notFilledSection">
                                                                     {this.state.emptyField.map((item, i) => (
-                                                                        // console.log(item)
                                                                         <div className="errorFieldMessage" key={i}>
                                                                             <ul>
                                                                                 <li>
@@ -4240,7 +4221,6 @@ class EditProductDetails extends React.Component {
                                                     <div className="formParaSection">
                                                         <p 
                                                             className="pargraphClass"
-                                                            // onClick = {() => console.log(this.state.colorArray)}
                                                         >
                                                             Color options 
                                                         </p>
