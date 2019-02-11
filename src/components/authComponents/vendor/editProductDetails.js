@@ -673,17 +673,14 @@ class EditProductDetails extends React.Component {
     }
 
 
-    removeFeature = (index) => {
-        this
-            .state
-            .featuresAdded
-            .splice(index, 1)
+    removeFeature = index => {
+        this.state.featuresAdded.splice(index, 1);
 
         this.setState({
-            featuresAdded: this.state.featuresAdded.length !== 0 ? this.state.featuresAdded : []
-        })
-
-    }
+            featuresAdded:
+                this.state.featuresAdded.length !== 0 ? this.state.featuresAdded : []
+        });
+    };
 
     setfeatureName = (e) => {
         const val = e.target.value
@@ -906,36 +903,27 @@ class EditProductDetails extends React.Component {
     };
     
     returnfeaturesAdded = () => {
-        return (
-            this
-            .state
-            .featuresAdded
+        return this.state.featuresAdded.map((item, i) => {
+            return (
+                <div className="featureWrap" key={i}>
+                    <ul>
+                        <li>
+                            <p key={i}>{item}</p>
+                        </li>
+                    </ul>
 
-            .map((item, i) => {
-                return (
-                    <div
-                        className="featureWrap"
-                        key={i}
-                        >
-                        <ul>
-                            <li>
-                                <p key={i}>
-                                    {item}
-                                </p>
-                            </li>
-                        </ul>
-
-                        <div
-                            className="deleteIcon"
-                            onClick={(i) => this.removeFeature(i)}
-                            >
-                            <CloseButton />
-                        </div>
+                    <div className="deleteIcon"
+                        onClick={() => {
+                            this.removeFeature(i);
+                        }}
+                    >
+                        <CloseButton />
                     </div>
-                )
-            })
-        )
-    }
+                </div>
+            );
+        });
+    };
+
 
     returnColorModule = () => {
         return (
