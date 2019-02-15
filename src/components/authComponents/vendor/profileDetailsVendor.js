@@ -64,17 +64,19 @@ class ProfileDetailsVendor extends React.Component {
         ])
 
         .then((data) => {
-            let { userData, responseData } = this.props
+            let { userData, responseData } = this.props,
+                { responsePayload } = responseData;
 
 
-            if (responseData.responsePayload.message !== "User credentials not found") {
+            if (responsePayload.message !== "User credentials not found") {
 
                 //
                 // DECRYPT REQUEST DATA
                 //
                 let decryptedData = {
                     ...decryptData(userData.responseData),
-                    ...decryptData(responseData.responsePayload.responseData)
+                    // ...decryptData(responseData.responsePayload.responseData)
+                    ...responsePayload
                 }
                 //
                 // DECRYPT REQUEST DATA
@@ -149,111 +151,11 @@ class ProfileDetailsVendor extends React.Component {
                 console.error(err)
         })
 
-
-
-
-        // this.props.getUserData()
-        //     .then((data) => {
-        //         // let { userData } = this.props
-
-        //         // //
-        //         // // DECRYPT REQUEST DATA
-        //         // // 
-        //         // let decryptedData = decryptData(
-        //         //     userData.responseData
-        //         // )
-        //         // //
-        //         // // DECRYPT REQUEST DATA
-        //         // //
-
-        //         // this.setState({
-        //         //     loadingClass: 'loadingAnim hide',
-        //         //     mainClass: 'mainClass',
-
-        //         //     firstName: decryptedData.firstName,
-        //         //     lastName: decryptedData.lastName,
-        //         //     profilePicture: decryptedData.profilePicture,
-        //         //     mobileNo: decryptedData.mobileNo,
-        //         //     whatsappNo: decryptedData.whatsappNo
-        //         // })
-
-        //         this.props.hitApi(api.GET_VENDOR_DATA, "GET")
-        //             .then((data) => {
-        //                 let { responseData } = this.props
-
-
-        //                 if (responseData.responsePayload.message !== "User credentials not found") {
-
-        //                     //
-        //                     // DECRYPT REQUEST DATA
-        //                     //
-        //                     let decryptedData = decryptData(
-        //                         responseData.responsePayload.responseData
-        //                     )
-        //                     //
-        //                     // DECRYPT REQUEST DATA
-        //                     //
-
-        //                     let gstInState = {}
-
-        //                     const getIndividualGSTINs = () => {
-        //                         if (decryptedData.GSTIN)
-        //                             decryptedData.GSTIN.split('-').map((item, i) => {
-        //                                 gstInState["gstIn" + (i + 1)] = item
-        //                             })
-        //                     }
-
-        //                     if (decryptedData.GSTIN !== undefined || decryptedData.GSTIN !== null) {
-        //                         getIndividualGSTINs()
-        //                     }
-
-        //                     this.setState({
-
-        //                         companyName: decryptedData.companyName,
-
-        //                         detailedAddressLine1: decryptedData.address.detailedAddressLine1,
-        //                         detailedAddressLine2: decryptedData.address.detailedAddressLine2,
-        //                         state: decryptedData.address.state,
-        //                         city: decryptedData.address.city,
-        //                         pincode: decryptedData.address.pincode,
-
-        //                         companyDescriptionLine1: decryptedData.companyDescriptionLine1,
-        //                         companyDescriptionLine2: decryptedData.companyDescriptionLine2,
-
-        //                         experienceCount: decryptedData.experience.years,
-
-        //                         gstIn: decryptedData.GSTIN,
-        //                         pan: decryptedData.PAN,
-
-        //                         companyProfilePicture: decryptedData.companyProfilePicture,
-
-        //                         ...gstInState
-        //                     })
-        //                 }
-        //             })
-        //             .catch(e => console.error(e))
-        //     })
-        //     .catch(e => console.error(e))
-
     }
 
 
     returnNavBarData = () => {
         if(this.state.emailId){
-            // if (this.props.userData.responseData) {
-
-            //     //
-            //     // DECRYPT REQUEST DATA
-            //     // 
-            //     let decryptedData = decryptData(
-            //         this.props.userData.responseData
-            //     )
-            //     //
-            //     // DECRYPT REQUEST DATA
-            //     //
-    
-            //     return decryptedData
-            // }
 
             const userdata = {
                 profilePicture : this.state.profilePicture
@@ -411,125 +313,6 @@ class ProfileDetailsVendor extends React.Component {
             </option>
         }
     }
-
-    // hitTheAPI = async (objectName, data) => {
-
-    //     this
-    //         .props
-    //         .navBarLoadingAnimationShowHide(true)
-
-    //     let rawData = {}
-
-    //     rawData[objectName] = data
-
-    //     // 
-    //     // Encrypt data
-    //     // 
-    //     const encryptedData = encryptData(rawData)
-    //     // 
-    //     // Encrypt data
-    //     // 
-
-    //     await this
-    //         .props
-    //         .hitApi(api.UPDATE_USER_DATA, "PUT",
-    //             {
-    //                 message: "Update user's data",
-    //                 requestData: encryptedData
-    //             }
-    //         )
-
-    //         .then(() => {
-
-    //             this
-    //                 .props
-    //                 .navBarLoadingAnimationShowHide(false)
-
-    //             //
-    //             // Decrypt data
-    //             //
-    //             const decryptedData = decryptData(this.props.responseData.responsePayload.responseData)
-    //             //
-    //             // Decrypt data
-    //             //
-
-    //             this.setState({
-    //                 firstName: decryptedData.firstName,
-    //                 lastName: decryptedData.lastName,
-    //                 mobileNo: decryptedData.mobileNo,
-    //                 whatsappNo: decryptedData.whatsappNo,
-    //                 profilePicture: decryptedData.profilePicture
-    //             })
-    //         })
-
-    // }
-
-    // updateVendorData = (objectName, data) => {
-
-    //     this
-    //         .props
-    //         .navBarLoadingAnimationShowHide(true)
-
-    //     let rawData = {}
-
-    //     rawData[objectName] = data
-
-    //     //
-    //     // Encrypt data
-    //     //
-    //     const encryptedData = encryptData(rawData)
-    //     //
-    //     // Encrypt data
-    //     //
-
-    //     this
-    //         .props
-    //         .hitApi(api.UPDATE_VENDOR_DATA, "PUT",
-    //             {
-    //                 message: "Update vendor's data",
-    //                 requestData: encryptedData
-    //             }
-    //         )
-    //         .then(() => {
-    //             this
-    //                 .props
-    //                 .navBarLoadingAnimationShowHide(false)
-
-    //             //
-    //             // Decrypt data
-    //             //
-    //             const decryptedData = decryptData(this.props.responseData.responsePayload.responseData)
-    //             //
-    //             // Decrypt data
-    //             //
-
-    //             this.setState({
-
-    //                 companyName: decryptedData.companyName,
-
-    //                 detailedAddressLine1: decryptedData.address.detailedAddressLine1,
-    //                 detailedAddressLine2: decryptedData.address.detailedAddressLine2,
-    //                 state: decryptedData.address.state,
-    //                 city: decryptedData.address.city,
-    //                 pincode: decryptedData.address.pincode,
-
-    //                 companyDescriptionLine1: decryptedData.companyDescriptionLine1,
-    //                 companyDescriptionLine2: decryptedData.companyDescriptionLine2,
-
-    //                 experienceCount: decryptedData.experience.years,
-
-    //                 gstIn: decryptedData.GSTIN,
-    //                 pan: decryptedData.PAN,
-
-
-
-    //                 companyProfilePicture: decryptedData.companyProfilePicture,
-                    
-    //             })
-    //         })
-    //         .catch(e => console.error(e))
-    // }
-
 
     returnCompanyLogoUploader = () => {
 
@@ -730,43 +513,27 @@ class ProfileDetailsVendor extends React.Component {
                 profilePicture : this.state.profilePicture
             }
 
-            // 
-            // Encrypt data
-            // 
-            const encryptedUserData = encryptData(finalUserDataToSend)
-            const encryptedVendorData = encryptData(finalVendorDataToSend)
-            // 
-            // Encrypt data
-            // 
 
             this.props.hitApi(api.UPDATE_USER_DATA, "PUT", {
                 message : "Update firstname, lastname, mobile number and whatsapp number",
-                requestData : encryptedUserData
+                requestData: finalUserDataToSend
             })
             .then(() => {
 
-                // 
-                // Decrypt data
-                // 
-                const decryptedUserData = decryptData(this.props.responseData.responsePayload.responseData)
-                // 
-                // Decrypt data
-                // 
+                // // 
+                // // Decrypt data
+                // // 
+                // const decryptedUserData = decryptData(this.props.responseData.responsePayload.responseData)
+                // // 
+                // // Decrypt data
+                // // 
 
                 this.props.hitApi(api.UPDATE_VENDOR_DATA, "PUT", {
                     message : "Update vendor details",
-                    requestData : encryptedVendorData
+                    requestData: finalVendorDataToSend
                 })
 
                 .then(() => {
-                    // 
-                    // Decrypt data
-                    // 
-                    const decryptedVendorData = decryptData(this.props.responseData.responsePayload.responseData)
-                    // 
-                    // Decrypt data
-                    // 
-
                     window.open("/vendor/dashboard", "_self")
                 })
                 .catch (e => console.error(e))

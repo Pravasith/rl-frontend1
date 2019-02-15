@@ -206,15 +206,6 @@ class EditProductDetails extends React.Component {
         const rawData = { productId : pId.toUpperCase() }
 
 
-        //
-        // Encrypt data
-        //
-        const encryptedData = encryptData(rawData)
-        //
-        // Encrypt data
-        //
-
-
         await Promise.all([
             this.props.getUserData(),
 
@@ -223,68 +214,48 @@ class EditProductDetails extends React.Component {
                 api.GET_PRODUCT_DATA,
                 "POST",
                 {
-                    requestData : encryptedData,
+                    requestData: rawData,
                     message : "Requesting dispatch products"
                 }
             ),
         ])
 
         .then((data) => {
-            let { userData, responseData } = this.props
-
-            //
-            // DECRYPT REQUEST DATA
-            //
-            let decryptedData
-            //
-            // DECRYPT REQUEST DATA
-            //
-
-            //
-            // DECRYPT REQUEST DATA
-            //
-            decryptedData = {
-                ...decryptData(responseData.responsePayload.responseData)
-            }
-            //
-            // DECRYPT REQUEST DATA
-            //
-
-            
+            let { responsePayload } = this.props.responseData;
 
             this.setState({
 
                 /// PLACE HERE ////
-                productName: decryptedData.productName,
-                productCode: decryptedData.productCode,
-                productPrice: decryptedData.basePrice,
-                productGST: decryptedData.gstPercentage,
-                productMaterials: decryptedData.productMaterials,
-                featuresAdded: decryptedData.features,
-                productFinishes: decryptedData.finishingOptions,
-                colorArray: decryptedData.colorOptions,
-                productDimensions: decryptedData.sizesAvailable,
-                productMinQuantity: decryptedData.minQuantity,
-                productMaxQuantity: decryptedData.maxQuantity,
-                productDescription : decryptedData.productDescription,
-                categoryStylesAdded: decryptedData.designStyles,
-                tagsAdded: decryptedData.tags,
-                productType : decryptedData.productType,
-                // productAvailability: decryptedData.availability,
-                productAvailabilityBool : decryptedData.availability,
-                productDiscount: decryptedData.discount,
+                productName: responsePayload.productName,
+                productCode: responsePayload.productCode,
+                productPrice: responsePayload.basePrice,
+                productGST: responsePayload.gstPercentage,
+                productMaterials: responsePayload.productMaterials,
+                featuresAdded: responsePayload.features,
+                productFinishes: responsePayload.finishingOptions,
+                colorArray: responsePayload.colorOptions,
+                productDimensions: responsePayload.sizesAvailable,
+                productMinQuantity: responsePayload.minQuantity,
+                productMaxQuantity: responsePayload.maxQuantity,
+                productDescription : responsePayload.productDescription,
+                categoryStylesAdded: responsePayload.designStyles,
+                tagsAdded: responsePayload.tags,
+                productType : responsePayload.productType,
+                // productAvailability: responsePayload.availability,
+                productAvailabilityBool : responsePayload.availability,
+                productDiscount: responsePayload.discount,
                 productImagesObject: {
                     categoryName: "",
-                    imagesInCategory: decryptedData.productImages
+                    imagesInCategory: responsePayload.productImages
                 },
-                productThumbImage: decryptedData.productThumbImage,
-                youTubeURL: decryptedData.youTubeAdVideos,
-                brandName: decryptedData.brandName,
-                brandImage: decryptedData.brandImage,
-                productInstallers: decryptedData.productInstallers,
-                productInstallationAvailability: decryptedData.productInstallationAvailability,
-                productInstallationServiceCost: decryptedData.productInstallationServiceCost,
-                installationServiceCostType: decryptedData.installationServiceCostType,
+                productThumbImage: responsePayload.productThumbImage,
+                youTubeURL: responsePayload.youTubeAdVideos,
+                brandName: responsePayload.brandName,
+                brandImage: responsePayload.brandImage,
+                productInstallers: responsePayload.productInstallers,
+                productInstallationAvailability: responsePayload.productInstallationAvailability,
+                productInstallationServiceCost: responsePayload.productInstallationServiceCost,
+                installationServiceCostType: responsePayload.installationServiceCostType,
 
                 ///////
 
@@ -298,8 +269,8 @@ class EditProductDetails extends React.Component {
 
 
             this.handleDefaultChecked(
-                decryptedData.discount,
-                decryptedData.productInstallationAvailability
+                responsePayload.discount,
+                responsePayload.productInstallationAvailability
             )
         
         })
@@ -322,196 +293,6 @@ class EditProductDetails extends React.Component {
             }
                 
         })
-        
-        
-        
-        // this
-        //     .props
-        //     .getUserData()
-
-        //     .then((data) => {
-        //         let { userData, pId } = this.props
-
-        //         // console.log(pId)
-
-        //         //
-        //         // DECRYPT RESPONSE DATA
-        //         //
-        //         let decryptedData = decryptData(userData.responseData)
-        //         //
-        //         // DECRYPT RESPONSE DATA
-        //         //
-
-        //         const rawData = { productId : pId.toUpperCase() }
-                
-        //         //
-        //         // Encrypt data
-        //         //
-        //         const encryptedData = encryptData(rawData)
-        //         //
-        //         // Encrypt data
-        //         //
-
-                
- 
-
-        //         // GET PRODUCT DATA
-        //         this.props.hitApi(api.GET_PRODUCT_DATA,"POST",
-        //             {
-        //                 requestData : encryptedData,
-        //                 message : "Requesting dispatch products"
-        //             }
-        //         )
-        //         .then(() => {
-
-        //             //
-        //             // DECRYPT REQUEST DATA
-        //             //
-        //             let decryptedData = decryptData(
-        //                 this.props.responseData.responsePayload.responseData
-        //             )
-        //             //
-        //             // DECRYPT REQUEST DATA
-        //             //
-        //                 // console.log(decryptedData)
-                    
-
-        //             this.setState({
-                        
-
-
-        //                 /// PLACE HERE ////
-        //                 productName: decryptedData.productName,
-        //                 productCode: decryptedData.productCode,
-        //                 productPrice: decryptedData.basePrice,
-        //                 productMaterials: decryptedData.productMaterials,
-        //                 featuresAdded: decryptedData.features,
-        //                 productFinishes: decryptedData.finishingOptions,
-        //                 colorArray: decryptedData.colorOptions,
-        //                 productDimensions: decryptedData.sizesAvailable,
-        //                 productMinQuantity: decryptedData.minQuantity,
-        //                 productMaxQuantity: decryptedData.maxQuantity,
-        //                 productDescription : decryptedData.productDescription,
-        //                 categoryStylesAdded: decryptedData.designStyles,
-        //                 tagsAdded: decryptedData.tags,
-        //                 productType : decryptedData.productType,
-        //                 // productAvailability: decryptedData.availability,
-        //                 productAvailabilityBool : decryptedData.availability,
-        //                 productDiscount: decryptedData.discount,
-        //                 productImagesObject: {
-        //                     categoryName: "",
-        //                     imagesInCategory: decryptedData.productImages
-        //                 },
-        //                 productThumbImage: decryptedData.productThumbImage,
-        //                 youTubeURL: decryptedData.youTubeAdVideos,
-        //                 brandName: decryptedData.brandName,
-        //                 brandImage: decryptedData.brandImage,
-        //                 productInstallers: decryptedData.productInstallers,
-        //                 productInstallationAvailability: decryptedData.productInstallationAvailability,
-        //                 productInstallationServiceCost: decryptedData.productInstallationServiceCost,
-        //                 installationServiceCostType: decryptedData.installationServiceCostType
-
-        //             })
-    
-        //             this.handleDefaultChecked()
-
-        //             let sCId = pId.split("-")[0] + "-" + pId.split("-")[1]
-
-        //             const rawData = { sCId }
-                    
-        //             //
-        //             // Encrypt data
-        //             //
-        //             const encryptedData = encryptData(rawData)
-        //             //
-        //             // Encrypt data
-        //             //
-    
-
-        //             // GET PRODUCT TYPES
-        //             this.props.hitApi(api.GET_PRODUCT_TYPES,"POST",
-        //                 {
-        //                     requestData : encryptedData,
-        //                     message : "Requesting dispatch product types"
-        //                 }
-        //             )
-        //             .then(() => {
-
-        //                 //
-        //                 // DECRYPT REQUEST DATA
-        //                 //
-        //                 let decryptedData = decryptData(
-        //                     this.props.responseData.responsePayload.responseData
-        //                 )
-        //                 //
-        //                 // DECRYPT REQUEST DATA
-        //                 //
-
-        //                 this.setState({
-        //                     loadingClass: 'loadingAnim hide',
-        //                     mainClass: 'mainClass',
-        //                     productTypes : decryptedData
-        //                 })
-        
-        //                 // console.log(this.props.sCId)
-        //             })
-
-        //             .catch((err) => {
-        //                 if (err.response) {
-
-        //                     // console.log(err.response)
-        //                     if (err.response.status === 401)
-        //                         window.open('/log-in', "_self")
-
-        //                     else{
-        //                         // window.open('/vendor/dashboard', "_self")
-        //                     }
-        //                 }
-        
-        //                 else{
-        //                     console.error(err)
-        //                     // window.open('/vendor/dashboard', "_self")
-        //                 }
-                            
-        //             })
-        //         })
-
-        //         .catch((err) => {
-        //             if (err.response) {
-
-        //                 // console.log(err.response)
-        //                 if (err.response.status === 401)
-        //                     window.open('/log-in', "_self")
-
-        //                 else{
-        //                     // window.open('/vendor/dashboard', "_self")
-        //                 }
-        //             }
-    
-        //             else{
-        //                 console.error(err)
-        //                 // window.open('/vendor/dashboard', "_self")
-        //             }
-                        
-        //         })
-
-
-                
-        //     })
-
-        //     .catch((err) => {
-        //         if (err.response) {
-        //             if (err.response.status === 401)
-        //                 window.open('/log-in', "_self")
-        //         }
-
-        //         else
-        //             console.error(err)
-        //     })
-
-    // componentDidUpdate() {
-    //     console.log(this.state.productInstallationServiceCost)
-    // }
     }
 
     handleDefaultChecked = ( productDiscount, productInstallationAvailability ) => {
@@ -584,6 +365,10 @@ class EditProductDetails extends React.Component {
                 checkBoxProductInstallationClass5: "checkBox color",
             })
         }
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        console.log(typeof(this.state.productPrice))
     }
 
     // componentDidUpdate() {
@@ -1546,6 +1331,11 @@ class EditProductDetails extends React.Component {
                         productDiscount: Number(val),
                         displayDiscountValueValidationError: "displayError hide"
                     });
+                } else if (checkFor === "productPrice") {
+                    this.setState({
+                        productPrice: Number(val),
+                        displayProductPriceValueValidationError: "displayError hide",
+                    });
                 } else if (checkFor === "GST") {
                     this.setState({
                         productGST: Number(val),
@@ -1591,6 +1381,11 @@ class EditProductDetails extends React.Component {
                     this.setState({
                         productDiscount: "",
                         displayDiscountValueValidationError: "displayError"
+                    });
+                } else if (checkFor === "productPrice") {
+                    this.setState({
+                        productPrice: 0,
+                        displayProductPriceValueValidationError: "displayError"
                     });
                 } else if (checkFor === "GST") {
                     this.setState({
@@ -2615,37 +2410,16 @@ class EditProductDetails extends React.Component {
         }
 
 
-        //
-        // Encrypt data
-        //
-        const encryptedData = encryptData(finalDataToSend)
-        //
-        // Encrypt data
-        //
-
-
         //  UPDATE PRODUCT 
 
         this.props.hitApi(api.UPDATE_PRODUCT, "PUT", 
             {
-                requestData : encryptedData,
+                requestData : finalDataToSend,
                 message : "Update product, foxtrot"
             } 
         )
 
         .then(() => {
-
-            //
-            // DECRYPT REQUEST DATA
-            //
-            let decryptedData = decryptData(
-                this.props.responseData.responsePayload.responseData
-            )
-            //
-            // DECRYPT REQUEST DATA
-            //
-
-
             this.setState({
                 finalProceed : "successScreen"
             })
@@ -3745,10 +3519,10 @@ class EditProductDetails extends React.Component {
         const fieldNames = [
             { fieldName: "Product Name", value: this.state.productName },
             { fieldName: "Product Code", value: this.state.productCode },
-            {
-                fieldName: "Base price of this product",
-                value: this.state.productPrice
-            },
+            // {
+            //     fieldName: "Base price of this product",
+            //     value: this.state.productPrice
+            // },
             {
                 fieldName: `${this.handleMultiValidation("Product GST")}`,
                 value: this.state.productGST
@@ -4065,10 +3839,10 @@ class EditProductDetails extends React.Component {
                                                         <p className="pargraphClass">Base price of this product</p>
                                                     </div>
                                                     <div className="PricingSection">
-                                                        <InputForm
+                                                        {/* <InputForm
                                                             refName="productPrice"
                                                             placeholder="Type here (in Rupees)"
-                                                            isMandatory={true}
+                                                            isMandatory={false}
                                                             validationType="onlyNumbers"
                                                             characterCount="8"
                                                             value={this.handleDefaultValues("ProductPrice")}
@@ -4077,6 +3851,12 @@ class EditProductDetails extends React.Component {
                                                                     productPrice: val
                                                                 })
                                                             }}
+                                                        /> */}
+                                                        <input
+                                                            type="text"
+                                                            ref="productPrice"
+                                                            defaultValue={this.handleDefaultValues("ProductPrice")}
+                                                            onChange={(e) => this.checkTypeNumber(e, "productPrice")}
                                                         />
                                                     </div>
                                                 </div>

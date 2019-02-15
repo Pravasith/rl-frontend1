@@ -1,4 +1,5 @@
 import Axios from "axios"
+import { decryptData, encryptData } from "../factories/encryptDecrypt";
 
 
 export function navBarLoadingAnimationShowHide(showOrNot) {
@@ -27,45 +28,49 @@ export function navBarLoadingAnimationShowHide(showOrNot) {
     }
 }
 
-
-
 export function hitApi(apiURL, typeOfRequest, requestPayload) {
 
-    // returns the response and the code from the backend |||||||||||||||||||||||||||||||||||||||||||||||||
+    // returns the response and the code from the backend
+    // |||||||||||||||||||||||||||||||||||||||||||||||||
 
     const requestData = {
         headers: {
             'accept': 'application/json',
             'Accept-Language': 'en-US,en;q=0.8',
-            "Content-Type": "application/json",
+            "Content-Type": "application/json"
         },
 
         withCredentials: true
     }
 
-    // console.log(requestPayload)
 
-    // send requests and get deliveries |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+    // console.log(requestPayload) send requests and get deliveries
+    // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
     if (typeOfRequest === "GET") {
         return dispatch => {
-            return Axios.get(
-                apiURL,
-                requestData
-            )
-
+            return Axios
+                .get(apiURL, requestData)
                 .then(responsePayload => {
+
+                    let decryptedResponseData;
+
+                    decryptedResponseData = {
+                        ...decryptData (responsePayload.data.responseData)
+                    };
+
                     dispatch({
                         type: "API_DELIVERED_RESPONSE",
                         payload: {
-                            responsePayload: responsePayload.data,
+                            responsePayload: decryptedResponseData,
                             responseCode: responsePayload.status,
                             isError: false
                         }
                     })
                 })
-
                 .catch(error => {
+                    // console.log( error)
                     dispatch({
                         type: "API_THREW_ERROR",
                         payload: {
@@ -76,28 +81,35 @@ export function hitApi(apiURL, typeOfRequest, requestPayload) {
                     })
                 })
         }
-
     }
 
     else if (typeOfRequest === "POST") {
-        return dispatch => {
-            return Axios.post(
-                apiURL,
-                requestPayload,
-                requestData
-            )
 
+        let encryptedRequestPayload = {
+            requestData: encryptData(requestPayload.requestData),
+            message: requestPayload.message
+        }
+
+        return dispatch => {
+            return Axios
+                .post(apiURL, encryptedRequestPayload, requestData)
                 .then(responsePayload => {
+
+                    let decryptedResponseData;
+
+                    decryptedResponseData = {
+                        ...decryptData(responsePayload.data.responseData)
+                    };
+
                     dispatch({
                         type: "API_DELIVERED_RESPONSE",
                         payload: {
-                            responsePayload: responsePayload.data,
+                            responsePayload: decryptedResponseData,
                             responseCode: responsePayload.status,
                             isError: false
                         }
                     })
                 })
-
                 .catch(error => {
                     dispatch({
                         type: "API_THREW_ERROR",
@@ -112,24 +124,32 @@ export function hitApi(apiURL, typeOfRequest, requestPayload) {
     }
 
     else if (typeOfRequest === "PUT") {
-        return dispatch => {
-            return Axios.put(
-                apiURL,
-                requestPayload,
-                requestData
-            )
 
+        let encryptedRequestPayload = {
+            requestData: encryptData(requestPayload.requestData),
+            message: requestPayload.message
+        }
+
+        return dispatch => {
+            return Axios
+                .put(apiURL, encryptedRequestPayload, requestData)
                 .then(responsePayload => {
+
+                    let decryptedResponseData;
+
+                    decryptedResponseData = {
+                        ...decryptData(responsePayload.data.responseData)
+                    };
+
                     dispatch({
                         type: "API_DELIVERED_RESPONSE",
                         payload: {
-                            responsePayload: responsePayload.data,
+                            responsePayload: decryptedResponseData,
                             responseCode: responsePayload.status,
                             isError: false
                         }
                     })
                 })
-
                 .catch(error => {
                     dispatch({
                         type: "API_THREW_ERROR",
@@ -144,24 +164,34 @@ export function hitApi(apiURL, typeOfRequest, requestPayload) {
     }
 
     else if (typeOfRequest === "DELETE") {
-        return dispatch => {
-            return Axios.delete(
-                apiURL,
-                // requestPayload,
-                requestData
-            )
 
+        let encryptedRequestPayload = {
+            requestData: encryptData(requestPayload.requestData),
+            message: requestPayload.message
+        }
+
+        return dispatch => {
+            return Axios
+                .delete(apiURL,
+                    // encryptedRequestPayload,
+                    requestData)
                 .then(responsePayload => {
+
+                    let decryptedResponseData;
+
+                    decryptedResponseData = {
+                        ...decryptData(responsePayload.data.responseData)
+                    };
+
                     dispatch({
                         type: "API_DELIVERED_RESPONSE",
                         payload: {
-                            responsePayload: responsePayload.data,
+                            responsePayload: decryptedResponseData,
                             responseCode: responsePayload.status,
                             isError: false
                         }
                     })
                 })
-
                 .catch(error => {
                     dispatch({
                         type: "API_THREW_ERROR",
@@ -175,6 +205,4 @@ export function hitApi(apiURL, typeOfRequest, requestPayload) {
         }
     }
 }
-
-
 

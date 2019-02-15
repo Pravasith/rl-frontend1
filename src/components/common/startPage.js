@@ -41,9 +41,9 @@ class StartPage extends React.Component {
             "GET"
         )
         .then(() => {
-            let { responseData } = this.props
+            let { responsePayload } = this.props.responseData;
 
-            let isUnauthorized = responseData.responsePayload.status === 401
+            let isUnauthorized = responsePayload.status === 401
 
             
 
@@ -52,21 +52,13 @@ class StartPage extends React.Component {
             }
 
             else {
-                //
-                // DECRYPT REQUEST DATA
-                //
-                let decryptedData = {
-                    ...decryptData(responseData.responsePayload.responseData)
-                }
-                //
-                // DECRYPT REQUEST DATA
-                //
 
-                if(decryptedData.lifeCycleStage === 2){
+
+                if (responsePayload.lifeCycleStage === 2){
                     window.open("/vendor/dashboard", "_self")
                 }
 
-                else if(decryptedData.lifeCycleStage === 1){
+                else if (responsePayload.lifeCycleStage === 1){
                     window.open("/vendor/profile-details", "_self")
                 }
 
@@ -92,7 +84,9 @@ class StartPage extends React.Component {
             // else{
             // }
         })
-        
+        .catch((err) => {
+            console.error(err);
+        })
         // this.setState({
         //     loadingClass: 'loadingAnim hide',
         //     mainClass: 'mainClass',
