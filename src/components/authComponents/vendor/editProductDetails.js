@@ -294,10 +294,6 @@ class EditProductDetails extends React.Component {
         })
     }
 
-    componentDidUpdate() {
-        console.log(this.state.productPrice)
-    }
-
     handleDefaultChecked = ( productDiscount, productInstallationAvailability ) => {
         // const { productDiscount, productInstallationAvailability } = this.state;
 

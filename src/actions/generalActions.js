@@ -165,10 +165,10 @@ export function hitApi(apiURL, typeOfRequest, requestPayload) {
 
     else if (typeOfRequest === "DELETE") {
 
-        let encryptedRequestPayload = {
-            requestData: encryptData(requestPayload.requestData),
-            message: requestPayload.message
-        }
+        // let encryptedRequestPayload = {
+        //     requestData: encryptData(requestPayload.requestData),
+        //     message: requestPayload.message
+        // }
 
         return dispatch => {
             return Axios

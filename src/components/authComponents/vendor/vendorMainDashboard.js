@@ -116,18 +116,11 @@ class VendorMainDashboard extends React.Component {
                 // console.log(responsePayload)
 
             if (responsePayload.message !== "User credentials not found") {
-                //
-                // DECRYPT REQUEST DATA
-                //
+
                 let decryptedData = {
                     ...decryptData(userData.responseData),
                     ...responsePayload
                 }
-                //
-                // DECRYPT REQUEST DATA
-                //
-
-                console.log(decryptedData)
 
                 this.convertVendorDataAndSave(decryptedData.products)
 
@@ -165,7 +158,7 @@ class VendorMainDashboard extends React.Component {
         .catch((err) => {
             if (err.response) {
                 if (err.response.status === 401){
-                    console.log(err.response)
+                    console.error(err.response)
                     window.open('/log-in', "_self")
                 }
                     
@@ -498,7 +491,7 @@ class VendorMainDashboard extends React.Component {
 
 
     copyToClipBoard = () => {
-        console.log(this.refs.toolTip.value)
+        // console.log(this.refs.toolTip.value)
 
         this.refs.toolTip.select();
         document.execCommand('copy');
@@ -2083,7 +2076,7 @@ class VendorMainDashboard extends React.Component {
                                 <WhiteButton
                                     runFunction={() => {
                                         this.setState({
-                                            deleteLoading : true,
+                                            deleteLoading : true, 
                                         })
 
                                        

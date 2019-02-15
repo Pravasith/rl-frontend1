@@ -237,10 +237,6 @@ class AddProductDetails extends React.Component {
     });
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    console.log(this.state.productPrice)
-  }
-
   modalClassToggle = showOrNot => {
     if (showOrNot === "show")
       this.setState({
@@ -2075,8 +2071,6 @@ class AddProductDetails extends React.Component {
       // this.state.productDiscount
       // this.state.productImagesObject
     };
-
-    console.log(finalDataToSend)
 
     // GET PRODUCT TYPES
     this.props
