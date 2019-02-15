@@ -3512,7 +3512,7 @@ class AddProductDetails extends React.Component {
                               Base price of this product (Excl. GST)
                             </p>
                           </div>
-                          <div className="materialInformationColumn">
+                          <div className="materialInformationColumn priceClassProduct">
                             <InputForm
                               refName="productPrice"
                               placeholder="Type here (in Rupees)"
