@@ -1,1 +1,1 @@
-export const EncryptDecryptKey = "qazwsxedc741852963"
+export const EncryptDecryptKey = "f@tra0ne"

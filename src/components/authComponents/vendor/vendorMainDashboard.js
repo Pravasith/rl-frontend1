@@ -110,19 +110,17 @@ class VendorMainDashboard extends React.Component {
 
         .then(() => {
             
-            let { userData, responseData } = this.props
+            let { userData, responseData } = this.props,
+                { responsePayload } = responseData;
 
-            if (responseData.responsePayload.message !== "User credentials not found") {
-                //
-                // DECRYPT REQUEST DATA
-                //
+                // console.log(responsePayload)
+
+            if (responsePayload.message !== "User credentials not found") {
+
                 let decryptedData = {
                     ...decryptData(userData.responseData),
-                    ...decryptData(responseData.responsePayload.responseData)
+                    ...responsePayload
                 }
-                //
-                // DECRYPT REQUEST DATA
-                //
 
                 this.convertVendorDataAndSave(decryptedData.products)
 
@@ -160,7 +158,7 @@ class VendorMainDashboard extends React.Component {
         .catch((err) => {
             if (err.response) {
                 if (err.response.status === 401){
-                    console.log(err.response)
+                    console.error(err.response)
                     window.open('/log-in', "_self")
                 }
                     
@@ -336,20 +334,12 @@ class VendorMainDashboard extends React.Component {
 
         rawData[objectName] = data
 
-        // 
-        // Encrypt data
-        // 
-        const encryptedData = encryptData(rawData)
-        // 
-        // Encrypt data
-        // 
-
         await this
             .props
             .hitApi(api.UPDATE_USER_DATA, "PUT",
                 {
                     message: "Update user's data",
-                    requestData: encryptedData
+                    requestData: rawData
                 }
             )
 
@@ -360,6 +350,7 @@ class VendorMainDashboard extends React.Component {
                     .navBarLoadingAnimationShowHide(false)
 
             })
+            .catch((err) => console.error(err))
 
     }
 
@@ -421,34 +412,18 @@ class VendorMainDashboard extends React.Component {
 
         const rawData = { productId }
 
-        //
-        // Encrypt data
-        //
-        const encryptedData = encryptData(rawData)
-        //
-        // Encrypt data
-        //
-
 
 
         // GET PRODUCT DATA
         this.props.hitApi(api.GET_PRODUCT_DATA, "POST",
             {
-                requestData: encryptedData,
+                requestData: rawData,
                 message: "Requesting dispatch products"
             }
         )
             .then(() => {
 
-                //
-                // DECRYPT RESPONSE DATA
-                //
-                let decryptedData = decryptData(
-                    this.props.responseData.responsePayload.responseData
-                )
-                //
-                // DECRYPT RESPONSE DATA
-                //
+                let { responsePayload } = this.props.responseData;
 
                 // console.log(decryptedData)
 
@@ -457,35 +432,35 @@ class VendorMainDashboard extends React.Component {
                     productSelected : productId,
 
                     /// PLACE HERE ////
-                    productName: decryptedData.productName,
-                    productCode: decryptedData.productCode,
-                    productPrice: decryptedData.basePrice,
-                    productGST: decryptedData.gstPercentage,
-                    productMaterials: decryptedData.productMaterials,
-                    featuresAdded: decryptedData.features,
-                    productFinishes: decryptedData.finishingOptions,
-                    colorArray: decryptedData.colorOptions,
-                    productDimensions: decryptedData.sizesAvailable,
-                    productMinQuantity: decryptedData.minQuantity,
-                    productMaxQuantity: decryptedData.maxQuantity,
-                    productDescription: decryptedData.productDescription,
-                    categoryStylesAdded: decryptedData.designStyles,
-                    tagsAdded: decryptedData.tags,
-                    productAvailability: decryptedData.availability,
-                    productAvailabilityBool: decryptedData.availability,
-                    productDiscount: decryptedData.discount,
+                    productName: responsePayload.productName,
+                    productCode: responsePayload.productCode,
+                    productPrice: responsePayload.basePrice,
+                    productGST: responsePayload.gstPercentage,
+                    productMaterials: responsePayload.productMaterials,
+                    featuresAdded: responsePayload.features,
+                    productFinishes: responsePayload.finishingOptions,
+                    colorArray: responsePayload.colorOptions,
+                    productDimensions: responsePayload.sizesAvailable,
+                    productMinQuantity: responsePayload.minQuantity,
+                    productMaxQuantity: responsePayload.maxQuantity,
+                    productDescription: responsePayload.productDescription,
+                    categoryStylesAdded: responsePayload.designStyles,
+                    tagsAdded: responsePayload.tags,
+                    productAvailability: responsePayload.availability,
+                    productAvailabilityBool: responsePayload.availability,
+                    productDiscount: responsePayload.discount,
                     productImagesObject: {
                         categoryName: "",
-                        imagesInCategory: decryptedData.productImages
+                        imagesInCategory: responsePayload.productImages
                     },
-                    productThumbImage: decryptedData.productThumbImage,
-                    youTubeURL: decryptedData.youTubeAdVideos ? decryptedData.youTubeAdVideos : [],
-                    brandName: decryptedData.brandName,
-                    brandImage: decryptedData.brandImage, 
-                    productInstallers: decryptedData.productInstallers,
-                    productInstallationAvailability: decryptedData.productInstallationAvailability,
-                    productInstallationServiceCost: decryptedData.productInstallationServiceCost,
-                    installationServiceCostType: decryptedData.installationServiceCostType,
+                    productThumbImage: responsePayload.productThumbImage,
+                    youTubeURL: responsePayload.youTubeAdVideos ? responsePayload.youTubeAdVideos : [],
+                    brandName: responsePayload.brandName,
+                    brandImage: responsePayload.brandImage, 
+                    productInstallers: responsePayload.productInstallers,
+                    productInstallationAvailability: responsePayload.productInstallationAvailability,
+                    productInstallationServiceCost: responsePayload.productInstallationServiceCost,
+                    installationServiceCostType: responsePayload.installationServiceCostType,
 
                     subCategoryDataExists: true,
 
@@ -516,7 +491,7 @@ class VendorMainDashboard extends React.Component {
 
 
     copyToClipBoard = () => {
-        console.log(this.refs.toolTip.value)
+        // console.log(this.refs.toolTip.value)
 
         this.refs.toolTip.select();
         document.execCommand('copy');
@@ -1133,33 +1108,20 @@ class VendorMainDashboard extends React.Component {
                 categoryId: mainCategorySelection.categoryId
             }
 
-            // 
-            // Encrypt data
-            // 
-            const encryptedData = encryptData(theData)
-            // 
-            // Encrypt data
-            // 
 
 
             // send request
             this.props.hitApi(api.GET_SUB_CATEGORIES, "POST",
                 {
-                    requestData: encryptedData,
+                    requestData: theData,
                     message: "Requesting dispatch sub-categories"
                 }
             )
                 .then(() => {
-                    // 
-                    // Decrypt data
-                    // 
-                    const responseData = decryptData(this.props.responseData.responsePayload.responseData)
-                    // 
-                    // Decrypt data
-                    // 
+                    let { responsePayload } = this.props.responseData
 
                     this.setState({
-                        subCategoryArray: responseData.subCategoriesArray
+                        subCategoryArray: responsePayload.subCategoriesArray
                     })
 
                 })
@@ -1688,12 +1650,22 @@ class VendorMainDashboard extends React.Component {
 
                                     <div className="productSubHeading">
                                         <h3>Code </h3>
-                                        <p>{productCode}</p>
+                                        <p>{ productCode }</p>
                                     </div>
 
                                     <div className="productSubHeading">
-                                        <h3>Price (Excl. GST)</h3>
-                                        <p>Rs. {productPrice} per piece</p>
+                                        <h3>Price </h3>
+                                        { 
+                                            productPrice !== 1 
+                                            ? 
+                                            <p>
+                                                Rs. {productPrice} per unit<br/>
+                                                (Here per unit can mean per set also if applicable. Please request quote to get detailed price clarity)
+                                            </p> 
+                                            : 
+                                            <p>Not specified</p> 
+                                        }
+
                                     </div>
 
                                     <div className="productSubHeading">
@@ -2130,7 +2102,7 @@ class VendorMainDashboard extends React.Component {
                                 <WhiteButton
                                     runFunction={() => {
                                         this.setState({
-                                            deleteLoading : true,
+                                            deleteLoading : true, 
                                         })
 
                                        
@@ -2141,15 +2113,6 @@ class VendorMainDashboard extends React.Component {
                                             // }
                                         )
                                         .then(() => {
-                                            // 
-                                            // Decrypt data
-                                            // 
-                                            const responseData = decryptData(this.props.responseData.responsePayload.responseData)
-                                            // 
-                                            // Decrypt data
-                                            // 
-
-                                            // console.log(responseData)
 
                                             window.open("/vendor/dashboard", "_self")
 
