@@ -1650,7 +1650,7 @@ class VendorMainDashboard extends React.Component {
 
                                     <div className="productSubHeading">
                                         <h3>Price </h3>
-                                        {productPrice !== 0 ? (<p>Rs. {productPrice} per piece</p>) : <p>Not specified</p>}
+                                        {productPrice !== 1 ? (<p>Rs. {productPrice} per piece</p>) : <p>Not specified</p>}
                                     </div>
 
                                     <div className="productSubHeading">

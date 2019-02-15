@@ -139,6 +139,7 @@ class EditProductDetails extends React.Component {
 
             // displayError: "displayError",
             displayError: "displayError hide",
+            displayProductPriceValueError: "displayProductPriceValueError hide",
             displayDiscountValueValidationError: "displayError hide",
             displayGSTValueValidationError: "displayError hide",
             displayInstallationValueValidationError: "displayError hide",
@@ -196,8 +197,6 @@ class EditProductDetails extends React.Component {
             
         }
     }
-
-
 
     componentDidMount = async () => {
 
@@ -295,6 +294,10 @@ class EditProductDetails extends React.Component {
         })
     }
 
+    componentDidUpdate() {
+        console.log(this.state.productPrice)
+    }
+
     handleDefaultChecked = ( productDiscount, productInstallationAvailability ) => {
         // const { productDiscount, productInstallationAvailability } = this.state;
 
@@ -367,10 +370,6 @@ class EditProductDetails extends React.Component {
         }
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        console.log(typeof(this.state.productPrice))
-    }
-
     // componentDidUpdate() {
     //     let { productName,
     //         productCode,
@@ -422,8 +421,6 @@ class EditProductDetails extends React.Component {
             })
     }
 
-
-
     returnNavBarData = () => {
         if (this.props.userData.responseData) {
             //
@@ -443,7 +440,6 @@ class EditProductDetails extends React.Component {
             return null
         }
     }
-
 
     addFeatureName = () => {
         let temp = this.state.featureName;
@@ -468,7 +464,6 @@ class EditProductDetails extends React.Component {
         }
 
     }
-
 
     removeFeature = index => {
         this.state.featuresAdded.splice(index, 1);
@@ -722,7 +717,6 @@ class EditProductDetails extends React.Component {
         });
     };
 
-
     returnColorModule = () => {
         return (
             this.state.colorArray
@@ -902,6 +896,7 @@ class EditProductDetails extends React.Component {
             );
         });
     };
+
     // editProductMaterials = async (index) => {
     //     const materialName = this.state.productMaterials[index].materialName;
     //     const materialCost = this.state.productMaterials[index].materialCost;
@@ -1331,11 +1326,6 @@ class EditProductDetails extends React.Component {
                         productDiscount: Number(val),
                         displayDiscountValueValidationError: "displayError hide"
                     });
-                } else if (checkFor === "productPrice") {
-                    this.setState({
-                        productPrice: Number(val),
-                        displayProductPriceValueValidationError: "displayError hide",
-                    });
                 } else if (checkFor === "GST") {
                     this.setState({
                         productGST: Number(val),
@@ -1381,11 +1371,6 @@ class EditProductDetails extends React.Component {
                     this.setState({
                         productDiscount: "",
                         displayDiscountValueValidationError: "displayError"
-                    });
-                } else if (checkFor === "productPrice") {
-                    this.setState({
-                        productPrice: 0,
-                        displayProductPriceValueValidationError: "displayError"
                     });
                 } else if (checkFor === "GST") {
                     this.setState({
@@ -1479,8 +1464,6 @@ class EditProductDetails extends React.Component {
             })
         }
     }
-
-  
 
     returnHtmlSliderforproductImagesObject = () => {
         if (this.state.productImagesObject.imagesInCategory.length !== 0) {
@@ -2547,7 +2530,6 @@ class EditProductDetails extends React.Component {
         
     }
 
-
     filterByImageURL = index => {
         const { imagesInCategory } = this.state.productImagesObject;
 
@@ -3401,7 +3383,6 @@ class EditProductDetails extends React.Component {
         }
     }
 
-
     onToggleSwitch = async () => {
         await this.setState({ isChecked: !this.state.isChecked });
 
@@ -3409,120 +3390,139 @@ class EditProductDetails extends React.Component {
         else if(this.state.isChecked === false) this.setState({ extraCostInput: "extraCostInput hide" });
     }
 
-  handleMultiValidation = fieldName => {
-    const {
-        productDiscountAvailablity,
-        productDiscount,
-        productGST,
-        productMinQuantity,
-        productMaxQuantity,
-        productInstallationAvailability,
-        productInstallationServiceCost,
-        productInstallers
-    } = this.state;
+    handleMultiValidation = fieldName => {
+        const {
+            productPrice,
+            productDiscountAvailablity,
+            productDiscount,
+            productGST,
+            productMinQuantity,
+            productMaxQuantity,
+            productInstallationAvailability,
+            productInstallationServiceCost,
+            productInstallers
+        } = this.state;
 
-    if (fieldName === "Max. quantity") {
-        if (productMaxQuantity !== undefined) {
-            if (
-                productMaxQuantity === productMinQuantity ||
-                productMaxQuantity < productMinQuantity
-            ) {
-                this.setState({
-                    displayQuantityValueError: "displayQuantityValueError"
-                });
-
-                return "Max. quantity value";
-            } else
-                this.setState({
-                    displayQuantityValueError: "displayQuantityValueError hide"
-                });
-        } else return "Max. qunatity";
-    }
-
-    else if (fieldName === "Product GST") {
-        if (productGST !== undefined) {
-          if (productGST === 0) {
-            this.setState({
-              displayGSTValueError: "displayGSTValueError"
-            });
-
-            return "Product GST Value";
-          } else {
-            this.setState({
-              displayGSTValueError: "displayGSTValueError hide"
-            });
-          }
-        } else if (productGST === undefined) {
-          return "Product GST";
-      }
-    }
-
-    else if (fieldName === "Product Discount") {
-        if (productDiscountAvailablity === "yes") {
-            if (productDiscount !== undefined) {
-                if (productDiscount === 0) {
+        if (fieldName === "Max. quantity") {
+            if (productMaxQuantity !== undefined) {
+                if (
+                    productMaxQuantity === productMinQuantity ||
+                    productMaxQuantity < productMinQuantity
+                ) {
                     this.setState({
-                        displayDiscountValueError: "displayDiscountValueError"
+                        displayQuantityValueError: "displayQuantityValueError"
                     });
 
-                    return "Product Discount Value";
+                    return "Max. quantity value";
                 } else
                     this.setState({
-                        displayDiscountValueError: "displayDiscountValueError hide"
+                        displayQuantityValueError: "displayQuantityValueError hide"
                     });
-            } else if (productDiscount === undefined) {
-                return "Product Discount Value";
-            }
-        } else return "Product Discount Availability";
-    }
+            } else return "Max. qunatity";
+        }
 
-    else if (fieldName === "Product Installation") {
-        if (productInstallationAvailability === 2) {
-            if (productInstallationServiceCost !== undefined) {
-                if(this.refs.installationCost.value !== "") {
-                    if (productInstallationServiceCost === 0) {
-                        this.setState({
-                            displayInstallationValueError: "displayInstallationValueError"
-                        });
+        else if (fieldName === "Base price of this product") {
+            if (productPrice !== undefined) {
+                if (productPrice === 0) {
+                    this.setState({
+                        displayProductPriceValueError: "displayProductPriceValueError"
+                    });
 
-                        return "Product Installation Cost";
-                    } 
-                    
-                    else
-                        this.setState({
-                            displayInstallationValueError:
-                                "displayInstallationValueError hide"
-                        });
+                    return "Base price value";
+                } else {
+                    this.setState({
+                        displayProductPriceValueError: "displayProductPriceValueError hide"
+                    });
                 }
-                
-                else if (this.refs.installationCost.value === "") {
+            } else if (productPrice === undefined) {
+                return "Base price of this product";
+            }
+        }
+
+        else if (fieldName === "Product GST") {
+            if (productGST !== undefined) {
+                if (productGST === 0) {
+                    this.setState({
+                        displayGSTValueError: "displayGSTValueError"
+                    });
+
+                    return "Product GST Value";
+                } else {
+                    this.setState({
+                        displayGSTValueError: "displayGSTValueError hide"
+                    });
+                }
+            } else if (productGST === undefined) {
+                return "Product GST";
+            }
+        }
+
+        else if (fieldName === "Product Discount") {
+            if (productDiscountAvailablity === "yes") {
+                if (productDiscount !== undefined) {
+                    if (productDiscount === 0) {
+                        this.setState({
+                            displayDiscountValueError: "displayDiscountValueError"
+                        });
+
+                        return "Product Discount Value";
+                    } else
+                        this.setState({
+                            displayDiscountValueError: "displayDiscountValueError hide"
+                        });
+                } else if (productDiscount === undefined) {
+                    return "Product Discount Value";
+                }
+            } else return "Product Discount Availability";
+        }
+
+        else if (fieldName === "Product Installation") {
+            if (productInstallationAvailability === 2) {
+                if (productInstallationServiceCost !== undefined) {
+                    if (this.refs.installationCost.value !== "") {
+                        if (productInstallationServiceCost === 0) {
+                            this.setState({
+                                displayInstallationValueError: "displayInstallationValueError"
+                            });
+
+                            return "Product Installation Cost";
+                        }
+
+                        else
+                            this.setState({
+                                displayInstallationValueError:
+                                    "displayInstallationValueError hide"
+                            });
+                    }
+
+                    else if (this.refs.installationCost.value === "") {
+                        return "Product Installation Cost";
+                    }
+                }
+
+                else if (productInstallationServiceCost === undefined) {
                     return "Product Installation Cost";
                 }
             }
 
-            else if (productInstallationServiceCost === undefined) {
-                return "Product Installation Cost";
+            else if (productInstallationAvailability === 5) {
+                if (productInstallers.length === 0) {
+                    return "Product Installer Details"
+                }
             }
-        }
 
-        else if (productInstallationAvailability === 5) {
-            if (productInstallers.length === 0) {
-                return "Product Installer Details"
-            }
+            else return "Product Installation Service";
         }
-
-        else return "Product Installation Service";
-    }
-  };
+    };
 
     validateProceedHandler = async () => {
         const fieldNames = [
             { fieldName: "Product Name", value: this.state.productName },
             { fieldName: "Product Code", value: this.state.productCode },
-            // {
-            //     fieldName: "Base price of this product",
-            //     value: this.state.productPrice
-            // },
+            {
+                fieldName: `${this.handleMultiValidation("Base price of this product")}`,
+                value: this.state.productPrice
+            },
             {
                 fieldName: `${this.handleMultiValidation("Product GST")}`,
                 value: this.state.productGST
@@ -3543,10 +3543,6 @@ class EditProductDetails extends React.Component {
             { fieldName: "Product Design", value: this.state.categoryStylesAdded },
             { fieldName: "Product Tags", value: this.state.tagsAdded },
             {
-                fieldName: "Product Availability",
-                value: this.state.productAvailabilityBool
-            },
-            {
                 fieldName: `${this.handleMultiValidation("Product Discount")}`,
                 value: this.state.productDiscount
             },
@@ -3557,7 +3553,7 @@ class EditProductDetails extends React.Component {
 
             {
                 fieldName: `${this.handleMultiValidation("Product Installation")}`,
-                value: this.state.productInstallationAvailability
+                value: this.state.productInstallationServiceCost
             }
         ];
 
@@ -3574,7 +3570,8 @@ class EditProductDetails extends React.Component {
                 item.fieldName === "Max. quantity value" ||
                 item.fieldName === "Product Discount Value" ||
                 item.fieldName === "Product Installation Cost" ||
-                item.fieldName === "Product Installer Details"
+                item.fieldName === "Product Installer Details" ||
+                item.fieldName === "Base price value"
             ) {
                 if (!this.state.emptyField.includes(item.fieldName)) {
                     this.state.emptyField.push(item.fieldName);
@@ -3839,24 +3836,18 @@ class EditProductDetails extends React.Component {
                                                         <p className="pargraphClass">Base price of this product</p>
                                                     </div>
                                                     <div className="PricingSection">
-                                                        {/* <InputForm
+                                                        <InputForm
                                                             refName="productPrice"
                                                             placeholder="Type here (in Rupees)"
-                                                            isMandatory={false}
+                                                            isMandatory={true}
                                                             validationType="onlyNumbers"
                                                             characterCount="8"
                                                             value={this.handleDefaultValues("ProductPrice")}
                                                             result={(val) => {
                                                                 this.setState({
-                                                                    productPrice: val
+                                                                    productPrice: Number(val)
                                                                 })
                                                             }}
-                                                        /> */}
-                                                        <input
-                                                            type="text"
-                                                            ref="productPrice"
-                                                            defaultValue={this.handleDefaultValues("ProductPrice")}
-                                                            onChange={(e) => this.checkTypeNumber(e, "productPrice")}
                                                         />
                                                     </div>
                                                 </div>
@@ -4688,15 +4679,4 @@ const matchDispatchToProps = (dispatch) => {
     }, dispatch)
 }
 
-export default connect(mapStateToProps, matchDispatchToProps)(EditProductDetails)
-
-
-
-    // handleStyleSelection = (styleData) => {
-    //     this.state.categoryStylesAdded.push(styleData.styleTitle)
-    //     let dummyArray = [...new Set(this.state.categoryStylesAdded.map(item => item))]
-
-    //     this.setState({
-    //         categoryStylesAdded : dummyArray
-    //     })
-    // }
+export default connect(mapStateToProps, matchDispatchToProps)(EditProductDetails);
