@@ -1654,13 +1654,13 @@ class VendorMainDashboard extends React.Component {
                                     </div>
 
                                     <div className="productSubHeading">
-                                        <h3>Price </h3>
+                                        <h3>Unit price </h3>
                                         { 
                                             productPrice !== 1 
                                             ? 
                                             <p>
-                                                Rs. {productPrice} per unit<br/>
-                                                (Here per unit can mean per set also if applicable. Please request quote to get detailed price clarity)
+                                                Rs. {productPrice}<br/>
+                                                {/* <span>(Here per unit can mean per set also if applicable. Please request quote to get detailed price clarity)</span> */}
                                             </p> 
                                             : 
                                             <p>Not specified</p> 

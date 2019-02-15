@@ -3199,11 +3199,7 @@ class AddProductDetails extends React.Component {
       { fieldName: "Product Name", value: this.state.productName },
       { fieldName: "Product Code", value: this.state.productCode },
       {
-<<<<<<< HEAD
-        fieldName: "Base price of this product (Excl. GST)",
-=======
         fieldName: `${this.handleMultiValidation("Base price of this product")}`,
->>>>>>> 386be5b9dcf3345671277ffd9936bcee25cf8935
         value: this.state.productPrice
       },
       {
