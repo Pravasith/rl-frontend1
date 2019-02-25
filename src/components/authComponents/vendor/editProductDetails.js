@@ -139,6 +139,7 @@ class EditProductDetails extends React.Component {
 
             // displayError: "displayError",
             displayError: "displayError hide",
+            displayProductPriceValueError: "displayProductPriceValueError hide",
             displayDiscountValueValidationError: "displayError hide",
             displayGSTValueValidationError: "displayError hide",
             displayInstallationValueValidationError: "displayError hide",
@@ -197,22 +198,11 @@ class EditProductDetails extends React.Component {
         }
     }
 
-
-
     componentDidMount = async () => {
 
         let { pId } = this.props
 
         const rawData = { productId : pId.toUpperCase() }
-
-
-        //
-        // Encrypt data
-        //
-        const encryptedData = encryptData(rawData)
-        //
-        // Encrypt data
-        //
 
 
         await Promise.all([
@@ -223,68 +213,48 @@ class EditProductDetails extends React.Component {
                 api.GET_PRODUCT_DATA,
                 "POST",
                 {
-                    requestData : encryptedData,
+                    requestData: rawData,
                     message : "Requesting dispatch products"
                 }
             ),
         ])
 
         .then((data) => {
-            let { userData, responseData } = this.props
-
-            //
-            // DECRYPT REQUEST DATA
-            //
-            let decryptedData
-            //
-            // DECRYPT REQUEST DATA
-            //
-
-            //
-            // DECRYPT REQUEST DATA
-            //
-            decryptedData = {
-                ...decryptData(responseData.responsePayload.responseData)
-            }
-            //
-            // DECRYPT REQUEST DATA
-            //
-
-            
+            let { responsePayload } = this.props.responseData;
 
             this.setState({
 
                 /// PLACE HERE ////
-                productName: decryptedData.productName,
-                productCode: decryptedData.productCode,
-                productPrice: decryptedData.basePrice,
-                productGST: decryptedData.gstPercentage,
-                productMaterials: decryptedData.productMaterials,
-                featuresAdded: decryptedData.features,
-                productFinishes: decryptedData.finishingOptions,
-                colorArray: decryptedData.colorOptions,
-                productDimensions: decryptedData.sizesAvailable,
-                productMinQuantity: decryptedData.minQuantity,
-                productMaxQuantity: decryptedData.maxQuantity,
-                productDescription : decryptedData.productDescription,
-                categoryStylesAdded: decryptedData.designStyles,
-                tagsAdded: decryptedData.tags,
-                productType : decryptedData.productType,
-                // productAvailability: decryptedData.availability,
-                productAvailabilityBool : decryptedData.availability,
-                productDiscount: decryptedData.discount,
+                productName: responsePayload.productName,
+                productCode: responsePayload.productCode,
+                productPrice: responsePayload.basePrice,
+                productGST: responsePayload.gstPercentage,
+                productMaterials: responsePayload.productMaterials,
+                featuresAdded: responsePayload.features,
+                productFinishes: responsePayload.finishingOptions,
+                colorArray: responsePayload.colorOptions,
+                productDimensions: responsePayload.sizesAvailable,
+                productMinQuantity: responsePayload.minQuantity,
+                productMaxQuantity: responsePayload.maxQuantity,
+                productDescription : responsePayload.productDescription,
+                categoryStylesAdded: responsePayload.designStyles,
+                tagsAdded: responsePayload.tags,
+                productType : responsePayload.productType,
+                // productAvailability: responsePayload.availability,
+                productAvailabilityBool : responsePayload.availability,
+                productDiscount: responsePayload.discount,
                 productImagesObject: {
                     categoryName: "",
-                    imagesInCategory: decryptedData.productImages
+                    imagesInCategory: responsePayload.productImages
                 },
-                productThumbImage: decryptedData.productThumbImage,
-                youTubeURL: decryptedData.youTubeAdVideos,
-                brandName: decryptedData.brandName,
-                brandImage: decryptedData.brandImage,
-                productInstallers: decryptedData.productInstallers,
-                productInstallationAvailability: decryptedData.productInstallationAvailability,
-                productInstallationServiceCost: decryptedData.productInstallationServiceCost,
-                installationServiceCostType: decryptedData.installationServiceCostType,
+                productThumbImage: responsePayload.productThumbImage,
+                youTubeURL: responsePayload.youTubeAdVideos,
+                brandName: responsePayload.brandName,
+                brandImage: responsePayload.brandImage,
+                productInstallers: responsePayload.productInstallers,
+                productInstallationAvailability: responsePayload.productInstallationAvailability,
+                productInstallationServiceCost: responsePayload.productInstallationServiceCost,
+                installationServiceCostType: responsePayload.installationServiceCostType,
 
                 ///////
 
@@ -298,16 +268,14 @@ class EditProductDetails extends React.Component {
 
 
             this.handleDefaultChecked(
-                decryptedData.discount,
-                decryptedData.productInstallationAvailability
+                responsePayload.discount,
+                responsePayload.productInstallationAvailability
             )
         
         })
 
         .catch((err) => {
             if (err.response) {
-
-                // console.log(err.response)
                 if (err.response.status === 401)
                     window.open('/log-in', "_self")
 
@@ -322,196 +290,6 @@ class EditProductDetails extends React.Component {
             }
                 
         })
-        
-        
-        
-        // this
-        //     .props
-        //     .getUserData()
-
-        //     .then((data) => {
-        //         let { userData, pId } = this.props
-
-        //         // console.log(pId)
-
-        //         //
-        //         // DECRYPT RESPONSE DATA
-        //         //
-        //         let decryptedData = decryptData(userData.responseData)
-        //         //
-        //         // DECRYPT RESPONSE DATA
-        //         //
-
-        //         const rawData = { productId : pId.toUpperCase() }
-                
-        //         //
-        //         // Encrypt data
-        //         //
-        //         const encryptedData = encryptData(rawData)
-        //         //
-        //         // Encrypt data
-        //         //
-
-                
- 
-
-        //         // GET PRODUCT DATA
-        //         this.props.hitApi(api.GET_PRODUCT_DATA,"POST",
-        //             {
-        //                 requestData : encryptedData,
-        //                 message : "Requesting dispatch products"
-        //             }
-        //         )
-        //         .then(() => {
-
-        //             //
-        //             // DECRYPT REQUEST DATA
-        //             //
-        //             let decryptedData = decryptData(
-        //                 this.props.responseData.responsePayload.responseData
-        //             )
-        //             //
-        //             // DECRYPT REQUEST DATA
-        //             //
-        //                 // console.log(decryptedData)
-                    
-
-        //             this.setState({
-                        
-
-
-        //                 /// PLACE HERE ////
-        //                 productName: decryptedData.productName,
-        //                 productCode: decryptedData.productCode,
-        //                 productPrice: decryptedData.basePrice,
-        //                 productMaterials: decryptedData.productMaterials,
-        //                 featuresAdded: decryptedData.features,
-        //                 productFinishes: decryptedData.finishingOptions,
-        //                 colorArray: decryptedData.colorOptions,
-        //                 productDimensions: decryptedData.sizesAvailable,
-        //                 productMinQuantity: decryptedData.minQuantity,
-        //                 productMaxQuantity: decryptedData.maxQuantity,
-        //                 productDescription : decryptedData.productDescription,
-        //                 categoryStylesAdded: decryptedData.designStyles,
-        //                 tagsAdded: decryptedData.tags,
-        //                 productType : decryptedData.productType,
-        //                 // productAvailability: decryptedData.availability,
-        //                 productAvailabilityBool : decryptedData.availability,
-        //                 productDiscount: decryptedData.discount,
-        //                 productImagesObject: {
-        //                     categoryName: "",
-        //                     imagesInCategory: decryptedData.productImages
-        //                 },
-        //                 productThumbImage: decryptedData.productThumbImage,
-        //                 youTubeURL: decryptedData.youTubeAdVideos,
-        //                 brandName: decryptedData.brandName,
-        //                 brandImage: decryptedData.brandImage,
-        //                 productInstallers: decryptedData.productInstallers,
-        //                 productInstallationAvailability: decryptedData.productInstallationAvailability,
-        //                 productInstallationServiceCost: decryptedData.productInstallationServiceCost,
-        //                 installationServiceCostType: decryptedData.installationServiceCostType
-
-        //             })
-    
-        //             this.handleDefaultChecked()
-
-        //             let sCId = pId.split("-")[0] + "-" + pId.split("-")[1]
-
-        //             const rawData = { sCId }
-                    
-        //             //
-        //             // Encrypt data
-        //             //
-        //             const encryptedData = encryptData(rawData)
-        //             //
-        //             // Encrypt data
-        //             //
-    
-
-        //             // GET PRODUCT TYPES
-        //             this.props.hitApi(api.GET_PRODUCT_TYPES,"POST",
-        //                 {
-        //                     requestData : encryptedData,
-        //                     message : "Requesting dispatch product types"
-        //                 }
-        //             )
-        //             .then(() => {
-
-        //                 //
-        //                 // DECRYPT REQUEST DATA
-        //                 //
-        //                 let decryptedData = decryptData(
-        //                     this.props.responseData.responsePayload.responseData
-        //                 )
-        //                 //
-        //                 // DECRYPT REQUEST DATA
-        //                 //
-
-        //                 this.setState({
-        //                     loadingClass: 'loadingAnim hide',
-        //                     mainClass: 'mainClass',
-        //                     productTypes : decryptedData
-        //                 })
-        
-        //                 // console.log(this.props.sCId)
-        //             })
-
-        //             .catch((err) => {
-        //                 if (err.response) {
-
-        //                     // console.log(err.response)
-        //                     if (err.response.status === 401)
-        //                         window.open('/log-in', "_self")
-
-        //                     else{
-        //                         // window.open('/vendor/dashboard', "_self")
-        //                     }
-        //                 }
-        
-        //                 else{
-        //                     console.error(err)
-        //                     // window.open('/vendor/dashboard', "_self")
-        //                 }
-                            
-        //             })
-        //         })
-
-        //         .catch((err) => {
-        //             if (err.response) {
-
-        //                 // console.log(err.response)
-        //                 if (err.response.status === 401)
-        //                     window.open('/log-in', "_self")
-
-        //                 else{
-        //                     // window.open('/vendor/dashboard', "_self")
-        //                 }
-        //             }
-    
-        //             else{
-        //                 console.error(err)
-        //                 // window.open('/vendor/dashboard', "_self")
-        //             }
-                        
-        //         })
-
-
-                
-        //     })
-
-        //     .catch((err) => {
-        //         if (err.response) {
-        //             if (err.response.status === 401)
-        //                 window.open('/log-in', "_self")
-        //         }
-
-        //         else
-        //             console.error(err)
-        //     })
-
-    // componentDidUpdate() {
-    //     console.log(this.state.productInstallationServiceCost)
-    // }
     }
 
     handleDefaultChecked = ( productDiscount, productInstallationAvailability ) => {
@@ -637,8 +415,6 @@ class EditProductDetails extends React.Component {
             })
     }
 
-
-
     returnNavBarData = () => {
         if (this.props.userData.responseData) {
             //
@@ -658,7 +434,6 @@ class EditProductDetails extends React.Component {
             return null
         }
     }
-
 
     addFeatureName = () => {
         let temp = this.state.featureName;
@@ -684,18 +459,14 @@ class EditProductDetails extends React.Component {
 
     }
 
-
-    removeFeature = (index) => {
-        this
-            .state
-            .featuresAdded
-            .splice(index, 1)
+    removeFeature = index => {
+        this.state.featuresAdded.splice(index, 1);
 
         this.setState({
-            featuresAdded: this.state.featuresAdded.length !== 0 ? this.state.featuresAdded : []
-        })
-
-    }
+            featuresAdded:
+                this.state.featuresAdded.length !== 0 ? this.state.featuresAdded : []
+        });
+    };
 
     setfeatureName = (e) => {
         const val = e.target.value
@@ -771,7 +542,6 @@ class EditProductDetails extends React.Component {
 
         else{
             categoryStylesAdded.map((item, i) => {
-                // console.log(item.styleName, styleData.styleTitle)
                 if(item.styleName === styleData.styleTitle){
                     styleDoesntExist = false
                 }
@@ -919,36 +689,26 @@ class EditProductDetails extends React.Component {
     };
     
     returnfeaturesAdded = () => {
-        return (
-            this
-            .state
-            .featuresAdded
+        return this.state.featuresAdded.map((item, i) => {
+            return (
+                <div className="featureWrap" key={i}>
+                    <ul>
+                        <li>
+                            <p key={i}>{item}</p>
+                        </li>
+                    </ul>
 
-            .map((item, i) => {
-                return (
-                    <div
-                        className="featureWrap"
-                        key={i}
-                        >
-                        <ul>
-                            <li>
-                                <p key={i}>
-                                    {item}
-                                </p>
-                            </li>
-                        </ul>
-
-                        <div
-                            className="deleteIcon"
-                            onClick={(i) => this.removeFeature(i)}
-                            >
-                            <CloseButton />
-                        </div>
+                    <div className="deleteIcon"
+                        onClick={() => {
+                            this.removeFeature(i);
+                        }}
+                    >
+                        <CloseButton />
                     </div>
-                )
-            })
-        )
-    }
+                </div>
+            );
+        });
+    };
 
     returnColorModule = () => {
         return (
@@ -1059,8 +819,6 @@ class EditProductDetails extends React.Component {
 
     //     await setSyncState()
 
-    //     console.log(this.refs.sizeCost.value, this.refs.sizeName.value)
-    //     console.log(sizeCost, sizeName)
 
     //     this
     //         .state
@@ -1092,7 +850,6 @@ class EditProductDetails extends React.Component {
 
     returnProductMaterials = () => {
         return this.state.productMaterials.map((item, i) => {
-            console.log(item)
             return (
                 <div className="productMaterialDescriptionOuterLayer" key={i}>
                     <div className="productMaterialDescriptionInnerLayer">
@@ -1130,6 +887,7 @@ class EditProductDetails extends React.Component {
             );
         });
     };
+
     // editProductMaterials = async (index) => {
     //     const materialName = this.state.productMaterials[index].materialName;
     //     const materialCost = this.state.productMaterials[index].materialCost;
@@ -1192,7 +950,6 @@ class EditProductDetails extends React.Component {
         }
 
         else if (field === "materialGrade") {
-            console.log(item)
             if (item.materialGrade !== "") {
                 return (
                     <div className="materialCostCartWrap">
@@ -1481,7 +1238,6 @@ class EditProductDetails extends React.Component {
         this.setState({ youtubeId })
       }
 
-    //   console.log(youtubeId)
 
       let dummyArray = [...youTubeURL];
 
@@ -1698,8 +1454,6 @@ class EditProductDetails extends React.Component {
             })
         }
     }
-
-  
 
     returnHtmlSliderforproductImagesObject = () => {
         if (this.state.productImagesObject.imagesInCategory.length !== 0) {
@@ -1993,8 +1747,15 @@ class EditProductDetails extends React.Component {
                     if (installerCharges !== "") {
                         if (installerChargeIsValid) {
                             isInstallerValid = true;
-                        } else {
-                            emptyField = "Installer charges in number";
+                        }
+                        else if (!installerChargeIsValid) {
+                            if (installerCharges !== 0) {
+                                isInstallerValid = true;
+                                emptyField = "Installer charges in number";
+                            }
+                            else {
+                                isInstallerValid = true;
+                            }
                         }
                     }
 
@@ -2193,7 +1954,7 @@ class EditProductDetails extends React.Component {
         else if (typeOfButtonClicked === "installer") {
             const installerName = this.refs.installerName.value;
             const installerContactNo = this.state.installerContactNo;
-            const installerCharges = this.refs.installerCharges.value;
+            const installerCharges = this.refs.installerCharges.value !== "" ? this.refs.installerCharges.value : 0;
             const installerChargeType = this.state.installerCostType;
 
             let validatedData = validateInstallerModal(
@@ -2355,7 +2116,6 @@ class EditProductDetails extends React.Component {
                 productAvailability = false
             }
 
-            // console.log(productAvailability)
             
             this.setState({ 
                 productAvailability: val,
@@ -2513,33 +2273,25 @@ class EditProductDetails extends React.Component {
             <div className="productInstallerDescriptionOuterLayer" key={i}>
               <div className="productInstallerDescriptionInnerLayer">
                 <div className="productInstallerDetails">
-                  <div className="productInstallerNameWrap">
-                    {/* <h3>Installer nomenclature</h3> */}
-                    <h3 key={i}>{item.installerName}</h3>
-                  </div>
+                    <div className="productInstallerNameWrap">
+                        {/* <h3>Installer nomenclature</h3> */}
+                        <h3 key={i}>{item.installerName}</h3>
+                    </div>
 
-                  <div className="productInstallerContactNoWrap">
-                    <p key={i}>+91 <span>{item.installerContactNo}</span></p>
-                  </div>
+                    <div className="productInstallerContactNoWrap">
+                        <p key={i}>+91 <span>{item.installerContactNo}</span></p>
+                    </div>
 
-                  <div className={item.installerCharges !== "" ? "productInstallerChargesWrap" : "hide"} >
-                    <p>Charges </p>
-                    <span key={i}>
-                      Rs. {item.installerCharges} / {this.returnChargeType(item.installerChargeType)}
-                    </span>
-                  </div>
+                    <div className={item.installerCharges !== "" ?
+                        (item.installerCharges !== 0 ? "productInstallerChargesWrap" : "hide") : "hide"} >
+                        <p>Charges </p>
+                        <span key={i}>
+                            Rs. {item.installerCharges} / {this.returnChargeType(item.installerChargeType)}
+                        </span>
+                    </div>
                 </div>
                 <div className="materialEditingButtons">
-                  {/* <div className="editButton">
-                          <WhiteButton
-                              runFunction={() => this.editProductInstallers(i)}
-                          >
-                              Edit
-                          </WhiteButton>
-                        </div> */}
-                    <div className="editButton">
-                     <WhiteButton>Edit</WhiteButton>
-                    </div>
+                    {/* S */}
                     <div
                         className="deleteButton"
                         onClick={() => this.removeProductInstallers(i)}
@@ -2630,37 +2382,16 @@ class EditProductDetails extends React.Component {
         }
 
 
-        //
-        // Encrypt data
-        //
-        const encryptedData = encryptData(finalDataToSend)
-        //
-        // Encrypt data
-        //
-
-
         //  UPDATE PRODUCT 
 
         this.props.hitApi(api.UPDATE_PRODUCT, "PUT", 
             {
-                requestData : encryptedData,
+                requestData : finalDataToSend,
                 message : "Update product, foxtrot"
             } 
         )
 
         .then(() => {
-
-            //
-            // DECRYPT REQUEST DATA
-            //
-            let decryptedData = decryptData(
-                this.props.responseData.responsePayload.responseData
-            )
-            //
-            // DECRYPT REQUEST DATA
-            //
-
-
             this.setState({
                 finalProceed : "successScreen"
             })
@@ -2690,7 +2421,7 @@ class EditProductDetails extends React.Component {
 
         
 
-        // console.log(finalDataToSend)
+
     }
 
     returnProductsContent = () => {
@@ -2787,7 +2518,6 @@ class EditProductDetails extends React.Component {
 
         
     }
-
 
     filterByImageURL = index => {
         const { imagesInCategory } = this.state.productImagesObject;
@@ -3287,7 +3017,6 @@ class EditProductDetails extends React.Component {
                                                             <div className="detailsInputLayer">
                                                                 <div className="notFilledSection">
                                                                     {this.state.emptyField.map((item, i) => (
-                                                                        // console.log(item)
                                                                         <div className="errorFieldMessage" key={i}>
                                                                             <ul>
                                                                                 <li>
@@ -3642,7 +3371,6 @@ class EditProductDetails extends React.Component {
         }
     }
 
-
     onToggleSwitch = async () => {
         await this.setState({ isChecked: !this.state.isChecked });
 
@@ -3650,119 +3378,137 @@ class EditProductDetails extends React.Component {
         else if(this.state.isChecked === false) this.setState({ extraCostInput: "extraCostInput hide" });
     }
 
-  handleMultiValidation = fieldName => {
-    const {
-        productDiscountAvailablity,
-        productDiscount,
-        productGST,
-        productMinQuantity,
-        productMaxQuantity,
-        productInstallationAvailability,
-        productInstallationServiceCost,
-        productInstallers
-    } = this.state;
+    handleMultiValidation = fieldName => {
+        const {
+            productPrice,
+            productDiscountAvailablity,
+            productDiscount,
+            productGST,
+            productMinQuantity,
+            productMaxQuantity,
+            productInstallationAvailability,
+            productInstallationServiceCost,
+            productInstallers
+        } = this.state;
 
-    if (fieldName === "Max. quantity") {
-        if (productMaxQuantity !== undefined) {
-            if (
-                productMaxQuantity === productMinQuantity ||
-                productMaxQuantity < productMinQuantity
-            ) {
-                this.setState({
-                    displayQuantityValueError: "displayQuantityValueError"
-                });
-
-                return "Max. quantity value";
-            } else
-                this.setState({
-                    displayQuantityValueError: "displayQuantityValueError hide"
-                });
-        } else return "Max. qunatity";
-    }
-
-    else if (fieldName === "Product GST") {
-        if (productGST !== undefined) {
-          if (productGST === 0) {
-            console.log("wrksin")
-            this.setState({
-              displayGSTValueError: "displayGSTValueError"
-            });
-
-            return "Product GST Value";
-          } else {
-            this.setState({
-              displayGSTValueError: "displayGSTValueError hide"
-            });
-          }
-        } else if (productGST === undefined) {
-          return "Product GST";
-      }
-    }
-
-    else if (fieldName === "Product Discount") {
-        if (productDiscountAvailablity === "yes") {
-            if (productDiscount !== undefined) {
-                if (productDiscount === 0) {
+        if (fieldName === "Max. quantity") {
+            if (productMaxQuantity !== undefined) {
+                if (
+                    productMaxQuantity === productMinQuantity ||
+                    productMaxQuantity < productMinQuantity
+                ) {
                     this.setState({
-                        displayDiscountValueError: "displayDiscountValueError"
+                        displayQuantityValueError: "displayQuantityValueError"
                     });
 
-                    return "Product Discount Value";
+                    return "Max. quantity value";
                 } else
                     this.setState({
-                        displayDiscountValueError: "displayDiscountValueError hide"
+                        displayQuantityValueError: "displayQuantityValueError hide"
                     });
-            } else if (productDiscount === undefined) {
-                return "Product Discount Value";
-            }
-        } else return "Product Discount Availability";
-    }
+            } else return "Max. qunatity";
+        }
 
-    else if (fieldName === "Product Installation") {
-        if (productInstallationAvailability === 2) {
-            if (productInstallationServiceCost !== undefined) {
-                if(this.refs.installationCost.value !== "") {
-                    if (productInstallationServiceCost === 0) {
-                        this.setState({
-                            displayInstallationValueError: "displayInstallationValueError"
-                        });
+        else if (fieldName === "Base price of this product") {
+            if (productPrice !== undefined) {
+                if (productPrice === 0) {
+                    this.setState({
+                        displayProductPriceValueError: "displayProductPriceValueError"
+                    });
 
-                        return "Product Installation Cost";
-                    } 
-                    
-                    else
-                        this.setState({
-                            displayInstallationValueError:
-                                "displayInstallationValueError hide"
-                        });
+                    return "Base price value";
+                } else {
+                    this.setState({
+                        displayProductPriceValueError: "displayProductPriceValueError hide"
+                    });
                 }
-                
-                else if (this.refs.installationCost.value === "") {
+            } else if (productPrice === undefined) {
+                return "Base price of this product";
+            }
+        }
+
+        else if (fieldName === "Product GST") {
+            if (productGST !== undefined) {
+                if (productGST === 0) {
+                    this.setState({
+                        displayGSTValueError: "displayGSTValueError"
+                    });
+
+                    return "Product GST Value";
+                } else {
+                    this.setState({
+                        displayGSTValueError: "displayGSTValueError hide"
+                    });
+                }
+            } else if (productGST === undefined) {
+                return "Product GST";
+            }
+        }
+
+        else if (fieldName === "Product Discount") {
+            if (productDiscountAvailablity === "yes") {
+                if (productDiscount !== undefined) {
+                    if (productDiscount === 0) {
+                        this.setState({
+                            displayDiscountValueError: "displayDiscountValueError"
+                        });
+
+                        return "Product Discount Value";
+                    } else
+                        this.setState({
+                            displayDiscountValueError: "displayDiscountValueError hide"
+                        });
+                } else if (productDiscount === undefined) {
+                    return "Product Discount Value";
+                }
+            } else return "Product Discount Availability";
+        }
+
+        else if (fieldName === "Product Installation") {
+            if (productInstallationAvailability === 2) {
+                if (productInstallationServiceCost !== undefined) {
+                    if (this.refs.installationCost.value !== "") {
+                        if (productInstallationServiceCost === 0) {
+                            this.setState({
+                                displayInstallationValueError: "displayInstallationValueError"
+                            });
+
+                            return "Product Installation Cost";
+                        }
+
+                        else
+                            this.setState({
+                                displayInstallationValueError:
+                                    "displayInstallationValueError hide"
+                            });
+                    }
+
+                    else if (this.refs.installationCost.value === "") {
+                        return "Product Installation Cost";
+                    }
+                }
+
+                else if (productInstallationServiceCost === undefined) {
                     return "Product Installation Cost";
                 }
             }
 
-            else if (productInstallationServiceCost === undefined) {
-                return "Product Installation Cost";
+            else if (productInstallationAvailability === 5) {
+                if (productInstallers.length === 0) {
+                    return "Product Installer Details"
+                }
             }
-        }
 
-        else if (productInstallationAvailability === 5) {
-            if (productInstallers.length === 0) {
-                return "Product Installer Details"
-            }
+            else return "Product Installation Service";
         }
-
-        else return "Product Installation Service";
-    }
-  };
+    };
 
     validateProceedHandler = async () => {
         const fieldNames = [
             { fieldName: "Product Name", value: this.state.productName },
             { fieldName: "Product Code", value: this.state.productCode },
             {
-                fieldName: "Base price of this product",
+                fieldName: `${this.handleMultiValidation("Base price of this product")}`,
                 value: this.state.productPrice
             },
             {
@@ -3785,10 +3531,6 @@ class EditProductDetails extends React.Component {
             { fieldName: "Product Design", value: this.state.categoryStylesAdded },
             { fieldName: "Product Tags", value: this.state.tagsAdded },
             {
-                fieldName: "Product Availability",
-                value: this.state.productAvailabilityBool
-            },
-            {
                 fieldName: `${this.handleMultiValidation("Product Discount")}`,
                 value: this.state.productDiscount
             },
@@ -3799,7 +3541,7 @@ class EditProductDetails extends React.Component {
 
             {
                 fieldName: `${this.handleMultiValidation("Product Installation")}`,
-                value: this.state.productInstallationAvailability
+                value: this.state.productInstallationServiceCost
             }
         ];
 
@@ -3816,7 +3558,8 @@ class EditProductDetails extends React.Component {
                 item.fieldName === "Max. quantity value" ||
                 item.fieldName === "Product Discount Value" ||
                 item.fieldName === "Product Installation Cost" ||
-                item.fieldName === "Product Installer Details"
+                item.fieldName === "Product Installer Details" ||
+                item.fieldName === "Base price value"
             ) {
                 if (!this.state.emptyField.includes(item.fieldName)) {
                     this.state.emptyField.push(item.fieldName);
@@ -4078,7 +3821,7 @@ class EditProductDetails extends React.Component {
 
                                                 <div className="inputFormContainer">
                                                     <div className="formParaSection">
-                                                        <p className="pargraphClass">Base price of this product</p>
+                                                        <p className="pargraphClass">Base price of this product (Excl. GST)</p>
                                                     </div>
                                                     <div className="PricingSection">
                                                         <InputForm
@@ -4090,7 +3833,7 @@ class EditProductDetails extends React.Component {
                                                             value={this.handleDefaultValues("ProductPrice")}
                                                             result={(val) => {
                                                                 this.setState({
-                                                                    productPrice: val
+                                                                    productPrice: Number(val)
                                                                 })
                                                             }}
                                                         />
@@ -4188,7 +3931,7 @@ class EditProductDetails extends React.Component {
                                                                 placeholder="Type the value-add features about this product"
                                                                 ref="featureInput"
                                                                 type="text"
-                                                                maxLength="100"
+                                                                maxLength="200"
                                                                 onChange={e => this.setfeatureName(e)}
                                                                 onKeyPress={e => {
                                                                     if (e.key === "Enter") {
@@ -4243,7 +3986,6 @@ class EditProductDetails extends React.Component {
                                                     <div className="formParaSection">
                                                         <p 
                                                             className="pargraphClass"
-                                                            // onClick = {() => console.log(this.state.colorArray)}
                                                         >
                                                             Color options 
                                                         </p>
@@ -4442,7 +4184,7 @@ class EditProductDetails extends React.Component {
                                                                     placeholder="For Ex. Sofa"
                                                                     ref="tagInput"
                                                                     type="text"
-                                                                    maxLength="20"
+                                                                    maxLength="40"
                                                                     onChange={e => this.setTagName(e)}
                                                                     onKeyPress={e => {
                                                                         if (e.key === "Enter") {
@@ -4924,15 +4666,4 @@ const matchDispatchToProps = (dispatch) => {
     }, dispatch)
 }
 
-export default connect(mapStateToProps, matchDispatchToProps)(EditProductDetails)
-
-
-
-    // handleStyleSelection = (styleData) => {
-    //     this.state.categoryStylesAdded.push(styleData.styleTitle)
-    //     let dummyArray = [...new Set(this.state.categoryStylesAdded.map(item => item))]
-
-    //     this.setState({
-    //         categoryStylesAdded : dummyArray
-    //     })
-    // }
+export default connect(mapStateToProps, matchDispatchToProps)(EditProductDetails);
