@@ -286,6 +286,152 @@ input{
                     }   
                 }
 
+                .modalCategoryLinkContainer{
+                    @include flexCentreCol;
+                    justify-content: flex-start;
+                    width: 55%;
+                    // height: 8em;
+                    margin: 0.5em;
+                    padding: 1em;
+                    background: $white;
+                    margin-bottom: 4em;
+                    @include box_shadow;
+                    .modalHeaderCloserSection{
+                        @include flexCentreRow;
+                        align-items: flex-start;
+                        width: 100%;
+                        .modalHeader{
+                            @include flexCentreCol;
+                            margin-top: 0.5em;
+                            width: 92%;
+                            h3{
+                                text-align: center;
+                                font-size: 1.1em;
+                                color: $darkerGrey;
+                                width: 60%;
+                            }
+                            .line{
+                                width: 30%;
+                                height: 0.1em;
+                                background: $secondaryMagenta;
+                            }
+                        }
+                        .modalClose{
+                            margin-top: 0.5em;
+                            cursor: pointer;
+                        }
+                    }
+                    .shareLinkInfoContainer{
+                        margin: 1em 0;
+                        width: 100%;
+                    }
+                    .linkModal{
+                        @include flexCentreCol;
+                        align-items: flex-end;
+                        .linkComponent{
+                            @include flexCentreRow;
+                            width: 100%;
+                            .shareLinkSvgComponent{
+                                // margin-: 1em;
+                            }
+                            .shareInputSection{
+                                border: 0.2em solid $semiLightGrey;
+                                border-radius: 0.3em;
+                                background: $white;
+                                padding: 0.5em;
+                                width: 75%;
+                                margin: 0 1em;
+                                input{
+                                    width: 100%;
+                                    border: none;
+                                }
+                            }
+                            .shareLinkButtonContainer{
+                                border: 0.2em solid $semiLightGrey;
+                                border-radius: 0.3em; 
+                                .toolTip{
+                                    position: relative;
+                                    display: inline-block;
+                                    padding: 0.5em 0.5em 0.4em 0.5em;
+                                    &:hover{
+                                        cursor: pointer;
+                                        .tooltipone{
+                                        visibility: visible;
+                                        }
+                                    }
+                                    .tooltipone{
+                                        visibility: hidden;
+                                        width: 3em;
+                                        background-color: black;
+                                        color: #fff;
+                                        text-align: center;
+                                        font-size: 0.8em;
+                                        border-radius: 6px;
+                                        padding: 5px 0;
+                                        right: -3.3em;
+                                        /* Position the tooltip */
+                                        position: absolute;
+                                        z-index: 1;
+                                        transition: .2s;
+                                     }
+                                }
+                            }
+                        }
+                        .up-arrow {
+                            display: inline-block;
+                            position: relative;
+                            background: $primaryGreen;
+                            color: #FFF;
+                            text-decoration: none;
+                            padding: 0.3em;
+                            border: 0.2em solid $primaryGreen;
+                            border-radius: 0.2em;
+                            margin: 0.5em 2em 0 0;
+                        }
+                        .up-arrow {
+                            background: $primaryGreen;
+                        }
+                        .up-arrow:after {
+                            content: '';
+                            display: block;  
+                            position: absolute;
+                            left: 20px;
+                            bottom: 100%;
+                            width: 0;
+                            height: 0;
+                            border-bottom: 10px solid $primaryGreen;
+                            border-top: 10px solid transparent;
+                            border-left: 10px solid transparent;
+                            border-right: 10px solid transparent;
+                        }
+                        // a:hover.up-arrow:after {
+                        //     border-bottom-color: brown;
+                        // }
+                        // button{
+                        //      position: relative;
+                        //      display: inline-block;
+                        //      &:hover{
+                        //          .tooltipone{
+                        //             visibility: visible;
+                        //          }
+                        //      }
+                        //      .tooltipone{
+                        //         visibility: hidden;
+                        //         width: 3em;
+                        //         background-color: black;
+                        //         color: #fff;
+                        //         text-align: center;
+                        //         border-radius: 6px;
+                        //         padding: 5px 0;
+        
+                        //         /* Position the tooltip */
+                        //         position: absolute;
+                        //         z-index: 1;
+                        //      }
+                        // }
+                    }
+                }
+
                 .modalInnerLayer{
                     @include flexCentreCol;
                     justify-content: flex-start;
@@ -1802,32 +1948,33 @@ input{
 
                         }      
                 }
-                .linkModal{
-                    width: 100%;
-                    height: 10vh;
-                    position: absolute;
-                    .linkComponent{
-                        width: 90%;
-                        .shareLinkInput{
-                            width: 70%;
-                            text-align: center;
-                            margin: 0 4em;
-                            padding: 0;
-                            border-color: rgba(0, 0, 0, 0.25);
-                            border-style: solid;
-                            border-radius: 0.3em;
-                        }
-                        .toolTip{
-                            align-items: center;
-                            padding: 0.3em;
-                            float: right;
-                            background: $white;
-                            border-color: rgba(0, 0, 0, 0.25);
-                            border-radius: 0.3em;
-                            border-width: 0.25em;
-                        }
-                    }
-                }
+                // .linkModalContainer{
+                //     width: 100%;
+                //     height: 10vh;
+                //     position: absolute;
+                //     top: 0;
+                //     .linkComponent{
+                //         width: 90%;
+                //         .shareLinkInput{
+                //             width: 70%;
+                //             text-align: center;
+                //             margin: 0 4em;
+                //             padding: 0;
+                //             border-color: rgba(0, 0, 0, 0.25);
+                //             border-style: solid;
+                //             border-radius: 0.3em;
+                //         }
+                //         .toolTip{
+                //             align-items: center;
+                //             padding: 0.3em;
+                //             float: right;
+                //             background: $white;
+                //             border-color: rgba(0, 0, 0, 0.25);
+                //             border-radius: 0.3em;
+                //             border-width: 0.25em;
+                //         }
+                //     }
+                // }
             }
 
             }

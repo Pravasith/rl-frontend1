@@ -465,34 +465,34 @@ export const SelectList = (props) => {
     );
 }
 
-export const Modal = (props) => {
+// export const Modal = (props) => {
 
-    return (
-        <div className="modalContainer">
-            <div className="modalWrapperOuterLayer"
+//     return (
+//         <div className="modalContainer">
+//             <div className="modalWrapperOuterLayer"
                 
-                style={{
-                    transform: props.show ? 'translateY(0vh)' : 'translateY(-10vh)',
-                    opacity: props.show ? '1' : '0',
-                }}>
-                <div className="modalWrapperInnerLayer">
-                    <div className="modalHeader">
-                        <div className="modalHeaderContainer">
-                            <h3>{props.header}</h3>
-                            <div className="line"></div>
-                        </div>
-                        <div
-                            className="closeModalBtn"
-                            onClick={() => props.close()}>
-                            <BigCloseButton />
-                        </div>
-                    </div>
-                    <div className="modalBody">
-                        {props.children}
-                    </div>
-                </div>
-            </div>
-        </div>
-    )
-}
+//                 style={{
+//                     transform: props.show ? 'translateY(0vh)' : 'translateY(-10vh)',
+//                     opacity: props.show ? '1' : '0',
+//                 }}>
+//                 <div className="modalWrapperInnerLayer">
+//                     <div className="modalHeader">
+//                         <div className="modalHeaderContainer">
+//                             <h3>{props.header}</h3>
+//                             <div className="line"></div>
+//                         </div>
+//                         <div
+//                             className="closeModalBtn"
+//                             onClick={() => props.close()}>
+//                             <BigCloseButton />
+//                         </div>
+//                     </div>
+//                     <div className="modalBody">
+//                         {props.children}
+//                     </div>
+//                 </div>
+//             </div>
+//         </div>
+//     )
+// }
 

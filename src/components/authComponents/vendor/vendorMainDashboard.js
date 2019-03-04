@@ -92,9 +92,9 @@ class VendorMainDashboard extends React.Component {
 
             deleteLoading : false,
 
-            // isShowing: false,
+            isShowing: false,
 
-            // tool_tip_content: '',
+            tool_tip_content: '',
         }
 
     }
@@ -495,7 +495,7 @@ class VendorMainDashboard extends React.Component {
 
         this.refs.toolTip.select();
         document.execCommand('copy');
-        this.setState({ tool_tip_content: 'Copied to clipboard' });
+        this.setState({ tool_tip_content: 'Copied to clipboard!' });
 
     };
 
@@ -842,16 +842,20 @@ class VendorMainDashboard extends React.Component {
                                 Add new category
                             </GradientButton>
 
-                            {/* <WhiteButton
+                            <WhiteButton
                                 runFunction={() => {
                                     this.setState({
-                                        linkModal: 'linkModalContainer',
-                                        isShowing: true
+                                        // linkModal: 'linkModalContainer',
+                                        // isShowing: true
+                                        modalClass: 'modalClass ',
+                                        productManagerWrapperClass: "productManagerWrapperClass blurClass",
+                                        vendorInitialGraphic: 'hide',
+                                        activeModalType: 'shareLinkModal'
                                     })
                                 }}
                             >
                                 Share Link
-                            </WhiteButton> */}
+                            </WhiteButton>
 
 
                             
@@ -2203,6 +2207,60 @@ class VendorMainDashboard extends React.Component {
                 </div>
             )
         }
+        else if (categoryModalOrSubcategoryModal === "shareLinkModal"){
+            return(
+                <div className="modalCategoryLinkContainer">
+                    <div className="modalHeaderCloserSection">
+                        <div className="modalHeader">
+                            <h3>Share this link in your social media for showing your portfolio of products</h3>
+                            <div className="line"></div>
+                        </div>
+                        <div 
+                            className="modalClose"
+                            onClick={() => this.setState({
+                                modalClass: "modalClass hide",
+                                mainContentWrap: "mainContentWrap",
+                                productManagerWrapperClass: "productManagerWrapperClass",
+                                subCategoryDataExists: false,
+                                vendorInitialGraphic: 'vendorGraphicCenter',
+                            })
+                            }
+                        >
+                            <BigCloseButton/>
+                        </div>
+                    </div>
+                    <div className="shareLinkInfoContainer">
+                        <div className="linkModal">
+
+                    <div className="linkComponent">
+                        <div className="shareLinkSvgComponent">
+                            <ShareLink className="shareLinkLogo" />
+                        </div>
+                        <div className="shareInputSection">
+                            <input
+                                className="shareLinkInput"
+                                readOnly
+                                ref="toolTip"
+                                value={`https://rollinglogs.com/vendor-profile/${this.state.firstName}-${this.state.lastName}/${this.state.rLId}`}
+                            />
+                        </div>
+                        <div className="shareLinkButtonContainer">
+                            <div
+                                className="toolTip"
+                                onClick={() => this.copyToClipBoard()}
+                            >
+                                <CopyLinkicon />
+                                <span className="tooltipone">Copy</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    {this.state.tool_tip_content.length > 0 && <span className="up-arrow">{this.state.tool_tip_content} </span>}
+                </div>
+                    </div>
+                </div>
+            )
+        }
     }
 
     // returnShareLinkModal = () => {
@@ -2219,23 +2277,29 @@ class VendorMainDashboard extends React.Component {
     //             <div className="linkModal">
 
     //                 <div className="linkComponent">
-    //                     <ShareLink className="shareLinkLogo" />
-    //                     <input
-    //                         className="shareLinkInput"
-    //                         readOnly
-    //                         ref="toolTip"
-    //                         value={`https://rollinglogs.com/vendor-profile/${this.state.firstName}-${this.state.lastName}/${this.state.rLId}`}
-    //                     />
-    //                     <button
-    //                         className="toolTip"
-    //                         onClick={() => this.copyToClipBoard()}
-    //                     >
-    //                         <CopyLinkicon />
-    //                         <span className="tooltip">Copy</span>
-    //                     </button>
+    //                     <div className="shareLinkSvgComponent">
+    //                         <ShareLink className="shareLinkLogo" />
+    //                     </div>
+    //                     <div className="shareInputSection">
+    //                         <input
+    //                             className="shareLinkInput"
+    //                             readOnly
+    //                             ref="toolTip"
+    //                             value={`https://rollinglogs.com/vendor-profile/${this.state.firstName}-${this.state.lastName}/${this.state.rLId}`}
+    //                         />
+    //                     </div>
+    //                     <div className="shareLinkButtonContainer">
+    //                         <div
+    //                             className="toolTip"
+    //                             onClick={() => this.copyToClipBoard()}
+    //                         >
+    //                             <CopyLinkicon />
+    //                             <span className="tooltipone">Copy</span>
+    //                         </div>
+    //                     </div>
 
     //                 </div>
-    //                 {this.state.tool_tip_content.length > 0 && <span className="tooltiptext">{this.state.tool_tip_content} </span>}
+    //                 {this.state.tool_tip_content.length > 0 && <span className="up-arrow">{this.state.tool_tip_content} </span>}
     //             </div>
     //         </Modal>
     //     )
