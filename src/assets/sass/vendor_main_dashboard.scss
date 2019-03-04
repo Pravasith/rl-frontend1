@@ -1792,6 +1792,13 @@ input{
                                         margin-top: 0.2em;
                                     }
                                 }
+                                .whiteButtonWrapper{
+                                    background: $black;
+                                    color: $white;
+                                    margin: 0.2em 0.5em 0.5em 1em;
+                                    // margin-right: 0.5em;
+                                    //     margin-top: 0.2em;
+                                }
                             }
 
                             .addedProductSectionCategoryOuterLayer{
