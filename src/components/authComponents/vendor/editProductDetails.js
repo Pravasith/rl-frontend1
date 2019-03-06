@@ -204,7 +204,6 @@ class EditProductDetails extends React.Component {
 
         const rawData = { productId : pId.toUpperCase() }
 
-
         await Promise.all([
             this.props.getUserData(),
 
@@ -221,6 +220,8 @@ class EditProductDetails extends React.Component {
 
         .then((data) => {
             let { responsePayload } = this.props.responseData;
+
+            console.log(responsePayload)
 
             this.setState({
 

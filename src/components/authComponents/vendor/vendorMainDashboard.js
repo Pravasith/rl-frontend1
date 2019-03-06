@@ -854,7 +854,7 @@ class VendorMainDashboard extends React.Component {
                                     })
                                 }}
                             >
-                                Share Link
+                                Share your product catalogue
                             </WhiteButton>
 
 
@@ -2212,7 +2212,7 @@ class VendorMainDashboard extends React.Component {
                 <div className="modalCategoryLinkContainer">
                     <div className="modalHeaderCloserSection">
                         <div className="modalHeader">
-                            <h3>Share this link in your social media for showing your portfolio of products</h3>
+                            <h3>Share this link in your social media accounts to showcase your portfolio of products and increase your sales</h3>
                             <div className="line"></div>
                         </div>
                         <div 
@@ -2225,7 +2225,7 @@ class VendorMainDashboard extends React.Component {
                                 vendorInitialGraphic: 'vendorGraphicCenter',
                             })
                             }
-                        >
+                            >
                             <BigCloseButton/>
                         </div>
                     </div>

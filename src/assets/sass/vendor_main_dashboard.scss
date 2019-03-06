@@ -308,7 +308,7 @@ input{
                                 text-align: center;
                                 font-size: 1.1em;
                                 color: $darkerGrey;
-                                width: 60%;
+                                width: 70%;
                             }
                             .line{
                                 width: 30%;
@@ -1795,9 +1795,8 @@ input{
                                 .whiteButtonWrapper{
                                     background: $black;
                                     color: $white;
-                                    margin: 0.2em 0.5em 0.5em 1em;
-                                    // margin-right: 0.5em;
-                                    //     margin-top: 0.2em;
+                                    padding-top: 0.6em;
+                                    margin: 0 0em 0.5em 1em;
                                 }
                             }
 
