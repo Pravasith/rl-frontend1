@@ -7,8 +7,8 @@ if(process.env.NODE_ENV === "development"){
 }
 
 else if (process.env.NODE_ENV === "production"){
-    API_SOCKETS_URL = 'wss://api.rollinglogs:8000/nes'
-    API_BASE_URL = 'https://api.rollinglogs.com:8000/'
+    API_SOCKETS_URL = 'wss://api.rollinglogs/nes'
+    API_BASE_URL = 'https://api.rollinglogs.com/'
 }
 
 
