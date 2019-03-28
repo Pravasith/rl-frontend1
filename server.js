@@ -14,7 +14,7 @@ const handle = nextApp.getRequestHandler();
 nextApp.prepare()
     .then(() => {
 
-        let server = express(), options = {},  port = 3000, app = express()
+        let server = express(), options = {},  PORT = 3000, app = express()
 
         if(dev){
             // DEVELOPMENT ///
@@ -76,7 +76,7 @@ nextApp.prepare()
 
         // if(dev){
         //     // DEVELOPMENT ///
-        //     server.listen((port), (err) => { 
+        //     server.listen((PORT), (err) => { 
         //         if (err) throw err
         //         console.log('>> Ready on 3000')
         //     })
@@ -86,9 +86,9 @@ nextApp.prepare()
         //     // PRODUCTION ///
         //     app = https.createServer(options, server)
         //     .listen(
-        //         port,
+        //         PORT,
         //         function(){
-        //             console.log("Express server listening on port " + port)
+        //             console.log("Express server listening on PORT " + PORT)
         //         }
         //     )
 
@@ -118,7 +118,7 @@ nextApp.prepare()
 
 
 
-//         let port = 3000;
+//         let PORT = 3000;
 
 //         let options = {
 //             key: fs.readFileSync('/etc/letsencrypt/live/vendor.rollinglogs.com/privkey.pem', 'utf-8'),
@@ -166,13 +166,13 @@ nextApp.prepare()
 
 //         // PRODUCTION ///
 //         let app = https.createServer(options, server)
-//         .listen((port), function(){
-//         console.log("Express server listening on port " + port);
+//         .listen((PORT), function(){
+//         console.log("Express server listening on PORT " + PORT);
 //         });
 //         // PRODUCTION ///
 
 //         // DEVELOPMENT ///
-//         // server.listen((port), (err) => { 
+//         // server.listen((PORT), (err) => { 
 //         //     if (err) throw err
 //         //     console.log('>> Ready on 3000')
 //         // })
