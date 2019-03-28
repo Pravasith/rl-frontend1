@@ -1,16 +1,14 @@
-const express = require('express')
-const next = require('next')
+const express = require('express');
+const next = require('next');
 
-
-const favicon = require('serve-favicon')
-var path = require('path')
+const favicon = require('serve-favicon');
+var path = require('path');
 let https = require('https')
+let fs = require('fs')
 
-const dev = process.env.NODE_ENV !== 'production'
-const nextApp = next({ dev })
-const handle = nextApp.getRequestHandler()
-
-const fs = require('fs')
+const dev = process.env.NODE_ENV !== 'production';
+const nextApp = next({ dev });
+const handle = nextApp.getRequestHandler();
 
 
 nextApp.prepare()
@@ -69,30 +67,36 @@ nextApp.prepare()
             return handle(req, res)
         })
 
+        server.listen((PORT), (err) => { 
+            if (err) throw err
+            console.log('>> Ready on ' + PORT)
+        })
 
-        if(dev){
-            // DEVELOPMENT ///
-            server.listen((port), (err) => { 
-                if (err) throw err
-                console.log('>> Ready on 3000')
-            })
-            // DEVELOPMENT ///
-        }
-        else{
-            // PRODUCTION ///
-            app = https.createServer(options, server)
-            .listen(
-                port,
-                function(){
-                    console.log("Express server listening on port " + port)
-                }
-            )
 
-            app.on('listening',function(){
-                console.log('ok, server is running')
-            })
-            // PRODUCTION ///
-        }
+
+        // if(dev){
+        //     // DEVELOPMENT ///
+        //     server.listen((port), (err) => { 
+        //         if (err) throw err
+        //         console.log('>> Ready on 3000')
+        //     })
+        //     // DEVELOPMENT ///
+        // }
+        // else{
+        //     // PRODUCTION ///
+        //     app = https.createServer(options, server)
+        //     .listen(
+        //         port,
+        //         function(){
+        //             console.log("Express server listening on port " + port)
+        //         }
+        //     )
+
+        //     app.on('listening',function(){
+        //         console.log('ok, server is running')
+        //     })
+        //     // PRODUCTION ///
+        // }
 
     })
     .catch((ex) => {

@@ -2241,7 +2241,7 @@ class VendorMainDashboard extends React.Component {
                                 className="shareLinkInput"
                                 readOnly
                                 ref="toolTip"
-                                value={`https://rollinglogs.com/vendor-profile/${this.state.firstName}-${this.state.lastName}/${this.state.rLId}`}
+                                value={`https://rollinglogs.com/vendor/${this.state.firstName}-${this.state.lastName}/${this.state.rLId}`}
                             />
                         </div>
                         <div className="shareLinkButtonContainer">
