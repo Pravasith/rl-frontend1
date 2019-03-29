@@ -1879,6 +1879,10 @@ class VendorMainDashboard extends React.Component {
         }
     }
 
+    modifyRLId = (rLId) => {
+        return rLId.split("-")[1].split("").reverse().join("")
+    }
+
     returnModalContent = (categoryModalOrSubcategoryModal) => {
 
         if (categoryModalOrSubcategoryModal === "categoryModal") {
@@ -2241,7 +2245,7 @@ class VendorMainDashboard extends React.Component {
                                 className="shareLinkInput"
                                 readOnly
                                 ref="toolTip"
-                                value={`https://rollinglogs.com/vendor/${this.state.firstName}-${this.state.lastName}/${this.state.rLId}`}
+                                value={`https://rollinglogs.com/vendor/${this.state.firstName.toLowerCase()}-${this.state.lastName.toLowerCase()}/${this.modifyRLId(this.state.rLId) }`}
                             />
                         </div>
                         <div className="shareLinkButtonContainer">

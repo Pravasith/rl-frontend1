@@ -23,11 +23,6 @@ class Navbar extends Component {
         }
     }
 
-    componentDidMount = () => {
-        
-    }
-    
-
     toggleClass = (theIcon) => {
 
         if (theIcon === 'cornerMenu') {
