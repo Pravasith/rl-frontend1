@@ -476,6 +476,16 @@ class AddProductDetails extends React.Component {
       ];
   };
 
+  returnTypesOfQuantity = () => {
+    return [
+      { label: "per cubic feet ", value: 1 },
+      { label: "per square feet", value: 2 },
+      { label: "per running feet", value: 3 },
+      { label: "per quantity", value: 4 },
+      { label: "per litre", value: 4 }
+    ];
+};
+
   returnChargeType = (installerCostType) => {
 
     if (installerCostType === 1) return "square feet";
@@ -2227,6 +2237,19 @@ class AddProductDetails extends React.Component {
     });
   };
 
+  // modalClassToggle = showOrNot => {
+  //   if (showOrNot === "show")
+  //     this.setState({
+  //       modalClassToggle: "modalBackgroundMainOuterWrap",
+  //       vendorDashboardOuterClass: "vendorDashboardOuterLayer blurClass"
+  //     });
+  //   else if (showOrNot === "dontShow")
+  //     this.setState({
+  //       modalClassToggle: "modalBackgroundMainOuterWrap hide",
+  //       vendorDashboardOuterClass: "vendorDashboardOuterLayer"
+  //     });
+  // };
+
   returnModal = () => {
     const { modalType, finishModalContentPart } = this.state;
 
@@ -3524,6 +3547,14 @@ class AddProductDetails extends React.Component {
                                   productPrice: Number(val)
                                 });
                               }}
+                            />
+                            <SelectList
+                              name="installationServiceCostType"
+                              value={this.state.installationServiceCostType}
+                              onChange={e =>
+                                this.onChangeHandler(e, "installationServiceCost")
+                              }
+                              options={this.returnTypesOfQuantity()}
                             />
                           </div>
 

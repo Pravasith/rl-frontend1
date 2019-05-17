@@ -2207,6 +2207,7 @@ class VendorMainDashboard extends React.Component {
                 </div>
             )
         }
+        
         else if (categoryModalOrSubcategoryModal === "shareLinkModal"){
             return(
                 <div className="modalCategoryLinkContainer">
