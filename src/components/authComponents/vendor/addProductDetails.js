@@ -155,6 +155,7 @@ class AddProductDetails extends React.Component {
 
       // displayError: "displayError",
       displayError: "displayError hide",
+      displayProductPriceValueError: "displayProductPriceValueError hide",
       displayDiscountValueValidationError: "displayDiscountValueValidationError hide",
       displayGSTValueValidationError: "displayGSTValueValidationError hide",
       displayInstallationValueValidationError: "displayInstallationValueValidationError hide",
@@ -207,19 +208,11 @@ class AddProductDetails extends React.Component {
 
     const rawData = { sCId }
 
-    //
-    // Encrypt data
-    //
-    const encryptedData = encryptData(rawData)
-    //
-    // Encrypt data
-    //
-
     await Promise.all([
       this.props.getUserData(),
       this.props
           .hitApi(api.GET_PRODUCT_TYPES, "POST", {
-            requestData: encryptedData,
+            requestData: rawData,
             message: "Requesting dispatch product types"
           }),
           
@@ -227,24 +220,12 @@ class AddProductDetails extends React.Component {
 
     .then((data) => {
         let { userData, responseData } = this.props
-
-        //
-        // DECRYPT REQUEST DATA
-        //
-        let decryptedData = [...decryptData(responseData.responsePayload.responseData)]
-          // ...decryptData(userData.responseData),
-          
-        
-        //
-        // DECRYPT REQUEST DATA
-        //
-
-        // console.log(decryptedData)
+        let { responsePayload } = responseData;
 
         this.setState({
           loadingClass: "loadingAnim hide",
           mainClass: "mainClass",
-          productTypes: decryptedData
+          productTypes: responsePayload.productTypes
         })
 
 
@@ -255,88 +236,7 @@ class AddProductDetails extends React.Component {
         if (err.response.status === 401) window.open("/log-in", "_self");
       } else console.error(err);
     });
-
-
-
-
-
-
-
-
-    // this.props
-    //   .getUserData()
-
-    //   .then(data => {
-    //     let { userData, sCId } = this.props
-
-    //     //
-    //     // DECRYPT REQUEST DATA
-    //     //
-    //     let decryptedData = decryptData(userData.responseData);
-    //     //
-    //     // DECRYPT REQUEST DATA
-    //     //
-
-    //     const rawData = { sCId }
-
-    //     //
-    //     // Encrypt data
-    //     //
-    //     const encryptedData = encryptData(rawData);
-    //     //
-    //     // Encrypt data
-    //     //
-
-    //     // GET PRODUCT TYPES
-    //     this.props
-    //       .hitApi(api.GET_PRODUCT_TYPES, "POST", {
-    //         requestData: encryptedData,
-    //         message: "Requesting dispatch product types"
-    //       })
-    //       .then(() => {
-    //         //
-    //         // DECRYPT REQUEST DATA
-    //         //
-    //         let decryptedData = decryptData(
-    //           this.props.responseData.responsePayload.responseData
-    //         );
-    //         //
-    //         // DECRYPT REQUEST DATA
-    //         //
-
-    //         this.setState({
-    //           loadingClass: "loadingAnim hide",
-    //           mainClass: "mainClass",
-    //           productTypes: decryptedData
-    //         });
-
-    //         // console.log(this.props.sCId)
-    //       })
-
-    //       .catch(err => {
-    //         if (err.response) {
-    //           // console.log(err.response)
-    //           if (err.response.status === 401) window.open("/log-in", "_self");
-    //           else {
-    //             // window.open('/vendor/dashboard', "_self")
-    //           }
-    //         } else {
-    //           console.error(err);
-    //           // window.open('/vendor/dashboard', "_self")
-    //         }
-    //       });
-    //   })
-
-    //   .catch(err => {
-    //     if (err.response) {
-    //       if (err.response.status === 401) window.open("/log-in", "_self");
-    //     } else console.error(err);
-    //   });
   }
-
-  // componentDidUpdate() {
-  //   console.log(this.state.displayDiscountValueValidationError, this.state.displayGSTValueValidationError, this.state.displayInstallationValueValidationError)
-  // }
 
   modalClassToggle = showOrNot => {
     if (showOrNot === "show")
@@ -576,6 +476,16 @@ class AddProductDetails extends React.Component {
         { label: "hour", value: 4 }
       ];
   };
+
+  returnTypesOfQuantity = () => {
+    return [
+      { label: "per cubic feet ", value: 1 },
+      { label: "per square feet", value: 2 },
+      { label: "per running feet", value: 3 },
+      { label: "per quantity", value: 4 },
+      { label: "per litre", value: 4 }
+    ];
+};
 
   returnChargeType = (installerCostType) => {
 
@@ -1001,53 +911,6 @@ class AddProductDetails extends React.Component {
     }
   };
 
-  // youTubeHandler = (e) => {
-  //   const val = e.target.value;
-  //   const regEx = /\.youtube\.com\/embed\/\S*$/;
-
-  //   const { youTube, youTubeURL } = this.state;
-
-  //   if (val !== "") {
-  //     if (regEx.test(val) === true) {
-  //         let temp = val;
-
-  //         let dummyArray = [...youTubeURL];
-
-  //         if (!dummyArray.includes(temp)) {
-  //           youTubeURL.push(temp);
-
-  //           this.setState({
-  //             youTubeURL: youTubeURL.length !== 0 ? youTubeURL : [],
-  //             youTubeClass: "youTubeClass",
-  //             youTubeError: "youTubeError hide"
-  //           });
-
-  //           this.refs.youTube.value = "";
-  //         }
-
-  //         else if (dummyArray.includes(temp)){
-  //           this.setState({
-  //             youTubeError: "youTubeError",
-  //             youTubeUrlErrorStatement: "This video has been already uploaded, please add new."
-  //           })
-  //         }
-  //     }
-
-  //     else if (!regEx.test(val) === true) {
-  //       this.setState({
-  //         youTubeError: "youTubeError",
-  //         youTubeUrlErrorStatement: "Please enter valid youtube embed URL and check."
-  //       });
-  //     }
-  //   }
-
-  //   else if (val === "") {
-  //     this.setState({
-  //       youTubeError: "youTubeError hide"
-  //     });
-  //   }
-  // }
-
   setYouTubeURL = e => {
     const val = e.target.value;
     const regEx = /^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
@@ -1167,7 +1030,7 @@ class AddProductDetails extends React.Component {
   };
 
   checkTypeNumber = (e, checkFor) => {
-    const val = e.target.value;
+    const val = Number(e.target.value);
     const regEx = /^[0-9\b]+$/;
 
     if (val !== 0) {
@@ -1175,17 +1038,17 @@ class AddProductDetails extends React.Component {
         if (checkFor === "discount") {
           this.setState({
             productDiscount: Number(val),
-            displayDiscountValueValidationError: "displayDiscountValueValidationError hide"
+            displayDiscountValueValidationError: "displayError hide"
           });
         } else if (checkFor === "GST") {
           this.setState({
             productGST: Number(val),
-            displayGSTValueValidationError: "displayGSTValueValidationError hide",
+            displayGSTValueValidationError: "displayError hide",
           });
         } else if (checkFor === "installation") {
           this.setState({
             productInstallationServiceCost: Number(val),
-            displayInstallationValueValidationError: "displayInstallationValueValidationError hide"
+            displayInstallationValueValidationError: "displayError hide"
           });
         } else if (checkFor === "installer") {
           this.setState({
@@ -1221,17 +1084,17 @@ class AddProductDetails extends React.Component {
         if (checkFor === "discount") {
           this.setState({
             productDiscount: "",
-            displayDiscountValueValidationError: "displayDiscountValueValidationError"
+            displayDiscountValueValidationError: "displayError"
           });
         } else if (checkFor === "GST") {
           this.setState({
             productGST: "",
-            displayGSTValueValidationError: "displayGSTValueValidationError"
+            displayGSTValueValidationError: "displayError"
           });
         } else if (checkFor === "installation") {
           this.setState({
             productInstallationServiceCost: "",
-            displayInstallationValueValidationError: "displayInstallationValueValidationError"
+            displayInstallationValueValidationError: "displayError"
           });
         } else if (checkFor === "installer") {
           this.setState({
@@ -1264,13 +1127,13 @@ class AddProductDetails extends React.Component {
           });
         }
       }
-    } 
-    
+    }
+
     else if (val === "") {
-        this.setState({
-          displayError: "displayError hide",
-          displayValueError: "displayValueError hide"
-        });
+      this.setState({
+        displayError: "displayError hide",
+        displayValueError: "displayValueError hide"
+      });
     }
   };
 
@@ -1612,8 +1475,15 @@ class AddProductDetails extends React.Component {
           if (installerCharges !== "") {
             if (installerChargeIsValid) {
               isInstallerValid = true;
-            } else {
-              emptyField = "Installer charges in number";
+            } 
+            else if (!installerChargeIsValid) {
+              if (installerCharges !== 0) {
+                isInstallerValid = true;
+                emptyField = "Installer charges in number";
+              }
+              else {
+                isInstallerValid = true;
+              }
             }
           } 
           
@@ -1814,7 +1684,7 @@ class AddProductDetails extends React.Component {
     else if (typeOfButtonClicked === "installer") {
       const installerName = this.refs.installerName.value;
       const installerContactNo = this.state.installerContactNo;
-      const installerCharges = this.refs.installerCharges.value;
+      const installerCharges = this.refs.installerCharges.value !== "" ? this.refs.installerCharges.value : 0 ;
       const installerChargeType = this.state.installerCostType;
 
       let validatedData = validateInstallerModal(
@@ -1845,7 +1715,7 @@ class AddProductDetails extends React.Component {
                   modalType: null,
                   isChecked: false,
                   productInstallers:
-                    productInstallers.length !== 0 ? productInstallers : [],
+                  productInstallers.length !== 0 ? productInstallers : [],
                   displayError: "displayError hide"
                 });
               }
@@ -2127,7 +1997,8 @@ class AddProductDetails extends React.Component {
                     <p key={i}>+91 <span>{item.installerContactNo}</span></p>
                   </div>
 
-                  <div className={item.installerCharges !== "" ? "productInstallerChargesWrap" : "hide"} >
+                  <div className={item.installerCharges !== "" ? 
+                                    (item.installerCharges !== 0 ? "productInstallerChargesWrap" : "hide") : "hide"} >
                     <p>Charges </p>
                     <span key={i}>
                       Rs. {item.installerCharges} / {this.returnChargeType(item.installerChargeType)}
@@ -2141,10 +2012,10 @@ class AddProductDetails extends React.Component {
                           >
                               Edit
                           </WhiteButton>
-                        </div> */}
+                        </div>
                     <div className="editButton">
                      <WhiteButton>Edit</WhiteButton>
-                    </div>
+                    </div> */}
                     <div
                         className="deleteButton"
                         onClick={() => this.removeProductInstallers(i)}
@@ -2212,32 +2083,14 @@ class AddProductDetails extends React.Component {
       // this.state.productImagesObject
     };
 
-    //
-    // Encrypt data
-    //
-    const encryptedData = encryptData(finalDataToSend);
-    //
-    // Encrypt data
-    //
-
     // GET PRODUCT TYPES
     this.props
       .hitApi(api.ADD_NEW_PRODUCT, "POST", {
-        requestData: encryptedData,
+        requestData: finalDataToSend,
         message: "Delivering new product, foxtrot"
       })
       .then(() => {
-        //
-        // DECRYPT REQUEST DATA
-        //
-        let decryptedData = decryptData(
-          this.props.responseData.responsePayload.responseData
-        );
-        //
-        // DECRYPT REQUEST DATA
-        //
-
-        // console.log(decryptedData)
+        let { responsePayload } = this.props.responseData;
 
         this.setState({
           finalProceed: "successScreen"
@@ -2384,6 +2237,19 @@ class AddProductDetails extends React.Component {
       }
     });
   };
+
+  // modalClassToggle = showOrNot => {
+  //   if (showOrNot === "show")
+  //     this.setState({
+  //       modalClassToggle: "modalBackgroundMainOuterWrap",
+  //       vendorDashboardOuterClass: "vendorDashboardOuterLayer blurClass"
+  //     });
+  //   else if (showOrNot === "dontShow")
+  //     this.setState({
+  //       modalClassToggle: "modalBackgroundMainOuterWrap hide",
+  //       vendorDashboardOuterClass: "vendorDashboardOuterLayer"
+  //     });
+  // };
 
   returnModal = () => {
     const { modalType, finishModalContentPart } = this.state;
@@ -2759,7 +2625,7 @@ class AddProductDetails extends React.Component {
                           name="materialName"
                           placeholder="Ex. Glass reinforced concrete"
                           onChange={this.onChangeHandler}
-                          maxLength="30"
+                          maxLength="60"
                           ref="materialName"
                         />
                         <span className="InputSeparatorLine"> </span>
@@ -3229,6 +3095,7 @@ class AddProductDetails extends React.Component {
 
   handleMultiValidation = fieldName => {
     const {
+        productPrice,
         productDiscountAvailablity,
         productDiscount,
         productGST,
@@ -3255,6 +3122,24 @@ class AddProductDetails extends React.Component {
                     displayQuantityValueError: "displayQuantityValueError hide"
                 });
         } else return "Max. qunatity";
+    }
+
+    else if (fieldName === "Base price of this product") {
+      if (productPrice !== undefined) {
+        if (productPrice === 0) {
+          this.setState({
+            displayProductPriceValueError: "displayProductPriceValueError"
+          });
+
+          return "Base price value";
+        } else {
+          this.setState({
+            displayProductPriceValueError: "displayProductPriceValueError hide"
+          });
+        }
+      } else if (productPrice === undefined) {
+        return "Base price of this product";
+      }
     }
 
     else if (fieldName === "Product GST") {
@@ -3338,7 +3223,7 @@ class AddProductDetails extends React.Component {
       { fieldName: "Product Name", value: this.state.productName },
       { fieldName: "Product Code", value: this.state.productCode },
       {
-        fieldName: "Base price of this product",
+        fieldName: `${this.handleMultiValidation("Base price of this product")}`,
         value: this.state.productPrice
       },
       {
@@ -3393,7 +3278,8 @@ class AddProductDetails extends React.Component {
         item.fieldName === "Max. quantity value" ||
         item.fieldName === "Product Discount Value" ||
         item.fieldName === "Product Installation Cost" ||
-        item.fieldName === "Product Installer Details"
+        item.fieldName === "Product Installer Details" || 
+        item.fieldName === "Base price value"
       ) {
         if (!this.state.emptyField.includes(item.fieldName)) {
           this.state.emptyField.push(item.fieldName);
@@ -3614,7 +3500,7 @@ class AddProductDetails extends React.Component {
                               placeholder="Ex.Vertical Moss"
                               isMandatory={true}
                               validationType="alphabetsSpecialCharactersAndNumbers"
-                              characterCount="30"
+                              characterCount="60"
                               result={val =>
                                 this.setState({
                                   productName: val
@@ -3647,10 +3533,10 @@ class AddProductDetails extends React.Component {
                         <div className="inputFormContainer">
                           <div className="formParaSection">
                             <p className="pargraphClass">
-                              Base price of this product
+                              Base price of this product (Excl. GST)
                             </p>
                           </div>
-                          <div className="materialInformationColumn">
+                          <div className="materialInformationColumn priceClassProduct">
                             <InputForm
                               refName="productPrice"
                               placeholder="Type here (in Rupees)"
@@ -3659,11 +3545,23 @@ class AddProductDetails extends React.Component {
                               characterCount="8"
                               result={val => {
                                 this.setState({
-                                  productPrice: val
+                                  productPrice: Number(val)
                                 });
                               }}
                             />
+                            <SelectList
+                              name="installationServiceCostType"
+                              value={this.state.installationServiceCostType}
+                              onChange={e =>
+                                this.onChangeHandler(e, "installationServiceCost")
+                              }
+                              options={this.returnTypesOfQuantity()}
+                            />
                           </div>
+
+                          <p className={this.state.displayProductPriceValueError}>
+                            Base price of the product cannot be zero, please check and enter it.
+                          </p>
                         </div>
 
                         <div className="inputFormContainer">
@@ -3750,7 +3648,7 @@ class AddProductDetails extends React.Component {
                                 placeholder="Type the value-add features about this product"
                                 ref="featureInput"
                                 type="text"
-                                maxLength="100"
+                                maxLength="200"
                                 onChange={e => this.setfeatureName(e)}
                                 onKeyPress={e => {
                                   if (e.key === "Enter") {
@@ -4004,7 +3902,7 @@ class AddProductDetails extends React.Component {
                                   placeholder="For Ex. Sofa"
                                   ref="tagInput"
                                   type="text"
-                                  maxLength="20"
+                                  maxLength="40"
                                   onChange={e => this.setTagName(e)}
                                   onKeyPress={e => {
                                     if (e.key === "Enter") {

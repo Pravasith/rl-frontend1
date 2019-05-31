@@ -363,9 +363,29 @@
                                                     }
                                                 }
 
+                                                .priceClassProduct{
+                                                    .inputCategorySection{
+                                                        margin-bottom: 0;
+
+                                                        .displayProductPriceValueError{
+                                                            font-size: 0.8em;
+                                                            p{
+                                                                color: $highLightBlue;
+                                                            }
+                                                        }
+                                                    }
+                                                    .form-group{
+                                                        margin-left: 0.7em;
+                                                        width: 45%;
+                                                    }
+                                                }
+
                                                 .materialInformationColumn{
                                                     @include flexCentreRow;
                                                     justify-content: flex-start;
+
+                                                    
+
                                                     .modalMandatorySection{
                                                         background: $secondaryMagenta;
                                                         padding: 0.2em;
@@ -374,6 +394,7 @@
                                                             color: $white;
                                                         }
                                                     }
+
                                                     .inputColumn{
                                                         @include flexCentreCol;
                                                         // width: 40%;
@@ -894,8 +915,8 @@
                                                                         height: 7em;
                                                                         margin: 0 0.5em 0 0;
                                                                         img{
-                                                                            width: 8em;
-                                                                            height: 8em;
+                                                                            width: 7em;
+                                                                            height: 7em;
                                                                             object-fit: cover;  
                                                                         }
                                                                     }

@@ -86,6 +86,8 @@ export default class HomePage extends React.Component {
                                         </div>
                                     </div>
 
+                                    
+
                                     <div className="frontPageRightSection">
                                         <div className="rightSectionInnerLayer">
                                             <div className="rightSectionContentWrapper">

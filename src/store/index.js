@@ -16,7 +16,7 @@ const makeStore = compose
     (
     applyMiddleware(
         thunk,
-        // logger 
+        logger 
     )
     )
     (createStore)

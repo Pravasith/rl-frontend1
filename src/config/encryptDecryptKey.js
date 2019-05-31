@@ -1,1 +1,1 @@
-export const EncryptDecryptKey = "qazwsxedc741852963"
+export const EncryptDecryptKey = process.env.REACT_APP_API_KEY

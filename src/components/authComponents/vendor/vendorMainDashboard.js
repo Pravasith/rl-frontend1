@@ -37,6 +37,8 @@ class VendorMainDashboard extends React.Component {
             loadingClass: 'loadingAnim',
             mainClass: 'mainClass hide',
 
+            linkModal: 'linkModalContainer hide',
+
             contentClass: 'contentClass hide',
             internalLoaderClass: 'contentLoader',
             modalClass: 'modalClass hide',
@@ -108,24 +110,17 @@ class VendorMainDashboard extends React.Component {
 
         .then(() => {
             
-            let { userData, responseData } = this.props
+            let { userData, responseData } = this.props,
+                { responsePayload } = responseData;
 
-           
+                // console.log(responsePayload)
 
+            if (responsePayload.message !== "User credentials not found") {
 
-            if (responseData.responsePayload.message !== "User credentials not found") {
-                //
-                // DECRYPT REQUEST DATA
-                //
                 let decryptedData = {
                     ...decryptData(userData.responseData),
-                    ...decryptData(responseData.responsePayload.responseData)
+                    ...responsePayload
                 }
-                //
-                // DECRYPT REQUEST DATA
-                //
-
-                console.log(decryptData(userData.responseData))
 
                 this.convertVendorDataAndSave(decryptedData.products)
 
@@ -162,8 +157,11 @@ class VendorMainDashboard extends React.Component {
 
         .catch((err) => {
             if (err.response) {
-                if (err.response.status === 401)
+                if (err.response.status === 401){
+                    console.error(err.response)
                     window.open('/log-in', "_self")
+                }
+                    
             }
 
             else
@@ -171,10 +169,6 @@ class VendorMainDashboard extends React.Component {
         })
 
     }
-
-    // componentDidUpdate() {
-    //     console.log(this.state.categoryArray)
-    // }
 
     convertVendorDataAndSave = (productsRaw) => {
 
@@ -340,20 +334,12 @@ class VendorMainDashboard extends React.Component {
 
         rawData[objectName] = data
 
-        // 
-        // Encrypt data
-        // 
-        const encryptedData = encryptData(rawData)
-        // 
-        // Encrypt data
-        // 
-
         await this
             .props
             .hitApi(api.UPDATE_USER_DATA, "PUT",
                 {
                     message: "Update user's data",
-                    requestData: encryptedData
+                    requestData: rawData
                 }
             )
 
@@ -364,6 +350,7 @@ class VendorMainDashboard extends React.Component {
                     .navBarLoadingAnimationShowHide(false)
 
             })
+            .catch((err) => console.error(err))
 
     }
 
@@ -425,34 +412,18 @@ class VendorMainDashboard extends React.Component {
 
         const rawData = { productId }
 
-        //
-        // Encrypt data
-        //
-        const encryptedData = encryptData(rawData)
-        //
-        // Encrypt data
-        //
-
 
 
         // GET PRODUCT DATA
         this.props.hitApi(api.GET_PRODUCT_DATA, "POST",
             {
-                requestData: encryptedData,
+                requestData: rawData,
                 message: "Requesting dispatch products"
             }
         )
             .then(() => {
 
-                //
-                // DECRYPT RESPONSE DATA
-                //
-                let decryptedData = decryptData(
-                    this.props.responseData.responsePayload.responseData
-                )
-                //
-                // DECRYPT RESPONSE DATA
-                //
+                let { responsePayload } = this.props.responseData;
 
                 // console.log(decryptedData)
 
@@ -461,35 +432,35 @@ class VendorMainDashboard extends React.Component {
                     productSelected : productId,
 
                     /// PLACE HERE ////
-                    productName: decryptedData.productName,
-                    productCode: decryptedData.productCode,
-                    productPrice: decryptedData.basePrice,
-                    productGST: decryptedData.gstPercentage,
-                    productMaterials: decryptedData.productMaterials,
-                    featuresAdded: decryptedData.features,
-                    productFinishes: decryptedData.finishingOptions,
-                    colorArray: decryptedData.colorOptions,
-                    productDimensions: decryptedData.sizesAvailable,
-                    productMinQuantity: decryptedData.minQuantity,
-                    productMaxQuantity: decryptedData.maxQuantity,
-                    productDescription: decryptedData.productDescription,
-                    categoryStylesAdded: decryptedData.designStyles,
-                    tagsAdded: decryptedData.tags,
-                    productAvailability: decryptedData.availability,
-                    productAvailabilityBool: decryptedData.availability,
-                    productDiscount: decryptedData.discount,
+                    productName: responsePayload.productName,
+                    productCode: responsePayload.productCode,
+                    productPrice: responsePayload.basePrice,
+                    productGST: responsePayload.gstPercentage,
+                    productMaterials: responsePayload.productMaterials,
+                    featuresAdded: responsePayload.features,
+                    productFinishes: responsePayload.finishingOptions,
+                    colorArray: responsePayload.colorOptions,
+                    productDimensions: responsePayload.sizesAvailable,
+                    productMinQuantity: responsePayload.minQuantity,
+                    productMaxQuantity: responsePayload.maxQuantity,
+                    productDescription: responsePayload.productDescription,
+                    categoryStylesAdded: responsePayload.designStyles,
+                    tagsAdded: responsePayload.tags,
+                    productAvailability: responsePayload.availability,
+                    productAvailabilityBool: responsePayload.availability,
+                    productDiscount: responsePayload.discount,
                     productImagesObject: {
                         categoryName: "",
-                        imagesInCategory: decryptedData.productImages
+                        imagesInCategory: responsePayload.productImages
                     },
-                    productThumbImage: decryptedData.productThumbImage,
-                    youTubeURL: decryptedData.youTubeAdVideos ? decryptedData.youTubeAdVideos : [],
-                    brandName: decryptedData.brandName,
-                    brandImage: decryptedData.brandImage, 
-                    productInstallers: decryptedData.productInstallers,
-                    productInstallationAvailability: decryptedData.productInstallationAvailability,
-                    productInstallationServiceCost: decryptedData.productInstallationServiceCost,
-                    installationServiceCostType: decryptedData.installationServiceCostType,
+                    productThumbImage: responsePayload.productThumbImage,
+                    youTubeURL: responsePayload.youTubeAdVideos ? responsePayload.youTubeAdVideos : [],
+                    brandName: responsePayload.brandName,
+                    brandImage: responsePayload.brandImage, 
+                    productInstallers: responsePayload.productInstallers,
+                    productInstallationAvailability: responsePayload.productInstallationAvailability,
+                    productInstallationServiceCost: responsePayload.productInstallationServiceCost,
+                    installationServiceCostType: responsePayload.installationServiceCostType,
 
                     subCategoryDataExists: true,
 
@@ -520,11 +491,11 @@ class VendorMainDashboard extends React.Component {
 
 
     copyToClipBoard = () => {
-        console.log(this.refs.toolTip.value)
+        // console.log(this.refs.toolTip.value)
 
         this.refs.toolTip.select();
         document.execCommand('copy');
-        this.setState({ tool_tip_content: 'Copied to clipboard' });
+        this.setState({ tool_tip_content: 'Copied to clipboard!' });
 
     };
 
@@ -546,6 +517,7 @@ class VendorMainDashboard extends React.Component {
                     imagesInCategory: [...dummyArray]
                 }
                 
+                // console.log(dataObject);
 
                 return (
                     <div className="imageSliderWrap">
@@ -610,7 +582,7 @@ class VendorMainDashboard extends React.Component {
                                             modalClass: 'modalClass',
                                             productManagerWrapperClass: "productManagerWrapperClass blurClass",
                                             activeModalType: "subCategoryDetailedPreview",
-                                            itemCode: data.itemCode
+                                            itemCode: item.itemCode
                                             
                                         })
                                     }}    
@@ -624,8 +596,11 @@ class VendorMainDashboard extends React.Component {
                                             alt = ""
                                             publicId={PublicId(item.imageURL)} 
                                             // transformations
-                                            width="300" 
-                                            crop="fit"
+                                            // width="300" 
+                                            // crop="fit"
+                                            width="200" 
+                                            height = "140"
+                                            crop="lpad"
                                         />
                                         <div className="paragraphClass"><p>{item.title.charAt(0).toUpperCase() + item.title.slice(1)}</p></div>
                                     </div>
@@ -639,30 +614,38 @@ class VendorMainDashboard extends React.Component {
     }
 
     returnCategoryInModal = () => {
-        const { categoriesSelected } = this.state
+        // const { categoriesSelected } = this.state
+        const categoriesSelected = [...this.state.categoriesSelected];
+
 
         const returnSubCategories = (subcategories) => {
 
-            
-            return subcategories.subCategory.map((subcategory, i) => {
-                let subCatProducts = [...subcategory.productImages]
+            return subcategories.subCategory.map((item, i) => {
+                let subCatProducts = [];
+                if(item.subCategoryId === this.state.subCatId){
+                    subCatProducts = item.productImages
+                }
+                // console.log(subCatProducts);
                 return (
                     <div 
-                        className="subCategoryHead"
+                        className = "subCategoryHead"
                         key = { "subCat" + i }
-                        >          
-
-                            {
-                                this.returnSubCategoryProductsModal(subCatProducts, subcategory.subCategoryName)
-                            }
+                        >
+                        {
+                            this.returnSubCategoryProductsModal(
+                                subCatProducts,
+                                item.subCategoryName
+                            )
+                        }
                     </div>
                 )
             })
         }
 
-        if (categoriesSelected.length !== 0) {
-            return(
-                categoriesSelected.map((item, i) => {
+
+        return(
+            categoriesSelected.map((item, i) => {
+
                     return (
                         <div 
                             key = {i} 
@@ -673,10 +656,9 @@ class VendorMainDashboard extends React.Component {
                             </div>
                         </div>
                     )
-                  }
-                )
+                }
             )
-        }
+        )
 
     }
 
@@ -711,11 +693,13 @@ class VendorMainDashboard extends React.Component {
                                     className="deleteCategoryContainer"
                                     // onClick={() => this.deleteCategory(i)}
                                     onClick={() => {
+                                        // console.log(subcategory);
                                         this.setState({
                                             mainCategoryIndex: i,
                                             modalClass: 'modalClass',
                                             productManagerWrapperClass: "productManagerWrapperClass blurClass",
-                                            activeModalType: "uploaded"
+                                            activeModalType: "uploaded",
+                                            subCatId: subcategory.subCategoryId
                                         })
                                     }}
                                 >
@@ -864,7 +848,12 @@ class VendorMainDashboard extends React.Component {
                             <WhiteButton
                                 runFunction={() => {
                                     this.setState({
-                                        isShowing: true
+                                        // linkModal: 'linkModalContainer',
+                                        // isShowing: true
+                                        modalClass: 'modalClass ',
+                                        productManagerWrapperClass: "productManagerWrapperClass blurClass",
+                                        vendorInitialGraphic: 'hide',
+                                        activeModalType: 'shareLinkModal'
                                     })
                                 }}
                             >
@@ -1106,14 +1095,6 @@ class VendorMainDashboard extends React.Component {
         })
     }
 
-    // returnChargeType = (installerCostType) => {
-
-    //     if (installerCostType === 1) return "square feet";
-    //     else if (installerCostType === 2) return "piece";
-    //     else if (installerCostType === 3) return "hour";
-    // };
-
-
     handleCategorySelections = () => {
         const { mainCategorySelection } = this.state
 
@@ -1134,33 +1115,20 @@ class VendorMainDashboard extends React.Component {
                 categoryId: mainCategorySelection.categoryId
             }
 
-            // 
-            // Encrypt data
-            // 
-            const encryptedData = encryptData(theData)
-            // 
-            // Encrypt data
-            // 
 
 
             // send request
             this.props.hitApi(api.GET_SUB_CATEGORIES, "POST",
                 {
-                    requestData: encryptedData,
+                    requestData: theData,
                     message: "Requesting dispatch sub-categories"
                 }
             )
                 .then(() => {
-                    // 
-                    // Decrypt data
-                    // 
-                    const responseData = decryptData(this.props.responseData.responsePayload.responseData)
-                    // 
-                    // Decrypt data
-                    // 
+                    let { responsePayload } = this.props.responseData
 
                     this.setState({
-                        subCategoryArray: responseData.subCategoriesArray
+                        subCategoryArray: responsePayload.subCategoriesArray
                     })
 
                 })
@@ -1282,7 +1250,7 @@ class VendorMainDashboard extends React.Component {
                                         {
                                             Number(item.materialCost) > 0 
                                             ?
-                                            <p>Costs <span>Rs. { item.materialCost }</span> extra</p>
+                                            <p>Costs <span>Rs. { item.materialCost }</span> extra per piece</p>
                                             :
                                             <p>No extra cost</p>
                                         }
@@ -1366,7 +1334,7 @@ class VendorMainDashboard extends React.Component {
                                             {
                                                 Number(item.finishCost) > 0
                                                     ?
-                                                    <p>Costs <span>Rs. {item.finishCost}</span> extra</p>
+                                                    <p>Costs <span>Rs. {item.finishCost}</span> extra per piece</p>
                                                     :
                                                     <p>No extra cost</p>
                                             }
@@ -1412,7 +1380,7 @@ class VendorMainDashboard extends React.Component {
                                             {
                                                 Number(item.colorCost) > 0
                                                     ?
-                                                    <p>Costs <span>Rs. {item.colorCost}</span> extra</p>
+                                                    <p>Costs <span>Rs. {item.colorCost}</span> extra per piece</p>
                                                     :
                                                     <p>No extra cost</p>
                                             }
@@ -1453,7 +1421,7 @@ class VendorMainDashboard extends React.Component {
                                             {
                                                 Number(item.sizeCost) > 0
                                                     ?
-                                                    <p>Costs <span>Rs. {item.sizeCost}</span> extra</p>
+                                                    <p>Costs <span>Rs. {item.sizeCost}</span> extra per piece</p>
                                                     :
                                                     <p>No extra cost</p>
                                             }
@@ -1585,7 +1553,7 @@ class VendorMainDashboard extends React.Component {
                 const populateProductInstallers = () => productInstallers.map((item, i) => {
                     return (
                         <div 
-                            key={i} 
+                            key={i}
                             className="modalContainerUpperContainer"
                             >
                             <div className="modalContainer">
@@ -1600,12 +1568,12 @@ class VendorMainDashboard extends React.Component {
     
                                     <div className="modalSubText">
                                         {
-                                            Number(item.sizeCost) > 0 
+                                            Number(item.installerCharges) > 0 
                                             ?
-                                            <p>Costs <span>Rs. { item.installerCharges }</span> / {this.returnChargeType(item.installerCostType)}</p>
+                                                <p>Charges <span>Rs. {item.installerCharges}</span> / {this.returnChargeType(item.installerChargeType)}</p>
                                             :
                                             <p>Installer cost not specified</p>
-                                        }
+                                    }
                                     </div>
                                 </div>
                             </div>
@@ -1689,12 +1657,22 @@ class VendorMainDashboard extends React.Component {
 
                                     <div className="productSubHeading">
                                         <h3>Code </h3>
-                                        <p>{productCode}</p>
+                                        <p>{ productCode }</p>
                                     </div>
 
                                     <div className="productSubHeading">
-                                        <h3>Price </h3>
-                                        <p>Rs. {productPrice} per piece</p>
+                                        <h3>Unit price </h3>
+                                        { 
+                                            productPrice !== 1 
+                                            ? 
+                                            <p>
+                                                Rs. {productPrice}<br/>
+                                                {/* <span>(Here per unit can mean per set also if applicable. Please request quote to get detailed price clarity)</span> */}
+                                            </p> 
+                                            : 
+                                            <p>Not specified</p> 
+                                        }
+
                                     </div>
 
                                     <div className="productSubHeading">
@@ -1714,8 +1692,12 @@ class VendorMainDashboard extends React.Component {
                                             alt = ""
                                             publicId={PublicId(productThumbImage)} 
                                             // transformations
-                                            width="300" 
-                                            crop="limit"
+                                            width="200" 
+                                            height = "140"
+                                            crop="lpad"
+
+                                            // zoom="0.05"
+                                            // aspect_ratio="1.5"
                                         />
                                     </div>
                                 </div>
@@ -1992,11 +1974,6 @@ class VendorMainDashboard extends React.Component {
                         </div>
                     </div>
 
-
-
-
-
-
                     <div className="subHeadingSection">
                         <h3>2/2</h3>
                         <p>Choose sub-category</p>
@@ -2132,7 +2109,7 @@ class VendorMainDashboard extends React.Component {
                                 <WhiteButton
                                     runFunction={() => {
                                         this.setState({
-                                            deleteLoading : true,
+                                            deleteLoading : true, 
                                         })
 
                                        
@@ -2143,15 +2120,6 @@ class VendorMainDashboard extends React.Component {
                                             // }
                                         )
                                         .then(() => {
-                                            // 
-                                            // Decrypt data
-                                            // 
-                                            const responseData = decryptData(this.props.responseData.responsePayload.responseData)
-                                            // 
-                                            // Decrypt data
-                                            // 
-
-                                            // console.log(responseData)
 
                                             window.open("/vendor/dashboard", "_self")
 
@@ -2242,43 +2210,104 @@ class VendorMainDashboard extends React.Component {
                 </div>
             )
         }
-    }
-
-    returnShareLinkModal = () => {
-        return (
-
-            <Modal
-                className="modal"
-                show={this.state.isShowing}
-                header={"Share this link in your social media for showing your portfolio of products"}
-                close={() => this.setState({
-                    isShowing: false
-                })}
-            >
-                <div className="linkModal">
+        
+        else if (categoryModalOrSubcategoryModal === "shareLinkModal"){
+            return(
+                <div className="modalCategoryLinkContainer">
+                    <div className="modalHeaderCloserSection">
+                        <div className="modalHeader">
+                            <h3>Share this link in your social media for showing your portfolio of products</h3>
+                            <div className="line"></div>
+                        </div>
+                        <div 
+                            className="modalClose"
+                            onClick={() => this.setState({
+                                modalClass: "modalClass hide",
+                                mainContentWrap: "mainContentWrap",
+                                productManagerWrapperClass: "productManagerWrapperClass",
+                                subCategoryDataExists: false,
+                                vendorInitialGraphic: 'vendorGraphicCenter',
+                            })
+                            }
+                        >
+                            <BigCloseButton/>
+                        </div>
+                    </div>
+                    <div className="shareLinkInfoContainer">
+                        <div className="linkModal">
 
                     <div className="linkComponent">
-                        <ShareLink className="shareLinkLogo" />
-                        <input
-                            className="shareLinkInput"
-                            readOnly
-                            ref="toolTip"
-                            value={`https://rollinglogs.com/vendor-profile/${this.state.firstName}-${this.state.rLId}`}
-                        />
-                        <button
-                            className="toolTip"
-                            onClick={() => this.copyToClipBoard()}
-                        >
-                            <CopyLinkicon />
-                            <span className="tooltip">Copy</span>
-                        </button>
+                        <div className="shareLinkSvgComponent">
+                            <ShareLink className="shareLinkLogo" />
+                        </div>
+                        <div className="shareInputSection">
+                            <input
+                                className="shareLinkInput"
+                                readOnly
+                                ref="toolTip"
+                                value={`https://rollinglogs.com/vendor-profile/${this.state.firstName}-${this.state.lastName}/${this.state.rLId}`}
+                            />
+                        </div>
+                        <div className="shareLinkButtonContainer">
+                            <div
+                                className="toolTip"
+                                onClick={() => this.copyToClipBoard()}
+                            >
+                                <CopyLinkicon />
+                                <span className="tooltipone">Copy</span>
+                            </div>
+                        </div>
 
                     </div>
-                    {this.state.tool_tip_content.length > 0 && <span className="tooltiptext">{this.state.tool_tip_content} </span>}
+                    {this.state.tool_tip_content.length > 0 && <span className="up-arrow">{this.state.tool_tip_content} </span>}
                 </div>
-            </Modal>
-        )
+                    </div>
+                </div>
+            )
+        }
     }
+
+    // returnShareLinkModal = () => {
+    //     return (
+
+    //         <Modal
+    //             className="modal"
+    //             show={this.state.isShowing}
+    //             header={"Share this link in your social media for showing your portfolio of products"}
+    //             close={() => this.setState({
+    //                 isShowing: false
+    //             })}
+    //         >
+    //             <div className="linkModal">
+
+    //                 <div className="linkComponent">
+    //                     <div className="shareLinkSvgComponent">
+    //                         <ShareLink className="shareLinkLogo" />
+    //                     </div>
+    //                     <div className="shareInputSection">
+    //                         <input
+    //                             className="shareLinkInput"
+    //                             readOnly
+    //                             ref="toolTip"
+    //                             value={`https://rollinglogs.com/vendor-profile/${this.state.firstName}-${this.state.lastName}/${this.state.rLId}`}
+    //                         />
+    //                     </div>
+    //                     <div className="shareLinkButtonContainer">
+    //                         <div
+    //                             className="toolTip"
+    //                             onClick={() => this.copyToClipBoard()}
+    //                         >
+    //                             <CopyLinkicon />
+    //                             <span className="tooltipone">Copy</span>
+    //                         </div>
+    //                     </div>
+
+    //                 </div>
+    //                 {this.state.tool_tip_content.length > 0 && <span className="up-arrow">{this.state.tool_tip_content} </span>}
+    //             </div>
+    //         </Modal>
+    //     )
+    // }
 
 
     returnModal = () => {
@@ -2511,7 +2540,7 @@ class VendorMainDashboard extends React.Component {
 
                                     </section>
 
-                                    {this.returnShareLinkModal()}
+                                    {/* {this.returnShareLinkModal()} */}
 
                                 </article>
 
@@ -2519,6 +2548,8 @@ class VendorMainDashboard extends React.Component {
                         </div>
 
                         {/* <Footer /> */}
+
+                         {/* {this.returnShareLinkModal()} */}
 
                         {this.returnModal()}
                     </div>
