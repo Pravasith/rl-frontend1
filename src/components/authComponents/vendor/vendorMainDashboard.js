@@ -735,7 +735,7 @@ class VendorMainDashboard extends React.Component {
                                 <div className="subCategoryProductSection">
                                     <div 
                                         className="subCategoryProductSectionInnerLayer"
-                                        onClick={console.log("Wrks")}
+                                        // onClick={console.log("Wrks")}
                                     >
                                         {
                                             this.returnSubCategoryProducts(subCatProducts, subcategory.subCategoryName)
