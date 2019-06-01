@@ -267,7 +267,6 @@ class EditProductDetails extends React.Component {
 
             })
 
-
             this.handleDefaultChecked(
                 responsePayload.discount,
                 responsePayload.productInstallationAvailability

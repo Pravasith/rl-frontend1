@@ -104,6 +104,8 @@ class AddProductDetails extends React.Component {
         categoryName: "",
         imagesInCategory: []
       },
+      // productPrice: 0,
+      quantityType: 0,
 
       tagsAdded: [],
 
@@ -155,6 +157,7 @@ class AddProductDetails extends React.Component {
       // displayError: "displayError",
       displayError: "displayError hide",
       displayProductPriceValueError: "displayProductPriceValueError hide",
+      displayBasePriceQuantityTypeError: "displayBasePriceQuantityTypeError hide",
       displayDiscountValueValidationError: "displayDiscountValueValidationError hide",
       displayGSTValueValidationError: "displayGSTValueValidationError hide",
       displayInstallationValueValidationError: "displayInstallationValueValidationError hide",
@@ -476,6 +479,17 @@ class AddProductDetails extends React.Component {
       ];
   };
 
+  returnTypesOfQuantity = () => {
+    return [
+      { label: 'Choose One', value: 0 },
+      { label: "per cubic feet ", value: 1 },
+      { label: "per square feet", value: 2 },
+      { label: "per running feet", value: 3 },
+      { label: "per quantity", value: 4 },
+      { label: "per litre", value: 4 }
+    ];
+};
+
   returnChargeType = (installerCostType) => {
 
     if (installerCostType === 1) return "square feet";
@@ -657,13 +671,13 @@ class AddProductDetails extends React.Component {
             </div>
             <div className="materialEditingButtons">
               {/* <div className="editButton">
-                                          <WhiteButton
-                                              runFunction={() => this.editProductMaterials(i)}
-                                          >
-                                              Edit
-                                          </WhiteButton>
-                                      </div> */}
-                
+                  <WhiteButton
+                      runFunction={() => this.editProductMaterials(i)}
+                  >
+                      Edit
+                  </WhiteButton>
+              </div> */}
+
               <div
                 className="deleteButton"
                 onClick={() => this.removeProductMaterials(i)}
@@ -1727,7 +1741,7 @@ class AddProductDetails extends React.Component {
   };
 
   onChangeHandler = (e, typeOf) => {
-    if (typeOf === "installerCost" || typeOf === "installationServiceCost") {
+    if (typeOf === "installerCost" || typeOf === "installationServiceCost" || typeOf === "quantityType") {
       this.setState({ [e.target.name]: Number(e.target.value) });
     } else {
       this.setState({ [e.target.name]: e.target.value });
@@ -1966,7 +1980,6 @@ class AddProductDetails extends React.Component {
     );
   };
 
-
   returnProductInstallers = () => {
     const { checkBoxProductInstallationClass5, productInstallers } = this.state;
 
@@ -2029,6 +2042,7 @@ class AddProductDetails extends React.Component {
       productName: this.state.productName,
       productCode: this.state.productCode,
       basePrice: this.state.productPrice,
+      priceNotation: this.state.quantityType,
       gstPercentage: this.state.productGST,
       productMaterials: this.state.productMaterials,
       finishingOptions: this.state.productFinishes,
@@ -2226,6 +2240,19 @@ class AddProductDetails extends React.Component {
       }
     });
   };
+
+  // modalClassToggle = showOrNot => {
+  //   if (showOrNot === "show")
+  //     this.setState({
+  //       modalClassToggle: "modalBackgroundMainOuterWrap",
+  //       vendorDashboardOuterClass: "vendorDashboardOuterLayer blurClass"
+  //     });
+  //   else if (showOrNot === "dontShow")
+  //     this.setState({
+  //       modalClassToggle: "modalBackgroundMainOuterWrap hide",
+  //       vendorDashboardOuterClass: "vendorDashboardOuterLayer"
+  //     });
+  // };
 
   returnModal = () => {
     const { modalType, finishModalContentPart } = this.state;
@@ -3016,7 +3043,7 @@ class AddProductDetails extends React.Component {
     else {
       return "closeButtonContainer"
     }
-  }
+  };
 
   handleStates = () => {
     if (this.state.finalProceed === "saveAndProceed") {
@@ -3079,7 +3106,8 @@ class AddProductDetails extends React.Component {
         productMaxQuantity,
         productInstallationAvailability,
         productInstallationServiceCost,
-        productInstallers
+        productInstallers,
+        quantityType
     } = this.state;
 
     if (fieldName === "Max. quantity") {
@@ -3100,7 +3128,7 @@ class AddProductDetails extends React.Component {
         } else return "Max. qunatity";
     }
 
-    else if (fieldName === "Base price of this product") {
+    else if (fieldName === "Base price of this product & quantity type") {
       if (productPrice !== undefined) {
         if (productPrice === 0) {
           this.setState({
@@ -3109,12 +3137,25 @@ class AddProductDetails extends React.Component {
 
           return "Base price value";
         } else {
-          this.setState({
-            displayProductPriceValueError: "displayProductPriceValueError hide"
-          });
+            if (quantityType !== 0) {
+              this.setState({
+                displayProductPriceValueError: "displayProductPriceValueError hide",
+                displayBasePriceQuantityTypeError: "displayBasePriceQuantityTypeError hide"
+              })
+            }
+  
+            else {
+              this.setState({
+                displayProductPriceValueError: "displayProductPriceValueError hide",
+                displayBasePriceQuantityTypeError: "displayBasePriceQuantityTypeError"
+              });
+              
+              return "Quantity type of base price"
+            }
+
         }
       } else if (productPrice === undefined) {
-        return "Base price of this product";
+        return "Base price of this product & quantity type";
       }
     }
 
@@ -3199,7 +3240,7 @@ class AddProductDetails extends React.Component {
       { fieldName: "Product Name", value: this.state.productName },
       { fieldName: "Product Code", value: this.state.productCode },
       {
-        fieldName: `${this.handleMultiValidation("Base price of this product")}`,
+        fieldName: `${this.handleMultiValidation("Base price of this product & quantity type")}`,
         value: this.state.productPrice
       },
       {
@@ -3255,7 +3296,8 @@ class AddProductDetails extends React.Component {
         item.fieldName === "Product Discount Value" ||
         item.fieldName === "Product Installation Cost" ||
         item.fieldName === "Product Installer Details" || 
-        item.fieldName === "Base price value"
+        item.fieldName === "Base price value" || 
+        item.fieldName === "Quantity type of base price"
       ) {
         if (!this.state.emptyField.includes(item.fieldName)) {
           this.state.emptyField.push(item.fieldName);
@@ -3369,7 +3411,7 @@ class AddProductDetails extends React.Component {
         });
         this.refs.installationCost.value = ""
     }
-};
+  };
 
   focus = () => {
     this.refs.discountInput.focus();
@@ -3525,11 +3567,22 @@ class AddProductDetails extends React.Component {
                                 });
                               }}
                             />
+                            <SelectList
+                              name="quantityType"
+                              value={this.state.quantityType}
+                              onChange={e => this.onChangeHandler(e, "quantityType")}
+                              options={this.returnTypesOfQuantity()}
+                            />
                           </div>
 
                           <p className={this.state.displayProductPriceValueError}>
                             Base price of the product cannot be zero, please check and enter it.
                           </p>
+
+                          <p className={this.state.displayBasePriceQuantityTypeError}>
+                            select quantity type.
+                          </p>
+                          
                         </div>
 
                         <div className="inputFormContainer">
