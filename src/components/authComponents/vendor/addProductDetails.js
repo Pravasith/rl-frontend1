@@ -51,6 +51,7 @@ import ImageUploader from "../../UX/imageUploader";
 import YouTube from "../../UX/youTubeUploader";
 import { api } from "../../../actions/apiLinks";
 import { createClient } from "http";
+import { typesOfPriceNotaion, typesOfCharge } from "../../../lib/productNotations";
 // import { url } from "inspector";
 
 class AddProductDetails extends React.Component {
@@ -468,34 +469,6 @@ class AddProductDetails extends React.Component {
         value: "No, it is not available"
       }
     ];
-  };
-
-  returnTypesOfCharge = () => {
-      return [
-        { label: "square feet", value: 1 },
-        { label: "running feet", value: 2 },
-        { label: "piece", value: 3 },
-        { label: "hour", value: 4 }
-      ];
-  };
-
-  returnTypesOfQuantity = () => {
-    return [
-      { label: 'Choose One', value: 0 },
-      { label: "per cubic feet ", value: 1 },
-      { label: "per square feet", value: 2 },
-      { label: "per running feet", value: 3 },
-      { label: "per quantity", value: 4 },
-      { label: "per litre", value: 4 }
-    ];
-};
-
-  returnChargeType = (installerCostType) => {
-
-    if (installerCostType === 1) return "square feet";
-    else if (installerCostType === 2) return "running feet";
-    else if (installerCostType === 3) return "piece";
-    else if (installerCostType === 4) return "hour";
   };
 
   returnfeaturesAdded = () => {
@@ -2003,7 +1976,7 @@ class AddProductDetails extends React.Component {
                                     (item.installerCharges !== 0 ? "productInstallerChargesWrap" : "hide") : "hide"} >
                     <p>Charges </p>
                     <span key={i}>
-                      Rs. {item.installerCharges} / {this.returnChargeType(item.installerChargeType)}
+                      Rs. {item.installerCharges} / {installerChargeType(item.installerChargeType)}
                     </span>
                   </div>
                 </div>
@@ -2964,7 +2937,7 @@ class AddProductDetails extends React.Component {
                                     this.onChangeHandler(e, "installerCost")
                                   }
                                   
-                                  options={this.returnTypesOfCharge()}
+                                  options={typesOfCharge()}
                                 />
                                 
                             </div>
@@ -3571,7 +3544,7 @@ class AddProductDetails extends React.Component {
                               name="quantityType"
                               value={this.state.quantityType}
                               onChange={e => this.onChangeHandler(e, "quantityType")}
-                              options={this.returnTypesOfQuantity()}
+                              options={typesOfPriceNotaion()}
                             />
                           </div>
 
@@ -4275,7 +4248,7 @@ class AddProductDetails extends React.Component {
                                             onChange={e =>
                                               this.onChangeHandler(e, "installationServiceCost")
                                             }
-                                            options={this.returnTypesOfCharge()}
+                                            options={typesOfCharge()}
                                           />
                                           
                                       </div>
