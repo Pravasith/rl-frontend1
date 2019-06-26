@@ -343,6 +343,15 @@
                                                 width: 100%;
                                                 margin: 1em 0;
 
+                                                .PricingSection{
+                                                    @include flexCentreRow;
+                                                    align-items: flex-start;
+                                                    .form-group{
+                                                        width: 50%;
+                                                        margin: 0.1em 0 0 1em;
+                                                    }
+                                                }
+
                                                 .formParaSection{
                                                     @include flexCentreRow;
                                                     // margin-right: 1em;
