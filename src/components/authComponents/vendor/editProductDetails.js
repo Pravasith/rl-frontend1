@@ -3850,7 +3850,7 @@ class EditProductDetails extends React.Component {
                                                             name="quantityType"
                                                             // defaultValue={this.state.priceNotation}
                                                             onChange={e => this.onChangeHandler(e, "quantityType")}
-                                                            options={typesOfPriceNotatSion}
+                                                            options={typesOfPriceNotation}
                                                             value={this.state.quantityType !== 0 ? this.state.quantityType : this.state.priceNotation}
                                                         />
                                                     </div>
