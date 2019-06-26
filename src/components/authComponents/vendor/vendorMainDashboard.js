@@ -26,7 +26,7 @@ import HtmlSlider from "../../UX/htmlSlider"
 import Axios from "axios"
 import { api } from "../../../actions/apiLinks"
 import YouTube from "../../UX/youTubeUploader";
-import { typesOfPriceNotaion } from "../../../lib/productNotations";
+import { typesOfPriceNotation } from "../../../lib/productNotations";
 
 
 class VendorMainDashboard extends React.Component {
@@ -1619,7 +1619,7 @@ class VendorMainDashboard extends React.Component {
         if (this.state.subCategoryDataExists) {
 
             const handlePriceNotaion = () => {
-                let typesOfPriceNotation = typesOfPriceNotaion(), notatedType;
+                let notatedType;
 
                 if (priceNotation) {
                     typesOfPriceNotation.map(item => {
@@ -1683,7 +1683,7 @@ class VendorMainDashboard extends React.Component {
                                             ? 
                                             <p>
                                                 Rs. {productPrice}<br/>
-                                                <span> / {handlePriceNotaion()} </span>
+                                                <span> {handlePriceNotaion()} </span>
                                             </p> 
                                             : 
                                             <p>Not specified</p> 

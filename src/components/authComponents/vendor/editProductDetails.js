@@ -39,7 +39,7 @@ import ImageUploader from "../../UX/imageUploader"
 import YouTube from "../../UX/youTubeUploader"
 import { api } from "../../../actions/apiLinks"
 import { createClient } from "http";
-import { typesOfPriceNotaion, typesOfCharge, installerChargeType } from "../../../lib/productNotations";
+import { typesOfPriceNotation, typesOfCharge, installerChargeType } from "../../../lib/productNotations";
 
 class EditProductDetails extends React.Component {
 
@@ -3238,7 +3238,7 @@ class EditProductDetails extends React.Component {
                                                             onChange={e =>
                                                                 this.onChangeHandler(e, "installerCost")
                                                             }
-                                                            options={typesOfCharge()}
+                                                            options={typesOfCharge}
                                                         />
                                                     </div>
                                                 </div>
@@ -3854,7 +3854,7 @@ class EditProductDetails extends React.Component {
                                                         name="quantityType"
                                                         // defaultValue={this.state.priceNotation}
                                                         onChange={e => this.onChangeHandler(e, "quantityType")}
-                                                        options={typesOfPriceNotaion()}
+                                                        options={typesOfPriceNotation}
                                                         value={this.state.quantityType !== 0 ? this.state.quantityType : this.state.priceNotation}
                                                     />
                                                 </div>
@@ -4481,7 +4481,7 @@ class EditProductDetails extends React.Component {
                                                                             "installationServiceCost"
                                                                             )
                                                                         }
-                                                                        options={typesOfCharge()}
+                                                                        options={typesOfCharge}
                                                                         />
                                                                     </div>
                                                                 </div>
@@ -4522,7 +4522,7 @@ class EditProductDetails extends React.Component {
                                                             "installationServiceCost"
                                                             )
                                                         }
-                                                        options={typesOfCharge()}
+                                                        options={typesOfCharge}
                                                         /> */}
                                                     </div>
                                                     <div className="errorContent">

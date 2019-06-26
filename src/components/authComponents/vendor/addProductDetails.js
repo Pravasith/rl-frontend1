@@ -51,7 +51,7 @@ import ImageUploader from "../../UX/imageUploader";
 import YouTube from "../../UX/youTubeUploader";
 import { api } from "../../../actions/apiLinks";
 import { createClient } from "http";
-import { typesOfPriceNotaion, typesOfCharge } from "../../../lib/productNotations";
+import { typesOfPriceNotation, typesOfCharge } from "../../../lib/productNotations";
 // import { url } from "inspector";
 
 class AddProductDetails extends React.Component {
@@ -2937,7 +2937,7 @@ class AddProductDetails extends React.Component {
                                     this.onChangeHandler(e, "installerCost")
                                   }
                                   
-                                  options={typesOfCharge()}
+                                  options={typesOfCharge}
                                 />
                                 
                             </div>
@@ -3544,7 +3544,7 @@ class AddProductDetails extends React.Component {
                               name="quantityType"
                               value={this.state.quantityType}
                               onChange={e => this.onChangeHandler(e, "quantityType")}
-                              options={typesOfPriceNotaion()}
+                              options={typesOfPriceNotation}
                             />
                           </div>
 
@@ -4248,7 +4248,7 @@ class AddProductDetails extends React.Component {
                                             onChange={e =>
                                               this.onChangeHandler(e, "installationServiceCost")
                                             }
-                                            options={typesOfCharge()}
+                                            options={typesOfCharge}
                                           />
                                           
                                       </div>
