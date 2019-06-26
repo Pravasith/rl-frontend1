@@ -890,9 +890,6 @@ class VendorMainDashboard extends React.Component {
                                 Share Link
                             </WhiteButton>
 
-
-                            
-
                             {/* <Link href="/vendor/profile-details">
                                 <a
                                     onClick={() => {
