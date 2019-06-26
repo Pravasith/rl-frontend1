@@ -814,9 +814,7 @@ class ProfileDetailsVendor extends React.Component {
                                                     </div>
                                             </div>
 
-                                            <div 
-                                                className="formInputContainer"
-                                            >
+                                            <div className="formInputContainer">
                                                 <div className="formInputInnerLayer">
                                                     <div className="formParaSection">
                                                         <h3>5</h3>
@@ -981,9 +979,8 @@ class ProfileDetailsVendor extends React.Component {
                                                             </div>
                                                         </div>  
                                                     </div>
-
-                                                    </div>
                                                 </div>
+                                            </div>
 
                                             <div 
                                                     className="formInputContainer"
@@ -1097,36 +1094,32 @@ class ProfileDetailsVendor extends React.Component {
                                                     </div>
                                                 </div>
 
-                                                <div 
-                                                    className="formInputContainer"
-                                                >
-                                                    <div className="formInputInnerLayer">
-                                                        <div className="formParaSection">
-                                                            <h3>9</h3>
-                                                            <p>Your company's PAN number</p>
-                                                        </div>
+                                            <div className="formInputContainer">
+                                                <div className="formInputInnerLayer">
+                                                    <div className="formParaSection">
+                                                        <h3>9</h3>
+                                                        <p>Your company's PAN number</p>
+                                                    </div>
 
-                                                        <div className="panNumber">
-                                                            <InputForm
-                                                                refName="panNumber"
-                                                                placeholder="AAAAA0000A"
-                                                                isMandatory={true}
-                                                                validationType="alphabetsAndNumbers"
-                                                                characterCount="10"
-                                                                value={this.state.pan ? this.state.pan : null}
-                                                                result={val => {
-                                                                    // this.updateVendorData("PAN", val)
-                                                                    this.setState({
-                                                                        pan: val
-                                                                    })
-                                                                }}
-                                                            />
-                                                        </div>
-
+                                                    <div className="panNumber">
+                                                        <InputForm
+                                                            refName="panNumber"
+                                                            placeholder="AAAAA0000A"
+                                                            isMandatory={true}
+                                                            validationType="alphabetsAndNumbers"
+                                                            characterCount="10"
+                                                            value={this.state.pan ? this.state.pan : null}
+                                                            result={val => {
+                                                                // this.updateVendorData("PAN", val)
+                                                                this.setState({
+                                                                    pan: val
+                                                                })
+                                                            }}
+                                                        />
                                                     </div>
                                                 </div>
+                                            </div>
                                             
-
                                             <div className="formInputContainer"
                                             >
                                                 <div className="formInputInnerLayer">

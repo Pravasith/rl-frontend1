@@ -3846,17 +3846,16 @@ class EditProductDetails extends React.Component {
                                                                 })
                                                             }}
                                                         />
+                                                        <SelectList
+                                                            name="quantityType"
+                                                            // defaultValue={this.state.priceNotation}
+                                                            onChange={e => this.onChangeHandler(e, "quantityType")}
+                                                            options={typesOfPriceNotatSion}
+                                                            value={this.state.quantityType !== 0 ? this.state.quantityType : this.state.priceNotation}
+                                                        />
                                                     </div>
 
                                                     {/* {console.log(this.handleDefaultValues("PriceNotation"))} */}
-
-                                                    <SelectList
-                                                        name="quantityType"
-                                                        // defaultValue={this.state.priceNotation}
-                                                        onChange={e => this.onChangeHandler(e, "quantityType")}
-                                                        options={typesOfPriceNotation}
-                                                        value={this.state.quantityType !== 0 ? this.state.quantityType : this.state.priceNotation}
-                                                    />
                                                 </div>
 
                                                 <div className="inputFormContainer">
