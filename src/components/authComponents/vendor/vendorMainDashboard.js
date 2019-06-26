@@ -26,6 +26,7 @@ import HtmlSlider from "../../UX/htmlSlider"
 import Axios from "axios"
 import { api } from "../../../actions/apiLinks"
 import YouTube from "../../UX/youTubeUploader";
+import { typesOfPriceNotaion } from "../../../lib/productNotations";
 
 
 class VendorMainDashboard extends React.Component {
@@ -425,7 +426,7 @@ class VendorMainDashboard extends React.Component {
 
                 let { responsePayload } = this.props.responseData;
 
-                // console.log(decryptedData)
+                console.log(responsePayload)
 
                 this.setState({
 
@@ -435,6 +436,7 @@ class VendorMainDashboard extends React.Component {
                     productName: responsePayload.productName,
                     productCode: responsePayload.productCode,
                     productPrice: responsePayload.basePrice,
+                    priceNotation: responsePayload.priceNotation,
                     productGST: responsePayload.gstPercentage,
                     productMaterials: responsePayload.productMaterials,
                     featuresAdded: responsePayload.features,
@@ -733,7 +735,10 @@ class VendorMainDashboard extends React.Component {
                                 </div>
 
                                 <div className="subCategoryProductSection">
-                                    <div className="subCategoryProductSectionInnerLayer">
+                                    <div 
+                                        className="subCategoryProductSectionInnerLayer"
+                                        // onClick={console.log("Wrks")}
+                                    >
                                         {
                                             this.returnSubCategoryProducts(subCatProducts, subcategory.subCategoryName)
                                         }
@@ -1635,6 +1640,7 @@ class VendorMainDashboard extends React.Component {
             productName,
             productCode,
             productPrice,
+            priceNotation,
             productGST,
             productMinQuantity,
             productMaxQuantity,
@@ -1648,6 +1654,19 @@ class VendorMainDashboard extends React.Component {
         } = this.state;
 
         if (this.state.subCategoryDataExists) {
+
+            const handlePriceNotaion = () => {
+                let typesOfPriceNotation = typesOfPriceNotaion(), notatedType;
+
+                if (priceNotation) {
+                    typesOfPriceNotation.map(item => {
+                        if (item.value === priceNotation) notatedType = item.label;
+                    })
+
+                    return notatedType;
+                }
+            }
+
             return (
                 <div className="subCategoryDeatilsInnerLayer">
                     <div className="productImageCategoryOuterLayer">
@@ -1701,7 +1720,7 @@ class VendorMainDashboard extends React.Component {
                                             ? 
                                             <p>
                                                 Rs. {productPrice}<br/>
-                                                {/* <span>(Here per unit can mean per set also if applicable. Please request quote to get detailed price clarity)</span> */}
+                                                <span> / {handlePriceNotaion()} </span>
                                             </p> 
                                             : 
                                             <p>Not specified</p> 

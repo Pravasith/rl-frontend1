@@ -39,6 +39,7 @@ import ImageUploader from "../../UX/imageUploader"
 import YouTube from "../../UX/youTubeUploader"
 import { api } from "../../../actions/apiLinks"
 import { createClient } from "http";
+import { typesOfPriceNotaion, typesOfCharge, installerChargeType } from "../../../lib/productNotations";
 
 class EditProductDetails extends React.Component {
 
@@ -92,6 +93,7 @@ class EditProductDetails extends React.Component {
                 categoryName: "",
                 imagesInCategory: []
             },
+            quantityType: 0,
 
             tagsAdded: [],
 
@@ -222,12 +224,15 @@ class EditProductDetails extends React.Component {
         .then((data) => {
             let { responsePayload } = this.props.responseData;
 
+            console.log(responsePayload);
+
             this.setState({
 
                 /// PLACE HERE ////
                 productName: responsePayload.productName,
                 productCode: responsePayload.productCode,
                 productPrice: responsePayload.basePrice,
+                priceNotation: responsePayload.priceNotation,
                 productGST: responsePayload.gstPercentage,
                 productMaterials: responsePayload.productMaterials,
                 featuresAdded: responsePayload.features,
@@ -564,7 +569,6 @@ class EditProductDetails extends React.Component {
        
     }
 
-
     returnCategoryContent = () => {
 
         const {architectureStyles} = this.state
@@ -669,23 +673,6 @@ class EditProductDetails extends React.Component {
             }]
         )
     }
-
-    returnTypesOfCharge = () => {
-        return [
-            { label: "square feet", value: 1 },
-            { label: "running feet", value: 2 },
-            { label: "piece", value: 3 },
-            { label: "hour", value: 4 }
-        ];
-    };
-
-    returnChargeType = (installerCostType) => {
-
-        if (installerCostType === 1) return "square feet";
-        else if (installerCostType === 2) return "running feet";
-        else if (installerCostType === 3) return "piece";
-        else if (installerCostType === 4) return "hour";
-    };
     
     returnfeaturesAdded = () => {
         return this.state.featuresAdded.map((item, i) => {
@@ -1183,7 +1170,6 @@ class EditProductDetails extends React.Component {
             if (brandName) return brandName;
         }
     }
-
 
     setYouTubeURL = (e) => {
       const val = e.target.value;
@@ -2007,7 +1993,7 @@ class EditProductDetails extends React.Component {
     };
 
     onChangeHandler = (e, typeOf) => {
-        if (typeOf === "installerCost" || typeOf === "installationServiceCost") {
+        if (typeOf === "installerCost" || typeOf === "installationServiceCost" || typeOf === "quantityType") {
             this.setState({ [e.target.name]: Number(e.target.value) });
         } else {
             this.setState({ [e.target.name]: e.target.value });
@@ -2285,7 +2271,7 @@ class EditProductDetails extends React.Component {
                         (item.installerCharges !== 0 ? "productInstallerChargesWrap" : "hide") : "hide"} >
                         <p>Charges </p>
                         <span key={i}>
-                            Rs. {item.installerCharges} / {this.returnChargeType(item.installerChargeType)}
+                            Rs. {item.installerCharges} / {installerChargeType(item.installerChargeType)}
                         </span>
                     </div>
                 </div>
@@ -2332,10 +2318,16 @@ class EditProductDetails extends React.Component {
             finalProceed : "sendRequest"
         })
 
+        const handlePriceNotation = (quantityType) => {
+            if (quantityType !== 0) return quantityType;
+            else return this.state.priceNotation;
+        }
+
         const finalDataToSend = {
             productName : this.state.productName,
             productCode : this.state.productCode,
             basePrice: this.state.productPrice,
+            priceNotation: handlePriceNotation(this.state.quantityType),
             gstPercentage: this.state.productGST,
             productMaterials : this.state.productMaterials,
             finishingOptions : this.state.productFinishes,
@@ -2634,13 +2626,13 @@ class EditProductDetails extends React.Component {
                                                         }
                                                     >
                                                         Numbers Only
-                          </p>
+                                                    </p>
                                                 </div>
                                                 <div className="inputFormContainer">
                                                     <div className="formParaSection">
                                                         <p className="pargraphClass">
                                                             Finish code (if any)
-                            </p>
+                                                        </p>
                                                     </div>
                                                     <div className="modalInputCategory">
                                                         <input
@@ -2662,7 +2654,7 @@ class EditProductDetails extends React.Component {
                                             runFunction={() => this.proceedHandler("finish")}
                                         >
                                             Proceed
-                    </GradientButton>
+                                        </GradientButton>
                                     </div>
                                 </div>
                             </div>
@@ -2716,14 +2708,14 @@ class EditProductDetails extends React.Component {
                                                     <div className="formParaSection">
                                                         <p className="pargraphClass">
                                                             Enter the color hex-code (
-                              <a
+                                                            <a
                                                                 href="https://www.google.co.in/search?rlz=1C1CHBF_enIN822IN822&ei=aE0GXKaEO4norQG06bjgAw&q=color+selector+tool&oq=color+selector+&gs_l=psy-ab.1.0.0j0i67j0l8.1356.1356..2888...0.0..0.168.168.0j1......0....1..gws-wiz.......0i71.SepRdDVz0P4"
                                                                 target="_blank"
                                                             >
                                                                 click here
-                              </a>{" "}
+                                                            </a>{" "}
                                                             to get one)
-                            </p>
+                                                        </p>
                                                     </div>
                                                     <div className="productInputInfoSection">
                                                         <div className="modalMandatorySection">
@@ -2784,7 +2776,7 @@ class EditProductDetails extends React.Component {
                                                 }
                                             >
                                                 Numbers Only
-                      </p>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -2795,7 +2787,7 @@ class EditProductDetails extends React.Component {
                                         }}
                                     >
                                         Proceed
-                  </GradientButton>
+                                    </GradientButton>
 
                                     {this.displayErrorModal("color")}
                                 </div>
@@ -2873,7 +2865,7 @@ class EditProductDetails extends React.Component {
                                             }
                                         >
                                             Numbers Only
-                    </p>
+                                        </p>
                                     </div>
                                 </div>
                                 <div className="proceedOrNotCheck">
@@ -2881,7 +2873,7 @@ class EditProductDetails extends React.Component {
                                         runFunction={() => this.proceedHandler("size")}
                                     >
                                         Proceed
-                  </GradientButton>
+                                    </GradientButton>
                                     {this.displayErrorModal("size")}
                                 </div>
                             </div>
@@ -2979,7 +2971,7 @@ class EditProductDetails extends React.Component {
                                             }
                                         >
                                             Numbers Only
-                    </p>
+                                        </p>
                                     </div>
                                 </div>
                                 <div className="proceedOrNotCheck">
@@ -2990,7 +2982,7 @@ class EditProductDetails extends React.Component {
                                         }}
                                     >
                                         Proceed
-                  </GradientButton>
+                                    </GradientButton>
                                     {this.displayErrorModal("material")}
                                 </div>
                             </div>
@@ -3145,14 +3137,14 @@ class EditProductDetails extends React.Component {
                                         }}
                                     >
                                         Yes
-                  </WhiteButton>
+                                    </WhiteButton>
                                     <WhiteButton
                                         runFunction={() =>
                                             this.setState({ modalType: "imagePreview" })
                                         }
                                     >
                                         No
-                  </WhiteButton>
+                                    </WhiteButton>
                                 </div>
                             </div>
                         </div>
@@ -3246,7 +3238,7 @@ class EditProductDetails extends React.Component {
                                                             onChange={e =>
                                                                 this.onChangeHandler(e, "installerCost")
                                                             }
-                                                            options={this.returnTypesOfCharge()}
+                                                            options={typesOfCharge()}
                                                         />
                                                     </div>
                                                 </div>
@@ -3387,7 +3379,9 @@ class EditProductDetails extends React.Component {
             productMaxQuantity,
             productInstallationAvailability,
             productInstallationServiceCost,
-            productInstallers
+            productInstallers,
+            priceNotation,
+            quantityType
         } = this.state;
 
         if (fieldName === "Max. quantity") {
@@ -3408,21 +3402,36 @@ class EditProductDetails extends React.Component {
             } else return "Max. qunatity";
         }
 
-        else if (fieldName === "Base price of this product") {
+        else if (fieldName === "Base price of this product & quantity type") {
             if (productPrice !== undefined) {
-                if (productPrice === 0) {
+              if (productPrice === 0) {
+                this.setState({
+                  displayProductPriceValueError: "displayProductPriceValueError"
+                });
+      
+                return "Base price value";
+              } else {
+                  if (quantityType !== 0 || priceNotation !== 0) {
                     this.setState({
-                        displayProductPriceValueError: "displayProductPriceValueError"
-                    });
-
-                    return "Base price value";
-                } else {
+                      displayProductPriceValueError: "displayProductPriceValueError hide",
+                      displayBasePriceQuantityTypeError: "displayBasePriceQuantityTypeError hide"
+                    })
+                  }
+        
+                  else if (quantityType === 0 && priceNotation === 0) {
                     this.setState({
-                        displayProductPriceValueError: "displayProductPriceValueError hide"
+                      displayProductPriceValueError: "displayProductPriceValueError hide",
+                      displayBasePriceQuantityTypeError: "displayBasePriceQuantityTypeError"
                     });
-                }
-            } else if (productPrice === undefined) {
-                return "Base price of this product";
+                    
+                    return "Quantity type of base price"
+                  }
+      
+              }
+            } 
+            
+            else if (productPrice === undefined) {
+              return "Base price of this product & quantity type";
             }
         }
 
@@ -3507,8 +3516,8 @@ class EditProductDetails extends React.Component {
             { fieldName: "Product Name", value: this.state.productName },
             { fieldName: "Product Code", value: this.state.productCode },
             {
-                fieldName: `${this.handleMultiValidation("Base price of this product")}`,
-                value: this.state.productPrice
+              fieldName: `${this.handleMultiValidation("Base price of this product & quantity type")}`,
+              value: this.state.productPrice
             },
             {
                 fieldName: `${this.handleMultiValidation("Product GST")}`,
@@ -3558,7 +3567,8 @@ class EditProductDetails extends React.Component {
                 item.fieldName === "Product Discount Value" ||
                 item.fieldName === "Product Installation Cost" ||
                 item.fieldName === "Product Installer Details" ||
-                item.fieldName === "Base price value"
+                item.fieldName === "Base price value" || 
+                item.fieldName === "Quantity type of base price"
             ) {
                 if (!this.state.emptyField.includes(item.fieldName)) {
                     this.state.emptyField.push(item.fieldName);
@@ -3837,6 +3847,16 @@ class EditProductDetails extends React.Component {
                                                             }}
                                                         />
                                                     </div>
+
+                                                    {/* {console.log(this.handleDefaultValues("PriceNotation"))} */}
+
+                                                    <SelectList
+                                                        name="quantityType"
+                                                        // defaultValue={this.state.priceNotation}
+                                                        onChange={e => this.onChangeHandler(e, "quantityType")}
+                                                        options={typesOfPriceNotaion()}
+                                                        value={this.state.quantityType !== 0 ? this.state.quantityType : this.state.priceNotation}
+                                                    />
                                                 </div>
 
                                                 <div className="inputFormContainer">
@@ -4461,7 +4481,7 @@ class EditProductDetails extends React.Component {
                                                                             "installationServiceCost"
                                                                             )
                                                                         }
-                                                                        options={this.returnTypesOfCharge()}
+                                                                        options={typesOfCharge()}
                                                                         />
                                                                     </div>
                                                                 </div>
@@ -4502,7 +4522,7 @@ class EditProductDetails extends React.Component {
                                                             "installationServiceCost"
                                                             )
                                                         }
-                                                        options={this.returnTypesOfCharge()}
+                                                        options={typesOfCharge()}
                                                         /> */}
                                                     </div>
                                                     <div className="errorContent">
