@@ -223,11 +223,7 @@ class EditProductDetails extends React.Component {
         .then((data) => {
             let { responsePayload } = this.props.responseData;
 
-<<<<<<< HEAD
-            console.log(responsePayload)
-=======
-            console.log(responsePayload);
->>>>>>> 164e574520fa633f70949d4a6dbf8c9ed7c8479e
+            // console.log(responsePayload);
 
             this.setState({
 
