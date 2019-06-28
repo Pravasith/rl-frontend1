@@ -26,6 +26,7 @@ import HtmlSlider from "../../UX/htmlSlider"
 import Axios from "axios"
 import { api } from "../../../actions/apiLinks"
 import YouTube from "../../UX/youTubeUploader";
+import { typesOfPriceNotation } from "../../../lib/productNotations";
 
 
 class VendorMainDashboard extends React.Component {
@@ -425,7 +426,7 @@ class VendorMainDashboard extends React.Component {
 
                 let { responsePayload } = this.props.responseData;
 
-                // console.log(decryptedData)
+                console.log(responsePayload)
 
                 this.setState({
 
@@ -435,6 +436,7 @@ class VendorMainDashboard extends React.Component {
                     productName: responsePayload.productName,
                     productCode: responsePayload.productCode,
                     productPrice: responsePayload.basePrice,
+                    priceNotation: responsePayload.priceNotation,
                     productGST: responsePayload.gstPercentage,
                     productMaterials: responsePayload.productMaterials,
                     featuresAdded: responsePayload.features,
@@ -794,6 +796,39 @@ class VendorMainDashboard extends React.Component {
         }
     }
 
+    returnCustomerOrder = () => {
+        return(
+            <div className="product-info-container-outer-layer">
+                <div className="product-info-container-inner-layer">
+                    <div className="product-image-container">
+                        <img src="" alt=""/>
+                        {/* <Image
+                            cloudName="rolling-logs"
+                            alt={image.itemCode}
+                            publicId={PublicId(image.imageURL)}
+                            // transformations
+                            width="300"
+                            // height="0.7" 
+                            crop="fit"
+                        /> */}
+                    </div>
+                    <div className="product-name-container">
+                        <h3>
+                            Product name here Product name here
+                        </h3>
+                    </div>
+                    <div className="product-order-date-container">
+                        <p>Order Date</p>
+                    </div>
+                    <div className="mark-done-container">
+                        <WhiteButton>
+                            Mark Done
+                        </WhiteButton>
+                    </div>
+                </div>
+            </div>
+        )
+    }
 
     returnContent = () => {
         let { contentType } = this.state;
@@ -860,9 +895,6 @@ class VendorMainDashboard extends React.Component {
                                 Share your product catalogue
                             </WhiteButton>
 
-
-                            
-
                             {/* <Link href="/vendor/profile-details">
                                 <a
                                     onClick={() => {
@@ -902,7 +934,14 @@ class VendorMainDashboard extends React.Component {
             return (
                 <div className="clientProductWrap">
                     <div className="clientSectionInnerWrap">
-                        Coming Soon
+                        <div className="contactDetailsContainer">
+                            <h3>Call 9561656651 for customer details</h3>
+                        </div>
+                        <div className="orderDetailsContainer">
+                            <div className="order-details-container-inner-layer">
+                                {this.returnCustomerOrder()}
+                            </div>
+                        </div>
                     </div>
                 </div>
             )
@@ -1601,6 +1640,7 @@ class VendorMainDashboard extends React.Component {
             productName,
             productCode,
             productPrice,
+            priceNotation,
             productGST,
             productMinQuantity,
             productMaxQuantity,
@@ -1614,6 +1654,19 @@ class VendorMainDashboard extends React.Component {
         } = this.state;
 
         if (this.state.subCategoryDataExists) {
+
+            const handlePriceNotaion = () => {
+                let notatedType;
+
+                if (priceNotation) {
+                    typesOfPriceNotation.map(item => {
+                        if (item.value === priceNotation) notatedType = item.label;
+                    })
+
+                    return notatedType;
+                }
+            }
+
             return (
                 <div className="subCategoryDeatilsInnerLayer">
                     <div className="productImageCategoryOuterLayer">
@@ -1667,7 +1720,7 @@ class VendorMainDashboard extends React.Component {
                                             ? 
                                             <p>
                                                 Rs. {productPrice}<br/>
-                                                {/* <span>(Here per unit can mean per set also if applicable. Please request quote to get detailed price clarity)</span> */}
+                                                <span> {handlePriceNotaion()} </span>
                                             </p> 
                                             : 
                                             <p>Not specified</p> 
